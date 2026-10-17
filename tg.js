@@ -82,6 +82,45 @@
     });
   }
 
+
+  /* iPhone'dagidek: ekranning chap chetidan o'ngga surib bosh sahifaga qaytish */
+  if (HOME) (function () {
+    var x0 = 0, y0 = 0, t0 = 0, on = false, lock = 0, dx = 0, b, sh;
+    function set(v, anim) {
+      b.style.transition = anim ? 'transform .22s ease-out' : 'none';
+      b.style.transform = v ? 'translateX(' + v + 'px)' : '';
+      sh.style.transition = b.style.transition;
+      sh.style.opacity = v ? String(Math.max(0, .35 - v / innerWidth * .35)) : '0';
+    }
+    document.addEventListener('touchstart', function (e) {
+      var t = e.touches[0];
+      if (e.touches.length > 1 || t.clientX > 28) return;
+      b = document.body;
+      if (!sh) { sh = document.createElement('div'); sh.style.cssText = 'position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;z-index:2147483646'; document.documentElement.appendChild(sh); }
+      x0 = t.clientX; y0 = t.clientY; t0 = Date.now(); on = true; lock = 0; dx = 0;
+    }, { passive: true });
+    document.addEventListener('touchmove', function (e) {
+      if (!on) return;
+      var t = e.touches[0], mx = t.clientX - x0, my = t.clientY - y0;
+      if (!lock) { if (Math.abs(mx) < 8 && Math.abs(my) < 8) return; lock = Math.abs(mx) > Math.abs(my) && mx > 0 ? 1 : 2; }
+      if (lock !== 1) { on = false; return; }
+      e.preventDefault(); dx = Math.max(0, mx); set(dx);
+    }, { passive: false });
+    function end() {
+      if (!on) return; on = false;
+      if (lock !== 1) return;
+      var v = dx / Math.max(1, Date.now() - t0);
+      if (dx > innerWidth * .33 || (v > .5 && dx > 40)) {
+        set(innerWidth, true);
+        document.documentElement.classList.add('go');
+        setTimeout(function () { location.replace(HOME); }, 180);
+      } else set(0, true);
+    }
+    document.addEventListener('touchend', end);
+    document.addEventListener('touchcancel', end);
+    addEventListener('pageshow', function () { if (b) set(0); });
+  })();
+
   function start() {
     var w = window.Telegram && Telegram.WebApp;
     if (!w || !w.initData) return;          /* oddiy brauzer */

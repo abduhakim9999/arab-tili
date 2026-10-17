@@ -114,11 +114,33 @@ body{margin:0;color:var(--tx);font-family:system-ui,-apple-system,sans-serif;pad
 .unit .ua{margin-left:auto}
 .uic{flex:none;width:42px;height:42px;border-radius:12px;background:#FDE8E4;display:flex;align-items:center;justify-content:center;align-self:center}
 @media (prefers-color-scheme:dark){.uic{background:rgba(229,83,61,.18)}}
+.hd{position:relative}
+.ib{position:absolute;right:2px;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;border:1.5px solid var(--bd);background:none;color:var(--mu);font:600 17px/1 Georgia,serif;font-style:italic;cursor:pointer;z-index:2}
+.ab{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.45);display:none;align-items:flex-end;justify-content:center}
+.ab.on{display:flex}
+.ab>div{background:var(--bg,#fff);color:var(--tx);width:100%;max-width:560px;border-radius:20px 20px 0 0;padding:22px 20px calc(22px + env(safe-area-inset-bottom));box-shadow:0 -6px 24px rgba(0,0,0,.2)}
+@media (prefers-color-scheme:dark){.ab>div{background:#1c1f1e}}
+.ab h3{margin:0 0 14px;font-size:19px}
+.ab dl{margin:0}.ab dt{font-size:12px;font-weight:700;letter-spacing:.05em;color:var(--ac);margin-top:12px}
+.ab dd{margin:3px 0 0;font-size:15px;line-height:1.45}
+.ab .ar{font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:18px}
+.ab a{color:var(--ac)}
+.ab .x{margin-top:18px;width:100%;padding:12px;border:none;border-radius:12px;background:var(--tint);color:var(--ac);font:600 15px inherit;cursor:pointer}
 </style>
 </head>
 <body>
 <div class="w first" id="w">
-  <div class="hd an"><img src="icon-192.png" alt=""><div><h1>Араб тили</h1><p>Матнлар ва феъллар</p></div></div>
+  <div class="hd an"><img src="icon-192.png" alt=""><div><h1>Араб тили</h1><p>Матнлар ва феъллар</p></div><button class="ib" aria-label="Илова ҳақида" onclick="document.getElementById('ab').classList.add('on')">i</button></div>
+  <div class="ab" id="ab" onclick="if(event.target===this)this.classList.remove('on')"><div>
+    <h3>Илова ҳақида</h3>
+    <dl>
+      <dt>МАНБА</dt><dd>Матнлар «Арабийя байна ядайк» китобидан олинган. <br><bdi class="ar" dir="rtl">الْعَرَبِيَّةُ بَيْنَ يَدَيْكَ</bdi></dd>
+      <dt>ТАРЖИМА</dt><dd>Қаҳрамон устоз</dd>
+      <dt>МАХФИЙЛИК</dt><dd>Илова шахсий маълумот тўпламайди. Натижаларингиз фақат телефонингизда ва Telegram ҳисобингизда сақланади.</dd>
+      <dt>АЛОҚА</dt><dd>Хато ёки таклиф бўлса: <a href="https://t.me/Arabtilihivar_bot">@Arabtilihivar_bot</a></dd>
+    </dl>
+    <button class="x" onclick="document.getElementById('ab').classList.remove('on')">Ёпиш</button>
+  </div></div>
   <div id="top"></div>
   <div class="sec an" id="ms" style="animation-delay:.3s">МАТНЛАР</div>
   <div class="ls" id="ls"></div>

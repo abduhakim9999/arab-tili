@@ -141,7 +141,7 @@
   }
 
   /* statistika: kim kirgan va hozir kim ishlayapti (Google Sheets'ga) */
-  var STAT_URL = '';
+  var STAT_URL = 'https://script.google.com/macros/s/AKfycbwQrcytIBEjru6iEPiX6RmebE4B6uPTxvSvq_12189wLR5Hsyx8NHvbHd_QVUkn-XiRvA/exec';
   function stat(t) {
     if (!STAT_URL) return;
     try {

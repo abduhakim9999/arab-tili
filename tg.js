@@ -140,8 +140,29 @@
     document.dispatchEvent(new Event('tgready'));
   }
 
+  /* statistika: kim kirgan va hozir kim ishlayapti (Google Sheets'ga) */
+  var STAT_URL = '';
+  function stat(t) {
+    if (!STAT_URL) return;
+    try {
+      var u = W && W.initDataUnsafe && W.initDataUnsafe.user, d;
+      if (u) d = { id: 'tg' + u.id, fn: u.first_name || '', ln: u.last_name || '', un: u.username || '' };
+      else {
+        var r = ''; try { r = localStorage.getItem('stat-id') || ''; if (!r) { r = 'web' + Math.random().toString(36).slice(2, 10); localStorage.setItem('stat-id', r); } } catch (e) { r = 'web-anon'; }
+        d = { id: r, fn: '', ln: '', un: '' };
+      }
+      d.t = t; d.p = (location.pathname.split('/').pop() || 'index.html').replace('.html', '');
+      fetch(STAT_URL, { method: 'POST', mode: 'no-cors', keepalive: true, body: JSON.stringify(d) }).catch(function () {});
+    } catch (e) {}
+  }
+  function statStart() {
+    stat('open');
+    setInterval(function () { if (!document.hidden) stat('ping'); }, 60000);
+  }
+
   var sc = document.createElement('script');
   sc.src = 'https://telegram.org/js/telegram-web-app.js';
-  sc.onload = start;
+  sc.onload = function () { start(); statStart(); };
+  sc.onerror = statStart;
   document.head.appendChild(sc);
 })();

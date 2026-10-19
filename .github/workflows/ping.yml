@@ -1,0 +1,18 @@
+name: ping
+on:
+  push:
+    paths: ['align/ping.txt']
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          U=$(head -1 align/ping.txt)
+          curl -s -L -o align/out/ping-post.txt -w "\nPOST %{http_code} %{url_effective}\n" -X POST -H "Content-Type: text/plain" -d '{"id":"test-github","fn":"Test","ln":"GitHub","t":"open","p":"index"}' "$U" >> align/out/ping-post.txt || true
+          curl -s -L -o align/out/ping-get.txt -w "\nGET %{http_code} %{url_effective}\n" "$U" >> align/out/ping-get.txt || true
+          curl -s -o align/out/site-tg.js https://abduhakim9999.github.io/arab-tili/tg.js || true
+          git config user.name align-bot; git config user.email align-bot@users.noreply.github.com
+          git add align/out; git commit -m "ping natija" || exit 0; git pull --rebase && git push

@@ -63,6 +63,8 @@
     var p2 = document.getElementById('p2');
     if (!p2) return;
     ['contextmenu', 'selectstart', 'dragstart'].forEach(function (n) { p2.addEventListener(n, function (e) { if (!(e.target && e.target.tagName === 'INPUT')) e.preventDefault(); }); });
+    var p1s = document.getElementById('p1');
+    if (p1s) ['contextmenu', 'selectstart', 'dragstart'].forEach(function (n) { p1s.addEventListener(n, function (e) { if (!(e.target && /INPUT|TEXTAREA/.test(e.target.tagName))) e.preventDefault(); }); });
 
     /* lug'atda qidirish: o'zbekcha (kirill yoki lotin) va arabcha (harakatli yoki harakatsiz) */
     if (!p2.querySelector('.g')) return;

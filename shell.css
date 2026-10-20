@@ -138,7 +138,7 @@ body.nop .pbar{transform:translateY(24px);opacity:0;pointer-events:none}
 @media (prefers-reduced-motion:reduce){*,*::after{animation:none!important;transition:none!important}}
 
 /* luғат ва машқ: сурганда сўзлар белгиланиб қолмасин */
-#p2,#p2 *,#p3,#p3 *,.tr,.tr *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+#p1,#p1 *,#p2,#p2 *,#p3,#p3 *,.tr,.tr *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
 
 /* луғат: тартиб рақамлари кўрсатилмайди */
 #p2 .vno{display:none}

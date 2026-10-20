@@ -1,6 +1,6 @@
 /* Avval telefondagi nusxa darhol ochiladi, yangisi orqa fonda yuklab olinadi.
    Yangi versiya (VER) chiqqanda hammasi qaytadan yuklanadi. */
-var C = 'arab-tili-v45';
+var C = 'arab-tili-v46';
 var FILES = ["./", "index.html", "tg.js", "shell.js", "shell.css", "manifest.webmanifest", "icon-192.png", "icon-512.png", "icon-maskable-512.png", "70.html", "71.html", "72.html", "73.html", "91.html", "92.html", "feellar.html", "naskh.woff", "a70-21175d45.mp3", "a71-352c7dec.mp3", "a72-7c11dfd2.mp3", "a73-ce83905c.mp3", "a91-a1ee6acf.mp3", "a92-49d5eb84.mp3"];
 var TG = 'https://telegram.org/js/telegram-web-app.js';
 

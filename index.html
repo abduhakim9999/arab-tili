@@ -159,7 +159,7 @@ function prog(raw,q){
 var IC1='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 6h14M5 10h14M5 14h10M5 18h7"/></svg>';
 var IC2='<svg viewBox="0 0 24 24" fill="none" stroke="#c2410c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8.5 12.2l2.4 2.4 4.6-5"/></svg>';
 function item(L,txt,cls,w,d,lst){
-  return '<a class="it an'+(lst?' lst':'')+'" style="animation-delay:'+d+'s" href="'+L.n+'.html">'+icn(L.n)+'<div class="mid"><div class="ar">'+L.ar+'</div><div class="t">'+L.uz+'</div><div class="pg'+cls+'">'+(lst?'<span class="lsb">▶ Давом этиш</span>':'')+txt+'</div><div class="bar"><i style="width:'+w+'%"></i></div></div></a>';
+  return '<a class="it an'+(lst?' lst':'')+'" style="animation-delay:'+d+'s" href="'+L.n+'.html">'+icn(L.n)+'<div class="mid"><div class="ar">'+L.ar+'</div><div class="t">'+L.uz+'</div>'+((txt||lst)?'<div class="pg'+cls+'">'+(lst?'<span class="lsb">▶ Давом этиш</span>':'')+txt+'</div>':'')+(w?'<div class="bar"><i style="width:'+w+'%"></i></div>':'')+'</div></a>';
 }
 /* Феъллар (natijalar feellar.html'dan) */
 var FNS=10,FCL=null;
@@ -177,10 +177,9 @@ function render(cloud){
   LESSONS.forEach(function(L,i){
     var raw=null;try{raw=localStorage.getItem(L.key)}catch(e){}
     if(cloud&&cloud[L.key]){try{var c=JSON.parse(cloud[L.key]);var lt=+(localStorage.getItem(L.key+"-t")||0);if(c.t>lt)raw=c.v}catch(e){}}
-    var p=prog(raw,L.q),txt="Янги",cls="",w=0;
+    var p=prog(raw,L.q),txt="",cls="",w=0;
     if(p&&p.done){txt="✓ Машқ тугатилган";cls=" ok";w=100}
     else if(p&&p.n){txt="Машқ: "+p.n+" / "+L.q;w=Math.round(p.n*100/L.q)}
-    else if(p&&p.open)txt="Бошланган";
     sum+=w;
     if(i==0||LESSONS[i-1].u!==L.u)h+='<div class="unit an" style="animation-delay:'+(.34+i*.06).toFixed(2)+'s">'+(L.u?(UICO[L.u]?'<span class="uic">'+UICO[L.u]+'</span>':'')+'<span class="un">'+L.u+'-БОБ</span><span class="ua">'+(UNITS[L.u]||'')+'</span>':'<span class="un">БОШҚА ДАРСЛАР</span>')+'</div>';
     h+=item(L,txt,cls,w,(.36+i*.06).toFixed(2),String(L.n)===last);

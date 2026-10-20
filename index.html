@@ -182,7 +182,7 @@ function render(cloud){
     else if(p&&p.n){txt="Машқ: "+p.n+" / "+L.q;w=Math.round(p.n*100/L.q)}
     sum+=w;
     if(i==0||LESSONS[i-1].u!==L.u)h+='<div class="unit an" style="animation-delay:'+(.34+i*.06).toFixed(2)+'s">'+(L.u?(UICO[L.u]?'<span class="uic">'+UICO[L.u]+'</span>':'')+'<span class="un">'+L.u+'-БОБ</span><span class="ua">'+(UNITS[L.u]||'')+'</span>':'<span class="un">БОШҚА ДАРСЛАР</span>')+'</div>';
-    h+=item(L,txt,cls,w,(.36+i*.06).toFixed(2),String(L.n)===last);
+    var isL=String(L.n)===last;h+=item(L,isL?txt:'',cls,isL?w:0,(.36+i*.06).toFixed(2),isL);
   });
   var avg=LESSONS.length?Math.round(sum/LESSONS.length):0;
   var t='<div class="cards">'+

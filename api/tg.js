@@ -2,6 +2,8 @@
 // O'rnatish: https://<loyiha>.vercel.app/api/tg?setup=1 ni bir marta oching.
 const crypto = require('crypto');
 const T = process.env.BOT_TOKEN, A = String(process.env.ADMIN_ID || '').trim();
+const STAT = 'https://script.google.com/macros/s/AKfycbxksQz-jII6bVIWKgl63gfASBRDr4SGsScYJg0jogaulyzOoVluyGtf6pU1TIZV-ntRcA/exec';
+const KEY = crypto.createHash('sha256').update('stat:' + T).digest('hex').slice(0, 32);
 const SECRET = crypto.createHash('sha256').update(String(T)).digest('hex').slice(0, 40);
 
 async function tg(m, p) {
@@ -9,6 +11,16 @@ async function tg(m, p) {
     method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(p)
   });
   return r.json();
+}
+
+async function stat() {
+  try {
+    const d = await (await fetch(STAT + '?k=' + KEY)).json();
+    if (!d.ok) return 'Статистика олинмади.';
+    const L = a => a.length ? a.slice(0, 40).map((x, i) => (i + 1) + '. ' + x).join('\n') + (a.length > 40 ? '\n…' : '') : '—';
+    return '📊 Статистика\n\nЖами кирганлар: ' + d.total + '\nБугун: ' + d.today.length + '\nҲозир: ' + d.now.length +
+      '\n\n🟢 Ҳозир ишлаётганлар:\n' + L(d.now) + '\n\n📅 Бугун кирганлар:\n' + L(d.today);
+  } catch (e) { return 'Статистика олинмади: ' + e.message; }
 }
 
 const KIND = { voice: 'овозли хабар', video_note: 'видео-доира', sticker: 'стикер', photo: 'расм',
@@ -21,6 +33,7 @@ async function handle(m) {
 
   // Admin javobi
   if (A && c === A) {
+    if (t === '/stat') return tg('sendMessage', { chat_id: c, text: await stat() });
     const r = m.reply_to_message;
     const id = r && ((r.text || r.caption || '').match(/ID (\d+)/) || [])[1];
     if (!id) return tg('sendMessage', { chat_id: c, text: 'Жавоб бериш учун 💬 белгили хабарга Reply қилинг.' });

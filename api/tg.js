@@ -15,7 +15,11 @@ async function tg(m, p) {
 
 async function stat() {
   try {
-    const d = await (await fetch(STAT + '?k=' + KEY)).json();
+    const r = await fetch(STAT + '?k=' + KEY), raw = await r.text();
+    let d; try { d = JSON.parse(raw); } catch (e) {
+      const msg = raw.replace(/<style[\s\S]*?<\/style>|<script[\s\S]*?<\/script>/g, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 300);
+      return 'Статистика олинмади (' + r.status + '): ' + msg;
+    }
     if (!d.ok) return 'Статистика олинмади.';
     const L = a => a.length ? a.slice(0, 40).map((x, i) => (i + 1) + '. ' + x).join('\n') + (a.length > 40 ? '\n…' : '') : '—';
     return '📊 Статистика\n\nЖами кирганлар: ' + d.total + '\nБугун: ' + d.today.length + '\nҲозир: ' + d.now.length +

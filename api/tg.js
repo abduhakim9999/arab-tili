@@ -34,6 +34,7 @@ async function handle(m) {
   // Admin javobi
   if (A && c === A) {
     if (t === '/stat') return tg('sendMessage', { chat_id: c, text: await stat() });
+    if (t === '/start' || t === '/help') return tg('sendMessage', { chat_id: c, text: 'Сиз — админсиз.\n\n• Кимдир ботга ёзса, хабари шу ерга 💬 белгиси билан келади.\n• Жавоб бериш учун ўша хабарга Reply қилинг (матн, овоз, расм — ҳаммаси бўлади).\n• /stat — статистика.\n\nСинаб кўриш учун бошқа аккаунтдан ёзинг.' });
     const r = m.reply_to_message;
     const id = r && ((r.text || r.caption || '').match(/ID (\d+)/) || [])[1];
     if (!id) return tg('sendMessage', { chat_id: c, text: 'Жавоб бериш учун 💬 белгили хабарга Reply қилинг.' });

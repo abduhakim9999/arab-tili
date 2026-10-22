@@ -34,44 +34,28 @@
     '<div class="hr" data-r="2"><b>' + H.la + '</b><small>' + H.lu + '</small></div>';
   tx.parentNode.insertBefore(d, tx);
 
-  var ha = new Audio(H.a); ha.preload = 'auto';
-  var stopAt = null, chain = false, done = false, raf = 0;
+  // sarlavha asosiy audioning boshida turadi (0 … H.e soniya)
+  var A = window.au, raf = 0;
   var spans = d.querySelectorAll('.hb span'), rows = [d.querySelector('.hb'), d.querySelector('[data-r="1"]'), d.querySelector('[data-r="2"]')];
   function clear() { [].forEach.call(d.querySelectorAll('.pl'), function (e) { e.classList.remove('pl') }) }
   function paint() {
-    var t = ha.currentTime; clear();
-    if (!ha.paused) {
+    var t = A.currentTime; clear();
+    if (!A.paused && t < H.e) {
       if (t < H.s[0]) { BW.forEach(function (w, i) { if (t >= w[2][0] - 0.05 && t < w[2][1] + 0.1) spans[i].classList.add('pl') }) }
       else if (t < H.s[1]) rows[1].classList.add('pl'); else rows[2].classList.add('pl');
     }
-    if (stopAt !== null && t >= stopAt) { ha.pause(); stopAt = null; clear() }
-    if (!ha.paused) raf = requestAnimationFrame(paint);
+    if (!A.paused) raf = requestAnimationFrame(paint);
   }
-  function setPP(on) { var b = document.getElementById('pp'); if (b) { b.textContent = on ? '⏸' : '▶'; b.classList.toggle('on', on) } var q = document.querySelector('.pbar'); if (q) q.classList.toggle('on', on) }
-  ha.addEventListener('play', function () { setPP(true); cancelAnimationFrame(raf); raf = requestAnimationFrame(paint) });
-  ha.addEventListener('pause', function () { clear(); if (!chain) setPP(false) });
-  ha.addEventListener('ended', function () {
-    clear();
-    if (chain) { chain = false; done = true; if (window.au) { au.currentTime = 0; var p = au.play(); if (p && p.catch) p.catch(function () {}) } }
-    else setPP(false);
-  });
-  function playSeg(a, b, ch) {
-    if (window.au && !au.paused) au.pause();
-    chain = !!ch; stopAt = b; ha.currentTime = a;
-    var p = ha.play(); if (p && p.catch) p.catch(function () {});
+  if (A) {
+    A.addEventListener('play', function () { cancelAnimationFrame(raf); raf = requestAnimationFrame(paint) });
+    A.addEventListener('pause', clear);
   }
-  // ▶ tugmasi: boshidan boshlansa, avval sarlavha o'qiladi
-  var op = window.ppl;
-  if (typeof op === 'function') {
-    window.ppl = function () {
-      if (!ha.paused) { chain = false; ha.pause(); setPP(false); return }
-      var a = window.au;
-      if (a && a.paused && a.currentTime < 0.3 && !done && !(typeof loopL !== 'undefined' && loopL >= 0)) { setPP(true); playSeg(0, null, true); return }
-      return op.apply(this, arguments);
-    };
+  function playSeg(a, b) {
+    if (!A) return;
+    try { if (typeof loopL !== 'undefined' && loopL >= 0 && typeof setLoop === 'function') setLoop(-1) } catch (e) {}
+    A.currentTime = Math.max(0, a); window.stopAt = b;
+    var p = A.play(); if (p && p.catch) p.catch(function () {});
   }
-  if (window.au) au.addEventListener('ended', function () { done = false });
-
   // bosish — eshitish; bosib turish — tarkib
   function sheet(i) {
     var w = BW[i], tl = window.tline || function (l) { return '<div class="tl">' + (l[0] ? '<span class="ar">' + l[0] + '</span> — ' : '↳ ') + l[1] + '</div>' };
@@ -91,5 +75,5 @@
     sp.addEventListener('click', function (e) { e.stopPropagation(); if (lp) return; playSeg(BW[i][2][0] - 0.05, BW[i][2][1] + 0.08) });
   });
   rows[1].addEventListener('click', function () { playSeg(H.s[0] - 0.05, H.s[1]) });
-  rows[2].addEventListener('click', function () { playSeg(H.s[1] - 0.05, null) });
+  rows[2].addEventListener('click', function () { playSeg(H.s[1] - 0.05, H.e) });
 })();

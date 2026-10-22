@@ -35,7 +35,7 @@
   tx.parentNode.insertBefore(d, tx);
 
   // sarlavha asosiy audioning boshida turadi (0 … H.e soniya)
-  var A = window.au, raf = 0;
+  var A = window.au, raf = 0, fol = 0;
   var spans = d.querySelectorAll('.hb span'), rows = [d.querySelector('.hb'), d.querySelector('[data-r="1"]'), d.querySelector('[data-r="2"]')];
   function clear() { [].forEach.call(d.querySelectorAll('.pl'), function (e) { e.classList.remove('pl') }) }
   function paint() {
@@ -43,7 +43,9 @@
     if (!A.paused && t < H.e) {
       if (t < H.s[0]) { BW.forEach(function (w, i) { if (t >= w[2][0] - 0.05 && t < w[2][1] + 0.1) spans[i].classList.add('pl') }) }
       else if (t < H.s[1]) rows[1].classList.add('pl'); else rows[2].classList.add('pl');
-    }
+      // ekran sarlavhaga ergashadi
+      if (!fol) { fol = 1; try { if (typeof follow === 'function') follow(d) } catch (e) {} }
+    } else fol = 0;
     if (!A.paused) raf = requestAnimationFrame(paint);
   }
   if (A) {

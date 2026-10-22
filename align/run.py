@@ -2,6 +2,13 @@
 # align/in/NAME.txt bo'lsa -> align/out/NAME.align.json (matnni ovozga majburiy moslash)
 import os, json, glob
 os.makedirs('align/out', exist_ok=True)
+# align/in/NAME.url -> align/out/NAME.mp3 (tashqi havoladan yuklab olish)
+import urllib.request
+for u in sorted(glob.glob('align/in/*.url')):
+    name = os.path.splitext(os.path.basename(u))[0]
+    dst = 'align/out/%s.mp3' % name
+    if not os.path.exists(dst):
+        urllib.request.urlretrieve(open(u).read().strip(), dst)
 for mp3 in sorted(glob.glob('align/in/*.mp3')):
     name = os.path.splitext(os.path.basename(mp3))[0]
     txt = 'align/in/%s.txt' % name

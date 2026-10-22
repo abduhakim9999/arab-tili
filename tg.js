@@ -142,14 +142,38 @@
 
   /* statistika: kim kirgan va hozir kim ishlayapti (Google Sheets'ga) */
   var STAT_URL = 'https://script.google.com/macros/s/AKfycbxksQz-jII6bVIWKgl63gfASBRDr4SGsScYJg0jogaulyzOoVluyGtf6pU1TIZV-ntRcA/exec';
+  /* Telegram foydalanuvchisi: skript yuklanmasa ham manzildagi tgWebAppData'dan olinadi */
+  function tgUser() {
+    try {
+      var h = location.hash.slice(1), q = '';
+      var m = /(?:^|&)tgWebAppData=([^&]*)/.exec(h);
+      if (m) q = decodeURIComponent(m[1]);
+      else { var ip = JSON.parse(sessionStorage.getItem('__telegram__initParams') || '{}'); q = ip.tgWebAppData || ''; }
+      var um = /(?:^|&)user=([^&]*)/.exec(q);
+      return um ? JSON.parse(decodeURIComponent(um[1])) : null;
+    } catch (e) { return null; }
+  }
+  /* brauzer ID: localStorage + cookie (biri o'chsa ham ikkinchisidan tiklanadi) */
+  function webId() {
+    var r = '';
+    try { r = localStorage.getItem('stat-id') || ''; } catch (e) {}
+    if (!r) { var c = /(?:^|; )statid=([a-z0-9]+)/.exec(document.cookie); if (c) r = c[1]; }
+    if (!r) r = 'web' + Math.random().toString(36).slice(2, 10);
+    try { localStorage.setItem('stat-id', r); } catch (e) {}
+    try { document.cookie = 'statid=' + r + '; max-age=63072000; path=/; SameSite=Lax'; } catch (e) {}
+    return r;
+  }
   function stat(t) {
     if (!STAT_URL) return;
     try {
-      var u = W && W.initDataUnsafe && W.initDataUnsafe.user, d;
-      if (u) d = { id: 'tg' + u.id, fn: u.first_name || '', ln: u.last_name || '', un: u.username || '' };
-      else {
-        var r = ''; try { r = localStorage.getItem('stat-id') || ''; if (!r) { r = 'web' + Math.random().toString(36).slice(2, 10); localStorage.setItem('stat-id', r); } } catch (e) { r = 'web-anon'; }
-        d = { id: r, fn: '', ln: '', un: '' };
+      var u = (W && W.initDataUnsafe && W.initDataUnsafe.user) || tgUser(), d;
+      if (u) {
+        d = { id: 'tg' + u.id, fn: u.first_name || '', ln: u.last_name || '', un: u.username || '' };
+        try { localStorage.setItem('stat-tg', JSON.stringify(d)); } catch (e) {}
+      } else {
+        var o = null; try { o = JSON.parse(localStorage.getItem('stat-tg') || 'null'); } catch (e) {}
+        if (o && o.id) d = o;                       /* shu qurilmada oldin Telegram orqali kirgan */
+        else d = { id: webId(), fn: '', ln: '', un: '' };
       }
       d.t = t; d.p = (location.pathname.split('/').pop() || 'index.html').replace('.html', '');
       fetch(STAT_URL, { method: 'POST', mode: 'no-cors', keepalive: true, body: JSON.stringify(d) }).catch(function () {});

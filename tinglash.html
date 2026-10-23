@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Тинглаш</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0f766e">
+<link rel="icon" href="icon-192.png">
+<link rel="stylesheet" href="shell.css">
+<script src="tg.js" data-key="tinglash" data-home="./"></script>
+<style>
+@font-face{font-family:"DarsNaskh";src:url(naskh.woff)}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tx);min-height:100vh}
+.lw{max-width:520px;margin:0 auto;padding:12px 16px calc(24px + env(safe-area-inset-bottom,0px))}
+.lh{display:flex;align-items:center;gap:6px;margin:0 -6px 10px}
+.lh a{width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:var(--ac);text-decoration:none;font-size:26px}
+.lh b{font-size:19px}
+.ls{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 10px;margin:0 -2px;scrollbar-width:none}
+.ls::-webkit-scrollbar{display:none}
+.lc{flex:none;padding:8px 14px;border-radius:999px;border:1px solid var(--bd);background:var(--cd);color:var(--tx);font-size:14px;font-weight:600;cursor:pointer}
+.lc.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.stage{background:var(--cd);border:1px solid var(--bd);border-radius:22px;padding:18px 16px;box-shadow:var(--sh,0 4px 16px rgba(0,0,0,.06));min-height:230px;display:flex;flex-direction:column;justify-content:center;text-align:center}
+.st-t{font-size:13px;color:var(--mu);font-weight:600;margin-bottom:10px}
+.st-ar{direction:rtl;font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:27px;line-height:1.85;color:var(--tx);transition:color .2s,opacity .2s}
+.st-uz{margin-top:12px;font-size:17px;line-height:1.5;color:var(--mu);transition:color .2s,opacity .2s}
+.stage.k-ar .st-ar{color:var(--ac)}
+.stage.k-uz .st-uz{color:var(--tx);font-weight:600}
+.stage.k-uz .st-ar{opacity:.55}
+.sp{font-size:13px;color:var(--au2,#c99434);font-weight:700;margin-bottom:4px;direction:rtl;font-family:"DarsNaskh",serif}
+.pg{display:flex;align-items:center;gap:10px;margin:16px 2px 4px;font-size:12px;color:var(--mu);font-variant-numeric:tabular-nums}
+.pg input{flex:1;accent-color:var(--ac)}
+.ctl{display:flex;align-items:center;justify-content:center;gap:22px;margin:8px 0 18px}
+.cb{width:52px;height:52px;border-radius:26px;border:1px solid var(--bd);background:var(--cd);color:var(--tx);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.cb.big{width:76px;height:76px;border-radius:38px;background:var(--ac);border-color:var(--ac);color:#fff;box-shadow:0 6px 18px rgba(15,122,79,.3)}
+.opts{background:var(--cd);border:1px solid var(--bd);border-radius:18px;padding:4px 14px}
+.op{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--bd)}
+.op:last-child{border-bottom:none}
+.op span{font-size:15px;font-weight:600}
+.seg{display:flex;background:var(--bg);border-radius:999px;padding:3px;gap:2px}
+.seg button{border:none;background:none;color:var(--mu);font-weight:700;font-size:13px;padding:6px 11px;border-radius:999px;cursor:pointer}
+.seg button.on{background:var(--cd);color:var(--ac);box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.sw{position:relative;width:48px;height:28px;border-radius:14px;background:var(--bd);border:none;cursor:pointer;flex:none;transition:background .2s}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:11px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .2s}
+.sw.on{background:var(--ac)}.sw.on::after{transform:translateX(20px)}
+</style>
+</head>
+<body>
+<div class="lw">
+  <div class="lh"><a href="./" aria-label="Орқага">‹</a><b>🎧 Тинглаш</b></div>
+  <div class="ls" id="ls"></div>
+  <div class="stage" id="st"><div class="st-t" id="stt"></div><div class="sp" id="sp"></div><div class="st-ar" id="sa"></div><div class="st-uz" id="su"></div></div>
+  <div class="pg"><span id="tc">0:00</span><input type="range" id="rg" min="0" max="1000" value="0"><span id="td">0:00</span></div>
+  <div class="ctl">
+    <button class="cb" id="bp" aria-label="Олдинги гап"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
+    <button class="cb big" id="bpl" aria-label="Ижро"><svg id="ipl" width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+    <button class="cb" id="bn" aria-label="Кейинги гап"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
+  </div>
+  <div class="opts">
+    <div class="op"><span>Таржима</span><button class="sw" id="oTr"></button></div>
+    <div class="op"><span>Ҳар гапни</span><div class="seg" id="oRep"><button data-v="1">1×</button><button data-v="2">2×</button><button data-v="3">3×</button></div></div>
+    <div class="op"><span>Тезлик</span><div class="seg" id="oSp"><button data-v="0.75">0.75</button><button data-v="1">1</button><button data-v="1.25">1.25</button></div></div>
+    <div class="op"><span>Дарсни қайта-қайта</span><button class="sw" id="oLoop"></button></div>
+    <div class="op"><span>Кейинги дарсга ўтиш</span><button class="sw" id="oNext"></button></div>
+  </div>
+</div>
+<audio id="au" preload="auto"></audio>
+<script>
+var LIST=[{"n": 74, "uz": "Инсон дам олишга эҳтиёж сезади", "ar": "الْإِنْسَانُ يَحْتَاجُ إِلَى التَّرْوِيحِ", "f": "l74-2b22d875.mp3", "m": [[0, "h", 0.0, 11.38], [1, "ar", 11.98, 14.95], [1, "uz", 15.55, 18.91], [2, "ar", 19.81, 22.8], [2, "uz", 23.4, 28.76], [3, "ar", 29.66, 33.77], [3, "uz", 34.37, 40.39], [4, "ar", 41.29, 43.68], [4, "uz", 44.28, 49.25], [5, "ar", 50.15, 57.04], [5, "uz", 57.64, 65.99], [6, "ar", 66.89, 68.24], [6, "uz", 68.84, 71.94], [7, "ar", 72.84, 76.61], [7, "uz", 77.21, 81.81], [8, "ar", 82.71, 83.78], [8, "uz", 84.38, 86.88], [9, "ar", 87.78, 94.03], [9, "uz", 94.63, 102.72], [10, "ar", 103.62, 107.11], [10, "uz", 107.71, 114.33], [11, "ar", 115.23, 120.3], [11, "uz", 120.9, 127.6], [12, "ar", 128.5, 130.51], [12, "uz", 131.11, 133.68], [13, "ar", 134.58, 140.23], [13, "uz", 140.83, 148.15], [14, "ar", 149.05, 150.42], [14, "uz", 151.02, 154.23], [15, "ar", 155.13, 158.32], [15, "uz", 158.92, 163.63], [16, "ar", 164.53, 167.5], [16, "uz", 168.1, 170.84]], "l": {"1": ["الْإِنْسَانُ يَحْتَاجُ إِلَى التَّرْوِيحِ", "Инсон дам олишга эҳтиёж сезади", ""], "2": ["الْحَمْدُ لِلَّهِ عَلَى سَلَامَتِكَ يَا إِبْرَاهِيمُ.", "Сизни саломат кўрганим учун Аллоҳга ҳамдлар бўлсин, эй Иброҳим!", "هِشَامٌ"], "3": ["شُكْرًا لَكَ. أَنَا بِخَيْرٍ، وَالْحَمْدُ لِلَّهِ.", "Раҳмат сизга! Мен яхшиман. Аллоҳга шукр!", "إِبْرَاهِيمُ"], "4": ["مَاذَا حَدَثَ؟ لِمَاذَا أَنْتَ هُنَا؟!", "Нима бўлди? Нима учун сиз бу ердасиз?", "هِشَامٌ"], "5": ["أُغْمِيَ عَلَيَّ، وَأَنَا فِي الشَّرِكَةِ، وَعِنْدَمَا أَفَقْتُ، وَجَدْتُ نَفْسِي هُنَا فِي الْمُسْتَشْفَى.", "Фирмадалигимда ҳушимдан кетиб қолибман. Ўзимга келганимда ўзимни шу ерда касалхонада кўрдим.", "إِبْرَاهِيمُ"], "6": ["وَمَا رَأْيُ الطَّبِيبِ؟", "Врачнинг фикри қандай экан?", "هِشَامٌ"], "7": ["فَحَصَنِي الطَّبِيبُ، وَقَالَ لِي: أَنْتَ بِخَيْرٍ.", "Врач мени текшириб, менга: “Сиз яхшисиз”, – деди.", "إِبْرَاهِيمُ"], "8": ["مَا الْمُشْكِلَةُ؟", "Муаммо нимада экан?", "هِشَامٌ"], "9": ["الْأَمْرُ عَجِيبٌ جِدًّا. طَلَبَ مِنِّي الطَّبِيبُ أَنْ أُغَيِّرَ أُسْلُوبَ حَيَاتِي.", "Ҳолат жуда ғалати. Врач мендан ҳаёт (яшаш) услубимни ўзгартиришимни талаб қилди.", "إِبْرَاهِيمُ"], "10": ["تُغَيِّرُ أُسْلُوبَ حَيَاتِكَ! مَاذَا يَقْصِدُ؟", "Ҳаёт услубингизни ўзгартирар экансиз? Нимани назарда тутяпти?", "هِشَامٌ"], "11": ["قَالَ لِي: حَيَاتُكَ كُلُّهَا عَمَلٌ، لَا تَرْوِيحَ فِيهَا.", "У менга: “Ҳаётингизнинг бари ишдан иборат бўлиб, унда дам олиш йўқ экан”, – деди.", "إِبْرَاهِيمُ"], "12": ["يَا لَهُ مِنْ أَمْرٍ عَجِيبٍ!", "Нақадар ғалати ҳолат!", "هِشَامٌ"], "13": ["صَدَقَ الطَّبِيبُ فَحَيَاتِي كُلُّهَا عَمَلٌ، لَا تَرْوِيحَ فِيهَا.", "Врач тўғри айтди. Чунки ҳаётимнинг ҳаммаси ишдан иборат бўлиб, унда дам йўқ.", "إِبْرَاهِيمُ"], "14": ["وَبِمَ نَصَحَكَ؟", "Хўш, сизга нима маслаҳат берди?", "هِشَامٌ"], "15": ["أَنْ أَقْضِيَ الْعُطْلَةَ فِي بَلَدٍ جَمِيلٍ.", "Таътилимни (отпускамни) чиройли бир юртда ўтказишни.", "إِبْرَاهِيمُ"], "16": ["يَا لَهَا مِنْ نَصِيحَةٍ طَيِّبَةٍ!", "Нақадар яхши маслаҳат!", "هِشَامٌ"]}}];
+var A=document.getElementById('au'),$=function(i){return document.getElementById(i)};
+var O={tr:1,rep:1,sp:1,loop:0,next:1};try{Object.assign(O,JSON.parse(localStorage.getItem('tinglash-opt')||'{}'))}catch(e){}
+function save(){try{localStorage.setItem('tinglash-opt',JSON.stringify(O))}catch(e){}}
+var li=0,M=[],reps=0,curAr=-1,shown=-2;
+var q=(location.search.match(/d=(\d+)/)||[])[1];
+if(!q){try{q=localStorage.getItem('tinglash-dars')}catch(e){}}
+LIST.forEach(function(x,i){if(String(x.n)===String(q))li=i});
+function fmt(t){t=Math.max(0,t|0);return (t/60|0)+':'+('0'+t%60).slice(-2)}
+function chips(){$('ls').innerHTML=LIST.map(function(x,i){return '<button class="lc'+(i===li?' on':'')+'" data-i="'+i+'">'+x.n+'-дарс</button>'}).join('')}
+$('ls').onclick=function(e){var b=e.target.closest('.lc');if(!b)return;load(+b.dataset.i,true)};
+function load(i,play){li=i;var L=LIST[i];M=L.m;reps=0;curAr=-1;shown=-2;A.src=L.f;A.playbackRate=O.sp;chips();
+  try{localStorage.setItem('tinglash-dars',L.n)}catch(e){}
+  $('stt').textContent=L.n+'-дарс · '+L.uz;show(-1);
+  if('mediaSession' in navigator){try{navigator.mediaSession.metadata=new MediaMetadata({title:L.n+'-дарс: '+L.uz,artist:'نور الطالب',artwork:[{src:'icon-512.png',sizes:'512x512',type:'image/png'}]})}catch(e){}}
+  if(play)A.play().catch(function(){});}
+function segAt(t){for(var i=M.length-1;i>=0;i--)if(t>=M[i][2]-0.05)return i;return -1}
+function show(i){if(i===shown)return;shown=i;var L=LIST[li],st=$('st');
+  if(i<0||M[i][1]==='h'){$('sp').textContent='';$('sa').textContent=i<0?L.ar:'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ';$('su').textContent=i<0?'':L.uz;st.className='stage';return}
+  var s=M[i],ln=L.l[s[0]];$('sp').textContent=ln[2]||'';$('sa').textContent=ln[0];$('su').textContent=O.tr?ln[1]:'';st.className='stage k-'+s[1]}
+function nextArFrom(i){for(var j=i+1;j<M.length;j++)if(M[j][1]==='ar')return j;return -1}
+function prevArFrom(i){for(var j=i-1;j>=0;j--)if(M[j][1]==='ar')return j;return -1}
+A.addEventListener('timeupdate',function(){var t=A.currentTime,i=segAt(t);
+  if(i>=0&&M[i][1]==='ar'&&i!==curAr){curAr=i;reps=0}
+  // gapni takrorlash: arabcha gap tugagach boshiga qaytish
+  if(curAr>=0&&O.rep>1&&t>=M[curAr][3]&&t<M[curAr][3]+0.9&&reps<O.rep-1){reps++;A.currentTime=M[curAr][2];return}
+  // tarjima o'chiq: o'zbekcha bo'lakni sakrab o'tish
+  if(!O.tr&&i>=0&&M[i][1]==='uz'){var n=nextArFrom(i);A.currentTime=n>=0?M[n][2]:A.duration;return}
+  show(i);
+  if(A.duration){$('rg').value=Math.round(t*1000/A.duration);$('tc').textContent=fmt(t);$('td').textContent=fmt(A.duration)}
+});
+A.addEventListener('ended',function(){
+  if(O.loop){A.currentTime=0;A.play();return}
+  if(O.next&&li+1<LIST.length){load(li+1,true);return}
+  show(-1);
+});
+A.addEventListener('loadedmetadata',function(){A.playbackRate=O.sp});
+A.addEventListener('play',function(){$('ipl').innerHTML='<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>'});
+A.addEventListener('pause',function(){$('ipl').innerHTML='<path d="M8 5v14l11-7z"/>'});
+$('bpl').onclick=function(){if(A.paused)A.play().catch(function(){});else A.pause()};
+function goSeg(dir){var i=segAt(A.currentTime),j=dir>0?nextArFrom(i):prevArFrom(i>=0&&M[i][1]==='ar'&&A.currentTime-M[i][2]<1.2?i:i+1);
+  if(dir<0&&j<0)j=nextArFrom(-1);if(j>=0){curAr=j;reps=0;A.currentTime=M[j][2]}else if(dir>0&&O.next&&li+1<LIST.length)load(li+1,!A.paused)}
+$('bn').onclick=function(){goSeg(1)};$('bp').onclick=function(){goSeg(-1)};
+$('rg').oninput=function(){if(A.duration)A.currentTime=this.value*A.duration/1000};
+if('mediaSession' in navigator){try{
+  navigator.mediaSession.setActionHandler('play',function(){A.play()});navigator.mediaSession.setActionHandler('pause',function(){A.pause()});
+  navigator.mediaSession.setActionHandler('nexttrack',function(){goSeg(1)});navigator.mediaSession.setActionHandler('previoustrack',function(){goSeg(-1)});
+}catch(e){}}
+function ui(){$('oTr').classList.toggle('on',!!O.tr);$('oLoop').classList.toggle('on',!!O.loop);$('oNext').classList.toggle('on',!!O.next);
+  [].forEach.call($('oRep').children,function(b){b.classList.toggle('on',+b.dataset.v===O.rep)});
+  [].forEach.call($('oSp').children,function(b){b.classList.toggle('on',+b.dataset.v===O.sp)})}
+$('oTr').onclick=function(){O.tr=O.tr?0:1;save();ui();shown=-2;show(segAt(A.currentTime))};
+$('oLoop').onclick=function(){O.loop=O.loop?0:1;if(O.loop)O.next=0;save();ui()};
+$('oNext').onclick=function(){O.next=O.next?0:1;if(O.next)O.loop=0;save();ui()};
+$('oRep').onclick=function(e){var b=e.target.closest('button');if(!b)return;O.rep=+b.dataset.v;save();ui()};
+$('oSp').onclick=function(e){var b=e.target.closest('button');if(!b)return;O.sp=+b.dataset.v;A.playbackRate=O.sp;save();ui()};
+ui();load(li,false);
+if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(function(){});
+</script>
+</body>
+</html>

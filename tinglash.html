@@ -35,7 +35,13 @@ body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(
 .ctl{display:flex;align-items:center;justify-content:center;gap:22px;margin:8px 0 18px}
 .cb{width:52px;height:52px;border-radius:26px;border:1px solid var(--bd);background:var(--cd);color:var(--tx);display:flex;align-items:center;justify-content:center;cursor:pointer}
 .cb.big{width:76px;height:76px;border-radius:38px;background:var(--ac);border-color:var(--ac);color:#fff;box-shadow:0 6px 18px rgba(15,122,79,.3)}
-.opts{background:var(--cd);border:1px solid var(--bd);border-radius:18px;padding:4px 14px}
+.gear{margin-left:auto;width:44px;height:44px;border-radius:22px;border:1px solid var(--bd);background:var(--cd);color:var(--tx);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.shb{position:fixed;inset:0;background:rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:opacity .25s;z-index:30}
+.shb.on{opacity:1;pointer-events:auto}
+.opts{position:fixed;left:0;right:0;bottom:0;z-index:31;max-width:520px;margin:0 auto;background:var(--cd);border-radius:22px 22px 0 0;padding:6px 18px calc(18px + env(safe-area-inset-bottom,0px));box-shadow:0 -8px 30px rgba(0,0,0,.2);transform:translateY(105%);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.opts.on{transform:none}
+.oh{display:flex;align-items:center;justify-content:space-between;padding:12px 0 6px}.oh b{font-size:17px}
+.oh button{width:36px;height:36px;border-radius:18px;border:none;background:var(--bg);color:var(--mu);font-size:16px;cursor:pointer}
 .op{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--bd)}
 .op:last-child{border-bottom:none}
 .op span{font-size:15px;font-weight:600}
@@ -49,7 +55,7 @@ body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(
 </head>
 <body>
 <div class="lw">
-  <div class="lh"><a href="./" aria-label="Орқага">‹</a><b>🎧 Тинглаш</b></div>
+  <div class="lh"><a href="./" aria-label="Орқага">‹</a><b>🎧 Тинглаш</b><button class="gear" id="bg" aria-label="Созламалар"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></button></div>
   <div class="ls" id="ls"></div>
   <div class="stage" id="st"><div class="st-t" id="stt"></div><div class="sp" id="sp"></div><div class="st-ar" id="sa"></div><div class="st-uz" id="su"></div></div>
   <div class="pg"><span id="tc">0:00</span><input type="range" id="rg" min="0" max="1000" value="0"><span id="td">0:00</span></div>
@@ -58,7 +64,8 @@ body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(
     <button class="cb big" id="bpl" aria-label="Ижро"><svg id="ipl" width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
     <button class="cb" id="bn" aria-label="Кейинги гап"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
   </div>
-  <div class="opts">
+  <div class="shb" id="shb"></div>
+  <div class="opts" id="opts"><div class="oh"><b>Созламалар</b><button id="oc" aria-label="Ёпиш">✕</button></div>
     <div class="op"><span>Таржима</span><button class="sw" id="oTr"></button></div>
     <div class="op"><span>Ҳар гапни</span><div class="seg" id="oRep"><button data-v="1">1×</button><button data-v="2">2×</button><button data-v="3">3×</button></div></div>
     <div class="op"><span>Тезлик</span><div class="seg" id="oSp"><button data-v="0.75">0.75</button><button data-v="1">1</button><button data-v="1.25">1.25</button></div></div>
@@ -124,6 +131,8 @@ $('oLoop').onclick=function(){O.loop=O.loop?0:1;if(O.loop)O.next=0;save();ui()};
 $('oNext').onclick=function(){O.next=O.next?0:1;if(O.next)O.loop=0;save();ui()};
 $('oRep').onclick=function(e){var b=e.target.closest('button');if(!b)return;O.rep=+b.dataset.v;save();ui()};
 $('oSp').onclick=function(e){var b=e.target.closest('button');if(!b)return;O.sp=+b.dataset.v;A.playbackRate=O.sp;save();ui()};
+function sheet(on){$('opts').classList.toggle('on',on);$('shb').classList.toggle('on',on)}
+$('bg').onclick=function(){sheet(true)};$('oc').onclick=$('shb').onclick=function(){sheet(false)};
 ui();load(li,false);
 if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(function(){});
 </script>

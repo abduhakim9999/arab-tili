@@ -176,7 +176,7 @@ function prog(raw,q){
 var IC1='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 6h14M5 10h14M5 14h10M5 18h7"/></svg>';
 var IC2='<svg viewBox="0 0 24 24" fill="none" stroke="#c2410c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8.5 12.2l2.4 2.4 4.6-5"/></svg>';
 function item(L,txt,cls,w,d,lst){
-  return '<a class="it an'+(lst?' lst':'')+'" style="animation-delay:'+d+'s" href="'+L.n+'.html">'+icn(L.n)+'<div class="mid"><div class="ar">'+L.ar+'</div><div class="t">'+L.uz+'</div>'+((txt||lst)?'<div class="pg'+cls+'">'+(lst?'<span class="lsb">▶ Давом этиш</span>':'')+txt+'</div>':'')+(w?'<div class="bar"><i style="width:'+w+'%"></i></div>':'')+'</div></a>';
+  return '<a class="it an" style="animation-delay:'+d+'s" href="'+L.n+'.html">'+icn(L.n)+'<div class="mid"><div class="ar">'+L.ar+'</div><div class="t">'+L.uz+'</div>'+((txt||lst)?'<div class="pg'+cls+'">'+txt+'</div>':'')+(w?'<div class="bar"><i style="width:'+w+'%"></i></div>':'')+'</div></a>';
 }
 /* Феъллар (natijalar feellar.html'dan) */
 var FNS=10,FCL=null;

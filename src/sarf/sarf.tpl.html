@@ -228,13 +228,15 @@ function canSay(v,cat){var a=v.au&&v.au.s[cat];return (a&&a.length==v.T[cat].len
 var AUF='';
 function say(v,cat,i,done){
   stopSay();var seg=audioOf(v,cat,i),f=P(v.T[cat][i],v.r||'');
-  if(seg){if(!AU||AUF!=v.au.f){if(AU)AU.pause();AU=new Audio(v.au.f);AUF=v.au.f}
-    AU.currentTime=seg[0];var p=AU.play();if(p&&p.catch)p.catch(function(){});
-    clearTimeout(AUt);AUt=setTimeout(function(){AU.pause();done&&done()},Math.max(250,(seg[1]-seg[0])*1000+120));return}
+  if(seg){au(v);var a=v.au.s[cat],nx=a[i+1]?a[i+1][0]:seg[1]+.5,end=Math.max(seg[1]+.12,Math.min(nx-.03,seg[1]+.45));
+    AU.currentTime=Math.max(0,seg[0]-.04);var p=AU.play();if(p&&p.catch)p.catch(function(){});
+    (function w(){if(AU.paused)return;if(AU.currentTime>=end){AU.pause();done&&done();return}RAF=requestAnimationFrame(w)})();return}
   var vo=arVoice();if(!vo){done&&setTimeout(done,600);return}
   var u=new SpeechSynthesisUtterance(f);u.voice=vo;u.lang=vo.lang;u.rate=.8;u.onend=function(){done&&done()};TTS.speak(u);
 }
-function stopSay(){clearTimeout(AUt);if(AU)AU.pause();try{TTS&&TTS.cancel()}catch(e){}}
+var RAF=0;
+function au(v){if(!AU||AUF!=v.au.f){if(AU)AU.pause();AU=new Audio(v.au.f);AU.preload='auto';AUF=v.au.f}return AU}
+function stopSay(){clearTimeout(AUt);cancelAnimationFrame(RAF);if(AU)AU.pause();try{TTS&&TTS.cancel()}catch(e){}}
 
 /* ---------- bosh sahifa ---------- */
 function home(){
@@ -352,6 +354,7 @@ function sheet(v,cat){
   $('#bP').onclick=function(){if(PLAY){PLAY=false;stopSay();this.textContent='▶ Ўқиб бериш';mark(-1)}else playAll()};
   $('#bH').onclick=function(){HIDE=!HIDE;this.classList.toggle('on',HIDE);draw()};
   $('#bC').onclick=pickCmp;
+  if(v.au)au(v);
   draw();$('#sh').classList.add('on');
 }
 function cats(v){return CAT.filter(function(c){return v.T[c[0]]&&!(v.l&&MAJ[c[0]])&&!(CMP&&!CMP.T[c[0]])})}
@@ -410,7 +413,14 @@ function detail(tr,i){
 }
 function mark(i){[].forEach.call(document.querySelectorAll('#sbd tr[data-i]'),function(tr){tr.classList.toggle('pl',+tr.getAttribute('data-i')==i)})}
 function playAll(){
-  var K=curK(),n=SV.T[K].length,i=0;PLAY=true;$('#bP').textContent='■ Тўхтатиш';
+  var K=curK(),n=SV.T[K].length,i=0,A=SV.au&&SV.au.s[K];PLAY=true;$('#bP').textContent='■ Тўхтатиш';
+  if(A&&A.length==n&&A.every(Boolean)){   /* yozilgan ovoz: uzluksiz o'qish, qatorlar ovozga ergashadi */
+    stopSay();au(SV);var cur=-1,end=A[n-1][1]+.35;AU.currentTime=Math.max(0,A[0][0]-.05);var p=AU.play();if(p&&p.catch)p.catch(function(){});
+    (function w(){if(!PLAY)return;var t=AU.currentTime,k=0;while(k+1<n&&t>=A[k+1][0]-.06)k++;
+      if(k!=cur){cur=k;mark(k);var tr=$('#sbd tr[data-i="'+k+'"]');if(tr)tr.scrollIntoView({block:'nearest',behavior:'smooth'})}
+      if(t>=end||AU.ended){AU.pause();PLAY=false;$('#bP').textContent='▶ Ўқиб бериш';mark(-1);return}
+      RAF=requestAnimationFrame(w)})();
+    return}
   (function nx(){if(!PLAY)return;if(i>=n){PLAY=false;$('#bP').textContent='▶ Ўқиб бериш';mark(-1);return}
     mark(i);var tr=$('#sbd tr[data-i="'+i+'"]');if(tr)tr.scrollIntoView({block:'nearest',behavior:'smooth'});
     var k=i++;say(SV,K,k,function(){setTimeout(nx,180)})})();

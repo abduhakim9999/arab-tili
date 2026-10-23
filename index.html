@@ -116,11 +116,15 @@ body{margin:0;color:var(--tx);font-family:system-ui,-apple-system,sans-serif;pad
 
 .unit{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:14px 4px 8px}
 .unit:first-child{margin-top:2px}
-.bback{display:inline-block;margin:2px 4px 6px;font-size:15px;font-weight:600;color:var(--ac);text-decoration:none}.bhd{display:flex;justify-content:space-between;align-items:baseline;margin:0 4px 4px}.bhd span{font-size:13px;font-weight:800;letter-spacing:.1em;color:var(--mu)}.bhd b{font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:22px;color:var(--tx)}.bki{background:#E3F2EA!important}
+.bback{display:inline-flex;width:max-content;align-self:flex-start;align-items:center;gap:8px;margin:0 0 12px;padding:10px 16px 10px 12px;border-radius:999px;background:var(--cd,#fff);border:1px solid var(--bd);box-shadow:0 2px 8px rgba(0,0,0,.06);font-size:16px;font-weight:700;color:var(--ac);text-decoration:none}.bback b{font-size:22px;line-height:1;font-weight:700}.bhd{display:flex;justify-content:space-between;align-items:baseline;margin:0 4px 4px}.bhd span{font-size:13px;font-weight:800;letter-spacing:.1em;color:var(--mu)}.bhd b{font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:22px;color:var(--tx)}.bki{background:#E3F2EA!important}
 .book{margin:18px 4px 0;font-size:13px;font-weight:800;letter-spacing:.1em;color:var(--mu)}.book:first-child{margin-top:4px}
 .unit .un{font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--ac)}
 .unit .ua{font-family:"DarsNaskh","Noto Naskh Arabic",serif;direction:rtl;font-size:20px;color:var(--tx)}
 .unit{justify-content:flex-start}
+.ug{margin-bottom:8px}.ug .unit{cursor:pointer;margin:0;padding:10px 12px;border-radius:16px;background:var(--cd,#fff);border:1px solid var(--bd);align-items:center;-webkit-user-select:none;user-select:none}
+.ut{display:flex;flex-direction:column;gap:2px}.uc{font-size:12px;color:var(--mu)}
+.chev{flex:none;font-size:22px;line-height:1;color:var(--mu);transition:transform .2s;margin-left:6px}.ug.op .chev{transform:rotate(90deg)}
+.ugl{display:none;padding-top:8px}.ug.op .ugl{display:block}
 .unit .ua{margin-left:auto}
 .uic{flex:none;width:42px;height:42px;border-radius:12px;background:#FDE8E4;display:flex;align-items:center;justify-content:center;align-self:center}
 @media (prefers-color-scheme:dark){.uic{background:rgba(255,255,255,.08)!important}}
@@ -210,14 +214,20 @@ function render(cloud){
     if(BO.indexOf(bk)<0){BO.push(bk);BH[bk]="";BC[bk]=0;BU[bk]=[];BW[bk]=0}
     BC[bk]++;BW[bk]+=w;if(BU[bk].indexOf(L.u)<0)BU[bk].push(L.u);
     var j=BC[bk]-1;
-    if(i==0||LESSONS[i-1].u!==L.u)BH[bk]+='<div class="unit an" style="animation-delay:'+(.1+j*.05).toFixed(2)+'s">'+(U?(UICO[L.u]?'<span class="uic" style="background:'+U[3]+'">'+UICO[L.u]+'</span>':'')+'<span class="un">'+U[0]+'</span><span class="ua">'+U[1]+'</span>':'<span class="un">БОШҚА ДАРСЛАР</span>')+'</div>';
+    if(i==0||LESSONS[i-1].u!==L.u){if(BH[bk])BH[bk]+='</div></div>';var nu=LESSONS.filter(function(x){return x.u===L.u}).length;
+      BH[bk]+='<div class="ug" data-u="'+L.u+'"><div class="unit an" style="animation-delay:'+(.1+j*.05).toFixed(2)+'s" onclick="this.parentNode.classList.toggle(\'op\')">'+(U?(UICO[L.u]?'<span class="uic" style="background:'+U[3]+'">'+UICO[L.u]+'</span>':'')+'<span class="ut"><span class="un">'+U[0]+'</span><span class="uc">'+nu+' дарс</span></span><span class="ua">'+U[1]+'</span>':'<span class="un">БОШҚА ДАРСЛАР</span>')+'<span class="chev">›</span></div><div class="ugl">'}
     var isL=String(L.n)===last;if(isL)BL[bk]=L;
     BH[bk]+=item(L,isL?txt:'',cls,isL?w:0,(.12+j*.05).toFixed(2),isL);
   });
+  BO.forEach(function(bk){if(BH[bk])BH[bk]+='</div></div>';
+    var ou=BL[bk]?BL[bk].u:null;if(!ou){var f=LESSONS.filter(function(x){var U=UNITS[x.u];return (U?U[4]:'0')===bk});ou=f.length?f[0].u:null}
+    if(ou)BH[bk]=BH[bk].replace('<div class="ug" data-u="'+ou+'">','<div class="ug op" data-u="'+ou+'">')});
   if(cur&&BH[cur]!=null){
     var U0=null;for(var k in UNITS)if(UNITS[k][4]===cur){U0=UNITS[k];break}
-    h='<a class="bback an" href="#">‹ Китоблар</a><div class="bhd an"><span>'+(U0?U0[2]:'')+'</span><b>'+(U0?U0[5]:'')+'</b></div>'+BH[cur];
+    var MS=document.getElementById('ms');if(MS)MS.style.display='none';
+    h='<a class="bback an" href="#"><b>‹</b>Китоблар</a><div class="bhd an"><span>'+(U0?U0[2]:'')+'</span><b>'+(U0?U0[5]:'')+'</b></div>'+BH[cur];
   }else{
+    var MS=document.getElementById('ms');if(MS)MS.style.display='';
     BO.forEach(function(bk,i){
       var U0=null;for(var k in UNITS)if(UNITS[k][4]===bk){U0=UNITS[k];break}
       var L=BL[bk],pc=Math.round(BW[bk]/BC[bk]);

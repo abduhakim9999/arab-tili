@@ -4,6 +4,9 @@ const crypto = require('crypto');
 const T = process.env.BOT_TOKEN, A = String(process.env.ADMIN_ID || '').trim();
 const STAT = 'https://script.google.com/macros/s/AKfycbxksQz-jII6bVIWKgl63gfASBRDr4SGsScYJg0jogaulyzOoVluyGtf6pU1TIZV-ntRcA/exec';
 const KEY = crypto.createHash('sha256').update('stat:' + T).digest('hex').slice(0, 32);
+// Эшитиш жадвали (Apps Script веб-илова URL)
+const ESH = process.env.ESH_URL || '';
+const KEY2 = crypto.createHash('sha256').update('eshit:' + T).digest('hex').slice(0, 32);
 const SECRET = crypto.createHash('sha256').update(String(T)).digest('hex').slice(0, 40);
 
 async function tg(m, p) {
@@ -27,18 +30,73 @@ async function stat() {
   } catch (e) { return 'Статистика олинмади: ' + e.message; }
 }
 
+async function esh(a, p) {
+  if (!ESH) return { ok: false, err: 'ESH_URL йўқ' };
+  try {
+    const r = await fetch(ESH, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ k: KEY2, a, ...p }), redirect: 'follow' });
+    return JSON.parse(await r.text());
+  } catch (e) { return { ok: false, err: e.message }; }
+}
+const seen = new Set();
+async function seenUser(u) {
+  if (!u || u.is_bot || seen.has(u.id)) return;
+  seen.add(u.id); await esh('member', { users: [u] });
+}
+
+// Гуруҳдаги хабарлар
+async function group(m) {
+  const c = String(m.chat.id), t = (m.text || '').trim().split('@')[0];
+  if (t === '/ulash' && A && String(m.from && m.from.id) === A) {
+    const r = await esh('group', { chat: c });
+    await tg('deleteMessage', { chat_id: c, message_id: m.message_id });
+    if (!r.ok) return tg('sendMessage', { chat_id: A, text: '❌ Гуруҳ уланмади: ' + (r.err || '') });
+    await tg('sendMessage', { chat_id: c, text: '👋 Ассалому алайкум! Бу гуруҳда аудио дарслар юборилади.\nЭшитганингизни белгилаш учун аввал рўйхатдан ўтинг — тугмани босинг:',
+      reply_markup: { inline_keyboard: [[{ text: '👋 Мен шу гуруҳдаман', callback_data: 'r' }]] } });
+    return tg('sendMessage', { chat_id: A, text: '✅ Гуруҳ уланди. Энди менга аудио юборинг (изоҳига номини ёзинг, масалан «1-дарс») — гуруҳга «✅ Эшитдим» тугмаси билан жойлайман.' });
+  }
+  for (const u of (m.new_chat_members || [])) await seenUser(u);
+  await seenUser(m.from);
+}
+
+async function callback(q) {
+  const d = q.data || '';
+  let text = '';
+  if (d === 'r') { seen.delete(q.from.id); await seenUser(q.from); text = 'Рўйхатга олиндингиз ✅'; }
+  else if (d === 'x') text = 'Бу аудионинг муддати тугаган.';
+  else if (d.startsWith('e:')) { const r = await esh('mark', { id: d.slice(2), user: q.from }); text = r.text || 'Хатолик, қайта босинг.'; }
+  return tg('answerCallbackQuery', { callback_query_id: q.id, text, show_alert: false });
+}
+
+// Админ юборган аудиони гуруҳга жойлаш
+async function postAudio(m) {
+  const c = String(m.chat.id), f = m.audio || m.voice || m.document || m.video;
+  const cf = await esh('cfg', {});
+  if (!cf.ok || !cf.group) return tg('sendMessage', { chat_id: c, text: '❌ Гуруҳ уланмаган. Ботни гуруҳга админ қилиб қўшинг ва гуруҳда /ulash деб ёзинг.' + (cf.err ? '\n(' + cf.err + ')' : '') });
+  const title = (m.caption || (f && (f.title || f.file_name)) || 'Аудио').trim().split('\n')[0].slice(0, 80);
+  const id = Date.now().toString(36);
+  const cap = (m.caption || title) + '\n\n🎧 Эшитиб бўлгач, «✅ Эшитдим» тугмасини босинг.\n⏰ Муддат — 24 соат.';
+  const x = await tg('copyMessage', { chat_id: cf.group, from_chat_id: c, message_id: m.message_id, caption: cap,
+    reply_markup: { inline_keyboard: [[{ text: '✅ Эшитдим', callback_data: 'e:' + id }]] } });
+  if (!x.ok) return tg('sendMessage', { chat_id: c, text: '❌ Юборилмади: ' + (x.description || '') });
+  const r = await esh('post', { id, title, chat: cf.group, msg: x.result.message_id });
+  return tg('sendMessage', { chat_id: c, reply_to_message_id: m.message_id, text: '✅ Гуруҳга юборилди: «' + title + '»\n⏰ Муддат: ' + (r.deadline || '24 соат') + '\n\n/hisobot — ким эшитди, ким эшитмади.' });
+}
+
 const KIND = { voice: 'овозли хабар', video_note: 'видео-доира', sticker: 'стикер', photo: 'расм',
   video: 'видео', document: 'файл', audio: 'аудио', animation: 'GIF', location: 'жойлашув', contact: 'контакт' };
 
 async function handle(m) {
   const c = String(m.chat.id), t = (m.text || '').trim();
+  if (m.chat.type === 'group' || m.chat.type === 'supergroup') return group(m);
   if (m.chat.type !== 'private') return;
   if (t === '/id') return tg('sendMessage', { chat_id: c, text: 'ID: ' + c });
 
   // Admin javobi
   if (A && c === A) {
     if (t === '/stat') return tg('sendMessage', { chat_id: c, text: await stat() });
-    if (t === '/start' || t === '/help') return tg('sendMessage', { chat_id: c, text: 'Сиз — админсиз.\n\n• Кимдир ботга ёзса, хабари шу ерга 💬 белгиси билан келади.\n• Жавоб бериш учун ўша хабарга Reply қилинг (матн, овоз, расм — ҳаммаси бўлади).\n• /stat — статистика.\n\nСинаб кўриш учун бошқа аккаунтдан ёзинг.' });
+    if (t.startsWith('/hisobot')) { const r = await esh('rep', { id: t.split(' ')[1] || '' }); return tg('sendMessage', { chat_id: c, text: r.text || ('Ҳисобот олинмади: ' + (r.err || '')) }); }
+    if (!m.reply_to_message && (m.audio || m.voice || m.document || m.video)) return postAudio(m);
+    if (t === '/start' || t === '/help') return tg('sendMessage', { chat_id: c, text: 'Сиз — админсиз.\n\n• Кимдир ботга ёзса, хабари шу ерга 💬 белгиси билан келади.\n• Жавоб бериш учун ўша хабарга Reply қилинг (матн, овоз, расм — ҳаммаси бўлади).\n• /stat — статистика.\n• Аудио юборсангиз (изоҳига номини ёзинг) — гуруҳга «✅ Эшитдим» тугмаси билан жойланади.\n• /hisobot — охирги аудиони ким эшитди, ким эшитмади.\n\nСинаб кўриш учун бошқа аккаунтдан ёзинг.' });
     const r = m.reply_to_message;
     const id = r && ((r.text || r.caption || '').match(/ID (\d+)/) || [])[1];
     if (!id) return tg('sendMessage', { chat_id: c, text: 'Жавоб бериш учун 💬 белгили хабарга Reply қилинг.' });
@@ -69,12 +127,15 @@ module.exports = async (req, res) => {
   if (req.method === 'GET') {
     if (req.query.setup) {
       const url = 'https://' + req.headers.host + '/api/tg';
-      const r = await tg('setWebhook', { url, secret_token: SECRET, drop_pending_updates: true, allowed_updates: ['message'] });
+      const r = await tg('setWebhook', { url, secret_token: SECRET, drop_pending_updates: true, allowed_updates: ['message', 'callback_query'] });
       return res.status(200).json({ ...r, admin: A ? 'bor' : 'ADMIN_ID qo\'yilmagan' });
     }
     return res.status(200).send('ok');
   }
   if (req.headers['x-telegram-bot-api-secret-token'] !== SECRET) return res.status(401).send('no');
-  try { if (req.body && req.body.message) await handle(req.body.message); } catch (e) { console.error(e); }
+  try {
+    if (req.body && req.body.message) await handle(req.body.message);
+    else if (req.body && req.body.callback_query) await callback(req.body.callback_query);
+  } catch (e) { console.error(e); }
   res.status(200).send('ok');
 };

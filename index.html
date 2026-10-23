@@ -223,7 +223,7 @@ function render(cloud){
       var L=BL[bk],pc=Math.round(BW[bk]/BC[bk]);
       h+='<a class="it bk an" style="animation-delay:'+(.36+i*.08).toFixed(2)+'s" href="#k'+bk+'"><div class="icw"><div class="ic bki"><svg width="50" height="50" viewBox="0 0 64 64" aria-hidden="true"><rect x="12" y="6" width="40" height="52" rx="5" fill="#0F6B47"/><rect x="12" y="6" width="7" height="52" rx="3" fill="#0A5236"/><rect x="25" y="16" width="20" height="26" rx="4" fill="none" stroke="#E2BD68" stroke-width="2.5"/><text x="35" y="35" text-anchor="middle" font-size="15" font-weight="800" fill="#E2BD68" font-family="sans-serif">'+bk+'</text></svg></div><b>'+(U0?U0[2].toLowerCase():'')+'</b></div>'+
         '<div class="mid"><div class="ar">'+(U0?U0[5]:'')+'</div><div class="t">'+BU[bk].length+' боб · '+BC[bk]+' дарс</div>'+
-        (L?'<div class="pg"><span class="lsb">▶ Давом этиш</span>'+L.n+'-дарс</div>':'')+(pc?'<div class="bar"><i style="width:'+pc+'%"></i></div>':'')+'</div></a>';
+        (pc?'<div class="bar"><i style="width:'+pc+'%"></i></div>':'')+'</div></a>';
     });
   }
   var avg=LESSONS.length?Math.round(sum/LESSONS.length):0;

@@ -349,10 +349,9 @@ function sheet(v,cat){
   var nam=CUR&&CUR.models.indexOf(v)>=0;
   b.innerHTML='<div class="grab"></div><div class="bh"><div class="tt"><div class="hv ar">'+P(v.T.mm[0],v.r)+' – '+P(v.T.rm[0],v.r)+(v.ms?' – '+v.ms:'')+'</div>'+
     '<div class="hm">'+esc(v.mn||'')+'</div><div class="hb"><span>'+v.tn+'</span>'+(nam?'<span class="o">намуна</span>':'')+(v.l?'<span>лозим</span>':'')+'</div></div><button class="x" onclick="closeSh()">✕</button></div>'+
-    '<div class="acts"><button id="bP">▶ Ўқиб бериш</button><button id="bC">⇄ Солиштириш</button></div>'+
+    '<div class="acts"><button id="bP">▶ Ўқиб бериш</button></div>'+
     '<div class="cats" id="scs"></div><div class="bd" id="sbd"></div>';
   $('#bP').onclick=function(){if(PLAY){PLAY=false;stopSay();this.textContent='▶ Ўқиб бериш';mark(-1)}else playAll()};
-  $('#bC').onclick=pickCmp;
   if(v.au)au(v);
   draw();$('#sh').classList.add('on');
 }

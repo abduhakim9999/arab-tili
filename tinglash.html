@@ -55,7 +55,7 @@ body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(
 </head>
 <body>
 <div class="lw">
-  <div class="lh"><a href="./" aria-label="Орқага">‹</a><b>🎧 Тинглаш</b><button class="gear" id="bg" aria-label="Созламалар"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></button></div>
+  <div class="lh"><a href="./" id="bk" aria-label="Орқага">‹</a><b>🎧 Тинглаш</b><button class="gear" id="bg" aria-label="Созламалар"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></button></div>
   <div class="ls" id="ls"></div>
   <div class="stage" id="st"><div class="st-t" id="stt"></div><div class="sp" id="sp"></div><div class="st-ar" id="sa"></div><div class="st-uz" id="su"></div></div>
   <div class="pg"><span id="tc">0:00</span><input type="range" id="rg" min="0" max="1000" value="0"><span id="td">0:00</span></div>
@@ -133,7 +133,7 @@ $('oRep').onclick=function(e){var b=e.target.closest('button');if(!b)return;O.re
 $('oSp').onclick=function(e){var b=e.target.closest('button');if(!b)return;O.sp=+b.dataset.v;A.playbackRate=O.sp;save();ui()};
 function sheet(on){$('opts').classList.toggle('on',on);$('shb').classList.toggle('on',on)}
 $('bg').onclick=function(){sheet(true)};$('oc').onclick=$('shb').onclick=function(){sheet(false)};
-ui();load(li,false);
+ui();load(li,false);if(q)$('bk').href=q+'.html';if(LIST.length<2)$('ls').style.display='none';
 if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(function(){});
 </script>
 </body>

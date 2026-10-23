@@ -242,7 +242,7 @@ function stopSay(){clearTimeout(AUt);cancelAnimationFrame(RAF);if(AU)AU.pause();
 function home(){
   var h='<div class="top"><a class="bk" href="./">‹</a><div class="tt"><h1>Сарф</h1><p>Феъл боблари · тусланиш · машқ</p></div></div>';
   var nv=0;LS.forEach(function(L){nv+=L.verbs.length+L.models.length});
-  var last=LS[0],p0=ST[last.id]||{};
+  var last=LS.filter(function(x){return x.id==ST.last})[0]||LS[0],p0=ST[last.id]||{};
   h+='<div class="hero2"><div class="ha ar">عِلْمُ الصَّرْفِ</div><p>Феъл қандай ясалиши ва тусланишини китоблардаги тартибда ўрганамиз.</p>'+
     '<div class="hs"><div><b>'+LS.length+'</b><span>очиқ боб</span></div><div><b>22</b><span>боб жами</span></div><div><b>'+nv+'</b><span>феъл</span></div><div><b>'+(p0.best!=null?p0.best+'%':'—')+'</b><span>машқ</span></div></div>'+
     '<a class="hgo" href="#'+last.id+'">▶ '+(p0.tab?'Давом этиш':'Бошлаш')+': '+last.n+' '+A(last.ar)+'</a></div>';
@@ -277,7 +277,7 @@ function search(q,el){
 var CUR=null,TAB='q';
 function lesson(id,sub){
   var L=LS.filter(function(x){return x.id==id})[0];if(!L)return home();
-  CUR=L;var p=ST[id]||{};TAB=sub=='m'?'m':(sub=='t'||sub=='f'?'f':(p.tab||'q'));if(TAB=='j'||TAB=='t')TAB='f';
+  CUR=L;ST.last=id;save();var p=ST[id]||{};TAB=sub=='m'?'m':(sub=='t'||sub=='f'?'f':(p.tab||'q'));if(TAB=='j'||TAB=='t')TAB='f';
   var h='<div class="top"><a class="bk" href="#">‹</a><div class="tt"><h1>'+L.n+': '+A(L.ar)+'</h1><p>'+L.uz+'</p></div></div>'+
     '<div class="tbs" id="tbs">'+[['q','Қоида'],['f','Феъллар'],['m','Машқ']].map(function(t){return '<button data-t="'+t[0]+'">'+t[1]+'</button>'}).join('')+'</div><div id="tc"></div>';
   $('#app').innerHTML=h;
@@ -456,9 +456,9 @@ function mkQ(){
       else if(ty=='tur'){var ts=[];CUR.models.forEach(function(m){if(m.tn!=v.tn)ts.push(m.tn)});
         q={t:'Бу феъл қайси турдан?',a:P(v.T.mm[0],v.r)+' – '+P(v.T.rm[0],v.r),s:v.mn,o:shuffle(shuffle(ts).slice(0,3).concat([v.tn])).map(function(x){return {h:x,ok:x==v.tn}}),x:A(P(v.T.mm[0],v.r))+' — '+v.tn}}
       else if(ty=='mu'){if(!v.alt)continue;var c=P(v.T.rm[0],v.r);
-        q={t:'Музореъи қайси? (1-боб)',a:P(v.T.mm[0],v.r),s:v.mn,o:shuffle([v.T.rm[0]].concat(v.alt)).map(function(x){return {h:A(P(x,v.r)),ok:x==v.T.rm[0]}}),x:'1-бобда музореънинг «айн»и касрали: '+A(c)}}
+        q={t:'Музореъи қайси? ('+CUR.n+')',a:P(v.T.mm[0],v.r),s:v.mn,o:shuffle([v.T.rm[0]].concat(v.alt)).map(function(x){return {h:A(P(x,v.r)),ok:x==v.T.rm[0]}}),x:CUR.qmu+': '+A(c)}}
       else if(ty=='amr'){if(!v.alta)continue;var c=v.T.amr[0];
-        q={t:'Амри ҳозир (мухотаб) қайси?',a:P(v.T.mm[0],v.r)+' – '+P(v.T.rm[0],v.r),s:v.mn,o:shuffle([c].concat(v.alta)).map(function(x){return {h:A(P(x,v.r)),ok:x==c}}),x:'Музореъда «айн» касрали бўлгани учун амрнинг ҳамзаси ҳам касрали: '+A(P(c,v.r))}}
+        q={t:'Амри ҳозир (мухотаб) қайси?',a:P(v.T.mm[0],v.r)+' – '+P(v.T.rm[0],v.r),s:v.mn,o:shuffle([c].concat(v.alta)).map(function(x){return {h:A(P(x,v.r)),ok:x==c}}),x:CUR.qamr+': '+A(P(c,v.r))}}
       if(q){out.push(q);break}
     }
   });

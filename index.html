@@ -45,7 +45,7 @@ body{margin:0;color:var(--tx);font-family:system-ui,-apple-system,sans-serif;pad
 .cd{position:relative;overflow:hidden;border-radius:20px;padding:14px 14px 12px;min-height:150px;display:flex;flex-direction:column;gap:4px;text-decoration:none;color:inherit;background:var(--cd);border:1px solid var(--bd);box-shadow:var(--sh)}
 .cd .cib{width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:4px}
 .cd .cib svg{width:24px;height:24px}
-.cd .aw{position:absolute;bottom:22px;right:14px;font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:22px;opacity:.16;direction:rtl}
+.cd .aw{position:absolute;top:18px;right:16px;font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:24px;opacity:.28;color:var(--ac);direction:rtl}
 .cd.a{grid-column:1/-1;min-height:0;flex-direction:row;align-items:center;gap:14px;padding:16px;background:linear-gradient(135deg,var(--em1,#13865a),var(--em2,#0c5e3f));border-color:transparent;color:#fff}
 .cd.a .cib{background:rgba(255,255,255,.16);margin:0;width:52px;height:52px;flex-shrink:0}
 .cd.a .cib svg{width:28px;height:28px}
@@ -228,7 +228,7 @@ function render(cloud){
   }
   var avg=LESSONS.length?Math.round(sum/LESSONS.length):0;
   var t='<div class="cards">'+
-    '<a class="cd a an" style="animation-delay:.08s" href="#ms"><span class="cib">'+IC1+'</span><div class="tx"><div class="n">Матнлар</div><div class="s">'+LESSONS.length+' дарс · аудио, таржима, эъроб</div><div class="bar"><i style="width:'+avg+'%"></i></div></div><span class="aw">النُّصُوصُ</span></a>'+
+    '<a class="cd a an" style="animation-delay:.08s" href="#ms"><span class="cib">'+IC1+'</span><div class="tx"><div class="n">Матнлар</div><div class="s">'+LESSONS.length+' дарс · аудио, таржима, эъроб</div><div class="bar"><i style="width:'+avg+'%"></i></div></div></a>'+
     srCard()+flCard()+
     '</div>';
   document.getElementById("top").innerHTML=t;

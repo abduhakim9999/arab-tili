@@ -178,6 +178,13 @@ function flCard(){
   var n=Object.keys(b).length,txt=n?(n>=FNS?"✓ "+FNS+" / "+FNS+" қисм":"Қисмлар: "+n+" / "+FNS):"200 феъл · "+FNS+" қисм";
   return '<a class="cd an" style="animation-delay:.16s" href="feellar.html">'+IC2+'<div class="n">Феъллар</div><div class="s">'+txt+'</div><div class="sp"></div><div class="bar"><i style="width:'+Math.round(Math.min(n,FNS)*100/FNS)+'%;background:#c2410c"></i></div></a>';
 }
+/* Сарф bo'limi */
+var IC3='<svg viewBox="0 0 24 24" fill="none" stroke="#0f7a4f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h6a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4z"/><path d="M20 5h-6a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2h6z"/></svg>';
+function srCard(){
+  var b=null;try{b=(JSON.parse(localStorage.getItem("sarf-holat")||"{}")||{}).b1}catch(e){}
+  var txt=b&&b.best!=null?"1-боб · машқ "+b.best+"%":"Феъл боблари · тусланиш";
+  return '<a class="cd an" style="animation-delay:.2s" href="sarf.html">'+IC3+'<div class="n">Сарф</div><div class="s">'+txt+'</div><div class="sp"></div><div class="bar"><i style="width:'+(b&&b.best!=null?b.best:0)+'%"></i></div></a>';
+}
 var LC=null;
 function render(cloud){
   if(cloud)LC=cloud;else cloud=LC;
@@ -214,7 +221,7 @@ function render(cloud){
   var avg=LESSONS.length?Math.round(sum/LESSONS.length):0;
   var t='<div class="cards">'+
     '<a class="cd a an" style="animation-delay:.08s" href="#ms">'+IC1+'<div class="n">Матнлар</div><div class="s">'+LESSONS.length+' дарс · аудио, эъроб</div><div class="sp"></div><div class="bar"><i style="width:'+avg+'%"></i></div></a>'+
-    flCard()+
+    flCard()+srCard()+
     '</div>';
   document.getElementById("top").innerHTML=t;
   document.getElementById("ls").innerHTML=h;

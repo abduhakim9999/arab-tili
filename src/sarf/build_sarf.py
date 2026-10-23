@@ -6,7 +6,7 @@ from morph import conj, SIGA
 import data_b1 as D
 
 LAZIM = set('جَلَسَ رَجَعَ نَزَلَ كَذَبَ صَبَرَ عَدَلَ عَجَزَ فَرَّ ضَلَّ تَمَّ صَحَّ قَلَّ خَفَّ وَثَبَ وَقَفَ وَجَبَ سَارَ عَاشَ طَارَ مَالَ غَابَ سَالَ مَشَى جَرَى بَكَى'.split())
-KEYS = ['mm', 'mj', 'rm', 'rj', 'foil', 'maful', 'jahd', 'nafy', 'amr', 'ag', 'nahy', 'agj', 'nahyj']
+KEYS = ['mm', 'mj', 'rm', 'rj', 'foil', 'maful', 'jahd', 'nafy', 'amr', 'ag', 'nahy', 'agj', 'nahyj', 'jahdj', 'nafyj']
 
 PH = ('1', '2', '3')     # o'zak harflari o'rnida belgi (sahifada rang bilan ko'rsatiladi)
 def tables(r, t):

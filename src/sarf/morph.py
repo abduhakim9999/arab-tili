@@ -121,6 +121,8 @@ def conj(r, typ, mv=A, uv=I):
         raise ValueError(typ)
     T = common(T, J, JJ)
     T['agj'] = ['لِ' + JJ[k] for k in range(14)]
+    T['jahdj'] = ['لَمْ ' + x for x in JJ]
+    T['nafyj'] = ['لَا ' + x for x in T['rj']]
     T['nahyj'] = ['لَا ' + x for x in JJ]
     return T
 

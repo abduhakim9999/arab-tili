@@ -157,7 +157,7 @@ function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(M
 function pick(a){return a[Math.floor(Math.random()*a.length)]}
 /* o'zak harflari: shakllarda 1,2,3 raqamlari bilan belgilangan */
 function P(f,r){return f.replace(/[123]/g,function(d){return r[d-1]})}
-function C(f,r){return f.replace(/([123])([ً-ْ]*)/g,function(m,d,h){return '<i class="r">'+r[d-1]+h+'</i>'})}
+function C(f,r){return P(f,r)}
 function bare(s){return String(s).replace(/[ً-ْٰـ]/g,'').replace(/[أإآٱ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').trim()}
 function allV(){var a=[];LS.forEach(function(L){L.models.forEach(function(m,i){a.push({L:L,v:m,id:L.id+'/m'+i})});L.verbs.forEach(function(v,i){a.push({L:L,v:v,id:L.id+'/v'+i})})});return a}
 
@@ -166,11 +166,12 @@ var AU=null,AUt=0,TTS=null;
 try{if(window.speechSynthesis&&typeof SpeechSynthesisUtterance!='undefined')TTS=speechSynthesis}catch(e){}
 function arVoice(){if(!TTS)return null;var vs=TTS.getVoices()||[];for(var i=0;i<vs.length;i++)if(/^ar/i.test(vs[i].lang))return vs[i];return null}
 if(TTS)try{TTS.getVoices();TTS.onvoiceschanged=function(){}}catch(e){}
-function audioOf(v,cat,i){var a=v.au&&v.au[cat];return a&&a[i]?a[i]:null}
-function canSay(v,cat){return !!(v.au&&v.au[cat])||!!arVoice()}
+function audioOf(v,cat,i){var a=v.au&&v.au.s[cat];return a&&a[i]?a[i]:null}
+function canSay(v,cat){var a=v.au&&v.au.s[cat];return (a&&a.length==v.T[cat].length&&a.every(Boolean))||!!arVoice()}
+var AUF='';
 function say(v,cat,i,done){
   stopSay();var seg=audioOf(v,cat,i),f=P(v.T[cat][i],v.r||'');
-  if(seg&&DATA.audio){if(!AU){AU=new Audio(DATA.audio)}
+  if(seg){if(!AU||AUF!=v.au.f){if(AU)AU.pause();AU=new Audio(v.au.f);AUF=v.au.f}
     AU.currentTime=seg[0];var p=AU.play();if(p&&p.catch)p.catch(function(){});
     clearTimeout(AUt);AUt=setTimeout(function(){AU.pause();done&&done()},Math.max(250,(seg[1]-seg[0])*1000+120));return}
   var vo=arVoice();if(!vo){done&&setTimeout(done,600);return}
@@ -243,7 +244,7 @@ function g12(m,i){
   return '<div class="g12">'+v.map(function(x,k){return '<div onclick="sheet(CUR.models['+i+'],\''+K12[k]+'\')"><small>'+(k+1)+'. '+L12[k]+'</small>'+A(C(x,m.r))+'</div>'}).join('')+'</div>';
 }
 function turlar(el){
-  var h='<p class="note">Ҳар бир тур учун китобдаги намуна феъл ва ундан ясаладиган 12 нарса. Шаклни босинг — тўлиқ тусланиши очилади. <i class="r">Рангли</i> ҳарфлар — ўзак ҳарфлари.</p>';
+  var h='<p class="note">Ҳар бир тур учун китобдаги намуна феъл ва ундан ясаладиган 12 нарса. Шаклни босинг — тўлиқ тусланиши очилади.</p>';
   CUR.models.forEach(function(m,i){
     h+='<div class="card mdl"><div class="hd"><span class="badge">'+m.tn+'</span></div><div class="big ar">'+C(m.T.mm[0],m.r)+' – '+C(m.T.rm[0],m.r)+' – '+m.ms+'</div><div class="mn">'+m.mn+'</div>'+g12(m,i)+
       '<div class="izoh">'+m.izoh.map(function(p){return '<p>'+arw(p)+'</p>'}).join('')+'</div></div>';

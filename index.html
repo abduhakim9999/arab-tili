@@ -176,7 +176,7 @@ function prog(raw,q){
 var IC1='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 6h14M5 10h14M5 14h10M5 18h7"/></svg>';
 var IC2='<svg viewBox="0 0 24 24" fill="none" stroke="#c2410c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8.5 12.2l2.4 2.4 4.6-5"/></svg>';
 function item(L,txt,cls,w,d,lst){
-  return '<a class="it an" style="animation-delay:'+d+'s" href="'+L.n+'.html">'+icn(L.n)+'<div class="mid"><div class="ar">'+L.ar+'</div><div class="t">'+L.uz+'</div>'+((txt||lst)?'<div class="pg'+cls+'">'+txt+'</div>':'')+(w?'<div class="bar"><i style="width:'+w+'%"></i></div>':'')+'</div></a>';
+  return '<a class="it an'+(lst?' lst':'')+'" style="animation-delay:'+d+'s" href="'+L.n+'.html">'+icn(L.n)+'<div class="mid"><div class="ar">'+L.ar+'</div><div class="t">'+L.uz+'</div>'+((txt||lst)?'<div class="pg'+cls+'">'+(lst?'<span class="lsb">▶ Давом этиш</span>':'')+txt+'</div>':'')+(w?'<div class="bar"><i style="width:'+w+'%"></i></div>':'')+'</div></a>';
 }
 /* Феъллар (natijalar feellar.html'dan) */
 var FNS=10,FCL=null;
@@ -222,7 +222,7 @@ function render(cloud){
       var U0=null;for(var k in UNITS)if(UNITS[k][4]===bk){U0=UNITS[k];break}
       var L=BL[bk],pc=Math.round(BW[bk]/BC[bk]);
       h+='<a class="it bk an" style="animation-delay:'+(.36+i*.08).toFixed(2)+'s" href="#k'+bk+'"><div class="icw"><div class="ic bki"><svg width="50" height="50" viewBox="0 0 64 64" aria-hidden="true"><rect x="12" y="6" width="40" height="52" rx="5" fill="#0F6B47"/><rect x="12" y="6" width="7" height="52" rx="3" fill="#0A5236"/><rect x="25" y="16" width="20" height="26" rx="4" fill="none" stroke="#E2BD68" stroke-width="2.5"/><text x="35" y="35" text-anchor="middle" font-size="15" font-weight="800" fill="#E2BD68" font-family="sans-serif">'+bk+'</text></svg></div><b>'+(U0?U0[2].toLowerCase():'')+'</b></div>'+
-        '<div class="mid"><div class="ar">'+(U0?U0[5]:'')+'</div><div class="t">'+BU[bk].length+' боб · '+BC[bk]+' дарс</div>'+
+        '<div class="mid"><div class="ar">'+(U0?U0[5]:'')+'</div>'+
         (pc?'<div class="bar"><i style="width:'+pc+'%"></i></div>':'')+'</div></a>';
     });
   }

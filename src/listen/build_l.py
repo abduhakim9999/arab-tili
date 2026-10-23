@@ -1,5 +1,5 @@
 import sys, os, json, subprocess
-N = sys.argv[1]; D = '../d' + N; O = '/home/claude/arab-tili/align/out'
+N = sys.argv[1]; PFX = sys.argv[2] if len(sys.argv) > 2 else 'u'; D = '../d' + N; O = '/home/claude/arab-tili/align/out'
 exec(open('../d71/data71.py', encoding='utf-8').read())
 exec(open(D + '/h%s.py' % N, encoding='utf-8').read())
 exec(open(D + '/data%s.py' % N, encoding='utf-8').read())
@@ -30,7 +30,7 @@ for k, li in enumerate(lis):
     a0 = max(0, a - 0.12); b0 = min(b + 0.25, nxt - 0.02) if nxt > b else b + 0.15
     wav('../d%s/dlg%s.mp3' % (N, N), T + '/a%02d.wav' % li, a0, b0); add(T + '/a%02d.wav' % li, 'ar', li)
     add(T + '/s1.wav')
-    wav(O + '/u%s-%02d.mp3' % (N, li), T + '/u%02d.wav' % li); add(T + '/u%02d.wav' % li, 'uz', li)
+    wav(O + '/%s%s-%02d.mp3' % (PFX, N, li), T + '/u%02d.wav' % li); add(T + '/u%02d.wav' % li, 'uz', li)
     add(T + '/s2.wav')
 open(T + '/list.txt', 'w').write(''.join("file '%s'\n" % os.path.abspath(p) for p in parts))
 out = 'l%s.mp3' % N

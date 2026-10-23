@@ -45,10 +45,16 @@ PLAN = [  # keyingi darslar (hali yopiq)
  ['Рубоъий мужаррад ва мазийд', [['4 боб', 'فَعْلَلَ، تَفَعْلَلَ …', '']]],
 ]
 AUD = json.load(open(os.path.join(HERE, 'audio.json'))) if os.path.exists(os.path.join(HERE, 'audio.json')) else {}
-for x in models + verbs:
-    a = AUD.get(x['r'] + ':' + x['t'])
-    if a: x['au'] = a
-DATA = dict(siga=[list(s) for s in SIGA], lessons=LESSONS, plan=PLAN, audio=AUD.get('_file'))
+import shutil
+_od = os.path.dirname(sys.argv[1]) if len(sys.argv) > 1 else '/home/claude/arab-tili'
+for kind, arr in (('m', models), ('v', verbs)):
+    for i, x in enumerate(arr):
+        a = AUD.get(kind + str(i))
+        if a:
+            x['au'] = a
+            src = '/home/claude/arab-tili/align/out/' + a['f'][5:]
+            if os.path.exists(src) and not os.path.exists(os.path.join(_od, a['f'])): shutil.copy(src, os.path.join(_od, a['f']))
+DATA = dict(siga=[list(s) for s in SIGA], lessons=LESSONS, plan=PLAN)
 # darslardan bog'lash uchun indeks: harakatsiz shakl -> sahifa manzili
 import re
 def bare(s): return re.sub('[\u064B-\u0652\u0670\u0640]', '', s).replace('أ','ا').replace('إ','ا').replace('آ','ا').replace('ى','ي').replace('ة','ه')

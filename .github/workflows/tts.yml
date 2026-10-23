@@ -1,0 +1,27 @@
+name: tts
+on:
+  push:
+    paths: ['align/tts/**']
+permissions:
+  contents: write
+concurrency: tts
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install -q edge-tts
+      - run: |
+          for f in align/tts/*.txt; do
+            n=$(basename "$f" .txt); v=$(head -1 "$f"); o="align/out/$n.mp3"
+            [ -f "$o" ] && continue
+            tail -n +2 "$f" > /tmp/t.txt
+            edge-tts --voice "$v" --rate=-15% -f /tmp/t.txt --write-media "$o" --write-subtitles "align/out/$n.vtt" || echo "xato: $n"
+          done
+      - run: |
+          git config user.name "tts-bot"; git config user.email "tts-bot@users.noreply.github.com"
+          git add align/out; git commit -m "tts natija" || exit 0
+          git pull --rebase && git push

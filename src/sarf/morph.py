@@ -43,6 +43,7 @@ def isms(foil, maful):
 def conj(r, typ, mv=A, uv=I):
     """r — o'zak harflari (3 ta). typ — tur."""
     f, a, l = r
+    if typ == 'misol_mz': typ = 'mudoaf'
     if typ in ('salim',):
         T, J, JJ = salim(f, a, l, mv, uv)
         T.update(isms(f + A + 'ا' + a + I + l, 'مَ' + f + O + a + U + 'و' + l))
@@ -71,7 +72,7 @@ def conj(r, typ, mv=A, uv=I):
             return p + f + fv + a + SH + (A if v == O else v) + s     # لَمْ يَفِرَّ
         J = [jz(PRE[k], uv, uv, k, v, s) for k, (v, s) in enumerate(EJ)]
         JJ = [jz(pre_maj(PRE[k]), A, A, k, v, s) for k, (v, s) in enumerate(EJ)]
-        T['amr'] = [(f + uv + a + SH + (A if EJ[k][0] == O else EJ[k][0]) + EJ[k][1]) if k != 11 else 'اِ' + f + O + a + uv + a + O + 'نَ' for k in MUX]
+        T['amr'] = [(f + uv + a + SH + (A if EJ[k][0] == O else EJ[k][0]) + EJ[k][1]) if k != 11 else ('اُ' if uv == U else 'اِ') + f + O + a + uv + a + O + 'نَ' for k in MUX]
         T.update({'foil': [f + A + 'ا' + a + SH + e for e in EI], 'maful': ['مَ' + f + O + a + U + 'و' + a + e for e in EI]})
     elif typ == 'ajvaf_y':          # بَاعَ – يَبِيعُ
         T = {}
@@ -117,6 +118,42 @@ def conj(r, typ, mv=A, uv=I):
         foil = [f + A + 'ا' + a + IN, f + A + 'ا' + a + I + 'يَانِ', f + A + 'ا' + a + U + 'ونَ', f + A + 'ا' + a + I + 'يَةٌ', f + A + 'ا' + a + I + 'يَتَانِ', f + A + 'ا' + a + I + 'يَاتٌ']
         m = 'مَ' + f + O + a + I + 'يّ'
         T.update({'foil': foil, 'maful': [m + UN, m + A + 'انِ', m + U + 'ونَ', m + A + 'ةٌ', m + A + 'تَانِ', m + A + 'اتٌ']})
+    elif typ == 'ajvaf_w':          # قَالَ – يَقُولُ (дَامَ – يَدُومُ)
+        T = {}
+        T['mm'] = [f + A + 'ا' + l + v + s if k < 5 else f + U + l + O + s for k, (v, s) in enumerate(EM)]
+        T['mj'] = [f + I + 'ي' + l + v + s if k < 5 else f + I + l + O + s for k, (v, s) in enumerate(EM)]
+        T['rm'] = [PRE[k] + f + U + 'و' + l + v + s if k not in (5, 11) else PRE[k] + f + U + l + O + s for k, (v, s) in enumerate(ER)]
+        T['rj'] = [pre_maj(PRE[k]) + f + A + 'ا' + l + v + s if k not in (5, 11) else pre_maj(PRE[k]) + f + A + l + O + s for k, (v, s) in enumerate(ER)]
+        J = [PRE[k] + f + U + ('و' if v != O else '') + l + v + s for k, (v, s) in enumerate(EJ)]
+        JJ = [pre_maj(PRE[k]) + f + A + ('ا' if v != O else '') + l + v + s for k, (v, s) in enumerate(EJ)]
+        T['amr'] = [f + U + ('و' if EJ[k][0] != O else '') + l + EJ[k][0] + EJ[k][1] for k in MUX]
+        T.update({'foil': [f + A + 'ائِ' + l + e for e in EI], 'maful': ['مَ' + f + U + 'و' + l + e for e in EI]})
+    elif typ == 'noqis_w':          # دَعَا – يَدْعُو
+        T = {}
+        T['mm'] = [f + A + a + A + 'ا', f + A + a + A + 'وَا', f + A + a + A + 'وْا', f + A + a + A + 'تْ', f + A + a + A + 'تَا'] + \
+                  [f + A + a + A + 'وْ' + s for v, s in EM[5:]]
+        T['mj'] = [f + U + a + I + 'يَ', f + U + a + I + 'يَا', f + U + a + U + 'وا', f + U + a + I + 'يَتْ', f + U + a + I + 'يَتَا'] + \
+                  [f + U + a + I + 'ي' + s for v, s in EM[5:]]
+        rm_end = [U + 'و', U + 'وَانِ', U + 'ونَ', U + 'و', U + 'وَانِ', U + 'ونَ', U + 'و', U + 'وَانِ', U + 'ونَ', I + 'ينَ', U + 'وَانِ', U + 'ونَ', U + 'و', U + 'و']
+        rj_end = [A + 'ى', A + 'يَانِ', A + 'وْنَ', A + 'ى', A + 'يَانِ', A + 'يْنَ', A + 'ى', A + 'يَانِ', A + 'وْنَ', A + 'يْنَ', A + 'يَانِ', A + 'يْنَ', A + 'ى', A + 'ى']
+        j_end = [U, U + 'وَا', U + 'وا', U, U + 'وَا', U + 'ونَ', U, U + 'وَا', U + 'وا', I + 'ي', U + 'وَا', U + 'ونَ', U, U]
+        jj_end = [A, A + 'يَا', A + 'وْا', A, A + 'يَا', A + 'يْنَ', A, A + 'يَا', A + 'وْا', A + 'يْ', A + 'يَا', A + 'يْنَ', A, A]
+        T['rm'] = [PRE[k] + f + O + a + e for k, e in enumerate(rm_end)]
+        T['rj'] = [pre_maj(PRE[k]) + f + O + a + e for k, e in enumerate(rj_end)]
+        J = [PRE[k] + f + O + a + e for k, e in enumerate(j_end)]
+        JJ = [pre_maj(PRE[k]) + f + O + a + e for k, e in enumerate(jj_end)]
+        T['amr'] = ['اُ' + f + O + a + j_end[k] for k in MUX]
+        foil = [f + A + 'ا' + a + IN, f + A + 'ا' + a + I + 'يَانِ', f + A + 'ا' + a + U + 'ونَ', f + A + 'ا' + a + I + 'يَةٌ', f + A + 'ا' + a + I + 'يَتَانِ', f + A + 'ا' + a + I + 'يَاتٌ']
+        m = 'مَ' + f + O + a + U + 'وّ'
+        T.update({'foil': foil, 'maful': [m + UN, m + A + 'انِ', m + U + 'ونَ', m + A + 'ةٌ', m + A + 'تَانِ', m + A + 'اتٌ']})
+    elif typ == 'mahmuz_f':         # أَخَذَ – يَأْخُذُ : амри ҳозир хُذْ
+        f = 'أ'
+        T, J, JJ = salim(f, a, l, mv, uv)
+        fx = lambda x: x.replace('أَأْ', 'آ').replace('أُأْ', 'أُو').replace('ُأْ', 'ُؤْ')
+        T['rm'] = [fx(x) for x in T['rm']]; T['rj'] = [fx(x) for x in T['rj']]
+        J = [fx(x) for x in J]; JJ = [fx(x) for x in JJ]
+        T['amr'] = [a + uv + l + EJ[k][0] + EJ[k][1] for k in MUX]      # خُذْ، كُلْ، مُرْ
+        T.update(isms('آ' + a + I + l, 'مَأْ' + a + U + 'و' + l))
     else:
         raise ValueError(typ)
     T = common(T, J, JJ)

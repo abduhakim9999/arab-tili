@@ -15,8 +15,8 @@ def tables(r, t):
 models = []
 for m in D.MODELS:
     T = tables(m['r'], m['t'])
-    models.append(dict(t=m['t'], tn=D.TYPES[m['t']], v=T['mm'][0], mu=T['rm'][0], ms=m['ms'], mn=m['mn'],
-                       zm=m['zm'], ol=m['ol'], tf=m['tf'], izoh=m['izoh'], T=T))
+    T.update(zm=m['zm'], ol=m['ol'], tf=m['tf'])
+    models.append(dict(t=m['t'], tn=D.TYPES[m['t']], v=T['mm'][0], mu=T['rm'][0], ms=m['ms'], mn=m['mn'], izoh=m['izoh'], T=T))
 verbs = []
 for v, r, t, ms, mn in D.VERBS:
     T = tables(r, t)

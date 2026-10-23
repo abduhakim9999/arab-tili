@@ -22,30 +22,36 @@
     '.hdr .hr{border-top:1px dashed var(--bd);padding:6px 0 2px;cursor:pointer;border-radius:8px}' +
     '.hdr .hr b{display:block;direction:rtl;font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-weight:700;font-size:var(--fs,22px);color:var(--ac);line-height:1.7}' +
     '.hdr .hr small{display:block;font-size:13px;color:var(--mu)}' +
-    '.hdr .pl{background:rgba(234,88,12,.25)}' +
+    '.hdr .pl{background:var(--plw,rgba(234,88,12,.25))}.hdr .hr.pl{box-shadow:inset 0 0 0 1.5px var(--hl,#c99434)}' +
+    '.hdr.hidetr .hts:not(.rev){filter:blur(5px);cursor:pointer;-webkit-user-select:none;user-select:none}' +
     '.jmb{margin-top:8px;padding:8px 10px;border-radius:10px;background:rgba(29,120,80,.08);border-left:3px solid var(--ac);font-size:15px;line-height:1.6}.jmb b{display:block;font-size:11px;letter-spacing:.08em;color:var(--ac);margin-bottom:2px}.jmb .ar{font-size:19px}';
   document.head.appendChild(st);
 
   var d = document.createElement('div');
   d.className = 'hdr';
   d.innerHTML = '<div class="hb hr0">' + BW.map(function (w, i) { return '<span data-w="' + i + '">' + w[0] + '</span>' }).join(' ') + '</div>' +
-    '<div class="htr">Меҳрибон ва раҳмли Аллоҳнинг номи билан (бошлайман)</div>' +
-    '<div class="hr" data-r="1"><b>' + H.ua + '</b><small>' + H.uu + '</small></div>' +
-    '<div class="hr" data-r="2"><b>' + H.la + '</b><small>' + H.lu + '</small></div>';
+    '<div class="htr hts">Меҳрибон ва раҳмли Аллоҳнинг номи билан (бошлайман)</div>' +
+    '<div class="hr" data-r="1"><b>' + H.ua + '</b><small class="hts">' + H.uu + '</small></div>' +
+    '<div class="hr" data-r="2"><b>' + H.la + '</b><small class="hts">' + H.lu + '</small></div>';
   tx.parentNode.insertBefore(d, tx);
+  /* tarjima yashirilganda sarlavha tarjimalari ham yashirinadi, bosilganda ochiladi */
+  function syncTr() { d.classList.toggle('hidetr', tx.classList.contains('hidetr')); if (!tx.classList.contains('hidetr')) [].forEach.call(d.querySelectorAll('.hts.rev'), function (e) { e.classList.remove('rev') }) }
+  syncTr(); if (window.MutationObserver) new MutationObserver(syncTr).observe(tx, { attributes: true, attributeFilter: ['class'] });
+  [].forEach.call(d.querySelectorAll('.hts'), function (e) { e.addEventListener('click', function (ev) { if (d.classList.contains('hidetr') && !e.classList.contains('rev')) { ev.stopPropagation(); e.classList.add('rev') } }, true) });
 
   // sarlavha asosiy audioning boshida turadi (0 … H.e soniya)
-  var A = window.au, raf = 0, fol = 0;
+  var A = window.au, raf = 0, fol = null;
   var spans = d.querySelectorAll('.hb span'), rows = [d.querySelector('.hb'), d.querySelector('[data-r="1"]'), d.querySelector('[data-r="2"]')];
   function clear() { [].forEach.call(d.querySelectorAll('.pl'), function (e) { e.classList.remove('pl') }) }
   function paint() {
     var t = A.currentTime; clear();
     if (!A.paused && t < H.e) {
+      var cur = t < H.s[0] ? rows[0] : (t < H.s[1] ? rows[1] : rows[2]);
       if (t < H.s[0]) { BW.forEach(function (w, i) { if (t >= w[2][0] - 0.05 && t < w[2][1] + 0.1) spans[i].classList.add('pl') }) }
-      else if (t < H.s[1]) rows[1].classList.add('pl'); else rows[2].classList.add('pl');
-      // ekran sarlavhaga ergashadi
-      if (!fol) { fol = 1; try { if (typeof follow === 'function') follow(d) } catch (e) {} }
-    } else fol = 0;
+      else cur.classList.add('pl');
+      // ekran o'qilayotgan qismga ergashadi
+      if (fol !== cur) { fol = cur; try { if (typeof follow === 'function') follow(cur) } catch (e) {} }
+    } else fol = null;
     if (!A.paused) raf = requestAnimationFrame(paint);
   }
   if (A) {

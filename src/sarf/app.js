@@ -49,7 +49,7 @@ function home(){
   var h='<div class="top"><a class="bk" href="./">‹</a><div class="tt"><h1>Сарф</h1><p>Феъл боблари · тусланиш · машқ</p></div></div>';
   var nv=0;LS.forEach(function(L){nv+=L.verbs.length+L.models.length});
   var last=LS.filter(function(x){return x.id==ST.last})[0]||LS[0],p0=ST[last.id]||{};
-  h+='<div class="hero2"><div class="ha ar">عِلْمُ الصَّرْفِ</div><p>Феъл қандай ясалиши ва тусланишини китоблардаги тартибда ўрганамиз.</p>'+
+  h+='<div class="hero2"><div class="ha ar">عِلْمُ الصَّرْفِ</div>'+
     '<div class="hs"><div><b>'+LS.length+'</b><span>очиқ боб</span></div><div><b>22</b><span>боб жами</span></div><div><b>'+nv+'</b><span>феъл</span></div><div><b>'+(p0.best!=null?p0.best+'%':'—')+'</b><span>машқ</span></div></div>'+
     '<a class="hgo" href="#'+last.id+'">▶ '+(p0.tab?'Давом этиш':'Бошлаш')+': '+last.n+' '+A(last.ar)+'</a></div>';
   h+='<div class="srch"><input id="q" type="search" placeholder="Феъл қидириш: باع، يضرب، сотмоқ…" autocomplete="off"></div><div id="qr"></div>';

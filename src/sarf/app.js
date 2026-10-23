@@ -155,10 +155,9 @@ function sheet(v,cat){
   var nam=CUR&&CUR.models.indexOf(v)>=0;
   b.innerHTML='<div class="grab"></div><div class="bh"><div class="tt"><div class="hv ar">'+P(v.T.mm[0],v.r)+' – '+P(v.T.rm[0],v.r)+(v.ms?' – '+v.ms:'')+'</div>'+
     '<div class="hm">'+esc(v.mn||'')+'</div><div class="hb"><span>'+v.tn+'</span>'+(nam?'<span class="o">намуна</span>':'')+(v.l?'<span>лозим</span>':'')+'</div></div><button class="x" onclick="closeSh()">✕</button></div>'+
-    '<div class="acts"><button id="bP">▶ Ўқиб бериш</button><button id="bH">◐ Яшириш</button><button id="bC">⇄ Солиштириш</button></div>'+
+    '<div class="acts"><button id="bP">▶ Ўқиб бериш</button><button id="bC">⇄ Солиштириш</button></div>'+
     '<div class="cats" id="scs"></div><div class="bd" id="sbd"></div>';
   $('#bP').onclick=function(){if(PLAY){PLAY=false;stopSay();this.textContent='▶ Ўқиб бериш';mark(-1)}else playAll()};
-  $('#bH').onclick=function(){HIDE=!HIDE;this.classList.toggle('on',HIDE);draw()};
   $('#bC').onclick=pickCmp;
   if(v.au)au(v);
   draw();$('#sh').classList.add('on');
@@ -182,7 +181,7 @@ function draw(){
   var h=(hasJ?'<div class="seg" id="seg"><button data-m="m" class="'+(SM=='m'?'on':'')+'">Маълум</button><button data-m="j" class="'+(SM=='j'?'on':'')+'">Мажҳул</button></div>':'')+
     '<table class="tb'+(CMP?' cmp':'')+'">'+rows+'</table>';
   if(CMP)h+='<p class="note">Сариқ — икки феълда фарқ қиладиган шакллар. <a href="javascript:void 0" onclick="CMP=null;draw()">Солиштиришни ёпиш</a></p>';
-  else h+='<p class="note">'+(HIDE?'Шаклни ичингизда айтинг, кейин босиб текширинг.':'Қаторни босинг — ўқилиши, тузилиши ва шу олмошнинг бошқа шакллари.')+'</p>';
+  else h+='<p class="note">'+'Қаторни босинг — ўқилиши, тузилиши ва шу олмошнинг бошқа шакллари.'+'</p>';
   if(v.l)h+='<p class="note">Бу феъл лозим (ўтимсиз), шунинг учун мажҳул сийғалари ва исми мафъули кўрсатилмади.</p>';
   $('#sbd').innerHTML=h;
   [].forEach.call(document.querySelectorAll('#seg button'),function(b){b.onclick=function(){SM=b.getAttribute('data-m');stopSay();PLAY=false;$('#bP').textContent='▶ Ўқиб бериш';draw()}});

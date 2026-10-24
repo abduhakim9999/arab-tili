@@ -39,7 +39,10 @@ function setup() {
   sh('Аъзолар', ['user_id', 'исм', 'username', 'қўшилган', 'ҳисобланмасин (1)']);
   sh('Аудиолар', ['id', 'номи', 'chat_id', 'message_id', 'юборилди', 'муддат', 'ҳолат']);
   sh('Белгилар', ['аудио_id', 'user_id', 'исм', 'вақт', 'кечикди']);
+  sh('Навбат', ['№', 'номи', 'file_id', 'тури', 'ҳолат', 'юборилди']);
   cfg('group', cfg('group') || '');
+  if (!cfg('vaqt')) cfg('vaqt', '08:00');
+  if (!cfg('kunlar')) cfg('kunlar', '1,2,3,4,5,6,7');
   ScriptApp.getProjectTriggers().forEach(function (t) { ScriptApp.deleteTrigger(t); });
   ScriptApp.newTrigger('tekshir').timeBased().everyMinutes(15).create();
   Logger.log('Калит: ' + key());
@@ -71,6 +74,18 @@ function doPost(e) {
       jadval(); out = { ok: true, deadline: fmt(dl) };
     }
     else if (q.a === 'mark') out = mark(q);
+    else if (q.a === 'mode') { if (q.v !== undefined) cfg('mode', q.v); out = { ok: true, mode: cfg('mode') }; }
+    else if (q.a === 'queue') {
+      var nq = sh('Навбат'), n = nq.getLastRow();
+      nq.appendRow([n, q.title, q.file_id, q.kind, '', '']);
+      out = { ok: true, n: navbat().length };
+    }
+    else if (q.a === 'set') {
+      if (q.vaqt) { if (!/^\d{1,2}:\d{2}$/.test(q.vaqt)) return J({ ok: false, err: 'вақт нотўғри (масалан 08:00)' }); cfg('vaqt', q.vaqt); }
+      if (q.kunlar) cfg('kunlar', q.kunlar);
+      out = { ok: true, text: holat() };
+    }
+    else if (q.a === 'holat') out = { ok: true, text: holat() };
     else if (q.a === 'rep') out = { ok: true, text: hisobot(q.id) };
     else out = { ok: false, err: 'a' };
   } finally { lock.releaseLock(); }
@@ -108,8 +123,44 @@ function hisobot(id) {
     '\n\n❌ Эшитмаганлар (' + no.length + '):\n' + (no.join('\n') || '—');
 }
 
-// Ҳар 15 дақиқада: муддати тугаган аудиолар бўйича қора рўйхат
+var KUN = ['', 'Душанба', 'Сешанба', 'Чоршанба', 'Пайшанба', 'Жума', 'Шанба', 'Якшанба'];
+function navbat() { return rows('Навбат').filter(function (r) { return r[2] && !r[4]; }); }
+function kunlar() { return String(cfg('kunlar')).split(/[ ,]+/).filter(String).map(Number); }
+function holat() {
+  var q = navbat();
+  return '⚙️ Автомат юбориш\nВақт: ' + cfg('vaqt') + '\nКунлар: ' + kunlar().map(function (k) { return KUN[k]; }).join(', ') +
+    '\n\n📋 Навбатда: ' + q.length + ' та' + (q.length ? '\nКейингиси: ' + q[0][1] : '') +
+    '\n\nЎзгартириш: /vaqt 08:00 · /kunlar 1,2,3,4,5,6 (1 — Душанба, 7 — Якшанба)';
+}
+function bugunKun() { var d = Number(Utilities.formatDate(now(), TZ, 'u')); return d; }
+// Навбатдаги кейинги аудиони гуруҳга юбориш
+function avtomat() {
+  var g = cfg('group'); if (!g) return;
+  var today = Utilities.formatDate(now(), TZ, 'yyyy-MM-dd');
+  if (cfg('oxirgi') === today) return;
+  if (kunlar().indexOf(bugunKun()) < 0) return;
+  if (Utilities.formatDate(now(), TZ, 'HH:mm') < ('0' + cfg('vaqt')).slice(-5)) return;
+  var s = sh('Навбат'), d = s.getDataRange().getValues();
+  for (var i = 1; i < d.length; i++) {
+    if (!d[i][2] || d[i][4]) continue;
+    var id = Date.now().toString(36), title = d[i][1], kind = d[i][3] || 'audio';
+    var M = { audio: 'sendAudio', voice: 'sendVoice', document: 'sendDocument', video: 'sendVideo' }[kind] || 'sendAudio';
+    var p = { chat_id: g, caption: title + '\n\n🎧 Эшитиб бўлгач, «✅ Эшитдим» тугмасини босинг.\n⏰ Муддат — ' + MUDDAT_SOAT + ' соат.',
+      reply_markup: { inline_keyboard: [[{ text: '✅ Эшитдим', callback_data: 'e:' + id }]] } };
+    p[kind === 'document' ? 'document' : kind] = d[i][2];
+    var r = tg(M, p);
+    if (!r.ok) { s.getRange(i + 1, 5).setValue('хато: ' + (r.description || '')); continue; }
+    var dl = new Date(now().getTime() + MUDDAT_SOAT * 3600e3);
+    sh('Аудиолар').appendRow([id, title, String(g), r.result.message_id, fmt(now()), dl.toISOString(), '']);
+    s.getRange(i + 1, 5, 1, 2).setValues([['юборилди', fmt(now())]]);
+    cfg('oxirgi', today); jadval();
+    return;
+  }
+}
+
+// Ҳар 15 дақиқада: автомат юбориш ва муддати тугаган аудиолар бўйича қора рўйхат
 function tekshir() {
+  try { avtomat(); } catch (e) { Logger.log(e); }
   var s = sh('Аудиолар'), d = s.getDataRange().getValues(), g = cfg('group');
   for (var i = 1; i < d.length; i++) {
     if (d[i][6] || now() < new Date(d[i][5])) continue;

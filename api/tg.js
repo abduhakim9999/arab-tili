@@ -67,8 +67,90 @@ async function group(m) {
   await seenUser(m.from);
 }
 
+
+// ===== Бошқарув панели (тугмалар) =====
+const KUNN = ['', 'Душанба', 'Сешанба', 'Чоршанба', 'Пайшанба', 'Жума', 'Шанба', 'Якшанба'];
+const FEEL_KUN = 40, FEEL_N = 5;
+const CMDS = [
+  ['panel', '🎛 Бошқарув панели (тугмалар)'], ['holat', 'Созламалар ва навбат'], ['hisobot', 'Ким эшитди, ким эшитмади'],
+  ['fel', 'Феъл тестини ҳозир юбориш'], ['fel_k', 'Феъл тести қайси кундан (масалан: /fel_k 1)'],
+  ['navbat', 'Аудиоларни навбатга йиғиш'], ['tamom', 'Навбат режимини ўчириш'],
+  ['vaqt', 'Юбориш вақти (масалан: /vaqt 08:00)'], ['kunlar', 'Юбориш кунлари (масалан: /kunlar 1,2,3)'],
+  ['stat', 'Сайт статистикаси'], ['help', 'Ёрдам']
+].map(([command, description]) => ({ command, description }));
+let menuSet = false;
+async function setMenu() {
+  if (menuSet || !A) return; menuSet = true;
+  await tg('setMyCommands', { commands: [], scope: { type: 'default' } });
+  await tg('setMyCommands', { commands: CMDS, scope: { type: 'chat', chat_id: Number(A) } });
+  const g = await loadGrp();
+  if (g.ctrl) await tg('setMyCommands', { commands: CMDS, scope: { type: 'chat_member', chat_id: Number(g.ctrl), user_id: Number(A) } });
+}
+async function holatSt() {
+  const [h, md] = await Promise.all([esh('holat', {}), esh('mode', {})]);
+  const tx = h.text || '', g = re => ((tx.match(re) || [])[1] || '').trim();
+  const kn = g(/Кунлар: ([^\n]*)/).split(/,\s*/).map(x => KUNN.indexOf(x)).filter(x => x > 0);
+  const n1 = Number(g(/кейингиси (\d+)-феълдан/)) || 1;
+  return { ok: !!h.ok, err: h.err, text: tx.replace(/\n*Ўзгартириш:[^\n]*/, ''), vaqt: g(/Вақт: ([^\n]*)/), kunlar: kn, k: Math.floor((n1 - 1) / FEEL_N) + 1, navbat: md.mode === 'navbat' };
+}
+const B = (text, d) => ({ text, callback_data: 'p:' + d });
+const ORQA = [[B('◀️ Орқага', 'h')]];
+async function panelView() {
+  const s = await holatSt();
+  if (!s.ok) return { text: '❌ Ҳолат олинмади: ' + (s.err || ''), kb: [[B('🔄 Қайта уриниш', 'h')]] };
+  const a = (s.k - 1) * FEEL_N + 1;
+  return { text: '🎛 Бошқарув панели\n\n' + s.text, kb: [
+    [B('🔄 Янгилаш', 'h'), B('📋 Ҳисобот', 'r')],
+    [B('🔤 Феълни ҳозир юбориш', 'f')],
+    [B('🔢 Феъл куни: ' + s.k + ' (' + a + '–' + (a + FEEL_N - 1) + ')', 'k')],
+    [B('📥 Навбат: ' + (s.navbat ? 'ёқиқ ✅' : 'ўчиқ'), 'n')],
+    [B('⏰ Вақт: ' + (s.vaqt || '—'), 't'), B('📅 Кунлар', 'd')],
+    [B('📈 Статистика', 's')]
+  ] };
+}
+async function panelCb(q) {
+  const d = q.data.slice(2), c = q.message.chat.id, mid = q.message.message_id;
+  let v = null, note = '';
+  const show = x => tg('editMessageText', { chat_id: c, message_id: mid, text: x.text.slice(0, 4000), reply_markup: { inline_keyboard: x.kb } });
+  if (d === 'h') v = await panelView();
+  else if (d === 'r') { const r = await esh('rep', { id: '' }); v = { text: r.text || ('Ҳисобот олинмади: ' + (r.err || '')), kb: ORQA }; }
+  else if (d === 's') v = { text: await stat(), kb: ORQA };
+  else if (d === 'f') v = { text: '🔤 Феъл тести ҳозир гуруҳга юборилсинми?', kb: [[B('✅ Ҳа, юбор', 'F'), B('◀️ Йўқ', 'h')]] };
+  else if (d === 'F') { const r = await esh('feel', {}); v = { text: r.ok ? '✅ ' + (r.text || 'Феъл тести гуруҳга юборилди.') : '❌ Юборилмади: ' + (r.err || ''), kb: ORQA }; }
+  else if (d === 'n') { const s = await holatSt(); await esh('mode', { v: s.navbat ? '' : 'navbat' }); note = s.navbat ? 'Навбат ўчирилди' : 'Навбат ёқилди: энди аудиолар навбатга тушади'; v = await panelView(); }
+  else if (d === 'k' || d.startsWith('K:')) {
+    let k;
+    if (d === 'k') k = (await holatSt()).k;
+    else { k = Math.min(FEEL_KUN, Math.max(1, Number(d.slice(2)))); const r = await esh('set', { feel_k: String(k) }); note = r.ok ? 'Сақланди' : 'Хато: ' + (r.err || ''); }
+    const a = (k - 1) * FEEL_N + 1;
+    v = { text: '🔢 Феъл тести кейинги сафар ' + k + '-кундан чиқади (феъллар ' + a + '–' + (a + FEEL_N - 1) + ').\n\nТанланг:', kb: [
+      [B('⏪ −5', 'K:' + (k - 5)), B('◀️ −1', 'K:' + (k - 1)), B(String(k), 'K:' + k), B('+1 ▶️', 'K:' + (k + 1)), B('+5 ⏩', 'K:' + (k + 5))],
+      [B('1-кун (бошидан)', 'K:1')], ...ORQA] };
+  }
+  else if (d === 't' || d.startsWith('T:')) {
+    if (d.startsWith('T:')) { const r = await esh('set', { vaqt: d.slice(2) }); note = r.ok ? 'Вақт: ' + d.slice(2) : 'Хато: ' + (r.err || ''); }
+    const s = await holatSt(), rows = [];
+    for (let h = 5; h <= 22; h += 3) rows.push([0, 1, 2].map(i => { const t = String(h + i).padStart(2, '0') + ':00'; return B((t === s.vaqt ? '✅ ' : '') + t, 'T:' + t); }));
+    v = { text: '⏰ Автомат юбориш вақти: ' + (s.vaqt || '—') + '\n\nБошқа дақиқа керак бўлса, ёзинг: /vaqt 08:30', kb: [...rows, ...ORQA] };
+  }
+  else if (d === 'd' || d.startsWith('D:')) {
+    let kn = (await holatSt()).kunlar;
+    if (d.startsWith('D:')) {
+      const x = Number(d.slice(2)); kn = kn.includes(x) ? kn.filter(y => y !== x) : [...kn, x].sort();
+      if (!kn.length) note = 'Камида битта кун қолсин';
+      else { const r = await esh('set', { kunlar: kn.join(',') }); note = r.ok ? 'Сақланди' : 'Хато: ' + (r.err || ''); }
+      kn = (await holatSt()).kunlar;
+    }
+    const btn = i => B((kn.includes(i) ? '✅ ' : '▫️ ') + KUNN[i], 'D:' + i);
+    v = { text: '📅 Юбориш кунлари — босиб белгиланг ёки олиб ташланг:', kb: [[btn(1), btn(2)], [btn(3), btn(4)], [btn(5), btn(6)], [btn(7)], ...ORQA] };
+  }
+  if (v) await show(v);
+  return tg('answerCallbackQuery', { callback_query_id: q.id, text: note });
+}
+
 async function callback(q) {
   const d = q.data || '';
+  if (d.startsWith('p:')) { if (!A || String(q.from.id) !== A) return tg('answerCallbackQuery', { callback_query_id: q.id, text: 'Фақат админ учун' }); return panelCb(q); }
   let text = '';
   if (d === 'r') { seen.delete(q.from.id); await seenUser(q.from); text = 'Рўйхатга олиндингиз ✅'; }
   else if (d === 'x') text = 'Бу аудионинг муддати тугаган.';
@@ -109,6 +191,7 @@ async function handle(m) {
 
   // Admin javobi
   if (A && (c === A || ctrl)) {
+    if (t === '/panel') { setMenu(); const v = await panelView(); return tg('sendMessage', { chat_id: c, text: v.text, reply_markup: { inline_keyboard: v.kb } }); }
     if (t === '/stat') return tg('sendMessage', { chat_id: c, text: await stat() });
     if (t.startsWith('/hisobot')) { const r = await esh('rep', { id: t.split(' ')[1] || '' }); return tg('sendMessage', { chat_id: c, text: r.text || ('Ҳисобот олинмади: ' + (r.err || '')) }); }
     if (t === '/navbat') { await esh('mode', { v: 'navbat' }); const h = await esh('holat', {}); return tg('sendMessage', { chat_id: c, text: '📥 Навбат режими ёқилди. Энди аудиоларни кетма-кет юборинг (изоҳига номини ёзинг) — улар навбатга тушади.\nТугатгач: /tamom\n\n' + (h.text || '') }); }
@@ -136,7 +219,7 @@ async function handle(m) {
       }
       return postAudio(m);
     }
-    if (t === '/start' || t === '/help') return tg('sendMessage', { chat_id: c, text: 'Сиз — админсиз.\n\n• Кимдир ботга ёзса, хабари шу ерга 💬 белгиси билан келади.\n• Жавоб бериш учун ўша хабарга Reply қилинг (матн, овоз, расм — ҳаммаси бўлади).\n• /stat — статистика.\n• /boshqaruv — (алоҳида гуруҳда ёзилади) ўша гуруҳни бошқарув чати қилади: аудио ва буйруқлар ўша ерда.\n• Аудио юборсангиз (изоҳига номини ёзинг) — гуруҳга сўровнома билан жойланади (муддат — шу куни 24:00).\n• /hisobot — охирги аудиони ким эшитди, ким эшитмади.\n• /navbat — аудиоларни навбатга йиғиш (автомат юбориш учун), /tamom — тугатиш.\n• /holat — автомат юбориш созламалари ва навбат.\n• /fel_k 1 — феъл тестини қайси кундан бошлаш (1 — бошидан).\n• /fel — феъл тестини ҳозир юбориш (одатда аудио билан бирга ўзи чиқади).\n• /vaqt 08:00 — юбориш вақти; /kunlar 1,2,3,4,5,6 — кунлар (1 — Душанба).\n\nСинаб кўриш учун бошқа аккаунтдан ёзинг.' });
+    if (t === '/start' || t === '/help') { await setMenu(); return tg('sendMessage', { chat_id: c, text: 'Сиз — админсиз.\n\n• /panel — 🎛 тугмали бошқарув панели (энг қулайи).\n• Кимдир ботга ёзса, хабари шу ерга 💬 белгиси билан келади.\n• Жавоб бериш учун ўша хабарга Reply қилинг (матн, овоз, расм — ҳаммаси бўлади).\n• /stat — статистика.\n• /boshqaruv — (алоҳида гуруҳда ёзилади) ўша гуруҳни бошқарув чати қилади: аудио ва буйруқлар ўша ерда.\n• Аудио юборсангиз (изоҳига номини ёзинг) — гуруҳга сўровнома билан жойланади (муддат — шу куни 24:00).\n• /hisobot — охирги аудиони ким эшитди, ким эшитмади.\n• /navbat — аудиоларни навбатга йиғиш (автомат юбориш учун), /tamom — тугатиш.\n• /holat — автомат юбориш созламалари ва навбат.\n• /fel_k 1 — феъл тестини қайси кундан бошлаш (1 — бошидан).\n• /fel — феъл тестини ҳозир юбориш (одатда аудио билан бирга ўзи чиқади).\n• /vaqt 08:00 — юбориш вақти; /kunlar 1,2,3,4,5,6 — кунлар (1 — Душанба).\n\nСинаб кўриш учун бошқа аккаунтдан ёзинг.' }); }
     const r = m.reply_to_message;
     const id = r && ((r.text || r.caption || '').match(/ID (\d+)/) || [])[1];
     if (!id) return tg('sendMessage', { chat_id: c, text: 'Жавоб бериш учун 💬 белгили хабарга Reply қилинг.' });
@@ -168,6 +251,7 @@ module.exports = async (req, res) => {
     if (req.query.setup) {
       const url = 'https://' + req.headers.host + '/api/tg';
       const r = await tg('setWebhook', { url, secret_token: SECRET, drop_pending_updates: true, allowed_updates: ['message', 'callback_query', 'poll_answer'] });
+      menuSet = false; await setMenu();
       return res.status(200).json({ ...r, admin: A ? 'bor' : 'ADMIN_ID qo\'yilmagan' });
     }
     return res.status(200).send('ok');

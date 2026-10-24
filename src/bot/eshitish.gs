@@ -133,7 +133,7 @@ function joyla(id, title, chat, msg) {
     if (p.ok) break;
     Logger.log('sendPoll ' + i + ': ' + p.description);
   }
-  sh('Аудиолар').appendRow([id, title, String(chat), msg, fmt(now()), dl.toISOString(), '', p && p.ok ? p.result.poll.id : '', p && p.ok ? p.result.message_id : '']);
+  sh('Аудиолар').appendRow([id, title, String(chat), msg, fmt(now()), dl.toISOString(), '', p && p.ok ? "'" + p.result.poll.id : '', p && p.ok ? p.result.message_id : '']);  // ' — жадвал узун рақамни яхлитламасин
   jadval();
   return dl;
 }
@@ -289,14 +289,19 @@ function kunlar_ketma(uid) {
   return n;
 }
 function mn(x) { return String(x).replace(/\s+/g, ' ').trim().slice(0, 100); }
+// Сўровнома рақами: эски қаторларда жадвал уни сонга айлантириб яхлитлаган бўлиши мумкин
+function birPoll(a, b) {
+  if (String(a) === String(b)) return true;
+  return typeof a === 'number' && /^\d+$/.test(String(b)) && a === Number(b);
+}
 function javob(q) {
   if (!q.user) return { ok: true };
   var A = rows('Аудиолар');
-  for (var j = A.length - 1; j >= 0; j--) if (A[j][7] && String(A[j][7]) === String(q.poll)) {
+  for (var j = A.length - 1; j >= 0; j--) if (A[j][7] && birPoll(A[j][7], q.poll)) {
     member(q.user); belgila(A[j][0], q.user, (q.opt || [])[0] === 0); jadval(); return { ok: true };
   }
   var d = rows('Феъл саволлар'), p = null;
-  for (var i = d.length - 1; i >= 0; i--) if (String(d[i][0]) === String(q.poll)) { p = d[i]; break; }
+  for (var i = d.length - 1; i >= 0; i--) if (birPoll(d[i][0], q.poll)) { p = d[i]; break; }
   if (!p || !q.user) return { ok: true };
   member(q.user);
   var ok = (q.opt || [])[0] === Number(p[4]);

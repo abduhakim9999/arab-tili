@@ -277,6 +277,10 @@ module.exports = async (req, res) => {
       menuSet = false; await setMenu();
       return res.status(200).json({ ...r, admin: A ? 'bor' : 'ADMIN_ID qo\'yilmagan' });
     }
+    if (req.query.info) {
+      const w = await tg('getWebhookInfo', {}), r = w.result || {};
+      return res.status(200).json({ allowed_updates: r.allowed_updates, pending: r.pending_update_count, last_error: r.last_error_message || null, last_error_date: r.last_error_date ? new Date(r.last_error_date * 1000).toISOString() : null, ip: r.ip_address ? 'bor' : null });
+    }
     return res.status(200).send('ok');
   }
   if (req.headers['x-telegram-bot-api-secret-token'] !== SECRET) return res.status(401).send('no');

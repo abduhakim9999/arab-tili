@@ -13,6 +13,7 @@ var ILOVA = 'https://t.me/Arabtilihivar_bot/darslar';
 var ESLATMA = '21:00';      // muddat tugashidan oldin eslatma vaqti
 var FEEL_SONI = 5;           // кунига нечта феъл
 var REYTING = { kun: 7, vaqt: '20:00' };   // ҳафталик рейтинг: Якшанба 20:00
+var NATIJA = { kunlar: [2, 5], vaqt: '08:00', soni: 10 };   // Сешанба ва Жума 08:00 — охирги 10 та дарс натижаси гуруҳга
 
 function P(k) { return PropertiesService.getScriptProperties().getProperty(k); }
 function key() {
@@ -106,6 +107,7 @@ function doPost(e) {
     else if (q.a === 'ans') out = javob(q);
     else if (q.a === 'feel') out = feelKun();
     else if (q.a === 'rep') out = { ok: true, text: hisobot(q.id) };
+    else if (q.a === 'nat') out = natijalar(true);
     else if (q.a === 'rep2') out = hisobot2(q.v, q.d, Number(q.p) || 0);
     else out = { ok: false, err: 'a' };
   } finally { lock.releaseLock(); }
@@ -281,9 +283,7 @@ function feelKun() {
   if (!au.ok) return { ok: false, err: (au.description || 'юборилмади') + ' (Феъллар ' + (a + 1) + '–' + (a + day.length) + ')' };
   cfg('feel_k', k + 1);
   // кун охирида «ким ишлади / ким ишламади» рўйхати учун эслаб қўйилади
-  var kut = []; try { kut = JSON.parse(cfg('feel_kut') || '[]'); } catch (e) {}
-  kut.push({ d: Utilities.formatDate(now(), TZ, 'yyyy-MM-dd'), k: k, m: au.result.message_id });
-  cfg('feel_kut', JSON.stringify(kut));
+  sh('Феъл кунлар', ['сана', 'кун (k)', 'message_id']).appendRow(["'" + Utilities.formatDate(now(), TZ, 'yyyy-MM-dd'), k, au.result.message_id]);
   return { ok: true, text: 'Феъллар ' + (a + 1) + '–' + (a + day.length) + ' гуруҳга юборилди.' };
 }
 // ---------- Ilova (Mini App) so'rovlari: Telegram imzosi tekshiriladi ----------
@@ -390,26 +390,60 @@ function feelNatija(k, sana, T, V) {
   var yoq = members().filter(function (m) { return !U[String(m[0])]; });
   return { a: a, day: day, ha: ha, yoq: yoq };
 }
-// Кун тугагач (24:00): шу куни юборилган феъл тестини ким ишлади, ким ишламади — гуруҳга (қора рўйхатга тушмайди)
-function feelHisobot() {
-  var g = cfg('group'); if (!g) return;
-  var kut = []; try { kut = JSON.parse(cfg('feel_kut') || '[]'); } catch (e) { cfg('feel_kut', '[]'); return; }
-  if (!kut.length) return;
-  var today = Utilities.formatDate(now(), TZ, 'yyyy-MM-dd'), qol = [], T = null, V = null;
-  kut.forEach(function (p) {
-    if (p.d >= today) { qol.push(p); return; }
-    var R = feelNatija(p.k, p.d, T = T || rows('Феъл тест'), V = V || rows('Феъллар')), ha = R.ha, yoq = R.yoq, a = R.a, day = R.day;
-    var nom = 'Феъллар ' + (a + 1) + '–' + (a + day.length);
-    tg('sendMessage', { chat_id: g, reply_to_message_id: p.m, allow_sending_without_reply: true,
-      text: '🔤 «' + nom + '» — кун якунланди.\n\n✅ Тестни ишлаганлар (' + ha.length + '):\n' +
-        (ha.map(function (x) { return '• ' + x.n + ' — ' + x.ok + ' / ' + day.length; }).join('\n') || '—') +
-        '\n\n❌ Ишламаганлар (' + yoq.length + '):\n' + (yoq.map(function (m) { return '• ' + m[1]; }).join('\n') || '— Ҳамма ишлади! 🎉') });
-  });
-  cfg('feel_kut', JSON.stringify(qol));
+// Сешанба ва Жума 08:00: охирги 10 та дарс + шу даврдаги феъл тестлари — ким нимани қолдирди (гуруҳга битта хабар)
+function natijalar(majbur) {
+  var g = cfg('group'); if (!g) return { ok: false, err: 'гуруҳ уланмаган' };
+  var today = Utilities.formatDate(now(), TZ, 'yyyy-MM-dd');
+  if (!majbur) {
+    if (NATIJA.kunlar.indexOf(bugunKun()) < 0 || Utilities.formatDate(now(), TZ, 'HH:mm') < NATIJA.vaqt || cfg('nat') === today) return;
+    cfg('nat', today);
+  }
+  // эски навбатдаги феъл кунларини варақга кўчириш (бир марта)
+  try { var kut = JSON.parse(cfg('feel_kut') || '[]'); if (kut.length) { kut.forEach(function (p) { sh('Феъл кунлар', ['сана', 'кун (k)', 'message_id']).appendRow(["'" + p.d, p.k, p.m]); }); cfg('feel_kut', '[]'); } } catch (e) {}
+  var M = members(), t = now(), kun = function (x) { return Utilities.formatDate(new Date(x), TZ, 'dd.MM'); };
+  // дарслар: муддати тугаганларнинг охирги 10 таси
+  var A = rows('Аудиолар').filter(function (r) { return r[0] && r[5] && t >= new Date(r[5]); }).slice(-NATIJA.soni);
+  var H = {}; rows('Белгилар').forEach(function (r) { if (String(r[4]) !== '1') H[String(r[0]) + '|' + String(r[1])] = 1; });
+  var txt = '📋 Натижалар — охирги ' + A.length + ' та дарс';
+  if (A.length) {
+    txt += '\n(' + A[0][1] + ' … ' + A[A.length - 1][1] + ' · ' + kun(A[0][5]) + '–' + kun(A[A.length - 1][5]) + ')';
+    var hamma = [], qol = [];
+    M.forEach(function (m) {
+      var no = A.filter(function (r) { return !H[String(r[0]) + '|' + String(m[0])]; }).map(function (r) { return r[1]; });
+      if (no.length) qol.push({ n: m[1] || 'аъзо', no: no }); else hamma.push(m[1] || 'аъзо');
+    });
+    qol.sort(function (a, b) { return b.no.length - a.no.length; });
+    txt += '\n\n✅ Ҳаммасини эшитганлар (' + hamma.length + '):\n' + (hamma.join(', ') || '—');
+    txt += '\n\n❌ Эшитмаганлар (' + qol.length + '):\n' + (qol.map(function (x) { return '• ' + x.n + ' — ' + x.no.length + ' та: ' + x.no.join(', '); }).join('\n') || '— Ҳамма ҳаммасини эшитди! 🎉');
+  } else txt += '\n\nҲали якунланган дарс йўқ.';
+  // феъл тести: шу даврда юборилган кунлар (охирги 10 та, бугунгисиз)
+  var bosh = A.length ? Utilities.formatDate(new Date(new Date(A[0][5]).getTime() - 864e5), TZ, 'yyyy-MM-dd') : '';
+  var F = rows('Феъл кунлар').map(function (r) { return { d: String(r[0]).replace(/^'/, ''), k: Number(r[1]) }; })
+    .filter(function (f) { return f.d < today && (!bosh || f.d >= bosh); }).slice(-NATIJA.soni);
+  if (F.length) {
+    var T = rows('Феъл тест'), D = {};
+    T.forEach(function (r) { if (r[5]) D[String(r[1]) + '|' + String(r[0]) + '|' + Utilities.formatDate(new Date(r[5]), TZ, 'yyyy-MM-dd')] = 1; });
+    var fh = [], fq = [];
+    M.forEach(function (m) {
+      var no = F.filter(function (f) { return !D[String(m[0]) + '|app:' + f.k + '|' + f.d]; })
+        .map(function (f) { return ((f.k - 1) * FEEL_SONI + 1) + '–' + (f.k * FEEL_SONI) + ' (' + f.d.slice(8, 10) + '.' + f.d.slice(5, 7) + ')'; });
+      if (no.length) fq.push({ n: m[1] || 'аъзо', no: no }); else fh.push(m[1] || 'аъзо');
+    });
+    fq.sort(function (a, b) { return b.no.length - a.no.length; });
+    txt += '\n\n🔤 Феъл тести — охирги ' + F.length + ' кун';
+    txt += '\n✅ Ҳар куни ишлаганлар: ' + (fh.join(', ') || '—');
+    txt += '\n❌ Ишламаганлар:\n' + (fq.map(function (x) { return '• ' + x.n + ' — ' + x.no.length + ' кун: ' + x.no.join(', '); }).join('\n') || '— Ҳамма ишлади! 🎉');
+  }
+  // Telegram хабари 4096 белгидан ошмасин
+  var parts = [], rest = txt;
+  while (rest.length > 3900) { var cut = rest.lastIndexOf('\n', 3900); if (cut < 1000) cut = 3900; parts.push(rest.slice(0, cut)); rest = rest.slice(cut + 1); }
+  parts.push(rest);
+  parts.forEach(function (x) { tg('sendMessage', { chat_id: g, text: x }); });
+  return { ok: true, text: 'Натижа гуруҳга юборилди (' + A.length + ' дарс, ' + F.length + ' феъл куни).' };
 }
 function tekshir() {
   try { avtomat(); } catch (e) { Logger.log(e); }
-  try { feelHisobot(); } catch (e) { Logger.log(e); }
+  try { natijalar(); } catch (e) { Logger.log(e); }
   try { reyting(); } catch (e) { Logger.log(e); }
   try { eslatma(); } catch (e) { Logger.log(e); }
   var s = sh('Аудиолар'), d = s.getDataRange().getValues(), g = cfg('group');
@@ -421,8 +455,7 @@ function tekshir() {
     if (g) {
       if (d[i][8]) tg('stopPoll', { chat_id: d[i][2], message_id: d[i][8] });
       else tg('editMessageReplyMarkup', { chat_id: d[i][2], message_id: d[i][3], reply_markup: { inline_keyboard: [[{ text: '⏰ Муддат тугади', callback_data: 'x' }]] } });
-      tg('sendMessage', { chat_id: g, text: '⏰ «' + d[i][1] + '» — муддат тугади.\n\n❌ Эшитмаганлар (' + no.length + '):\n' +
-        (no.map(function (m) { return '• ' + m[1]; }).join('\n') || '— Ҳамма эшитди! 🎉') });
+      // ҳар бир дарс учун алоҳида хабар юборилмайди — натижа Сешанба ва Жума жамланиб чиқади
     }
   }
   jadval();

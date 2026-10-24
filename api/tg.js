@@ -95,8 +95,25 @@ async function handle(m) {
   if (A && c === A) {
     if (t === '/stat') return tg('sendMessage', { chat_id: c, text: await stat() });
     if (t.startsWith('/hisobot')) { const r = await esh('rep', { id: t.split(' ')[1] || '' }); return tg('sendMessage', { chat_id: c, text: r.text || ('Ҳисобот олинмади: ' + (r.err || '')) }); }
-    if (!m.reply_to_message && (m.audio || m.voice || m.document || m.video)) return postAudio(m);
-    if (t === '/start' || t === '/help') return tg('sendMessage', { chat_id: c, text: 'Сиз — админсиз.\n\n• Кимдир ботга ёзса, хабари шу ерга 💬 белгиси билан келади.\n• Жавоб бериш учун ўша хабарга Reply қилинг (матн, овоз, расм — ҳаммаси бўлади).\n• /stat — статистика.\n• Аудио юборсангиз (изоҳига номини ёзинг) — гуруҳга «✅ Эшитдим» тугмаси билан жойланади.\n• /hisobot — охирги аудиони ким эшитди, ким эшитмади.\n\nСинаб кўриш учун бошқа аккаунтдан ёзинг.' });
+    if (t === '/navbat') { await esh('mode', { v: 'navbat' }); const h = await esh('holat', {}); return tg('sendMessage', { chat_id: c, text: '📥 Навбат режими ёқилди. Энди аудиоларни кетма-кет юборинг (изоҳига номини ёзинг) — улар навбатга тушади.\nТугатгач: /tamom\n\n' + (h.text || '') }); }
+    if (t === '/tamom') { await esh('mode', { v: '' }); const h = await esh('holat', {}); return tg('sendMessage', { chat_id: c, text: '✅ Навбат режими ўчирилди. Энди юборилган аудио дарҳол гуруҳга кетади.\n\n' + (h.text || '') }); }
+    if (t === '/holat') { const h = await esh('holat', {}); return tg('sendMessage', { chat_id: c, text: h.text || ('Олинмади: ' + (h.err || '')) }); }
+    if (t.startsWith('/vaqt') || t.startsWith('/kunlar')) {
+      const v = t.split(/\s+/).slice(1).join(',');
+      const r = await esh('set', t.startsWith('/vaqt') ? { vaqt: v } : { kunlar: v });
+      return tg('sendMessage', { chat_id: c, text: r.ok ? '✅ Сақланди.\n\n' + r.text : '❌ ' + (r.err || '') });
+    }
+    if (!m.reply_to_message && (m.audio || m.voice || m.document || m.video)) {
+      const md = await esh('mode', {});
+      if (md.mode === 'navbat') {
+        const kind = m.audio ? 'audio' : m.voice ? 'voice' : m.video ? 'video' : 'document', f = m[kind];
+        const title = (m.caption || f.title || f.file_name || 'Аудио').trim().split('\n')[0].slice(0, 80);
+        const r = await esh('queue', { title, file_id: f.file_id, kind });
+        return tg('sendMessage', { chat_id: c, reply_to_message_id: m.message_id, text: r.ok ? '📥 Навбатга қўшилди: «' + title + '» (навбатда ' + r.n + ' та)' : '❌ ' + (r.err || '') });
+      }
+      return postAudio(m);
+    }
+    if (t === '/start' || t === '/help') return tg('sendMessage', { chat_id: c, text: 'Сиз — админсиз.\n\n• Кимдир ботга ёзса, хабари шу ерга 💬 белгиси билан келади.\n• Жавоб бериш учун ўша хабарга Reply қилинг (матн, овоз, расм — ҳаммаси бўлади).\n• /stat — статистика.\n• Аудио юборсангиз (изоҳига номини ёзинг) — гуруҳга «✅ Эшитдим» тугмаси билан жойланади.\n• /hisobot — охирги аудиони ким эшитди, ким эшитмади.\n• /navbat — аудиоларни навбатга йиғиш (автомат юбориш учун), /tamom — тугатиш.\n• /holat — автомат юбориш созламалари ва навбат.\n• /vaqt 08:00 — юбориш вақти; /kunlar 1,2,3,4,5,6 — кунлар (1 — Душанба).\n\nСинаб кўриш учун бошқа аккаунтдан ёзинг.' });
     const r = m.reply_to_message;
     const id = r && ((r.text || r.caption || '').match(/ID (\d+)/) || [])[1];
     if (!id) return tg('sendMessage', { chat_id: c, text: 'Жавоб бериш учун 💬 белгили хабарга Reply қилинг.' });

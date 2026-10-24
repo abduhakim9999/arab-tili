@@ -153,14 +153,31 @@ async function panelCb(q) {
   let v = null;
   if (d === 'h') v = await panelView();
   else if (d === 'r') v = await hisView('e', '7', 0);
-  else if (d === 'X') {
-    const r = await esh('alist', {});
-    v = r.ok && r.list && r.list.length
-      ? { text: '🗑 Қайси ёзувни ўчирамиз? (охирги 12 та)\nЁзув ва унга берилган белгилар жадвалдан ўчади, гуруҳдаги хабар қолади.', kb: [...r.list.map(x => [B(x.t + (x.d ? ' (' + x.d + ')' : ''), 'Y:' + x.id)]), ...ORQA] }
-      : { text: r.ok ? 'Ёзувлар йўқ.' : '❌ ' + (r.err || 'скриптни янгиланг'), kb: ORQA };
+  else if (d === 'X' || arg[0] === 'S') {
+    // бир нечтасини белгилаб ўчириш: белгиланганлар рўйхатдаги ўрни бўйича (bitmask) сақланади
+    const r = await esh('alist', {}), L = (r.ok && r.list) || [];
+    if (!L.length) v = { text: r.ok ? 'Ёзувлар йўқ.' : '❌ ' + (r.err || 'скриптни янгиланг'), kb: ORQA };
+    else {
+      const mask = arg[0] === 'S' ? (Number(arg[1]) || 0) : 0, all = (1 << L.length) - 1;
+      const n = L.filter((x, i) => mask & (1 << i)).length;
+      v = { text: '🗑 Ўчириладиган ёзувларни белгиланг (охирги ' + L.length + ' та).\nЁзув ва унга берилган белгилар жадвалдан ўчади, гуруҳдаги хабар қолади.' + (n ? '\n\nБелгиланди: ' + n + ' та' : ''),
+        kb: [...L.map((x, i) => [B((mask & (1 << i) ? '✅ ' : '▫️ ') + x.t + (x.d ? ' (' + x.d + ')' : ''), 'S:' + (mask ^ (1 << i)))]),
+          [B(mask === all ? '▫️ Ҳеч бирини' : '☑️ Ҳаммасини белгилаш', 'S:' + (mask === all ? 0 : all))],
+          ...(n ? [[B('🗑 Белгиланганларни ўчириш (' + n + ')', 'Q:' + mask)]] : []), ...ORQA] };
+    }
   }
-  else if (arg[0] === 'Y') v = { text: '🗑 Шу ёзув ўчирилсинми? Буни қайтариб бўлмайди.', kb: [[B('✅ Ҳа, ўчир', 'W:' + arg[1]), B('◀️ Йўқ', 'X')]] };
-  else if (arg[0] === 'W') { const r = await esh('del', { id: arg[1] }); v = { text: r.ok ? r.text : '❌ ' + (r.err || ''), kb: [[B('🗑 Яна ўчириш', 'X')], ...ORQA] }; }
+  else if (arg[0] === 'Q') {
+    const r = await esh('alist', {}), L = (r.ok && r.list) || [], mask = Number(arg[1]) || 0, sel = L.filter((x, i) => mask & (1 << i));
+    v = { text: '🗑 Шу ' + sel.length + ' та ёзув ўчирилсинми? Буни қайтариб бўлмайди.\n\n' + sel.map(x => '• ' + x.t + (x.d ? ' (' + x.d + ')' : '')).join('\n'),
+      kb: [[B('✅ Ҳа, ўчир', 'W:' + mask), B('◀️ Йўқ', 'S:' + mask)]] };
+  }
+  else if (arg[0] === 'W') {
+    const r = await esh('alist', {}), L = (r.ok && r.list) || [], mask = Number(arg[1]) || 0, sel = L.filter((x, i) => mask & (1 << i));
+    await tg('editMessageText', { chat_id: c, message_id: mid, text: '⏳ Ўчирилмоқда… (' + sel.length + ' та)' });
+    let ok = 0; const err = [];
+    for (const x of sel) { const d2 = await esh('del', { id: x.id }); if (d2.ok) ok++; else err.push(x.t + ': ' + (d2.err || '')); }
+    v = { text: '🗑 Ўчирилди: ' + ok + ' та.' + (err.length ? '\n❌ ' + err.join('\n❌ ') : '') + '\nГуруҳдаги хабарлар жойида қолди.', kb: [[B('🗑 Яна ўчириш', 'X')], ...ORQA] };
+  }
   else if (arg[0] === 'R') v = await hisView(arg[1], arg[2], Number(arg[3]) || 0);
   else if (d === 's') v = { text: await stat(), kb: ORQA };
   else if (d === 'u') v = { text: '🔄 Apps Script коди GitHub\'даги энг янги нусхага алмаштирилсинми?', kb: [[B('✅ Ҳа, янгила', 'U'), B('◀️ Йўқ', 'h')]] };

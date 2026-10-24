@@ -119,7 +119,7 @@ async function handle(m) {
       const r = await esh('set', { feel_k: v });
       return tg('sendMessage', { chat_id: c, text: r.ok ? '✅ Феъл тести ' + v + '-кундан давом этади.' : '❌ ' + (r.err || '') });
     }
-    if (t === '/fel' || t === '/feel') { await esh('feel', {}); return tg('sendMessage', { chat_id: c, text: '🔤 Феъл тести гуруҳга юборилди.' }); }
+    if (t === '/fel' || t === '/feel') { const r = await esh('feel', {}); return tg('sendMessage', { chat_id: c, text: r.ok ? '🔤 ' + (r.text || 'Феъл тести гуруҳга юборилди.') : '❌ Юборилмади: ' + (r.err || '') }); }
     if (t === '/holat') { const h = await esh('holat', {}); return tg('sendMessage', { chat_id: c, text: h.text || ('Олинмади: ' + (h.err || '')) }); }
     if (t.startsWith('/vaqt') || t.startsWith('/kunlar')) {
       const v = t.split(/\s+/).slice(1).join(',');

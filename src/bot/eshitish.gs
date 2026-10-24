@@ -100,7 +100,7 @@ function doPost(e) {
     }
     else if (q.a === 'holat') out = { ok: true, text: holat() };
     else if (q.a === 'ans') out = javob(q);
-    else if (q.a === 'feel') { feelKun(); out = { ok: true }; }
+    else if (q.a === 'feel') out = feelKun();
     else if (q.a === 'rep') out = { ok: true, text: hisobot(q.id) };
     else out = { ok: false, err: 'a' };
   } finally { lock.releaseLock(); }
@@ -225,15 +225,17 @@ function eslatma() {
 
 // ---------- Феъл тести ----------
 function feelKun() {
-  var g = cfg('group'); if (!g) return;
+  var g = cfg('group'); if (!g) return { ok: false, err: 'гуруҳ уланмаган' };
   var V = rows('Феъллар'), k = Number(cfg('feel_k')) || 1, a = (k - 1) * FEEL_SONI;
-  if (a >= V.length) return;
+  if (a >= V.length) return { ok: false, err: 'феъллар тугади. /fel_k 1 билан бошидан бошланг' };
   var day = V.slice(a, a + FEEL_SONI);
-  tg('sendAudio', { chat_id: g, audio: SAYT + 'd' + ('0' + k).slice(-2) + '.mp3', title: 'Феъллар ' + (a + 1) + '–' + (a + day.length), performer: 'نور الطالب',
+  var au = tg('sendAudio', { chat_id: g, audio: SAYT + 'd' + ('0' + k).slice(-2) + '.mp3?v=' + Date.now(), title: 'Феъллар ' + (a + 1) + '–' + (a + day.length), performer: 'نور الطالب',
     caption: '🔤 Феъллар ' + (a + 1) + '–' + (a + day.length) + ':\n' + day.map(function (v, j) { return (a + j + 1) + '. ' + v[1] + (v[2] ? ' – ' + v[2] : ''); }).join('\n') +
       '\n\nЭшитинг ва тестни ечинг 👇',
     reply_markup: { inline_keyboard: [[{ text: '▶️ Тестни очиш', url: ILOVA + '?startapp=fel_' + k }]] } });
+  if (!au.ok) return { ok: false, err: (au.description || 'юборилмади') + ' (Феъллар ' + (a + 1) + '–' + (a + day.length) + ')' };
   cfg('feel_k', k + 1);
+  return { ok: true, text: 'Феъллар ' + (a + 1) + '–' + (a + day.length) + ' гуруҳга юборилди.' };
 }
 // ---------- Ilova (Mini App) so'rovlari: Telegram imzosi tekshiriladi ----------
 function hex(b) { return b.map(function (x) { return ('0' + (x & 255).toString(16)).slice(-2); }).join(''); }

@@ -81,15 +81,18 @@ function say(i, btn) {
 }
 var SPK = '<svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 function dots() { return '<div class="dots">' + items.map(function (it, j) { var r = res[j]; return '<i class="' + (r ? (r.ok ? 'ok' : 'no') : (j === cur ? 'cur' : '')) + '"></i>'; }).join('') + '</div>'; }
+function hc() { return 'Феъллар ' + ((K - 1) * N + 1) + '–' + Math.min(K * N, V.length) + ' · ' + (cur + 1) + '/' + items.length; }
+// кейинги феълнинг овози олдиндан юклаб қўйилади
+function preload(j) { if (items[j]) { var a = new Audio(); a.preload = 'auto'; a.src = 'fq/v' + ('00' + (items[j].i + 1)).slice(-3) + '.mp3'; } }
 function show() {
   if (cur >= items.length) return finish();
   var it = items[cur], i = it.i, v = V[i], q = opts(i);
-  APP.innerHTML = '<div class="fh"><b><a class="bk" href="feellar.html" aria-label="Феъллар">‹</a>🔤 Феъл тести</b><span>Феъллар ' + ((K - 1) * N + 1) + '–' + Math.min(K * N, V.length) + ' · ' + (cur + 1) + '/' + items.length + '</span></div>' + dots() +
+  APP.innerHTML = '<div class="fh"><b><a class="bk" href="feellar.html" aria-label="Феъллар">‹</a>🔤 Феъл тести</b><span id="hc">' + hc() + '</span></div>' + dots() +
     '<div class="card">' + (it.rep ? '<div class="tag">🔁 Такрорлаш</div>' : '') +
     '<div class="vb">' + vt(v) + '</div><button class="say" id="sy" aria-label="Эшитиш">' + SPK + '</button>' +
     '<div class="q">Маъноси қайси?</div>' + q.o.map(function (t, j) { return '<button class="op" data-j="' + j + '">' + t + '</button>'; }).join('') +
     '<div id="nx"></div></div>';
-  var sy = document.getElementById('sy'); sy.onclick = function () { say(i, sy); }; say(i, sy);
+  var sy = document.getElementById('sy'); sy.onclick = function () { say(i, sy); }; say(i, sy); preload(cur + 1);
   [].forEach.call(APP.querySelectorAll('.op'), function (b) {
     b.onclick = function () {
       var j = +b.dataset.j, ok = j === q.pos;
@@ -122,6 +125,7 @@ function finish() {
   document.getElementById('cl').onclick = function () { try { Telegram.WebApp.close(); } catch (e) { location.href = './'; } };
   document.getElementById('fl').onclick = function () { location.href = 'feellar.html'; };
   saveLocal(ok, bad);
+  init = init || initData();
   if (!init) { document.getElementById('sv').textContent = 'Натижа фақат Telegram ичида очилганда сақланади.'; return; }
   post({ a: 'app', b: 'res', init: init, k: K, res: res }, 15000).then(function (j) {
     var sv = document.getElementById('sv');
@@ -132,23 +136,30 @@ function finish() {
 function start() {
   init = initData();
   var sp = ''; try { sp = Telegram.WebApp.initDataUnsafe.start_param || ''; } catch (e) {}
+  if (!sp) { var m0 = /(?:^|&)tgWebAppStartParam=([^&]*)/.exec(location.hash.slice(1)); if (m0) sp = decodeURIComponent(m0[1]); }
   var m = /[?&]k=(\d+)/.exec(location.search) || /^fel_(\d+)/.exec(sp);
   K = m ? +m[1] : 1;
+  var a = (K - 1) * N;
+  // олдинги хатолар жадвалдан орқа фонда сўралади — тест уларни кутмайди
+  var mistP = init ? post({ a: 'app', b: 'get', init: init }, 15000) : Promise.resolve(null);
   fetch('fq/verbs.json').then(function (r) { return r.json(); }).then(function (d) {
     V = d;
-    var a = (K - 1) * N;
     for (var i = a; i < Math.min(a + N, V.length); i++) items.push({ i: i });
-    var go = function (mist) {
-      (mist || []).slice(0, 3).forEach(function (n) { if (n - 1 < a || n - 1 >= a + N) items.push({ i: n - 1, rep: 1 }); });
-      show();
-    };
-    if (init) post({ a: 'app', b: 'get', init: init }, 6000).then(function (j) { go(j && j.mist); }); else go([]);
+    show();
+    mistP.then(function (j) {
+      if (cur >= items.length) return;   // тест тугаб бўлган
+      var add = ((j && j.mist) || []).filter(function (n) { return n - 1 < a || n - 1 >= a + N; }).slice(0, 3);
+      if (!add.length) return;
+      add.forEach(function (n) { items.push({ i: n - 1, rep: 1 }); });
+      var h = document.getElementById('hc'); if (h) h.textContent = hc();
+      var ds = APP.querySelector('.dots'); if (ds) ds.outerHTML = dots();
+      var nb = APP.querySelector('.nx'); if (nb && cur + 1 < items.length) nb.textContent = 'Кейинги ›';
+    });
   });
 }
 var started = false;
 function boot() { if (started) return; started = true; start(); }
-document.addEventListener('tgready', boot);
-setTimeout(boot, 1500);
+boot();
 </script>
 </body>
 </html>

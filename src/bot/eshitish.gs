@@ -107,10 +107,25 @@ function J(o) { return ContentService.createTextOutput(JSON.stringify(o)).setMim
 var OPT = ['Алҳамдулиллаҳ ўз вақтида эътибор билан тинглаб эшитдим! 🤗', '⏳ Ҳали эшитмадим'];
 function kunOxiri() { return new Date(Utilities.formatDate(now(), TZ, "yyyy-MM-dd'T'23:59:59") + '+05:00'); }
 function joyla(id, title, chat, msg) {
-  var p = tg('sendPoll', { chat_id: chat, question: '«' + title + '»ни ким ўз вақтида эътибор билан тинглаб эшитди? — 24:00гача!!!',
-    options: OPT.map(function (t) { return { text: t }; }), is_anonymous: false, reply_to_message_id: msg });
   var dl = kunOxiri();
-  sh('Аудиолар').appendRow([id, title, String(chat), msg, fmt(now()), dl.toISOString(), '', p.ok ? p.result.poll.id : '', p.ok ? p.result.message_id : '']);
+  var base = { chat_id: chat, question: '«' + title + '»ни ким ўз вақтида эътибор билан тинглаб эшитди? — 24:00гача!!!',
+    is_anonymous: false, reply_to_message_id: msg };
+  // Avval: bitta javob + Telegram'ning o'z taymeri (close_date). Telegram qabul qilmasa — soddaroq variantlar.
+  var tries = [
+    { options: [OPT[0]], close_date: Math.floor(dl.getTime() / 1000) },
+    { options: [OPT[0]] },
+    { options: OPT, close_date: Math.floor(dl.getTime() / 1000) },
+    { options: OPT }
+  ], p = null;
+  for (var i = 0; i < tries.length; i++) {
+    var q = JSON.parse(JSON.stringify(base));
+    q.options = tries[i].options.map(function (t) { return { text: t }; });
+    if (tries[i].close_date) q.close_date = tries[i].close_date;
+    p = tg('sendPoll', q);
+    if (p.ok) break;
+    Logger.log('sendPoll ' + i + ': ' + p.description);
+  }
+  sh('Аудиолар').appendRow([id, title, String(chat), msg, fmt(now()), dl.toISOString(), '', p && p.ok ? p.result.poll.id : '', p && p.ok ? p.result.message_id : '']);
   jadval();
   return dl;
 }

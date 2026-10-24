@@ -403,11 +403,11 @@ function natijalar(majbur) {
   }
   // эски навбатдаги феъл кунларини варақга кўчириш (бир марта)
   try { var kut = JSON.parse(cfg('feel_kut') || '[]'); if (kut.length) { kut.forEach(function (p) { sh('Феъл кунлар', ['сана', 'кун (k)', 'message_id']).appendRow(["'" + p.d, p.k, p.m]); }); cfg('feel_kut', '[]'); } } catch (e) {}
-  var M = members(), t = now(), kun = function (x) { return Utilities.formatDate(new Date(x), TZ, 'dd.MM'); };
+  var ftxt = '', M = members(), t = now(), kun = function (x) { return Utilities.formatDate(new Date(x), TZ, 'dd.MM'); };
   // дарслар: охирги 10 таси (эшитди ёки эшитмади)
   var A = rows('Аудиолар').filter(function (r) { return r[0] && r[5]; }).slice(-NATIJA.soni);
   var H = {}; rows('Белгилар').forEach(function (r) { if (String(r[4]) !== '1') H[String(r[0]) + '|' + String(r[1])] = 1; });
-  var txt = '📋 Натижалар — охирги ' + A.length + ' та дарс';
+  var txt = '🎧 Ёзувлар натижалари — охирги ' + A.length + ' та дарс';
   if (A.length) {
     txt += '\n(' + A[0][1] + ' … ' + A[A.length - 1][1] + ' · ' + kun(A[0][5]) + '–' + kun(A[A.length - 1][5]) + ')';
     var hamma = [], qol = [];
@@ -433,15 +433,18 @@ function natijalar(majbur) {
       if (no.length) fq.push({ n: m[1] || 'аъзо', no: no }); else fh.push(m[1] || 'аъзо');
     });
     fq.sort(function (a, b) { return b.no.length - a.no.length; });
-    txt += '\n\n🔤 Феъл тести — охирги ' + F.length + ' кун';
-    txt += '\n✅ Ҳар куни ишлаганлар: ' + (fh.join(', ') || '—');
-    txt += '\n❌ Ишламаганлар:\n' + (fq.map(function (x) { return '• ' + x.n + ' — ' + x.no.length + ' кун: ' + x.no.join(', '); }).join('\n') || '— Ҳамма ишлади! 🎉');
+    ftxt = '🔤 Феъл тести натижалари — охирги ' + F.length + ' кун';
+    ftxt += '\n\n✅ Ҳар куни ишлаганлар (' + fh.length + '):\n' + (fh.join(', ') || '—');
+    ftxt += '\n\n❌ Ишламаганлар (' + fq.length + '):\n' + (fq.map(function (x) { return '• ' + x.n + ' — ' + x.no.length + ' кун: ' + x.no.join(', '); }).join('\n') || '— Ҳамма ишлади! 🎉');
   }
-  // Telegram хабари 4096 белгидан ошмасин
-  var parts = [], rest = txt;
-  while (rest.length > 3900) { var cut = rest.lastIndexOf('\n', 3900); if (cut < 1000) cut = 3900; parts.push(rest.slice(0, cut)); rest = rest.slice(cut + 1); }
-  parts.push(rest);
-  parts.forEach(function (x) { tg('sendMessage', { chat_id: g, text: x }); });
+  // ёзувлар ва феъл тести — алоҳида хабарлар (ҳар бири 4096 белгидан ошмасин)
+  var yubor = function (x) {
+    var rest = x;
+    while (rest.length > 3900) { var cut = rest.lastIndexOf('\n', 3900); if (cut < 1000) cut = 3900; tg('sendMessage', { chat_id: g, text: rest.slice(0, cut) }); rest = rest.slice(cut + 1); }
+    tg('sendMessage', { chat_id: g, text: rest });
+  };
+  yubor(txt);
+  if (F.length) yubor(ftxt);
   return { ok: true, text: 'Натижа гуруҳга юборилди (' + A.length + ' дарс, ' + F.length + ' феъл куни).' };
 }
 // Ёзувни (масалан, синов учун юборилганини) жадвалдан ўчириш: Аудиолар қатори ва унга берилган белгилар

@@ -289,5 +289,8 @@ setTimeout(function(){if(ios&&!standalone&&!document.documentElement.classList.c
 window.addEventListener("pageshow",function(){render()});
 if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(function(){});
 </script>
+<script>/* guruhdagi «Тестни очиш» tugmasi: ilova fe'l testi bilan ochiladi */
+document.addEventListener('tgready',function(){try{var sp=Telegram.WebApp.initDataUnsafe.start_param||'',m=/^fel_(\d+)/.exec(sp);
+if(m&&!sessionStorage.getItem('go-'+sp)){sessionStorage.setItem('go-'+sp,'1');location.replace('fel.html?k='+m[1])}}catch(e){}});</script>
 </body>
 </html>

@@ -9,6 +9,8 @@
 var TZ = 'Asia/Samarkand';
 var MUDDAT_SOAT = 24;
 var SAYT = 'https://abduhakim9999.github.io/arab-tili/fq/';
+var ILOVA = 'https://t.me/Arabtilihivar_bot/darslar';
+var ESLATMA = '21:00';      // muddat tugashidan oldin eslatma vaqti
 var FEEL_SONI = 5;           // кунига нечта феъл
 var REYTING = { kun: 7, vaqt: '20:00' };   // ҳафталик рейтинг: Якшанба 20:00
 
@@ -49,6 +51,7 @@ function setup() {
   if (!cfg('feel_k')) cfg('feel_k', 1);
   sh('Феъл саволлар', ['poll_id', 'кун', '№', 'феъл', 'тўғри', 'юборилди']);
   sh('Феъл тест', ['poll_id', 'user_id', 'исм', 'феъл', 'натижа', 'вақт']);
+  sh('Хатолар', ['user_id', '№', 'феъл', 'ҳолат']);
   var fs = sh('Феъллар', ['№', 'феъл', 'музореъ', 'маъно']);
   if (fs.getLastRow() < 2) {
     var V = JSON.parse(UrlFetchApp.fetch(SAYT + 'verbs.json').getContentText());
@@ -73,6 +76,7 @@ function members() { return rows('Аъзолар').filter(function (r) { return 
 
 function doPost(e) {
   var q = JSON.parse(e.postData.contents || '{}'), out;
+  if (q.a === 'app') return J(ilova(q));
   if (q.k !== key()) return J({ ok: false, err: 'key' });
   var lock = LockService.getScriptLock(); lock.waitLock(20000);
   try {
@@ -200,27 +204,83 @@ function avtomat() {
   try { feelKun(); } catch (e) { Logger.log(e); }
 }
 
+function esc(t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+// 21:00 da: muddati bugun tugaydigan audio bo'yicha hali eshitmaganlarga eslatma (ismi bosiladigan qilib)
+function eslatma() {
+  if (Utilities.formatDate(now(), TZ, 'HH:mm') < ESLATMA) return;
+  var s = sh('Аудиолар'), d = s.getDataRange().getValues();
+  for (var i = 1; i < d.length; i++) {
+    if (d[i][6] || d[i][9] || now() > new Date(d[i][5])) continue;
+    if (new Date(d[i][5]).getTime() - now().getTime() > 12 * 3600e3) continue;
+    s.getRange(i + 1, 10).setValue('эслатилди');
+    var h = heard(d[i][0]), no = members().filter(function (m) { return !h[String(m[0])]; });
+    if (!no.length) continue;
+    tg('sendMessage', { chat_id: d[i][2], parse_mode: 'HTML', reply_to_message_id: d[i][3],
+      text: '⏰ «' + esc(d[i][1]) + '» — муддат тугашига оз қолди (24:00)!\n\nҲали белгиламаганлар (' + no.length + '):\n' +
+        no.map(function (m) { return '• <a href="tg://user?id=' + m[0] + '">' + esc(m[1] || 'аъзо') + '</a>'; }).join('\n') +
+        '\n\nЭшитиб, сўровномада белгилаб қўйинг 🤗' });
+  }
+}
+
 // ---------- Феъл тести ----------
 function feelKun() {
   var g = cfg('group'); if (!g) return;
   var V = rows('Феъллар'), k = Number(cfg('feel_k')) || 1, a = (k - 1) * FEEL_SONI;
   if (a >= V.length) return;
   var day = V.slice(a, a + FEEL_SONI);
-  var au = tg('sendAudio', { chat_id: g, audio: SAYT + 'd' + ('0' + k).slice(-2) + '.mp3', title: 'Феъллар — ' + k + '-кун', performer: 'نور الطالب',
-    caption: '🔤 Бугунги ' + day.length + ' та феъл:\n' + day.map(function (v, j) { return (j + 1) + '. ' + v[1] + ' – ' + v[2]; }).join('\n') + '\n\nЭшитинг ва ҳар бирининг маъносини топинг 👇' });
-  var Q = sh('Феъл саволлар');
-  day.forEach(function (v, j) {
-    var right = mn(v[3]), opts = [right], seed = Number(v[0]) * 7919;
-    for (var t = 1; opts.length < 4 && t < 400; t++) {
-      var o = V[(seed + t * 37) % V.length], m = mn(o[3]);
-      if (o[0] !== v[0] && opts.indexOf(m) < 0) opts.push(m);
-    }
-    var pos = (seed + j) % 4; opts.splice(0, 1); opts.splice(pos, 0, right);
-    var r = tg('sendPoll', { chat_id: g, reply_to_message_id: j === 0 && au.ok ? au.result.message_id : undefined, question: (j + 1) + '. ' + v[1] + ' – ' + v[2] + '\nМаъноси қайси?', options: opts.map(function (x) { return { text: x }; }),
-      type: 'quiz', correct_option_id: pos, is_anonymous: false, explanation: v[1] + ' – ' + v[2] + ' — ' + right });
-    if (r.ok) Q.appendRow([r.result.poll.id, k, v[0], v[1], pos, fmt(now())]);
-  });
+  tg('sendAudio', { chat_id: g, audio: SAYT + 'd' + ('0' + k).slice(-2) + '.mp3', title: 'Феъллар — ' + k + '-кун', performer: 'نور الطالب',
+    caption: '🔤 Бугунги ' + day.length + ' та феъл:\n' + day.map(function (v, j) { return (j + 1) + '. ' + v[1] + (v[2] ? ' – ' + v[2] : ''); }).join('\n') +
+      '\n\nЭшитинг ва тестни ечинг 👇',
+    reply_markup: { inline_keyboard: [[{ text: '▶️ Тестни очиш', url: ILOVA + '?startapp=fel_' + k }]] } });
   cfg('feel_k', k + 1);
+}
+// ---------- Ilova (Mini App) so'rovlari: Telegram imzosi tekshiriladi ----------
+function hex(b) { return b.map(function (x) { return ('0' + (x & 255).toString(16)).slice(-2); }).join(''); }
+function tekshirInit(init) {
+  if (!init) return null;
+  var P = {}, h = '';
+  String(init).split('&').forEach(function (kv) {
+    var i = kv.indexOf('='), k = kv.slice(0, i), v = decodeURIComponent(kv.slice(i + 1).replace(/\+/g, ' '));
+    if (k === 'hash') h = v; else P[k] = v;
+  });
+  var dcs = Object.keys(P).sort().map(function (k) { return k + '=' + P[k]; }).join('\n');
+  var sec = Utilities.computeHmacSha256Signature(P_TOKEN(), 'WebAppData');
+  var sig = hex(Utilities.computeHmacSha256Signature(Utilities.newBlob(dcs).getBytes(), sec));
+  if (sig !== h) return null;
+  if (Date.now() / 1000 - Number(P.auth_date || 0) > 7 * 86400) return null;
+  try { return JSON.parse(P.user); } catch (e) { return null; }
+}
+function P_TOKEN() { return P('BOT_TOKEN'); }
+function ilova(q) {
+  var u = tekshirInit(q.init); if (!u) return { ok: false, err: 'auth' };
+  var lock = LockService.getScriptLock(); lock.waitLock(20000);
+  try {
+    if (q.b === 'get') {
+      var m = rows('Хатолар').filter(function (r) { return String(r[0]) === String(u.id) && !r[3]; }).map(function (r) { return Number(r[1]); });
+      return { ok: true, mist: m };
+    }
+    if (q.b === 'res') {
+      member(u);
+      var nm = [u.first_name, u.last_name].filter(String).join(' '), V = rows('Феъллар'), T = sh('Феъл тест'), X = sh('Хатолар'), xd = X.getDataRange().getValues();
+      (q.res || []).forEach(function (r) {
+        var v = V[r.n - 1] || []; T.appendRow(['app:' + q.k, String(u.id), nm, v[1] || r.n, r.ok ? '✅' : '❌', now()]);
+        var found = -1;
+        for (var i = 1; i < xd.length; i++) if (String(xd[i][0]) === String(u.id) && Number(xd[i][1]) === Number(r.n) && !xd[i][3]) found = i;
+        if (!r.ok && found < 0) { X.appendRow([String(u.id), r.n, v[1] || '', '']); xd.push([String(u.id), r.n, '', '']); }
+        if (r.ok && found > 0) { X.getRange(found + 1, 4).setValue('ўрганди'); xd[found][3] = 'ўрганди'; }
+      });
+      return { ok: true, streak: kunlar_ketma(u.id) };
+    }
+    return { ok: false };
+  } finally { lock.releaseLock(); }
+}
+// Ketma-ket necha kun fe'l testida qatnashgan
+function kunlar_ketma(uid) {
+  var D = {};
+  rows('Феъл тест').forEach(function (r) { if (String(r[1]) === String(uid) && r[5]) D[Utilities.formatDate(new Date(r[5]), TZ, 'yyyy-MM-dd')] = 1; });
+  var n = 0, d = now();
+  while (D[Utilities.formatDate(d, TZ, 'yyyy-MM-dd')]) { n++; d = new Date(d.getTime() - 864e5); }
+  return n;
 }
 function mn(x) { return String(x).replace(/\s+/g, ' ').trim().slice(0, 100); }
 function javob(q) {
@@ -244,19 +304,20 @@ function reyting() {
   var from = now().getTime() - 7 * 864e5, S = {};
   rows('Феъл тест').forEach(function (r) {
     if (new Date(r[5]).getTime() < from) return;
-    var x = S[r[1]] = S[r[1]] || { n: r[2], ok: 0, all: 0 }; x.all++; if (r[4] === '✅') x.ok++;
+    var x = S[r[1]] = S[r[1]] || { id: r[1], n: r[2], ok: 0, all: 0 }; x.all++; if (r[4] === '✅') x.ok++;
   });
   var L = Object.keys(S).map(function (k) { return S[k]; }).sort(function (a, b) { return b.ok - a.ok || a.all - b.all; });
   if (!L.length) return;
   var md = ['🥇', '🥈', '🥉'];
   tg('sendMessage', { chat_id: g, text: '🏆 Ҳафта пешқадамлари (феъл тести)\n\n' + L.slice(0, 10).map(function (x, i) {
-    return (md[i] || (i + 1) + '.') + ' ' + x.n + ' — ' + x.ok + ' / ' + x.all; }).join('\n') + '\n\nБаракалла! Келаси ҳафтада ҳам давом этамиз 💪' });
+    var k = kunlar_ketma(x.id); return (md[i] || (i + 1) + '.') + ' ' + x.n + ' — ' + x.ok + ' / ' + x.all + (k > 1 ? ' 🔥' + k : ''); }).join('\n') + '\n\nБаракалла! Келаси ҳафтада ҳам давом этамиз 💪' });
 }
 
 // Ҳар 15 дақиқада: автомат юбориш ва муддати тугаган аудиолар бўйича қора рўйхат
 function tekshir() {
   try { avtomat(); } catch (e) { Logger.log(e); }
   try { reyting(); } catch (e) { Logger.log(e); }
+  try { eslatma(); } catch (e) { Logger.log(e); }
   var s = sh('Аудиолар'), d = s.getDataRange().getValues(), g = cfg('group');
   for (var i = 1; i < d.length; i++) {
     if (d[i][6] || now() < new Date(d[i][5])) continue;

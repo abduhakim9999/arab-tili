@@ -109,7 +109,7 @@ function doPost(e) {
     else if (q.a === 'rep') out = { ok: true, text: hisobot(q.id) };
     else if (q.a === 'nat') out = natijalar(true);
     else if (q.a === 'alist') out = { ok: true, list: rows('Аудиолар').filter(function (r) { return r[0]; }).slice(-12).reverse()
-      .map(function (r) { return { id: String(r[0]), t: String(r[1]), d: r[5] ? Utilities.formatDate(new Date(r[5]), TZ, 'dd.MM') : '' }; }) };
+      .map(function (r) { return { id: String(r[0]), t: String(r[1]), d: r[4] instanceof Date ? Utilities.formatDate(r[4], TZ, 'dd.MM HH:mm') : String(r[4] || '') }; }) };  // юборилган вақти — бир хил номлиларни ажратиш учун
     else if (q.a === 'del') out = ochir(q.id);
     else if (q.a === 'rep2') out = hisobot2(q.v, q.d, Number(q.p) || 0);
     else out = { ok: false, err: 'a' };

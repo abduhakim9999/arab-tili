@@ -95,6 +95,7 @@ function doPost(e) {
     else if (q.a === 'set') {
       if (q.vaqt) { if (!/^\d{1,2}:\d{2}$/.test(q.vaqt)) return J({ ok: false, err: 'вақт нотўғри (масалан 08:00)' }); cfg('vaqt', q.vaqt); }
       if (q.kunlar) cfg('kunlar', q.kunlar);
+      if (q.feel_k) { if (!/^\d+$/.test(q.feel_k)) return J({ ok: false, err: 'рақам ёзинг, масалан: /fel_k 1' }); cfg('feel_k', Number(q.feel_k)); }
       out = { ok: true, text: holat() };
     }
     else if (q.a === 'holat') out = { ok: true, text: holat() };

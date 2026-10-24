@@ -76,7 +76,7 @@ const CMDS = [
   ['fel', 'Феъл тестини ҳозир юбориш'], ['fel_k', 'Феъл тести қайси кундан (масалан: /fel_k 1)'],
   ['navbat', 'Аудиоларни навбатга йиғиш'], ['tamom', 'Навбат режимини ўчириш'],
   ['vaqt', 'Юбориш вақти (масалан: /vaqt 08:00)'], ['kunlar', 'Юбориш кунлари (масалан: /kunlar 1,2,3)'],
-  ['stat', 'Сайт статистикаси'], ['yangila', 'Apps Script кодини GitHub\'дан янгилаш'], ['help', 'Ёрдам']
+  ['natija', 'Натижани ҳозир гуруҳга юбориш'], ['stat', 'Сайт статистикаси'], ['yangila', 'Apps Script кодини GitHub\'дан янгилаш'], ['help', 'Ёрдам']
 ].map(([command, description]) => ({ command, description }));
 let menuSet = false;
 async function setMenu() {
@@ -109,6 +109,7 @@ function mainView(s, note) {
     [B('🔢 Феъл куни: ' + s.k + ' (' + a + '–' + (a + FEEL_N - 1) + ')', 'k:' + s.k)],
     [B('📥 Навбат: ' + (s.navbat ? 'ёқиқ ✅' : 'ўчиқ'), 'n:' + (s.navbat ? 1 : 0))],
     [B('⏰ Вақт: ' + (s.vaqt || '—'), 't:' + s.vaqt), B('📅 Кунлар', 'd:' + s.kunlar.join(''))],
+    [B('📣 Натижани ҳозир юбориш', 'z')],
     [B('📈 Статистика', 's')],
     [B('🔄 Скриптни янгилаш', 'u')]
   ] };
@@ -155,6 +156,8 @@ async function panelCb(q) {
   else if (d === 's') v = { text: await stat(), kb: ORQA };
   else if (d === 'u') v = { text: '🔄 Apps Script коди GitHub\'даги энг янги нусхага алмаштирилсинми?', kb: [[B('✅ Ҳа, янгила', 'U'), B('◀️ Йўқ', 'h')]] };
   else if (d === 'U') { await tg('editMessageText', { chat_id: c, message_id: mid, text: '⏳ Янгиланмоқда…' }); const r = await esh('yangila', {}); v = { text: r.ok ? r.text : '❌ Янгиланмади: ' + (r.err || ''), kb: ORQA }; }
+  else if (d === 'z') v = { text: '📣 Охирги 10 та дарс ва феъл тести натижаси ҳозир гуруҳга юборилсинми?\n(Автомат: ҳар Сешанба ва Жума 08:00 да)', kb: [[B('✅ Ҳа, юбор', 'Z'), B('◀️ Йўқ', 'h')]] };
+  else if (d === 'Z') { const r = await esh('nat', {}); v = { text: r.ok ? '✅ ' + (r.text || 'Юборилди.') : '❌ Юборилмади: ' + (r.err || 'скриптни янгиланг'), kb: ORQA }; }
   else if (d === 'f') v = { text: '🔤 Феъл тести ҳозир гуруҳга юборилсинми?', kb: [[B('✅ Ҳа, юбор', 'F'), B('◀️ Йўқ', 'h')]] };
   else if (d === 'F') { const r = await esh('feel', {}); v = { text: r.ok ? '✅ ' + (r.text || 'Феъл тести гуруҳга юборилди.') : '❌ Юборилмади: ' + (r.err || ''), kb: ORQA }; }
   else if (arg[0] === 'n') {
@@ -244,6 +247,7 @@ async function handle(m) {
       return tg('sendMessage', { chat_id: c, text: r.ok ? '✅ Феъл тести ' + v + '-кундан давом этади.' : '❌ ' + (r.err || '') });
     }
     if (t === '/fel' || t === '/feel') { const r = await esh('feel', {}); return tg('sendMessage', { chat_id: c, text: r.ok ? '🔤 ' + (r.text || 'Феъл тести гуруҳга юборилди.') : '❌ Юборилмади: ' + (r.err || '') }); }
+    if (t === '/natija') { const r = await esh('nat', {}); return tg('sendMessage', { chat_id: c, text: r.ok ? '✅ ' + (r.text || 'Юборилди.') : '❌ Юборилмади: ' + (r.err || 'скриптни янгиланг') }); }
     if (t === '/yangila') { await tg('sendMessage', { chat_id: c, text: '⏳ Скрипт GitHub\'дан янгиланмоқда…' }); const r = await esh('yangila', {}); return tg('sendMessage', { chat_id: c, text: r.ok ? r.text : '❌ Янгиланмади: ' + (r.err || '') }); }
     if (t === '/holat') { const h = await esh('holat', {}); return tg('sendMessage', { chat_id: c, text: h.text || ('Олинмади: ' + (h.err || '')) }); }
     if (t.startsWith('/vaqt') || t.startsWith('/kunlar')) {

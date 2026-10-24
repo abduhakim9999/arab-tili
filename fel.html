@@ -40,6 +40,7 @@ body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(
 .ml div{padding:10px 0;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;gap:10px;align-items:center}
 .ml div:last-child{border:none}.ml .a{direction:rtl;font-family:"DarsNaskh",serif;font-size:20px}
 .note{font-size:13px;color:var(--mu);text-align:center;margin-top:8px}
+.bk{color:var(--ac);text-decoration:none;font-size:22px;font-weight:700;margin-right:8px}
 .ln{color:var(--ac);font-size:13px;text-decoration:none;display:inline-block;margin-top:8px}
 </style>
 </head>
@@ -83,7 +84,7 @@ function dots() { return '<div class="dots">' + items.map(function (it, j) { var
 function show() {
   if (cur >= items.length) return finish();
   var it = items[cur], i = it.i, v = V[i], q = opts(i);
-  APP.innerHTML = '<div class="fh"><b>🔤 Феъл тести</b><span>Феъллар ' + ((K - 1) * N + 1) + '–' + Math.min(K * N, V.length) + ' · ' + (cur + 1) + '/' + items.length + '</span></div>' + dots() +
+  APP.innerHTML = '<div class="fh"><b><a class="bk" href="feellar.html" aria-label="Феъллар">‹</a>🔤 Феъл тести</b><span>Феъллар ' + ((K - 1) * N + 1) + '–' + Math.min(K * N, V.length) + ' · ' + (cur + 1) + '/' + items.length + '</span></div>' + dots() +
     '<div class="card">' + (it.rep ? '<div class="tag">🔁 Такрорлаш</div>' : '') +
     '<div class="vb">' + vt(v) + '</div><button class="say" id="sy" aria-label="Эшитиш">' + SPK + '</button>' +
     '<div class="q">Маъноси қайси?</div>' + q.o.map(function (t, j) { return '<button class="op" data-j="' + j + '">' + t + '</button>'; }).join('') +
@@ -102,12 +103,25 @@ function show() {
     };
   });
 }
+// «Феъллар» бўлими билан умумий: хатолар ўша ердаги «↻ Хатолар»га тушади, ишланган кун белгиланади
+function saveLocal(ok, bad) {
+  try {
+    var M = JSON.parse(localStorage.getItem('fl200_mist') || '[]') || [];
+    bad.forEach(function (r) { var i = r.n - 1; if (M.indexOf(i) < 0) M.push(i); });
+    localStorage.setItem('fl200_mist', JSON.stringify(M));
+    if (bad.length) localStorage.setItem('fl200_t', JSON.stringify(Date.now()));
+    var D = JSON.parse(localStorage.getItem('fel_done') || '{}') || {};
+    D[K] = Math.max(D[K] || 0, ok); localStorage.setItem('fel_done', JSON.stringify(D));
+  } catch (e) {}
+}
 function finish() {
   var ok = res.filter(function (r) { return r.ok; }).length, bad = res.filter(function (r) { return !r.ok; });
   APP.innerHTML = '<div class="res"><div class="big">' + ok + ' / ' + res.length + '</div><div class="st" id="st">' + (ok === res.length ? 'Баракалла! 🎉' : 'Яхши! Хатолар кейинги кунларда яна чиқади 🔁') + '</div>' +
     (bad.length ? '<div class="ml">' + bad.map(function (r) { var v = V[r.n - 1]; return '<div><span class="a">' + vt(v) + '</span><span>' + mn(v) + '</span></div>'; }).join('') + '</div>' : '') +
-    '<button class="nx" id="cl">Ёпиш</button><div class="note" id="sv">Сақланмоқда…</div></div>';
+    '<button class="nx" id="cl">Ёпиш</button><button class="nx" id="fl" style="background:var(--cd);color:var(--ac);border:1.5px solid var(--bd)">📚 Барча феъллар</button><div class="note" id="sv">Сақланмоқда…</div></div>';
   document.getElementById('cl').onclick = function () { try { Telegram.WebApp.close(); } catch (e) { location.href = './'; } };
+  document.getElementById('fl').onclick = function () { location.href = 'feellar.html'; };
+  saveLocal(ok, bad);
   if (!init) { document.getElementById('sv').textContent = 'Натижа фақат Telegram ичида очилганда сақланади.'; return; }
   post({ a: 'app', b: 'res', init: init, k: K, res: res }, 15000).then(function (j) {
     var sv = document.getElementById('sv');

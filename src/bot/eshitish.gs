@@ -238,6 +238,10 @@ function feelKun() {
     reply_markup: { inline_keyboard: [[{ text: '▶️ Тестни очиш', url: ILOVA + '?startapp=fel_' + k }]] } });
   if (!au.ok) return { ok: false, err: (au.description || 'юборилмади') + ' (Феъллар ' + (a + 1) + '–' + (a + day.length) + ')' };
   cfg('feel_k', k + 1);
+  // кун охирида «ким ишлади / ким ишламади» рўйхати учун эслаб қўйилади
+  var kut = []; try { kut = JSON.parse(cfg('feel_kut') || '[]'); } catch (e) {}
+  kut.push({ d: Utilities.formatDate(now(), TZ, 'yyyy-MM-dd'), k: k, m: au.result.message_id });
+  cfg('feel_kut', JSON.stringify(kut));
   return { ok: true, text: 'Феъллар ' + (a + 1) + '–' + (a + day.length) + ' гуруҳга юборилди.' };
 }
 // ---------- Ilova (Mini App) so'rovlari: Telegram imzosi tekshiriladi ----------
@@ -325,8 +329,36 @@ function reyting() {
 }
 
 // Ҳар 15 дақиқада: автомат юбориш ва муддати тугаган аудиолар бўйича қора рўйхат
+// Кун тугагач (24:00): шу куни юборилган феъл тестини ким ишлади, ким ишламади — гуруҳга (қора рўйхатга тушмайди)
+function feelHisobot() {
+  var g = cfg('group'); if (!g) return;
+  var kut = []; try { kut = JSON.parse(cfg('feel_kut') || '[]'); } catch (e) { cfg('feel_kut', '[]'); return; }
+  if (!kut.length) return;
+  var today = Utilities.formatDate(now(), TZ, 'yyyy-MM-dd'), qol = [], T = null, V = null;
+  kut.forEach(function (p) {
+    if (p.d >= today) { qol.push(p); return; }
+    T = T || rows('Феъл тест'); V = V || rows('Феъллар');
+    var a = (p.k - 1) * FEEL_SONI, day = V.slice(a, a + FEEL_SONI).map(function (v) { return String(v[1]); }), U = {};
+    T.forEach(function (r) {
+      if (String(r[0]) !== 'app:' + p.k || !r[5] || Utilities.formatDate(new Date(r[5]), TZ, 'yyyy-MM-dd') !== p.d) return;
+      var vb = String(r[3]); if (day.indexOf(vb) < 0) return;
+      var u = U[r[1]] = U[r[1]] || { n: r[2], v: {} };
+      if (!(vb in u.v)) u.v[vb] = r[4] === '✅';   // ҳар феълнинг биринчи жавоби ҳисобланади
+    });
+    var ha = Object.keys(U).map(function (id) { var u = U[id], ok = 0; for (var x in u.v) if (u.v[x]) ok++; return { id: id, n: u.n, ok: ok }; })
+      .sort(function (x, y) { return y.ok - x.ok; });
+    var yoq = members().filter(function (m) { return !U[String(m[0])]; });
+    var nom = 'Феъллар ' + (a + 1) + '–' + (a + day.length);
+    tg('sendMessage', { chat_id: g, reply_to_message_id: p.m, allow_sending_without_reply: true,
+      text: '🔤 «' + nom + '» — кун якунланди.\n\n✅ Тестни ишлаганлар (' + ha.length + '):\n' +
+        (ha.map(function (x) { return '• ' + x.n + ' — ' + x.ok + ' / ' + day.length; }).join('\n') || '—') +
+        '\n\n❌ Ишламаганлар (' + yoq.length + '):\n' + (yoq.map(function (m) { return '• ' + m[1]; }).join('\n') || '— Ҳамма ишлади! 🎉') });
+  });
+  cfg('feel_kut', JSON.stringify(qol));
+}
 function tekshir() {
   try { avtomat(); } catch (e) { Logger.log(e); }
+  try { feelHisobot(); } catch (e) { Logger.log(e); }
   try { reyting(); } catch (e) { Logger.log(e); }
   try { eslatma(); } catch (e) { Logger.log(e); }
   var s = sh('Аудиолар'), d = s.getDataRange().getValues(), g = cfg('group');

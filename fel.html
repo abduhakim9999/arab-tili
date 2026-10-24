@@ -83,7 +83,7 @@ function dots() { return '<div class="dots">' + items.map(function (it, j) { var
 function show() {
   if (cur >= items.length) return finish();
   var it = items[cur], i = it.i, v = V[i], q = opts(i);
-  APP.innerHTML = '<div class="fh"><b>🔤 Феъл тести</b><span>' + K + '-кун · ' + (cur + 1) + '/' + items.length + '</span></div>' + dots() +
+  APP.innerHTML = '<div class="fh"><b>🔤 Феъл тести</b><span>Феъллар ' + ((K - 1) * N + 1) + '–' + Math.min(K * N, V.length) + ' · ' + (cur + 1) + '/' + items.length + '</span></div>' + dots() +
     '<div class="card">' + (it.rep ? '<div class="tag">🔁 Такрорлаш</div>' : '') +
     '<div class="vb">' + vt(v) + '</div><button class="say" id="sy" aria-label="Эшитиш">' + SPK + '</button>' +
     '<div class="q">Маъноси қайси?</div>' + q.o.map(function (t, j) { return '<button class="op" data-j="' + j + '">' + t + '</button>'; }).join('') +

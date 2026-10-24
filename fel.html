@@ -41,6 +41,9 @@ body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(
 .ml div:last-child{border:none}.ml .a{direction:rtl;font-family:"DarsNaskh",serif;font-size:20px}
 .note{font-size:13px;color:var(--mu);text-align:center;margin-top:8px}
 .bk{color:var(--ac);text-decoration:none;font-size:22px;font-weight:700;margin-right:8px}
+.bg{text-align:left;background:var(--cd);border:1px solid var(--bd);border-radius:18px;padding:12px 14px;margin-top:14px}
+.bg h4{margin:0 0 6px;font-size:15px}.bg div{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--bd);font-size:15px}
+.bg div:last-child{border:none}.bg .me{font-weight:700;color:var(--ac)}.bg .no{color:var(--mu)}
 .ln{color:var(--ac);font-size:13px;text-decoration:none;display:inline-block;margin-top:8px}
 </style>
 </head>
@@ -117,11 +120,21 @@ function saveLocal(ok, bad) {
     D[K] = Math.max(D[K] || 0, ok); localStorage.setItem('fel_done', JSON.stringify(D));
   } catch (e) {}
 }
+// Бугун шу кун тестини ким ишлади — жадвалдан
+function bugun() {
+  post({ a: 'app', b: 'bugun', init: init, k: K }, 15000).then(function (j) {
+    var el = document.getElementById('bgn'); if (!el || !j || !j.ok) return;
+    var e = function (t) { return String(t).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); };
+    el.innerHTML = '<div class="bg"><h4>👥 Бугун ишлаганлар (' + j.ha.length + ')</h4>' +
+      (j.ha.map(function (x) { return '<div' + (x.men ? ' class="me"' : '') + '><span>' + e(x.n) + '</span><span>' + x.ok + ' / ' + j.jami + '</span></div>'; }).join('') || '<div class="no">—</div>') + '</div>' +
+      (j.yoq.length ? '<div class="bg"><h4>⏳ Ҳали ишламаганлар (' + j.yoq.length + ')</h4>' + j.yoq.map(function (n) { return '<div class="no"><span>' + e(n) + '</span></div>'; }).join('') + '</div>' : '');
+  });
+}
 function finish() {
   var ok = res.filter(function (r) { return r.ok; }).length, bad = res.filter(function (r) { return !r.ok; });
   APP.innerHTML = '<div class="res"><div class="big">' + ok + ' / ' + res.length + '</div><div class="st" id="st">' + (ok === res.length ? 'Баракалла! 🎉' : 'Яхши! Хатолар кейинги кунларда яна чиқади 🔁') + '</div>' +
     (bad.length ? '<div class="ml">' + bad.map(function (r) { var v = V[r.n - 1]; return '<div><span class="a">' + vt(v) + '</span><span>' + mn(v) + '</span></div>'; }).join('') + '</div>' : '') +
-    '<button class="nx" id="cl">Ёпиш</button><button class="nx" id="fl" style="background:var(--cd);color:var(--ac);border:1.5px solid var(--bd)">📚 Барча феъллар</button><div class="note" id="sv">Сақланмоқда…</div></div>';
+    '<div id="bgn"></div><button class="nx" id="cl">Ёпиш</button><button class="nx" id="fl" style="background:var(--cd);color:var(--ac);border:1.5px solid var(--bd)">📚 Барча феъллар</button><div class="note" id="sv">Сақланмоқда…</div></div>';
   document.getElementById('cl').onclick = function () { try { Telegram.WebApp.close(); } catch (e) { location.href = './'; } };
   document.getElementById('fl').onclick = function () { location.href = 'feellar.html'; };
   saveLocal(ok, bad);
@@ -129,7 +142,7 @@ function finish() {
   if (!init) { document.getElementById('sv').textContent = 'Натижа фақат Telegram ичида очилганда сақланади.'; return; }
   post({ a: 'app', b: 'res', init: init, k: K, res: res }, 15000).then(function (j) {
     var sv = document.getElementById('sv');
-    if (j && j.ok) { sv.textContent = '✅ Натижа сақланди'; if (j.streak > 1) document.getElementById('st').innerHTML += '<br>🔥 ' + j.streak + ' кун кетма-кет'; }
+    if (j && j.ok) { bugun(); sv.textContent = '✅ Натижа сақланди'; if (j.streak > 1) document.getElementById('st').innerHTML += '<br>🔥 ' + j.streak + ' кун кетма-кет'; }
     else sv.textContent = 'Натижа сақланмади, интернетни текширинг.';
   });
 }

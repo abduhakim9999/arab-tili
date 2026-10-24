@@ -27,9 +27,12 @@ function sh(n, head) {
 function rows(n) { var v = sh(n).getDataRange().getValues(); v.shift(); return v; }
 function cfg(k, v) {
   var s = sh('Созлама', ['калит', 'қиймат']), d = s.getDataRange().getValues();
-  for (var i = 1; i < d.length; i++) if (d[i][0] === k) { if (v === undefined) return d[i][1]; s.getRange(i + 1, 2).setValue(v); return v; }
+  for (var i = 1; i < d.length; i++) if (d[i][0] === k) {
+    if (v === undefined) { var x = d[i][1]; return x instanceof Date ? Utilities.formatDate(x, TZ, x.getFullYear() < 1950 ? 'HH:mm' : 'yyyy-MM-dd') : x; }
+    s.getRange(i + 1, 2).setNumberFormat('@').setValue(String(v)); return v;
+  }
   if (v === undefined) return '';
-  s.appendRow([k, v]); return v;
+  s.appendRow([k, '']); s.getRange(s.getLastRow(), 2).setNumberFormat('@').setValue(String(v)); return v;
 }
 function now() { return new Date(); }
 function fmt(d) { return Utilities.formatDate(new Date(d), TZ, 'dd.MM HH:mm'); }

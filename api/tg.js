@@ -86,66 +86,82 @@ async function setMenu() {
   const g = await loadGrp();
   if (g.ctrl) await tg('setMyCommands', { commands: CMDS, scope: { type: 'chat_member', chat_id: Number(g.ctrl), user_id: Number(A) } });
 }
-async function holatSt() {
-  const [h, md] = await Promise.all([esh('holat', {}), esh('mode', {})]);
-  const tx = h.text || '', g = re => ((tx.match(re) || [])[1] || '').trim();
+function parseH(tx, md) {
+  tx = tx || '';
+  const g = re => ((tx.match(re) || [])[1] || '').trim();
+  const vq = (g(/Вақт: ([^\n]*)/).match(/(\d{1,2}:\d{2})/) || [])[1] || '';
   const kn = g(/Кунлар: ([^\n]*)/).split(/,\s*/).map(x => KUNN.indexOf(x)).filter(x => x > 0);
   const n1 = Number(g(/кейингиси (\d+)-феълдан/)) || 1;
-  return { ok: !!h.ok, err: h.err, text: tx.replace(/\n*Ўзгартириш:[^\n]*/, ''), vaqt: g(/Вақт: ([^\n]*)/), kunlar: kn, k: Math.floor((n1 - 1) / FEEL_N) + 1, navbat: md.mode === 'navbat' };
+  return { text: tx.replace(/\n*Ўзгартириш:[^\n]*/, '').replace(/Вақт: [^\n]*/, 'Вақт: ' + (vq || '—')), vaqt: vq, kunlar: kn, k: Math.floor((n1 - 1) / FEEL_N) + 1, navbat: md === 'navbat' };
+}
+async function holatSt() {
+  const [h, md] = await Promise.all([esh('holat', {}), esh('mode', {})]);
+  return { ok: !!h.ok, err: h.err, ...parseH(h.text, md.mode) };
 }
 const B = (text, d) => ({ text, callback_data: 'p:' + d });
 const ORQA = [[B('◀️ Орқага', 'h')]];
-async function panelView() {
-  const s = await holatSt();
+function mainView(s, note) {
   if (!s.ok) return { text: '❌ Ҳолат олинмади: ' + (s.err || ''), kb: [[B('🔄 Қайта уриниш', 'h')]] };
   const a = (s.k - 1) * FEEL_N + 1;
-  return { text: '🎛 Бошқарув панели\n\n' + s.text, kb: [
+  return { text: (note ? note + '\n\n' : '') + '🎛 Бошқарув панели\n\n' + s.text, kb: [
     [B('🔄 Янгилаш', 'h'), B('📋 Ҳисобот', 'r')],
     [B('🔤 Феълни ҳозир юбориш', 'f')],
-    [B('🔢 Феъл куни: ' + s.k + ' (' + a + '–' + (a + FEEL_N - 1) + ')', 'k')],
-    [B('📥 Навбат: ' + (s.navbat ? 'ёқиқ ✅' : 'ўчиқ'), 'n')],
-    [B('⏰ Вақт: ' + (s.vaqt || '—'), 't'), B('📅 Кунлар', 'd')],
+    [B('🔢 Феъл куни: ' + s.k + ' (' + a + '–' + (a + FEEL_N - 1) + ')', 'k:' + s.k)],
+    [B('📥 Навбат: ' + (s.navbat ? 'ёқиқ ✅' : 'ўчиқ'), 'n:' + (s.navbat ? 1 : 0))],
+    [B('⏰ Вақт: ' + (s.vaqt || '—'), 't:' + s.vaqt), B('📅 Кунлар', 'd:' + s.kunlar.join(''))],
     [B('📈 Статистика', 's')]
   ] };
 }
+async function panelView() { return mainView(await holatSt()); }
+function kunView(k, note) {
+  const a = (k - 1) * FEEL_N + 1;
+  return { text: (note ? note + '\n\n' : '') + '🔢 Феъл тести кейинги сафар ' + k + '-кундан чиқади (феъллар ' + a + '–' + (a + FEEL_N - 1) + ').\n\nТанланг:', kb: [
+    [B('⏪ −5', 'K:' + (k - 5)), B('◀️ −1', 'K:' + (k - 1)), B(String(k), 'k:' + k), B('+1 ▶️', 'K:' + (k + 1)), B('+5 ⏩', 'K:' + (k + 5))],
+    [B('1-кун (бошидан)', 'K:1')], ...ORQA] };
+}
+function vaqtView(vq, note) {
+  const rows = [];
+  for (let h = 5; h <= 22; h += 3) rows.push([0, 1, 2].map(i => { const t = String(h + i).padStart(2, '0') + ':00'; return B((t === vq ? '✅ ' : '') + t, 'T:' + t); }));
+  return { text: (note ? note + '\n\n' : '') + '⏰ Автомат юбориш вақти: ' + (vq || '—') + '\n\nБошқа дақиқа керак бўлса, ёзинг: /vaqt 08:30', kb: [...rows, ...ORQA] };
+}
+function kunlarView(kn, note) {
+  const btn = i => B((kn.includes(i) ? '✅ ' : '▫️ ') + KUNN[i], 'D:' + i + ':' + kn.join(''));
+  return { text: (note ? note + '\n\n' : '') + '📅 Юбориш кунлари — босиб белгиланг ёки олиб ташланг:', kb: [[btn(1), btn(2)], [btn(3), btn(4)], [btn(5), btn(6)], [btn(7)], ...ORQA] };
+}
 async function panelCb(q) {
-  const d = q.data.slice(2), c = q.message.chat.id, mid = q.message.message_id;
-  let v = null, note = '';
-  const show = x => tg('editMessageText', { chat_id: c, message_id: mid, text: x.text.slice(0, 4000), reply_markup: { inline_keyboard: x.kb } });
+  const d = q.data.slice(2), c = q.message.chat.id, mid = q.message.message_id, arg = d.split(':');
+  // тугма босилгани дарҳол билинсин
+  await tg('answerCallbackQuery', { callback_query_id: q.id, text: '⏳' });
+  let v = null;
   if (d === 'h') v = await panelView();
   else if (d === 'r') { const r = await esh('rep', { id: '' }); v = { text: r.text || ('Ҳисобот олинмади: ' + (r.err || '')), kb: ORQA }; }
   else if (d === 's') v = { text: await stat(), kb: ORQA };
   else if (d === 'f') v = { text: '🔤 Феъл тести ҳозир гуруҳга юборилсинми?', kb: [[B('✅ Ҳа, юбор', 'F'), B('◀️ Йўқ', 'h')]] };
   else if (d === 'F') { const r = await esh('feel', {}); v = { text: r.ok ? '✅ ' + (r.text || 'Феъл тести гуруҳга юборилди.') : '❌ Юборилмади: ' + (r.err || ''), kb: ORQA }; }
-  else if (d === 'n') { const s = await holatSt(); await esh('mode', { v: s.navbat ? '' : 'navbat' }); note = s.navbat ? 'Навбат ўчирилди' : 'Навбат ёқилди: энди аудиолар навбатга тушади'; v = await panelView(); }
-  else if (d === 'k' || d.startsWith('K:')) {
-    let k;
-    if (d === 'k') k = (await holatSt()).k;
-    else { k = Math.min(FEEL_KUN, Math.max(1, Number(d.slice(2)))); const r = await esh('set', { feel_k: String(k) }); note = r.ok ? 'Сақланди' : 'Хато: ' + (r.err || ''); }
-    const a = (k - 1) * FEEL_N + 1;
-    v = { text: '🔢 Феъл тести кейинги сафар ' + k + '-кундан чиқади (феъллар ' + a + '–' + (a + FEEL_N - 1) + ').\n\nТанланг:', kb: [
-      [B('⏪ −5', 'K:' + (k - 5)), B('◀️ −1', 'K:' + (k - 1)), B(String(k), 'K:' + k), B('+1 ▶️', 'K:' + (k + 1)), B('+5 ⏩', 'K:' + (k + 5))],
-      [B('1-кун (бошидан)', 'K:1')], ...ORQA] };
+  else if (arg[0] === 'n') {
+    const on = arg[1] !== '1';
+    const [, h] = await Promise.all([esh('mode', { v: on ? 'navbat' : '' }), esh('holat', {})]);
+    v = mainView({ ok: !!h.ok, err: h.err, ...parseH(h.text, on ? 'navbat' : '') }, on ? '✅ Навбат ёқилди: энди юборган аудиоларингиз навбатга тушади.' : '✅ Навбат ўчирилди: аудио дарҳол гуруҳга кетади.');
   }
-  else if (d === 't' || d.startsWith('T:')) {
-    if (d.startsWith('T:')) { const r = await esh('set', { vaqt: d.slice(2) }); note = r.ok ? 'Вақт: ' + d.slice(2) : 'Хато: ' + (r.err || ''); }
-    const s = await holatSt(), rows = [];
-    for (let h = 5; h <= 22; h += 3) rows.push([0, 1, 2].map(i => { const t = String(h + i).padStart(2, '0') + ':00'; return B((t === s.vaqt ? '✅ ' : '') + t, 'T:' + t); }));
-    v = { text: '⏰ Автомат юбориш вақти: ' + (s.vaqt || '—') + '\n\nБошқа дақиқа керак бўлса, ёзинг: /vaqt 08:30', kb: [...rows, ...ORQA] };
+  else if (arg[0] === 'k') v = kunView(Number(arg[1]) || 1);
+  else if (arg[0] === 'K') {
+    const k = Math.min(FEEL_KUN, Math.max(1, Number(arg[1]) || 1));
+    const r = await esh('set', { feel_k: String(k) });
+    v = kunView(r.ok ? parseH(r.text).k : k, r.ok ? '✅ Сақланди' : '❌ ' + (r.err || ''));
   }
-  else if (d === 'd' || d.startsWith('D:')) {
-    let kn = (await holatSt()).kunlar;
-    if (d.startsWith('D:')) {
-      const x = Number(d.slice(2)); kn = kn.includes(x) ? kn.filter(y => y !== x) : [...kn, x].sort();
-      if (!kn.length) note = 'Камида битта кун қолсин';
-      else { const r = await esh('set', { kunlar: kn.join(',') }); note = r.ok ? 'Сақланди' : 'Хато: ' + (r.err || ''); }
-      kn = (await holatSt()).kunlar;
-    }
-    const btn = i => B((kn.includes(i) ? '✅ ' : '▫️ ') + KUNN[i], 'D:' + i);
-    v = { text: '📅 Юбориш кунлари — босиб белгиланг ёки олиб ташланг:', kb: [[btn(1), btn(2)], [btn(3), btn(4)], [btn(5), btn(6)], [btn(7)], ...ORQA] };
+  else if (arg[0] === 't') v = vaqtView(d.slice(2));
+  else if (arg[0] === 'T') {
+    const t = d.slice(2), r = await esh('set', { vaqt: t });
+    v = vaqtView(r.ok ? (parseH(r.text).vaqt || t) : '', r.ok ? '✅ Сақланди: ' + t : '❌ ' + (r.err || ''));
   }
-  if (v) await show(v);
-  return tg('answerCallbackQuery', { callback_query_id: q.id, text: note });
+  else if (arg[0] === 'd') v = kunlarView((arg[1] || '').split('').map(Number));
+  else if (arg[0] === 'D') {
+    const x = Number(arg[1]); let kn = (arg[2] || '').split('').map(Number);
+    kn = kn.includes(x) ? kn.filter(y => y !== x) : [...kn, x].sort();
+    if (!kn.length) v = kunlarView([x], '⚠️ Камида битта кун қолсин');
+    else { const r = await esh('set', { kunlar: kn.join(',') }); v = kunlarView(r.ok ? parseH(r.text).kunlar : kn, r.ok ? '✅ Сақланди' : '❌ ' + (r.err || '')); }
+  }
+  if (v) return tg('editMessageText', { chat_id: c, message_id: mid, text: v.text.slice(0, 4000), reply_markup: { inline_keyboard: v.kb } });
 }
 
 async function callback(q) {

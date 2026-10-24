@@ -229,8 +229,8 @@ function feelKun() {
   var V = rows('Феъллар'), k = Number(cfg('feel_k')) || 1, a = (k - 1) * FEEL_SONI;
   if (a >= V.length) return;
   var day = V.slice(a, a + FEEL_SONI);
-  tg('sendAudio', { chat_id: g, audio: SAYT + 'd' + ('0' + k).slice(-2) + '.mp3', title: 'Феъллар — ' + k + '-кун', performer: 'نور الطالب',
-    caption: '🔤 Бугунги ' + day.length + ' та феъл:\n' + day.map(function (v, j) { return (j + 1) + '. ' + v[1] + (v[2] ? ' – ' + v[2] : ''); }).join('\n') +
+  tg('sendAudio', { chat_id: g, audio: SAYT + 'd' + ('0' + k).slice(-2) + '.mp3', title: 'Феъллар ' + (a + 1) + '–' + (a + day.length), performer: 'نور الطالب',
+    caption: '🔤 Феъллар ' + (a + 1) + '–' + (a + day.length) + ':\n' + day.map(function (v, j) { return (a + j + 1) + '. ' + v[1] + (v[2] ? ' – ' + v[2] : ''); }).join('\n') +
       '\n\nЭшитинг ва тестни ечинг 👇',
     reply_markup: { inline_keyboard: [[{ text: '▶️ Тестни очиш', url: ILOVA + '?startapp=fel_' + k }]] } });
   cfg('feel_k', k + 1);

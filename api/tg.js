@@ -72,7 +72,7 @@ async function postAudio(m) {
   const c = String(m.chat.id), f = m.audio || m.voice || m.document || m.video;
   const cf = await esh('cfg', {});
   if (!cf.ok || !cf.group) return tg('sendMessage', { chat_id: c, text: '❌ Гуруҳ уланмаган. Ботни гуруҳга админ қилиб қўшинг ва гуруҳда /ulash деб ёзинг.' + (cf.err ? '\n(' + cf.err + ')' : '') });
-  const title = (m.caption || (f && (f.title || f.file_name)) || 'Аудио').trim().split('\n')[0].slice(0, 80);
+  const title = (m.caption || (f && (f.title || f.file_name)) || 'Аудио').trim().split('\n')[0].replace(/\.(m4a|mp3|ogg|oga|opus|wav|aac|mp4)$/i, '').slice(0, 80);
   const id = Date.now().toString(36);
   const cap = (m.caption || title) + '\n\n🎧 Эшитиб бўлгач, «✅ Эшитдим» тугмасини босинг.\n⏰ Муддат — 24 соат.';
   const x = await tg('copyMessage', { chat_id: cf.group, from_chat_id: c, message_id: m.message_id, caption: cap,
@@ -107,7 +107,7 @@ async function handle(m) {
       const md = await esh('mode', {});
       if (md.mode === 'navbat') {
         const kind = m.audio ? 'audio' : m.voice ? 'voice' : m.video ? 'video' : 'document', f = m[kind];
-        const title = (m.caption || f.title || f.file_name || 'Аудио').trim().split('\n')[0].slice(0, 80);
+        const title = (m.caption || f.title || f.file_name || 'Аудио').trim().split('\n')[0].replace(/\.(m4a|mp3|ogg|oga|opus|wav|aac|mp4)$/i, '').slice(0, 80);
         const r = await esh('queue', { title, file_id: f.file_id, kind });
         return tg('sendMessage', { chat_id: c, reply_to_message_id: m.message_id, text: r.ok ? '📥 Навбатга қўшилди: «' + title + '» (навбатда ' + r.n + ' та)' : '❌ ' + (r.err || '') });
       }

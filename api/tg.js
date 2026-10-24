@@ -38,6 +38,7 @@ async function esh(a, p) {
   } catch (e) { return { ok: false, err: e.message }; }
 }
 const seen = new Set();
+let grp = null;
 async function seenUser(u) {
   if (!u || u.is_bot || seen.has(u.id)) return;
   seen.add(u.id); await esh('member', { users: [u] });
@@ -48,12 +49,16 @@ async function group(m) {
   const c = String(m.chat.id), t = (m.text || '').trim().split('@')[0];
   if (t === '/ulash' && A && String(m.from && m.from.id) === A) {
     const r = await esh('group', { chat: c });
+    grp = { id: c, t: Date.now() };
     await tg('deleteMessage', { chat_id: c, message_id: m.message_id });
     if (!r.ok) return tg('sendMessage', { chat_id: A, text: '❌ Гуруҳ уланмади: ' + (r.err || '') });
     await tg('sendMessage', { chat_id: c, text: '👋 Ассалому алайкум! Бу гуруҳда аудио дарслар юборилади.\nЭшитганингизни белгилаш учун аввал рўйхатдан ўтинг — тугмани босинг:',
       reply_markup: { inline_keyboard: [[{ text: '👋 Мен шу гуруҳдаман', callback_data: 'r' }]] } });
     return tg('sendMessage', { chat_id: A, text: '✅ Гуруҳ уланди. Энди менга аудио юборинг (изоҳига номини ёзинг, масалан «1-дарс») — гуруҳга «✅ Эшитдим» тугмаси билан жойлайман.' });
   }
+  // faqat ulangan guruhdagilar a'zo hisoblanadi (bot turgan boshqa guruhlar emas)
+  if (!grp || Date.now() - grp.t > 600e3) { const cf = await esh('cfg', {}); grp = { id: String(cf.group || ''), t: Date.now() }; }
+  if (c !== grp.id) return;
   for (const u of (m.new_chat_members || [])) await seenUser(u);
   await seenUser(m.from);
 }

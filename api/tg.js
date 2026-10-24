@@ -100,21 +100,24 @@ async function holatSt() {
 }
 const NATN = { ef: '🎧 Ҳивар + 🔤 Кунлик феъл', e: 'фақат 🎧 Ҳивар', f: 'фақат 🔤 Кунлик феъл' }, NATK = { ef: 'e', e: 'f', f: 'ef' };   // навбат билан алмашади
 const B = (text, d) => ({ text, callback_data: 'p:' + d });
-const ORQA = [[B('◀️ Орқага', 'h')]];
-function mainView(s, note) {
+const ORQA = [[B('◀️ Орқага', 'h')]], ON = [[B('◀️ Орқага', 'G:n')]], OF = [[B('◀️ Орқага', 'G:f')]], OS = [[B('◀️ Орқага', 'G:s')]];
+function mainView(s, note, sec) {
   if (!s.ok) return { text: '❌ Ҳолат олинмади: ' + (s.err || ''), kb: [[B('🔄 Қайта уриниш', 'h')]] };
-  const a = (s.k - 1) * FEEL_N + 1;
-  return { text: (note ? note + '\n\n' : '') + '🎛 Бошқарув панели\n\n' + s.text, kb: [
-    [B('🔄 Янгилаш', 'h')],
-    [B('— 📋 Натижалар —', '_')],
-    [B('📋 Ҳисобот', 'r'), B('📣 Натижа юбориш', 'z')],
-    [B('— 🔤 Кунлик феъл —', '_')],
-    [B('🔤 Феълни юбориш', 'f'), B('🔢 Феъл куни: ' + s.k + ' (' + a + '–' + (a + FEEL_N - 1) + ')', 'k:' + s.k)],
-    [B('— ⚙️ Созлама —', '_')],
+  const a = (s.k - 1) * FEEL_N + 1, pre = note ? note + '\n\n' : '';
+  // бўлимлар: n — натижалар, f — кунлик феъл, s — созлама
+  if (sec === 'n') return { text: pre + '📋 Натижалар\n\n📣 Натижа тури: ' + NATN[s.nat] + '\n(Автомат: ҳар Сешанба ва Жума 08:00)', kb: [
+    [B('📋 Ҳисобот', 'r')], [B('📣 Натижани ҳозир юбориш', 'z')], [B('📣 Натижа тури: ' + NATN[s.nat], 'P:' + NATK[s.nat])], ...ORQA] };
+  if (sec === 'f') return { text: pre + '🔤 Кунлик феъл\n\nКейинги сафар: ' + s.k + '-кун (феъллар ' + a + '–' + (a + FEEL_N - 1) + ')', kb: [
+    [B('🔤 Феълни ҳозир юбориш', 'f')], [B('🔢 Феъл куни: ' + s.k + ' (' + a + '–' + (a + FEEL_N - 1) + ')', 'k:' + s.k)], ...ORQA] };
+  if (sec === 's') return { text: pre + '⚙️ Созлама\n\n' + s.text, kb: [
     [B('📥 Навбат: ' + (s.navbat ? 'ёқиқ ✅' : 'ўчиқ'), 'n:' + (s.navbat ? 1 : 0)), B('📋 Навбат рўйхати (' + (s.nb || 0) + ')', 'L:0')],
     [B('⏰ Вақт: ' + (s.vaqt || '—'), 't:' + s.vaqt), B('📅 Кунлар', 'd:' + s.kunlar.join(''))],
-    [B('📣 Натижа: ' + NATN[s.nat], 'P:' + NATK[s.nat])],
-    [B('📈 Статистика', 's')]
+    [B('📈 Статистика', 's')], ...ORQA] };
+  return { text: pre + '🎛 Бошқарув панели\n\n' + s.text, kb: [
+    [B('📋 Натижалар', 'G:n')],
+    [B('🔤 Кунлик феъл', 'G:f')],
+    [B('⚙️ Созлама', 'G:s')],
+    [B('🔄 Янгилаш', 'h')]
   ] };
 }
 async function panelView() { return mainView(await holatSt()); }
@@ -122,16 +125,16 @@ function kunView(k, note) {
   const a = (k - 1) * FEEL_N + 1;
   return { text: (note ? note + '\n\n' : '') + '🔢 Феъл тести кейинги сафар ' + k + '-кундан чиқади (феъллар ' + a + '–' + (a + FEEL_N - 1) + ').\n\nТанланг:', kb: [
     [B('⏪ −5', 'K:' + (k - 5)), B('◀️ −1', 'K:' + (k - 1)), B(String(k), 'k:' + k), B('+1 ▶️', 'K:' + (k + 1)), B('+5 ⏩', 'K:' + (k + 5))],
-    [B('1-кун (бошидан)', 'K:1')], ...ORQA] };
+    [B('1-кун (бошидан)', 'K:1')], ...OF] };
 }
 function vaqtView(vq, note) {
   const rows = [];
   for (let h = 5; h <= 22; h += 3) rows.push([0, 1, 2].map(i => { const t = String(h + i).padStart(2, '0') + ':00'; return B((t === vq ? '✅ ' : '') + t, 'T:' + t); }));
-  return { text: (note ? note + '\n\n' : '') + '⏰ Автомат юбориш вақти: ' + (vq || '—') + '\n\nБошқа дақиқа керак бўлса, ёзинг: /vaqt 08:30', kb: [...rows, ...ORQA] };
+  return { text: (note ? note + '\n\n' : '') + '⏰ Автомат юбориш вақти: ' + (vq || '—') + '\n\nБошқа дақиқа керак бўлса, ёзинг: /vaqt 08:30', kb: [...rows, ...OS] };
 }
 function kunlarView(kn, note) {
   const btn = i => B((kn.includes(i) ? '✅ ' : '▫️ ') + KUNN[i], 'D:' + i + ':' + kn.join(''));
-  return { text: (note ? note + '\n\n' : '') + '📅 Юбориш кунлари — босиб белгиланг ёки олиб ташланг:', kb: [[btn(1), btn(2)], [btn(3), btn(4)], [btn(5), btn(6)], [btn(7)], ...ORQA] };
+  return { text: (note ? note + '\n\n' : '') + '📅 Юбориш кунлари — босиб белгиланг ёки олиб ташланг:', kb: [[btn(1), btn(2)], [btn(3), btn(4)], [btn(5), btn(6)], [btn(7)], ...OS] };
 }
 // Ҳисобот: v — 'e' ёзувлар / 'o' одамлар, d — '7' | 'm' | 'all', p — саҳифа
 async function hisView(v, d, p) {
@@ -139,14 +142,14 @@ async function hisView(v, d, p) {
   if (!r.ok) {
     // эски скриптда rep2 йўқ — оддий ҳисобот
     const o = await esh('rep', { id: '' });
-    return { text: (o.text || ('Ҳисобот олинмади: ' + (r.err || ''))) + '\n\n(Тўлиқ ҳисобот учун Apps Script кодини янгиланг)', kb: ORQA };
+    return { text: (o.text || ('Ҳисобот олинмади: ' + (r.err || ''))) + '\n\n(Тўлиқ ҳисобот учун Apps Script кодини янгиланг)', kb: ON };
   }
   const tk = (lbl, on) => (on ? '✅ ' : '') + lbl, pg = r.page || 0, kb = [
     [B(tk('🎧 Ҳиварлар', v === 'e'), 'R:e:' + d + ':0'), B(tk('👤 Одамлар', v === 'o'), 'R:o:' + d + ':0')],
     [B(tk('7 кун', d === '7'), 'R:' + v + ':7:0'), B(tk('Шу ой', d === 'm'), 'R:' + v + ':m:0'), B(tk('Ҳаммаси', d === 'all'), 'R:' + v + ':all:0')]];
   if ((r.pages || 1) > 1) kb.push([B('◀️', 'R:' + v + ':' + d + ':' + Math.max(0, pg - 1)), B((pg + 1) + '/' + r.pages, 'R:' + v + ':' + d + ':' + pg), B('▶️', 'R:' + v + ':' + d + ':' + Math.min(r.pages - 1, pg + 1))]);
   kb.push([B('🗑 Ҳиварни ўчириш', 'X')]);
-  kb.push(...ORQA);
+  kb.push(...ON);
   return { text: r.text, kb };
 }
 async function panelCb(q) {
@@ -156,18 +159,19 @@ async function panelCb(q) {
   let v = null;
   if (d === '_') return;
   if (d === 'h') v = await panelView();
+  else if (arg[0] === 'G') v = mainView(await holatSt(), '', arg[1]);
   else if (d === 'r') v = await hisView('e', '7', 0);
   else if (d === 'X' || arg[0] === 'S') {
     // бир нечтасини белгилаб ўчириш: белгиланганлар рўйхатдаги ўрни бўйича (bitmask) сақланади
     const r = await esh('alist', {}), L = (r.ok && r.list) || [];
-    if (!L.length) v = { text: r.ok ? 'Ҳиварлар йўқ.' : '❌ ' + (r.err || 'скриптни янгиланг'), kb: ORQA };
+    if (!L.length) v = { text: r.ok ? 'Ҳиварлар йўқ.' : '❌ ' + (r.err || 'скриптни янгиланг'), kb: ON };
     else {
       const mask = arg[0] === 'S' ? (Number(arg[1]) || 0) : 0, all = (1 << L.length) - 1;
       const n = L.filter((x, i) => mask & (1 << i)).length;
       v = { text: '🗑 Ўчириладиган ҳиварларни белгиланг (охирги ' + L.length + ' та).\nҲивар ва унга берилган белгилар жадвалдан ўчади, гуруҳдаги хабар қолади.' + (n ? '\n\nБелгиланди: ' + n + ' та' : ''),
         kb: [...L.map((x, i) => [B((mask & (1 << i) ? '✅ ' : '▫️ ') + x.t + (x.d ? ' (' + x.d + ')' : ''), 'S:' + (mask ^ (1 << i)))]),
           [B(mask === all ? '▫️ Ҳеч бирини' : '☑️ Ҳаммасини белгилаш', 'S:' + (mask === all ? 0 : all))],
-          ...(n ? [[B('🗑 Белгиланганларни ўчириш (' + n + ')', 'Q:' + mask)]] : []), ...ORQA] };
+          ...(n ? [[B('🗑 Белгиланганларни ўчириш (' + n + ')', 'Q:' + mask)]] : []), ...ON] };
     }
   }
   else if (arg[0] === 'Q') {
@@ -180,18 +184,18 @@ async function panelCb(q) {
     await tg('editMessageText', { chat_id: c, message_id: mid, text: '⏳ Ўчирилмоқда… (' + sel.length + ' та)' });
     let ok = 0; const err = [];
     for (const x of sel) { const d2 = await esh('del', { id: x.id }); if (d2.ok) ok++; else err.push(x.t + ': ' + (d2.err || '')); }
-    v = { text: '🗑 Ўчирилди: ' + ok + ' та.' + (err.length ? '\n❌ ' + err.join('\n❌ ') : '') + '\nГуруҳдаги хабарлар жойида қолди.', kb: [[B('🗑 Яна ўчириш', 'X')], ...ORQA] };
+    v = { text: '🗑 Ўчирилди: ' + ok + ' та.' + (err.length ? '\n❌ ' + err.join('\n❌ ') : '') + '\nГуруҳдаги хабарлар жойида қолди.', kb: [[B('🗑 Яна ўчириш', 'X')], ...ON] };
   }
   else if (arg[0] === 'R') v = await hisView(arg[1], arg[2], Number(arg[3]) || 0);
-  else if (d === 's') v = { text: await stat(), kb: ORQA };
-  else if (d === 'z') v = { text: '📣 Охирги 10 та дарс ва кунлик феъл натижаси ҳозир гуруҳга юборилсинми?\n(Автомат: ҳар Сешанба ва Жума 08:00 да)', kb: [[B('✅ Ҳа, юбор', 'Z'), B('◀️ Йўқ', 'h')]] };
-  else if (d === 'Z') { const r = await esh('nat', {}); v = { text: r.ok ? '✅ ' + (r.text || 'Юборилди.') : '❌ Юборилмади: ' + (r.err || 'скриптни янгиланг'), kb: ORQA }; }
-  else if (d === 'f') v = { text: '🔤 Феъл тести ҳозир гуруҳга юборилсинми?', kb: [[B('✅ Ҳа, юбор', 'F'), B('◀️ Йўқ', 'h')]] };
-  else if (d === 'F') { const r = await esh('feel', {}); v = { text: r.ok ? '✅ ' + (r.text || 'Феъл тести гуруҳга юборилди.') : '❌ Юборилмади: ' + (r.err || ''), kb: ORQA }; }
+  else if (d === 's') v = { text: await stat(), kb: OS };
+  else if (d === 'z') v = { text: '📣 Охирги 10 та дарс ва кунлик феъл натижаси ҳозир гуруҳга юборилсинми?\n(Автомат: ҳар Сешанба ва Жума 08:00 да)', kb: [[B('✅ Ҳа, юбор', 'Z'), B('◀️ Йўқ', 'G:n')]] };
+  else if (d === 'Z') { const r = await esh('nat', {}); v = { text: r.ok ? '✅ ' + (r.text || 'Юборилди.') : '❌ Юборилмади: ' + (r.err || 'скриптни янгиланг'), kb: ON }; }
+  else if (d === 'f') v = { text: '🔤 Феъл тести ҳозир гуруҳга юборилсинми?', kb: [[B('✅ Ҳа, юбор', 'F'), B('◀️ Йўқ', 'G:f')]] };
+  else if (d === 'F') { const r = await esh('feel', {}); v = { text: r.ok ? '✅ ' + (r.text || 'Феъл тести гуруҳга юборилди.') : '❌ Юборилмади: ' + (r.err || ''), kb: OF }; }
   else if (arg[0] === 'n') {
     const on = arg[1] !== '1';
     const [, h] = await Promise.all([esh('mode', { v: on ? 'navbat' : '' }), esh('holat', {})]);
-    v = mainView({ ok: !!h.ok, err: h.err, ...parseH(h.text, on ? 'navbat' : '') }, on ? '✅ Навбат ёқилди: энди юборган аудиоларингиз навбатга тушади.' : '✅ Навбат ўчирилди: аудио дарҳол гуруҳга кетади.');
+    v = mainView({ ok: !!h.ok, err: h.err, ...parseH(h.text, on ? 'navbat' : '') }, on ? '✅ Навбат ёқилди: энди юборган аудиоларингиз навбатга тушади.' : '✅ Навбат ўчирилди: аудио дарҳол гуруҳга кетади.', 's');
   }
   else if (arg[0] === 'L' || arg[0] === 'U' || arg[0] === 'V') {
     // навбатдаги аудиолар: тартиби, ⬆️ олдинга суриш, белгилаб ўчириш
@@ -202,14 +206,14 @@ async function panelCb(q) {
       const r = await esh('qdel', { ps }); note = r.ok ? '🗑 Навбатдан ўчирилди: ' + r.n + ' та.\n\n' : '❌ ' + (r.err || 'скриптни янгиланг') + '\n\n';
     }
     const r = await esh('qlist', {}), L = ((r.ok && r.list) || []).slice(0, 20);
-    if (!r.ok) v = { text: '❌ Навбат олинмади: ' + (r.err || 'Apps Script кодини янгиланг'), kb: ORQA };
-    else if (!L.length) v = { text: note + '📋 Навбат бўш.\nНавбат ёқиқ бўлса, ботга юборган аудиоларингиз шу ерга тушади.', kb: ORQA };
+    if (!r.ok) v = { text: '❌ Навбат олинмади: ' + (r.err || 'Apps Script кодини янгиланг'), kb: OS };
+    else if (!L.length) v = { text: note + '📋 Навбат бўш.\nНавбат ёқиқ бўлса, ботга юборган аудиоларингиз шу ерга тушади.', kb: OS };
     else {
       const all = (1 << L.length) - 1, n = L.filter((x, i) => mask & (1 << i)).length;
       v = { text: note + '📋 Навбат — ' + L.length + ' та (юқоридагиси биринчи кетади)\nБосиб белгиланг ёки ⬆️ билан олдинга суринг.' + (n ? '\n\nБелгиланди: ' + n + ' та' : ''),
         kb: [...L.map((x, i) => [B((mask & (1 << i) ? '✅ ' : '▫️ ') + (i + 1) + '. ' + x.t, 'L:' + (mask ^ (1 << i))), ...(i ? [B('⬆️', 'U:' + i)] : [])]),
           [B(mask === all ? '▫️ Ҳеч бирини' : '☑️ Ҳаммасини белгилаш', 'L:' + (mask === all ? 0 : all))],
-          ...(n ? [[B('🗑 Белгиланганларни ўчириш (' + n + ')', 'M:' + mask)]] : []), ...ORQA] };
+          ...(n ? [[B('🗑 Белгиланганларни ўчириш (' + n + ')', 'M:' + mask)]] : []), ...OS] };
     }
   }
   else if (arg[0] === 'M') {
@@ -220,7 +224,7 @@ async function panelCb(q) {
     const nt = NATN[arg[1]] ? arg[1] : 'ef';
     const [r, md] = await Promise.all([esh('set', { nat_tur: nt }), esh('mode', {})]);
     const st = { ok: !!r.ok, err: r.err, ...parseH(r.text, md.mode) };
-    v = mainView(st, r.ok ? (st.nat === nt ? '✅ Натижа: ' + NATN[nt] : '⚠️ Сақланмади — Apps Script кодини янгиланг') : '❌ ' + (r.err || ''));
+    v = mainView(st, r.ok ? (st.nat === nt ? '✅ Натижа: ' + NATN[nt] : '⚠️ Сақланмади — Apps Script кодини янгиланг') : '❌ ' + (r.err || ''), 'n');
   }
   else if (arg[0] === 'k') v = kunView(Number(arg[1]) || 1);
   else if (arg[0] === 'K') {

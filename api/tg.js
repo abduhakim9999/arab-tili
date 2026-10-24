@@ -261,6 +261,8 @@ async function handle(m) {
   const head = '💬 ' + nm + ' (' + (f.username ? '@' + f.username : '-') + ', ID ' + c + ')';
 
   if (m.text) return tg('sendMessage', { chat_id: A, text: head + '\n\n' + m.text });
+  // хизмат хабарлари (кўчириб бўлмайди) — фақат битта қисқа қатор
+  if (m.write_access_allowed) return tg('sendMessage', { chat_id: A, text: head + '\n\n✅ Тест иловасини очди, ботга рухсат берди.' });
   // Media: imkon bo'lsa izoh (caption) bilan bitta xabar
   const cap = head + (m.caption ? '\n\n' + m.caption : '');
   const x = await tg('copyMessage', { chat_id: A, from_chat_id: c, message_id: m.message_id, caption: cap });

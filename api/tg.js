@@ -74,12 +74,10 @@ async function postAudio(m) {
   if (!cf.ok || !cf.group) return tg('sendMessage', { chat_id: c, text: '❌ Гуруҳ уланмаган. Ботни гуруҳга админ қилиб қўшинг ва гуруҳда /ulash деб ёзинг.' + (cf.err ? '\n(' + cf.err + ')' : '') });
   const title = (m.caption || (f && (f.title || f.file_name)) || 'Аудио').trim().split('\n')[0].replace(/\.(m4a|mp3|ogg|oga|opus|wav|aac|mp4)$/i, '').slice(0, 80);
   const id = Date.now().toString(36);
-  const cap = (m.caption || title) + '\n\n🎧 Эшитиб бўлгач, «✅ Эшитдим» тугмасини босинг.\n⏰ Муддат — 24 соат.';
-  const x = await tg('copyMessage', { chat_id: cf.group, from_chat_id: c, message_id: m.message_id, caption: cap,
-    reply_markup: { inline_keyboard: [[{ text: '✅ Эшитдим', callback_data: 'e:' + id }]] } });
+  const x = await tg('copyMessage', { chat_id: cf.group, from_chat_id: c, message_id: m.message_id });
   if (!x.ok) return tg('sendMessage', { chat_id: c, text: '❌ Юборилмади: ' + (x.description || '') });
   const r = await esh('post', { id, title, chat: cf.group, msg: x.result.message_id });
-  return tg('sendMessage', { chat_id: c, reply_to_message_id: m.message_id, text: '✅ Гуруҳга юборилди: «' + title + '»\n⏰ Муддат: ' + (r.deadline || '24 соат') + '\n\n/hisobot — ким эшитди, ким эшитмади.' });
+  return tg('sendMessage', { chat_id: c, reply_to_message_id: m.message_id, text: '✅ Гуруҳга юборилди: «' + title + '» + сўровнома\n⏰ Муддат: ' + (r.deadline || 'бугун 24:00') + '\n\n/hisobot — ким эшитди, ким эшитмади.' });
 }
 
 const KIND = { voice: 'овозли хабар', video_note: 'видео-доира', sticker: 'стикер', photo: 'расм',
@@ -114,7 +112,7 @@ async function handle(m) {
       }
       return postAudio(m);
     }
-    if (t === '/start' || t === '/help') return tg('sendMessage', { chat_id: c, text: 'Сиз — админсиз.\n\n• Кимдир ботга ёзса, хабари шу ерга 💬 белгиси билан келади.\n• Жавоб бериш учун ўша хабарга Reply қилинг (матн, овоз, расм — ҳаммаси бўлади).\n• /stat — статистика.\n• Аудио юборсангиз (изоҳига номини ёзинг) — гуруҳга «✅ Эшитдим» тугмаси билан жойланади.\n• /hisobot — охирги аудиони ким эшитди, ким эшитмади.\n• /navbat — аудиоларни навбатга йиғиш (автомат юбориш учун), /tamom — тугатиш.\n• /holat — автомат юбориш созламалари ва навбат.\n• /feel — феъл тестини ҳозир юбориш (одатда аудио билан бирга ўзи чиқади).\n• /vaqt 08:00 — юбориш вақти; /kunlar 1,2,3,4,5,6 — кунлар (1 — Душанба).\n\nСинаб кўриш учун бошқа аккаунтдан ёзинг.' });
+    if (t === '/start' || t === '/help') return tg('sendMessage', { chat_id: c, text: 'Сиз — админсиз.\n\n• Кимдир ботга ёзса, хабари шу ерга 💬 белгиси билан келади.\n• Жавоб бериш учун ўша хабарга Reply қилинг (матн, овоз, расм — ҳаммаси бўлади).\n• /stat — статистика.\n• Аудио юборсангиз (изоҳига номини ёзинг) — гуруҳга сўровнома билан жойланади (муддат — шу куни 24:00).\n• /hisobot — охирги аудиони ким эшитди, ким эшитмади.\n• /navbat — аудиоларни навбатга йиғиш (автомат юбориш учун), /tamom — тугатиш.\n• /holat — автомат юбориш созламалари ва навбат.\n• /feel — феъл тестини ҳозир юбориш (одатда аудио билан бирга ўзи чиқади).\n• /vaqt 08:00 — юбориш вақти; /kunlar 1,2,3,4,5,6 — кунлар (1 — Душанба).\n\nСинаб кўриш учун бошқа аккаунтдан ёзинг.' });
     const r = m.reply_to_message;
     const id = r && ((r.text || r.caption || '').match(/ID (\d+)/) || [])[1];
     if (!id) return tg('sendMessage', { chat_id: c, text: 'Жавоб бериш учун 💬 белгили хабарга Reply қилинг.' });

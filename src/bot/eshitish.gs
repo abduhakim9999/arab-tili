@@ -40,7 +40,7 @@ function tg(m, p) {
 function setup() {
   sh('Жадвал'); sh('Қора рўйхат', ['аудио', 'user_id', 'исм', 'сана']);
   sh('Аъзолар', ['user_id', 'исм', 'username', 'қўшилган', 'ҳисобланмасин (1)']);
-  sh('Аудиолар', ['id', 'номи', 'chat_id', 'message_id', 'юборилди', 'муддат', 'ҳолат']);
+  sh('Аудиолар', ['id', 'номи', 'chat_id', 'message_id', 'юборилди', 'муддат', 'ҳолат', 'poll_id', 'poll_msg']);
   sh('Белгилар', ['аудио_id', 'user_id', 'исм', 'вақт', 'кечикди']);
   sh('Навбат', ['№', 'номи', 'file_id', 'тури', 'ҳолат', 'юборилди']);
   cfg('group', cfg('group') || '');
@@ -79,11 +79,7 @@ function doPost(e) {
     if (q.a === 'group') { cfg('group', String(q.chat)); out = { ok: true }; }
     else if (q.a === 'cfg') out = { ok: true, group: cfg('group') };
     else if (q.a === 'member') { (q.users || []).forEach(member); out = { ok: true }; }
-    else if (q.a === 'post') {
-      var dl = new Date(now().getTime() + MUDDAT_SOAT * 3600e3);
-      sh('Аудиолар').appendRow([q.id, q.title, String(q.chat), q.msg, fmt(now()), dl.toISOString(), '']);
-      jadval(); out = { ok: true, deadline: fmt(dl) };
-    }
+    else if (q.a === 'post') { var dl = joyla(q.id, q.title, q.chat, q.msg); out = { ok: true, deadline: fmt(dl) }; }
     else if (q.a === 'mark') out = mark(q);
     else if (q.a === 'mode') { if (q.v !== undefined) cfg('mode', q.v); out = { ok: true, mode: cfg('mode') }; }
     else if (q.a === 'queue') {
@@ -105,6 +101,23 @@ function doPost(e) {
   return J(out);
 }
 function J(o) { return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON); }
+
+// So'rovnoma (hozirgi guruh uslubida): muddat — shu kuni 24:00 gacha
+var OPT = ['Алҳамдулиллаҳ ўз вақтида эътибор билан тинглаб эшитдим! 🤗', '⏳ Ҳали эшитмадим'];
+function kunOxiri() { return new Date(Utilities.formatDate(now(), TZ, "yyyy-MM-dd'T'23:59:59") + '+05:00'); }
+function joyla(id, title, chat, msg) {
+  var p = tg('sendPoll', { chat_id: chat, question: '«' + title + '»ни ким ўз вақтида эътибор билан тинглаб эшитди? — 24:00гача!!!',
+    options: OPT.map(function (t) { return { text: t }; }), is_anonymous: false, reply_to_message_id: msg });
+  var dl = kunOxiri();
+  sh('Аудиолар').appendRow([id, title, String(chat), msg, fmt(now()), dl.toISOString(), '', p.ok ? p.result.poll.id : '', p.ok ? p.result.message_id : '']);
+  jadval();
+  return dl;
+}
+function belgila(id, user, on) {
+  var s = sh('Белгилар'), d = s.getDataRange().getValues();
+  for (var i = d.length - 1; i >= 1; i--) if (String(d[i][0]) === String(id) && String(d[i][1]) === String(user.id)) { if (on) return; s.deleteRow(i + 1); }
+  if (on) s.appendRow([String(id), String(user.id), [user.first_name, user.last_name].filter(String).join(' '), fmt(now()), '']);
+}
 
 function audio(id) {
   var d = rows('Аудиолар');
@@ -160,15 +173,12 @@ function avtomat() {
     if (!d[i][2] || d[i][4]) continue;
     var id = Date.now().toString(36), title = d[i][1], kind = d[i][3] || 'audio';
     var M = { audio: 'sendAudio', voice: 'sendVoice', document: 'sendDocument', video: 'sendVideo' }[kind] || 'sendAudio';
-    var p = { chat_id: g, caption: title + '\n\n🎧 Эшитиб бўлгач, «✅ Эшитдим» тугмасини босинг.\n⏰ Муддат — ' + MUDDAT_SOAT + ' соат.',
-      reply_markup: { inline_keyboard: [[{ text: '✅ Эшитдим', callback_data: 'e:' + id }]] } };
+    var p = { chat_id: g, caption: title };
     p[kind === 'document' ? 'document' : kind] = d[i][2];
     var r = tg(M, p);
     if (!r.ok) { s.getRange(i + 1, 5).setValue('хато: ' + (r.description || '')); continue; }
-    var dl = new Date(now().getTime() + MUDDAT_SOAT * 3600e3);
-    sh('Аудиолар').appendRow([id, title, String(g), r.result.message_id, fmt(now()), dl.toISOString(), '']);
+    joyla(id, title, g, r.result.message_id);
     s.getRange(i + 1, 5, 1, 2).setValues([['юборилди', fmt(now())]]);
-    jadval();
     break;
   }
   try { feelKun(); } catch (e) { Logger.log(e); }
@@ -198,6 +208,11 @@ function feelKun() {
 }
 function mn(x) { return String(x).replace(/\s+/g, ' ').trim().slice(0, 100); }
 function javob(q) {
+  if (!q.user) return { ok: true };
+  var A = rows('Аудиолар');
+  for (var j = A.length - 1; j >= 0; j--) if (A[j][7] && String(A[j][7]) === String(q.poll)) {
+    member(q.user); belgila(A[j][0], q.user, (q.opt || [])[0] === 0); jadval(); return { ok: true };
+  }
   var d = rows('Феъл саволлар'), p = null;
   for (var i = d.length - 1; i >= 0; i--) if (String(d[i][0]) === String(q.poll)) { p = d[i]; break; }
   if (!p || !q.user) return { ok: true };
@@ -233,7 +248,8 @@ function tekshir() {
     no.forEach(function (m) { sh('Қора рўйхат').appendRow([d[i][1], String(m[0]), m[1], fmt(now())]); });
     s.getRange(i + 1, 7).setValue('якунланди');
     if (g) {
-      tg('editMessageReplyMarkup', { chat_id: d[i][2], message_id: d[i][3], reply_markup: { inline_keyboard: [[{ text: '⏰ Муддат тугади', callback_data: 'x' }]] } });
+      if (d[i][8]) tg('stopPoll', { chat_id: d[i][2], message_id: d[i][8] });
+      else tg('editMessageReplyMarkup', { chat_id: d[i][2], message_id: d[i][3], reply_markup: { inline_keyboard: [[{ text: '⏰ Муддат тугади', callback_data: 'x' }]] } });
       tg('sendMessage', { chat_id: g, text: '⏰ «' + d[i][1] + '» — муддат тугади.\n\n❌ Эшитмаганлар (' + no.length + '):\n' +
         (no.map(function (m) { return '• ' + m[1]; }).join('\n') || '— Ҳамма эшитди! 🎉') });
     }

@@ -206,6 +206,8 @@ function feelKun() {
   var V = rows('Феъллар'), k = Number(cfg('feel_k')) || 1, a = (k - 1) * FEEL_SONI;
   if (a >= V.length) return;
   var day = V.slice(a, a + FEEL_SONI);
+  var au = tg('sendAudio', { chat_id: g, audio: SAYT + 'd' + ('0' + k).slice(-2) + '.mp3', title: 'Феъллар — ' + k + '-кун', performer: 'نور الطالب',
+    caption: '🔤 Бугунги ' + day.length + ' та феъл:\n' + day.map(function (v, j) { return (j + 1) + '. ' + v[1] + ' – ' + v[2]; }).join('\n') + '\n\nЭшитинг ва ҳар бирининг маъносини топинг 👇' });
   var Q = sh('Феъл саволлар');
   day.forEach(function (v, j) {
     var right = mn(v[3]), opts = [right], seed = Number(v[0]) * 7919;
@@ -214,9 +216,7 @@ function feelKun() {
       if (o[0] !== v[0] && opts.indexOf(m) < 0) opts.push(m);
     }
     var pos = (seed + j) % 4; opts.splice(0, 1); opts.splice(pos, 0, right);
-    var au = tg('sendAudio', { chat_id: g, audio: SAYT + 'v' + ('00' + v[0]).slice(-3) + '.mp3', title: v[1] + ' – ' + v[2], performer: 'Феъл ' + v[0],
-      caption: '🔤 ' + (j + 1) + '/' + day.length + ' · ' + v[1] + ' – ' + v[2] });
-    var r = tg('sendPoll', { chat_id: g, reply_to_message_id: au.ok ? au.result.message_id : undefined, question: v[1] + ' – ' + v[2] + '\nМаъноси қайси?', options: opts.map(function (x) { return { text: x }; }),
+    var r = tg('sendPoll', { chat_id: g, reply_to_message_id: j === 0 && au.ok ? au.result.message_id : undefined, question: (j + 1) + '. ' + v[1] + ' – ' + v[2] + '\nМаъноси қайси?', options: opts.map(function (x) { return { text: x }; }),
       type: 'quiz', correct_option_id: pos, is_anonymous: false, explanation: v[1] + ' – ' + v[2] + ' — ' + right });
     if (r.ok) Q.appendRow([r.result.poll.id, k, v[0], v[1], pos, fmt(now())]);
   });

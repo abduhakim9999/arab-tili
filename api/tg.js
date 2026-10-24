@@ -91,8 +91,8 @@ function parseH(tx, md) {
   const g = re => ((tx.match(re) || [])[1] || '').trim();
   const vq = (g(/Вақт: ([^\n]*)/).match(/(\d{1,2}:\d{2})/) || [])[1] || '';
   const kn = g(/Кунлар: ([^\n]*)/).split(/,\s*/).map(x => KUNN.indexOf(x)).filter(x => x > 0);
-  const n1 = Number(g(/кейингиси (\d+)-феълдан/)) || 1, nt = g(/📣 Натижа: ([^\n]*)/);
-  return { text: tx.replace(/\n*Ўзгартириш:[^\n]*/, '').replace(/Вақт: [^\n]*/, 'Вақт: ' + (vq || '—')), vaqt: vq, kunlar: kn, k: Math.floor((n1 - 1) / FEEL_N) + 1, navbat: md === 'navbat', nat: (nt === 'фақат ҳивар' || nt === 'фақат ёзувлар') ? 'e' : (nt === 'фақат кунлик феъл' || nt === 'фақат феъл') ? 'f' : 'ef' };
+  const n1 = Number(g(/кейингиси (\d+)-феълдан/)) || 1, nt = g(/📣 Натижа: ([^\n]*)/), nb = Number(g(/Навбатда: (\d+)/)) || 0;
+  return { text: tx.replace(/\n*Ўзгартириш:[^\n]*/, '').replace(/Вақт: [^\n]*/, 'Вақт: ' + (vq || '—')), vaqt: vq, kunlar: kn, k: Math.floor((n1 - 1) / FEEL_N) + 1, navbat: md === 'navbat', nb, nat: (nt === 'фақат ҳивар' || nt === 'фақат ёзувлар') ? 'e' : (nt === 'фақат кунлик феъл' || nt === 'фақат феъл') ? 'f' : 'ef' };
 }
 async function holatSt() {
   const [h, md] = await Promise.all([esh('holat', {}), esh('mode', {})]);
@@ -111,7 +111,7 @@ function mainView(s, note) {
     [B('— 🔤 Кунлик феъл —', '_')],
     [B('🔤 Феълни юбориш', 'f'), B('🔢 Феъл куни: ' + s.k + ' (' + a + '–' + (a + FEEL_N - 1) + ')', 'k:' + s.k)],
     [B('— ⚙️ Созлама —', '_')],
-    [B('📥 Навбат: ' + (s.navbat ? 'ёқиқ ✅' : 'ўчиқ'), 'n:' + (s.navbat ? 1 : 0))],
+    [B('📥 Навбат: ' + (s.navbat ? 'ёқиқ ✅' : 'ўчиқ'), 'n:' + (s.navbat ? 1 : 0)), B('📋 Навбат рўйхати (' + (s.nb || 0) + ')', 'L:0')],
     [B('⏰ Вақт: ' + (s.vaqt || '—'), 't:' + s.vaqt), B('📅 Кунлар', 'd:' + s.kunlar.join(''))],
     [B('📣 Натижа: ' + NATN[s.nat], 'P:' + NATK[s.nat])],
     [B('📈 Статистика', 's')]
@@ -192,6 +192,29 @@ async function panelCb(q) {
     const on = arg[1] !== '1';
     const [, h] = await Promise.all([esh('mode', { v: on ? 'navbat' : '' }), esh('holat', {})]);
     v = mainView({ ok: !!h.ok, err: h.err, ...parseH(h.text, on ? 'navbat' : '') }, on ? '✅ Навбат ёқилди: энди юборган аудиоларингиз навбатга тушади.' : '✅ Навбат ўчирилди: аудио дарҳол гуруҳга кетади.');
+  }
+  else if (arg[0] === 'L' || arg[0] === 'U' || arg[0] === 'V') {
+    // навбатдаги аудиолар: тартиби, ⬆️ олдинга суриш, белгилаб ўчириш
+    let note = '', mask = arg[0] === 'L' ? (Number(arg[1]) || 0) : 0;
+    if (arg[0] === 'U') { await esh('qup', { p: Number(arg[1]) }); note = '⬆️ Сурилди.\n\n'; }
+    if (arg[0] === 'V') {
+      const pre = await esh('qlist', {}), ps = ((pre.ok && pre.list) || []).map((x, i) => i).filter(i => (Number(arg[1]) || 0) & (1 << i));
+      const r = await esh('qdel', { ps }); note = r.ok ? '🗑 Навбатдан ўчирилди: ' + r.n + ' та.\n\n' : '❌ ' + (r.err || 'скриптни янгиланг') + '\n\n';
+    }
+    const r = await esh('qlist', {}), L = ((r.ok && r.list) || []).slice(0, 20);
+    if (!r.ok) v = { text: '❌ Навбат олинмади: ' + (r.err || 'Apps Script кодини янгиланг'), kb: ORQA };
+    else if (!L.length) v = { text: note + '📋 Навбат бўш.\nНавбат ёқиқ бўлса, ботга юборган аудиоларингиз шу ерга тушади.', kb: ORQA };
+    else {
+      const all = (1 << L.length) - 1, n = L.filter((x, i) => mask & (1 << i)).length;
+      v = { text: note + '📋 Навбат — ' + L.length + ' та (юқоридагиси биринчи кетади)\nБосиб белгиланг ёки ⬆️ билан олдинга суринг.' + (n ? '\n\nБелгиланди: ' + n + ' та' : ''),
+        kb: [...L.map((x, i) => [B((mask & (1 << i) ? '✅ ' : '▫️ ') + (i + 1) + '. ' + x.t, 'L:' + (mask ^ (1 << i))), ...(i ? [B('⬆️', 'U:' + i)] : [])]),
+          [B(mask === all ? '▫️ Ҳеч бирини' : '☑️ Ҳаммасини белгилаш', 'L:' + (mask === all ? 0 : all))],
+          ...(n ? [[B('🗑 Белгиланганларни ўчириш (' + n + ')', 'M:' + mask)]] : []), ...ORQA] };
+    }
+  }
+  else if (arg[0] === 'M') {
+    const r = await esh('qlist', {}), L = (r.ok && r.list) || [], mask = Number(arg[1]) || 0, sel = L.filter((x, i) => mask & (1 << i));
+    v = { text: '🗑 Навбатдан шу ' + sel.length + ' та аудио ўчирилсинми?\n\n' + sel.map(x => '• ' + x.t).join('\n'), kb: [[B('✅ Ҳа, ўчир', 'V:' + mask), B('◀️ Йўқ', 'L:' + mask)]] };
   }
   else if (arg[0] === 'P') {
     const nt = NATN[arg[1]] ? arg[1] : 'ef';

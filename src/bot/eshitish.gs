@@ -97,6 +97,20 @@ function doPost(e) {
       nq.appendRow([n, q.title, q.file_id, q.kind, '', '']);
       out = { ok: true, n: navbat().length };
     }
+    else if (q.a === 'qlist') out = { ok: true, list: navbatQator().map(function (x) { return { t: String(x.v[1]), k: String(x.v[3] || 'audio') }; }) };
+    else if (q.a === 'qdel') {
+      var Q = navbatQator(), ps = (q.ps || []).map(Number).filter(function (i) { return Q[i]; }).sort(function (a, b) { return b - a; });
+      ps.forEach(function (i) { sh('Навбат').deleteRow(Q[i].row); });
+      out = { ok: true, n: ps.length };
+    }
+    else if (q.a === 'qup') {
+      var Q2 = navbatQator(), i2 = Number(q.p);
+      if (i2 > 0 && Q2[i2]) {
+        var ns = sh('Навбат'), a1 = ns.getRange(Q2[i2 - 1].row, 1, 1, 6), a2 = ns.getRange(Q2[i2].row, 1, 1, 6), v1 = a1.getValues(), v2 = a2.getValues();
+        a1.setValues(v2); a2.setValues(v1);
+      }
+      out = { ok: true };
+    }
     else if (q.a === 'set') {
       if (q.vaqt) { if (!/^\d{1,2}:\d{2}$/.test(q.vaqt)) return J({ ok: false, err: 'вақт нотўғри (масалан 08:00)' }); cfg('vaqt', q.vaqt); }
       if (q.kunlar) cfg('kunlar', q.kunlar);
@@ -222,6 +236,12 @@ function hisobot(id) {
 }
 
 var KUN = ['', 'Душанба', 'Сешанба', 'Чоршанба', 'Пайшанба', 'Жума', 'Шанба', 'Якшанба'];
+// Навбатдаги (ҳали юборилмаган) аудиолар — жадвалдаги қатор рақами билан
+function navbatQator() {
+  var d = sh('Навбат').getDataRange().getValues(), r = [];
+  for (var i = 1; i < d.length; i++) if (d[i][2] && !d[i][4]) r.push({ row: i + 1, v: d[i] });
+  return r;
+}
 function navbat() { return rows('Навбат').filter(function (r) { return r[2] && !r[4]; }); }
 function kunlar() { return String(cfg('kunlar')).split(/[ ,]+/).filter(String).map(Number); }
 function holat() {

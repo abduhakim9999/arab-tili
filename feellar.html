@@ -81,6 +81,14 @@ input[type=search]:focus{outline:2px solid var(--ac);outline-offset:-1px}
 .lx .mn{font-size:1rem}
 .lx-p{color:var(--mu);font-size:.85rem;font-weight:600;margin:16px 2px 8px}
 .lx-p:first-child{margin-top:4px}
+.say{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;flex-shrink:0;border-radius:20px;border:none;background:var(--as);color:var(--ac);cursor:pointer;-webkit-tap-highlight-color:transparent;padding:0}
+.say.pl{animation:pls 1s ease infinite}@keyframes pls{50%{transform:scale(1.1)}}
+.say svg{width:22px;height:22px}
+.vrow{display:flex;align-items:center;justify-content:center;gap:12px}
+.days{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 0 12px}
+.day{padding:10px 4px;border-radius:12px;border:1px solid var(--bd);background:var(--cd);color:var(--tx);font:inherit;cursor:pointer;text-align:center;line-height:1.25}
+.day b{display:block;font-size:1.05rem}.day span{font-size:.72rem;color:var(--mu)}
+.day.done{border-color:var(--ok);background:var(--oks)}.day.cur{border-color:var(--ac);box-shadow:inset 0 0 0 1px var(--ac)}
 </style>
 </head>
 <body>
@@ -302,6 +310,18 @@ const store = {
 };
 const $app = document.getElementById('app');
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+/* ---------- OVOZ (fq/vNNN.mp3 — har bir fe'l) ---------- */
+const AU = new Audio(); AU.preload = 'none';
+const SPK = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+const sayBtn = i => `<button class="say" data-say="${i}" aria-label="Эшитиш">${SPK}</button>`;
+function say(i, btn){
+  document.querySelectorAll('.say.pl').forEach(b => b.classList.remove('pl'));
+  AU.src = 'fq/v' + String(i + 1).padStart(3, '0') + '.mp3';
+  if (btn) btn.classList.add('pl');
+  AU.onended = AU.onerror = () => { if (btn) btn.classList.remove('pl'); };
+  AU.play().catch(() => { if (btn) btn.classList.remove('pl'); });
+}
+document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('[data-say]'); if (b){ e.stopPropagation(); say(+b.dataset.say, b); } }, true);
 const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 const meaning = it => it.me.join('  •  ');
 const setRange = s => [s * SET_SIZE, Math.min(TOTAL, (s + 1) * SET_SIZE)];
@@ -361,7 +381,7 @@ function makeTestQs(p){
 const STAGES = { m: '1 · Маъноси', s: '2 · Сийғаси' };
 const formsOnly = o => `<span class="fr ar"><span>${esc(o.mu)}</span><span>${esc(o.am)}</span><span>${esc(o.ms)}</span></span>`;
 const plainMn = m => `<span class="mn">${esc(m)}</span>`;
-const correctBlock = it => `<div class="ar mid c">${esc(it.m)}</div>${it.mu ? formsOnly(it) : ''}<div class="mn" style="margin-top:6px">${esc(meaning(it))}</div>`;
+const correctBlock = it => `<div class="vrow"><div class="ar mid c">${esc(it.m)}</div>${sayBtn(ITEMS.indexOf(it))}</div>${it.mu ? formsOnly(it) : ''}<div class="mn" style="margin-top:6px">${esc(meaning(it))}</div>`;
 function optHtml(q, o){
   if (!o) return '<span class="mn">— жавоб берилмади —</span>';
   return q.k === 'm' ? plainMn(o.me) : formsOnly(o);
@@ -468,9 +488,10 @@ function home(){
     <a class="back nav" href="index.html" aria-label="Дарслар">←</a>
     <div class="hd"><div class="lg ar">ف</div><div><h1>Феъллар</h1><p>${TOTAL} феъл · ${NSETS} қисм</p></div></div>
     <div class="sets">${parts}</div>
+    <button class="btn" id="bKt">📅 Кунлик тест · 5 тадан</button>
     <div class="row2"><button class="btn" id="bDc">📖 Луғат</button><button class="btn" id="bLb">🏆 Рейтинг</button></div>
     ${mist.length ? `<button class="btn" id="bMs">↻ Хатолар · ${mist.length}</button>` : ''}`;
-  bDc.onclick = lugat; bLb.onclick = leaderboard;
+  bDc.onclick = lugat; bLb.onclick = leaderboard; bKt.onclick = kunlar;
   if (window.bMs) bMs.onclick = mistakes;
   $app.querySelectorAll('[data-p]').forEach(el => el.onclick = () => {
     const p = +el.dataset.p;
@@ -480,6 +501,20 @@ function home(){
     go();
   });
   window.scrollTo(0, 0);
+}
+/* ---------- KUNLIK TEST (fel.html: kuniga 5 ta, guruhdagi test bilan bir xil) ---------- */
+const KN = 5, NKUN = Math.ceil(TOTAL / KN);
+function kunlar(){
+  SCREEN = 'sub';
+  let done = {}; try{ done = JSON.parse(localStorage.getItem('fel_done') || '{}') || {}; }catch(e){}
+  let cur = 1; while (cur < NKUN && done[cur] != null) cur++;
+  let h = '';
+  for (let k = 1; k <= NKUN; k++){
+    h += `<button class="day ${done[k] != null ? 'done' : ''} ${k === cur ? 'cur' : ''}" data-k="${k}"><b>${k}</b><span>кун</span></button>`; }
+  $app.innerHTML = `${backBtn()}<h2>📅 Кунлик тест</h2><p class="note">Ҳар куни 5 та феъл: эшитиб, маъносини топинг. Яшил — ишланган кунлар.</p><div class="days">${h}</div>`;
+  wireBack();
+  $app.querySelectorAll('[data-k]').forEach(el => el.onclick = () => { location.href = 'fel.html?k=' + el.dataset.k; });
+  const c = $app.querySelector('.day.cur'); if (c) c.scrollIntoView({ block: 'center' }); else window.scrollTo(0, 0);
 }
 function begin(p){
   store.set('test', { part: p, qs: makeTestQs(p), pos: 0, ans: [], start: Date.now() });
@@ -497,7 +532,7 @@ function runQ(key){
     <div class="meta"><button class="back" id="bH" style="margin:0" aria-label="Чиқиш">✕</button>${key === 'rev' ? '<span class="lbl">↻ Хатолар</span>' : ''}<span>${t.pos + 1} / ${t.qs.length}</span></div>
     <div class="bar"><i style="width:${Math.round(t.pos * 100 / t.qs.length)}%"></i></div>
     <div class="stage">${q.k === 'm' ? STAGES.m : STAGES.s}</div>
-    <div class="card c">${q.k === 's' ? '<div class="fr-head"><span>музореъ</span><span>амр</span><span>масдар</span></div>' : ''}<div class="ar big">${esc(it.m)}</div></div>
+    <div class="card c">${q.k === 's' ? '<div class="fr-head"><span>музореъ</span><span>амр</span><span>масдар</span></div>' : ''}${q.k === 'm' ? `<div class="vrow"><div class="ar big">${esc(it.m)}</div>${sayBtn(q.i)}</div>` : `<div class="ar big">${esc(it.m)}</div>`}</div>
     <div id="ops"></div><div id="fb"></div>`;
   let locked = false;
   q.o.forEach((o, k) => {
@@ -615,7 +650,7 @@ const arN = s => s.replace(AR_STRIP, '').replace(/[أإآٱ]/g, 'ا').replace(/�
 const czN = s => s.toLowerCase().replace(/ҳ/g, 'х').replace(/қ/g, 'к').replace(/ғ/g, 'г').replace(/ў/g, 'у').replace(/[ъь’'ʼ`]/g, '');
 let IDX = null;
 const idx = () => IDX || (IDX = ITEMS.map(it => ({ ar: arN([it.m, it.mu, it.am, it.ms].filter(Boolean).join(' ')), me: czN(meaning(it)) })));
-const lxRow = it => `<div class="lx"><div class="lx-h"><span class="lx-n">№ ${it.n.join(', ')}</span><span class="ar lx-m">${esc(it.m)}</span></div>${it.mu ? formsOnly(it) : ''}<div class="mn">${esc(meaning(it))}</div></div>`;
+const lxRow = (it, i) => `<div class="lx"><div class="lx-h"><span class="lx-n">№ ${it.n.join(', ')}</span><span class="vrow">${sayBtn(i)}<span class="ar lx-m">${esc(it.m)}</span></span></div>${it.mu ? formsOnly(it) : ''}<div class="mn">${esc(meaning(it))}</div></div>`;
 function lugat(){
   SCREEN = 'sub';
   $app.innerHTML = `${backBtn()}<h2>📖 Луғат</h2><input type="search" id="q" placeholder="Қидириш: арабча ёки маъноси" autocomplete="off" enterkeyhint="search"><div id="lst"></div>`;
@@ -625,13 +660,13 @@ function lugat(){
     if (!s){
       for (let p = 0; p < NSETS; p++){ const [a, b] = setRange(p);
         h += `<div class="lx-p">${p + 1}-қисм · № ${ITEMS[a].n[0]}–${ITEMS[b - 1].n[0]}</div>`;
-        for (let i = a; i < b; i++) h += lxRow(ITEMS[i]); }
+        for (let i = a; i < b; i++) h += lxRow(ITEMS[i], i); }
     } else {
       const X = idx(); let test;
       if (/[؀-ۿ]/.test(s)){ const x = arN(s).trim(); test = i => X[i].ar.includes(x); }
       else if (/^\d+$/.test(s)){ const n = +s; test = i => ITEMS[i].n.includes(n); }
       else { const x = czN(/[a-z]/i.test(s) ? cyr(s) : s); test = i => X[i].me.includes(x); }
-      ITEMS.forEach((it, i) => { if (test(i)) h += lxRow(it); });
+      ITEMS.forEach((it, i) => { if (test(i)) h += lxRow(it, i); });
       if (!h) h = '<p class="note c">Топилмади</p>';
     }
     lst.innerHTML = h;

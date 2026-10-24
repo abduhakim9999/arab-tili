@@ -404,9 +404,15 @@ function jadval() {
 // appsscript.json да oauthScopes (script.projects, script.deployments) бўлиши керак.
 var DEPLOY_ID = 'AKfycbwfQAUAC3jHlqE5KHAeaqGekAkedI1UP7qECuJpzHF5lwl4fmBn_xEpj5nt8SfKiOBX';   // бот уланган веб-илова
 var GH = 'https://api.github.com/repos/abduhakim9999/arab-tili/contents/src/bot/';
+// GitHub API'нинг чеклови (Google серверлари умумий) — бўлмаса raw ва jsDelivr орқали олинади
 function ghFayl(n) {
-  var r = UrlFetchApp.fetch(GH + n + '?ref=main&t=' + Date.now(), { headers: { Accept: 'application/vnd.github.raw' }, muteHttpExceptions: true });
-  return r.getResponseCode() === 200 ? r.getContentText() : null;
+  var U = [[GH + n + '?ref=main&t=' + Date.now(), { Accept: 'application/vnd.github.raw' }],
+    ['https://raw.githubusercontent.com/abduhakim9999/arab-tili/main/src/bot/' + n + '?t=' + Date.now(), {}],
+    ['https://cdn.jsdelivr.net/gh/abduhakim9999/arab-tili@main/src/bot/' + n, {}]];
+  for (var i = 0; i < U.length; i++) {
+    try { var r = UrlFetchApp.fetch(U[i][0], { headers: U[i][1], muteHttpExceptions: true }); if (r.getResponseCode() === 200) return r.getContentText(); } catch (e) {}
+  }
+  return null;
 }
 function gapi(method, path, body) {
   var o = { method: method, headers: { Authorization: 'Bearer ' + ScriptApp.getOAuthToken() }, muteHttpExceptions: true, contentType: 'application/json' };

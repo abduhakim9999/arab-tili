@@ -266,6 +266,11 @@ function ilova(q) {
   var u = tekshirInit(q.init); if (!u) return { ok: false, err: 'auth' };
   var lock = LockService.getScriptLock(); lock.waitLock(20000);
   try {
+    if (q.b === 'bugun') {
+      var R = feelNatija(Number(q.k) || 1, Utilities.formatDate(now(), TZ, 'yyyy-MM-dd'), rows('Феъл тест'), rows('Феъллар'));
+      return { ok: true, jami: R.day.length, ha: R.ha.map(function (x) { return { n: x.n, ok: x.ok, men: String(x.id) === String(u.id) }; }),
+        yoq: R.yoq.map(function (m) { return m[1] || 'аъзо'; }) };
+    }
     if (q.b === 'get') {
       var m = rows('Хатолар').filter(function (r) { return String(r[0]) === String(u.id) && !r[3]; }).map(function (r) { return Number(r[1]); });
       return { ok: true, mist: m };
@@ -330,6 +335,20 @@ function reyting() {
 }
 
 // Ҳар 15 дақиқада: автомат юбориш ва муддати тугаган аудиолар бўйича қора рўйхат
+// Бир кунлик феъл тести натижаси: ким ишлади (биринчи жавоблар бўйича), ким ишламади
+function feelNatija(k, sana, T, V) {
+  var a = (k - 1) * FEEL_SONI, day = V.slice(a, a + FEEL_SONI).map(function (v) { return String(v[1]); }), U = {};
+  T.forEach(function (r) {
+    if (String(r[0]) !== 'app:' + k || !r[5] || Utilities.formatDate(new Date(r[5]), TZ, 'yyyy-MM-dd') !== sana) return;
+    var vb = String(r[3]); if (day.indexOf(vb) < 0) return;
+    var u = U[r[1]] = U[r[1]] || { n: r[2], v: {} };
+    if (!(vb in u.v)) u.v[vb] = r[4] === '✅';   // ҳар феълнинг биринчи жавоби ҳисобланади
+  });
+  var ha = Object.keys(U).map(function (id) { var u = U[id], ok = 0; for (var x in u.v) if (u.v[x]) ok++; return { id: id, n: u.n, ok: ok }; })
+    .sort(function (x, y) { return y.ok - x.ok; });
+  var yoq = members().filter(function (m) { return !U[String(m[0])]; });
+  return { a: a, day: day, ha: ha, yoq: yoq };
+}
 // Кун тугагач (24:00): шу куни юборилган феъл тестини ким ишлади, ким ишламади — гуруҳга (қора рўйхатга тушмайди)
 function feelHisobot() {
   var g = cfg('group'); if (!g) return;
@@ -338,17 +357,7 @@ function feelHisobot() {
   var today = Utilities.formatDate(now(), TZ, 'yyyy-MM-dd'), qol = [], T = null, V = null;
   kut.forEach(function (p) {
     if (p.d >= today) { qol.push(p); return; }
-    T = T || rows('Феъл тест'); V = V || rows('Феъллар');
-    var a = (p.k - 1) * FEEL_SONI, day = V.slice(a, a + FEEL_SONI).map(function (v) { return String(v[1]); }), U = {};
-    T.forEach(function (r) {
-      if (String(r[0]) !== 'app:' + p.k || !r[5] || Utilities.formatDate(new Date(r[5]), TZ, 'yyyy-MM-dd') !== p.d) return;
-      var vb = String(r[3]); if (day.indexOf(vb) < 0) return;
-      var u = U[r[1]] = U[r[1]] || { n: r[2], v: {} };
-      if (!(vb in u.v)) u.v[vb] = r[4] === '✅';   // ҳар феълнинг биринчи жавоби ҳисобланади
-    });
-    var ha = Object.keys(U).map(function (id) { var u = U[id], ok = 0; for (var x in u.v) if (u.v[x]) ok++; return { id: id, n: u.n, ok: ok }; })
-      .sort(function (x, y) { return y.ok - x.ok; });
-    var yoq = members().filter(function (m) { return !U[String(m[0])]; });
+    var R = feelNatija(p.k, p.d, T = T || rows('Феъл тест'), V = V || rows('Феъллар')), ha = R.ha, yoq = R.yoq, a = R.a, day = R.day;
     var nom = 'Феъллар ' + (a + 1) + '–' + (a + day.length);
     tg('sendMessage', { chat_id: g, reply_to_message_id: p.m, allow_sending_without_reply: true,
       text: '🔤 «' + nom + '» — кун якунланди.\n\n✅ Тестни ишлаганлар (' + ha.length + '):\n' +

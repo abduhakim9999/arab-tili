@@ -5,7 +5,7 @@ const T = process.env.BOT_TOKEN, A = String(process.env.ADMIN_ID || '').trim();
 const STAT = 'https://script.google.com/macros/s/AKfycbxksQz-jII6bVIWKgl63gfASBRDr4SGsScYJg0jogaulyzOoVluyGtf6pU1TIZV-ntRcA/exec';
 const KEY = crypto.createHash('sha256').update('stat:' + T).digest('hex').slice(0, 32);
 // Эшитиш жадвали (Apps Script веб-илова URL)
-const ESH = process.env.ESH_URL || '';
+const ESH = process.env.ESH_URL || 'https://script.google.com/macros/s/AKfycbwfQAUAC3jHlqE5KHAeaqGekAkedI1UP7qECuJpzHF5lwl4fmBn_xEpj5nt8SfKiOBX/exec';
 const KEY2 = crypto.createHash('sha256').update('eshit:' + T).digest('hex').slice(0, 32);
 const SECRET = crypto.createHash('sha256').update(String(T)).digest('hex').slice(0, 40);
 

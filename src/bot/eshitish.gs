@@ -81,6 +81,7 @@ function doPost(e) {
   var q = JSON.parse(e.postData.contents || '{}'), out;
   if (q.a === 'app') return J(ilova(q));
   if (q.k !== key()) return J({ ok: false, err: 'key' });
+  if (q.a === 'yangila') return J(yangila());
   var lock = LockService.getScriptLock(); lock.waitLock(20000);
   try {
     if (q.a === 'group') { cfg('group', String(q.chat)); out = { ok: true }; }
@@ -396,4 +397,55 @@ function jadval() {
   s.clear(); s.getRange(1, 1, out.length, head.length).setValues(out);
   s.setFrozenRows(1); s.setFrozenColumns(1); s.getRange(1, 1, 1, head.length).setFontWeight('bold');
   if (out.length > 1 && head.length > 3) s.getRange(2, 3, out.length - 1, head.length - 3).setHorizontalAlignment('center');
+}
+
+// ---------- Ўзини ўзи янгилаш: GitHub'даги энг янги кодни олиб, янги версияни Deploy қилади ----------
+// Бир марта созланади: script.google.com/home/usersettings → Google Apps Script API = On,
+// appsscript.json да oauthScopes (script.projects, script.deployments) бўлиши керак.
+var DEPLOY_ID = 'AKfycbwfQAUAC3jHlqE5KHAeaqGekAkedI1UP7qECuJpzHF5lwl4fmBn_xEpj5nt8SfKiOBX';   // бот уланган веб-илова
+var GH = 'https://api.github.com/repos/abduhakim9999/arab-tili/contents/src/bot/';
+function ghFayl(n) {
+  var r = UrlFetchApp.fetch(GH + n + '?ref=main&t=' + Date.now(), { headers: { Accept: 'application/vnd.github.raw' }, muteHttpExceptions: true });
+  return r.getResponseCode() === 200 ? r.getContentText() : null;
+}
+function gapi(method, path, body) {
+  var o = { method: method, headers: { Authorization: 'Bearer ' + ScriptApp.getOAuthToken() }, muteHttpExceptions: true, contentType: 'application/json' };
+  if (body) o.payload = JSON.stringify(body);
+  var r = UrlFetchApp.fetch('https://script.googleapis.com/v1/projects/' + ScriptApp.getScriptId() + path, o), t = r.getContentText();
+  var j = {}; try { j = JSON.parse(t || '{}'); } catch (e) {}
+  if (r.getResponseCode() >= 300) throw new Error((j.error && j.error.message) || ('HTTP ' + r.getResponseCode()));
+  return j;
+}
+function yangila() {
+  try {
+    var kod = ghFayl('eshitish.gs');
+    if (!kod || kod.indexOf('function doPost') < 0 || kod.indexOf('function yangila') < 0) return { ok: false, err: 'GitHub\'дан код олинмади ёки у тўлиқ эмас' };
+    var man = ghFayl('appsscript.json');
+    var c = gapi('get', '/content'), files = c.files || [], topdi = false;
+    files.forEach(function (f) {
+      if (!topdi && f.type === 'SERVER_JS' && f.source.indexOf('function yangila') >= 0) { f.source = kod; topdi = true; }
+      else if (f.type === 'JSON' && f.name === 'appsscript' && man) f.source = man;
+    });
+    if (!topdi) return { ok: false, err: 'скрипт ичида асосий файл топилмади' };
+    gapi('put', '/content', { files: files });
+    var sana = Utilities.formatDate(now(), TZ, 'dd.MM.yyyy HH:mm');
+    var v = gapi('post', '/versions', { description: 'yangila ' + sana });
+    var url = '', m; try { url = ScriptApp.getService().getUrl() || ''; } catch (e) {}
+    m = /\/s\/([^/]+)\/(exec|dev)/.exec(url);
+    var id = m && m[2] === 'exec' ? m[1] : DEPLOY_ID;
+    if (!id) return { ok: false, err: 'Deploy топилмади (версия ' + v.versionNumber + ' яратилди, Deploy қўлда қилинг)' };
+    gapi('put', '/deployments/' + id, { deploymentConfig: { scriptId: ScriptApp.getScriptId(), versionNumber: v.versionNumber, manifestFileName: 'appsscript', description: 'yangila ' + sana } });
+    var sat = (kod.match(/\n/g) || []).length;
+    return { ok: true, text: '✅ Скрипт янгиланди: версия ' + v.versionNumber + ' (' + sana + ', ' + sat + ' қатор).' };
+  } catch (e) {
+    var t = String(e.message || e);
+    if (/has not been used|disabled|SERVICE_DISABLED/i.test(t)) t += '\n\n👉 script.google.com/home/usersettings да «Google Apps Script API» ни On қилинг.';
+    if (/insufficient|scope|PERMISSION_DENIED/i.test(t)) t += '\n\n👉 appsscript.json да рухсатлар (oauthScopes) етишмаяпти ёки рухсат берилмаган.';
+    return { ok: false, err: t };
+  }
+}
+// Созлашдан кейин бир марта муҳаррирда ишга туширинг: рухсат сўрайди ва Apps Script API ишлаётганини текширади
+function ruxsat() {
+  var c = gapi('get', '/content');
+  Logger.log('✅ Apps Script API ишлаяпти, файллар: ' + (c.files || []).map(function (f) { return f.name; }).join(', '));
 }

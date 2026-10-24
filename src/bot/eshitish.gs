@@ -77,7 +77,8 @@ function doPost(e) {
   var lock = LockService.getScriptLock(); lock.waitLock(20000);
   try {
     if (q.a === 'group') { cfg('group', String(q.chat)); out = { ok: true }; }
-    else if (q.a === 'cfg') out = { ok: true, group: cfg('group') };
+    else if (q.a === 'cfg') out = { ok: true, group: cfg('group'), ctrl: cfg('ctrl') };
+    else if (q.a === 'ctrl') { cfg('ctrl', String(q.chat)); out = { ok: true }; }
     else if (q.a === 'member') { (q.users || []).forEach(member); out = { ok: true }; }
     else if (q.a === 'post') { var dl = joyla(q.id, q.title, q.chat, q.msg); out = { ok: true, deadline: fmt(dl) }; }
     else if (q.a === 'mark') out = mark(q);

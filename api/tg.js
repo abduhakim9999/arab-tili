@@ -39,6 +39,10 @@ async function esh(a, p) {
 }
 const seen = new Set();
 let grp = null;
+async function loadGrp(force) {
+  if (force || !grp || Date.now() - grp.t > 600e3) { const cf = await esh('cfg', {}); grp = { id: String(cf.group || ''), ctrl: String(cf.ctrl || ''), t: Date.now() }; }
+  return grp;
+}
 async function seenUser(u) {
   if (!u || u.is_bot || seen.has(u.id)) return;
   seen.add(u.id); await esh('member', { users: [u] });
@@ -49,7 +53,7 @@ async function group(m) {
   const c = String(m.chat.id), t = (m.text || '').trim().split('@')[0];
   if (t === '/ulash' && A && String(m.from && m.from.id) === A) {
     const r = await esh('group', { chat: c });
-    grp = { id: c, t: Date.now() };
+    grp = null;
     await tg('deleteMessage', { chat_id: c, message_id: m.message_id });
     if (!r.ok) return tg('sendMessage', { chat_id: A, text: '❌ Гуруҳ уланмади: ' + (r.err || '') });
     await tg('sendMessage', { chat_id: c, text: '👋 Ассалому алайкум! Бу гуруҳда аудио дарслар юборилади.\nЭшитганингизни белгилаш учун аввал рўйхатдан ўтинг — тугмани босинг:',
@@ -57,7 +61,7 @@ async function group(m) {
     return tg('sendMessage', { chat_id: A, text: '✅ Гуруҳ уланди. Энди менга аудио юборинг (изоҳига номини ёзинг, масалан «1-дарс») — гуруҳга «✅ Эшитдим» тугмаси билан жойлайман.' });
   }
   // faqat ulangan guruhdagilar a'zo hisoblanadi (bot turgan boshqa guruhlar emas)
-  if (!grp || Date.now() - grp.t > 600e3) { const cf = await esh('cfg', {}); grp = { id: String(cf.group || ''), t: Date.now() }; }
+  await loadGrp();
   if (c !== grp.id) return;
   for (const u of (m.new_chat_members || [])) await seenUser(u);
   await seenUser(m.from);
@@ -89,13 +93,22 @@ const KIND = { voice: 'овозли хабар', video_note: 'видео-дои�
   video: 'видео', document: 'файл', audio: 'аудио', animation: 'GIF', location: 'жойлашув', contact: 'контакт' };
 
 async function handle(m) {
-  const c = String(m.chat.id), t = (m.text || '').trim();
-  if (m.chat.type === 'group' || m.chat.type === 'supergroup') return group(m);
-  if (m.chat.type !== 'private') return;
+  const c = String(m.chat.id), t = (m.text || '').trim().replace(/^(\/\w+)@\w+/, '$1');
+  let ctrl = false;
+  if (m.chat.type === 'group' || m.chat.type === 'supergroup') {
+    // boshqaruv guruhi: admin buyruq va audiolarni shu yerda yozadi
+    if (t.split('@')[0] === '/boshqaruv' && A && String(m.from && m.from.id) === A) {
+      const r = await esh('ctrl', { chat: c }); grp = null;
+      return tg('sendMessage', { chat_id: c, text: r.ok ? '✅ Бу гуруҳ энди бошқарув чати. Аудио ва буйруқларни шу ерга ёзинг (/help).' : '❌ ' + (r.err || '') });
+    }
+    await loadGrp();
+    if (grp.ctrl && c === grp.ctrl && A && String(m.from && m.from.id) === A) ctrl = true;
+    else return group(m);
+  } else if (m.chat.type !== 'private') return;
   if (t === '/id') return tg('sendMessage', { chat_id: c, text: 'ID: ' + c });
 
   // Admin javobi
-  if (A && c === A) {
+  if (A && (c === A || ctrl)) {
     if (t === '/stat') return tg('sendMessage', { chat_id: c, text: await stat() });
     if (t.startsWith('/hisobot')) { const r = await esh('rep', { id: t.split(' ')[1] || '' }); return tg('sendMessage', { chat_id: c, text: r.text || ('Ҳисобот олинмади: ' + (r.err || '')) }); }
     if (t === '/navbat') { await esh('mode', { v: 'navbat' }); const h = await esh('holat', {}); return tg('sendMessage', { chat_id: c, text: '📥 Навбат режими ёқилди. Энди аудиоларни кетма-кет юборинг (изоҳига номини ёзинг) — улар навбатга тушади.\nТугатгач: /tamom\n\n' + (h.text || '') }); }
@@ -117,7 +130,7 @@ async function handle(m) {
       }
       return postAudio(m);
     }
-    if (t === '/start' || t === '/help') return tg('sendMessage', { chat_id: c, text: 'Сиз — админсиз.\n\n• Кимдир ботга ёзса, хабари шу ерга 💬 белгиси билан келади.\n• Жавоб бериш учун ўша хабарга Reply қилинг (матн, овоз, расм — ҳаммаси бўлади).\n• /stat — статистика.\n• Аудио юборсангиз (изоҳига номини ёзинг) — гуруҳга сўровнома билан жойланади (муддат — шу куни 24:00).\n• /hisobot — охирги аудиони ким эшитди, ким эшитмади.\n• /navbat — аудиоларни навбатга йиғиш (автомат юбориш учун), /tamom — тугатиш.\n• /holat — автомат юбориш созламалари ва навбат.\n• /fel — феъл тестини ҳозир юбориш (одатда аудио билан бирга ўзи чиқади).\n• /vaqt 08:00 — юбориш вақти; /kunlar 1,2,3,4,5,6 — кунлар (1 — Душанба).\n\nСинаб кўриш учун бошқа аккаунтдан ёзинг.' });
+    if (t === '/start' || t === '/help') return tg('sendMessage', { chat_id: c, text: 'Сиз — админсиз.\n\n• Кимдир ботга ёзса, хабари шу ерга 💬 белгиси билан келади.\n• Жавоб бериш учун ўша хабарга Reply қилинг (матн, овоз, расм — ҳаммаси бўлади).\n• /stat — статистика.\n• /boshqaruv — (алоҳида гуруҳда ёзилади) ўша гуруҳни бошқарув чати қилади: аудио ва буйруқлар ўша ерда.\n• Аудио юборсангиз (изоҳига номини ёзинг) — гуруҳга сўровнома билан жойланади (муддат — шу куни 24:00).\n• /hisobot — охирги аудиони ким эшитди, ким эшитмади.\n• /navbat — аудиоларни навбатга йиғиш (автомат юбориш учун), /tamom — тугатиш.\n• /holat — автомат юбориш созламалари ва навбат.\n• /fel — феъл тестини ҳозир юбориш (одатда аудио билан бирга ўзи чиқади).\n• /vaqt 08:00 — юбориш вақти; /kunlar 1,2,3,4,5,6 — кунлар (1 — Душанба).\n\nСинаб кўриш учун бошқа аккаунтдан ёзинг.' });
     const r = m.reply_to_message;
     const id = r && ((r.text || r.caption || '').match(/ID (\d+)/) || [])[1];
     if (!id) return tg('sendMessage', { chat_id: c, text: 'Жавоб бериш учун 💬 белгили хабарга Reply қилинг.' });

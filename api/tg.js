@@ -92,13 +92,13 @@ function parseH(tx, md) {
   const vq = (g(/Вақт: ([^\n]*)/).match(/(\d{1,2}:\d{2})/) || [])[1] || '';
   const kn = g(/Кунлар: ([^\n]*)/).split(/,\s*/).map(x => KUNN.indexOf(x)).filter(x => x > 0);
   const n1 = Number(g(/кейингиси (\d+)-феълдан/)) || 1, nt = g(/📣 Натижа: ([^\n]*)/);
-  return { text: tx.replace(/\n*Ўзгартириш:[^\n]*/, '').replace(/Вақт: [^\n]*/, 'Вақт: ' + (vq || '—')), vaqt: vq, kunlar: kn, k: Math.floor((n1 - 1) / FEEL_N) + 1, navbat: md === 'navbat', nat: nt === 'фақат ёзувлар' ? 'e' : nt === 'фақат феъл' ? 'f' : 'ef' };
+  return { text: tx.replace(/\n*Ўзгартириш:[^\n]*/, '').replace(/Вақт: [^\n]*/, 'Вақт: ' + (vq || '—')), vaqt: vq, kunlar: kn, k: Math.floor((n1 - 1) / FEEL_N) + 1, navbat: md === 'navbat', nat: (nt === 'фақат ҳивар' || nt === 'фақат ёзувлар') ? 'e' : nt === 'фақат феъл' ? 'f' : 'ef' };
 }
 async function holatSt() {
   const [h, md] = await Promise.all([esh('holat', {}), esh('mode', {})]);
   return { ok: !!h.ok, err: h.err, ...parseH(h.text, md.mode) };
 }
-const NATN = { ef: '🎧 Ёзувлар + 🔤 Феъл', e: 'фақат 🎧 Ёзувлар', f: 'фақат 🔤 Феъл' }, NATK = { ef: 'e', e: 'f', f: 'ef' };   // навбат билан алмашади
+const NATN = { ef: '🎧 Ҳивар + 🔤 Феъл', e: 'фақат 🎧 Ҳивар', f: 'фақат 🔤 Феъл' }, NATK = { ef: 'e', e: 'f', f: 'ef' };   // навбат билан алмашади
 const B = (text, d) => ({ text, callback_data: 'p:' + d });
 const ORQA = [[B('◀️ Орқага', 'h')]];
 function mainView(s, note) {
@@ -142,10 +142,10 @@ async function hisView(v, d, p) {
     return { text: (o.text || ('Ҳисобот олинмади: ' + (r.err || ''))) + '\n\n(Тўлиқ ҳисобот учун Apps Script кодини янгиланг)', kb: ORQA };
   }
   const tk = (lbl, on) => (on ? '✅ ' : '') + lbl, pg = r.page || 0, kb = [
-    [B(tk('🎧 Ёзувлар', v === 'e'), 'R:e:' + d + ':0'), B(tk('👤 Одамлар', v === 'o'), 'R:o:' + d + ':0')],
+    [B(tk('🎧 Ҳиварлар', v === 'e'), 'R:e:' + d + ':0'), B(tk('👤 Одамлар', v === 'o'), 'R:o:' + d + ':0')],
     [B(tk('7 кун', d === '7'), 'R:' + v + ':7:0'), B(tk('Шу ой', d === 'm'), 'R:' + v + ':m:0'), B(tk('Ҳаммаси', d === 'all'), 'R:' + v + ':all:0')]];
   if ((r.pages || 1) > 1) kb.push([B('◀️', 'R:' + v + ':' + d + ':' + Math.max(0, pg - 1)), B((pg + 1) + '/' + r.pages, 'R:' + v + ':' + d + ':' + pg), B('▶️', 'R:' + v + ':' + d + ':' + Math.min(r.pages - 1, pg + 1))]);
-  kb.push([B('🗑 Ёзувни ўчириш', 'X')]);
+  kb.push([B('🗑 Ҳиварни ўчириш', 'X')]);
   kb.push(...ORQA);
   return { text: r.text, kb };
 }
@@ -160,11 +160,11 @@ async function panelCb(q) {
   else if (d === 'X' || arg[0] === 'S') {
     // бир нечтасини белгилаб ўчириш: белгиланганлар рўйхатдаги ўрни бўйича (bitmask) сақланади
     const r = await esh('alist', {}), L = (r.ok && r.list) || [];
-    if (!L.length) v = { text: r.ok ? 'Ёзувлар йўқ.' : '❌ ' + (r.err || 'скриптни янгиланг'), kb: ORQA };
+    if (!L.length) v = { text: r.ok ? 'Ҳиварлар йўқ.' : '❌ ' + (r.err || 'скриптни янгиланг'), kb: ORQA };
     else {
       const mask = arg[0] === 'S' ? (Number(arg[1]) || 0) : 0, all = (1 << L.length) - 1;
       const n = L.filter((x, i) => mask & (1 << i)).length;
-      v = { text: '🗑 Ўчириладиган ёзувларни белгиланг (охирги ' + L.length + ' та).\nЁзув ва унга берилган белгилар жадвалдан ўчади, гуруҳдаги хабар қолади.' + (n ? '\n\nБелгиланди: ' + n + ' та' : ''),
+      v = { text: '🗑 Ўчириладиган ҳиварларни белгиланг (охирги ' + L.length + ' та).\nҲивар ва унга берилган белгилар жадвалдан ўчади, гуруҳдаги хабар қолади.' + (n ? '\n\nБелгиланди: ' + n + ' та' : ''),
         kb: [...L.map((x, i) => [B((mask & (1 << i) ? '✅ ' : '▫️ ') + x.t + (x.d ? ' (' + x.d + ')' : ''), 'S:' + (mask ^ (1 << i)))]),
           [B(mask === all ? '▫️ Ҳеч бирини' : '☑️ Ҳаммасини белгилаш', 'S:' + (mask === all ? 0 : all))],
           ...(n ? [[B('🗑 Белгиланганларни ўчириш (' + n + ')', 'Q:' + mask)]] : []), ...ORQA] };
@@ -172,7 +172,7 @@ async function panelCb(q) {
   }
   else if (arg[0] === 'Q') {
     const r = await esh('alist', {}), L = (r.ok && r.list) || [], mask = Number(arg[1]) || 0, sel = L.filter((x, i) => mask & (1 << i));
-    v = { text: '🗑 Шу ' + sel.length + ' та ёзув ўчирилсинми? Буни қайтариб бўлмайди.\n\n' + sel.map(x => '• ' + x.t + (x.d ? ' (' + x.d + ')' : '')).join('\n'),
+    v = { text: '🗑 Шу ' + sel.length + ' та ҳивар ўчирилсинми? Буни қайтариб бўлмайди.\n\n' + sel.map(x => '• ' + x.t + (x.d ? ' (' + x.d + ')' : '')).join('\n'),
       kb: [[B('✅ Ҳа, ўчир', 'W:' + mask), B('◀️ Йўқ', 'S:' + mask)]] };
   }
   else if (arg[0] === 'W') {

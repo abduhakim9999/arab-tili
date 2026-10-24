@@ -172,7 +172,12 @@ async function postAudio(m) {
 }
 
 const KIND = { voice: 'овозли хабар', video_note: 'видео-доира', sticker: 'стикер', photo: 'расм',
-  video: 'видео', document: 'файл', audio: 'аудио', animation: 'GIF', location: 'жойлашув', contact: 'контакт' };
+  video: 'видео', document: 'файл', audio: 'аудио', animation: 'GIF', location: 'жойлашув', contact: 'контакт',
+  story: 'сторис', poll: 'сўровнома', dice: 'ўйин эмодзиси 🎲', venue: 'манзил', game: 'ўйин', web_app_data: 'илова тугмасидан маълумот',
+  paid_media: 'пулли медиа', giveaway: 'совға ўйини', giveaway_winners: 'совға ғолиблари', checklist: 'чек-рўйхат', invoice: 'тўлов ҳисоби',
+  successful_payment: 'тўлов', users_shared: 'фойдаланувчи улашилди', chat_shared: 'чат улашилди', write_access_allowed: 'ботга ёзишга рухсат берди',
+  pinned_message: 'хабарни қадади', forward_origin: 'бошқа жойдан юборилган хабар' };
+const STD = new Set(['message_id', 'from', 'chat', 'date', 'edit_date', 'entities', 'caption_entities', 'reply_to_message', 'message_thread_id', 'has_protected_content', 'via_bot', 'link_preview_options', 'reply_markup', 'sender_chat', 'author_signature', 'media_group_id', 'is_topic_message', 'is_automatic_forward', 'external_reply', 'quote', 'show_caption_above_media', 'has_media_spoiler', 'effect_id', 'caption', 'text', 'forward_from', 'forward_date', 'forward_from_chat', 'forward_sender_name', 'forward_signature', 'forward_from_message_id', 'business_connection_id', 'sender_business_bot', 'sender_boost_count']);
 
 async function handle(m) {
   const c = String(m.chat.id), t = (m.text || '').trim().replace(/^(\/\w+)@\w+/, '$1').replace(/^\/\w+/, x => x.toLowerCase());
@@ -240,9 +245,11 @@ async function handle(m) {
   const cap = head + (m.caption ? '\n\n' + m.caption : '');
   const x = await tg('copyMessage', { chat_id: A, from_chat_id: c, message_id: m.message_id, caption: cap });
   if (x.ok && !m.sticker && !m.video_note && !m.location && !m.contact) return;
-  const k = Object.keys(KIND).find(key => m[key]);
-  const h = await tg('sendMessage', { chat_id: A, text: head + '\n\n[' + (k ? KIND[k] : 'хабар') + ']' });
-  if (!x.ok) await tg('copyMessage', { chat_id: A, from_chat_id: c, message_id: m.message_id, reply_to_message_id: h.ok ? h.result.message_id : undefined });
+  const k = Object.keys(KIND).find(key => key !== 'forward_origin' && m[key]) || (m.forward_origin ? 'forward_origin' : '');
+  const other = Object.keys(m).filter(key => !STD.has(key) && !KIND[key]);
+  const nom = k ? KIND[k] : (other.length ? 'номаълум тур: ' + other.join(', ') : 'хабар');
+  const h = await tg('sendMessage', { chat_id: A, text: head + '\n\n[' + nom + ']' + (!x.ok ? '\n(кўчириб бўлмади' + (x.description ? ': ' + x.description : '') + ')' : '') });
+  if (!x.ok) { const y = await tg('forwardMessage', { chat_id: A, from_chat_id: c, message_id: m.message_id }); if (!y.ok && h.ok) await tg('sendMessage', { chat_id: A, reply_to_message_id: h.result.message_id, text: 'Ўзини ҳам юбориб бўлмади' + (y.description ? ': ' + y.description : '') }); }
 }
 
 module.exports = async (req, res) => {

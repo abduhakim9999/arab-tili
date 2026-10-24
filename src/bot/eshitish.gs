@@ -228,7 +228,7 @@ function holat() {
   var q = navbat();
   return '⚙️ Автомат юбориш\nВақт: ' + cfg('vaqt') + '\nКунлар: ' + kunlar().map(function (k) { return KUN[k]; }).join(', ') +
     '\n🔤 Феъл тести: кунига ' + FEEL_SONI + ' та, кейингиси ' + ((Number(cfg('feel_k')) - 1) * FEEL_SONI + 1) + '-феълдан' +
-    '\n📣 Натижа: ' + ({ e: 'фақат ҳивар', f: 'фақат феъл' }[cfg('nat_tur')] || 'ҳивар + феъл') +
+    '\n📣 Натижа: ' + ({ e: 'фақат ҳивар', f: 'фақат кунлик феъл' }[cfg('nat_tur')] || 'ҳивар + кунлик феъл') +
     '\n\n📋 Навбатда: ' + q.length + ' та' + (q.length ? '\nКейингиси: ' + q[0][1] : '') +
     '\n\nЎзгартириш: /vaqt 08:00 · /kunlar 1,2,3,4,5,6 (1 — Душанба, 7 — Якшанба)';
 }
@@ -435,7 +435,7 @@ function natijalar(majbur) {
       if (no.length) fq.push({ n: m[1] || 'аъзо', no: no }); else fh.push(m[1] || 'аъзо');
     });
     fq.sort(function (a, b) { return b.no.length - a.no.length; });
-    ftxt = '🔤 Феъл тести натижалари — охирги ' + F.length + ' кун';
+    ftxt = '🔤 Кунлик феъл натижалари — охирги ' + F.length + ' кун';
     ftxt += '\n\n✅ Ҳар куни ишлаганлар (' + fh.length + '):\n' + (fh.join(', ') || '—');
     ftxt += '\n\n❌ Ишламаганлар (' + fq.length + '):\n' + (fq.map(function (x) { return '• ' + x.n + ' — ' + x.no.length + ' кун: ' + x.no.join(', '); }).join('\n') || '— Ҳамма ишлади! 🎉');
   }

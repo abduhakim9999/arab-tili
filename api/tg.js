@@ -92,13 +92,13 @@ function parseH(tx, md) {
   const vq = (g(/Вақт: ([^\n]*)/).match(/(\d{1,2}:\d{2})/) || [])[1] || '';
   const kn = g(/Кунлар: ([^\n]*)/).split(/,\s*/).map(x => KUNN.indexOf(x)).filter(x => x > 0);
   const n1 = Number(g(/кейингиси (\d+)-феълдан/)) || 1, nt = g(/📣 Натижа: ([^\n]*)/);
-  return { text: tx.replace(/\n*Ўзгартириш:[^\n]*/, '').replace(/Вақт: [^\n]*/, 'Вақт: ' + (vq || '—')), vaqt: vq, kunlar: kn, k: Math.floor((n1 - 1) / FEEL_N) + 1, navbat: md === 'navbat', nat: (nt === 'фақат ҳивар' || nt === 'фақат ёзувлар') ? 'e' : nt === 'фақат феъл' ? 'f' : 'ef' };
+  return { text: tx.replace(/\n*Ўзгартириш:[^\n]*/, '').replace(/Вақт: [^\n]*/, 'Вақт: ' + (vq || '—')), vaqt: vq, kunlar: kn, k: Math.floor((n1 - 1) / FEEL_N) + 1, navbat: md === 'navbat', nat: (nt === 'фақат ҳивар' || nt === 'фақат ёзувлар') ? 'e' : (nt === 'фақат кунлик феъл' || nt === 'фақат феъл') ? 'f' : 'ef' };
 }
 async function holatSt() {
   const [h, md] = await Promise.all([esh('holat', {}), esh('mode', {})]);
   return { ok: !!h.ok, err: h.err, ...parseH(h.text, md.mode) };
 }
-const NATN = { ef: '🎧 Ҳивар + 🔤 Феъл', e: 'фақат 🎧 Ҳивар', f: 'фақат 🔤 Феъл' }, NATK = { ef: 'e', e: 'f', f: 'ef' };   // навбат билан алмашади
+const NATN = { ef: '🎧 Ҳивар + 🔤 Кунлик феъл', e: 'фақат 🎧 Ҳивар', f: 'фақат 🔤 Кунлик феъл' }, NATK = { ef: 'e', e: 'f', f: 'ef' };   // навбат билан алмашади
 const B = (text, d) => ({ text, callback_data: 'p:' + d });
 const ORQA = [[B('◀️ Орқага', 'h')]];
 function mainView(s, note) {
@@ -108,7 +108,7 @@ function mainView(s, note) {
     [B('🔄 Янгилаш', 'h')],
     [B('— 📋 Натижалар —', '_')],
     [B('📋 Ҳисобот', 'r'), B('📣 Натижа юбориш', 'z')],
-    [B('— 🔤 Феъл —', '_')],
+    [B('— 🔤 Кунлик феъл —', '_')],
     [B('🔤 Феълни юбориш', 'f'), B('🔢 Феъл куни: ' + s.k + ' (' + a + '–' + (a + FEEL_N - 1) + ')', 'k:' + s.k)],
     [B('— ⚙️ Созлама —', '_')],
     [B('📥 Навбат: ' + (s.navbat ? 'ёқиқ ✅' : 'ўчиқ'), 'n:' + (s.navbat ? 1 : 0))],
@@ -184,7 +184,7 @@ async function panelCb(q) {
   }
   else if (arg[0] === 'R') v = await hisView(arg[1], arg[2], Number(arg[3]) || 0);
   else if (d === 's') v = { text: await stat(), kb: ORQA };
-  else if (d === 'z') v = { text: '📣 Охирги 10 та дарс ва феъл тести натижаси ҳозир гуруҳга юборилсинми?\n(Автомат: ҳар Сешанба ва Жума 08:00 да)', kb: [[B('✅ Ҳа, юбор', 'Z'), B('◀️ Йўқ', 'h')]] };
+  else if (d === 'z') v = { text: '📣 Охирги 10 та дарс ва кунлик феъл натижаси ҳозир гуруҳга юборилсинми?\n(Автомат: ҳар Сешанба ва Жума 08:00 да)', kb: [[B('✅ Ҳа, юбор', 'Z'), B('◀️ Йўқ', 'h')]] };
   else if (d === 'Z') { const r = await esh('nat', {}); v = { text: r.ok ? '✅ ' + (r.text || 'Юборилди.') : '❌ Юборилмади: ' + (r.err || 'скриптни янгиланг'), kb: ORQA }; }
   else if (d === 'f') v = { text: '🔤 Феъл тести ҳозир гуруҳга юборилсинми?', kb: [[B('✅ Ҳа, юбор', 'F'), B('◀️ Йўқ', 'h')]] };
   else if (d === 'F') { const r = await esh('feel', {}); v = { text: r.ok ? '✅ ' + (r.text || 'Феъл тести гуруҳга юборилди.') : '❌ Юборилмади: ' + (r.err || ''), kb: ORQA }; }

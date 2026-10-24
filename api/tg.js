@@ -129,13 +129,29 @@ function kunlarView(kn, note) {
   const btn = i => B((kn.includes(i) ? '✅ ' : '▫️ ') + KUNN[i], 'D:' + i + ':' + kn.join(''));
   return { text: (note ? note + '\n\n' : '') + '📅 Юбориш кунлари — босиб белгиланг ёки олиб ташланг:', kb: [[btn(1), btn(2)], [btn(3), btn(4)], [btn(5), btn(6)], [btn(7)], ...ORQA] };
 }
+// Ҳисобот: v — 'e' ёзувлар / 'o' одамлар, d — '7' | 'm' | 'all', p — саҳифа
+async function hisView(v, d, p) {
+  const r = await esh('rep2', { v, d, p });
+  if (!r.ok) {
+    // эски скриптда rep2 йўқ — оддий ҳисобот
+    const o = await esh('rep', { id: '' });
+    return { text: (o.text || ('Ҳисобот олинмади: ' + (r.err || ''))) + '\n\n(Тўлиқ ҳисобот учун /yangila қилинг)', kb: ORQA };
+  }
+  const tk = (lbl, on) => (on ? '✅ ' : '') + lbl, pg = r.page || 0, kb = [
+    [B(tk('🎧 Ёзувлар', v === 'e'), 'R:e:' + d + ':0'), B(tk('👤 Одамлар', v === 'o'), 'R:o:' + d + ':0')],
+    [B(tk('7 кун', d === '7'), 'R:' + v + ':7:0'), B(tk('Шу ой', d === 'm'), 'R:' + v + ':m:0'), B(tk('Ҳаммаси', d === 'all'), 'R:' + v + ':all:0')]];
+  if ((r.pages || 1) > 1) kb.push([B('◀️', 'R:' + v + ':' + d + ':' + Math.max(0, pg - 1)), B((pg + 1) + '/' + r.pages, 'R:' + v + ':' + d + ':' + pg), B('▶️', 'R:' + v + ':' + d + ':' + Math.min(r.pages - 1, pg + 1))]);
+  kb.push(...ORQA);
+  return { text: r.text, kb };
+}
 async function panelCb(q) {
   const d = q.data.slice(2), c = q.message.chat.id, mid = q.message.message_id, arg = d.split(':');
   // тугма босилгани дарҳол билинсин
   await tg('answerCallbackQuery', { callback_query_id: q.id, text: '⏳' });
   let v = null;
   if (d === 'h') v = await panelView();
-  else if (d === 'r') { const r = await esh('rep', { id: '' }); v = { text: r.text || ('Ҳисобот олинмади: ' + (r.err || '')), kb: ORQA }; }
+  else if (d === 'r') v = await hisView('e', '7', 0);
+  else if (arg[0] === 'R') v = await hisView(arg[1], arg[2], Number(arg[3]) || 0);
   else if (d === 's') v = { text: await stat(), kb: ORQA };
   else if (d === 'u') v = { text: '🔄 Apps Script коди GitHub\'даги энг янги нусхага алмаштирилсинми?', kb: [[B('✅ Ҳа, янгила', 'U'), B('◀️ Йўқ', 'h')]] };
   else if (d === 'U') { await tg('editMessageText', { chat_id: c, message_id: mid, text: '⏳ Янгиланмоқда…' }); const r = await esh('yangila', {}); v = { text: r.ok ? r.text : '❌ Янгиланмади: ' + (r.err || ''), kb: ORQA }; }
@@ -217,6 +233,7 @@ async function handle(m) {
   if (A && (c === A || ctrl)) {
     if (t === '/panel') { setMenu(); const v = await panelView(); return tg('sendMessage', { chat_id: c, text: v.text, reply_markup: { inline_keyboard: v.kb } }); }
     if (t === '/stat') return tg('sendMessage', { chat_id: c, text: await stat() });
+    if (t === '/hisobot') { const v = await hisView('e', '7', 0); return tg('sendMessage', { chat_id: c, text: v.text.slice(0, 4000), reply_markup: { inline_keyboard: v.kb } }); }
     if (t.startsWith('/hisobot')) { const r = await esh('rep', { id: t.split(' ')[1] || '' }); return tg('sendMessage', { chat_id: c, text: r.text || ('Ҳисобот олинмади: ' + (r.err || '')) }); }
     if (t === '/navbat') { await esh('mode', { v: 'navbat' }); const h = await esh('holat', {}); return tg('sendMessage', { chat_id: c, text: '📥 Навбат режими ёқилди. Энди аудиоларни кетма-кет юборинг (изоҳига номини ёзинг) — улар навбатга тушади.\nТугатгач: /tamom\n\n' + (h.text || '') }); }
     if (t === '/tamom') { await esh('mode', { v: '' }); const h = await esh('holat', {}); return tg('sendMessage', { chat_id: c, text: '✅ Навбат режими ўчирилди. Энди юборилган аудио дарҳол гуруҳга кетади.\n\n' + (h.text || '') }); }

@@ -106,6 +106,7 @@ function doPost(e) {
     else if (q.a === 'ans') out = javob(q);
     else if (q.a === 'feel') out = feelKun();
     else if (q.a === 'rep') out = { ok: true, text: hisobot(q.id) };
+    else if (q.a === 'rep2') out = hisobot2(q.v, q.d, Number(q.p) || 0);
     else out = { ok: false, err: 'a' };
   } finally { lock.releaseLock(); }
   return J(out);
@@ -164,6 +165,46 @@ function heard(id) {
   var m = {};
   rows('Белгилар').forEach(function (r) { if (String(r[0]) === String(id) && String(r[4]) !== '1') m[String(r[1])] = 1; });
   return m;
+}
+// Ёзувлар бўйича (v='e') ёки одамлар бўйича (v='o') ҳисобот; d: '7' — охирги 7 кун, 'm' — шу ой, 'all' — ҳаммаси
+var HAFTA = ['Якш', 'Душ', 'Сеш', 'Чор', 'Пай', 'Жум', 'Шан'];
+function hisobot2(v, d, p) {
+  var A = rows('Аудиолар').filter(function (r) { return r[0] && r[5]; }), t = now(), oy = Utilities.formatDate(t, TZ, 'yyyy-MM');
+  A = A.filter(function (r) {
+    var dl = new Date(r[5]);
+    if (d === 'm') return Utilities.formatDate(dl, TZ, 'yyyy-MM') === oy;
+    if (d === 'all') return true;
+    return dl.getTime() >= t.getTime() - 7 * 864e5;
+  });
+  var davr = d === 'm' ? 'шу ой' : d === 'all' ? 'ҳаммаси' : 'охирги 7 кун';
+  if (!A.length) return { ok: true, text: '📋 Ҳисобот (' + davr + ')\n\nБу даврда ёзув юборилмаган.', pages: 1 };
+  // ким қайси ёзувни белгилаган (кечикканлар алоҳида)
+  var H = {}, L = {};
+  rows('Белгилар').forEach(function (r) { var k = String(r[0]) + '|' + String(r[1]); if (String(r[4]) === '1') L[k] = 1; else H[k] = 1; });
+  var M = members(), kun = function (r) { var dl = new Date(r[5]); return Utilities.formatDate(dl, TZ, 'dd.MM') + ', ' + HAFTA[Number(Utilities.formatDate(dl, TZ, 'u')) % 7]; };
+  var davom = function (r) { return !r[6] && t < new Date(r[5]); };
+  var B = [];
+  if (v === 'o') {
+    M.forEach(function (m) {
+      var id = String(m[0]), no = [], kech = [], ok = 0;
+      A.forEach(function (r) { var k = String(r[0]) + '|' + id; if (H[k]) ok++; else if (L[k]) kech.push(r[1]); else if (!davom(r)) no.push(r[1] + ' (' + kun(r) + ')'); });
+      B.push((no.length ? '❌ ' : '✅ ') + (m[1] || 'аъзо') + ' — ' + ok + ' / ' + A.length +
+        (no.length ? '\n   Эшитмаган: ' + no.join(', ') : '') + (kech.length ? '\n   ⏰ Кечикиб: ' + kech.join(', ') : ''));
+    });
+    B.sort(function (a, b) { return (a.charAt(0) === '❌' ? 0 : 1) - (b.charAt(0) === '❌' ? 0 : 1); });
+  } else {
+    A.slice().reverse().forEach(function (r) {
+      var no = [], kech = [], ok = 0;
+      M.forEach(function (m) { var k = String(r[0]) + '|' + String(m[0]); if (H[k]) ok++; else if (L[k]) kech.push(m[1]); else no.push(m[1] || 'аъзо'); });
+      B.push('🎧 ' + r[1] + ' (' + kun(r) + ')' + (davom(r) ? ' ⏳' : '') + '\n   ✅ ' + ok + ' · ' + (davom(r) ? '⏳ ҳали: ' : '❌ ') + (no.length ? no.join(', ') : '—') + (kech.length ? '\n   ⏰ Кечикиб: ' + kech.join(', ') : ''));
+    });
+  }
+  // саҳифаларга бўлиш (Telegram хабари 4096 белгидан ошмасин)
+  var P = [[]], len = 0;
+  B.forEach(function (b) { if (len + b.length > 3300 && P[P.length - 1].length) { P.push([]); len = 0; } P[P.length - 1].push(b); len += b.length + 2; });
+  p = Math.max(0, Math.min(p, P.length - 1));
+  var bosh = '📋 Ҳисобот — ' + (v === 'o' ? '👤 одамлар бўйича' : '🎧 ёзувлар бўйича') + ' (' + davr + ')\nЁзувлар: ' + A.length + ' · Аъзолар: ' + M.length + (P.length > 1 ? ' · саҳифа ' + (p + 1) + '/' + P.length : '') + '\n⏳ — муддати ҳали тугамаган\n\n';
+  return { ok: true, text: bosh + P[p].join('\n\n'), pages: P.length, page: p };
 }
 function hisobot(id) {
   var A = rows('Аудиолар'); if (!A.length) return 'Ҳали аудио юборилмаган.';

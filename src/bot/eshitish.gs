@@ -8,6 +8,9 @@
  */
 var TZ = 'Asia/Samarkand';
 var MUDDAT_SOAT = 24;
+var SAYT = 'https://abduhakim9999.github.io/arab-tili/fq/';
+var FEEL_SONI = 5;           // кунига нечта феъл
+var REYTING = { kun: 7, vaqt: '20:00' };   // ҳафталик рейтинг: Якшанба 20:00
 
 function P(k) { return PropertiesService.getScriptProperties().getProperty(k); }
 function key() {
@@ -43,6 +46,14 @@ function setup() {
   cfg('group', cfg('group') || '');
   if (!cfg('vaqt')) cfg('vaqt', '08:00');
   if (!cfg('kunlar')) cfg('kunlar', '1,2,3,4,5,6,7');
+  if (!cfg('feel_k')) cfg('feel_k', 1);
+  sh('Феъл саволлар', ['poll_id', 'кун', '№', 'феъл', 'тўғри', 'юборилди']);
+  sh('Феъл тест', ['poll_id', 'user_id', 'исм', 'феъл', 'натижа', 'вақт']);
+  var fs = sh('Феъллар', ['№', 'феъл', 'музореъ', 'маъно']);
+  if (fs.getLastRow() < 2) {
+    var V = JSON.parse(UrlFetchApp.fetch(SAYT + 'verbs.json').getContentText());
+    fs.getRange(2, 1, V.length, 4).setValues(V.map(function (v, i) { return [i + 1, v.m, v.mu, v.me]; }));
+  }
   ScriptApp.getProjectTriggers().forEach(function (t) { ScriptApp.deleteTrigger(t); });
   ScriptApp.newTrigger('tekshir').timeBased().everyMinutes(15).create();
   Logger.log('Калит: ' + key());
@@ -86,6 +97,8 @@ function doPost(e) {
       out = { ok: true, text: holat() };
     }
     else if (q.a === 'holat') out = { ok: true, text: holat() };
+    else if (q.a === 'ans') out = javob(q);
+    else if (q.a === 'feel') { feelKun(); out = { ok: true }; }
     else if (q.a === 'rep') out = { ok: true, text: hisobot(q.id) };
     else out = { ok: false, err: 'a' };
   } finally { lock.releaseLock(); }
@@ -129,6 +142,7 @@ function kunlar() { return String(cfg('kunlar')).split(/[ ,]+/).filter(String).m
 function holat() {
   var q = navbat();
   return '⚙️ Автомат юбориш\nВақт: ' + cfg('vaqt') + '\nКунлар: ' + kunlar().map(function (k) { return KUN[k]; }).join(', ') +
+    '\n🔤 Феъл тести: кунига ' + FEEL_SONI + ' та, кейингиси ' + ((Number(cfg('feel_k')) - 1) * FEEL_SONI + 1) + '-феълдан' +
     '\n\n📋 Навбатда: ' + q.length + ' та' + (q.length ? '\nКейингиси: ' + q[0][1] : '') +
     '\n\nЎзгартириш: /vaqt 08:00 · /kunlar 1,2,3,4,5,6 (1 — Душанба, 7 — Якшанба)';
 }
@@ -140,6 +154,7 @@ function avtomat() {
   if (cfg('oxirgi') === today) return;
   if (kunlar().indexOf(bugunKun()) < 0) return;
   if (Utilities.formatDate(now(), TZ, 'HH:mm') < ('0' + cfg('vaqt')).slice(-5)) return;
+  cfg('oxirgi', today);
   var s = sh('Навбат'), d = s.getDataRange().getValues();
   for (var i = 1; i < d.length; i++) {
     if (!d[i][2] || d[i][4]) continue;
@@ -153,14 +168,64 @@ function avtomat() {
     var dl = new Date(now().getTime() + MUDDAT_SOAT * 3600e3);
     sh('Аудиолар').appendRow([id, title, String(g), r.result.message_id, fmt(now()), dl.toISOString(), '']);
     s.getRange(i + 1, 5, 1, 2).setValues([['юборилди', fmt(now())]]);
-    cfg('oxirgi', today); jadval();
-    return;
+    jadval();
+    break;
   }
+  try { feelKun(); } catch (e) { Logger.log(e); }
+}
+
+// ---------- Феъл тести ----------
+function feelKun() {
+  var g = cfg('group'); if (!g) return;
+  var V = rows('Феъллар'), k = Number(cfg('feel_k')) || 1, a = (k - 1) * FEEL_SONI;
+  if (a >= V.length) return;
+  var day = V.slice(a, a + FEEL_SONI);
+  tg('sendAudio', { chat_id: g, audio: SAYT + 'd' + ('0' + k).slice(-2) + '.mp3', title: 'Феъллар — ' + k + '-кун', performer: 'نور الطالب',
+    caption: '🔤 Бугунги ' + day.length + ' та феъл. Эшитинг ва ҳар бирининг маъносини топинг 👇' });
+  var Q = sh('Феъл саволлар');
+  day.forEach(function (v, j) {
+    var right = mn(v[3]), opts = [right], seed = Number(v[0]) * 7919;
+    for (var t = 1; opts.length < 4 && t < 400; t++) {
+      var o = V[(seed + t * 37) % V.length], m = mn(o[3]);
+      if (o[0] !== v[0] && opts.indexOf(m) < 0) opts.push(m);
+    }
+    var pos = (seed + j) % 4; opts.splice(0, 1); opts.splice(pos, 0, right);
+    var r = tg('sendPoll', { chat_id: g, question: (j + 1) + '. ' + v[1] + ' – ' + v[2] + '\nМаъноси қайси?', options: opts.map(function (x) { return { text: x }; }),
+      type: 'quiz', correct_option_id: pos, is_anonymous: false, explanation: v[1] + ' – ' + v[2] + ' — ' + right });
+    if (r.ok) Q.appendRow([r.result.poll.id, k, v[0], v[1], pos, fmt(now())]);
+  });
+  cfg('feel_k', k + 1);
+}
+function mn(x) { return String(x).replace(/\s+/g, ' ').trim().slice(0, 100); }
+function javob(q) {
+  var d = rows('Феъл саволлар'), p = null;
+  for (var i = d.length - 1; i >= 0; i--) if (String(d[i][0]) === String(q.poll)) { p = d[i]; break; }
+  if (!p || !q.user) return { ok: true };
+  member(q.user);
+  var ok = (q.opt || [])[0] === Number(p[4]);
+  sh('Феъл тест').appendRow([String(q.poll), String(q.user.id), [q.user.first_name, q.user.last_name].filter(String).join(' '), p[3], ok ? '✅' : '❌', now()]);
+  return { ok: true };
+}
+function reyting() {
+  var g = cfg('group'), today = Utilities.formatDate(now(), TZ, 'yyyy-MM-dd');
+  if (!g || cfg('reyt') === today || bugunKun() !== REYTING.kun || Utilities.formatDate(now(), TZ, 'HH:mm') < REYTING.vaqt) return;
+  cfg('reyt', today);
+  var from = now().getTime() - 7 * 864e5, S = {};
+  rows('Феъл тест').forEach(function (r) {
+    if (new Date(r[5]).getTime() < from) return;
+    var x = S[r[1]] = S[r[1]] || { n: r[2], ok: 0, all: 0 }; x.all++; if (r[4] === '✅') x.ok++;
+  });
+  var L = Object.keys(S).map(function (k) { return S[k]; }).sort(function (a, b) { return b.ok - a.ok || a.all - b.all; });
+  if (!L.length) return;
+  var md = ['🥇', '🥈', '🥉'];
+  tg('sendMessage', { chat_id: g, text: '🏆 Ҳафта пешқадамлари (феъл тести)\n\n' + L.slice(0, 10).map(function (x, i) {
+    return (md[i] || (i + 1) + '.') + ' ' + x.n + ' — ' + x.ok + ' / ' + x.all; }).join('\n') + '\n\nБаракалла! Келаси ҳафтада ҳам давом этамиз 💪' });
 }
 
 // Ҳар 15 дақиқада: автомат юбориш ва муддати тугаган аудиолар бўйича қора рўйхат
 function tekshir() {
   try { avtomat(); } catch (e) { Logger.log(e); }
+  try { reyting(); } catch (e) { Logger.log(e); }
   var s = sh('Аудиолар'), d = s.getDataRange().getValues(), g = cfg('group');
   for (var i = 1; i < d.length; i++) {
     if (d[i][6] || now() < new Date(d[i][5])) continue;

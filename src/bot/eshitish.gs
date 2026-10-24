@@ -187,7 +187,7 @@ function hisobot2(v, d, p) {
   var H = {}, L = {};
   rows('Белгилар').forEach(function (r) { var k = String(r[0]) + '|' + String(r[1]); if (String(r[4]) === '1') L[k] = 1; else H[k] = 1; });
   var M = members(), kun = function (r) { var dl = new Date(r[5]); return Utilities.formatDate(dl, TZ, 'dd.MM') + ', ' + HAFTA[Number(Utilities.formatDate(dl, TZ, 'u')) % 7]; };
-  var davom = function (r) { return !r[6] && t < new Date(r[5]); };
+  var davom = function () { return false; };   // «якунланмаган» ажратилмайди: эшитди ёки эшитмади
   var B = [];
   if (v === 'o') {
     M.forEach(function (m) {
@@ -208,7 +208,7 @@ function hisobot2(v, d, p) {
   var P = [[]], len = 0;
   B.forEach(function (b) { if (len + b.length > 3300 && P[P.length - 1].length) { P.push([]); len = 0; } P[P.length - 1].push(b); len += b.length + 2; });
   p = Math.max(0, Math.min(p, P.length - 1));
-  var bosh = '📋 Ҳисобот — ' + (v === 'o' ? '👤 одамлар бўйича' : '🎧 ёзувлар бўйича') + ' (' + davr + ')\nЁзувлар: ' + A.length + ' · Аъзолар: ' + M.length + (P.length > 1 ? ' · саҳифа ' + (p + 1) + '/' + P.length : '') + '\n⏳ — муддати ҳали тугамаган\n\n';
+  var bosh = '📋 Ҳисобот — ' + (v === 'o' ? '👤 одамлар бўйича' : '🎧 ёзувлар бўйича') + ' (' + davr + ')\nЁзувлар: ' + A.length + ' · Аъзолар: ' + M.length + (P.length > 1 ? ' · саҳифа ' + (p + 1) + '/' + P.length : '') + '\n\n';
   return { ok: true, text: bosh + P[p].join('\n\n'), pages: P.length, page: p };
 }
 function hisobot(id) {
@@ -404,8 +404,8 @@ function natijalar(majbur) {
   // эски навбатдаги феъл кунларини варақга кўчириш (бир марта)
   try { var kut = JSON.parse(cfg('feel_kut') || '[]'); if (kut.length) { kut.forEach(function (p) { sh('Феъл кунлар', ['сана', 'кун (k)', 'message_id']).appendRow(["'" + p.d, p.k, p.m]); }); cfg('feel_kut', '[]'); } } catch (e) {}
   var M = members(), t = now(), kun = function (x) { return Utilities.formatDate(new Date(x), TZ, 'dd.MM'); };
-  // дарслар: муддати тугаганларнинг охирги 10 таси
-  var A = rows('Аудиолар').filter(function (r) { return r[0] && r[5] && t >= new Date(r[5]); }).slice(-NATIJA.soni);
+  // дарслар: охирги 10 таси (эшитди ёки эшитмади)
+  var A = rows('Аудиолар').filter(function (r) { return r[0] && r[5]; }).slice(-NATIJA.soni);
   var H = {}; rows('Белгилар').forEach(function (r) { if (String(r[4]) !== '1') H[String(r[0]) + '|' + String(r[1])] = 1; });
   var txt = '📋 Натижалар — охирги ' + A.length + ' та дарс';
   if (A.length) {
@@ -419,10 +419,10 @@ function natijalar(majbur) {
     txt += '\n\n✅ Ҳаммасини эшитганлар (' + hamma.length + '):\n' + (hamma.join(', ') || '—');
     txt += '\n\n❌ Эшитмаганлар (' + qol.length + '):\n' + (qol.map(function (x) { return '• ' + x.n + ' — ' + x.no.length + ' та: ' + x.no.join(', '); }).join('\n') || '— Ҳамма ҳаммасини эшитди! 🎉');
   } else txt += '\n\nҲали якунланган дарс йўқ.';
-  // феъл тести: шу даврда юборилган кунлар (охирги 10 та, бугунгисиз)
+  // феъл тести: шу даврда юборилган кунлар (охирги 10 та)
   var bosh = A.length ? Utilities.formatDate(new Date(new Date(A[0][5]).getTime() - 864e5), TZ, 'yyyy-MM-dd') : '';
   var F = rows('Феъл кунлар').map(function (r) { return { d: String(r[0]).replace(/^'/, ''), k: Number(r[1]) }; })
-    .filter(function (f) { return f.d < today && (!bosh || f.d >= bosh); }).slice(-NATIJA.soni);
+    .filter(function (f) { return f.d <= today && (!bosh || f.d >= bosh); }).slice(-NATIJA.soni);
   if (F.length) {
     var T = rows('Феъл тест'), D = {};
     T.forEach(function (r) { if (r[5]) D[String(r[1]) + '|' + String(r[0]) + '|' + Utilities.formatDate(new Date(r[5]), TZ, 'yyyy-MM-dd')] = 1; });

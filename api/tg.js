@@ -142,6 +142,7 @@ async function hisView(v, d, p) {
     [B(tk('🎧 Ёзувлар', v === 'e'), 'R:e:' + d + ':0'), B(tk('👤 Одамлар', v === 'o'), 'R:o:' + d + ':0')],
     [B(tk('7 кун', d === '7'), 'R:' + v + ':7:0'), B(tk('Шу ой', d === 'm'), 'R:' + v + ':m:0'), B(tk('Ҳаммаси', d === 'all'), 'R:' + v + ':all:0')]];
   if ((r.pages || 1) > 1) kb.push([B('◀️', 'R:' + v + ':' + d + ':' + Math.max(0, pg - 1)), B((pg + 1) + '/' + r.pages, 'R:' + v + ':' + d + ':' + pg), B('▶️', 'R:' + v + ':' + d + ':' + Math.min(r.pages - 1, pg + 1))]);
+  kb.push([B('🗑 Ёзувни ўчириш', 'X')]);
   kb.push(...ORQA);
   return { text: r.text, kb };
 }
@@ -152,6 +153,14 @@ async function panelCb(q) {
   let v = null;
   if (d === 'h') v = await panelView();
   else if (d === 'r') v = await hisView('e', '7', 0);
+  else if (d === 'X') {
+    const r = await esh('alist', {});
+    v = r.ok && r.list && r.list.length
+      ? { text: '🗑 Қайси ёзувни ўчирамиз? (охирги 12 та)\nЁзув ва унга берилган белгилар жадвалдан ўчади, гуруҳдаги хабар қолади.', kb: [...r.list.map(x => [B(x.t + (x.d ? ' (' + x.d + ')' : ''), 'Y:' + x.id)]), ...ORQA] }
+      : { text: r.ok ? 'Ёзувлар йўқ.' : '❌ ' + (r.err || 'скриптни янгиланг'), kb: ORQA };
+  }
+  else if (arg[0] === 'Y') v = { text: '🗑 Шу ёзув ўчирилсинми? Буни қайтариб бўлмайди.', kb: [[B('✅ Ҳа, ўчир', 'W:' + arg[1]), B('◀️ Йўқ', 'X')]] };
+  else if (arg[0] === 'W') { const r = await esh('del', { id: arg[1] }); v = { text: r.ok ? r.text : '❌ ' + (r.err || ''), kb: [[B('🗑 Яна ўчириш', 'X')], ...ORQA] }; }
   else if (arg[0] === 'R') v = await hisView(arg[1], arg[2], Number(arg[3]) || 0);
   else if (d === 's') v = { text: await stat(), kb: ORQA };
   else if (d === 'u') v = { text: '🔄 Apps Script коди GitHub\'даги энг янги нусхага алмаштирилсинми?', kb: [[B('✅ Ҳа, янгила', 'U'), B('◀️ Йўқ', 'h')]] };

@@ -91,13 +91,14 @@ function parseH(tx, md) {
   const g = re => ((tx.match(re) || [])[1] || '').trim();
   const vq = (g(/Вақт: ([^\n]*)/).match(/(\d{1,2}:\d{2})/) || [])[1] || '';
   const kn = g(/Кунлар: ([^\n]*)/).split(/,\s*/).map(x => KUNN.indexOf(x)).filter(x => x > 0);
-  const n1 = Number(g(/кейингиси (\d+)-феълдан/)) || 1;
-  return { text: tx.replace(/\n*Ўзгартириш:[^\n]*/, '').replace(/Вақт: [^\n]*/, 'Вақт: ' + (vq || '—')), vaqt: vq, kunlar: kn, k: Math.floor((n1 - 1) / FEEL_N) + 1, navbat: md === 'navbat' };
+  const n1 = Number(g(/кейингиси (\d+)-феълдан/)) || 1, nt = g(/📣 Натижа: ([^\n]*)/);
+  return { text: tx.replace(/\n*Ўзгартириш:[^\n]*/, '').replace(/Вақт: [^\n]*/, 'Вақт: ' + (vq || '—')), vaqt: vq, kunlar: kn, k: Math.floor((n1 - 1) / FEEL_N) + 1, navbat: md === 'navbat', nat: nt === 'фақат ёзувлар' ? 'e' : nt === 'фақат феъл' ? 'f' : 'ef' };
 }
 async function holatSt() {
   const [h, md] = await Promise.all([esh('holat', {}), esh('mode', {})]);
   return { ok: !!h.ok, err: h.err, ...parseH(h.text, md.mode) };
 }
+const NATN = { ef: '🎧 Ёзувлар + 🔤 Феъл', e: 'фақат 🎧 Ёзувлар', f: 'фақат 🔤 Феъл' }, NATK = { ef: 'e', e: 'f', f: 'ef' };   // навбат билан алмашади
 const B = (text, d) => ({ text, callback_data: 'p:' + d });
 const ORQA = [[B('◀️ Орқага', 'h')]];
 function mainView(s, note) {
@@ -112,6 +113,7 @@ function mainView(s, note) {
     [B('— ⚙️ Созлама —', '_')],
     [B('📥 Навбат: ' + (s.navbat ? 'ёқиқ ✅' : 'ўчиқ'), 'n:' + (s.navbat ? 1 : 0))],
     [B('⏰ Вақт: ' + (s.vaqt || '—'), 't:' + s.vaqt), B('📅 Кунлар', 'd:' + s.kunlar.join(''))],
+    [B('📣 Натижа: ' + NATN[s.nat], 'P:' + NATK[s.nat])],
     [B('📈 Статистика', 's')]
   ] };
 }
@@ -190,6 +192,12 @@ async function panelCb(q) {
     const on = arg[1] !== '1';
     const [, h] = await Promise.all([esh('mode', { v: on ? 'navbat' : '' }), esh('holat', {})]);
     v = mainView({ ok: !!h.ok, err: h.err, ...parseH(h.text, on ? 'navbat' : '') }, on ? '✅ Навбат ёқилди: энди юборган аудиоларингиз навбатга тушади.' : '✅ Навбат ўчирилди: аудио дарҳол гуруҳга кетади.');
+  }
+  else if (arg[0] === 'P') {
+    const nt = NATN[arg[1]] ? arg[1] : 'ef';
+    const [r, md] = await Promise.all([esh('set', { nat_tur: nt }), esh('mode', {})]);
+    const st = { ok: !!r.ok, err: r.err, ...parseH(r.text, md.mode) };
+    v = mainView(st, r.ok ? (st.nat === nt ? '✅ Натижа: ' + NATN[nt] : '⚠️ Сақланмади — Apps Script кодини янгиланг') : '❌ ' + (r.err || ''));
   }
   else if (arg[0] === 'k') v = kunView(Number(arg[1]) || 1);
   else if (arg[0] === 'K') {

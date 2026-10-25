@@ -108,7 +108,7 @@ function mainView(s, note, sec) {
   if (sec === 'n') return { text: pre + '📋 Натижалар\n\n📣 Натижа тури: ' + NATN[s.nat] + '\n(Автомат: ҳар Сешанба ва Жума 08:00)', kb: [
     [B('📋 Ҳисобот', 'r')], [B('📣 Натижани ҳозир юбориш', 'z')], [B('📣 Натижа тури: ' + NATN[s.nat], 'P:' + NATK[s.nat])], ...ORQA] };
   if (sec === 'f') return { text: pre + '🔤 Кунлик феъл\n\nКейинги сафар: ' + s.k + '-кун (феъллар ' + a + '–' + (a + FEEL_N - 1) + ')', kb: [
-    [B('🔤 Феълни ҳозир юбориш', 'f')], [B('🔢 Феъл куни: ' + s.k + ' (' + a + '–' + (a + FEEL_N - 1) + ')', 'k:' + s.k)], ...ORQA] };
+    [B('🔤 Феълни ҳозир юбориш', 'f')], [B('🔢 Феъл куни: ' + s.k + ' (' + a + '–' + (a + FEEL_N - 1) + ')', 'k:' + s.k)], [B('🧹 Натижаларни тозалаш', 'C')], ...ORQA] };
   if (sec === 's') return { text: pre + '⚙️ Созлама\n\n' + s.text, kb: [
     [B('📥 Навбат: ' + (s.navbat ? 'ёқиқ ✅' : 'ўчиқ'), 'n:' + (s.navbat ? 1 : 0)), B('📋 Навбат рўйхати (' + (s.nb || 0) + ')', 'L:0')],
     [B('⏰ Вақт: ' + (s.vaqt || '—'), 't:' + s.vaqt), B('📅 Кунлар', 'd:' + s.kunlar.join(''))],
@@ -223,6 +223,8 @@ async function panelCb(q) {
     const r = await esh('qlist', {}), L = (r.ok && r.list) || [], mask = Number(arg[1]) || 0, sel = L.filter((x, i) => mask & (1 << i));
     v = { text: '🗑 Навбатдан шу ' + sel.length + ' та аудио ўчирилсинми?\n\n' + sel.map(x => '• ' + x.t).join('\n'), kb: [[B('✅ Ҳа, ўчир', 'V:' + mask), B('◀️ Йўқ', 'L:' + mask)]] };
   }
+  else if (d === 'C') v = { text: '🧹 Кунлик феъл натижалари бутунлай ўчирилсинми?\n\nКим қачон ишлагани, баллар, хатолар ва юборилган кунлар рўйхати ўчади. Феъллар рўйхати ва ҳивар натижаларига тегилмайди. Буни қайтариб бўлмайди.', kb: [[B('✅ Ҳа, тозала', 'CC'), B('◀️ Йўқ', 'G:f')]] };
+  else if (d === 'CC') { const r = await esh('ftoza', {}); v = { text: r.ok ? r.text : '❌ ' + (r.err || 'Apps Script кодини янгиланг'), kb: OF }; }
   else if (arg[0] === 'P') {
     const nt = NATN[arg[1]] ? arg[1] : 'ef';
     const [r, md] = await Promise.all([esh('set', { nat_tur: nt }), esh('mode', {})]);

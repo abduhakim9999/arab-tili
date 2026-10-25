@@ -180,14 +180,16 @@ async function panelCb(q) {
   else if (arg[0] === 'Q') {
     const r = await esh('alist', {}), L = (r.ok && r.list) || [], mask = Number(arg[1]) || 0, sel = L.filter((x, i) => mask & (1 << i));
     v = { text: '🗑 Шу ' + sel.length + ' та ҳивар ўчирилсинми? Буни қайтариб бўлмайди.\n\n' + sel.map(x => '• ' + x.t + (x.d ? ' (' + x.d + ')' : '')).join('\n'),
-      kb: [[B('✅ Ҳа, ўчир', 'W:' + mask), B('◀️ Йўқ', 'S:' + mask)]] };
+      kb: [[B('🗑 Жадвалдан ҳам, гуруҳдан ҳам', 'W:' + mask + ':1')], [B('📋 Фақат жадвалдан', 'W:' + mask + ':0')], [B('◀️ Йўқ', 'S:' + mask)]] };
   }
   else if (arg[0] === 'W') {
     const r = await esh('alist', {}), L = (r.ok && r.list) || [], mask = Number(arg[1]) || 0, sel = L.filter((x, i) => mask & (1 << i));
     await tg('editMessageText', { chat_id: c, message_id: mid, text: '⏳ Ўчирилмоқда… (' + sel.length + ' та)' });
     let ok = 0; const err = [];
-    for (const x of sel) { const d2 = await esh('del', { id: x.id }); if (d2.ok) ok++; else err.push(x.t + ': ' + (d2.err || '')); }
-    v = { text: '🗑 Ўчирилди: ' + ok + ' та.' + (err.length ? '\n❌ ' + err.join('\n❌ ') : '') + '\nГуруҳдаги хабарлар жойида қолди.', kb: [[B('🗑 Яна ўчириш', 'X')], ...ON] };
+    const gr = arg[2] === '1', gx = [];
+    for (const x of sel) { const d2 = await esh('del', { id: x.id, g: gr ? 1 : 0 }); if (d2.ok) { ok++; if (d2.gx && d2.gx.length) gx.push(x.t); } else err.push(x.t + ': ' + (d2.err || '')); }
+    v = { text: '🗑 Ўчирилди: ' + ok + ' та.' + (err.length ? '\n❌ ' + err.join('\n❌ ') : '') +
+        (gr ? (gx.length ? '\n⚠️ Гуруҳдан ўчмаганлар (эски ёки ботда ҳуқуқ йўқ — қўлда ўчиринг): ' + gx.join(', ') : '\nГуруҳдан ҳам ўчирилди.') : '\nГуруҳдаги хабарлар жойида қолди.'), kb: [[B('🗑 Яна ўчириш', 'X')], ...ON] };
   }
   else if (arg[0] === 'R') v = await hisView(arg[1], arg[2], Number(arg[3]) || 0);
   else if (d === 's') v = { text: await stat(), kb: OS };

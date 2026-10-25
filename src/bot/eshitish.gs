@@ -125,7 +125,7 @@ function doPost(e) {
     else if (q.a === 'rep') out = { ok: true, text: hisobot(q.id) };
     else if (q.a === 'nat') out = natijalar(true);
     else if (q.a === 'alist') out = { ok: true, list: rows('Аудиолар').filter(function (r) { return r[0]; }).slice(-12).reverse()
-      .map(function (r) { return { id: String(r[0]), t: String(r[1]), d: r[4] instanceof Date ? Utilities.formatDate(r[4], TZ, 'dd.MM HH:mm') : String(r[4] || '') }; }) };  // юборилган вақти — бир хил номлиларни ажратиш учун
+      .map(function (r) { return { id: String(r[0]), t: qisqa(r[1]), d: r[4] instanceof Date ? Utilities.formatDate(r[4], TZ, 'dd.MM HH:mm') : String(r[4] || '') }; }) };  // юборилган вақти — бир хил номлиларни ажратиш учун
     else if (q.a === 'del') out = ochir(q.id, q.g);
     else if (q.a === 'rep2') out = hisobot2(q.v, q.d, Number(q.p) || 0);
     else out = { ok: false, err: 'a' };
@@ -222,9 +222,12 @@ function hisobotFeel(v, d, p) {
 }
 // Ёзувлар бўйича (v='e') ёки одамлар бўйича (v='o') ҳисобот; d: '7' — охирги 7 кун, 'm' — шу ой, 'all' — ҳаммаси
 var HAFTA = ['Якш', 'Душ', 'Сеш', 'Чор', 'Пай', 'Жум', 'Шан'];
+// «Н1-3(ар.т.имт)» → «3-ваҳда» (Н1 — 1-китоб, Н2 — 2-китоб; кейинги рақам — ваҳда)
+function qisqa(t) { var m = /^\s*[НH]\s*\d+\s*[-–]\s*(\d+)/i.exec(String(t)); return m ? m[1] + '-ваҳда' : String(t); }
+function qisqaA(A) { return A.map(function (r) { var c = r.slice(); c[1] = qisqa(c[1]); return c; }); }
 function hisobot2(v, d, p) {
   if (v === 'fe' || v === 'fo') return hisobotFeel(v, d, p);
-  var A = rows('Аудиолар').filter(function (r) { return r[0] && r[5]; }), t = now(), oy = Utilities.formatDate(t, TZ, 'yyyy-MM');
+  var A = qisqaA(rows('Аудиолар').filter(function (r) { return r[0] && r[5]; })), t = now(), oy = Utilities.formatDate(t, TZ, 'yyyy-MM');
   A = A.filter(function (r) {
     var dl = new Date(r[5]);
     if (d === 'm') return Utilities.formatDate(dl, TZ, 'yyyy-MM') === oy;
@@ -472,7 +475,7 @@ function natijalar(majbur) {
   try { var kut = JSON.parse(cfg('feel_kut') || '[]'); if (kut.length) { kut.forEach(function (p) { sh('Феъл кунлар', ['сана', 'кун (k)', 'message_id']).appendRow(["'" + p.d, p.k, p.m]); }); cfg('feel_kut', '[]'); } } catch (e) {}
   var ftxt = '', M = members(), t = now(), kun = function (x) { return Utilities.formatDate(new Date(x), TZ, 'dd.MM'); };
   // дарслар: охирги 10 таси (эшитди ёки эшитмади)
-  var A = rows('Аудиолар').filter(function (r) { return r[0] && r[5]; }).slice(-NATIJA.soni);
+  var A = qisqaA(rows('Аудиолар').filter(function (r) { return r[0] && r[5]; }).slice(-NATIJA.soni));
   var H = {}; rows('Белгилар').forEach(function (r) { if (String(r[4]) !== '1') H[String(r[0]) + '|' + String(r[1])] = 1; });
   var txt = '🎧 Ҳивар натижалари — охирги ' + A.length + ' та дарс';
   if (A.length) {

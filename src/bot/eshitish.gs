@@ -97,6 +97,7 @@ function doPost(e) {
       nq.appendRow([n, q.title, q.file_id, q.kind, '', '']);
       out = { ok: true, n: navbat().length };
     }
+    else if (q.a === 'ftoza') out = feelTozala();
     else if (q.a === 'qlist') out = { ok: true, list: navbatQator().map(function (x) { return { t: String(x.v[1]), k: String(x.v[3] || 'audio') }; }) };
     else if (q.a === 'qdel') {
       var Q = navbatQator(), ps = (q.ps || []).map(Number).filter(function (i) { return Q[i]; }).sort(function (a, b) { return b - a; });
@@ -271,6 +272,16 @@ function hisobot(id) {
 
 var KUN = ['', 'Душанба', 'Сешанба', 'Чоршанба', 'Пайшанба', 'Жума', 'Шанба', 'Якшанба'];
 // Навбатдаги (ҳали юборилмаган) аудиолар — жадвалдаги қатор рақами билан
+// Кунлик феъл натижаларини тозалаш (синовдан кейин): тест жавоблари, хатолар, юборилган кунлар. Сарлавҳалар қолади
+function feelTozala() {
+  var n = 0;
+  ['Феъл тест', 'Хатолар', 'Феъл кунлар', 'Феъл саволлар'].forEach(function (nm) {
+    var s = sh(nm), r = s.getLastRow();
+    if (r > 1) { n += r - 1; s.deleteRows(2, r - 1); }
+  });
+  cfg('feel_kut', '[]');
+  return { ok: true, text: '🧹 Кунлик феъл натижалари тозаланди (' + n + ' қатор).' };
+}
 function navbatQator() {
   var d = sh('Навбат').getDataRange().getValues(), r = [];
   for (var i = 1; i < d.length; i++) if (d[i][2] && !d[i][4]) r.push({ row: i + 1, v: d[i] });

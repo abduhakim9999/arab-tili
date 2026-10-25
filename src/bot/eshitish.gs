@@ -186,9 +186,43 @@ function heard(id) {
   rows('Белгилар').forEach(function (r) { if (String(r[0]) === String(id) && String(r[4]) !== '1') m[String(r[1])] = 1; });
   return m;
 }
+// Саҳифаларга бўлиш (Telegram хабари 4096 белгидан ошмасин)
+function sahifa(bosh, B, p) {
+  var P = [[]], len = 0;
+  B.forEach(function (b) { if (len + b.length > 3300 && P[P.length - 1].length) { P.push([]); len = 0; } P[P.length - 1].push(b); len += b.length + 2; });
+  p = Math.max(0, Math.min(p, P.length - 1));
+  return { ok: true, text: bosh + (P.length > 1 ? ' · саҳифа ' + (p + 1) + '/' + P.length : '') + '\n\n' + P[p].join('\n\n'), pages: P.length, page: p };
+}
+// Кунлик феъл ҳисоботи: v='fe' — кунлар бўйича, v='fo' — одамлар бўйича
+function hisobotFeel(v, d, p) {
+  var t = now(), today = Utilities.formatDate(t, TZ, 'yyyy-MM-dd'), oy = today.slice(0, 7), hafta = Utilities.formatDate(new Date(t.getTime() - 7 * 864e5), TZ, 'yyyy-MM-dd');
+  var F = rows('Феъл кунлар').map(function (r) { return { d: String(r[0]).replace(/^'/, ''), k: Number(r[1]) }; })
+    .filter(function (f) { return f.k && (d === 'all' || (d === 'm' ? f.d.slice(0, 7) === oy : f.d >= hafta)); });
+  var davr = d === 'm' ? 'шу ой' : d === 'all' ? 'ҳаммаси' : 'охирги 7 кун';
+  if (!F.length) return { ok: true, text: '🔤 Кунлик феъл (' + davr + ')\n\nБу даврда феъл юборилмаган.', pages: 1 };
+  var T = rows('Феъл тест'), V = rows('Феъллар'), M = members(), R = F.map(function (f) { return feelNatija(f.k, f.d, T, V); });
+  var nom = function (f) { return ((f.k - 1) * FEEL_SONI + 1) + '–' + (f.k * FEEL_SONI) + ' (' + f.d.slice(8, 10) + '.' + f.d.slice(5, 7) + ')'; }, B = [];
+  if (v === 'fo') {
+    M.forEach(function (m) {
+      var id = String(m[0]), no = [], ok = 0, ball = 0;
+      F.forEach(function (f, i) { var x = R[i].ha.filter(function (h) { return String(h.id) === id; })[0]; if (x) { ok++; ball += x.ok; } else no.push(nom(f)); });
+      B.push((no.length ? '❌ ' : '✅ ') + (m[1] || 'аъзо') + ' — ' + ok + ' / ' + F.length + ' кун' + (ok ? ', ўртача ' + (Math.round(ball / ok * 10) / 10) + '/' + FEEL_SONI : '') +
+        (no.length ? '\n   Ишламаган: ' + no.join(', ') : ''));
+    });
+    B.sort(function (a, b) { return (a.charAt(0) === '❌' ? 0 : 1) - (b.charAt(0) === '❌' ? 0 : 1); });
+  } else {
+    F.slice().reverse().forEach(function (f, j) {
+      var r = R[F.length - 1 - j];
+      B.push('🔤 ' + nom(f) + '\n   ✅ ' + (r.ha.map(function (x) { return x.n + ' ' + x.ok + '/' + FEEL_SONI; }).join(', ') || '—') +
+        '\n   ❌ ' + (r.yoq.map(function (m) { return m[1] || 'аъзо'; }).join(', ') || '—'));
+    });
+  }
+  return sahifa('🔤 Кунлик феъл — ' + (v === 'fo' ? '👤 одамлар бўйича' : '📅 кунлар бўйича') + ' (' + davr + ')\nКунлар: ' + F.length + ' · Аъзолар: ' + M.length, B, p);
+}
 // Ёзувлар бўйича (v='e') ёки одамлар бўйича (v='o') ҳисобот; d: '7' — охирги 7 кун, 'm' — шу ой, 'all' — ҳаммаси
 var HAFTA = ['Якш', 'Душ', 'Сеш', 'Чор', 'Пай', 'Жум', 'Шан'];
 function hisobot2(v, d, p) {
+  if (v === 'fe' || v === 'fo') return hisobotFeel(v, d, p);
   var A = rows('Аудиолар').filter(function (r) { return r[0] && r[5]; }), t = now(), oy = Utilities.formatDate(t, TZ, 'yyyy-MM');
   A = A.filter(function (r) {
     var dl = new Date(r[5]);

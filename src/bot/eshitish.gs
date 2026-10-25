@@ -126,7 +126,7 @@ function doPost(e) {
     else if (q.a === 'nat') out = natijalar(true);
     else if (q.a === 'alist') out = { ok: true, list: rows('Аудиолар').filter(function (r) { return r[0]; }).slice(-12).reverse()
       .map(function (r) { return { id: String(r[0]), t: String(r[1]), d: r[4] instanceof Date ? Utilities.formatDate(r[4], TZ, 'dd.MM HH:mm') : String(r[4] || '') }; }) };  // юборилган вақти — бир хил номлиларни ажратиш учун
-    else if (q.a === 'del') out = ochir(q.id);
+    else if (q.a === 'del') out = ochir(q.id, q.g);
     else if (q.a === 'rep2') out = hisobot2(q.v, q.d, Number(q.p) || 0);
     else out = { ok: false, err: 'a' };
   } finally { lock.releaseLock(); }
@@ -516,15 +516,23 @@ function natijalar(majbur) {
   return { ok: true, text: 'Натижа гуруҳга юборилди (' + A.length + ' дарс, ' + F.length + ' феъл куни).' };
 }
 // Ёзувни (масалан, синов учун юборилганини) жадвалдан ўчириш: Аудиолар қатори ва унга берилган белгилар
-function ochir(id) {
+function ochir(id, guruh) {
   if (!id) return { ok: false, err: 'id йўқ' };
-  var s = sh('Аудиолар'), d = s.getDataRange().getValues(), nom = '';
-  for (var i = d.length - 1; i >= 1; i--) if (String(d[i][0]) === String(id)) { nom = d[i][1]; s.deleteRow(i + 1); }
+  var s = sh('Аудиолар'), d = s.getDataRange().getValues(), nom = '', gx = [];
+  for (var i = d.length - 1; i >= 1; i--) if (String(d[i][0]) === String(id)) {
+    nom = d[i][1];
+    if (guruh) [d[i][3], d[i][8]].forEach(function (m) {   // гуруҳдаги аудио ва сўровнома
+      if (!m) return;
+      var r = tg('deleteMessage', { chat_id: String(d[i][2]), message_id: Number(m) });
+      if (!r.ok) gx.push(r.description || 'ўчмади');
+    });
+    s.deleteRow(i + 1);
+  }
   if (!nom) return { ok: false, err: 'ҳивар топилмади' };
   var b = sh('Белгилар'), bd = b.getDataRange().getValues(), n = 0;
   for (var j = bd.length - 1; j >= 1; j--) if (String(bd[j][0]) === String(id)) { b.deleteRow(j + 1); n++; }
   jadval();
-  return { ok: true, text: '🗑 «' + nom + '» ўчирилди (' + n + ' та белги билан). Гуруҳдаги хабарнинг ўзи қолади.' };
+  return { ok: true, gx: gx, text: '🗑 «' + nom + '» ўчирилди (' + n + ' та белги билан).' + (guruh ? (gx.length ? ' Гуруҳдан ўчмади: ' + gx.join('; ') : ' Гуруҳдан ҳам ўчди.') : ' Гуруҳдаги хабар қолди.') };
 }
 function tekshir() {
   try { avtomat(); } catch (e) { Logger.log(e); }

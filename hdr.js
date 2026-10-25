@@ -32,7 +32,7 @@
   d.innerHTML = '<div class="hb hr0">' + BW.map(function (w, i) { return '<span data-w="' + i + '">' + w[0] + '</span>' }).join(' ') + '</div>' +
     '<div class="htr hts">Меҳрибон ва раҳмли Аллоҳнинг номи билан (бошлайман)</div>' +
     '<div class="hr" data-r="1"><b>' + H.ua + '</b><small class="hts">' + H.uu + '</small></div>' +
-    '<div class="hr" data-r="2"><b>' + H.la + '</b><small class="hts">' + H.lu + '</small></div>';
+    (H.la ? '<div class="hr" data-r="2"><b>' + H.la + '</b><small class="hts">' + H.lu + '</small></div>' : '');
   tx.parentNode.insertBefore(d, tx);
   /* tarjima yashirilganda sarlavha tarjimalari ham yashirinadi, bosilganda ochiladi */
   function syncTr() { d.classList.toggle('hidetr', tx.classList.contains('hidetr')); if (!tx.classList.contains('hidetr')) [].forEach.call(d.querySelectorAll('.hts.rev'), function (e) { e.classList.remove('rev') }) }
@@ -41,7 +41,7 @@
 
   // sarlavha asosiy audioning boshida turadi (0 … H.e soniya)
   var A = window.au, raf = 0, fol = null;
-  var spans = d.querySelectorAll('.hb span'), rows = [d.querySelector('.hb'), d.querySelector('[data-r="1"]'), d.querySelector('[data-r="2"]')];
+  var spans = d.querySelectorAll('.hb span'), rows = [d.querySelector('.hb'), d.querySelector('[data-r="1"]'), d.querySelector('[data-r="2"]') || d.querySelector('[data-r="1"]')];
   function clear() { [].forEach.call(d.querySelectorAll('.pl'), function (e) { e.classList.remove('pl') }) }
   function paint() {
     var t = A.currentTime; clear();
@@ -83,5 +83,5 @@
     sp.addEventListener('click', function (e) { e.stopPropagation(); if (lp) return; playSeg(BW[i][2][0] - 0.05, BW[i][2][1] + 0.08) });
   });
   rows[1].addEventListener('click', function () { playSeg(H.s[0] - 0.05, H.s[1]) });
-  rows[2].addEventListener('click', function () { playSeg(H.s[1] - 0.05, H.e) });
+  if (H.la) rows[2].addEventListener('click', function () { playSeg(H.s[1] - 0.05, H.e) });
 })();

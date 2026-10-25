@@ -98,6 +98,8 @@ function doPost(e) {
       out = { ok: true, n: navbat().length };
     }
     else if (q.a === 'ftoza') out = feelTozala();
+    else if (q.a === 'htoza') out = hivarTozala();
+    else if (q.a === 'qsend') out = navbatYubor();
     else if (q.a === 'qlist') out = { ok: true, list: navbatQator().map(function (x) { return { t: String(x.v[1]), k: String(x.v[3] || 'audio') }; }) };
     else if (q.a === 'qdel') {
       var Q = navbatQator(), ps = (q.ps || []).map(Number).filter(function (i) { return Q[i]; }).sort(function (a, b) { return b - a; });
@@ -261,7 +263,7 @@ function hisobot2(v, d, p) {
   var P = [[]], len = 0;
   B.forEach(function (b) { if (len + b.length > 3300 && P[P.length - 1].length) { P.push([]); len = 0; } P[P.length - 1].push(b); len += b.length + 2; });
   p = Math.max(0, Math.min(p, P.length - 1));
-  var bosh = '📋 Ҳисобот — ' + (v === 'o' ? '👤 одамлар бўйича' : '🎧 ҳиварлар бўйича') + ' (' + davr + ')\nҲиварлар: ' + A.length + ' · Аъзолар: ' + M.length + (P.length > 1 ? ' · саҳифа ' + (p + 1) + '/' + P.length : '') + '\n\n';
+  var bosh = '📋 Ҳисобот — ' + (v === 'o' ? '🎧 кунлик ҳивар — 👤 одамлар бўйича' : '🎧 кунлик ҳивар — дарслар бўйича') + ' (' + davr + ')\nҲиварлар: ' + A.length + ' · Аъзолар: ' + M.length + (P.length > 1 ? ' · саҳифа ' + (p + 1) + '/' + P.length : '') + '\n\n';
   return { ok: true, text: bosh + P[p].join('\n\n'), pages: P.length, page: p };
 }
 function hisobot(id) {
@@ -296,7 +298,7 @@ function holat() {
   var q = navbat();
   return '⚙️ Автомат юбориш\nВақт: ' + cfg('vaqt') + '\nКунлар: ' + kunlar().map(function (k) { return KUN[k]; }).join(', ') +
     '\n🔤 Феъл тести: кунига ' + FEEL_SONI + ' та, кейингиси ' + ((Number(cfg('feel_k')) - 1) * FEEL_SONI + 1) + '-феълдан' +
-    '\n📣 Натижа: ' + ({ e: 'фақат ҳивар', f: 'фақат кунлик феъл' }[cfg('nat_tur')] || 'ҳивар + кунлик феъл') +
+    '\n📣 Натижа: ' + ({ e: 'фақат кунлик ҳивар', f: 'фақат кунлик феъл' }[cfg('nat_tur')] || 'кунлик ҳивар + кунлик феъл') +
     '\n\n📋 Навбатда: ' + q.length + ' та' + (q.length ? '\nКейингиси: ' + q[0][1] : '') +
     '\n\nЎзгартириш: /vaqt 08:00 · /kunlar 1,2,3,4,5,6 (1 — Душанба, 7 — Якшанба)';
 }
@@ -309,7 +311,13 @@ function avtomat() {
   if (kunlar().indexOf(bugunKun()) < 0) return;
   if (Utilities.formatDate(now(), TZ, 'HH:mm') < ('0' + cfg('vaqt')).slice(-5)) return;
   cfg('oxirgi', today);
-  var s = sh('Навбат'), d = s.getDataRange().getValues();
+  navbatYubor();
+  try { feelKun(); } catch (e) { Logger.log(e); }
+}
+// Навбатдаги биринчи ҳиварни гуруҳга юбориш (автомат ёки «▶️ Ҳозир юбориш»)
+function navbatYubor() {
+  var g = cfg('group'); if (!g) return { ok: false, err: 'гуруҳ уланмаган' };
+  var s = sh('Навбат'), d = s.getDataRange().getValues(), xato = [];
   for (var i = 1; i < d.length; i++) {
     if (!d[i][2] || d[i][4]) continue;
     var id = Date.now().toString(36), title = d[i][1], kind = d[i][3] || 'audio';
@@ -317,12 +325,19 @@ function avtomat() {
     var p = { chat_id: g, caption: title };
     p[kind === 'document' ? 'document' : kind] = d[i][2];
     var r = tg(M, p);
-    if (!r.ok) { s.getRange(i + 1, 5).setValue('хато: ' + (r.description || '')); continue; }
+    if (!r.ok) { s.getRange(i + 1, 5).setValue('хато: ' + (r.description || '')); xato.push(title + ': ' + (r.description || '')); continue; }
     joyla(id, title, g, r.result.message_id);
     s.getRange(i + 1, 5, 1, 2).setValues([['юборилди', fmt(now())]]);
-    break;
+    return { ok: true, text: '✅ «' + title + '» гуруҳга юборилди (сўровнома билан).' + (xato.length ? '\n⚠️ Юборилмаганлар: ' + xato.join('; ') : '') };
   }
-  try { feelKun(); } catch (e) { Logger.log(e); }
+  return { ok: false, err: xato.length ? 'юборилмади: ' + xato.join('; ') : 'навбат бўш' };
+}
+// Кунлик ҳивар натижаларини тозалаш: юборилган ҳиварлар рўйхати, белгилар, қора рўйхат (навбат қолади)
+function hivarTozala() {
+  var n = 0;
+  ['Аудиолар', 'Белгилар', 'Қора рўйхат'].forEach(function (nm) { var s = sh(nm), r = s.getLastRow(); if (r > 1) { n += r - 1; s.deleteRows(2, r - 1); } });
+  jadval();
+  return { ok: true, text: '🧹 Кунлик ҳивар натижалари тозаланди (' + n + ' қатор). Навбат ва гуруҳдаги хабарлар қолди.' };
 }
 
 function esc(t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
@@ -477,7 +492,7 @@ function natijalar(majbur) {
   // дарслар: охирги 10 таси (эшитди ёки эшитмади)
   var A = qisqaA(rows('Аудиолар').filter(function (r) { return r[0] && r[5]; }).slice(-NATIJA.soni));
   var H = {}; rows('Белгилар').forEach(function (r) { if (String(r[4]) !== '1') H[String(r[0]) + '|' + String(r[1])] = 1; });
-  var txt = '🎧 Ҳивар натижалари — охирги ' + A.length + ' та дарс';
+  var txt = '🎧 Кунлик ҳивар натижалари — охирги ' + A.length + ' та дарс';
   if (A.length) {
     txt += '\n(' + A[0][1] + ' … ' + A[A.length - 1][1] + ' · ' + kun(A[0][5]) + '–' + kun(A[A.length - 1][5]) + ')';
     var hamma = [], qol = [];

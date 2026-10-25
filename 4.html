@@ -181,7 +181,7 @@ mark{background:rgba(234,88,12,.25);color:inherit;border-radius:4px;padding:0 3p
 <style>
 .home{display:inline-block;margin:2px 0 4px;font-size:14px;color:var(--ac);text-decoration:none}
 </style>
-</head>
+<style>#tx>.ln:first-child{display:none}</style></head>
 <body>
 <div class="w">
 <a class="home" href="./#k1">‹ Дарслар</a>
@@ -191,7 +191,7 @@ mark{background:rgba(234,88,12,.25);color:inherit;border-radius:4px;padding:0 3p
 <div style="display:flex;gap:8px;margin-bottom:10px;position:sticky;top:0;z-index:6;background:var(--bg);padding:6px 0"><button class="tg" id="pp" onclick="ppl()" style="width:60px;margin:0;text-align:center;padding:8px 0;font-size:20px" aria-label="Тўхтатиш/давом">▶</button><button class="tg" id="tg" onclick="tog()" style="flex:1;margin:0;text-align:center;padding:9px 4px">Ҳаракат</button><button class="tg on" id="tt" onclick="ttr()" style="flex:1;margin:0;text-align:center;padding:9px 4px">Таржима</button><button class="tg" id="bl" onclick="bol()" style="flex:0 0 auto;width:auto;margin:0;text-align:center;padding:9px 8px;font-size:12px">Тартиб</button></div>
 <div class="lgd" id="lg"><span class="pm">● Мубтадо, إِنَّ исми</span><span class="px">● Хабар</span><span class="pf">● Феъл</span><span class="po">● Фоил</span><span class="pb">● Мафъулун биҳ</span><span class="pj">● Жар ва мажрур</span><span class="ph">● Зарф, ҳол</span></div>
 <p class="hint" style="line-height:1.7">👆 Босинг — эшитасиз<br>✋ Босиб туринг — изоҳ<br>↔️ Суринг — шу ердан давом<br>🤏 Икки бармоқ — катта-кичик</p>
-<div style="margin:10px 0"><audio controls preload="metadata" style="width:100%" src="a4-baf00bca.mp3"></audio>
+<div style="margin:10px 0"><audio controls preload="metadata" style="width:100%" src="a4-4c2d3d2b.mp3"></audio>
 <div class="spd"><span>Тезлик:</span><button onclick="spd(0.5,this)">0.5×</button><button onclick="spd(0.75,this)">0.75×</button><button class="on" onclick="spd(1,this)">1×</button></div></div>
 <div id="tx"></div>
 </div>
@@ -380,7 +380,7 @@ tx.addEventListener("contextmenu",function(e){var s=e.target.closest(".ws span[d
 ["selectstart","dragstart"].forEach(function(n){tx.addEventListener(n,function(e){e.preventDefault()})});
 var p3=document.getElementById("p3");p3.addEventListener("contextmenu",function(e){e.preventDefault()});p3.addEventListener("selectstart",function(e){e.preventDefault()});
 mkCat();build();gl();
-var TM=[[1, 0, 0.18, 0.92, 0.76], [1, 1, 0.88, 1.9, 1.5], [2, 0, 1.86, 2.72, 2.6], [2, 1, 2.68, 3.26, 3.26], [3, 0, 4.26, 4.52, 4.44], [3, 1, 4.48, 4.86, 4.7], [3, 2, 4.82, 5.08, 5.08], [4, 0, 5.6, 5.98, 5.84], [4, 1, 5.94, 6.24, 6.16], [4, 2, 6.2, 6.62, 6.62], [5, 0, 7.56, 8.14, 7.86], [5, 1, 8.1, 8.54, 8.4], [5, 2, 8.5, 9.02, 9.02], [6, 0, 9.54, 9.92, 9.92], [6, 1, 10.42, 10.84, 10.66], [6, 2, 10.8, 11.4, 11.4], [6, 3, 12.16, 12.56, 12.42], [6, 4, 12.52, 13.58, 13.34], [6, 5, 13.54, 13.82, 13.82], [7, 0, 14.72, 15.12, 14.94], [7, 1, 15.08, 15.64, 15.64], [7, 2, 16.38, 16.7, 16.6], [7, 3, 16.66, 16.92, 16.82], [7, 4, 16.88, 17.7, 17.32], [8, 0, 17.66, 18.26, 18.04], [8, 1, 18.22, 19.04, 19.04]],au=document.querySelector("audio"),lastI=-2,raf=null,stopAt=null,progSeek=false,hold=false;
+var TM=[[1, 0, 5.05, 5.79, 5.63], [1, 1, 5.75, 6.77, 6.37], [2, 0, 6.73, 7.59, 7.47], [2, 1, 7.55, 8.13, 8.13], [3, 0, 9.13, 9.39, 9.31], [3, 1, 9.35, 9.73, 9.57], [3, 2, 9.69, 9.95, 9.95], [4, 0, 10.47, 10.85, 10.71], [4, 1, 10.81, 11.11, 11.03], [4, 2, 11.07, 11.49, 11.49], [5, 0, 12.43, 13.01, 12.73], [5, 1, 12.97, 13.41, 13.27], [5, 2, 13.37, 13.89, 13.89], [6, 0, 14.41, 14.79, 14.79], [6, 1, 15.29, 15.71, 15.53], [6, 2, 15.67, 16.27, 16.27], [6, 3, 17.03, 17.43, 17.29], [6, 4, 17.39, 18.45, 18.21], [6, 5, 18.41, 18.69, 18.69], [7, 0, 19.59, 19.99, 19.81], [7, 1, 19.95, 20.51, 20.51], [7, 2, 21.25, 21.57, 21.47], [7, 3, 21.53, 21.79, 21.69], [7, 4, 21.75, 22.57, 22.19], [8, 0, 22.53, 23.13, 22.91], [8, 1, 23.09, 23.91, 23.91]],au=document.querySelector("audio"),lastI=-2,raf=null,stopAt=null,progSeek=false,hold=false;
 function pick(t){for(var k=0;k<TM.length;k++){if(t>=TM[k][2]&&t<TM[k][3]+0.05)return k}return -1}
 function show1(k){
   document.querySelectorAll(".ws span.pl,.ts.pl").forEach(function(e){e.classList.remove("pl")});
@@ -655,6 +655,8 @@ if(au){
   }catch(e){say("хато ✗ "+e.message)}
 })();
 </script>
+<script>window.HDR={"s": [3.2, 4.43], "e": 4.47, "ua": "الْحِوَارُ", "uu": "Суҳбат", "la": "", "lu": "4-дарс"}</script>
+<script src="hdr.js"></script>
 <script src="sarflink.js"></script>
 <script src="shell.js"></script>
 <script>if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(function(){})</script>

@@ -1,8 +1,10 @@
-import os, re, base64, json, shutil
+import os, re, base64, json, shutil, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import tarkib
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = '/mnt/user-data/outputs/arab-tili'
-VER = '115'
+OUT = os.environ.get('OUT') or '/mnt/user-data/outputs/arab-tili'
+VER = '116'
 
 LESSONS = [
     # (raqam, manba, sarlavha, arabcha sarlavha, kalit, savollar soni)
@@ -29,6 +31,9 @@ U1 = ('الْوَحْدَةُ الْأُولَى: التَّحِيَّةُ وَ�
 U21 = ('الْوَحْدَةُ الْأُولَى: الْعِنَايَةُ بِالصِّحَّةِ', '1-боб: Соғлиққа эътибор')
 U22 = ('الْوَحْدَةُ الثَّانِيَةُ: التَّرْوِيحُ عَنِ النَّفْسِ', '2-боб: Ўзига дам бериш')
 U26 = ('الْوَحْدَةُ السَّادِسَةُ: الْمِهَنُ', '6-боб: Касблар')
+# Dars boshi: bismillah, keyin dars raqami va mavzu. Ваҳда nomi faqat ваҳданинг 1-darsida (SHOWU) yoziladi.
+SHOWU = {1, 70, 74}
+LN = {3: 'اَلدَّرْسُ الثَّالِثُ', 4: 'اَلدَّرْسُ الرَّابِعُ'}  # 3–4-darslar yozuvida raqam aytilmagan — qator ovozsiz
 HDR = {3: (('الْحِوَارُ', 'Суҳбат'), ''), 4: (('الْحِوَارُ', 'Суҳбат'), ''), 1: (U1, 'اَلدَّرْسُ الْأَوَّلُ'), 2: (U1, 'اَلدَّرْسُ الثَّانِي'), 70: (U21, 'اَلدَّرْسُ السَّبْعُونَ'), 71: (U21, 'اَلدَّرْسُ الْحَادِي وَالسَّبْعُونَ'),
        72: (U21, 'اَلدَّرْسُ الثَّانِي وَالسَّبْعُونَ'), 73: (U21, 'اَلدَّرْسُ الثَّالِثُ وَالسَّبْعُونَ'),
        74: (U22, 'اَلدَّرْسُ الرَّابِعُ وَالسَّبْعُونَ'),
@@ -87,6 +92,9 @@ for num, src, uz, ar, key, nq in LESSONS:
     tail = tail.replace('if(S.tab&&S.tab!=1)tab(S.tab);', '')
     doc = doc.replace('if(S.tab&&S.tab!=1)tab(S.tab);', '')
     doc += tail
+    # Таркиб режими: сўз ости ёзувлари, қавслар, гап тури
+    doc, TKG, TKT = tarkib.apply(doc)
+    doc = doc.replace('>Тартиб</button>', '>Таркиб</button>')
     am = re.search(r'src="data:audio/mpeg;base64,([A-Za-z0-9+/=]+)"', doc)
     assert am and doc.count('data:audio/mpeg;base64,') == 1, num
     ab = base64.b64decode(am.group(1))
@@ -103,7 +111,23 @@ for num, src, uz, ar, key, nq in LESSONS:
         td = tempfile.mkdtemp()
         open(td + '/m.mp3', 'wb').write(ab)
         hp = '%s/h%d.mp3' % (HDRD, num)
-        hd = float(subprocess.check_output(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', hp]))
+        dur = lambda p: float(subprocess.check_output(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', p]))
+        hd = dur(hp)
+        (ua, uu), la = HDR[num]
+        cf = HCFG[str(num)]
+        s0, s1 = cf[0], cf[1]
+        if num in LN:
+            rows = [{'a': LN[num], 'u': '%d-дарс' % num, 't': None}, {'a': ua, 'u': uu, 't': [s0, round(hd, 2)]}]
+        elif num in SHOWU:
+            rows = [{'a': ua, 'u': uu, 't': [s0, s1]}, {'a': la, 'u': '%d-дарс' % num, 't': [s1, round(hd, 2)]}]
+        else:
+            # ваҳда qismi (s0…s1) ovozdan kesiladi
+            subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', hp, '-filter_complex',
+                            '[0:a]atrim=0:%.3f,asetpts=PTS-STARTPTS[a];[0:a]atrim=%.3f,asetpts=PTS-STARTPTS[b];[a][b]concat=n=2:v=0:a=1[o]' % (s0, s1),
+                            '-map', '[o]', '-ac', '1', '-b:a', '64k', td + '/hh.mp3'], check=True)
+            hp = td + '/hh.mp3'
+            hd = dur(hp)
+            rows = [{'a': la, 'u': '%d-дарс' % num, 't': [s0, round(hd, 2)]}]
         GAPH = 0.4
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', hp, '-i', td + '/m.mp3', '-filter_complex',
                         '[0:a]aformat=sample_rates=44100:channel_layouts=mono[a];anullsrc=r=44100:cl=mono,atrim=0:%.2f[s];'
@@ -115,9 +139,7 @@ for num, src, uz, ar, key, nq in LESSONS:
         doc = doc[:i] + json.dumps(TMv) + doc[e:]
         if drop0:
             doc = doc.replace('</head>', '<style>#tx>.ln:first-child{display:none}</style></head>', 1)
-        (ua, uu), la = HDR[num]
-        cf = HCFG[str(num)]
-        HJS = '<script>window.HDR=' + json.dumps({'s': cf[:2], 'e': round(hd, 2), 'ua': ua, 'uu': uu, 'la': la, 'lu': '%d-дарс' % num}, ensure_ascii=False) + '</script>\n<script src="hdr.js"></script>\n'
+        HJS = '<script>window.HDR=' + json.dumps({'s0': s0, 'e': round(hd, 2), 'rows': rows}, ensure_ascii=False) + '</script>\n<script src="hdr.js"></script>\n'
     else:
         HJS = ''
     an = 'a%s-%s.mp3' % (num, hashlib.md5(ab).hexdigest()[:8])
@@ -132,6 +154,7 @@ for num, src, uz, ar, key, nq in LESSONS:
                           + sel + ' .ws{justify-content:center}' + sel + ' .ws span{font-weight:700;color:var(--ac);font-size:calc(var(--fs,22px) + 6px)}'
                           + sel + ' .tr{text-align:center;font-weight:600;color:var(--tx)}</style></head>', 1)
     doc += HJS + '<script src="sarflink.js"></script>\n'
+    doc += '<script>window.TKG=' + json.dumps(TKG, ensure_ascii=False) + ';window.TKT=' + json.dumps(TKT, ensure_ascii=False) + '</script>\n<script src="tarkib.js"></script>\n'
     # joy faqat oxirgi ochilgan darsda eslab qolinadi; boshqa darslar boshidan ochiladi
     m_tg = re.search(r'<script src="tg.js" data-key="([^"]+)"[^>]*></script>', doc)
     if m_tg:
@@ -150,7 +173,7 @@ for f in ('icon-192.png', 'icon-512.png', 'icon-maskable-512.png'):
     shutil.copy(os.path.join(HERE, f), OUT)
 
 shutil.copytree(os.path.join(HERE, '..', 'fq'), OUT + '/fq')  # fe'l testi audiolari (bot uchun)
-for f in ('tg.js', 'shell.js', 'shell.css', 'hdr.js', 'sarflink.js', 'fel.html'):
+for f in ('tg.js', 'shell.js', 'shell.css', 'hdr.js', 'sarflink.js', 'fel.html', 'tarkib.js'):
     shutil.copy(os.path.join(HERE, f), OUT)
 idx = open(os.path.join(HERE, 'index.tpl.html'), encoding='utf-8').read()
 idx = idx.replace('__LESSONS__', json.dumps([{"n": l[0], "uz": l[2], "ar": l[3], "key": l[4], "q": l[5], "u": UNIT.get(l[0], 0)} for l in LESSONS], ensure_ascii=False))
@@ -179,7 +202,7 @@ tp = open(os.path.join(HERE, 'tinglash.tpl.html'), encoding='utf-8').read().repl
 open(OUT + '/tinglash.html', 'w', encoding='utf-8').write(tp)
 
 files = ['./', 'index.html', 'tinglash.html', 'fel.html', 'tg.js', 'shell.js', 'shell.css', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png'] + \
-        ['%s.html' % l[0] for l in LESSONS] + ['feellar.html', 'sarf.html', 'sarf-idx.json', 'sarflink.js', 'naskh.woff'] + AUD
+        ['%s.html' % l[0] for l in LESSONS] + ['feellar.html', 'sarf.html', 'sarf-idx.json', 'sarflink.js', 'tarkib.js', 'hdr.js', 'naskh.woff'] + AUD
 sw = open(os.path.join(HERE, 'sw.tpl.js'), encoding='utf-8').read()
 sw = sw.replace('__VER__', VER).replace('__FILES__', json.dumps(files))
 open(OUT + '/sw.js', 'w', encoding='utf-8').write(sw)

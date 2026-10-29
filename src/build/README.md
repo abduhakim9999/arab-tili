@@ -7,6 +7,8 @@ Bu papka faqat Claude uchun. Sayt va bot shu fayllarsiz ham ishlaydi.
 - `scratchpad/hdr/` — dars boshidagi ovozlar (bismillah va boshqalar) hamda `hcfg.json`.
 - `scratchpad/dNN/` — har bir darsning ma'lumotlari: `dataNN.py` (e'rob), `vocNN.py` (lug'at), `jmNN.py`, `quizNN.py`, `genNN.py`, suhbat ovozi `dlgNN.mp3`.
 - `scratchpad/sarf/` — sarf sahifasi (`build_sarf.py`).
+- `site/tarkib.py` + `site/tarkib.js` — «Таркиб» tugmasi: so'z ostidagi yozuvlar (IRB.k dan), шибҳи жумла/жумла qavslari, gap turi. build.py har darsga qo'llaydi.
+- `site/hdr.js` — dars boshi: bismillah, (yangi ваҳданинг 1-darsida ваҳда), dars raqami. Qaysi darsda ваҳда chiqishi — build.py dagi `SHOWU`.
 - `outputs/lessonNN/index.html` — yig'uvchi kiritadigan dars sahifalari. `genNN.py` dagi qolip `lesson71`.
 
 ## Tiklash (yangi sessiyada)
@@ -16,6 +18,8 @@ Yo'llar skriptlarda qattiq yozilgan, shuning uchun eski joylariga qaytariladi:
     mkdir -p "$S" /mnt/user-data/outputs
     cp -r src/build/scratchpad/. "$S"/
     cp -r src/build/outputs/. /mnt/user-data/outputs/
+    cp icon-*.png "$S/site/"
+    cp l74-c166f09f.mp3 "$S/listen/l74.mp3"   # tinglash.html dagi joriy l74-….mp3
 
 Agar `/tmp/...` yo'liga yozib bo'lmasa, skriptlardagi `S` yo'lini yangisiga almashtiring:
 

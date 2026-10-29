@@ -31,8 +31,8 @@
     '.tkq{font:500 12px/1.3 system-ui,-apple-system,sans-serif;color:var(--mu);font-style:italic}.tkd .ar{font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:15px}' +
     '#tx.tartib .ws span.tkh2{background:rgba(42,118,118,.0);box-shadow:inset 0 -3px 0 var(--cj)}' +
     '.tkg{display:flex;flex-direction:column;gap:6px}.tkg+.tkg{margin-top:4px;padding-top:8px;border-top:1px dashed rgba(15,118,110,.25)}' +
-    '.tkr.g{flex-direction:row;direction:rtl;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;border-right-color:var(--tx);background:none;padding:2px 2px 2px 0;border-right:none}' +
-    '.tkr.g .tka{font-size:calc(var(--fs,22px)*.86)}.tkr.g .tks{direction:ltr;font-size:11.5px!important;padding:4px 10px!important}' +
+    '.tkr.g{flex-direction:column;direction:rtl;align-items:flex-start;justify-content:flex-start;gap:2px;flex-wrap:nowrap;border-right-color:var(--tx);background:none;padding:2px 2px 2px 0;border-right:none}' +
+    '.tkr.g .tka{font-size:calc(var(--fs,22px)*.86);align-self:stretch}.tkr.g .tks{direction:ltr;font-size:11.5px!important;padding:4px 10px!important}' +
     '.tki{display:flex;flex-direction:column;gap:6px;margin-right:12px;padding-right:10px;border-right:2px solid rgba(15,118,110,.18)}' +
     '.tks{align-self:flex-start;font:600 12px/1 system-ui,-apple-system,sans-serif;color:var(--ac);background:rgba(15,122,79,.12);background:color-mix(in srgb,var(--ac) 13%,transparent);border-radius:999px;padding:5px 10px}' +
     '#tx.tartib .ws span.tkh{background:rgba(15,118,110,.14);border-radius:6px}' +
@@ -178,8 +178,8 @@
         for (var j = t.a; j <= t[0]; j++) { var e = ln.querySelector('[data-i="' + i + '-' + j + '"]'); if (e) ws.push(gh[j] ? gz(e.textContent, gh[j]) : e.textContent) }
         var inner = '';
         items.forEach(function (g, k) { if (g[0] >= t.a && g[0] <= t[0]) { used[k] = 1; inner += card(g) } });
-        h += '<div class="tkg"><div class="tkr g" data-a="' + t.a + '" data-b="' + t[0] + '"><span class="tka">' + ws.join(' ') + '</span>' +
-          '<span class="tks">' + t.st + '</span></div>' + (inner ? '<div class="tki">' + inner + '</div>' : '') + '</div>';
+        h += '<div class="tkg"><div class="tkr g" data-a="' + t.a + '" data-b="' + t[0] + '"><span class="tks">' + t.st + '</span>' +
+          '<span class="tka">' + ws.join(' ') + '</span></div>' + (inner ? '<div class="tki">' + inner + '</div>' : '') + '</div>';
       });
       items.forEach(function (g, k) { if (!used[k]) h += card(g) });
       if (!h) return;

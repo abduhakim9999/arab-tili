@@ -273,6 +273,7 @@
   var pref = null;
   try { pref = JSON.parse(lsGet(PK) || 'null'); } catch (e) {}
   if (!pref) pref = { h: 0, t: 0, b: 0 };
+  pref.b = 0; /* Таркиб ҳар доим ўчиқ очилади, эслаб қолинмайди */
   ['h', 't', 'b'].forEach(function (k) { if (on(bt[k]) !== (pref[k] ? 1 : 0)) bt[k].click(); });
   ['h', 't', 'b'].forEach(function (k) {
     bt[k].addEventListener('click', function (e) {

@@ -4,7 +4,7 @@ import tarkib
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.environ.get('OUT') or '/mnt/user-data/outputs/arab-tili'
-VER = '116'
+VER = '117'
 
 LESSONS = [
     # (raqam, manba, sarlavha, arabcha sarlavha, kalit, savollar soni)
@@ -33,7 +33,7 @@ U22 = ('الْوَحْدَةُ الثَّانِيَةُ: التَّرْوِيح�
 U26 = ('الْوَحْدَةُ السَّادِسَةُ: الْمِهَنُ', '6-боб: Касблар')
 # Dars boshi: bismillah, keyin dars raqami va mavzu. Ваҳда nomi faqat ваҳданинг 1-darsida (SHOWU) yoziladi.
 SHOWU = {1, 70, 74}
-LN = {3: 'اَلدَّرْسُ الثَّالِثُ', 4: 'اَلدَّرْسُ الرَّابِعُ'}  # 3–4-darslar yozuvida raqam aytilmagan — qator ovozsiz
+LN = {3: 'اَلدَّرْسُ الثَّالِثُ', 4: 'اَلدَّرْسُ الرَّابِعُ'}  # 3–4-darslar yozuvida raqam aytilmagan — raqam ElevenLabs (Mehdi) bilan qo'shilgan, hdr/h3.mp3, h4.mp3
 HDR = {3: (('الْحِوَارُ', 'Суҳбат'), ''), 4: (('الْحِوَارُ', 'Суҳбат'), ''), 1: (U1, 'اَلدَّرْسُ الْأَوَّلُ'), 2: (U1, 'اَلدَّرْسُ الثَّانِي'), 70: (U21, 'اَلدَّرْسُ السَّبْعُونَ'), 71: (U21, 'اَلدَّرْسُ الْحَادِي وَالسَّبْعُونَ'),
        72: (U21, 'اَلدَّرْسُ الثَّانِي وَالسَّبْعُونَ'), 73: (U21, 'اَلدَّرْسُ الثَّالِثُ وَالسَّبْعُونَ'),
        74: (U22, 'اَلدَّرْسُ الرَّابِعُ وَالسَّبْعُونَ'),
@@ -117,7 +117,7 @@ for num, src, uz, ar, key, nq in LESSONS:
         cf = HCFG[str(num)]
         s0, s1 = cf[0], cf[1]
         if num in LN:
-            rows = [{'a': LN[num], 'u': '%d-дарс' % num, 't': None}, {'a': ua, 'u': uu, 't': [s0, round(hd, 2)]}]
+            rows = [{'a': LN[num], 'u': '%d-дарс' % num, 't': [s0, cf[1]]}, {'a': ua, 'u': uu, 't': [cf[2], round(hd, 2)]}]
         elif num in SHOWU:
             rows = [{'a': ua, 'u': uu, 't': [s0, s1]}, {'a': la, 'u': '%d-дарс' % num, 't': [s1, round(hd, 2)]}]
         else:

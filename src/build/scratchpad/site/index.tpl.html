@@ -42,6 +42,7 @@ body{margin:0;color:var(--tx);font-family:system-ui,-apple-system,sans-serif;pad
 .tip{display:none;font-size:13px;color:var(--mu);text-align:center;margin-top:10px;line-height:1.5}
 .tip.on{display:block}
 .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:18px}
+.cd.tg{grid-column:1/-1;min-height:0;flex-direction:row;align-items:center;gap:12px}.cd.tg .cib.cv{margin-bottom:0}.cd.tg .ds{font-size:13px;color:var(--mu);margin-top:2px}
 .cd{position:relative;overflow:hidden;border-radius:20px;padding:14px 14px 12px;min-height:104px;display:flex;flex-direction:column;gap:4px;text-decoration:none;color:inherit;background:var(--cd);border:1px solid var(--bd);box-shadow:var(--sh)}
 .cd .cib{width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:4px}
 .cd .cib svg{width:24px;height:24px}
@@ -193,7 +194,7 @@ body{margin:0;color:var(--tx);font-family:system-ui,-apple-system,sans-serif;pad
     <dl>
       <dt>КИТОБ</dt><dd><bdi class="ar" dir="rtl">نُورُ الطَّالِبِ</bdi></dd>
       <dt>МУАЛЛИФ</dt><dd>Қаҳрамон устоз</dd>
-      <dt>ВЕРСИЯ</dt><dd id="vinfo">v159 · 29.10.2026, 21:32</dd>
+      <dt>ВЕРСИЯ</dt><dd id="vinfo">v160 · 29.10.2026, 22:23</dd>
       <dt>АЛОҚА</dt><dd>Хато ёки таклиф бўлса: <a href="https://t.me/Arabtilihivar_bot">@Arabtilihivar_bot</a></dd>
     </dl>
     <button class="x" onclick="document.getElementById('ab').classList.remove('on')">Ёпиш</button>
@@ -233,6 +234,9 @@ function flCard(){
 }
 /* Сарф bo'limi */
 var IC3='<svg viewBox="0 0 24 24" fill="none" stroke="#0f7a4f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h6a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4z"/><path d="M20 5h-6a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2h6z"/></svg>';
+function tgCard(){
+  return '<a class="cd an tg" style="animation-delay:.26s" href="tinglash.html"><span class="cib cv" style="--cvl:#E3F2EA">'+cov('س','#1F7A5A','#145C43','<path d="M27 51v-3a7 7 0 0 1 14 0v3" stroke="#F3D58C" stroke-width="2.2" fill="none" stroke-linecap="round"/><rect x="25" y="48" width="4" height="6" rx="1.5" fill="#F3D58C"/><rect x="39" y="48" width="4" height="6" rx="1.5" fill="#F3D58C"/>')+'</span><span class="aw">الِاسْتِمَاعُ</span><div><div class="n">Эшитиш</div><div class="ds">Матн · Луғат · Таркиб</div></div></a>';
+}
 function srCard(){
   var b=null;try{b=(JSON.parse(localStorage.getItem("sarf-holat")||"{}")||{}).b1}catch(e){}
   var txt=b&&b.best!=null?"1-боб · машқ "+b.best+"%":"Боблар · тусланиш · машқ";
@@ -289,7 +293,7 @@ function render(cloud){
   var avg=LESSONS.length?Math.round(sum/LESSONS.length):0;
   var t='<div class="cards">'+
     heroCard(last,avg)+
-    srCard()+flCard()+
+    srCard()+flCard()+tgCard()+
     '</div>';
   document.getElementById("top").innerHTML=t;
   document.getElementById("ls").innerHTML=h;

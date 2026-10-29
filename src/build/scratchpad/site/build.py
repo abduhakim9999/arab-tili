@@ -25,15 +25,15 @@ LESSONS = [
 LISTEN = [74]
 HDRD = '/tmp/claude-0/-home-claude/d13da55d-9a5a-5fc0-96fe-93eeb8284943/scratchpad/hdr'
 HCFG = json.load(open(HDRD + '/hcfg.json'))
-DROP0 = {3, 4, 70, 74, 91, 92, 93}
-TITLE = {1: 0, 2: 0, 70: 1, 71: 0, 72: 0, 73: 0, 74: 1, 91: 1, 92: 1, 93: 1}  # mavzu qatori  # 0-qatori «الدرس …» — sarlavha bilan takrorlanmasin
+DROP0 = {70, 74, 91, 92, 93}
+TITLE = {1: 0, 2: 0, 3: 0, 4: 0, 70: 1, 71: 0, 72: 0, 73: 0, 74: 1, 91: 1, 92: 1, 93: 1}  # mavzu qatori  # 0-qatori «الدرس …» — sarlavha bilan takrorlanmasin
 U1 = ('الْوَحْدَةُ الْأُولَى: التَّحِيَّةُ وَالتَّعَارُفُ', '1-боб: Саломлашиш ва танишиш')
 U21 = ('الْوَحْدَةُ الْأُولَى: الْعِنَايَةُ بِالصِّحَّةِ', '1-боб: Соғлиққа эътибор')
 U22 = ('الْوَحْدَةُ الثَّانِيَةُ: التَّرْوِيحُ عَنِ النَّفْسِ', '2-боб: Ўзига дам бериш')
 U26 = ('الْوَحْدَةُ السَّادِسَةُ: الْمِهَنُ', '6-боб: Касблар')
 # Dars boshi: bismillah, keyin dars raqami va mavzu. Ваҳда nomi faqat ваҳданинг 1-darsida (SHOWU) yoziladi.
 SHOWU = {1, 70, 74}
-LN = {3: 'اَلدَّرْسُ الثَّالِثُ', 4: 'اَلدَّرْسُ الرَّابِعُ'}  # 3–4-darslar yozuvida raqam aytilmagan — raqam ElevenLabs (Mehdi) bilan qo'shilgan, hdr/h3.mp3, h4.mp3
+LN = {3: 'اَلدَّرْسُ الثَّالِثُ', 4: 'اَلدَّرْسُ الرَّابِعُ'}  # 3–4-darslar: raqam qatori ovozsiz; ovozda faqat bismillah, mavzu (حِوَارٌ) matnda
 HDR = {3: (('الْحِوَارُ', 'Суҳбат'), ''), 4: (('الْحِوَارُ', 'Суҳбат'), ''), 1: (U1, 'اَلدَّرْسُ الْأَوَّلُ'), 2: (U1, 'اَلدَّرْسُ الثَّانِي'), 70: (U21, 'اَلدَّرْسُ السَّبْعُونَ'), 71: (U21, 'اَلدَّرْسُ الْحَادِي وَالسَّبْعُونَ'),
        72: (U21, 'اَلدَّرْسُ الثَّانِي وَالسَّبْعُونَ'), 73: (U21, 'اَلدَّرْسُ الثَّالِثُ وَالسَّبْعُونَ'),
        74: (U22, 'اَلدَّرْسُ الرَّابِعُ وَالسَّبْعُونَ'),
@@ -117,7 +117,10 @@ for num, src, uz, ar, key, nq in LESSONS:
         cf = HCFG[str(num)]
         s0, s1 = cf[0], cf[1]
         if num in LN:
-            rows = [{'a': LN[num], 'u': '%d-дарс' % num, 't': [s0, cf[1]]}, {'a': ua, 'u': uu, 't': [cf[2], round(hd, 2)]}]
+            subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', hp, '-af', 'atrim=0:%.3f' % s0, '-ac', '1', '-b:a', '64k', td + '/hh.mp3'], check=True)
+            hp = td + '/hh.mp3'
+            hd = dur(hp)
+            rows = [{'a': LN[num], 'u': '%d-дарс' % num, 't': None}]
         elif num in SHOWU:
             rows = [{'a': ua, 'u': uu, 't': [s0, s1]}, {'a': la, 'u': '%d-дарс' % num, 't': [s1, round(hd, 2)]}]
         else:

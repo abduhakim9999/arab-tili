@@ -181,7 +181,7 @@ mark{background:rgba(234,88,12,.25);color:inherit;border-radius:4px;padding:0 3p
 <style>
 .home{display:inline-block;margin:2px 0 4px;font-size:14px;color:var(--ac);text-decoration:none}
 </style>
-<style>#tx>.ln:first-child{display:none}</style></head>
+<style>#tx>.ln:nth-child(1){background:linear-gradient(180deg,rgba(15,122,79,.10),rgba(15,122,79,.03));border:1.5px solid rgba(15,122,79,.35);text-align:center;padding-top:22px;position:relative}#tx>.ln:nth-child(1)::before{content:"МАВЗУ";position:absolute;top:7px;left:0;right:0;text-align:center;font-size:11px;font-weight:800;letter-spacing:.14em;color:var(--ac)}#tx>.ln:nth-child(1) .ws{justify-content:center}#tx>.ln:nth-child(1) .ws span{font-weight:700;color:var(--ac);font-size:calc(var(--fs,22px) + 6px)}#tx>.ln:nth-child(1) .tr{text-align:center;font-weight:600;color:var(--tx)}</style></head>
 <body>
 <div class="w">
 <a class="home" href="./#k1">‹ Дарслар</a>
@@ -191,7 +191,7 @@ mark{background:rgba(234,88,12,.25);color:inherit;border-radius:4px;padding:0 3p
 <div style="display:flex;gap:8px;margin-bottom:10px;position:sticky;top:0;z-index:6;background:var(--bg);padding:6px 0"><button class="tg" id="pp" onclick="ppl()" style="width:60px;margin:0;text-align:center;padding:8px 0;font-size:20px" aria-label="Тўхтатиш/давом">▶</button><button class="tg" id="tg" onclick="tog()" style="flex:1;margin:0;text-align:center;padding:9px 4px">Ҳаракат</button><button class="tg on" id="tt" onclick="ttr()" style="flex:1;margin:0;text-align:center;padding:9px 4px">Таржима</button><button class="tg" id="bl" onclick="bol()" style="flex:0 0 auto;width:auto;margin:0;text-align:center;padding:9px 8px;font-size:12px">Таркиб</button></div>
 <div class="lgd" id="lg"><span class="pm">● Мубтадо, إِنَّ исми</span><span class="px">● Хабар</span><span class="pf">● Феъл</span><span class="po">● Фоил</span><span class="pb">● Мафъулун биҳ</span><span class="pj">● Жар ва мажрур</span><span class="ph">● Зарф, ҳол</span></div>
 <p class="hint" style="line-height:1.7">👆 Босинг — эшитасиз<br>✋ Босиб туринг — изоҳ<br>↔️ Суринг — шу ердан давом<br>🤏 Икки бармоқ — катта-кичик</p>
-<div style="margin:10px 0"><audio controls preload="metadata" style="width:100%" src="a3-9c4bf47f.mp3"></audio>
+<div style="margin:10px 0"><audio controls preload="metadata" style="width:100%" src="a3-f95b06c9.mp3"></audio>
 <div class="spd"><span>Тезлик:</span><button onclick="spd(0.5,this)">0.5×</button><button onclick="spd(0.75,this)">0.75×</button><button class="on" onclick="spd(1,this)">1×</button></div></div>
 <div id="tx"></div>
 </div>
@@ -380,7 +380,7 @@ tx.addEventListener("contextmenu",function(e){var s=e.target.closest(".ws span[d
 ["selectstart","dragstart"].forEach(function(n){tx.addEventListener(n,function(e){e.preventDefault()})});
 var p3=document.getElementById("p3");p3.addEventListener("contextmenu",function(e){e.preventDefault()});p3.addEventListener("selectstart",function(e){e.preventDefault()});
 mkCat();build();gl();
-var TM=[[1, 0, 6.71, 7.29, 7.17], [1, 1, 7.25, 7.71, 7.71], [2, 0, 8.77, 9.53, 9.45], [2, 1, 9.49, 10.01, 10.01], [3, 0, 11.11, 11.51, 11.31], [3, 1, 11.47, 11.89, 11.71], [3, 2, 11.85, 12.17, 12.17], [4, 0, 13.37, 13.65, 13.57], [4, 1, 13.61, 13.87, 13.77], [4, 2, 13.83, 14.49, 14.49], [5, 0, 15.83, 16.25, 16.05], [5, 1, 16.21, 16.65, 16.49], [5, 2, 16.61, 17.37, 17.37], [6, 0, 18.37, 18.71, 18.71], [6, 1, 19.69, 19.97, 19.87], [6, 2, 19.93, 20.63, 20.63], [6, 3, 21.77, 22.11, 22.03], [6, 4, 22.07, 23.05, 22.87], [6, 5, 23.01, 23.39, 23.39], [7, 0, 24.67, 25.05, 24.89], [7, 1, 25.01, 25.43, 25.43], [7, 2, 26.49, 26.85, 26.71], [7, 3, 26.81, 27.09, 26.99], [7, 4, 27.05, 27.55, 27.55], [8, 0, 28.65, 29.15, 29.03], [8, 1, 29.11, 29.77, 29.77]],au=document.querySelector("audio"),lastI=-2,raf=null,stopAt=null,progSeek=false,hold=false;
+var TM=[[1, 0, 3.86, 4.44, 4.32], [1, 1, 4.4, 4.86, 4.86], [2, 0, 5.92, 6.68, 6.6], [2, 1, 6.64, 7.16, 7.16], [3, 0, 8.26, 8.66, 8.46], [3, 1, 8.62, 9.04, 8.86], [3, 2, 9.0, 9.32, 9.32], [4, 0, 10.52, 10.8, 10.72], [4, 1, 10.76, 11.02, 10.92], [4, 2, 10.98, 11.64, 11.64], [5, 0, 12.98, 13.4, 13.2], [5, 1, 13.36, 13.8, 13.64], [5, 2, 13.76, 14.52, 14.52], [6, 0, 15.52, 15.86, 15.86], [6, 1, 16.84, 17.12, 17.02], [6, 2, 17.08, 17.78, 17.78], [6, 3, 18.92, 19.26, 19.18], [6, 4, 19.22, 20.2, 20.02], [6, 5, 20.16, 20.54, 20.54], [7, 0, 21.82, 22.2, 22.04], [7, 1, 22.16, 22.58, 22.58], [7, 2, 23.64, 24.0, 23.86], [7, 3, 23.96, 24.24, 24.14], [7, 4, 24.2, 24.7, 24.7], [8, 0, 25.8, 26.3, 26.18], [8, 1, 26.26, 26.92, 26.92]],au=document.querySelector("audio"),lastI=-2,raf=null,stopAt=null,progSeek=false,hold=false;
 function pick(t){for(var k=0;k<TM.length;k++){if(t>=TM[k][2]&&t<TM[k][3]+0.05)return k}return -1}
 function show1(k){
   document.querySelectorAll(".ws span.pl,.ts.pl").forEach(function(e){e.classList.remove("pl")});
@@ -655,7 +655,7 @@ if(au){
   }catch(e){say("хато ✗ "+e.message)}
 })();
 </script>
-<script>window.HDR={"s0": 3.2, "e": 6.09, "rows": [{"a": "اَلدَّرْسُ الثَّالِثُ", "u": "3-дарс", "t": [3.2, 4.64]}, {"a": "الْحِوَارُ", "u": "Суҳбат", "t": [4.82, 6.09]}]}</script>
+<script>window.HDR={"s0": 3.2, "e": 3.24, "rows": [{"a": "اَلدَّرْسُ الثَّالِثُ", "u": "3-дарс", "t": null}]}</script>
 <script src="hdr.js"></script>
 <script src="sarflink.js"></script>
 <script>window.TKG={"1": [[1, 1, "шибҳи жумла — маҳзуф хабар (كَائِنٌ) га мутааллиқ", "s"]], "2": [[0, 0, "шибҳи жумла — маҳзуф хабар муқаддам (كَائِنٌ) га мутааллиқ", "s"]], "3": [[0, 1, "шибҳи жумла — маҳзуф хабар муқаддам (كَائِنٌ) га мутааллиқ", "s"]], "4": [[1, 2, "шибҳи жумла — маҳзуф хабар (كَائِنٌ) га мутааллиқ", "s"]], "7": [[3, 4, "шибҳи жумла — маҳзуф хабар (كَائِنٌ) га мутааллиқ", "s"]]};window.TKT={"1": [[1, "Жумлатун исмийя, дуоийя."]], "2": [[1, "Жумлатун исмийя, дуоийя."]], "3": [[2, "Жумлатун исмийя, истифҳомийя."]], "4": [[2, "Жумлатун исмийя, хабарийя."]], "5": [[2, "Жумлатун исмийя, истифҳомийя."]], "6": [[2, "Жумлатун исмийя, хабарийя."], [5, "Жумлатун исмийя, истифҳомийя."]], "7": [[1, "Жумлатун исмийя, хабарийя."], [4, "Жумлатун исмийя, хабарийя."]], "8": [[1, "Жумлатун дуоийя."]]}</script>

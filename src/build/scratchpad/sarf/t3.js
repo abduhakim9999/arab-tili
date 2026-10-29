@@ -1,0 +1,11 @@
+const { chromium } = require('playwright');
+(async () => { const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 390, height: 820 } });
+  const errs=[]; p.on('pageerror',e=>errs.push(e.message));const D=process.argv[2];
+  await p.goto('file:///mnt/user-data/outputs/arab-tili/sarf.html'); await p.waitForTimeout(500);
+  await p.fill('#q','باع'); await p.waitForTimeout(200); await p.screenshot({path:D+'/u1.png'});
+  await p.goto('file:///mnt/user-data/outputs/arab-tili/sarf.html#b1/t'); await p.waitForTimeout(400); await p.screenshot({path:D+'/u2.png'});
+  await p.click('.g12 >> nth=4 >> div >> nth=1'); await p.waitForTimeout(300);
+  await p.click('#sbd tr[data-i="2"]'); await p.waitForTimeout(300); await p.screenshot({path:D+'/u3.png'});
+  await p.click('#bH'); await p.waitForTimeout(200); await p.screenshot({path:D+'/u4.png'});
+  await p.click('#bC'); await p.waitForTimeout(200); await p.click('#sbd .vb >> nth=0'); await p.waitForTimeout(300); await p.screenshot({path:D+'/u5.png'});
+  console.log(errs); await b.close(); })();

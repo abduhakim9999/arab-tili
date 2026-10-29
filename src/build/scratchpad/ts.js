@@ -1,0 +1,13 @@
+const { chromium } = require('playwright');
+(async () => { const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 390, height: 820 } });
+  const errs=[]; p.on('pageerror',e=>errs.push(e.message));
+  const D=process.argv[2];
+  await p.goto('file:///mnt/user-data/outputs/arab-tili/sarf.html'); await p.waitForTimeout(800);
+  await p.screenshot({path: D+'/s1.png'});
+  await p.goto('file:///mnt/user-data/outputs/arab-tili/sarf.html#b1'); await p.waitForTimeout(600);
+  await p.screenshot({path: D+'/s2.png', fullPage:true});
+  await p.click('#tbs button[data-t="j"]'); await p.waitForTimeout(300); await p.screenshot({path: D+'/s3.png', fullPage:true});
+  await p.click('#tbs button[data-t="t"]'); await p.waitForTimeout(300); await p.screenshot({path: D+'/s4.png'});
+  await p.click('#tbs button[data-t="f"]'); await p.waitForTimeout(300); await p.click('.vb >> nth=50'); await p.waitForTimeout(300); await p.screenshot({path: D+'/s5.png'});
+  await p.evaluate(()=>closeSh()); await p.click('#tbs button[data-t="m"]'); await p.click('#qst'); await p.waitForTimeout(200); await p.click('.op button >> nth=0'); await p.waitForTimeout(200); await p.screenshot({path: D+'/s6.png'});
+  console.log('errs',errs); await b.close(); })();

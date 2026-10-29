@@ -122,7 +122,7 @@
       '<span class="tkd"><b>шибҳи жумла</b> · ' + sjd(src) + '</span></div>';
     if (!src || src == 'шибҳи жумла') return '<div class="tkr s" data-a="' + g[0] + '" data-b="' + g[1] + '"><span class="tka">' + ws.join(' ') + '</span>' +
       '<span class="tkd"><b>шибҳи жумла</b></span></div>';
-    var u = hid ? null : U[i + '-' + g[0]]; /* яширин (маҳзуф) сўзга маъно берилмайди */
+    var u = U[i + '-' + g[0]]; if (u && /^(كَائِن|مَوْجُود)/.test(tgt)) u = null; /* яширин тақдир сўзига (كَائِنٌ، مَوْجُودٌ) маъно берилмайди */
     function es(t) { return String(t).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c] }) }
     var tg = hid ? '<span class="tkt0 hid">' + (tgt || '…') + '</span>' : '<span class="tkt0 ' + cls + '">' + tgt + '</span>';
     return '<div class="tkr s" data-a="' + g[0] + '" data-b="' + g[1] + '"' + (ti >= 0 ? ' data-t="' + ti + '"' : '') + '>' +

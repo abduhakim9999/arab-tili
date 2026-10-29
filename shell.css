@@ -187,3 +187,4 @@ body.lo2 .pbar{bottom:calc(8px + env(safe-area-inset-bottom,0px))}
 .tgbar .tg{flex:1 1 0!important;width:auto!important;margin:0!important;padding:8px 4px!important;font-size:14px!important;border-radius:11px}
 body.nop .tgbar{display:none!important}
 body.lo2 .w>.tabs:first-child{margin-top:-14px!important}
+.vinfo{margin-top:8px;font-size:11px;color:var(--mu);text-align:left}

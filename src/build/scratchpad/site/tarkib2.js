@@ -18,6 +18,20 @@
     '.tkb.cont-r .tkl{border-right-style:dashed;border-bottom-right-radius:0}.tkb.cont-l .tkl{border-left-style:dashed;border-bottom-left-radius:0}' +
     '.tkb .tkt{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:max-content;font:600 10.5px/1.25 system-ui,-apple-system,sans-serif;text-align:center;direction:ltr;unicode-bidi:isolate}' +
     '#tx .tkj{align-self:flex-start!important;margin:calc(var(--fs,22px)*.62) 4px 0!important;display:none;gap:6px;align-items:center}#tx.tartib .tkj{display:inline-flex!important}#tx.tartib .tkj{font:700 11.5px/1 system-ui,-apple-system,sans-serif!important;color:var(--ac)!important;background:rgba(15,118,110,.09);border:1px solid rgba(15,118,110,.25);border-radius:999px;padding:5px 10px!important;letter-spacing:.02em}#tx .tkj span{font:italic 600 11px/1.3 system-ui,-apple-system,sans-serif!important;cursor:default!important;color:var(--mu);border:1px dashed var(--bd);border-radius:999px;padding:0 7px}' +
+    '.tkx{margin:8px 0 2px;padding:8px 10px;border-radius:12px;background:rgba(15,118,110,.05);border:1px solid rgba(15,118,110,.14);display:flex;flex-direction:column;gap:6px}' +
+    '.tkr{display:flex;flex-direction:column;gap:1px;padding:5px 8px;border-radius:9px;border-right:3px solid var(--ac);background:var(--cd);cursor:pointer}' +
+    '.tkr.s{border-right-color:var(--cj)}.tkr.on{box-shadow:0 0 0 1.5px var(--ac)}' +
+    '.tkr .tka{direction:rtl;text-align:right;font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:calc(var(--fs,22px)*.78);line-height:1.5;color:var(--tx)}' +
+    '.tkr .tkd{font:500 12.5px/1.35 system-ui,-apple-system,sans-serif;color:var(--mu)}.tkr .tkd b{font-weight:700;color:var(--ac)}.tkr.s .tkd b{color:var(--cj)}' +
+    '.tkl2{display:flex;direction:rtl;align-items:center;gap:8px;flex-wrap:wrap}.tkl2 .tka{font-size:calc(var(--fs,22px)*.78)}' +
+    '.tkar{font:700 16px system-ui;color:var(--cj)}' +
+    '.tkt0{font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:calc(var(--fs,22px)*.78);line-height:1.5;padding:0 8px;border-radius:8px;background:rgba(127,127,127,.08)}' +
+    '.tkt0.pf{color:var(--cf)}.tkt0.pm{color:var(--cm)}.tkt0.px{color:var(--cx)}.tkt0.po{color:var(--co)}.tkt0.pb{color:var(--cb)}.tkt0.pj{color:var(--cj)}.tkt0.ph{color:var(--ch)}' +
+    '.tkt0.hid{color:var(--mu);border:1px dashed var(--bd);background:none}.tkt0.hid i{font:italic 500 11.5px system-ui,sans-serif}' +
+    '.tkq{font:500 12px/1.3 system-ui,-apple-system,sans-serif;color:var(--mu);font-style:italic}.tkd .ar{font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:15px}' +
+    '#tx.tartib .ws span.tkh2{background:rgba(42,118,118,.0);box-shadow:inset 0 -3px 0 var(--cj)}' +
+    '.tks{align-self:flex-start;font:700 12px/1 system-ui,-apple-system,sans-serif;color:#fff;background:var(--ac);border-radius:999px;padding:6px 11px}' +
+    '#tx.tartib .ws span.tkh{background:rgba(15,118,110,.14);border-radius:6px}' +
     '.tkb.s{color:var(--cj)}.tkb.j{color:var(--ac)}.tkb.g{color:var(--tx)}.tkb.g .tkt{font-weight:800}' +
     '.lgd .lgk{flex-basis:100%;font-size:12px;color:var(--mu)}';
   document.head.appendChild(st);
@@ -46,6 +60,35 @@
     }
     return s;
   }
+  function bare(s) { return String(s).replace(/[ً-ْٰـ]/g, '').replace(/[أإآٱ]/g, 'ا').replace(/[^ء-ي]/g, '') }
+  var QW = [['في', 'қаерда? нимада?'], ['الى', 'қаерга? нимага?'], ['الي', 'қаерга? нимага?'], ['من', 'қаердан? нимадан?'], ['عن', 'ким ҳақида? нимадан?'], ['على', 'кимга? нимага?'],
+    ['مع', 'ким билан?'], ['ل', 'ким учун? нима учун?'], ['ب', 'нима билан? нимада?'], ['ك', 'нимадек?']];
+  function qword(w, isz) {
+    if (isz) return 'қачон? қаерда?';
+    var b0 = bare(w), bs = [b0, b0.replace(/^[وف]/, '')];
+    for (var n = 0; n < 2; n++) for (var k = 0; k < QW.length; k++) if (bs[n].indexOf(QW[k][0]) == 0 && (QW[k][0].length > 1 || bs[n].length > 1)) return QW[k][1];
+    return '';
+  }
+  function sj(i, ln, g, ws) {
+    var src = g[2].replace(/^шибҳи жумла — ?/, '').replace(/ ?га мутааллиқ$/, ''), tgt = '', cls = '', hid = '', ti = -1;
+    var a = src.match(/^(?:маҳзуф )?([؀-ۿ]+)$/);
+    if (a && !/^маҳзуф/.test(src)) {
+      var tb = bare(a[1]);
+      [].some.call(ln.querySelectorAll('.ws span[data-i]'), function (e) { var q = e.getAttribute('data-i').split('-'); if (bare(e.textContent).slice(-tb.length) == tb || bare(e.textContent) == tb) { ti = +q[1]; tgt = e.textContent; cls = (e.className.match(/\bp[a-z]\b/) || [''])[0]; return true } });
+      if (!tgt) tgt = a[1];
+    } else {
+      var k = src.match(/([؀-ۿ]+)/);
+      hid = src.replace(/\s*\([^)]*\)/, '').replace(/[؀-ۿ]+/g, '').replace(/\s+/g, ' ').trim();
+      tgt = k ? k[1] : '';
+    }
+    var first = ln.querySelector('[data-i="' + i + '-' + g[0] + '"]'), z = IRB[i + '-' + g[0]] && /зарф/.test(IRB[i + '-' + g[0]].s || '');
+    var q = qword(first ? first.textContent : ws[0], z);
+    var tg = hid ? '<span class="tkt0 hid">' + (tgt || '…') + '</span>' : '<span class="tkt0 ' + cls + '">' + tgt + '</span>';
+    return '<div class="tkr s" data-a="' + g[0] + '" data-b="' + g[1] + '"' + (ti >= 0 ? ' data-t="' + ti + '"' : '') + '>' +
+      '<div class="tkl2">' + tg + '<span class="tkar">→</span><span class="tka">' + ws.join(' ') + '</span></div>' +
+      '<span class="tkd"><b>шибҳи жумла</b> · ' + (hid ? hid + (tgt ? ' (<bdi class="ar">' + tgt + '</bdi>)' : '') + ' га мутааллиқ, у яширин' : '<bdi class="ar">' + tgt + '</bdi> га мутааллиқ') + '</span>' +
+      (q && !hid ? '<span class="tkq">Савол: ' + q + '</span>' : '') + '</div>';
+  }
   function deco() {
     if (window.IRB) [].forEach.call(tx.querySelectorAll('.ws span[data-i]'), function (e) {
       var E = IRB[e.getAttribute('data-i')];
@@ -66,7 +109,7 @@
         c.className = 'tkj';
         if (!t.st) return;
         c.textContent = 'Жумлатун ' + t.st;
-        e.parentNode.insertBefore(c, e.nextSibling);
+        if (0) e.parentNode.insertBefore(c, e.nextSibling);
       });
     });
     lay();
@@ -78,83 +121,39 @@
   }
 
   function lay() {
-    clear();
-    if (!tx.classList.contains('tartib') || !tx.offsetParent) return;
-    var lns = tx.querySelectorAll('.ln'), rows = {}, rid = 0, all = [];
-    Object.keys(G).forEach(function (i) {
-      var ln = lns[+i];
-      if (!ln) return;
-      G[i].forEach(function (g) {
-        var parts = [], m = {};
-        for (var j = g[0]; j <= g[1]; j++) {
-          var e = ln.querySelector('[data-i="' + i + '-' + j + '"]');
-          if (!e) continue;
-          var ws = e.parentNode;
-          if (!ws.__tk) ws.__tk = ++rid;
-          var key = ws.__tk + '|' + e.offsetTop;
-          if (!m[key]) { m[key] = { ws: ws, key: key, sp: [] }; parts.push(m[key]) }
-          m[key].sp.push(e);
-        }
-        parts.forEach(function (p, pi) {
-          var l = 1e9, r = -1e9;
-          p.sp.forEach(function (e) { l = Math.min(l, e.offsetLeft); r = Math.max(r, e.offsetLeft + e.offsetWidth) });
-          var b = document.createElement('div');
-          b.className = 'tkb ' + g[3] + (pi < parts.length - 1 ? ' cont-l' : '') + (pi > 0 ? ' cont-r' : '');
-          b.style.left = (l + 1) + 'px';
-          b.style.width = Math.max(8, r - l - 2) + 'px';
-          b.style.top = '0px';
-          b.innerHTML = '<div class="tkl"></div>' + (pi == 0 ? '<div class="tkt"></div>' : '');
-          p.ws.appendChild(b);
-          var t = b.querySelector('.tkt'), h = 8, x0 = l, x1 = r;
-          if (t) {
-            t.textContent = short(g[2]);
-            t.style.maxWidth = Math.max(r - l, Math.min(220, p.ws.clientWidth)) + 'px';
-            var tw = t.offsetWidth, cx = (l + r) / 2, lo = cx - tw / 2, hi = cx + tw / 2, W = p.ws.clientWidth, sh = 0;
-            if (lo < 0) sh = -lo; else if (hi > W) sh = W - hi;
-            if (sh) t.style.transform = 'translateX(calc(-50% + ' + sh + 'px))';
-            x0 = Math.min(l, lo + sh); x1 = Math.max(r, hi + sh);
-            h = 8 + t.offsetHeight + 4;
-          }
-          var R = rows[p.key] || (rows[p.key] = { ws: p.ws, top: p.sp[0].offsetTop, pcs: [] });
-          var it = { el: b, x0: x0, x1: x1, h: h, w: r - l };
-          R.pcs.push(it); all.push(it);
+    [].forEach.call(tx.querySelectorAll('.tkx'), function (e) { e.remove() });
+    if (!tx.classList.contains('tartib')) return;
+    var lns = tx.querySelectorAll('.ln');
+    Object.keys(G).concat(Object.keys(T)).filter(function (v, k, a) { return a.indexOf(v) == k }).forEach(function (i) {
+      var ln = lns[+i]; if (!ln) return;
+      var items = (G[i] || []).slice().sort(function (a, b) { return a[0] - b[0] || (b[1] - b[0]) - (a[1] - a[0]) });
+      var h = '';
+      items.forEach(function (g, k) {
+        var ws = [];
+        for (var j = g[0]; j <= g[1]; j++) { var e = ln.querySelector('[data-i="' + i + '-' + j + '"]'); if (e) ws.push(e.textContent) }
+        var lab = short(g[2]), m = lab.match(/^(шибҳи жумла|жумла[^,]*|маътуф жумла|сила жумласи|жумлаи ҳолийя)(.*)$/);
+        var head = m ? m[1].replace(' → ', '') : lab, rest = m ? m[2] : '';
+        if (g[3] == 's') { h += sj(i, ln, g, ws); return }
+        h += '<div class="tkr ' + g[3] + '" data-a="' + g[0] + '" data-b="' + g[1] + '"><span class="tka">' + ws.join(' ') + '</span>' +
+          '<span class="tkd"><b>' + head + '</b>' + rest.replace(/^,\s*/, ' · ').replace(/^\s*→\s*/, ' → ') + '</span></div>';
+      });
+      (T[i] || []).forEach(function (t) { if (t.st) h += '<div class="tks">Жумлатун ' + t.st + '</div>' });
+      if (!h) return;
+      var box = document.createElement('div'); box.className = 'tkx'; box.innerHTML = h;
+      var trs = ln.querySelectorAll('.tr'), tr = trs[trs.length - 1]; (tr ? tr.parentNode : ln).insertBefore(box, tr);
+      [].forEach.call(box.querySelectorAll('.tkr'), function (r) {
+        r.addEventListener('click', function (ev) {
+          ev.stopPropagation();
+          var on = !r.classList.contains('on');
+          [].forEach.call(tx.querySelectorAll('.tkr.on'), function (x) { x.classList.remove('on') });
+          [].forEach.call(tx.querySelectorAll('.ws span.tkh'), function (x) { x.classList.remove('tkh', 'tkh2') });
+          if (!on) return; r.classList.add('on');
+          for (var j = +r.dataset.a; j <= +r.dataset.b; j++) { var e = ln.querySelector('[data-i="' + i + '-' + j + '"]'); if (e) e.classList.add('tkh') }
+          if (r.dataset.t) { var e2 = ln.querySelector('[data-i="' + i + '-' + r.dataset.t + '"]'); if (e2) e2.classList.add('tkh', 'tkh2') }
         });
       });
     });
-    // qator a'zolari padding qo'yilishidan oldin yig'iladi (keyingi qatorlar pastga suriladi)
-    Object.keys(rows).forEach(function (k) {
-      var R = rows[k];
-      R.mem = [].filter.call(R.ws.children, function (e) { return !e.classList.contains('tkb') && e.offsetTop == R.top });
-    });
-    // har bir qatorda: ichki (tor) qavs so'zga yaqin, kesishganlari pastroq
-    Object.keys(rows).forEach(function (k) {
-      var R = rows[k], lv = [];
-      R.pcs.sort(function (a, b) { return a.w - b.w });
-      R.pcs.forEach(function (p) {
-        var L = 0;
-        while (lv[L] && lv[L].some(function (q) { return p.x0 < q.x1 + 4 && q.x0 < p.x1 + 4 })) L++;
-        (lv[L] = lv[L] || []).push(p); p.L = L;
-      });
-      R.hs = lv.map(function (a) { return Math.max.apply(null, a.map(function (p) { return p.h })) });
-      R.pad = R.hs.reduce(function (s, v) { return s + v }, 0) + 2;
-      R.mem.forEach(function (e) {
-        R.it = R.it || e;
-        e.setAttribute('data-tkp', R.pad);
-        e.style.paddingBottom = R.pad + 'px';
-      });
-    });
-    Object.keys(rows).forEach(function (k) {
-      var R = rows[k], e = R.it;
-      if (!e) return;
-      var base = e.offsetTop + e.offsetHeight - R.pad;
-      R.pcs.forEach(function (p) {
-        var y = base;
-        for (var q = 0; q < p.L; q++) y += R.hs[q];
-        p.el.style.top = y + 'px';
-      });
-    });
   }
-
   var tm = 0;
   function later() { cancelAnimationFrame(tm); tm = requestAnimationFrame(lay) }
 

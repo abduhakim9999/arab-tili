@@ -4,7 +4,7 @@ import tarkib
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.environ.get('OUT') or '/mnt/user-data/outputs/arab-tili'
-VER = '123'
+VER = '124'
 
 LESSONS = [
     # (raqam, manba, sarlavha, arabcha sarlavha, kalit, savollar soni)
@@ -97,6 +97,10 @@ for num, src, uz, ar, key, nq in LESSONS:
     # Таркиб режими: сўз ости ёзувлари, қавслар, гап тури
     doc, TKG, TKT = tarkib.apply(doc)
     doc = doc.replace('>Тартиб</button>', '>Таркиб</button>')
+    # so'zni bosganda ovoz chiqmaydi (avtomatik kesilgan ovozlar noaniq edi) — faqat belgilanadi
+    assert doc.count('hl(+q[0],[+q[1]]);pw(+q[0],+q[1])') == 1, num
+    doc = doc.replace('hl(+q[0],[+q[1]]);pw(+q[0],+q[1])', 'hl(+q[0],[+q[1]])')
+    doc = doc.replace('👆 Босинг — эшитасиз<br>', '')
     am = re.search(r'src="data:audio/mpeg;base64,([A-Za-z0-9+/=]+)"', doc)
     assert am and doc.count('data:audio/mpeg;base64,') == 1, num
     ab = base64.b64decode(am.group(1))

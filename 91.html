@@ -189,7 +189,7 @@ mark{background:rgba(234,88,12,.25);color:inherit;border-radius:4px;padding:0 3p
 <div id="p1">
 <div style="display:flex;gap:8px;margin-bottom:10px;position:sticky;top:0;z-index:6;background:var(--bg);padding:6px 0"><button class="tg" id="pp" onclick="ppl()" style="width:60px;margin:0;text-align:center;padding:8px 0;font-size:20px" aria-label="Тўхтатиш/давом">▶</button><button class="tg" id="tg" onclick="tog()" style="flex:1;margin:0;text-align:center;padding:9px 4px">Ҳаракат</button><button class="tg on" id="tt" onclick="ttr()" style="flex:1;margin:0;text-align:center;padding:9px 4px">Таржима</button><button class="tg" id="bl" onclick="bol()" style="flex:0 0 auto;width:auto;margin:0;text-align:center;padding:9px 8px;font-size:12px">Таркиб</button></div>
 <div class="lgd" id="lg"><span class="pm">● Мубтадо, إِنَّ исми</span><span class="px">● Хабар</span><span class="pf">● Феъл</span><span class="po">● Фоил</span><span class="pb">● Мафъулун биҳ</span><span class="pj">● Жар ва мажрур</span><span class="ph">● Зарф, ҳол</span></div>
-<p class="hint" style="line-height:1.7">👆 Босинг — эшитасиз<br>✋ Босиб туринг — изоҳ<br>↔️ Суринг — шу ердан давом<br>🤏 Икки бармоқ — катта-кичик</p>
+<p class="hint" style="line-height:1.7">✋ Босиб туринг — изоҳ<br>↔️ Суринг — шу ердан давом<br>🤏 Икки бармоқ — катта-кичик</p>
 <div style="margin:10px 0"><audio controls preload="metadata" style="width:100%" src="a91-c13b9797.mp3"></audio>
 <div class="spd"><span>Тезлик:</span><button onclick="spd(0.5,this)">0.5×</button><button onclick="spd(0.75,this)">0.75×</button><button class="on" onclick="spd(1,this)">1×</button></div></div>
 <div id="tx"></div>
@@ -385,7 +385,7 @@ tx.addEventListener("pointermove",function(e){
     for(var k=0;k<TM.length;k++){if(TM[k][0]==+q[0]&&TM[k][1]==+q[1]){progSeek=true;au.currentTime=Math.max(0,TM[k][2]-0.05);stopAt=null;var p=au.play();if(p&&p.catch)p.catch(function(){});break}}
   }
 });
-function up(e){clearTimeout(tm);if(sw){sw=false;cur=null;return}if(cur&&!lg&&e.type=="pointerup"){var q=cur.getAttribute("data-i").split("-");hl(+q[0],[+q[1]]);pw(+q[0],+q[1])}cur=null}
+function up(e){clearTimeout(tm);if(sw){sw=false;cur=null;return}if(cur&&!lg&&e.type=="pointerup"){var q=cur.getAttribute("data-i").split("-");hl(+q[0],[+q[1]])}cur=null}
 tx.addEventListener("pointerup",up);tx.addEventListener("pointercancel",up);
 tx.addEventListener("contextmenu",function(e){var s=e.target.closest(".ws span[data-i]");e.preventDefault();if(s&&!lg&&!sw){clearTimeout(tm);lg=true;cur=null;op(s)}});
 ["selectstart","dragstart"].forEach(function(n){tx.addEventListener(n,function(e){e.preventDefault()})});

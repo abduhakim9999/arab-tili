@@ -38,6 +38,7 @@
     '#tx.tartib .ws span.tkh{background:rgba(15,118,110,.14);border-radius:6px}' +
     '.tkb.s{color:var(--cj)}.tkb.j{color:var(--ac)}.tkb.g{color:var(--tx)}.tkb.g .tkt{font-weight:800}' +
     '.tkz{display:inline-block;color:var(--cx);border:1.5px dashed currentColor;border-radius:9px;padding:0 7px;margin:0 3px;line-height:1.35;background:rgba(210,59,42,.07)}' +
+    '.tkz.f{color:var(--cf);background:rgba(200,90,20,.07)}' +
     '#tx.tartib .ws span.kx{text-decoration:underline dotted var(--cx);text-decoration-thickness:2.5px;text-underline-offset:.45em;text-decoration-skip-ink:none}' +
     '.lgd .lga{color:var(--cj)}.lgd .lga b{font-weight:700}' +
     '.lgd .lgx{color:var(--cj)}.lgd .lgx u{text-decoration:underline dotted var(--cx);text-decoration-thickness:2.5px;text-underline-offset:4px}' +
@@ -94,7 +95,7 @@
   function cl(e) { return (e.className.match(/\bp[a-z]\b/) || [''])[0] }
   function cw(e, t) { var c = cl(e); return c ? '<span class="' + c + '">' + t + '</span>' : t }
   function gz(w, z, e) {
-    var g = '<span class="tkz">' + z + '</span>', m = w.match(/^([وف][ً-ْ]*)(.+)$/);
+    var g = '<span class="tkz' + (z == 'أَدْعُو' ? ' f' : '') + '">' + z + '</span>', m = w.match(/^([وف][ً-ْ]*)(.+)$/);
     if (m) { var b = bare(m[2]); if (ZW.some(function (p) { return b.indexOf(p) == 0 && b.length > p.length })) return cw(e, m[1]) + g + ' ' + cw(e, m[2]) }
     return g + ' ' + cw(e, w);
   }
@@ -196,6 +197,8 @@
       segs.forEach(function (t) {
         var ws = [], gh = {};
         items.forEach(function (g) { if (g[3] == 's' && g[0] >= t.a && g[0] <= t[0]) { var z = ghost(g); if (z) gh[g[0]] = z } });
+        /* нидо: يَا дан олдин яширин феъл أَدْعُو (мунодо шу феълнинг мафъули — шунинг учун насб ўринда, гап феълийя) */
+        for (var jn = t.a; jn < t[0]; jn++) { var A = IRB[i + '-' + jn], B = IRB[i + '-' + (jn + 1)]; if (A && B && /^нидо ҳарфи/.test(A.s || '') && /^мунодо/.test(B.s || '') && !gh[jn]) gh[jn] = 'أَدْعُو' }
         for (var j = t.a; j <= t[0]; j++) { var e = ln.querySelector('[data-i="' + i + '-' + j + '"]'); if (e) ws.push(gh[j] ? gz(e.textContent, gh[j], e) : cw(e, e.textContent)) }
         var inner = '';
         items.forEach(function (g, k) { if (g[0] >= t.a && g[0] <= t[0]) { used[k] = 1; inner += card(g) } });

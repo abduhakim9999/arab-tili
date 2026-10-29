@@ -191,7 +191,7 @@ mark{background:rgba(234,88,12,.25);color:inherit;border-radius:4px;padding:0 3p
 <div style="display:flex;gap:8px;margin-bottom:10px;position:sticky;top:0;z-index:6;background:var(--bg);padding:6px 0"><button class="tg" id="pp" onclick="ppl()" style="width:60px;margin:0;text-align:center;padding:8px 0;font-size:20px" aria-label="Тўхтатиш/давом">▶</button><button class="tg" id="tg" onclick="tog()" style="flex:1;margin:0;text-align:center;padding:9px 4px">Ҳаракат</button><button class="tg on" id="tt" onclick="ttr()" style="flex:1;margin:0;text-align:center;padding:9px 4px">Таржима</button><button class="tg" id="bl" onclick="bol()" style="flex:0 0 auto;width:auto;margin:0;text-align:center;padding:9px 8px;font-size:12px">Таркиб</button></div>
 <div class="lgd" id="lg"><span class="pm">● Мубтадо, إِنَّ исми</span><span class="px">● Хабар</span><span class="pf">● Феъл</span><span class="po">● Фоил</span><span class="pb">● Мафъулун биҳ</span><span class="pj">● Жар ва мажрур</span><span class="ph">● Зарф, ҳол</span></div>
 <p class="hint" style="line-height:1.7">👆 Босинг — эшитасиз<br>✋ Босиб туринг — изоҳ<br>↔️ Суринг — шу ердан давом<br>🤏 Икки бармоқ — катта-кичик</p>
-<div style="margin:10px 0"><audio controls preload="metadata" style="width:100%" src="a3-f95b06c9.mp3"></audio>
+<div style="margin:10px 0"><audio controls preload="metadata" style="width:100%" src="a3-fb8df1f0.mp3"></audio>
 <div class="spd"><span>Тезлик:</span><button onclick="spd(0.5,this)">0.5×</button><button onclick="spd(0.75,this)">0.75×</button><button class="on" onclick="spd(1,this)">1×</button></div></div>
 <div id="tx"></div>
 </div>
@@ -380,7 +380,7 @@ tx.addEventListener("contextmenu",function(e){var s=e.target.closest(".ws span[d
 ["selectstart","dragstart"].forEach(function(n){tx.addEventListener(n,function(e){e.preventDefault()})});
 var p3=document.getElementById("p3");p3.addEventListener("contextmenu",function(e){e.preventDefault()});p3.addEventListener("selectstart",function(e){e.preventDefault()});
 mkCat();build();gl();
-var TM=[[1, 0, 3.86, 4.44, 4.32], [1, 1, 4.4, 4.86, 4.86], [2, 0, 5.92, 6.68, 6.6], [2, 1, 6.64, 7.16, 7.16], [3, 0, 8.26, 8.66, 8.46], [3, 1, 8.62, 9.04, 8.86], [3, 2, 9.0, 9.32, 9.32], [4, 0, 10.52, 10.8, 10.72], [4, 1, 10.76, 11.02, 10.92], [4, 2, 10.98, 11.64, 11.64], [5, 0, 12.98, 13.4, 13.2], [5, 1, 13.36, 13.8, 13.64], [5, 2, 13.76, 14.52, 14.52], [6, 0, 15.52, 15.86, 15.86], [6, 1, 16.84, 17.12, 17.02], [6, 2, 17.08, 17.78, 17.78], [6, 3, 18.92, 19.26, 19.18], [6, 4, 19.22, 20.2, 20.02], [6, 5, 20.16, 20.54, 20.54], [7, 0, 21.82, 22.2, 22.04], [7, 1, 22.16, 22.58, 22.58], [7, 2, 23.64, 24.0, 23.86], [7, 3, 23.96, 24.24, 24.14], [7, 4, 24.2, 24.7, 24.7], [8, 0, 25.8, 26.3, 26.18], [8, 1, 26.26, 26.92, 26.92]],au=document.querySelector("audio"),lastI=-2,raf=null,stopAt=null,progSeek=false,hold=false;
+var TM=[[1, 0, 5.48, 6.06, 5.94], [1, 1, 6.02, 6.48, 6.48], [2, 0, 7.54, 8.3, 8.22], [2, 1, 8.26, 8.78, 8.78], [3, 0, 9.88, 10.28, 10.08], [3, 1, 10.24, 10.66, 10.48], [3, 2, 10.62, 10.94, 10.94], [4, 0, 12.14, 12.42, 12.34], [4, 1, 12.38, 12.64, 12.54], [4, 2, 12.6, 13.26, 13.26], [5, 0, 14.6, 15.02, 14.82], [5, 1, 14.98, 15.42, 15.26], [5, 2, 15.38, 16.14, 16.14], [6, 0, 17.14, 17.48, 17.48], [6, 1, 18.46, 18.74, 18.64], [6, 2, 18.7, 19.4, 19.4], [6, 3, 20.54, 20.88, 20.8], [6, 4, 20.84, 21.82, 21.64], [6, 5, 21.78, 22.16, 22.16], [7, 0, 23.44, 23.82, 23.66], [7, 1, 23.78, 24.2, 24.2], [7, 2, 25.26, 25.62, 25.48], [7, 3, 25.58, 25.86, 25.76], [7, 4, 25.82, 26.32, 26.32], [8, 0, 27.42, 27.92, 27.8], [8, 1, 27.88, 28.54, 28.54]],au=document.querySelector("audio"),lastI=-2,raf=null,stopAt=null,progSeek=false,hold=false;
 function pick(t){for(var k=0;k<TM.length;k++){if(t>=TM[k][2]&&t<TM[k][3]+0.05)return k}return -1}
 function show1(k){
   document.querySelectorAll(".ws span.pl,.ts.pl").forEach(function(e){e.classList.remove("pl")});
@@ -655,7 +655,7 @@ if(au){
   }catch(e){say("хато ✗ "+e.message)}
 })();
 </script>
-<script>window.HDR={"s0": 3.2, "e": 3.24, "rows": [{"a": "اَلدَّرْسُ الثَّالِثُ", "u": "3-дарс", "t": null}]}</script>
+<script>window.HDR={"s0": 3.2, "e": 4.86, "rows": [{"a": "اَلدَّرْسُ الثَّالِثُ", "u": "3-дарс", "t": [3.2, 4.86]}]}</script>
 <script src="hdr.js"></script>
 <script src="sarflink.js"></script>
 <script>window.TKG={"1": [[1, 1, "шибҳи жумла — маҳзуф хабар (كَائِنٌ) га мутааллиқ", "s"]], "2": [[0, 0, "шибҳи жумла — маҳзуф хабар муқаддам (كَائِنٌ) га мутааллиқ", "s"]], "3": [[0, 1, "шибҳи жумла — маҳзуф хабар муқаддам (كَائِنٌ) га мутааллиқ", "s"]], "4": [[1, 2, "шибҳи жумла — маҳзуф хабар (كَائِنٌ) га мутааллиқ", "s"]], "7": [[3, 4, "шибҳи жумла — маҳзуф хабар (كَائِنٌ) га мутааллиқ", "s"]]};window.TKT={"1": [[1, "Жумлатун исмийя, дуоийя."]], "2": [[1, "Жумлатун исмийя, дуоийя."]], "3": [[2, "Жумлатун исмийя, истифҳомийя."]], "4": [[2, "Жумлатун исмийя, хабарийя."]], "5": [[2, "Жумлатун исмийя, истифҳомийя."]], "6": [[2, "Жумлатун исмийя, хабарийя."], [5, "Жумлатун исмийя, истифҳомийя."]], "7": [[1, "Жумлатун исмийя, хабарийя."], [4, "Жумлатун исмийя, хабарийя."]], "8": [[1, "Жумлатун дуоийя."]]}</script>

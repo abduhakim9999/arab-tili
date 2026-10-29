@@ -23,7 +23,7 @@ SP = {
  18: "Shunda paygʻambar, %s, unga dedilar: Ikkalovini menga olib kel. Soʻng u zotga ikkalovini olib keldi." % SAW,
  19: "Shunda u zot ikkalovini ikki qoʻli orasida ushladi va sahobalariga qarata dedilar: Kim bu ikkisini sotib oladi?",
  20: "Shunda bir kishi turib dedi: Men bir dirhamga ikkisini sotib olaman.",
- 21: "Shunda u zot: Kim bir dirhamdan koʻproq beradi?",
+ 21: "Shunda u zot dedilar: Kim bir dirhamdan koʻproq beradi?",  # u21.mp3
  22: "Shunda boshqa bir kishi oʻrnidan turib dedi: Men ikki dirhamga ikkovini sotib olaman,",
  23: "Paygʻambarga, %s, ikkala dirhamni berdi, u zot esa haligi aʼrobiyga ularni berib, dedilar:" % SAW,
  24: "Ikkalovidan biriga taom sotib ol va uni oilangga olib bor,",

@@ -27,6 +27,11 @@ for i, (a, b) in enumerate(pA + pB):
     src = 'uA.mp3' if i < 15 else 'uB.mp3'; k = 'A' if i < 15 else 'B'
     uz[i + 1] = cut(src, T + '/u%02d.wav' % (i + 1), max(0, a - 0.05), b + 0.08, g_u[k])
 print('uz split', mA, mB)
+# hujjatdan keyin tuzatilgan tarjimalar (alohida yozdirilgan): {qator: fayl}
+OVR = {21: 'u21.mp3'}  # «Шунда у зот дедилар:» — «дедилар» qo'shildi
+for li, f in OVR.items():
+    (a, b), = dp_parts(f, ['x'])
+    uz[li] = cut(f, T + '/u%02d.wav' % li, max(0, a - 0.05), b + 0.08, TGT - lufs(f))
 s1, s2, s3 = sil(T + '/s1.wav', 0.6), sil(T + '/s2.wav', 1.0), sil(T + '/s3.wav', 1.4)
 def build(items, out):
     parts, M, t = [], [], 0.0

@@ -269,10 +269,10 @@
   function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
   function on(b) { return b.classList.contains('on') ? 1 : 0; }
 
-  /* 1) Сукут бўйича ҳаммаси ёқиқ; фойдаланувчи ўзгартирса, барча дарсларда шу эсда туради */
+  /* 1) Сукут бўйича ҳаммаси ўчиқ; фойдаланувчи ўзгартирса, барча дарсларда шу эсда туради */
   var pref = null;
   try { pref = JSON.parse(lsGet(PK) || 'null'); } catch (e) {}
-  if (!pref) pref = { h: 1, t: 1, b: 1 };
+  if (!pref) pref = { h: 0, t: 0, b: 0 };
   ['h', 't', 'b'].forEach(function (k) { if (on(bt[k]) !== (pref[k] ? 1 : 0)) bt[k].click(); });
   ['h', 't', 'b'].forEach(function (k) {
     bt[k].addEventListener('click', function (e) {

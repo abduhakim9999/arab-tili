@@ -84,7 +84,7 @@ body{margin:0;color:var(--tx);font-family:system-ui,-apple-system,sans-serif;pad
 .cd.a .bar{background:rgba(255,255,255,.22)}
 .cd.a .bar i,.bar i{background:linear-gradient(90deg,var(--au2),var(--au1))!important}
 .cd:not(.a){border-color:var(--au2)}
-.cd:not(.a) svg rect,.cd:not(.a) svg path{stroke:var(--au)}
+.cd:not(.a) svg:not(.cov) rect,.cd:not(.a) svg:not(.cov) path{stroke:var(--au)}
 .nm{background:linear-gradient(150deg,var(--em1),var(--em2))!important;color:var(--au1)!important;box-shadow:inset 0 0 0 1.5px rgba(246,220,148,.65)}
 .it{background:var(--cd)}
 .sec{color:var(--au)!important}
@@ -164,6 +164,25 @@ body{margin:0;color:var(--tx);font-family:system-ui,-apple-system,sans-serif;pad
 .ab .x{margin-top:18px;width:100%;padding:12px;border:none;border-radius:12px;background:var(--tint);color:var(--ac);font:600 15px inherit;cursor:pointer}
 .icw{flex:none;display:flex;flex-direction:column;align-items:center;gap:5px}
 .icw b{font-size:13px;font-weight:700;color:var(--ac);white-space:nowrap;line-height:1}
+
+/* bosh sahifa v2: muqovali kartalar, boy «Давом этиш» */
+#ms{font-size:0;height:0;margin:0!important;overflow:hidden}
+.cards{margin-bottom:14px}
+.cd.a.hero{align-items:center;padding:16px 16px 16px 14px;gap:14px}
+.cd.a .cib.hic{width:64px;height:64px;border-radius:18px;box-shadow:inset 0 0 0 1.5px rgba(246,220,148,.6)}
+.cd.a .cib.hic svg{width:46px;height:46px}
+.cd.a.hero .n{font-size:13px;font-weight:600;color:var(--au1)}
+.cd.a .har{font-family:"DarsNaskh","Noto Naskh Arabic",serif;direction:rtl;text-align:right;font-size:25px;line-height:1.5;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cd.a .hs{font-size:13px;opacity:.85;margin:0 0 6px}
+.cd:not(.a){min-height:0;padding:12px 14px 14px}
+.cd .cib.cv{width:58px;height:58px;border-radius:16px;background:var(--cvl)!important;margin-bottom:8px}
+.cd .cib svg.cov{width:46px;height:46px}
+.cd:not(.a) .aw{opacity:1;color:var(--tx);font-size:23px;line-height:1.4;top:22px;right:14px}
+.cd:not(.a) .n{font-size:17px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .cd .cib.cv{background:rgba(255,255,255,.07)!important}}
+:root[data-theme="dark"] .cd .cib.cv{background:rgba(255,255,255,.07)!important}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .it.bk .icw b{filter:brightness(1.8)}}
+:root[data-theme="dark"] .it.bk .icw b{filter:brightness(1.8)}
 </style>
 </head>
 <body>
@@ -174,7 +193,7 @@ body{margin:0;color:var(--tx);font-family:system-ui,-apple-system,sans-serif;pad
     <dl>
       <dt>КИТОБ</dt><dd><bdi class="ar" dir="rtl">نُورُ الطَّالِبِ</bdi></dd>
       <dt>МУАЛЛИФ</dt><dd>Қаҳрамон устоз</dd>
-      <dt>ВЕРСИЯ</dt><dd id="vinfo">v137 · 29.10.2026, 14:57</dd>
+      <dt>ВЕРСИЯ</dt><dd id="vinfo">v138 · 29.10.2026, 15:10</dd>
       <dt>АЛОҚА</dt><dd>Хато ёки таклиф бўлса: <a href="https://t.me/Arabtilihivar_bot">@Arabtilihivar_bot</a></dd>
     </dl>
     <button class="x" onclick="document.getElementById('ab').classList.remove('on')">Ёпиш</button>
@@ -204,27 +223,29 @@ function item(L,txt,cls,w,d,lst){
   return '<a class="it an'+(lst?' lst':'')+'" style="animation-delay:'+d+'s" href="'+L.n+'.html">'+icn(L.n)+'<div class="mid"><div class="ar">'+L.ar+'</div><div class="t">'+L.uz+'</div>'+((txt||lst)?'<div class="pg'+cls+'">'+(lst?'<span class="lsb">▶ Давом этиш</span>':'')+txt+'</div>':'')+(w?'<div class="bar"><i style="width:'+w+'%"></i></div>':'')+'</div></a>';
 }
 /* Феъллар (natijalar feellar.html'dan) */
+function cov(ch,c1,c2,m){return '<svg class="cov" viewBox="0 0 64 64" aria-hidden="true"><rect x="12" y="6" width="40" height="52" rx="5" fill="'+c1+'"/><rect x="12" y="6" width="7" height="52" rx="3" fill="'+c2+'"/><rect x="24" y="12" width="22" height="24" rx="4" fill="none" stroke="#F3D58C" stroke-width="2.2"/><text x="35" y="29" text-anchor="middle" font-size="21" fill="#F3D58C" font-family="DarsNaskh,serif">'+ch+'</text>'+m+'</svg>'}
 var FNS=10,FCL=null;
 function flCard(){
   var b={};try{b=JSON.parse(localStorage.getItem("fl200_best")||"{}")||{}}catch(e){}
   if(FCL){try{var c=JSON.parse(FCL).best||{};for(var k in c)if(b[k]==null||c[k]>b[k])b[k]=c[k]}catch(e){}}
   var n=Object.keys(b).length,txt=n?(n>=FNS?"✓ "+FNS+" / "+FNS+" қисм":"Қисмлар: "+n+" / "+FNS):"200 феъл · "+FNS+" қисм";
-  return '<a class="cd an" style="animation-delay:.2s" href="feellar.html"><span class="cib" style="background:rgba(194,65,12,.12)">'+IC2+'</span><span class="aw">الْأَفْعَالُ</span><div class="n">Феъллар</div><div class="sp"></div><div class="bar"><i style="width:'+Math.round(Math.min(n,FNS)*100/FNS)+'%;background:#c2410c"></i></div></a>';
+  return '<a class="cd an" style="animation-delay:.2s" href="feellar.html"><span class="cib cv" style="--cvl:#F8E4E8">'+cov('ف','#9B2C3F','#6E1C2B','<path d="M29 46l4 4 8-8" stroke="#F3D58C" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>')+'</span><span class="aw">الْأَفْعَالُ</span><div class="n">Феъллар</div><div class="sp"></div><div class="bar"><i style="width:'+Math.round(Math.min(n,FNS)*100/FNS)+'%;background:#c2410c"></i></div></a>';
 }
 /* Сарф bo'limi */
 var IC3='<svg viewBox="0 0 24 24" fill="none" stroke="#0f7a4f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h6a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4z"/><path d="M20 5h-6a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2h6z"/></svg>';
 function srCard(){
   var b=null;try{b=(JSON.parse(localStorage.getItem("sarf-holat")||"{}")||{}).b1}catch(e){}
   var txt=b&&b.best!=null?"1-боб · машқ "+b.best+"%":"Боблар · тусланиш · машқ";
-  return '<a class="cd an" style="animation-delay:.14s" href="sarf.html"><span class="cib" style="background:rgba(15,122,79,.12)">'+IC3+'</span><span class="aw">الصَّرْفُ</span><div class="n">Сарф</div><div class="sp"></div><div class="bar"><i style="width:'+(b&&b.best!=null?b.best:0)+'%"></i></div></a>';
+  return '<a class="cd an" style="animation-delay:.14s" href="sarf.html"><span class="cib cv" style="--cvl:#E6EEF8">'+cov('ص','#2E5E9A','#1F4673','<path d="M26 43h18M26 48h18M26 53h11" stroke="#F3D58C" stroke-width="2" stroke-linecap="round" opacity=".75"/>')+'</span><span class="aw">الصَّرْفُ</span><div class="n">Сарф</div><div class="sp"></div><div class="bar"><i style="width:'+(b&&b.best!=null?b.best:0)+'%"></i></div></a>';
 }
 function heroCard(last,avg){
   var L=null;LESSONS.forEach(function(x){if(String(x.n)===last)L=x});
-  if(!L)L=LESSONS[0];if(!L)return '';
-  var U=UNITS[L.u],bk=U?U[2]:'',has=String(L.n)===last;
+  var has=!!L;if(!L)L=LESSONS[0];if(!L)return '';
+  var U=UNITS[L.u],bk=U?U[2].toLowerCase():'';
   var raw=null;try{raw=localStorage.getItem(L.key)}catch(e){}
   var p=prog(raw,L.q),w=p&&p.done?100:(p&&p.n?Math.round(p.n*100/L.q):0);
-  return '<a class="cd a an" style="animation-delay:.08s" href="'+L.n+'.html"><span class="cib">'+IC1+'</span><div class="tx"><div class="n">'+(has?'Давом этиш':'Бошлаш')+'</div><div class="hs">'+(bk?bk+' · ':'')+L.n+'-дарс</div><div class="bar"><i style="width:'+w+'%"></i></div></div></a>';
+  var I=ICO[L.n],ic=I?'<span class="cib hic" style="background:'+I.l+'"><svg viewBox="0 0 64 64" aria-hidden="true">'+I.s+'</svg></span>':'<span class="cib">'+IC1+'</span>';
+  return '<a class="cd a hero an" style="animation-delay:.08s" href="'+L.n+'.html">'+ic+'<div class="tx"><div class="n">'+(has?'Давом этиш':'Бошлаш')+'</div><div class="har">'+L.ar+'</div><div class="hs">'+(bk?bk+', ':'')+L.n+'-дарс</div><div class="bar"><i style="width:'+w+'%"></i></div></div></a>';
 }
 var LC=null;
 function render(cloud){

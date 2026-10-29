@@ -30,6 +30,10 @@
     '.tkt0.hid{color:var(--mu);border:1px dashed var(--bd);background:none}.tkt0.hid i{font:italic 500 11.5px system-ui,sans-serif}' +
     '.tkq{font:500 12px/1.3 system-ui,-apple-system,sans-serif;color:var(--mu);font-style:italic}.tkd .ar{font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:15px}' +
     '#tx.tartib .ws span.tkh2{background:rgba(42,118,118,.0);box-shadow:inset 0 -3px 0 var(--cj)}' +
+    '.tkg{display:flex;flex-direction:column;gap:6px}.tkg+.tkg{margin-top:4px;padding-top:8px;border-top:1px dashed rgba(15,118,110,.25)}' +
+    '.tkr.g{flex-direction:row;direction:rtl;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;border-right-color:var(--tx);background:none;padding:2px 2px 2px 0;border-right:none}' +
+    '.tkr.g .tka{font-size:calc(var(--fs,22px)*.86)}.tkr.g .tks{direction:ltr;font-size:11.5px!important;padding:5px 10px!important}' +
+    '.tki{display:flex;flex-direction:column;gap:6px;margin-right:12px;padding-right:10px;border-right:2px solid rgba(15,118,110,.18)}' +
     '.tks{align-self:flex-start;font:700 12px/1 system-ui,-apple-system,sans-serif;color:#fff;background:var(--ac);border-radius:999px;padding:6px 11px}' +
     '#tx.tartib .ws span.tkh{background:rgba(15,118,110,.14);border-radius:6px}' +
     '.tkb.s{color:var(--cj)}.tkb.j{color:var(--ac)}.tkb.g{color:var(--tx)}.tkb.g .tkt{font-weight:800}' +
@@ -102,7 +106,7 @@
         if (m && !t.done) {
           t[1] = m[2]; t.st = m[1] || ''; t.done = 1;
         }
-        a0 = t[0] + 1;
+        t.a = a0; a0 = t[0] + 1;
         var e = tx.querySelector('[data-i="' + i + '-' + t[0] + '"]');
         if (!e) return;
         var c = document.createElement('i');
@@ -128,16 +132,25 @@
       var ln = lns[+i]; if (!ln) return;
       var items = (G[i] || []).slice().sort(function (a, b) { return a[0] - b[0] || (b[1] - b[0]) - (a[1] - a[0]) });
       var h = '';
-      items.forEach(function (g, k) {
+      function card(g) {
         var ws = [];
         for (var j = g[0]; j <= g[1]; j++) { var e = ln.querySelector('[data-i="' + i + '-' + j + '"]'); if (e) ws.push(e.textContent) }
         var lab = short(g[2]), m = lab.match(/^(шибҳи жумла|жумла[^,]*|маътуф жумла|сила жумласи|жумлаи ҳолийя)(.*)$/);
         var head = m ? m[1].replace(' → ', '') : lab, rest = m ? m[2] : '';
-        if (g[3] == 's') { h += sj(i, ln, g, ws); return }
-        h += '<div class="tkr ' + g[3] + '" data-a="' + g[0] + '" data-b="' + g[1] + '"><span class="tka">' + ws.join(' ') + '</span>' +
+        if (g[3] == 's') return sj(i, ln, g, ws);
+        return '<div class="tkr ' + g[3] + '" data-a="' + g[0] + '" data-b="' + g[1] + '"><span class="tka">' + ws.join(' ') + '</span>' +
           '<span class="tkd"><b>' + head + '</b>' + rest.replace(/^,\s*/, ' · ').replace(/^\s*→\s*/, ' → ') + '</span></div>';
+      }
+      var used = {}, segs = (T[i] || []).filter(function (t) { return t.st });
+      segs.forEach(function (t) {
+        var ws = [];
+        for (var j = t.a; j <= t[0]; j++) { var e = ln.querySelector('[data-i="' + i + '-' + j + '"]'); if (e) ws.push(e.textContent) }
+        var inner = '';
+        items.forEach(function (g, k) { if (g[0] >= t.a && g[0] <= t[0]) { used[k] = 1; inner += card(g) } });
+        h += '<div class="tkg"><div class="tkr g" data-a="' + t.a + '" data-b="' + t[0] + '"><span class="tka">' + ws.join(' ') + '</span>' +
+          '<span class="tks">Жумлатун ' + t.st + '</span></div>' + (inner ? '<div class="tki">' + inner + '</div>' : '') + '</div>';
       });
-      (T[i] || []).forEach(function (t) { if (t.st) h += '<div class="tks">Жумлатун ' + t.st + '</div>' });
+      items.forEach(function (g, k) { if (!used[k]) h += card(g) });
       if (!h) return;
       var box = document.createElement('div'); box.className = 'tkx'; box.innerHTML = h;
       var trs = ln.querySelectorAll('.tr'), tr = trs[trs.length - 1]; (tr ? tr.parentNode : ln).insertBefore(box, tr);

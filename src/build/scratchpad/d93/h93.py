@@ -54,7 +54,12 @@ def nk(v, role, case, mudaf=False, extra=''):
     c = CASE[case]
     return [al(v), ('музоф бўлиб ' if mudaf else '') + role + ', ' + c[0] + ' қилинган, аломати зоҳирий ' + c[1] + extra]
 def na(v, role_ar, case, mudaf=False, tail=''):
-    return [v, role_ar + ' ' + CASE[case][2] + ('، وَهُوَ مُضَافٌ' if mudaf else '') + tail + '.']
+    c = CASE[case][2]
+    if role_ar == 'صِفَةٌ':  # صِفَةٌ muannas: مَرْفُوعَةٌ … رَفْعِهَا
+        for a, b in (('مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ', 'مَرْفُوعَةٌ وَعَلَامَةُ رَفْعِهَا'), ('مَنْصُوبٌ وَعَلَامَةُ نَصْبِهِ', 'مَنْصُوبَةٌ وَعَلَامَةُ نَصْبِهَا'), ('مَجْرُورٌ وَعَلَامَةُ جَرِّهِ', 'مَجْرُورَةٌ وَعَلَامَةُ جَرِّهَا')):
+            c = c.replace(a, b)
+    if role_ar.endswith('مَجْرُورٌ') and c.startswith('مَجْرُورٌ '): c = c[len('مَجْرُورٌ '):]  # «مَجْرُورٌ مَجْرُورٌ» бўлмасин
+    return [v, role_ar + ' ' + c + ('، وَهُوَ مُضَافٌ' if mudaf else '') + tail + '.']
 
 ROLE = {  # uz, ar, s (rang toifasi)
  'mub': ('мубтадо', 'مُبْتَدَأٌ', 'мубтадо'), 'mubm': ('мубтадо муаххар', 'مُبْتَدَأٌ مُؤَخَّرٌ', 'мубтадо'),

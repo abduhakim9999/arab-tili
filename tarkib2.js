@@ -179,7 +179,7 @@
         var inner = '';
         items.forEach(function (g, k) { if (g[0] >= t.a && g[0] <= t[0]) { used[k] = 1; inner += card(g) } });
         h += '<div class="tkg"><div class="tkr g" data-a="' + t.a + '" data-b="' + t[0] + '"><span class="tka">' + ws.join(' ') + '</span>' +
-          '<span class="tks">Жумлатун ' + t.st + '</span></div>' + (inner ? '<div class="tki">' + inner + '</div>' : '') + '</div>';
+          '<span class="tks">' + t.st + '</span></div>' + (inner ? '<div class="tki">' + inner + '</div>' : '') + '</div>';
       });
       items.forEach(function (g, k) { if (!used[k]) h += card(g) });
       if (!h) return;

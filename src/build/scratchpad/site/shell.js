@@ -386,3 +386,14 @@
   window.addEventListener('resize', fit);
   if (pb && window.ResizeObserver) new ResizeObserver(fit).observe(pb);
 })();
+
+/* --- «?» ичида версия ва янгиланган вақт (bump.sh ўзи ёзади) --- */
+(function () {
+  var VINFO = 'v131 · 29.10.2026, 13:51';
+  var hp = document.querySelector('.hpop');
+  if (!hp) return;
+  var d = document.createElement('div');
+  d.className = 'vinfo';
+  d.textContent = 'Версия ' + VINFO.replace(/^v/, '');
+  hp.appendChild(d);
+})();

@@ -410,3 +410,29 @@
   };
   if (window.au) au.addEventListener('play', function () { pick = null });
 })();
+
+/* --- Ранглар изоҳи (легенда): одатда ёпиқ, 🎨 тугмаси билан очилади; ҳолати шу браузерда сақланади --- */
+(function () {
+  var lg = document.getElementById('lg');
+  if (!lg || !lg.parentNode) return;
+  var K = 'lgo';
+  function get() { try { return localStorage.getItem(K) == '1'; } catch (e) { return false; } }
+  function put(v) { try { localStorage.setItem(K, v ? '1' : '0'); } catch (e) {} }
+  var b = document.createElement('button');
+  b.type = 'button'; b.className = 'lgb';
+  lg.parentNode.insertBefore(b, lg);
+  function draw() {
+    var o = lg.classList.contains('lgo');
+    b.textContent = o ? '🎨 Ранглар ▴' : '🎨 Ранглар ▾';
+    b.classList.toggle('op', o);
+    b.setAttribute('aria-expanded', o ? 'true' : 'false');
+    b.classList.toggle('on', lg.classList.contains('on'));
+  }
+  if (get()) lg.classList.add('lgo');
+  b.addEventListener('click', function () {
+    var o = !lg.classList.contains('lgo');
+    lg.classList.toggle('lgo', o); put(o); draw();
+  });
+  if (window.MutationObserver) new MutationObserver(draw).observe(lg, { attributes: true, attributeFilter: ['class'] });
+  draw();
+})();

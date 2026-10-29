@@ -257,3 +257,112 @@
     }
   }
 })();
+
+/* --- Биринчи очилиш: интерактив тур + Ҳаракат/Таржима/Таркиб ни эслаб қолиш --- */
+(function () {
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var bt = { h: $('#tg'), t: $('#tt'), b: $('#bl') };
+  if (!bt.h || !bt.t || !bt.b || !$('.tabs')) return;
+  var RM = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var PK = 'fe-pref', TK = 'fe-tour';
+  function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function on(b) { return b.classList.contains('on') ? 1 : 0; }
+
+  /* 1) Сукут бўйича ҳаммаси ёқиқ; фойдаланувчи ўзгартирса, барча дарсларда шу эсда туради */
+  var pref = null;
+  try { pref = JSON.parse(lsGet(PK) || 'null'); } catch (e) {}
+  if (!pref) pref = { h: 1, t: 1, b: 1 };
+  ['h', 't', 'b'].forEach(function (k) { if (on(bt[k]) !== (pref[k] ? 1 : 0)) bt[k].click(); });
+  ['h', 't', 'b'].forEach(function (k) {
+    bt[k].addEventListener('click', function (e) {
+      if (!e.isTrusted) return;
+      lsSet(PK, JSON.stringify({ h: on(bt.h), t: on(bt.t), b: on(bt.b) }));
+    });
+  });
+
+  /* 2) Тур */
+  var STEPS = [
+    ['#tg', 'Ҳаракат', 'Босинг — ҳарфлардаги ҳаракатлар (фатҳа, замма, касра) ёқилади ёки ўчади.'],
+    ['#tt', 'Таржима', 'Ҳар гапнинг ўзбекча таржимасини кўрсатади ёки яширади.'],
+    ['#bl', 'Таркиб', 'Сўзлар ранги ва гап тузилишини кўрсатади.'],
+    ['.pbar', 'Овоз', 'Дарсни тинглаш: ▶ тугмаси билан бошланади ва тўхтайди; чизиқ орқали жойини суриш мумкин.'],
+    ['.dh .q', 'Ёрдам', 'Босиб туриш ва суриш каби йўриқлар шу ерда. Бу турни ҳам шу ердан қайта очасиз.']
+  ];
+  var ov = null, sp, cd, si = 0;
+
+  function target(i) {
+    var el = $(STEPS[i][0]);
+    if (!el) return null;
+    var r = el.getBoundingClientRect();
+    return (r.width && r.height) ? el : null;
+  }
+  function place() {
+    if (!ov) return;
+    var el = target(si);
+    if (!el) { go(1); return; }
+    var r = el.getBoundingClientRect(), vw = window.innerWidth, vh = window.innerHeight, pd = 6;
+    sp.style.left = (r.left - pd) + 'px'; sp.style.top = (r.top - pd) + 'px';
+    sp.style.width = (r.width + pd * 2) + 'px'; sp.style.height = (r.height + pd * 2) + 'px';
+    var cw = cd.offsetWidth, ch = cd.offsetHeight;
+    var x = Math.min(Math.max(16, r.left + r.width / 2 - cw / 2), vw - cw - 16);
+    var y = (r.bottom + pd + 12 + ch < vh) ? r.bottom + pd + 12 : Math.max(12, r.top - pd - 12 - ch);
+    cd.style.left = x + 'px'; cd.style.top = y + 'px';
+  }
+  function show() {
+    var s = STEPS[si], last = true, j;
+    for (j = si + 1; j < STEPS.length; j++) if (target(j)) { last = false; break; }
+    var vis = [], pos = 0;
+    STEPS.forEach(function (x, k) { if (target(k)) { vis.push(k); if (k <= si) pos = vis.length; } });
+    $('.tn', cd).textContent = pos + ' / ' + vis.length;
+    $('.th', cd).textContent = s[1];
+    $('.tp', cd).textContent = s[2];
+    $('.tnx', cd).textContent = last ? 'Тайёр' : 'Кейинги';
+    var el = target(si);
+    if (el && el.scrollIntoView) el.scrollIntoView({ block: 'nearest' });
+    place();
+  }
+  function go(d) {
+    var n = si + d;
+    while (n >= 0 && n < STEPS.length && !target(n)) n += d;
+    if (n < 0) return;
+    if (n >= STEPS.length) { close(); return; }
+    si = n; show();
+  }
+  function onKey(e) { if (e.key === 'Escape') close(); }
+  function close() {
+    if (!ov) return;
+    ov.remove(); ov = null;
+    document.removeEventListener('keydown', onKey);
+    window.removeEventListener('resize', place);
+    lsSet(TK, '1');
+  }
+  function open() {
+    if (ov) return;
+    if (typeof window.tab === 'function') window.tab(1);
+    var hp = $('.hpop'), q = $('.dh .q');
+    if (hp) hp.classList.remove('on');
+    if (q) q.classList.remove('on');
+    ov = document.createElement('div');
+    ov.className = 'tour';
+    ov.innerHTML = '<div class="tsp"></div><div class="tcd" role="dialog"><div class="tn"></div><b class="th"></b><p class="tp"></p>' +
+      '<div class="tb"><button type="button" class="tsk">Ўтказиб юбориш</button><button type="button" class="tnx"></button></div></div>';
+    document.body.appendChild(ov);
+    sp = $('.tsp', ov); cd = $('.tcd', ov);
+    $('.tsk', ov).addEventListener('click', close);
+    $('.tnx', ov).addEventListener('click', function () { go(1); });
+    document.addEventListener('keydown', onKey);
+    window.addEventListener('resize', place);
+    si = -1; go(1);
+  }
+
+  /* «?» ичидан қайта очиш */
+  var hp0 = $('.hpop');
+  if (hp0) {
+    var rb = document.createElement('button');
+    rb.type = 'button'; rb.className = 'tourbtn'; rb.textContent = '🧭 Турни қайта кўриш';
+    rb.addEventListener('click', function (e) { e.stopPropagation(); open(); });
+    hp0.appendChild(rb);
+  }
+  if (!lsGet(TK)) setTimeout(open, 700);
+})();

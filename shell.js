@@ -387,3 +387,26 @@
   if (pb && window.ResizeObserver) new ResizeObserver(fit).observe(pb);
 })();
 
+
+/* --- Белгиланган сўздан «Play»: сўз (ёки таржима бўлаги) босилгач, Play ўша сўздан бошланади --- */
+(function () {
+  if (typeof window.ppl != 'function' || typeof window.hl != 'function') return;
+  var pick = null, oh = window.hl, op = window.ppl;
+  window.hl = function (l, ws) {
+    var r = oh.apply(this, arguments);
+    pick = ws && ws.length ? [l, Math.min.apply(null, ws)] : null;
+    return r;
+  };
+  window.ppl = function () {
+    var p = pick; pick = null;
+    if (p && window.au && au.paused && window.TM) {
+      for (var k = 0; k < TM.length; k++) if (TM[k][0] == p[0] && TM[k][1] == p[1]) {
+        if (window.loopL >= 0 && typeof setLoop == 'function') setLoop(-1);
+        progSeek = true; stopAt = null; au.currentTime = Math.max(0, TM[k][2] - 0.05);
+        break;
+      }
+    }
+    return op.apply(this, arguments);
+  };
+  if (window.au) au.addEventListener('play', function () { pick = null });
+})();

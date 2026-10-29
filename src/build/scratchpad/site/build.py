@@ -4,7 +4,7 @@ import tarkib
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.environ.get('OUT') or '/mnt/user-data/outputs/arab-tili'
-VER = '126'
+VER = '127'
 
 LESSONS = [
     # (raqam, manba, sarlavha, arabcha sarlavha, kalit, savollar soni)
@@ -33,7 +33,7 @@ U22 = ('الْوَحْدَةُ الثَّانِيَةُ: التَّرْوِيح�
 U26 = ('الْوَحْدَةُ السَّادِسَةُ: الْمِهَنُ', '6-боб: Касблар')
 # Dars boshi: bismillah, keyin dars raqami va mavzu. Ваҳда nomi faqat ваҳданинг 1-darsida (SHOWU) yoziladi.
 SHOWU = {1, 70, 74}
-TKNEW = {1}
+TKNEW = {l[0] for l in LESSONS}  # Таркиб: yangi ko'rinish (tarkib2.js) — hamma darslarda
 TOPIC = {1: 'topic_hiwar.mp3', 2: 'topic_hiwar.mp3', 3: 'topic_hiwar.mp3', 4: 'topic_hiwar.mp3'}  # МАВЗУ (حِوَارْ) ovozi — ElevenLabs Mehdi VO, vaqf bilan; sarlavhadan keyin qo'shiladi  # Таркиб'нинг янги кўриниши (tarkib2.js) — синов
 LN = {3: 'اَلدَّرْسُ الثَّالِثُ', 4: 'اَلدَّرْسُ الرَّابِعُ'}  # 3–4-darslar: raqam ElevenLabs (Mehdi) bilan qo'shilgan (hdr/mk_hnum.py); h3/h4 dagi eski «الْحِوَارُ» (cf[2]…) kesiladi, mavzu — matndagi حِوَارٌ
 HDR = {3: (('الْحِوَارُ', 'Суҳбат'), ''), 4: (('الْحِوَارُ', 'Суҳбат'), ''), 1: (U1, 'اَلدَّرْسُ الْأَوَّلُ'), 2: (U1, 'اَلدَّرْسُ الثَّانِي'), 70: (U21, 'اَلدَّرْسُ السَّبْعُونَ'), 71: (U21, 'اَلدَّرْسُ الْحَادِي وَالسَّبْعُونَ'),

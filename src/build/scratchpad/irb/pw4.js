@@ -1,0 +1,10 @@
+const {chromium}=require('playwright');
+(async()=>{const b=await chromium.launch({executablePath:'/opt/pw-browsers/chromium'});
+const p=await b.newPage({viewport:{width:390,height:1600},deviceScaleFactor:2});
+const errs=[];p.on('pageerror',e=>errs.push(e.message));
+await p.goto('file:///mnt/user-data/outputs/lesson92/index.html');await p.waitForTimeout(1200);
+await p.addStyleTag({content:'.sheet{max-height:none!important}'});
+await p.evaluate(()=>op(document.querySelector('[data-i="6-3"]')));await p.waitForTimeout(200);
+await p.click('.qmb');await p.waitForTimeout(200);
+const el=await p.$('.qmx');await el.screenshot({path:'shots/qm.png'});
+console.log(errs);await b.close()})();

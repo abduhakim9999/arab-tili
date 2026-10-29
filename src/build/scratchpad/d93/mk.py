@@ -1,0 +1,5 @@
+exec(open('../d71/data71.py',encoding='utf-8').read())
+exec(open('h93.py',encoding='utf-8').read())
+exec(open('data93.py',encoding='utf-8').read())
+T=align_tokens(L); print(len(T))
+open('/home/claude/arab-tili/align/in/c93.txt','w',encoding='utf-8').write(' '.join(t for _,t in T))

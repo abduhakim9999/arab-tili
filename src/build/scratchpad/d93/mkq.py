@@ -1,0 +1,5 @@
+exec(open('../d71/data71.py',encoding='utf-8').read())
+exec(open('h93.py',encoding='utf-8').read())
+exec(open('data93.py',encoding='utf-8').read())
+T=[w['v'] for li in range(2,8) for w in L[li][1]]; print(len(T))
+open('/home/claude/arab-tili/align/in/q93.txt','w',encoding='utf-8').write(' '.join(T))

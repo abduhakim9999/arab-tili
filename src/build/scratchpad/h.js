@@ -1,0 +1,6 @@
+const fs=require('fs');let src=fs.readFileSync(process.env.SRC||'main92.js','utf8');
+const st={};function el(id){return st[id]||(st[id]={classList:{toggle(){},add(){},remove(){},contains(){return false}},style:{},addEventListener(){},setAttribute(){},getAttribute(){return ""},querySelectorAll(){return []},querySelector(){return null},closest(){return null},offsetHeight:0,set innerHTML(v){this._h=v},get innerHTML(){return this._h}})}
+global.document={getElementById:el,querySelector(){return {addEventListener(){},classList:{add(){}},style:{}}},querySelectorAll(){return []},addEventListener(){},documentElement:{style:{setProperty(){}}}};global.window={innerHeight:800,addEventListener(){},scrollTo(){}};global.screen={height:800,availHeight:780};global.setTimeout=()=>0;global.requestAnimationFrame=()=>1;global.cancelAnimationFrame=()=>0;
+src+=';global.R={CAT,get,D,irb,TRK,ANS,info,wparts,qpool:typeof qpool!="undefined"?qpool:null,IRB:typeof IRB!="undefined"?IRB:null,op:op,qans:typeof qans!="undefined"?qans:null};';new Function(src)();
+R.st=st;module.exports=R;
+if(require.main===module){R.D.forEach(function(l,i){l[1].split("/").forEach(function(w,j){var o=R.get(i+"-"+j);console.log(i+"-"+j,o.c,o.v,"|",o.ty,"|",o.role)})})}

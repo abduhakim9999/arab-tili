@@ -1,0 +1,10 @@
+const {chromium}=require('playwright');
+(async()=>{const b=await chromium.launch({executablePath:'/opt/pw-browsers/chromium'});
+const p=await b.newPage({viewport:{width:390,height:1400}});
+await p.goto('file:///mnt/user-data/outputs/lesson70/index.html');await p.waitForTimeout(2000);
+console.log(await p.evaluate(()=>document.fonts.check('22px DarsNaskh')+' '+[...document.fonts].map(f=>f.family+':'+f.status).join(',')));
+await p.evaluate(()=>{tog();bol();var e=document.querySelectorAll('.ln')[13];window.scrollTo(0,e.getBoundingClientRect().top+scrollY-120)});
+await p.waitForTimeout(400);await p.screenshot({path:'m1.png'});
+await p.evaluate(()=>{op(document.querySelector('[data-i="15-2"]'));document.querySelectorAll('#sb button').forEach(function(b){if(b.nextSibling&&b.nextSibling.classList)b.click()})});
+await p.waitForTimeout(300);await p.screenshot({path:'m2.png'});
+await b.close()})();

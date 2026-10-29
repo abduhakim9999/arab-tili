@@ -1,0 +1,12 @@
+const {chromium}=require('playwright');
+(async()=>{const b=await chromium.launch({executablePath:'/opt/pw-browsers/chromium'});
+const p=await b.newPage({viewport:{width:390,height:900}});const errs=[];p.on('pageerror',e=>errs.push(String(e)));
+await p.goto('file:///mnt/user-data/outputs/lesson91new/index.html');await p.waitForTimeout(1500);
+const r=await p.evaluate(()=>{var o={bad:[]};document.querySelectorAll('#tx .ws span[data-i]').forEach(function(s){var k=s.getAttribute('data-i');try{op(s);var h=document.getElementById('sb').innerHTML;if(/undefined|NaN/.test(h))o.bad.push(k)}catch(e){o.bad.push(k+':'+e.message)}});
+ var bw={};['13-7','14-12','15-0','15-1','16-12','17-10','19-3','19-13','19-27','19-31','12-1','14-19'].forEach(function(k){op(document.querySelector('[data-i="'+k+'"]'));var sb=document.getElementById('sb');bw[k]=sb.querySelector('.big').textContent+' | '+sb.querySelector('.hk').textContent});o.bw=bw;
+ var c={};document.querySelectorAll('#tx .ws span[data-i]').forEach(function(s){var k=s.getAttribute('data-i');c[k]=(s.className.replace('on','').trim())});o.cat=c;
+ tab(3);o.qn=QZ.length;var P=[];Object.keys(TRK).forEach(function(k){var x=qends(k);P.push(k+':'+(x?x.map(function(y){return y.w}).join(','):'NULL'))});o.pool=P;
+ tab(2);o.voc=document.querySelectorAll('#p2 .g').length;return o});
+console.log(JSON.stringify(r),errs);
+await p.evaluate(()=>{tab(1);op(document.querySelector('[data-i="17-10"]'));document.querySelectorAll('#sb .qmb').forEach(function(b,i){if(i<2)b.click()})});await p.waitForTimeout(300);
+await p.screenshot({path:'g1.png'});await b.close()})();

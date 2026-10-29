@@ -1,0 +1,12 @@
+const { chromium } = require('playwright');
+(async () => { const b = await chromium.launch(); const ctx=await b.newContext({viewport:{width:390,height:820}}); const p = await ctx.newPage();
+  const errs=[]; p.on('pageerror',e=>errs.push(e.message)); const U='http://localhost:8766/';
+  await p.goto(U+'93.html'); await p.waitForTimeout(800); await p.evaluate(()=>{au.currentTime=60;window.scrollTo(0,1500)}); await p.waitForTimeout(800);
+  await p.evaluate(()=>window.dispatchEvent(new Event('pagehide')));
+  await p.goto(U+'2.html'); await p.waitForTimeout(800);
+  await p.goto(U+'93.html'); await p.waitForTimeout(1200);
+  console.log('93 qayta:', await p.evaluate(()=>[au.currentTime.toFixed(1), Math.round(document.scrollingElement.scrollTop)]));
+  await p.evaluate(()=>{au.currentTime=40;window.scrollTo(0,900)}); await p.waitForTimeout(600); await p.evaluate(()=>window.dispatchEvent(new Event('pagehide')));
+  await p.goto(U+'93.html'); await p.waitForTimeout(1200);
+  console.log('93 shu dars:', await p.evaluate(()=>[au.currentTime.toFixed(1), Math.round(document.scrollingElement.scrollTop)]));
+  console.log(errs); await b.close(); })();

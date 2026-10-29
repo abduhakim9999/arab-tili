@@ -1,0 +1,2 @@
+const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:390,height:844},deviceScaleFactor:1.2});
+await p.goto('http://localhost:8811/index.html');await p.evaluate(()=>{localStorage.setItem('oxirgi-dars','73');localStorage.setItem('dars71-holat',JSON.stringify({open:1}))});await p.reload();await p.waitForTimeout(1500);await p.evaluate(()=>scrollTo(0,330));await p.waitForTimeout(400);await p.screenshot({path:'s_h5.png'});await b.close()})();

@@ -1,0 +1,13 @@
+const {chromium}=require('playwright');
+(async()=>{const b=await chromium.launch({executablePath:'/opt/pw-browsers/chromium'});
+const p=await b.newPage({viewport:{width:390,height:1700},deviceScaleFactor:2});
+const errs=[];p.on('pageerror',e=>errs.push(e.message));
+await p.goto('file:///mnt/user-data/outputs/lesson92/index.html');await p.waitForTimeout(1200);
+const r=await p.evaluate(()=>{var bad=[];document.querySelectorAll('#tx .ws span[data-i]').forEach(function(e){try{op(e);var h=document.getElementById('sb').innerHTML;if(h.indexOf('Арабча иъроб')<0||h.indexOf('undefined')>=0)bad.push(e.getAttribute('data-i'))}catch(x){bad.push(e.getAttribute('data-i')+':'+x.message)}});return [document.querySelectorAll('#tx .ws span[data-i]').length,bad]});
+console.log(r);
+await p.evaluate(()=>{document.getElementById('sh').classList.remove('on');tab(3);QZ=[{l:6,w:4,o:qends("6-4")}];qi=0;qshow()});
+await p.waitForTimeout(200);await p.click('.qo button:nth-child(2)');await p.waitForTimeout(200);
+await (await p.$('.qbox')).screenshot({path:'shots/q2.png'});
+await p.evaluate(()=>qnext());await p.waitForTimeout(200);
+await (await p.$('.qbox')).screenshot({path:'shots/q3.png'});
+console.log('errors',errs);await b.close()})();

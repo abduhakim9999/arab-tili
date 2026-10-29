@@ -31,3 +31,7 @@ Agar `/tmp/...` yo'liga yozib bo'lmasa, skriptlardagi `S` yo'lini yangisiga alma
 3. `python3 genNN.py` → `/mnt/user-data/outputs/lessonNN/index.html`.
 4. `site/build.py`: `LESSONS`, `UNIT`, kerak bo'lsa `HDR`/`DROP0` ga qo'shing, `VER` ni oshiring. Dars ikonkasi `site/index.tpl.html` dagi `ICO` da turadi.
 5. `python3 build.py && python3 ../sarf/build_sarf.py /mnt/user-data/outputs/arab-tili/sarf.html`, keyin `/mnt/user-data/outputs/arab-tili/.` ni repoga nusxalab push qiling.
+
+## Eslatma (29.10.2026)
+Manba yorliqlari («Китобда йўқ», «Бизнинг китобда (N)», «ҳужжатдаги…», «Дарс ҳужжатида…») sahifalardan to'g'ridan-to'g'ri olib tashlangan.
+Generator skriptlarda (d03, d04, d73, a70, irb/*92*, site/build.py) ular hali bor — darsni qayta yasasangiz, yorliqlarni ham olib tashlang.

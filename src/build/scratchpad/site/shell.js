@@ -389,7 +389,7 @@
 
 /* --- «?» ичида версия ва янгиланган вақт (bump.sh ўзи ёзади) --- */
 (function () {
-  var VINFO = 'v132 · 29.10.2026, 14:30';
+  var VINFO = 'v133 · 29.10.2026, 14:35';
   var hp = document.querySelector('.hpop');
   if (!hp) return;
   var d = document.createElement('div');

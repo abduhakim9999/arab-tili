@@ -35,3 +35,10 @@ Agar `/tmp/...` yo'liga yozib bo'lmasa, skriptlardagi `S` yo'lini yangisiga alma
 ## Eslatma (29.10.2026)
 Manba yorliqlari («Китобда йўқ», «Бизнинг китобда (N)», «ҳужжатдаги…», «Дарс ҳужжатида…») sahifalardan to'g'ridan-to'g'ri olib tashlangan.
 Generator skriptlarda (d03, d04, d73, a70, irb/*92*, site/build.py) ular hali bor — darsni qayta yasasangiz, yorliqlarni ham olib tashlang.
+
+## Eslatma (29.10.2026, kechki)
+- GT (gap turi) — har gapning OXIRGI so'z raqami. 74/93-darslarda boshi yozilgan edi, oxiriga o'girildi (gen74.py, gen93.py).
+- `site/tarkib.py`: ST_FIX (gap → исмийя/феълийя) va SJ_FIX (shibh jumla → yashirin so'z) — qo'lda qarorlar, qayta yasaganda saqlanadi.
+- Rang yorlig'i CM da bo'lmasa so'z rangsiz qoladi: genNN.py dagi CM ga qo'shing yoki `CATOV.update(...)`.
+- Versiya: repo ildizidan `sh src/build/bump.sh` (VER, sw.js, bosh sahifa «i» oynasi).
+- Batafsil qoidalar: loyiha hujjati claude/texnik-eslatma.md.

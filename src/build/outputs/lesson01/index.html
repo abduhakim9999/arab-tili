@@ -236,7 +236,7 @@ var QMP={"0-0": ["MUBXAB"], "1-0": ["MUBXAB"], "1-1": ["JARR", "PRON"], "2-0": [
 var CK=[[], [], [], [], [], [], [], []];
 
 /* gap bo'laklari: m=mubtado(inna ismi) x=xabar f=fe'l o=foil b=maf'ul bih j=jar-majrur h=zarf/hol */
-var CATOV={"0-0": "x", "1-0": "m", "1-1": "j", "2-1": "m", "3-0": "m", "3-1": "x", "3-2": "m", "3-3": "x", "4-0": "m", "4-1": "x", "5-0": "x", "5-1": "m", "6-0": "x", "6-1": "m", "6-2": "j", "6-4": "m", "7-0": "x", "7-1": "m", "7-2": "j"},CAT={},bolak=false;
+var CATOV={"0-0": "x", "1-0": "m", "1-1": "j", "2-0": "j", "2-1": "m", "3-0": "m", "3-1": "x", "3-2": "m", "3-3": "x", "4-0": "m", "4-1": "x", "5-0": "x", "5-1": "m", "6-0": "x", "6-1": "m", "6-2": "j", "6-4": "m", "7-0": "x", "7-1": "m", "7-2": "j"},CAT={},bolak=false;
 function catOf(o){
   var ty=o.ty||"",r=o.role||"";
   if(/[Фф]еъл/.test(ty))return "f";

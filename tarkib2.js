@@ -80,10 +80,12 @@
     return '';
   }
   /* маҳзуф сўз гап ичида: шибҳи жумладан олдин (вَ/فَ дан кейин) */
+  /* тақдир сўзи: «бўлмиш (маҳзуф) X» ёки «(X)», бўлмаса биринчи арабча сўз */
+  function tq(src) { return src.match(/бўлмиш (?:маҳзуф )?([؀-ۿ]+)/) || src.match(/\(([؀-ۿ]+)\)/) || src.match(/([؀-ۿ]+)/) }
   function ghost(g) {
     var src = g[2].replace(/^шибҳи жумла — ?/, '').replace(/ ?га мутааллиқ$/, '');
     if (!/маҳзуф/.test(src)) return '';
-    var k = src.match(/([؀-ۿ]+)/); return k ? k[1] : '';
+    var k = tq(src); return k ? k[1] : '';
   }
   var ZW = ['في', 'على', 'علي', 'الى', 'الي', 'لدي', 'من', 'عن', 'مع', 'عند', 'لدى', 'فوق', 'تحت', 'امام', 'خلف', 'بين', 'قبل', 'بعد', 'حول', 'ل', 'ب', 'ك'];
   /* so'z matnni tepadagi rangda (p? klassi bilan) */
@@ -96,7 +98,7 @@
   }
   /* шибҳи жумла изоҳи: рамкада кўриниб турган сўз такрорланмайди */
   function sjd(src) {
-    var d = src.replace(/\s*бўлмиш маҳзуф\s+[؀-ۿ]+/, ' бўлмиш маҳзуф').replace(/\s*\([؀-ۿ\s]+\)/g, '').replace(/\s*(га)?\s*мутааллиқ\.?$/, '').trim();
+    var d = src.replace(/\s*бўлмиш маҳзуф\s+[؀-ۿ]+/, ' бўлмиш маҳзуф').replace(/\s*бўлмиш\s+[؀-ۿ]+/, '').replace(/\s*\([؀-ۿ\s]+\)/g, '').replace(/\s*(га)?\s*мутааллиқ\.?$/, '').trim();
     if (/^маҳзуф [؀-ۿ]+$/.test(d)) return 'маҳзуф феъл';
     return d.replace(/([؀-ۿ]+)/g, '<bdi class="ar">$1</bdi>');
   }
@@ -108,12 +110,14 @@
       [].some.call(ln.querySelectorAll('.ws span[data-i]'), function (e) { var q = e.getAttribute('data-i').split('-'); if (bare(e.textContent).slice(-tb.length) == tb || bare(e.textContent) == tb) { ti = +q[1]; tgt = e.textContent; cls = (e.className.match(/\bp[a-z]\b/) || [''])[0]; return true } });
       if (!tgt) tgt = a[1];
     } else {
-      var k = src.match(/([؀-ۿ]+)/);
+      var k = tq(src);
       hid = src.replace(/\s*\([^)]*\)/, '').replace(/[؀-ۿ]+/g, '').replace(/\s+/g, ' ').trim();
       tgt = k ? k[1] : '';
     }
     var first = ln.querySelector('[data-i="' + i + '-' + g[0] + '"]'), z = IRB[i + '-' + g[0]] && /зарф/.test(IRB[i + '-' + g[0]].s || '');
     var q = qword(first ? first.textContent : ws[0], z);
+    if (src && !tgt && !/маҳзуф/.test(src)) return '<div class="tkr s" data-a="' + g[0] + '" data-b="' + g[1] + '"><span class="tka">' + ws.join(' ') + '</span>' +
+      '<span class="tkd"><b>шибҳи жумла</b> · ' + sjd(src) + '</span></div>';
     if (!src || src == 'шибҳи жумла') return '<div class="tkr s" data-a="' + g[0] + '" data-b="' + g[1] + '"><span class="tka">' + ws.join(' ') + '</span>' +
       '<span class="tkd"><b>шибҳи жумла</b></span></div>';
     var tg = hid ? '<span class="tkt0 hid">' + (tgt || '…') + '</span>' : '<span class="tkt0 ' + cls + '">' + tgt + '</span>';

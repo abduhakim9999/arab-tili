@@ -48,6 +48,7 @@ body{margin:0;color:var(--tx);font-family:system-ui,-apple-system,sans-serif;pad
 .cd .aw{position:absolute;top:18px;right:16px;font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:24px;opacity:.28;color:var(--ac);direction:rtl}
 .cd.a{grid-column:1/-1;min-height:0;flex-direction:row;align-items:center;gap:14px;padding:16px;background:linear-gradient(135deg,var(--em1,#13865a),var(--em2,#0c5e3f));border-color:transparent;color:#fff}
 .cd.a .cib{background:rgba(255,255,255,.16);margin:0;width:52px;height:52px;flex-shrink:0}
+.cd.a .hs{font-size:13px;opacity:.85;margin:2px 0 6px}
 .cd.a .cib svg{width:28px;height:28px}
 .cd.a .tx{flex:1;min-width:0}
 .cd.a .aw{opacity:.2;font-size:30px;bottom:auto;top:50%;transform:translateY(-50%);right:18px}
@@ -216,6 +217,14 @@ function srCard(){
   var txt=b&&b.best!=null?"1-боб · машқ "+b.best+"%":"Боблар · тусланиш · машқ";
   return '<a class="cd an" style="animation-delay:.14s" href="sarf.html"><span class="cib" style="background:rgba(15,122,79,.12)">'+IC3+'</span><span class="aw">الصَّرْفُ</span><div class="n">Сарф</div><div class="sp"></div><div class="bar"><i style="width:'+(b&&b.best!=null?b.best:0)+'%"></i></div></a>';
 }
+function heroCard(last,avg){
+  var L=null;LESSONS.forEach(function(x){if(String(x.n)===last)L=x});
+  if(!L)L=LESSONS[0];if(!L)return '';
+  var U=UNITS[L.u],bk=U?U[2]:'',has=String(L.n)===last;
+  var raw=null;try{raw=localStorage.getItem(L.key)}catch(e){}
+  var p=prog(raw,L.q),w=p&&p.done?100:(p&&p.n?Math.round(p.n*100/L.q):0);
+  return '<a class="cd a an" style="animation-delay:.08s" href="'+L.n+'.html"><span class="cib">'+IC1+'</span><div class="tx"><div class="n">'+(has?'Давом этиш':'Бошлаш')+'</div><div class="hs">'+(bk?bk+' · ':'')+L.n+'-дарс</div><div class="bar"><i style="width:'+w+'%"></i></div></div></a>';
+}
 var LC=null;
 function render(cloud){
   if(cloud)LC=cloud;else cloud=LC;
@@ -257,7 +266,7 @@ function render(cloud){
   }
   var avg=LESSONS.length?Math.round(sum/LESSONS.length):0;
   var t='<div class="cards">'+
-    '<a class="cd a an" style="animation-delay:.08s" href="#ms"><span class="cib">'+IC1+'</span><div class="tx"><div class="n">Матнлар</div><div class="bar"><i style="width:'+avg+'%"></i></div></div></a>'+
+    heroCard(last,avg)+
     srCard()+flCard()+
     '</div>';
   document.getElementById("top").innerHTML=t;

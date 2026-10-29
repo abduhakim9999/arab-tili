@@ -103,12 +103,12 @@
     var first = ln.querySelector('[data-i="' + i + '-' + g[0] + '"]'), z = IRB[i + '-' + g[0]] && /зарф/.test(IRB[i + '-' + g[0]].s || '');
     var q = qword(first ? first.textContent : ws[0], z);
     if (!src || src == 'шибҳи жумла') return '<div class="tkr s" data-a="' + g[0] + '" data-b="' + g[1] + '"><span class="tka">' + ws.join(' ') + '</span>' +
-      '<span class="tkd"><b>шибҳи жумла</b></span>' + (q ? '<span class="tkq">Савол: ' + q + '</span>' : '') + '</div>';
+      '<span class="tkd"><b>шибҳи жумла</b></span></div>';
     var tg = hid ? '<span class="tkt0 hid">' + (tgt || '…') + '</span>' : '<span class="tkt0 ' + cls + '">' + tgt + '</span>';
     return '<div class="tkr s" data-a="' + g[0] + '" data-b="' + g[1] + '"' + (ti >= 0 ? ' data-t="' + ti + '"' : '') + '>' +
       '<div class="tkl2">' + tg + '<span class="tkar">→</span><span class="tka">' + ws.join(' ') + '</span></div>' +
       '<span class="tkd"><b>шибҳи жумла</b> · ' + (hid ? hid + (tgt ? ' (<bdi class="ar">' + tgt + '</bdi>)' : '') + ' га мутааллиқ, у яширин' : '<bdi class="ar">' + tgt + '</bdi> га мутааллиқ') + '</span>' +
-      (q && !hid ? '<span class="tkq">Савол: ' + q + '</span>' : '') + '</div>';
+      '</div>';
   }
   /* хабар ўрнидаги жар ва мажрур: ранги ўзиники, остида хабар рангидаги нуқтали чизиқ */
   function kx() {

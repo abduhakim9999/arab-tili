@@ -184,6 +184,8 @@ CATOV = {}
 for li, (sp, ws, tr) in enumerate(L):
     for wi, w in enumerate(ws):
         if w['s'] in CM: CATOV['%d-%d' % (li, wi)] = CM[w['s']]
+# qo'lda: qator boshidagi maътуф (وَحِلْسٌ) قَصْعَةٌ ga — mubtado rangida
+CATOV.update({'17-0': 'm'})
 s = s[:i] + 'var CATOV=' + J(CATOV) + s[j:]
 
 s = rep_json(s, 'VOC', VOC)

@@ -40,6 +40,8 @@
     '.tkz{display:inline-block;color:var(--cx);border:1.5px dashed currentColor;border-radius:9px;padding:0 7px;margin:0 3px;line-height:1.35;background:rgba(210,59,42,.07)}' +
     '#tx.tartib .ws span.kx{text-decoration:underline dotted var(--cx);text-decoration-thickness:2.5px;text-underline-offset:.45em;text-decoration-skip-ink:none}' +
     '.lgd .lgx{color:var(--cj)}.lgd .lgx u{text-decoration:underline dotted var(--cx);text-decoration-thickness:2.5px;text-underline-offset:4px}' +
+    '.tkx .tka span{font-size:inherit!important;text-align:inherit!important}' +
+    '.tkx .tka .pm{color:var(--cm)}.tkx .tka .po{color:var(--co)}.tkx .tka .px{color:var(--cx)}.tkx .tka .pf{color:var(--cf)}.tkx .tka .pb{color:var(--cb)}.tkx .tka .pj{color:var(--cj)}.tkx .tka .ph{color:var(--ch)}' +
     '.lgd .lgk{flex-basis:100%;font-size:12px;color:var(--mu)}';
   document.head.appendChild(st);
 
@@ -83,10 +85,13 @@
     var k = src.match(/([؀-ۿ]+)/); return k ? k[1] : '';
   }
   var ZW = ['في', 'على', 'علي', 'الى', 'الي', 'لدي', 'من', 'عن', 'مع', 'عند', 'لدى', 'فوق', 'تحت', 'امام', 'خلف', 'بين', 'قبل', 'بعد', 'حول', 'ل', 'ب', 'ك'];
-  function gz(w, z) {
+  /* so'z matnni tepadagi rangda (p? klassi bilan) */
+  function cl(e) { return (e.className.match(/\bp[a-z]\b/) || [''])[0] }
+  function cw(e, t) { var c = cl(e); return c ? '<span class="' + c + '">' + t + '</span>' : t }
+  function gz(w, z, e) {
     var g = '<span class="tkz">' + z + '</span>', m = w.match(/^([وف][ً-ْ]*)(.+)$/);
-    if (m) { var b = bare(m[2]); if (ZW.some(function (p) { return b.indexOf(p) == 0 && b.length > p.length })) return m[1] + g + ' ' + m[2] }
-    return g + ' ' + w;
+    if (m) { var b = bare(m[2]); if (ZW.some(function (p) { return b.indexOf(p) == 0 && b.length > p.length })) return cw(e, m[1]) + g + ' ' + cw(e, m[2]) }
+    return g + ' ' + cw(e, w);
   }
   function sj(i, ln, g, ws) {
     var src = g[2].replace(/^шибҳи жумла — ?/, '').replace(/ ?га мутааллиқ$/, ''), tgt = '', cls = '', hid = '', ti = -1;
@@ -166,7 +171,7 @@
       var h = '';
       function card(g) {
         var ws = [];
-        for (var j = g[0]; j <= g[1]; j++) { var e = ln.querySelector('[data-i="' + i + '-' + j + '"]'); if (e) ws.push(e.textContent) }
+        for (var j = g[0]; j <= g[1]; j++) { var e = ln.querySelector('[data-i="' + i + '-' + j + '"]'); if (e) ws.push(cw(e, e.textContent)) }
         var lab = short(g[2]), m = lab.match(/^(шибҳи жумла|жумла[^,]*|маътуф жумла|сила жумласи|жумлаи ҳолийя)(.*)$/);
         var head = m ? m[1].replace(' → ', '') : lab, rest = m ? m[2] : '';
         if (g[3] == 's') return sj(i, ln, g, ws);
@@ -177,7 +182,7 @@
       segs.forEach(function (t) {
         var ws = [], gh = {};
         items.forEach(function (g) { if (g[3] == 's' && g[0] >= t.a && g[0] <= t[0]) { var z = ghost(g); if (z) gh[g[0]] = z } });
-        for (var j = t.a; j <= t[0]; j++) { var e = ln.querySelector('[data-i="' + i + '-' + j + '"]'); if (e) ws.push(gh[j] ? gz(e.textContent, gh[j]) : e.textContent) }
+        for (var j = t.a; j <= t[0]; j++) { var e = ln.querySelector('[data-i="' + i + '-' + j + '"]'); if (e) ws.push(gh[j] ? gz(e.textContent, gh[j], e) : cw(e, e.textContent)) }
         var inner = '';
         items.forEach(function (g, k) { if (g[0] >= t.a && g[0] <= t[0]) { used[k] = 1; inner += card(g) } });
         h += '<div class="tkg"><div class="tkr g" data-a="' + t.a + '" data-b="' + t[0] + '"><span class="tks">' + t.st + '</span>' +

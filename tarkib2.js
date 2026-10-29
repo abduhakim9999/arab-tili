@@ -154,7 +154,7 @@
     Object.keys(T).forEach(function (i) {
       var a0 = 0;
       T[i].forEach(function (t) {
-        var m = t[1].match(/^Жумлатун (?:(исмийя|феълийя), )?(.+?)\.$/);
+        var m = t[1].match(/^Жумлатун (?:(исмийя|феълийя|таажжуб), )?(.+?)\.$/);
         if (m && !t.done) {
           t[1] = m[2]; t.st = m[1] || ''; t.done = 1;
         }

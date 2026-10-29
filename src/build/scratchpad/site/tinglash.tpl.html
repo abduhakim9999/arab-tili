@@ -23,7 +23,8 @@ body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(
 .lc{flex:none;padding:8px 14px;border-radius:999px;border:1px solid var(--bd);background:var(--cd);color:var(--tx);font-size:14px;font-weight:600;cursor:pointer}
 .lc.on{background:var(--ac);border-color:var(--ac);color:#fff}
 .stage{background:var(--cd);border:1px solid var(--bd);border-radius:22px;padding:18px 16px;box-shadow:var(--sh,0 4px 16px rgba(0,0,0,.06));min-height:230px;display:flex;flex-direction:column;justify-content:center;text-align:center}
-.st-t{font-size:13px;color:var(--mu);font-weight:600;margin-bottom:10px}
+.st-t{font-size:13px;color:var(--mu);font-weight:600;margin-bottom:10px;display:flex;justify-content:space-between;gap:8px}.st-t i{font-style:normal;font-variant-numeric:tabular-nums;flex:none}
+.md{display:flex;width:max-content;margin:0 auto 12px}.md button{padding:7px 20px;font-size:14px}
 .st-ar{direction:rtl;font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:27px;line-height:1.85;color:var(--tx);transition:color .2s,opacity .2s}
 .st-uz{margin-top:12px;font-size:17px;line-height:1.5;color:var(--mu);transition:color .2s,opacity .2s}
 .stage.k-ar .st-ar{color:var(--ac)}
@@ -57,7 +58,8 @@ body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(
 <div class="lw">
   <div class="lh"><a href="./" id="bk" aria-label="Орқага">‹</a><b>🎧 Тинглаш</b><button class="gear" id="bg" aria-label="Созламалар"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></button></div>
   <div class="ls" id="ls"></div>
-  <div class="stage" id="st"><div class="st-t" id="stt"></div><div class="sp" id="sp"></div><div class="st-ar" id="sa"></div><div class="st-uz" id="su"></div></div>
+  <div class="seg md" id="md"><button data-v="l">Матн</button><button data-v="v">Луғат</button></div>
+  <div class="stage" id="st"><div class="st-t"><span id="stt"></span><i id="stn"></i></div><div class="sp" id="sp"></div><div class="st-ar" id="sa"></div><div class="st-uz" id="su"></div></div>
   <div class="pg"><span id="tc">0:00</span><input type="range" id="rg" min="0" max="1000" value="0"><span id="td">0:00</span></div>
   <div class="ctl">
     <button class="cb" id="bp" aria-label="Олдинги гап"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
@@ -79,22 +81,28 @@ var LIST=__LIST__;
 var A=document.getElementById('au'),$=function(i){return document.getElementById(i)};
 var O={tr:1,rep:1,sp:1,loop:0,next:1};try{Object.assign(O,JSON.parse(localStorage.getItem('tinglash-opt')||'{}'))}catch(e){}
 function save(){try{localStorage.setItem('tinglash-opt',JSON.stringify(O))}catch(e){}}
-var li=0,M=[],reps=0,curAr=-1,shown=-2;
+var li=0,M=[],reps=0,curAr=-1,shown=-2,MODE='l',TR=null,NI=0;
+try{MODE=localStorage.getItem('tinglash-mode')||'l'}catch(e){}
+var qm=(location.search.match(/t=([lv])/)||[])[1];if(qm)MODE=qm;
+function trk(L){return MODE==='v'&&L.v?L.v:L}
 var q=(location.search.match(/d=(\d+)/)||[])[1];
 if(!q){try{q=localStorage.getItem('tinglash-dars')}catch(e){}}
 LIST.forEach(function(x,i){if(String(x.n)===String(q))li=i});
 function fmt(t){t=Math.max(0,t|0);return (t/60|0)+':'+('0'+t%60).slice(-2)}
 function chips(){$('ls').innerHTML=LIST.map(function(x,i){return '<button class="lc'+(i===li?' on':'')+'" data-i="'+i+'">'+x.n+'-дарс</button>'}).join('')}
 $('ls').onclick=function(e){var b=e.target.closest('.lc');if(!b)return;load(+b.dataset.i,true)};
-function load(i,play){li=i;var L=LIST[i];M=L.m;reps=0;curAr=-1;shown=-2;A.src=L.f;A.playbackRate=O.sp;chips();
+function load(i,play){li=i;var L=LIST[i];TR=trk(L);M=TR.m;reps=0;curAr=-1;shown=-2;A.src=TR.f;A.playbackRate=O.sp;chips();
+  NI=M.filter(function(s){return s[1]==='ar'}).length;$('md').style.display=L.v?'':'none';
+  [].forEach.call($('md').children,function(b){b.classList.toggle('on',b.dataset.v===(TR===L?'l':'v'))});
   try{localStorage.setItem('tinglash-dars',L.n)}catch(e){}
-  $('stt').textContent=L.n+'-дарс · '+L.uz;show(-1);
-  if('mediaSession' in navigator){try{navigator.mediaSession.metadata=new MediaMetadata({title:L.n+'-дарс: '+L.uz,artist:'نور الطالب',artwork:[{src:'icon-512.png',sizes:'512x512',type:'image/png'}]})}catch(e){}}
+  $('stt').textContent=L.n+'-дарс · '+(TR===L?L.uz:'Луғат');show(-1);
+  if('mediaSession' in navigator){try{navigator.mediaSession.metadata=new MediaMetadata({title:L.n+'-дарс: '+(TR===L?L.uz:'Луғат'),artist:'نور الطالب',artwork:[{src:'icon-512.png',sizes:'512x512',type:'image/png'}]})}catch(e){}}
   if(play)A.play().catch(function(){});}
 function segAt(t){for(var i=M.length-1;i>=0;i--)if(t>=M[i][2]-0.05)return i;return -1}
 function show(i){if(i===shown)return;shown=i;var L=LIST[li],st=$('st');
+  var k=0;if(i>=0)for(var j=0;j<=i;j++)if(M[j][1]==='ar')k++;$('stn').textContent=i>=0&&M[i][1]!=='h'?k+' / '+NI:'';
   if(i<0||M[i][1]==='h'){$('sp').textContent='';$('sa').textContent=i<0?L.ar:'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ';$('su').textContent=i<0?'':L.uz;st.className='stage';return}
-  var s=M[i],ln=L.l[s[0]];$('sp').textContent=ln[2]||'';$('sa').textContent=ln[0];$('su').textContent=O.tr?ln[1]:'';st.className='stage k-'+s[1]}
+  var s=M[i],ln=TR.l[s[0]];$('sp').textContent=/^[\d\s.-]+$/.test(ln[2]||'')?'\u2066'+ln[2]+'\u2069':(ln[2]||'');$('sa').textContent=ln[0];$('su').textContent=O.tr?ln[1]:'';st.className='stage k-'+(s[1]==='ar2'?'ar':s[1])}
 function nextArFrom(i){for(var j=i+1;j<M.length;j++)if(M[j][1]==='ar')return j;return -1}
 function prevArFrom(i){for(var j=i-1;j>=0;j--)if(M[j][1]==='ar')return j;return -1}
 A.addEventListener('timeupdate',function(){var t=A.currentTime,i=segAt(t);
@@ -102,7 +110,7 @@ A.addEventListener('timeupdate',function(){var t=A.currentTime,i=segAt(t);
   // gapni takrorlash: arabcha gap tugagach boshiga qaytish
   if(curAr>=0&&O.rep>1&&t>=M[curAr][3]&&t<M[curAr][3]+0.9&&reps<O.rep-1){reps++;A.currentTime=M[curAr][2];return}
   // tarjima o'chiq: o'zbekcha bo'lakni sakrab o'tish
-  if(!O.tr&&i>=0&&M[i][1]==='uz'){var n=nextArFrom(i);A.currentTime=n>=0?M[n][2]:A.duration;return}
+  if(!O.tr&&i>=0&&(M[i][1]==='uz'||M[i][1]==='ar2')){var n=nextArFrom(i);A.currentTime=n>=0?M[n][2]:A.duration;return}
   show(i);
   if(A.duration){$('rg').value=Math.round(t*1000/A.duration);$('tc').textContent=fmt(t);$('td').textContent=fmt(A.duration)}
 });
@@ -131,6 +139,7 @@ $('oLoop').onclick=function(){O.loop=O.loop?0:1;if(O.loop)O.next=0;save();ui()};
 $('oNext').onclick=function(){O.next=O.next?0:1;if(O.next)O.loop=0;save();ui()};
 $('oRep').onclick=function(e){var b=e.target.closest('button');if(!b)return;O.rep=+b.dataset.v;save();ui()};
 $('oSp').onclick=function(e){var b=e.target.closest('button');if(!b)return;O.sp=+b.dataset.v;A.playbackRate=O.sp;save();ui()};
+$('md').onclick=function(e){var b=e.target.closest('button');if(!b||(TR===LIST[li]?'l':'v')===b.dataset.v)return;MODE=b.dataset.v;try{localStorage.setItem('tinglash-mode',MODE)}catch(e){}load(li,!A.paused)};
 function sheet(on){$('opts').classList.toggle('on',on);$('shb').classList.toggle('on',on)}
 $('bg').onclick=function(){sheet(true)};$('oc').onclick=$('shb').onclick=function(){sheet(false)};
 ui();load(li,false);if(q)$('bk').href=q+'.html';if(LIST.length<2)$('ls').style.display='none';

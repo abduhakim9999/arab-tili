@@ -42,3 +42,7 @@ Generator skriptlarda (d03, d04, d73, a70, irb/*92*, site/build.py) ular hali bo
 - Rang yorlig'i CM da bo'lmasa so'z rangsiz qoladi: genNN.py dagi CM ga qo'shing yoki `CATOV.update(...)`.
 - Versiya: repo ildizidan `sh src/build/bump.sh` (VER, sw.js, bosh sahifa «i» oynasi).
 - Batafsil qoidalar: loyiha hujjati claude/texnik-eslatma.md.
+
+## Tinglash (29.10.2026)
+- `tinglash.html` — eshitib o'rganish pleyeri: har dars uchun bitta yaxlit mp3 (telefon qulfda ham uzilmaydi), «Матн» va «Луғат» yo'laklari.
+- 93-dars: `scratchpad/listen/mk93.py` (yordamchi `build_t.py`, ovoz matni `sp93.py`). Arabcha gap — dars ovozidan (93.html dagi TM bo'yicha, jimlikka tortib kesiladi); o'zbekcha — ElevenLabs «SARHAD-SIZ Narrator» (eleven_v4); lug'at arabchasi — «Mehdi VO». Natija `listen/l93.*`, `listen/v93.*`; build.py `LISTEN` dagi darslarga `v` (lug'at) yo'lagini ham qo'shadi.

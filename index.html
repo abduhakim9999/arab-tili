@@ -289,6 +289,12 @@ setTimeout(function(){if(ios&&!standalone&&!document.documentElement.classList.c
 window.addEventListener("pageshow",function(){render()});
 if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(function(){});
 </script>
+<script>/* Telegram: kitob ichida «orqaga» (telefon tugmasi ham) — «Китоблар» ro'yxatiga qaytadi; ro'yxatda ilova yopiladi */
+(function(){function bb(){try{var w=Telegram.WebApp.BackButton;if(/^#k\d/.test(location.hash))w.show();else w.hide()}catch(e){}}
+function back(){if(/^#k\d/.test(location.hash)){history.replaceState(null,'',location.pathname+location.search);dispatchEvent(new HashChangeEvent('hashchange'))}}
+function init(){try{Telegram.WebApp.BackButton.onClick(back)}catch(e){}bb()}
+window.addEventListener('hashchange',bb);
+if(document.documentElement.classList.contains('in-tg'))init();else document.addEventListener('tgready',init)})();</script>
 <script>/* guruhdagi «Тестни очиш» tugmasi: ilova fe'l testi bilan ochiladi */
 document.addEventListener('tgready',function(){try{var sp=Telegram.WebApp.initDataUnsafe.start_param||'',m=/^fel_(\d+)/.exec(sp);
 if(m&&!sessionStorage.getItem('go-'+sp)){sessionStorage.setItem('go-'+sp,'1');location.replace('fel.html?k='+m[1])}}catch(e){}});</script>

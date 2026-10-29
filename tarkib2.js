@@ -38,6 +38,8 @@
     '#tx.tartib .ws span.tkh{background:rgba(15,118,110,.14);border-radius:6px}' +
     '.tkb.s{color:var(--cj)}.tkb.j{color:var(--ac)}.tkb.g{color:var(--tx)}.tkb.g .tkt{font-weight:800}' +
     '.tkz{display:inline-block;color:var(--cx);border:1.5px dashed currentColor;border-radius:9px;padding:0 7px;margin:0 3px;line-height:1.35;background:rgba(210,59,42,.07)}' +
+    '.tkg.c .tkr.g{flex-direction:row;align-items:center;gap:8px}.tkg.c .tkr.g .tka{font-size:calc(var(--fs,22px)*.7);align-self:auto;flex:1}.tkg.c1{flex-direction:row;justify-content:flex-start;direction:rtl}' +
+    '.tkx .tka,.tkx .tka span,.tkx .tkt0{color:var(--mu)!important}.tkx .tkz{color:var(--mu)!important;background:none!important}.tkx .tkt0{background:var(--bg)!important}' +
     '.tkz.f{color:var(--cf);background:rgba(200,90,20,.07)}' +
     '#tx.tartib .ws span.kx{text-decoration:underline dotted var(--cx);text-decoration-thickness:2.5px;text-underline-offset:.45em;text-decoration-skip-ink:none}' +
     '.lgd .lga{color:var(--cj)}.lgd .lga b{font-weight:700}' +
@@ -202,13 +204,15 @@
         for (var j = t.a; j <= t[0]; j++) { var e = ln.querySelector('[data-i="' + i + '-' + j + '"]'); if (e) ws.push(gh[j] ? gz(e.textContent, gh[j], e) : cw(e, e.textContent)) }
         var inner = '';
         items.forEach(function (g, k) { if (g[0] >= t.a && g[0] <= t[0]) { used[k] = 1; inner += card(g) } });
-        h += '<div class="tkg"><div class="tkr g" data-a="' + t.a + '" data-b="' + t[0] + '"><span class="tks">' + t.st + '</span>' +
+        var bare1 = !inner && !Object.keys(gh).length; /* янги маълумот йўқ: гап такрорланмайди */
+        if (bare1 && segs.length == 1 && !items.length) { h += '<div class="tkg c1"><span class="tks">' + t.st + '</span></div>'; return; }
+        h += '<div class="tkg' + (bare1 ? ' c' : '') + '"><div class="tkr g" data-a="' + t.a + '" data-b="' + t[0] + '"><span class="tks">' + t.st + '</span>' +
           '<span class="tka">' + ws.join(' ') + '</span></div>' + (inner ? '<div class="tki">' + inner + '</div>' : '') + '</div>';
       });
       items.forEach(function (g, k) { if (!used[k]) h += card(g) });
       if (!h) return;
       var box = document.createElement('div'); box.className = 'tkx'; box.innerHTML = h;
-      var trs = ln.querySelectorAll('.tr'), tr = trs[trs.length - 1]; (tr ? tr.parentNode : ln).insertBefore(box, tr);
+      var trs = ln.querySelectorAll('.tr'), tr = trs[trs.length - 1]; if (tr) tr.parentNode.insertBefore(box, tr.nextSibling); else ln.appendChild(box); /* таржима арабча гап тагида, қути ундан кейин */
       [].forEach.call(box.querySelectorAll('.tkr'), function (r) {
         r.addEventListener('click', function (ev) {
           ev.stopPropagation();

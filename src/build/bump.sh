@@ -9,3 +9,6 @@ sed -i "3s/v$V'/v$N'/" sw.js
 sed -i "s/var VINFO = '[^']*'/var VINFO = 'v$N · $D'/" shell.js
 cp shell.js $B/shell.js
 echo "v$N · $D"
+# Bosh sahifadagi «i» oynasidagi versiya qatori
+NV=$(sed -n "s/.*var VINFO = '\([^']*\)'.*/\1/p" shell.js)
+for f in index.html $B/index.tpl.html; do sed -i "s|<dd id=\"vinfo\">[^<]*</dd>|<dd id=\"vinfo\">$NV</dd>|" $f; done

@@ -4,7 +4,7 @@ import tarkib
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.environ.get('OUT') or '/mnt/user-data/outputs/arab-tili'
-VER = '156'
+VER = '157'
 
 LESSONS = [
     # (raqam, manba, sarlavha, arabcha sarlavha, kalit, savollar soni)
@@ -22,7 +22,7 @@ LESSONS = [
     (93, '/mnt/user-data/outputs/lesson93/index.html', 'Ишлаш сўрашдан яхшироқ', 'عَمَلٌ خَيْرٌ مِنْ مَسْأَلَةٍ', 'dars93-holat', 41),
 ]
 
-LISTEN = [74]
+LISTEN = [74, 93]
 HDRD = '/tmp/claude-0/-home-claude/d13da55d-9a5a-5fc0-96fe-93eeb8284943/scratchpad/hdr'
 HCFG = json.load(open(HDRD + '/hcfg.json'))
 DROP0 = {70, 74, 91, 92, 93}
@@ -225,6 +225,12 @@ for n in LISTEN:
     open(os.path.join(OUT, fn), 'wb').write(ab); AUD.append(fn)
     J = json.load(open(os.path.join(LD, 'l%d.json' % n), encoding='utf-8'))
     LST.append({'n': n, 'uz': L0[2], 'ar': L0[3], 'f': fn, 'm': J['m'], 'l': J['l']})
+    vp = os.path.join(LD, 'v%d.mp3' % n)  # lug'at yo'lagi (bo'lsa)
+    if os.path.exists(vp):
+        vb = open(vp, 'rb').read(); vf = 'v%d-%s.mp3' % (n, hashlib.md5(vb).hexdigest()[:8])
+        open(os.path.join(OUT, vf), 'wb').write(vb); AUD.append(vf)
+        VJ = json.load(open(os.path.join(LD, 'v%d.json' % n), encoding='utf-8'))
+        LST[-1]['v'] = {'f': vf, 'm': VJ['m'], 'l': VJ['l']}
 tp = open(os.path.join(HERE, 'tinglash.tpl.html'), encoding='utf-8').read().replace('__LIST__', json.dumps(LST, ensure_ascii=False))
 open(OUT + '/tinglash.html', 'w', encoding='utf-8').write(tp)
 

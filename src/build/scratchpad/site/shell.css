@@ -159,9 +159,10 @@ body,body *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none
 
 input,textarea,input *,.lq input{-webkit-user-select:text!important;user-select:text!important}
 /* tartib ranglari: bir-biridan aniq ajraladigan, yorqinroq */
-:root{--cm:#1f5fd1;--cx:#d23b2a;--cf:#13893a;--co:#8b3bd6;--cb:#d97706;--cj:#0a8fb0;--ch:#d6286f}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--cm:#74a6ff;--cx:#ff7b6b;--cf:#4ddb84;--co:#c493ff;--cb:#fbbf3c;--cj:#2fd3f0;--ch:#ff73b3}}
-:root[data-theme="dark"]{--cm:#74a6ff;--cx:#ff7b6b;--cf:#4ddb84;--co:#c493ff;--cb:#fbbf3c;--cj:#2fd3f0;--ch:#ff73b3}
+/* egasi (мубтадо, фоил) — ko'k oila; kesimi (хабар, феъл) — qizil oila; to'ldiruvchilar alohida */
+:root{--cm:#1f5fd1;--co:#5b3fd9;--cx:#d23b2a;--cf:#c25400;--cb:#13893a;--cj:#077f9e;--ch:#d6286f}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--cm:#74a6ff;--co:#a99bff;--cx:#ff7b6b;--cf:#ffa04a;--cb:#4ddb84;--cj:#2fd3f0;--ch:#ff73b3}}
+:root[data-theme="dark"]{--cm:#74a6ff;--co:#a99bff;--cx:#ff7b6b;--cf:#ffa04a;--cb:#4ddb84;--cj:#2fd3f0;--ch:#ff73b3}
 
 /* Биринчи очилиш туры */
 .tour{position:fixed;inset:0;z-index:9999}

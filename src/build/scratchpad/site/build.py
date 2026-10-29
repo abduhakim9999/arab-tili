@@ -4,7 +4,7 @@ import tarkib
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.environ.get('OUT') or '/mnt/user-data/outputs/arab-tili'
-VER = '122'
+VER = '123'
 
 LESSONS = [
     # (raqam, manba, sarlavha, arabcha sarlavha, kalit, savollar soni)
@@ -33,7 +33,8 @@ U22 = ('الْوَحْدَةُ الثَّانِيَةُ: التَّرْوِيح�
 U26 = ('الْوَحْدَةُ السَّادِسَةُ: الْمِهَنُ', '6-боб: Касблар')
 # Dars boshi: bismillah, keyin dars raqami va mavzu. Ваҳда nomi faqat ваҳданинг 1-darsida (SHOWU) yoziladi.
 SHOWU = {1, 70, 74}
-TKNEW = {1}  # Таркиб'нинг янги кўриниши (tarkib2.js) — синов
+TKNEW = {1}
+TOPIC = {1: 'topic_hiwar.mp3', 2: 'topic_hiwar.mp3', 3: 'topic_hiwar.mp3', 4: 'topic_hiwar.mp3'}  # МАВЗУ (حِوَارْ) ovozi — ElevenLabs Mehdi VO, vaqf bilan; sarlavhadan keyin qo'shiladi  # Таркиб'нинг янги кўриниши (tarkib2.js) — синов
 LN = {3: 'اَلدَّرْسُ الثَّالِثُ', 4: 'اَلدَّرْسُ الرَّابِعُ'}  # 3–4-darslar: raqam ElevenLabs (Mehdi) bilan qo'shilgan (hdr/mk_hnum.py); h3/h4 dagi eski «الْحِوَارُ» (cf[2]…) kesiladi, mavzu — matndagi حِوَارٌ
 HDR = {3: (('الْحِوَارُ', 'Суҳбат'), ''), 4: (('الْحِوَارُ', 'Суҳбат'), ''), 1: (U1, 'اَلدَّرْسُ الْأَوَّلُ'), 2: (U1, 'اَلدَّرْسُ الثَّانِي'), 70: (U21, 'اَلدَّرْسُ السَّبْعُونَ'), 71: (U21, 'اَلدَّرْسُ الْحَادِي وَالسَّبْعُونَ'),
        72: (U21, 'اَلدَّرْسُ الثَّانِي وَالسَّبْعُونَ'), 73: (U21, 'اَلدَّرْسُ الثَّالِثُ وَالسَّبْعُونَ'),
@@ -132,6 +133,21 @@ for num, src, uz, ar, key, nq in LESSONS:
             hp = td + '/hh.mp3'
             hd = dur(hp)
             rows = [{'a': la, 'u': '%d-дарс' % num, 't': [s0, round(hd, 2)]}]
+        he = hd  # sarlavha qatorlari oxiri
+        tp = None
+        if num in TOPIC:
+            def meanv(p):
+                r = subprocess.run(['ffmpeg', '-hide_banner', '-nostats', '-i', p, '-af', 'volumedetect', '-f', 'null', '-'], capture_output=True, text=True).stderr
+                return float(re.search(r'mean_volume: (-?[\d.]+)', r).group(1))
+            src_t = HDRD + '/' + TOPIC[num]
+            g = meanv(hp) - meanv(src_t)
+            subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', hp, '-i', src_t, '-filter_complex',
+                            '[0:a]aformat=sample_rates=44100:channel_layouts=mono[a];anullsrc=r=44100:cl=mono,atrim=0:0.45[s];'
+                            '[1:a]volume=%.2fdB,alimiter=limit=0.95,aformat=sample_rates=44100:channel_layouts=mono[b];[a][s][b]concat=n=3:v=0:a=1[o]' % g,
+                            '-map', '[o]', '-ac', '1', '-b:a', '64k', td + '/ht.mp3'], check=True)
+            tp = [round(hd + 0.45, 2), round(dur(td + '/ht.mp3'), 2)]
+            hp = td + '/ht.mp3'
+            hd = dur(hp)
         GAPH = 0.4
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', hp, '-i', td + '/m.mp3', '-filter_complex',
                         '[0:a]aformat=sample_rates=44100:channel_layouts=mono[a];anullsrc=r=44100:cl=mono,atrim=0:%.2f[s];'
@@ -140,10 +156,13 @@ for num, src, uz, ar, key, nq in LESSONS:
         ab = open(td + '/o.mp3', 'rb').read()
         sh = hd + GAPH - tcut
         TMv = [x[:2] + [round(v + sh, 2) for v in x[2:]] for x in TMv]
+        if tp:
+            TMv = [x for x in TMv if x[0] != 0]
+            TMv.insert(0, [0, 0, tp[0], tp[1], tp[1]])
         doc = doc[:i] + json.dumps(TMv) + doc[e:]
         if drop0:
             doc = doc.replace('</head>', '<style>#tx>.ln:first-child{display:none}</style></head>', 1)
-        HJS = '<script>window.HDR=' + json.dumps({'s0': s0, 'e': round(hd, 2), 'rows': rows}, ensure_ascii=False) + '</script>\n<script src="hdr.js"></script>\n'
+        HJS = '<script>window.HDR=' + json.dumps({'s0': s0, 'e': round(he, 2), 'rows': rows}, ensure_ascii=False) + '</script>\n<script src="hdr.js"></script>\n'
     else:
         HJS = ''
     an = 'a%s-%s.mp3' % (num, hashlib.md5(ab).hexdigest()[:8])

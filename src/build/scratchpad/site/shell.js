@@ -375,6 +375,8 @@
   var row = tg.parentNode;
   row.classList.add('tgbar');
   document.body.classList.add('lo2');
+  var tb = document.querySelector('.tabs'), w = document.querySelector('.w');
+  if (tb && w && w.firstChild !== tb) w.insertBefore(tb, w.firstChild);
   var pb = document.querySelector('.pbar');
   function fit() {
     var h = pb && pb.offsetHeight ? pb.offsetHeight + 8 : 0;

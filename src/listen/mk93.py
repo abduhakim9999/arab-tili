@@ -45,17 +45,31 @@ for k in range(len(lis) - 1):
     m = (seg[lis[k]][1] + seg[lis[k + 1]][0]) / 2
     x, y = min(SIL, key=lambda s: 0 if s[0] <= m <= s[1] else min(abs(s[0] - m), abs(s[1] - m)))
     BND.append((x + 0.06, y - 0.06))
+# o'qituvchi to'xtamay o'qigan qatorlar bitta bo'lak (chala gap qolmasin): {qator: keyingi qator}
+MERGE = {12: 13}
+groups = []
+for li in lis:
+    if groups and MERGE.get(groups[-1][-1]) == li: groups[-1].append(li)
+    else: groups.append([li])
+sj = sil(T + '/sj.wav', 0.25)
+def joinwav(fs, out):
+    lst = out + '.txt'; open(lst, 'w').write(''.join("file '%s'\n" % os.path.abspath(p) for p in fs))
+    run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', lst, '-c', 'copy', out]); return out
 items = [(h, 'h', 0), (s1, None, 0)]
-for k, li in enumerate(lis):
-    a, b = seg[li][:2]
-    a0 = BND[k - 1][1] if k else max([y for x, y in SIL if y <= a + 0.05] or [a - 0.1]) - 0.06
-    b0 = BND[k][0] if k + 1 < len(lis) else min([x for x, y in SIL if x >= b - 0.05] or [b + 0.3]) + 0.06
-    items += [(cut(AUD, T + '/a%02d.wav' % li, a0, b0, g_ar), 'ar', li), (s1, None, 0), (uz[li], 'uz', li), (s2, None, 0)]
+for g in groups:
+    kf, kl = lis.index(g[0]), lis.index(g[-1]); a, b = seg[g[0]][0], seg[g[-1]][1]
+    a0 = BND[kf - 1][1] if kf else max([y for x, y in SIL if y <= a + 0.05] or [a - 0.1]) - 0.06
+    b0 = BND[kl][0] if kl + 1 < len(lis) else min([x for x, y in SIL if x >= b - 0.05] or [b + 0.3]) + 0.06
+    u = uz[g[0]] if len(g) == 1 else joinwav(sum([[uz[r], sj] for r in g], [])[:-1], T + '/u%02dm.wav' % g[0])
+    items += [(cut(AUD, T + '/a%02d.wav' % g[0], a0, b0, g_ar), 'ar', g[0]), (s1, None, 0), (u, 'uz', g[0]), (s2, None, 0)]
 ML, tl = build(items, HERE + '/l93.mp3')
 LN = {}
-for li in lis:
-    sp, ws, tr = L[li]
-    LN[li] = [' '.join(w['v'] + w['pu'] for w in ws), re.sub(r'\s+', ' ', ' '.join(c[0] for c in tr)).strip(), sp]
+for g in groups:
+    ar, uzt = [], []
+    for li in g:
+        sp, ws, tr = L[li]
+        ar.append(' '.join(w['v'] + w['pu'] for w in ws)); uzt.append(re.sub(r'\s+', ' ', ' '.join(c[0] for c in tr)).strip())
+    LN[g[0]] = [' '.join(ar), ' '.join(uzt), L[g[0]][0]]
 json.dump({'m': ML, 'l': LN}, open(HERE + '/l93.json', 'w'), ensure_ascii=False)
 print('l93', tl, len(ML))
 # --- lug'at yo'lagi ---

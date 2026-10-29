@@ -3,7 +3,7 @@
 (function () {
   var tx = document.getElementById('tx');
   if (!tx) return;
-  var G = window.TKG || {}, T = window.TKT || {};
+  var G = window.TKG || {}, T = window.TKT || {}, U = window.TKU || {};
 
   var st = document.createElement('style');
   st.textContent =
@@ -43,7 +43,9 @@
     '.lgd .lgx{color:var(--cj)}.lgd .lgx u{text-decoration:underline dotted var(--cx);text-decoration-thickness:2.5px;text-underline-offset:4px}' +
     '.tkx .tka span{font-size:inherit!important;text-align:inherit!important}' +
     '.tkx .tka .pm{color:var(--cm)}.tkx .tka .po{color:var(--co)}.tkx .tka .px{color:var(--cx)}.tkx .tka .pf{color:var(--cf)}.tkx .tka .pb{color:var(--cb)}.tkx .tka .pj{color:var(--cj)}.tkx .tka .ph{color:var(--ch)}' +
-    '.lgd .lgk{flex-basis:100%;font-size:12px;color:var(--mu)}';
+    '.lgd .lgk{flex-basis:100%;font-size:12px;color:var(--mu)}' +
+    '.tkc{display:inline-flex;flex-direction:column;align-items:center;gap:1px}.tkc>small{direction:ltr;font:500 12px/1.2 system-ui,-apple-system,sans-serif;color:var(--mu)}' +
+    '.tku{direction:ltr;font:600 13px/1.3 system-ui,-apple-system,sans-serif;color:var(--tx)}.tku i{font-style:normal;font-weight:500;color:var(--mu)}.tku b{color:var(--cj)}';
   document.head.appendChild(st);
 
   var bl = document.getElementById('bl');
@@ -120,9 +122,12 @@
       '<span class="tkd"><b>шибҳи жумла</b> · ' + sjd(src) + '</span></div>';
     if (!src || src == 'шибҳи жумла') return '<div class="tkr s" data-a="' + g[0] + '" data-b="' + g[1] + '"><span class="tka">' + ws.join(' ') + '</span>' +
       '<span class="tkd"><b>шибҳи жумла</b></span></div>';
+    var u = U[i + '-' + g[0]];
+    function es(t) { return String(t).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c] }) }
     var tg = hid ? '<span class="tkt0 hid">' + (tgt || '…') + '</span>' : '<span class="tkt0 ' + cls + '">' + tgt + '</span>';
     return '<div class="tkr s" data-a="' + g[0] + '" data-b="' + g[1] + '"' + (ti >= 0 ? ' data-t="' + ti + '"' : '') + '>' +
-      '<div class="tkl2">' + tg + '<span class="tkar">→</span><span class="tka">' + ws.join(' ') + '</span></div>' +
+      '<div class="tkl2">' + (u ? '<span class="tkc">' + tg + '<small>' + es(u[0]) + '</small></span>' : tg) + '<span class="tkar">→</span>' + (u ? '<span class="tkc"><span class="tka">' + ws.join(' ') + '</span><small>' + es(u[1]) + '</small></span>' : '<span class="tka">' + ws.join(' ') + '</span>') + '</div>' +
+      (u && u[2] ? '<span class="tku"><i>Ўзбекча:</i> ' + es(u[2]).replace(/→/g, '<b>→</b>') + '</span>' : '') +
       '<span class="tkd"><b>шибҳи жумла</b>' + (hid ? ' · ' + sjd(src) : '') + '</span>' +
       '</div>';
   }

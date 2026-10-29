@@ -181,7 +181,7 @@ for num, src, uz, ar, key, nq in LESSONS:
                           + sel + ' .ws{justify-content:center}' + sel + ' .ws span{font-weight:700;color:var(--ac);font-size:calc(var(--fs,22px) + 6px)}'
                           + sel + ' .tr{text-align:center;font-weight:600;color:var(--tx)}</style></head>', 1)
     doc += HJS + '<script src="sarflink.js"></script>\n'
-    doc += '<script>window.TKG=' + json.dumps(TKG, ensure_ascii=False) + ';window.TKT=' + json.dumps(TKT, ensure_ascii=False) + '</script>\n<script src="%s"></script>\n' % ('tarkib2.js' if num in TKNEW else 'tarkib.js')
+    doc += '<script>window.TKG=' + json.dumps(TKG, ensure_ascii=False) + ';window.TKT=' + json.dumps(TKT, ensure_ascii=False) + ';window.TKU=' + json.dumps(json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'tku.json'))).get(str(num), {}), ensure_ascii=False) + '</script>\n<script src="%s"></script>\n' % ('tarkib2.js' if num in TKNEW else 'tarkib.js')
     # joy faqat oxirgi ochilgan darsda eslab qolinadi; boshqa darslar boshidan ochiladi
     m_tg = re.search(r'<script src="tg.js" data-key="([^"]+)"[^>]*></script>', doc)
     if m_tg:

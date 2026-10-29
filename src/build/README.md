@@ -19,7 +19,7 @@ Yo'llar skriptlarda qattiq yozilgan, shuning uchun eski joylariga qaytariladi:
     cp -r src/build/scratchpad/. "$S"/
     cp -r src/build/outputs/. /mnt/user-data/outputs/
     cp icon-*.png "$S/site/"
-    cp l74-c166f09f.mp3 "$S/listen/l74.mp3"   # tinglash.html dagi joriy l74-….mp3
+    cp l74-9e9786c9.mp3 "$S/listen/l74.mp3"   # tinglash.html dagi joriy l74-….mp3
 
 Agar `/tmp/...` yo'liga yozib bo'lmasa, skriptlardagi `S` yo'lini yangisiga almashtiring:
 

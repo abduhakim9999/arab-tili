@@ -102,6 +102,8 @@
     }
     var first = ln.querySelector('[data-i="' + i + '-' + g[0] + '"]'), z = IRB[i + '-' + g[0]] && /зарф/.test(IRB[i + '-' + g[0]].s || '');
     var q = qword(first ? first.textContent : ws[0], z);
+    if (!src || src == 'шибҳи жумла') return '<div class="tkr s" data-a="' + g[0] + '" data-b="' + g[1] + '"><span class="tka">' + ws.join(' ') + '</span>' +
+      '<span class="tkd"><b>шибҳи жумла</b></span>' + (q ? '<span class="tkq">Савол: ' + q + '</span>' : '') + '</div>';
     var tg = hid ? '<span class="tkt0 hid">' + (tgt || '…') + '</span>' : '<span class="tkt0 ' + cls + '">' + tgt + '</span>';
     return '<div class="tkr s" data-a="' + g[0] + '" data-b="' + g[1] + '"' + (ti >= 0 ? ' data-t="' + ti + '"' : '') + '>' +
       '<div class="tkl2">' + tg + '<span class="tkar">→</span><span class="tka">' + ws.join(' ') + '</span></div>' +
@@ -132,7 +134,7 @@
     Object.keys(T).forEach(function (i) {
       var a0 = 0;
       T[i].forEach(function (t) {
-        var m = t[1].match(/^Жумлатун (?:(исмийя|феълийя), )?(\S+?)\.$/);
+        var m = t[1].match(/^Жумлатун (?:(исмийя|феълийя), )?(.+?)\.$/);
         if (m && !t.done) {
           t[1] = m[2]; t.st = m[1] || ''; t.done = 1;
         }

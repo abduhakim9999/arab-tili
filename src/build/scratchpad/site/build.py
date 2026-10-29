@@ -4,7 +4,7 @@ import tarkib
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.environ.get('OUT') or '/mnt/user-data/outputs/arab-tili'
-VER = '119'
+VER = '120'
 
 LESSONS = [
     # (raqam, manba, sarlavha, arabcha sarlavha, kalit, savollar soni)
@@ -33,6 +33,7 @@ U22 = ('الْوَحْدَةُ الثَّانِيَةُ: التَّرْوِيح�
 U26 = ('الْوَحْدَةُ السَّادِسَةُ: الْمِهَنُ', '6-боб: Касблар')
 # Dars boshi: bismillah, keyin dars raqami va mavzu. Ваҳда nomi faqat ваҳданинг 1-darsida (SHOWU) yoziladi.
 SHOWU = {1, 70, 74}
+TKNEW = {1}  # Таркиб'нинг янги кўриниши (tarkib2.js) — синов
 LN = {3: 'اَلدَّرْسُ الثَّالِثُ', 4: 'اَلدَّرْسُ الرَّابِعُ'}  # 3–4-darslar: raqam ElevenLabs (Mehdi) bilan qo'shilgan (hdr/mk_hnum.py); h3/h4 dagi eski «الْحِوَارُ» (cf[2]…) kesiladi, mavzu — matndagi حِوَارٌ
 HDR = {3: (('الْحِوَارُ', 'Суҳбат'), ''), 4: (('الْحِوَارُ', 'Суҳбат'), ''), 1: (U1, 'اَلدَّرْسُ الْأَوَّلُ'), 2: (U1, 'اَلدَّرْسُ الثَّانِي'), 70: (U21, 'اَلدَّرْسُ السَّبْعُونَ'), 71: (U21, 'اَلدَّرْسُ الْحَادِي وَالسَّبْعُونَ'),
        72: (U21, 'اَلدَّرْسُ الثَّانِي وَالسَّبْعُونَ'), 73: (U21, 'اَلدَّرْسُ الثَّالِثُ وَالسَّبْعُونَ'),
@@ -157,7 +158,7 @@ for num, src, uz, ar, key, nq in LESSONS:
                           + sel + ' .ws{justify-content:center}' + sel + ' .ws span{font-weight:700;color:var(--ac);font-size:calc(var(--fs,22px) + 6px)}'
                           + sel + ' .tr{text-align:center;font-weight:600;color:var(--tx)}</style></head>', 1)
     doc += HJS + '<script src="sarflink.js"></script>\n'
-    doc += '<script>window.TKG=' + json.dumps(TKG, ensure_ascii=False) + ';window.TKT=' + json.dumps(TKT, ensure_ascii=False) + '</script>\n<script src="tarkib.js"></script>\n'
+    doc += '<script>window.TKG=' + json.dumps(TKG, ensure_ascii=False) + ';window.TKT=' + json.dumps(TKT, ensure_ascii=False) + '</script>\n<script src="%s"></script>\n' % ('tarkib2.js' if num in TKNEW else 'tarkib.js')
     # joy faqat oxirgi ochilgan darsda eslab qolinadi; boshqa darslar boshidan ochiladi
     m_tg = re.search(r'<script src="tg.js" data-key="([^"]+)"[^>]*></script>', doc)
     if m_tg:
@@ -176,7 +177,7 @@ for f in ('icon-192.png', 'icon-512.png', 'icon-maskable-512.png'):
     shutil.copy(os.path.join(HERE, f), OUT)
 
 shutil.copytree(os.path.join(HERE, '..', 'fq'), OUT + '/fq')  # fe'l testi audiolari (bot uchun)
-for f in ('tg.js', 'shell.js', 'shell.css', 'hdr.js', 'sarflink.js', 'fel.html', 'tarkib.js'):
+for f in ('tg.js', 'shell.js', 'shell.css', 'hdr.js', 'sarflink.js', 'fel.html', 'tarkib.js', 'tarkib2.js'):
     shutil.copy(os.path.join(HERE, f), OUT)
 idx = open(os.path.join(HERE, 'index.tpl.html'), encoding='utf-8').read()
 idx = idx.replace('__LESSONS__', json.dumps([{"n": l[0], "uz": l[2], "ar": l[3], "key": l[4], "q": l[5], "u": UNIT.get(l[0], 0)} for l in LESSONS], ensure_ascii=False))
@@ -205,7 +206,7 @@ tp = open(os.path.join(HERE, 'tinglash.tpl.html'), encoding='utf-8').read().repl
 open(OUT + '/tinglash.html', 'w', encoding='utf-8').write(tp)
 
 files = ['./', 'index.html', 'tinglash.html', 'fel.html', 'tg.js', 'shell.js', 'shell.css', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png'] + \
-        ['%s.html' % l[0] for l in LESSONS] + ['feellar.html', 'sarf.html', 'sarf-idx.json', 'sarflink.js', 'tarkib.js', 'hdr.js', 'naskh.woff'] + AUD
+        ['%s.html' % l[0] for l in LESSONS] + ['feellar.html', 'sarf.html', 'sarf-idx.json', 'sarflink.js', 'tarkib.js', 'tarkib2.js', 'hdr.js', 'naskh.woff'] + AUD
 sw = open(os.path.join(HERE, 'sw.tpl.js'), encoding='utf-8').read()
 sw = sw.replace('__VER__', VER).replace('__FILES__', json.dumps(files))
 open(OUT + '/sw.js', 'w', encoding='utf-8').write(sw)

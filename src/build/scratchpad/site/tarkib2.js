@@ -37,7 +37,9 @@
     '.tks{align-self:flex-start;font:700 12px/1 system-ui,-apple-system,sans-serif;color:#fff;background:var(--ac);border-radius:999px;padding:6px 11px}' +
     '#tx.tartib .ws span.tkh{background:rgba(15,118,110,.14);border-radius:6px}' +
     '.tkb.s{color:var(--cj)}.tkb.j{color:var(--ac)}.tkb.g{color:var(--tx)}.tkb.g .tkt{font-weight:800}' +
-    '.tkz{display:inline-block;color:var(--cx);border:1.5px dashed currentColor;border-radius:9px;padding:0 7px;margin:0 3px;line-height:1.35;background:rgba(162,74,54,.07)}' +
+    '.tkz{display:inline-block;color:var(--cx);border:1.5px dashed currentColor;border-radius:9px;padding:0 7px;margin:0 3px;line-height:1.35;background:rgba(210,59,42,.07)}' +
+    '#tx.tartib .ws span.kx{text-decoration:underline dotted var(--cx);text-decoration-thickness:2.5px;text-underline-offset:.45em;text-decoration-skip-ink:none}' +
+    '.lgd .lgx{color:var(--cj)}.lgd .lgx u{text-decoration:underline dotted var(--cx);text-decoration-thickness:2.5px;text-underline-offset:4px}' +
     '.lgd .lgk{flex-basis:100%;font-size:12px;color:var(--mu)}';
   document.head.appendChild(st);
 
@@ -106,7 +108,22 @@
       '<span class="tkd"><b>шибҳи жумла</b> · ' + (hid ? hid + (tgt ? ' (<bdi class="ar">' + tgt + '</bdi>)' : '') + ' га мутааллиқ, у яширин' : '<bdi class="ar">' + tgt + '</bdi> га мутааллиқ') + '</span>' +
       (q && !hid ? '<span class="tkq">Савол: ' + q + '</span>' : '') + '</div>';
   }
+  /* хабар ўрнидаги жар ва мажрур: ранги ўзиники, остида хабар рангидаги нуқтали чизиқ */
+  function kx() {
+    [].forEach.call(tx.querySelectorAll('.ws span.kx'), function (e) { e.classList.remove('kx') });
+    var n = 0;
+    Object.keys(G).forEach(function (i) {
+      G[i].forEach(function (g) {
+        if (g[3] != 's' || !/маҳзуф/.test(g[2]) || !/хабар/.test(g[2])) return;
+        for (var j = g[0]; j <= g[1]; j++) { var e = tx.querySelector('.ws span[data-i="' + i + '-' + j + '"]'); if (e) { e.classList.add('kx'); n++ } }
+      });
+    });
+    var lg = document.getElementById('lg');
+    if (lg) { var pm = lg.querySelector('.pm'), po = lg.querySelector('.po'); if (pm && po && pm.nextSibling !== po) pm.parentNode.insertBefore(po, pm.nextSibling) }
+    if (lg && n && !lg.querySelector('.lgx')) { var x = document.createElement('span'); x.className = 'lgx'; x.innerHTML = '<u>Жар ва мажрур</u> — хабар ўрнида'; lg.appendChild(x) }
+  }
   function deco() {
+    kx();
     if (window.IRB) [].forEach.call(tx.querySelectorAll('.ws span[data-i]'), function (e) {
       var E = IRB[e.getAttribute('data-i')];
       if (E && E.j) e.setAttribute('data-j', E.j); else e.removeAttribute('data-j');

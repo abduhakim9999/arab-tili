@@ -1,4 +1,4 @@
-/* Dars boshi: بِسْمِ اللَّهِ + bob + dars (ovozi bilan). window.HDR beriladi. */
+/* Dars boshi: بِسْمِ اللَّهِ, keyin qatorlar (yangi ваҳданинг 1-darsida ваҳда, dars raqami, mavzu). window.HDR = {s0: bismillah oxiri, e: sarlavha oxiri, rows: [{a, u, t: [bosh, oxir] yoki null}]} */
 (function () {
   var H = window.HDR, tx = document.getElementById('tx');
   if (!H || !tx) return;
@@ -31,8 +31,7 @@
   d.className = 'hdr';
   d.innerHTML = '<div class="hb hr0">' + BW.map(function (w, i) { return '<span data-w="' + i + '">' + w[0] + '</span>' }).join(' ') + '</div>' +
     '<div class="htr hts">Меҳрибон ва раҳмли Аллоҳнинг номи билан (бошлайман)</div>' +
-    '<div class="hr" data-r="1"><b>' + H.ua + '</b><small class="hts">' + H.uu + '</small></div>' +
-    (H.la ? '<div class="hr" data-r="2"><b>' + H.la + '</b><small class="hts">' + H.lu + '</small></div>' : '');
+    H.rows.map(function (r, i) { return '<div class="hr" data-r="' + (i + 1) + '"><b>' + r.a + '</b><small class="hts">' + r.u + '</small></div>' }).join('');
   tx.parentNode.insertBefore(d, tx);
   /* tarjima yashirilganda sarlavha tarjimalari ham yashirinadi, bosilganda ochiladi */
   function syncTr() { d.classList.toggle('hidetr', tx.classList.contains('hidetr')); if (!tx.classList.contains('hidetr')) [].forEach.call(d.querySelectorAll('.hts.rev'), function (e) { e.classList.remove('rev') }) }
@@ -41,16 +40,17 @@
 
   // sarlavha asosiy audioning boshida turadi (0 … H.e soniya)
   var A = window.au, raf = 0, fol = null;
-  var spans = d.querySelectorAll('.hb span'), rows = [d.querySelector('.hb'), d.querySelector('[data-r="1"]'), d.querySelector('[data-r="2"]') || d.querySelector('[data-r="1"]')];
+  var spans = d.querySelectorAll('.hb span'), hb = d.querySelector('.hb'), rws = d.querySelectorAll('.hr[data-r]');
   function clear() { [].forEach.call(d.querySelectorAll('.pl'), function (e) { e.classList.remove('pl') }) }
   function paint() {
     var t = A.currentTime; clear();
     if (!A.paused && t < H.e) {
-      var cur = t < H.s[0] ? rows[0] : (t < H.s[1] ? rows[1] : rows[2]);
-      if (t < H.s[0]) { BW.forEach(function (w, i) { if (t >= w[2][0] - 0.05 && t < w[2][1] + 0.1) spans[i].classList.add('pl') }) }
-      else cur.classList.add('pl');
+      var cur = null;
+      if (t < H.s0) { cur = hb; BW.forEach(function (w, i) { if (t >= w[2][0] - 0.05 && t < w[2][1] + 0.1) spans[i].classList.add('pl') }) }
+      else H.rows.forEach(function (r, i) { if (r.t && t >= r.t[0] && t < r.t[1] + 0.05) cur = rws[i] });
+      if (cur && cur !== hb) cur.classList.add('pl');
       // ekran o'qilayotgan qismga ergashadi
-      if (fol !== cur) { fol = cur; try { if (typeof follow === 'function') follow(cur) } catch (e) {} }
+      if (cur && fol !== cur) { fol = cur; try { if (typeof follow === 'function') follow(cur) } catch (e) {} }
     } else fol = null;
     if (!A.paused) raf = requestAnimationFrame(paint);
   }
@@ -82,6 +82,5 @@
     sp.addEventListener('contextmenu', function (e) { e.preventDefault() });
     sp.addEventListener('click', function (e) { e.stopPropagation(); if (lp) return; playSeg(BW[i][2][0] - 0.05, BW[i][2][1] + 0.08) });
   });
-  rows[1].addEventListener('click', function () { playSeg(H.s[0] - 0.05, H.s[1]) });
-  if (H.la) rows[2].addEventListener('click', function () { playSeg(H.s[1] - 0.05, H.e) });
+  H.rows.forEach(function (r, i) { if (r.t) rws[i].addEventListener('click', function () { playSeg(r.t[0] - 0.05, r.t[1]) }); else rws[i].style.cursor = 'default' });
 })();

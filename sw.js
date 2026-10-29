@@ -1,7 +1,7 @@
 /* Avval telefondagi nusxa darhol ochiladi, yangisi orqa fonda yuklab olinadi.
    Yangi versiya (VER) chiqqanda hammasi qaytadan yuklanadi. */
-var C = 'arab-tili-v115';
-var FILES = ["./", "index.html", "tinglash.html", "fel.html", "tg.js", "shell.js", "shell.css", "manifest.webmanifest", "icon-192.png", "icon-512.png", "icon-maskable-512.png", "1.html", "2.html", "3.html", "4.html", "70.html", "71.html", "72.html", "73.html", "74.html", "91.html", "92.html", "93.html", "feellar.html", "sarf.html", "sarf-idx.json", "sarflink.js", "naskh.woff", "a1-fe9926f7.mp3", "a2-629b0f4a.mp3", "a3-8fb53c3c.mp3", "a4-4c2d3d2b.mp3", "a70-38568abf.mp3", "a71-622edaec.mp3", "a72-8d56440d.mp3", "a73-040848bb.mp3", "a74-999cfa80.mp3", "a91-2f253f00.mp3", "a92-7e48d224.mp3", "a93-5fef4bab.mp3", "l74-c166f09f.mp3"];
+var C = 'arab-tili-v116';
+var FILES = ["./", "index.html", "tinglash.html", "fel.html", "tg.js", "shell.js", "shell.css", "manifest.webmanifest", "icon-192.png", "icon-512.png", "icon-maskable-512.png", "1.html", "2.html", "3.html", "4.html", "70.html", "71.html", "72.html", "73.html", "74.html", "91.html", "92.html", "93.html", "feellar.html", "sarf.html", "sarf-idx.json", "sarflink.js", "tarkib.js", "hdr.js", "naskh.woff", "a1-fe9926f7.mp3", "a2-9adc8e8d.mp3", "a3-8fb53c3c.mp3", "a4-4c2d3d2b.mp3", "a70-38568abf.mp3", "a71-10b47ba4.mp3", "a72-b1ffc444.mp3", "a73-26e4389d.mp3", "a74-999cfa80.mp3", "a91-c13b9797.mp3", "a92-73d0b542.mp3", "a93-97fe1435.mp3", "l74-c166f09f.mp3"];
 var TG = 'https://telegram.org/js/telegram-web-app.js';
 
 self.addEventListener('install', function (e) {

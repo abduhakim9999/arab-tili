@@ -39,6 +39,7 @@
     '.tkb.s{color:var(--cj)}.tkb.j{color:var(--ac)}.tkb.g{color:var(--tx)}.tkb.g .tkt{font-weight:800}' +
     '.tkz{display:inline-block;color:var(--cx);border:1.5px dashed currentColor;border-radius:9px;padding:0 7px;margin:0 3px;line-height:1.35;background:rgba(210,59,42,.07)}' +
     '#tx.tartib .ws span.kx{text-decoration:underline dotted var(--cx);text-decoration-thickness:2.5px;text-underline-offset:.45em;text-decoration-skip-ink:none}' +
+    '.lgd .lga{color:var(--cj)}.lgd .lga b{font-weight:700}' +
     '.lgd .lgx{color:var(--cj)}.lgd .lgx u{text-decoration:underline dotted var(--cx);text-decoration-thickness:2.5px;text-underline-offset:4px}' +
     '.tkx .tka span{font-size:inherit!important;text-align:inherit!important}' +
     '.tkx .tka .pm{color:var(--cm)}.tkx .tka .po{color:var(--co)}.tkx .tka .px{color:var(--cx)}.tkx .tka .pf{color:var(--cf)}.tkx .tka .pb{color:var(--cb)}.tkx .tka .pj{color:var(--cj)}.tkx .tka .ph{color:var(--ch)}' +
@@ -93,6 +94,12 @@
     if (m) { var b = bare(m[2]); if (ZW.some(function (p) { return b.indexOf(p) == 0 && b.length > p.length })) return cw(e, m[1]) + g + ' ' + cw(e, m[2]) }
     return g + ' ' + cw(e, w);
   }
+  /* шибҳи жумла изоҳи: рамкада кўриниб турган сўз такрорланмайди */
+  function sjd(src) {
+    var d = src.replace(/\s*бўлмиш маҳзуф\s+[؀-ۿ]+/, ' бўлмиш маҳзуф').replace(/\s*\([؀-ۿ\s]+\)/g, '').replace(/\s*(га)?\s*мутааллиқ\.?$/, '').trim();
+    if (/^маҳзуф [؀-ۿ]+$/.test(d)) return 'маҳзуф феъл';
+    return d.replace(/([؀-ۿ]+)/g, '<bdi class="ar">$1</bdi>');
+  }
   function sj(i, ln, g, ws) {
     var src = g[2].replace(/^шибҳи жумла — ?/, '').replace(/ ?га мутааллиқ$/, ''), tgt = '', cls = '', hid = '', ti = -1;
     var a = src.match(/^(?:маҳзуф )?([؀-ۿ]+)$/);
@@ -112,7 +119,7 @@
     var tg = hid ? '<span class="tkt0 hid">' + (tgt || '…') + '</span>' : '<span class="tkt0 ' + cls + '">' + tgt + '</span>';
     return '<div class="tkr s" data-a="' + g[0] + '" data-b="' + g[1] + '"' + (ti >= 0 ? ' data-t="' + ti + '"' : '') + '>' +
       '<div class="tkl2">' + tg + '<span class="tkar">→</span><span class="tka">' + ws.join(' ') + '</span></div>' +
-      '<span class="tkd"><b>шибҳи жумла</b> · ' + (hid ? hid + (tgt ? ' (<bdi class="ar">' + tgt + '</bdi>)' : '') + ' га мутааллиқ, у яширин' : '<bdi class="ar">' + tgt + '</bdi> га мутааллиқ') + '</span>' +
+      '<span class="tkd"><b>шибҳи жумла</b>' + (hid ? ' · ' + sjd(src) : '') + '</span>' +
       '</div>';
   }
   /* хабар ўрнидаги жар ва мажрур: ранги ўзиники, остида хабар рангидаги нуқтали чизиқ */
@@ -127,6 +134,7 @@
     });
     var lg = document.getElementById('lg');
     if (lg) { var pm = lg.querySelector('.pm'), po = lg.querySelector('.po'); if (pm && po && pm.nextSibling !== po) pm.parentNode.insertBefore(po, pm.nextSibling) }
+    if (lg && Object.keys(G).length && !lg.querySelector('.lga')) { var y = document.createElement('span'); y.className = 'lga'; y.innerHTML = '<b>→</b> — мутааллиқ'; lg.appendChild(y) }
     if (lg && n && !lg.querySelector('.lgx')) { var x = document.createElement('span'); x.className = 'lgx'; x.innerHTML = '<u>Жар ва мажрур</u> — хабар ўрнида'; lg.appendChild(x) }
   }
   function deco() {

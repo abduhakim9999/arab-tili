@@ -194,3 +194,22 @@ body.lo2 .w>.tabs:first-child{margin-top:-14px!important}
 .lgb{display:none;align-self:flex-start;margin:-4px 0 8px;padding:4px 10px;font:500 12.5px/1.2 system-ui,-apple-system,sans-serif;color:var(--mu);background:var(--cd);border:1px solid var(--bd);border-radius:999px;cursor:pointer}
 .lgb.on{display:inline-block}
 .lgb.op{color:var(--tx)}
+
+/* --- «?» йўриқномаси --- */
+.hpop{width:min(330px,calc(100vw - 24px));max-height:calc(100vh - 140px);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.guide .gh{display:block;font:700 12px/1.2 system-ui,-apple-system,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:var(--mu);margin:12px 0 6px}
+.guide .gh:first-child{margin-top:0}
+.guide ul{list-style:none;margin:0;padding:0}
+.guide li{display:flex;align-items:center;gap:10px;padding:7px 0;border-top:1px solid var(--bd);font-size:14px;line-height:1.35;color:var(--tx)}
+.guide li:first-child{border-top:0}
+.guide .gk{flex:0 0 74px;display:flex;justify-content:center;font-size:18px}
+.guide .gt{flex:1}
+.guide i{font-style:normal}
+.guide .gb{font:600 12px/1 system-ui,-apple-system,sans-serif;padding:6px 8px;border-radius:9px;border:1px solid var(--bd);background:var(--bg);white-space:nowrap}
+.guide .ga{font-size:20px;font-weight:700;color:var(--cj)}
+.guide .gc{display:block;width:44px;height:24px;border-radius:7px;background:var(--bg);border-right:3px solid var(--cj)}
+.guide .gd,.guide .gu{font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:17px;direction:rtl}
+.guide .gd{color:var(--cx);border:1.5px dashed currentColor;border-radius:8px;padding:0 6px;opacity:.85}
+.guide .gu{color:var(--cj);text-decoration:underline dotted var(--cx);text-decoration-thickness:2.5px;text-underline-offset:5px}
+.guide .gs{font:600 11.5px/1 system-ui,-apple-system,sans-serif;color:var(--ac);background:color-mix(in srgb,var(--ac) 13%,transparent);border-radius:999px;padding:5px 9px}
+.hpop .tourbtn{margin-top:10px}

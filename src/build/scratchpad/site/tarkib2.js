@@ -119,16 +119,14 @@
     var first = ln.querySelector('[data-i="' + i + '-' + g[0] + '"]'), z = IRB[i + '-' + g[0]] && /зарф/.test(IRB[i + '-' + g[0]].s || '');
     var q = qword(first ? first.textContent : ws[0], z);
     if (src && !tgt && !/маҳзуф/.test(src)) return '<div class="tkr s" data-a="' + g[0] + '" data-b="' + g[1] + '"><span class="tka">' + ws.join(' ') + '</span>' +
-      '<span class="tkd"><b>шибҳи жумла</b> · ' + sjd(src) + '</span></div>';
-    if (!src || src == 'шибҳи жумла') return '<div class="tkr s" data-a="' + g[0] + '" data-b="' + g[1] + '"><span class="tka">' + ws.join(' ') + '</span>' +
-      '<span class="tkd"><b>шибҳи жумла</b></span></div>';
+      (/^шибҳи жумла$/.test(sjd(src)) ? '' : '<span class="tkd">' + sjd(src) + '</span>') + '</div>';
+    if (!src || src == 'шибҳи жумла') return '<div class="tkr s" data-a="' + g[0] + '" data-b="' + g[1] + '"><span class="tka">' + ws.join(' ') + '</span></div>';
     var u = U[i + '-' + g[0]]; if (u && /^(كَائِن|مَوْجُود)/.test(tgt)) u = null; /* яширин тақдир сўзига (كَائِنٌ، مَوْجُودٌ) маъно берилмайди */
     function es(t) { return String(t).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c] }) }
     var tg = hid ? '<span class="tkt0 hid">' + (tgt || '…') + '</span>' : '<span class="tkt0 ' + cls + '">' + tgt + '</span>';
     return '<div class="tkr s" data-a="' + g[0] + '" data-b="' + g[1] + '"' + (ti >= 0 ? ' data-t="' + ti + '"' : '') + '>' +
       '<div class="tkl2">' + (u ? '<span class="tkc">' + tg + '<small>' + es(u[0]) + '</small></span>' : tg) + '<span class="tkar">→</span>' + (u ? '<span class="tkc"><span class="tka">' + ws.join(' ') + '</span><small>' + es(u[1]) + '</small></span>' : '<span class="tka">' + ws.join(' ') + '</span>') + '</div>' +
-      (u && u[2] ? '<span class="tku"><i>Ўзбекча:</i> ' + es(u[2]).replace(/→/g, '<b>→</b>') + '</span>' : '') +
-      '<span class="tkd"><b>шибҳи жумла</b>' + (hid ? ' · ' + sjd(src) : '') + '</span>' +
+      (hid ? '<span class="tkd">' + sjd(src) + '</span>' : '') +
       '</div>';
   }
   /* хабар ўрнидаги жар ва мажрур: ранги ўзиники, остида хабар рангидаги нуқтали чизиқ */
@@ -143,8 +141,7 @@
     });
     var lg = document.getElementById('lg');
     if (lg) { var pm = lg.querySelector('.pm'), po = lg.querySelector('.po'); if (pm && po && pm.nextSibling !== po) pm.parentNode.insertBefore(po, pm.nextSibling) }
-    if (lg && Object.keys(G).length && !lg.querySelector('.lga')) { var y = document.createElement('span'); y.className = 'lga'; y.innerHTML = '<b>→</b> — мутааллиқ'; lg.appendChild(y) }
-    if (lg && n && !lg.querySelector('.lgx')) { var x = document.createElement('span'); x.className = 'lgx'; x.innerHTML = '<u>Жар ва мажрур</u> — хабар ўрнида'; lg.appendChild(x) }
+    /* → , карта ва нуқтали чизиқ изоҳи — «?» йўриқномасида (shell.js), легендада фақат ранглар */
   }
   function deco() {
     kx();

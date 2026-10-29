@@ -186,8 +186,8 @@
     window.follow = function (e) {
       if (!e) return;
       var ln = e.closest('.ln') || e, r = ln.getBoundingClientRect(), wr = e.getBoundingClientRect();
-      var bar = document.getElementById('tg'), top = bar ? bar.getBoundingClientRect().bottom + 8 : 70;
-      var bot = pb.getBoundingClientRect().top - 10; if (bot < top + 120) bot = window.innerHeight - 10;
+      var bar = document.querySelector('.tabs'), top = bar ? bar.getBoundingClientRect().bottom + 8 : 70;
+      var tgb = document.querySelector('.tgbar'), bot = (tgb && tgb.offsetParent ? tgb : pb).getBoundingClientRect().top - 10; if (bot < top + 120) bot = window.innerHeight - 10;
       var av = bot - top;
       var tall = r.height > av * 0.6, ref = tall ? wr : r;
       if (ref.top >= top && ref.bottom <= top + av * 0.7) return;
@@ -366,4 +366,21 @@
     hp0.appendChild(rb);
   }
   if (!lsGet(TK)) setTimeout(open, 700);
+})();
+
+/* --- Ҳаракат/Таржима/Таркиб пастда, плеер устида --- */
+(function () {
+  var tg = document.getElementById('tg');
+  if (!tg || !tg.parentNode) return;
+  var row = tg.parentNode;
+  row.classList.add('tgbar');
+  document.body.classList.add('lo2');
+  var pb = document.querySelector('.pbar');
+  function fit() {
+    var h = pb && pb.offsetHeight ? pb.offsetHeight + 8 : 0;
+    document.documentElement.style.setProperty('--pbh', h + 'px');
+  }
+  fit();
+  window.addEventListener('resize', fit);
+  if (pb && window.ResizeObserver) new ResizeObserver(fit).observe(pb);
 })();

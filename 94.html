@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>94-дарс: Икки толиба орасида</title>
+<style>
+:root{--bg:#f6f3ec;--cd:#fff;--tx:#1e2a26;--mu:#6b756f;--ac:#0f766e;--hl:#c2410c;--bd:#e0dccf;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10171a;--cd:#19242a;--tx:#e8efec;--mu:#93a29b;--ac:#2dd4bf;--hl:#fb923c;--bd:#2a3a41}}
+:root[data-theme="dark"]{--bg:#10171a;--cd:#19242a;--tx:#e8efec;--mu:#93a29b;--ac:#2dd4bf;--hl:#fb923c;--bd:#2a3a41}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,sans-serif}
+.w{max-width:520px;margin:0 auto;padding:14px 14px 40px}
+h1{font-size:19px;margin:6px 0 10px}
+.tabs{display:flex;gap:8px;margin-bottom:10px}
+.tabs button,.tg{font:inherit;padding:9px 14px;border-radius:10px;border:1px solid var(--bd);background:var(--cd);color:var(--tx);cursor:pointer}
+.tabs button.on{background:var(--ac);color:var(--bg);border-color:var(--ac)}
+.tg{width:100%;margin-bottom:10px;font-size:14px;text-align:left}
+.hint{font-size:13px;color:var(--mu);margin:0 0 10px}
+.ln{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:10px 12px;margin-bottom:10px}
+.r1{direction:rtl;display:flex;align-items:flex-start;gap:8px}
+.tr{font-size:15px;line-height:1.7;color:var(--mu);margin-top:6px;border-top:1px dashed var(--bd);padding-top:6px}
+.ts{padding:1px 3px;border-radius:6px;cursor:pointer;color:var(--tx)}
+.ts.on,.ws span.on{background:rgba(234,88,12,.25);color:var(--tx)}
+.sp{font-family:"DarsNaskh","Noto Naskh Arabic","Geeza Pro","Traditional Arabic",serif;font-size:var(--fs,22px);line-height:1.8;color:var(--ac);font-weight:700;flex-shrink:0}
+.ws{direction:rtl;display:flex;flex-wrap:wrap;gap:0 4px;flex:1}
+.ar,.ws span,.big{font-family:"DarsNaskh","Noto Naskh Arabic","Geeza Pro","Traditional Arabic",serif}
+.ws span{font-size:var(--fs,22px);line-height:1.8;padding:0 2px;border-radius:8px;cursor:pointer}
+.ws span{-webkit-tap-highlight-color:transparent}
+.ws span.pl,.ts.pl{background:rgba(234,88,12,.25);color:var(--tx)}
+#tg{position:sticky;top:6px;z-index:6;box-shadow:0 2px 10px rgba(0,0,0,.22)}
+#tg.on{background:var(--ac);color:var(--bg);border-color:var(--ac)}
+.lt{margin-top:6px;text-align:left}
+.lt button{font:inherit;font-size:12px;padding:3px 10px;border-radius:999px;border:1px solid var(--bd);background:var(--cd);color:var(--mu);cursor:pointer}
+.lt button.on{background:var(--ac);color:var(--bg);border-color:var(--ac)}
+.spd{display:flex;gap:6px;align-items:center;margin:6px 0 10px;font-size:13px;color:var(--mu)}
+.spd button{font:inherit;padding:5px 12px;border-radius:8px;border:1px solid var(--bd);background:var(--cd);color:var(--tx);cursor:pointer}
+.spd button.on{background:var(--ac);color:var(--bg);border-color:var(--ac)}
+.ws span{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:pan-y}
+#sh{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:flex-end;z-index:9}
+#sh.on{display:flex}
+.sheet{background:var(--cd);width:100%;max-width:520px;margin:0 auto;border-radius:18px 18px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px));max-height:75vh;overflow-y:auto}
+.big{font-size:52px;text-align:center;direction:rtl;line-height:1.6}
+.big b{color:var(--hl)}
+.row{font-size:15px;line-height:1.5;margin:8px 0}
+.row i{color:var(--mu);font-style:normal;font-size:12px;display:block}
+.x{width:100%;margin-top:10px;padding:12px;border:0;border-radius:10px;background:var(--ac);color:var(--bg);font:inherit;font-weight:600}
+.g{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--bd)}
+.g .ar{font-size:26px;direction:rtl}
+.g span:last-child{font-size:15px;text-align:right}
+.g{display:flex;flex-direction:row-reverse;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid var(--bd)}
+.g .ar{font-size:30px;line-height:1.5;direction:rtl;text-align:right;min-width:96px;white-space:nowrap}
+.g .mn{flex:1;text-align:left;font-size:15px;line-height:1.55}
+.g .mn div{margin-bottom:2px}
+.g .mn .ex{color:var(--mu);font-size:13px;margin-top:4px}
+.g .ar.vw{white-space:normal;max-width:48%;font-size:26px}
+.vno{color:var(--mu);font-size:12px}
+.ar2{font-family:"DarsNaskh","Noto Naskh Arabic","Geeza Pro","Traditional Arabic",serif;direction:rtl;text-align:right;font-size:21px;line-height:1.8;margin-top:6px}
+mark{background:rgba(234,88,12,.25);color:inherit;border-radius:4px;padding:0 3px}
+.g{flex-direction:column;align-items:stretch;gap:6px}
+.g .hd{display:flex;flex-direction:row-reverse;align-items:flex-start;gap:14px}
+.g .hd.lg{flex-direction:column;gap:2px}
+.g .hd .ar.vw{white-space:nowrap;max-width:none;min-width:0;flex-shrink:0}
+.g .hd.lg .ar.vw{font-size:21px;max-width:100%;overflow-x:auto}
+.g .exs{display:flex;flex-direction:column;gap:6px}
+.g .eb{background:rgba(127,127,127,.08);border-radius:10px;padding:6px 10px}
+.g .eb .ar2{margin-top:0}
+.g .eb .ex{color:var(--mu);font-size:14px;line-height:1.5;margin-top:3px}
+#tx.hidetr .tr:not(.rev) .ts{filter:blur(5px);user-select:none}#tx.hidetr .tr:not(.rev) .ts.on,#tx.hidetr .tr:not(.rev) .ts.pl{background:none}
+.lt{display:flex;gap:6px;flex-wrap:wrap}
+.lt button.lp{color:var(--tx)}
+#tg,#tt{font-size:14px;white-space:nowrap}
+#lpb.on{background:var(--hl);color:var(--bg);border-color:var(--hl)}
+#pp.on{background:var(--ac);color:var(--bg);border-color:var(--ac)}
+#tt.on{background:var(--ac);color:var(--bg);border-color:var(--ac)}
+.lt button.lp.on{background:var(--hl);border-color:var(--hl);color:var(--bg)}
+.qbox{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:14px}
+.qhd{display:flex;justify-content:space-between;font-size:13px;color:var(--mu);margin-bottom:8px}
+.qs{direction:rtl;font-family:"DarsNaskh","Noto Naskh Arabic","Geeza Pro","Traditional Arabic",serif;font-size:var(--fs,24px);line-height:2;text-align:right}
+.qs .qt{background:rgba(234,88,12,.25);border-radius:8px;padding:0 4px}
+.qtr{font-size:14px;color:var(--mu);margin:6px 0 10px;border-top:1px dashed var(--bd);padding-top:6px}
+.qq{font-size:15px;margin:6px 0 10px}
+.qo{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.qo button{font:inherit;padding:10px 4px;border-radius:12px;border:2px solid var(--bd);background:var(--cd);color:var(--tx);cursor:pointer}
+.qo button b{display:block;font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:34px;line-height:1.5;font-weight:400}
+.qo button span{font-size:12px;color:var(--mu)}
+.qo button b{font-size:28px;line-height:1.7}.qs .qt{color:var(--hl)}
+.qo button.ok{border-color:#16a34a;background:rgba(22,163,74,.15)}
+.qo button.no{border-color:#dc2626;background:rgba(220,38,38,.15)}
+.qf{margin-top:12px;font-size:15px;line-height:1.55}
+.qf .res{font-weight:700;margin-bottom:4px}
+.qb{display:flex;gap:8px;margin-top:12px}
+.qb button{flex:1;font:inherit;padding:11px;border-radius:10px;border:1px solid var(--bd);background:var(--cd);color:var(--tx);cursor:pointer}
+.qb button.pr{background:var(--ac);color:var(--bg);border-color:var(--ac);font-weight:600}
+.qsc{font-size:44px;font-weight:700;text-align:center;color:var(--ac);margin:6px 0}
+.qm{display:flex;gap:8px;margin-bottom:10px}
+.qm button{flex:1;font:inherit;font-size:14px;padding:8px;border-radius:10px;border:1px solid var(--bd);background:var(--cd);color:var(--tx);cursor:pointer}
+.qm button.on{background:var(--ac);color:var(--bg);border-color:var(--ac)}
+.qs.qc{opacity:.6;font-size:calc(var(--fs,24px) * .85);border-bottom:1px dashed var(--bd);margin-bottom:6px}
+.big .wp{color:var(--mu);font-size:.5em;margin:0 .35em;vertical-align:middle}
+.wpr{margin:2px 0}
+.wpr .ar{font-size:24px}
+.qs .qt .ir{color:var(--hl);font-weight:inherit}
+.qs .qa{box-shadow:inset 0 -3px 0 var(--ac);background:rgba(15,118,110,.15);border-radius:6px}
+.qam{background:rgba(15,118,110,.1);border-radius:10px;padding:8px 10px;margin:6px 0}
+.qam .ar{font-size:22px;unicode-bidi:isolate;direction:rtl}
+#tx,#p3,.sheet{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.w.box{overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+#tx,#p3{touch-action:pan-y}
+.ln .ck+.ck{margin-top:10px;padding-top:8px;border-top:1px solid var(--bd)}
+
+:root{--cm:#3a64a0;--cx:#a24a36;--cf:#3a7a4c;--co:#78519e;--cb:#9a6a24;--cj:#2a7676;--ch:#8d5276}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--cm:#93b3e3;--cx:#e3a493;--cf:#93cfa4;--co:#c2a6e3;--cb:#dcb57d;--cj:#86c9c9;--ch:#d9a3c4}}
+:root[data-theme="dark"]{--cm:#93b3e3;--cx:#e3a493;--cf:#93cfa4;--co:#c2a6e3;--cb:#dcb57d;--cj:#86c9c9;--ch:#d9a3c4}
+#tx.tartib .pm{color:var(--cm)}#tx.tartib .px{color:var(--cx)}#tx.tartib .pf{color:var(--cf)}#tx.tartib .po{color:var(--co)}#tx.tartib .pb{color:var(--cb)}#tx.tartib .pj{color:var(--cj)}#tx.tartib .ph{color:var(--ch)}
+#tx.tartib .ws span[data-n]::before,#tx.tartib .ts[data-n]::before{content:attr(data-n);font:700 11px system-ui,sans-serif;color:var(--mu);margin:0 2px;vertical-align:super;line-height:1;opacity:.9}
+#tx.tartib .pm[data-n]::before{color:var(--cm)}#tx.tartib .px[data-n]::before{color:var(--cx)}#tx.tartib .pf[data-n]::before{color:var(--cf)}#tx.tartib .po[data-n]::before{color:var(--co)}#tx.tartib .pb[data-n]::before{color:var(--cb)}#tx.tartib .pj[data-n]::before{color:var(--cj)}#tx.tartib .ph[data-n]::before{color:var(--ch)}
+.lgd{display:none;gap:4px 12px;flex-wrap:wrap;font-size:13px;margin:-4px 0 8px;position:sticky;top:52px;z-index:6;background:var(--bg);padding:2px 0 4px}.lgd.on{display:flex}
+.lgd .pm{color:var(--cm)}.lgd .px{color:var(--cx)}.lgd .pf{color:var(--cf)}.lgd .po{color:var(--co)}.lgd .pb{color:var(--cb)}.lgd .pj{color:var(--cj)}.lgd .ph{color:var(--ch)}
+#bl.on{background:var(--ac);color:var(--bg);border-color:var(--ac)}
+.hide{display:none}
+.rw{display:grid;grid-template-columns:92px 1fr;gap:10px;padding:7px 0;border-bottom:1px solid var(--bd);font-size:15px;line-height:1.5}
+.rw>i{font-style:normal;color:var(--mu);font-size:12px;line-height:1.35;padding-top:3px}
+.rw .ar{font-size:1.2em;line-height:1.3;unicode-bidi:isolate;direction:rtl}
+.rw .wpr .ar{font-size:22px}
+.irb{margin-top:12px;background:rgba(15,118,110,.07);border:1px solid var(--bd);border-radius:12px;padding:8px 12px}
+.irb>i{display:block;font-style:normal;color:var(--mu);font-size:12px;margin-bottom:2px}
+.irb div{direction:rtl;text-align:right;font-family:"DarsNaskh","Noto Naskh Arabic","Geeza Pro","Traditional Arabic",serif;font-size:calc(var(--fs,22px) * .86);line-height:2}
+.irb div+div{border-top:1px dashed var(--bd)}
+.irb b{color:var(--ac);font-weight:700}
+.qf .rw{font-size:14px}
+.rw .t{display:block;direction:rtl;text-align:right;font-family:"DarsNaskh","Noto Naskh Arabic","Geeza Pro","Traditional Arabic",serif;font-size:calc(var(--fs,22px) * .8);color:var(--ac);line-height:1.6;margin-top:1px}
+.qmb{display:block;width:100%;margin-top:12px;font:inherit;font-size:15px;padding:10px;border-radius:12px;border:1px dashed var(--ac);background:transparent;color:var(--ac);cursor:pointer;text-align:left}
+.qmb::after{content:" ▾";float:right}.qmb.on::after{content:" ▴"}
+.qmx{margin-top:8px;font-size:15px;line-height:1.6}
+.qmn{font-size:12px;color:var(--mu);margin-bottom:6px}
+.qmt{background:rgba(127,127,127,.07);border-radius:10px;padding:8px 12px;margin-bottom:8px}
+.qmt>b{display:block;color:var(--ac);margin-bottom:2px}
+.qmt ul{margin:0;padding-left:18px}.qmt li{margin:3px 0}
+.qmx .ar{font-family:"DarsNaskh","Noto Naskh Arabic","Geeza Pro","Traditional Arabic",serif;font-size:1.2em;line-height:1.3;unicode-bidi:isolate;direction:rtl}
+.xul{font-size:16px;line-height:1.6;font-weight:600;background:rgba(194,65,12,.08);border-radius:10px;padding:8px 10px;margin:4px 0 6px}
+.xul .ar{font-size:1.3em;unicode-bidi:isolate;direction:rtl;font-weight:700;color:var(--hl)}
+.xul .ar ~ .ar{color:inherit;font-weight:600;font-size:1.2em}
+.xul div+div{margin-top:4px;padding-top:4px;border-top:1px dashed rgba(194,65,12,.25)}
+.qnv{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;font-size:14px}
+.qnv button{font:inherit;font-size:22px;line-height:1;width:44px;height:36px;border-radius:10px;border:1px solid var(--bd);background:var(--cd);color:var(--tx);cursor:pointer}
+.qnv button:disabled{opacity:.35}
+.qex{font:inherit;font-size:14px;margin:4px 0 2px;padding:6px 14px;border-radius:999px;border:1px solid var(--bd);background:var(--cd);color:var(--ac);cursor:pointer}
+.qex::after{content:" ▾"}.qex.on::after{content:" ▴"}
+.qbox .qb{position:sticky;bottom:0;background:var(--cd);padding:8px 0 calc(8px + env(safe-area-inset-bottom,0px));margin-bottom:-14px;border-top:1px solid var(--bd);z-index:3}
+
+:root{--cR:#1d4ed8;--cN:#b91c1c;--cJ:#15803d;--cZ:#7e22ce}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--cR:#93c5fd;--cN:#fca5a5;--cJ:#86efac;--cZ:#d8b4fe}}
+:root[data-theme="dark"]{--cR:#93c5fd;--cN:#fca5a5;--cJ:#86efac;--cZ:#d8b4fe}
+.big b.cR,.hk .cR{color:var(--cR)}.big b.cN,.hk .cN{color:var(--cN)}.big b.cJ,.hk .cJ{color:var(--cJ)}.big b.cZ,.hk .cZ{color:var(--cZ)}.hk .cM{color:var(--mu)}
+.mnl{text-align:center;color:var(--mu);font-size:15px;margin:-6px 0 6px}
+.hk{text-align:center;margin:0 0 8px}.hk span{display:inline-block;font-size:13px;font-weight:600;padding:2px 12px;border-radius:999px;background:rgba(127,127,127,.12)}
+.tk{background:rgba(127,127,127,.06);border:1px solid var(--bd);border-radius:12px;padding:8px 12px;margin-top:4px}
+.tk>i{display:block;font-style:normal;color:var(--mu);font-size:12px;margin-bottom:2px}
+.tl{font-size:15px;line-height:1.55;padding:6px 0}.tl+.tl{border-top:1px dashed var(--bd)}
+.tl .ar,.ny .ar,.xi .ar,.xul .tl .ar{font-size:1.25em;line-height:1.3;unicode-bidi:isolate;direction:rtl}
+.tl>.ar:first-child{color:var(--ac);font-weight:700;font-size:1.35em}
+.tn{color:var(--mu)}
+.ny{font-size:13px;color:var(--mu);margin-top:6px;padding-top:6px;border-top:1px solid var(--bd);line-height:1.5}
+.jmb{margin-top:8px;padding:8px 10px;border-radius:10px;background:rgba(29,120,80,.08);border-left:3px solid var(--ac);font-size:15px;line-height:1.6}.jmb b{display:block;font-size:11px;letter-spacing:.08em;color:var(--ac);margin-bottom:2px}.jmb .ar{font-size:19px}
+.jt{margin-top:6px;padding-top:6px;border-top:1px solid var(--bd);font-weight:600;color:var(--ac)}
+.xi{padding:4px 0;font-size:15px;line-height:1.55}.xi+.xi{border-top:1px dashed var(--bd)}
+.xul .tl{padding:0;font-weight:600}
+#tx.tartib .ws span[data-s]{text-align:center}
+#tx.tartib .ws span[data-s]::after{content:attr(data-s);display:block;font:600 10.5px system-ui,-apple-system,sans-serif;color:var(--mu);line-height:1.2;white-space:nowrap;direction:ltr;unicode-bidi:isolate;margin:-3px 0 5px}
+.oi{padding:6px 0;font-size:15px;line-height:1.55}.oi+.oi{border-top:1px dashed var(--bd)}.oi b{color:var(--ac)}.oi .ar{font-size:1.2em;line-height:1.3;unicode-bidi:isolate;direction:rtl}
+.tr{font-size:calc(var(--fs,22px) * .68)}
+.tl.tno{font-size:13px;color:var(--mu);padding-top:0;margin-top:-2px}
+</style>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0f766e">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="shell.css">
+<script src="tg.js" data-key="dars94-holat" data-home="./#k2"></script><script>(function(){try{var K="dars94-holat",N="94",L=localStorage;if(L.getItem("joy-dars")!==N){var S=JSON.parse(L.getItem(K)||"{}")||{};if(S.at!=null||S.pos||S.tab){delete S.at;delete S.pos;delete S.tab;L.setItem(K,JSON.stringify(S))}}L.setItem("joy-dars",N)}catch(e){}})()</script>
+<style>
+.home{display:inline-block;margin:2px 0 4px;font-size:14px;color:var(--ac);text-decoration:none}
+</style>
+<style>#tx>.ln:first-child{display:none}</style><style>#tx>.ln:nth-child(2){background:linear-gradient(180deg,rgba(15,122,79,.10),rgba(15,122,79,.03));border:1.5px solid rgba(15,122,79,.35);text-align:center;padding-top:22px;position:relative}#tx>.ln:nth-child(2)::before{content:"МАВЗУ";position:absolute;top:7px;left:0;right:0;text-align:center;font-size:11px;font-weight:800;letter-spacing:.14em;color:var(--ac)}#tx>.ln:nth-child(2) .ws{justify-content:center}#tx>.ln:nth-child(2) .ws span{font-weight:700;color:var(--ac);font-size:calc(var(--fs,22px) + 6px)}#tx>.ln:nth-child(2) .tr{text-align:center;font-weight:600;color:var(--tx)}</style></head>
+<body>
+<div class="w">
+<a class="home" href="./#k2">‹ Дарслар</a>
+<h1>94-дарс: Икки толиба орасида</h1>
+<div class="tabs"><button class="on" id="t1" onclick="tab(1)">Матн</button><button id="t2" onclick="tab(2)">Луғат</button><button id="t3" onclick="tab(3)">Машқ</button></div>
+<div id="p1">
+<div style="display:flex;gap:8px;margin-bottom:10px;position:sticky;top:0;z-index:6;background:var(--bg);padding:6px 0"><button class="tg" id="pp" onclick="ppl()" style="width:60px;margin:0;text-align:center;padding:8px 0;font-size:20px" aria-label="Тўхтатиш/давом">▶</button><button class="tg" id="tg" onclick="tog()" style="flex:1;margin:0;text-align:center;padding:9px 4px">Ҳаракат</button><button class="tg on" id="tt" onclick="ttr()" style="flex:1;margin:0;text-align:center;padding:9px 4px">Таржима</button><button class="tg" id="bl" onclick="bol()" style="flex:0 0 auto;width:auto;margin:0;text-align:center;padding:9px 8px;font-size:12px">Таркиб</button></div>
+<div class="lgd" id="lg"><span class="pm">● Мубтадо, إِنَّ исми</span><span class="px">● Хабар</span><span class="pf">● Феъл</span><span class="po">● Фоил</span><span class="pb">● Мафъулун биҳ</span><span class="pj">● Жар ва мажрур</span><span class="ph">● Зарф, ҳол</span></div>
+<p class="hint" style="line-height:1.7">✋ Босиб туринг — изоҳ<br>↔️ Суринг — шу ердан давом<br>🤏 Икки бармоқ — катта-кичик</p>
+<div style="margin:10px 0"><audio controls preload="metadata" style="width:100%" src="a94-16e5fd3e.mp3"></audio>
+<div class="spd"><span>Тезлик:</span><button onclick="spd(0.5,this)">0.5×</button><button onclick="spd(0.75,this)">0.75×</button><button class="on" onclick="spd(1,this)">1×</button></div></div>
+<div id="tx"></div>
+</div>
+<div id="p2" class="hide"></div>
+<div id="p3" class="hide"></div>
+</div>
+<div id="sh" onclick="cl(event)"><div class="sheet" id="sb"></div></div>
+<script>
+var D=[
+["",`الدَّرْسُ|R|[[Исм]]. Сарлавҳа: мубтадо|дарс/الرَّابِعُ|R|[[Исм (сон)]]. Сифат|тўртинчи/وَالتِّسْعُونَ~(94)|R|[[و — атф ҳарфи + исм (сон)]]. Маътуф|ва тўқсонинчи`],
+["",`بَيْنَ|N|[[Исм (зарф макон)]]. Музоф бўлиб зарф|орасида/طَالِبَتَيْنِ|J|[[Исм (тасния)]]. Музофун илайҳ|2 толиба`],
+["الطَّالِبَةُ الْأُولَى",`أَعْتَقِدُ|R|[[Феъл]]. музорий феъли|ўйлайман, ишонаман/أَنَّكِ|B|[[Ҳарф ва олмош]]. أَنَّ — таъкид ва насб ҳарфи; كِ — унинг исми|(сиз) …эканингиз(ни)/طَالِبَةٌ|R|[[Исм]]. أَنَّ нинг хабари|толиба/جَدِيدَةٌ~.|R|[[Исм]]. Сифат|янги`],
+["الطَّالِبَةُ الثَّانِيَةُ",`نَعَمْ~،|B|[[Ҳарф]]. Жавоб ҳарфи|ҳа, тўғри/اِلْتَحَقْتُ|B|[[Феъл]]. мозий феъли|кирдим, қўшилдим/بِالْمَعْهَدِ|J|[[Ҳарф + исм]]. Жар ҳарфи + мажрур|институтга/هَذِهِ|B|[[Исм (исм ишора)]]. Касрага мабний. Ноиби зарф (насб ўринда)|шу/السَّنَةَ~.|N|[[Исм]]. Бадал|йил`],
+["الطَّالِبَةُ الْأُولَى",`هَلْ|B|[[Ҳарф]]. Истифҳом ҳарфи|…ми?/دَرَسْتِ|B|[[Феъл]]. мозий феъли|ўргандинг(из), ўқидинг(из)/اللُّغَةَ|N|[[Исм]]. Мафъулун биҳ|тил/الْعَرَبِيَّةَ|N|[[Исм]]. Сифат|араб/فِي|B|[[Ҳарф]]. Жар ҳарфи|-да/بَلَدِكِ~؟|J|[[Исм ва олмош]]. Мажрур, мудоф. Олмош — музофун илайҳ|юртинг(из)да`],
+["الطَّالِبَةُ الثَّانِيَةُ",`هَذِهِ|B|[[Исм (исм ишора)]]. Касрага мабний. Мубтадо|бу/أَوَّلُ|R|[[Исм]]. Хабар, мудоф|биринчи/مَرَّةٍ|J|[[Исм]]. Музофун илайҳ|марта, бор/أَدْرُسُ|R|[[Феъл]]. музорий феъли|ўрганяпман, ўқияпман/فِيهَا|B|[[Ҳарф ва олмош]]. Жар ҳарфи + олмош (жар ўринда)|унда (шу марта)/الْعَرَبِيَّةَ~.|N|[[Исм]]. Мафъулун биҳ|араб тили`],
+["الطَّالِبَةُ الْأُولَى",`أَنَا|B|[[Исм (мунфасил олмош)]]. Сукунга мабний. Мубтадо (раф ўринда)|мен/دَرَسْتُ|B|[[Феъл]]. мозий феъли|ўргандим, ўқидим/الْعَرَبِيَّةَ|N|[[Исм]]. Мафъулун биҳ|араб тили/ثَلَاثَ|N|[[Исм (сон)]]. Ноиби зарф (замон), музоф|уч/سَنَوَاتٍ|J|[[Исм]]. Музофун илайҳ|йиллар/فِي|B|[[Ҳарф]]. Жар ҳарфи|-да/بَلَدِي~.|J|[[Исм ва олмош]]. Мажрур, мудоф. Олмош — музофун илайҳ|юртим(да)`],
+["الطَّالِبَةُ الثَّانِيَةُ",`لِمَاذَا|B|[[Ҳарф + исм истифҳом]]. لِـ — жар ҳарфи; مَا — исм истифҳом (жар ўринда); ذَا — зоида|нима учун/تَدْرُسِينَهَا|R|[[Феъл]]. Музорий феъли (беш феълдан), раф|уни ўрганяпсиз/مَرَّةً|N|[[Исм]]. Мафъулун мутлақ|марта, бор/ثَانِيَةً~،|N|[[Исм]]. Сифат|иккинчи/إِذَنْ~؟!|B|[[Ҳарф]]. Жавоб ва жазо ҳарфи|у ҳолда, ундай бўлса`],
+["الطَّالِبَةُ الْأُولَى",`فِي|B|[[Ҳарф]]. Жар ҳарфи|-да/بَلَدِي|J|[[Исм ва олмош]]. Мажрур, мудоф. Олмош — музофун илайҳ|юртим(да)/نَتَعَلَّمُ|R|[[Феъл]]. музорий феъли|ўрганамиз/الْقِرَاءَةَ~،|N|[[Исм]]. Мафъулун биҳ|ўқиш/وَالْقَوَاعِدَ|N|[[و — атф ҳарфи + исм]]. Маътуф|ва қоидалар/وَالتَّرْجَمَةَ~،|N|[[و — атф ҳарфи + исм]]. Маътуф|ва таржима/وَلَا|B|[[و — атф ҳарфи + нафий ҳарфи]]. Ҳарфлар|ва …ма(й)/نَتَعَلَّمُ|R|[[Феъл]]. музорий феъли|ўрганамиз/الْحَدِيثَ|N|[[Исм]]. Мафъулун биҳ|гапириш, сўзлашиш/بِاللُّغَةِ|J|[[Ҳарф + исм]]. Жар ҳарфи + мажрур|тилда/الْعَرَبِيَّةِ~.|J|[[Исм]]. Сифат|араб`],
+["الطَّالِبَةُ الثَّانِيَةُ",`وَلَكِنَّكِ|B|[[و — ҳарф + ҳарф ва олмош]]. لَكِنَّ — истидрок ва насб ҳарфи; كِ — унинг исми|лекин сиз/تَتَحَدَّثِينَ|R|[[Феъл]]. Музорий феъли (беш феълдан), раф|гапиряпсиз/الْعَرَبِيَّةَ|N|[[Исм]]. Мафъулун биҳ|араб тили/الْآنَ|B|[[Исм (зарф замон)]]. Фатҳага мабний. Зарф (насб ўринда)|ҳозир/جَيِّداً~!|N|[[Исм]]. Маҳзуф мафъулун мутлақнинг сифати|яхши`],
+["الطَّالِبَةُ الْأُولَى",`تَعَلَّمْتُ|B|[[Феъл]]. мозий феъли|ўргандим/الْحَدِيثَ|N|[[Исм]]. Мафъулун биҳ|гапириш, сўзлашиш/بِاللُّغَةِ|J|[[Ҳарф + исм]]. Жар ҳарфи + мажрур|тилда/الْعَرَبِيَّةِ|J|[[Исм]]. Сифат|араб/هُنَا~.|B|[[Исм (зарф макон)]]. Сукунга мабний. Зарф (насб ўринда)|шу ерда/فِي|B|[[Ҳарф]]. Жар ҳарфи|-да/الْمَعْهَدِ|J|[[Исм]]. Мажрур|институт/مُخْتَبَرٌ|R|[[Исм]]. Мубтадо муаххар|лаборатория, лингафон хонаси/وَحَاسُوبٌ|R|[[و — атф ҳарфи + исм]]. Маътуф|ва компьютер/وَإِذَاعَةٌ|R|[[و — атф ҳарфи + исм]]. Маътуф|ва радио/وَمَكْتَبَةٌ~.|R|[[و — атф ҳарфи + исм]]. Маътуф|ва кутубхона`],
+["الطَّالِبَةُ الثَّانِيَةُ",`لَا|B|[[Ҳарф]]. Нафий ҳарфи|-ма(й)/أَسْتَطِيعُ|R|[[Феъл]]. музорий феъли|қила оламан/نُطْقَ|N|[[Исм]]. Мафъулун биҳ, мудоф|талаффуз/الْأَصْوَاتِ|J|[[Исм]]. Музофун илайҳ|товушлар/ق~،|B|[[Ҳарф номи]]. Бадал (жар ўринда)|қоф/ظ~،|B|[[Ҳарф номи]]. Маътуф (жар ўринда)|зо/ح|B|[[Ҳарф номи]]. Маътуф (жар ўринда)|ҳа/جَيِّداً~.|N|[[Исм]]. Маҳзуф мафъулун мутлақнинг сифати|яхши`],
+["الطَّالِبَةُ الْأُولَى",`هُنَاكَ|B|[[Исм (зарф макон)]]. Фатҳага мабний. Зарф (насб ўринда)|у ерда, бор/تَدْرِيبَاتٌ|R|[[Исм]]. Мубтадо муаххар|машқлар/صَوْتِيَّةٌ|R|[[Исм]]. Сифат|овозга оид, аудио/جَيِّدَةٌ|R|[[Исм]]. Сифат|яхши/فِي|B|[[Ҳарф]]. Жар ҳарфи|-да/مُخْتَبَرِ|J|[[Исм]]. Мажрур, мудоф|лаборатория/اللُّغَةِ~.|J|[[Исм]]. Музофун илайҳ|тил`],
+["الطَّالِبَةُ الثَّانِيَةُ",`وَلَا|B|[[و — атф ҳарфи + нафий ҳарфи]]. Ҳарфлар|ва …ма(й)/أَسْتَطِيعُ|R|[[Феъл]]. музорий феъли|қила оламан/التَّحَدُّثَ|N|[[Исм]]. Мафъулун биҳ|гаплашиш/بِاللُّغَةِ|J|[[Ҳарф + исм]]. Жар ҳарфи + мажрур|тилда/الْعَرَبِيَّةِ~،|J|[[Исм]]. Сифат|араб/وَلَا|B|[[و — атф ҳарфи + нафий ҳарфи]]. Ҳарфлар|ва …ма(й)/أَفْهَمُ|R|[[Феъл]]. музорий феъли|тушунаман/كَلَامَ|N|[[Исм]]. Мафъулун биҳ, мудоф|сўз, гап/الْمُدَرِّسَةِ|J|[[Исм]]. Музофун илайҳ|ўқитувчи (аёл)/وَالطَّالِبَاتِ~.|J|[[و — атф ҳарфи + исм]]. Маътуф|ва толибалар/أُرِيدُ|R|[[Феъл]]. музорий феъли|истайман, хоҳлайман/أَنْ|B|[[Ҳарф]]. Насб ва масдар ҳарфи|…ишни/أَتَعَلَّمَ|N|[[Феъл]]. музорий феъли|ўрганмоқ(ни)/الْعَرَبِيَّةَ|N|[[Исм]]. Мафъулун биҳ|араб тили/جَيِّداً~.|N|[[Исм]]. Маҳзуф мафъулун мутлақнинг сифати|яхши/مَاذَا|B|[[Исм (истифҳом исми)]]. Сукунга мабний. Мафъулун биҳ (насб ўринда)|нима/أَفْعَلُ~؟!|R|[[Феъл]]. музорий феъли|қилай`],
+["الطَّالِبَةُ الْأُولَى",`اِحْفَظِي|B|[[Феъл]]. амр феъли|ёдланг/جُزْءاً|N|[[Исм]]. Мафъулун биҳ|пора, бўлак/مِنَ|B|[[Ҳарф]]. Жар ҳарфи|-дан/الْقُرْآنِ|J|[[Исм]]. Мажрур|Қуръон/الْكَرِيمِ~،|J|[[Исм]]. Сифат|карим, азиз/وَبَعْضَ|N|[[و — атф ҳарфи + исм]]. Маътуф|ва баъзи/الْأَحَادِيثِ|J|[[Исм]]. Музофун илайҳ|ҳадислар/النَّبَوِيَّةِ~،|J|[[Исм]]. Сифат|набавий/وَتَحَدَّثِي|B|[[و — ҳарф + Феъл]]. амр феъли|ва гаплашинг/بِالْعَرَبِيَّةِ|J|[[Ҳарф + исм]]. Жар ҳарфи + мажрур|арабчада/كَثِيراً~.|N|[[Исм]]. Маҳзуф мафъулун мутлақнинг сифати|кўп`],
+["الطَّالِبَةُ الثَّانِيَةُ",`هَذِهِ|B|[[Исм (исм ишора)]]. Касрага мабний. Мубтадо|бу/نَصِيحَةٌ|R|[[Исм]]. Хабар|маслаҳат/مُفِيدَةٌ~،|R|[[Исм]]. Сифат|фойдали/سَأَتَّبِعُهَا~،|R|[[Ҳарф + феъл + олмош]]. سَ — истиқбол ҳарфи; феъл — музорий, раф; هَا — мафъулун биҳ|унга риоя қиламан/إِنْ|B|[[Ҳарф]]. Шарт ҳарфи|агар/شَاءَ|B|[[Феъл]]. Мозий феъли, шарт феъли (жазм ўринда)|хоҳласа/اللَّهُ~.|R|[[Исм (лафзи жалола)]]. Фоил|Аллоҳ`],
+["الطَّالِبَةُ الْأُولَى",`إِذَنْ|B|[[Ҳарф]]. Жавоб ва жазо ҳарфи|у ҳолда/سَتَتَعَلَّمِينَ|R|[[Ҳарф + Феъл]]. Музорий феъли (беш феълдан), раф|ўрганиб оласиз/الْعَرَبِيَّةَ|N|[[Исм]]. Мафъулун биҳ|араб тили/جَيِّداً~.|N|[[Исм]]. Маҳзуф мафъулун мутлақнинг сифати|яхши`]
+];
+var TR=[[["94-дарс", [0, 1, 2]]], [["2 толиба", [1]], ["орасида", [0]]], [["Ўйлайманки,", [0]], ["сиз", [1]], ["янги", [3]], ["толибасиз.", [2]]], [["Тўғри,", [0]], ["шу", [3]], ["йили", [4]], ["институтга", [2]], ["кирдим.", [1]]], [["Араб", [3]], ["тилини", [2]], ["юртингизда", [4, 5]], ["ўрганганмисиз?", [0, 1]]], [["Мен", [0]], ["илк бор (биринчи марта)", [1, 2]], ["араб тилини", [5]], ["ўрганяпман.", [3, 4]]], [["Мен", [0]], ["арабчани", [2]], ["ўз юртимда", [5, 6]], ["3 йил", [3, 4]], ["ўрганганман.", [1]]], [["У ҳолда", [4]], ["нима учун", [0]], ["уни 2 чи бор (2-марта)", [2, 3]], ["ўрганяпсиз.", [1]]], [["Юртимда", [0, 1]], ["ўқишни,", [3]], ["қоидаларни", [4]], ["ва таржима қилишни", [5]], ["ўрганамиз,", [2]], ["аммо", [6]], ["араб тилида", [9, 10]], ["сўзлашишни", [8]], ["ўрганмаймиз.", [7]]], [["Лекин сиз", [0]], ["ҳозир", [3]], ["арабчада", [2]], ["яхши", [4]], ["гапиряпсиз.", [1]]], [["Мен араб тилида", [2, 3]], ["гапиришни", [1]], ["шу ерда", [4]], ["ўргандим.", [0]], ["Институтда", [5, 6]], ["лингафон хонаси (луғ.лаборатория),", [7]], ["компютер,", [8]], ["радио", [9]], ["ва кутубхона мавжуд.", [10]]], [["Мен “ق, ظ, ح”", [4, 5, 6]], ["товушларини", [3]], ["яхши", [7]], ["талаффуз", [2]], ["қила олмайман.", [0, 1]]], [["Лингафон хонасида (луғ.луғат лабораториясида)", [4, 5, 6]], ["яхши", [3]], ["аудио машқлари (овозга оид яхши машқлар)", [1, 2]], ["мавжуд.", [0]]], [["Мен араб тилида", [3, 4]], ["гаплаша олмайман", [0, 1, 2]], ["ҳамда", [5]], ["ўқитувчи", [8]], ["ва талабаларнинг", [9]], ["сўзларини", [7]], ["тушунмайман.", [6]], ["Арабчани", [13]], ["яхшилаб", [14]], ["ўрганишни", [11, 12]], ["истайман.", [10]], ["Нима", [15]], ["қилай (нима қилишим керак)?", [16]]], [["Қуръони Каримдан", [2, 3, 4]], ["1 пора", [1]], ["ҳамда баъзи", [5]], ["набавий", [7]], ["ҳадисларни", [6]], ["ёдланг", [0]], ["ва арабчада", [9]], ["кўп", [10]], ["гаплашиб туринг.", [8]]], [["Бу", [0]], ["фойдали", [2]], ["маслаҳат бўлди.", [1]], ["Аллоҳ", [6]], ["хоҳласа,", [4, 5]], ["унга риоя қиламан.", [3]]], [["У ҳолда", [0]], ["арабчани", [2]], ["яхшилаб", [3]], ["ўрганиб оласиз.", [1]]]];
+var T={R:["марфуъ","дамма"],N:["мансуб","фатҳа"],J:["мажрур","касра"],Z:["мажзум","сукун"]};
+var show=false,all=[];
+function plain(v){return v.replace(/[\u064B-\u0652\u0670]/g,"")}
+function ends(v){var m=v.match(/^(.*?)([\u0621-\u064A][\u064B-\u0652\u0670]*)$/);return m?[m[1],m[2]]:[v,""]}
+var OVK={};
+function info(w){
+  var f=w.split("|"),vv=f[0].split("~"),v=vv[0],pu=vv[1]||"",c=f[1],r=f[2],mn=f[3];
+  if(mn.charAt(0)=="!")mn=mn.slice(1);
+  var e=ends(v),ty="",role="",why="",m=r.match(/^\[\[(.*?)\]\]\.?\s*([\s\S]*)$/);
+  if(m){ty=m[1];r=m[2]}
+  var ov=OVK[plain(v)];
+  if(ov){role=ov[0];why=ov[1]}
+  else if(c=="R"||c=="N"||c=="J"||c=="Z"){
+    role=r;
+    why="Бу ўринда сўз "+T[c][0]+" бўлади, шунинг учун охирига "+T[c][1]+" қўйилади.";
+    if(/[\u064B\u064C\u064D]$/.test(v))why+=" Танвин: ноаниқ исм.";
+  }else{
+    var k=r.indexOf(". "),p1=k<0?r:r.slice(0,k),p2=k<0?"":r.slice(k+2);
+    if(/мабний/.test(p1)){why=p1;role=p2}else{role=p1;why=p2}
+  }
+  return {v:v,e:e,ty:ty,role:role,why:why,mn:mn,c:c,pu:pu};
+}
+
+/* klassik i'rob: t=turi r=gapdagi o'rni o=omil i=i'robi b=belgisi x=qolgan qismlari n=izoh a=arabcha i'rob */
+var IRB={"0-0": {"k": [["اَلدَّرْسُ", "мубтадо, раф қилинган, аломати зоҳирий замма"]], "s": "мубтадо", "j": "R", "a": [["الدَّرْسُ", "مُبْتَدَأٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ."]]}, "0-1": {"k": [["اَلرَّابِعُ", "сифат, раф қилинган, аломати зоҳирий замма"]], "s": "сифат", "j": "R", "a": [["الرَّابِعُ", "صِفَةٌ مَرْفُوعَةٌ وَعَلَامَةُ رَفْعِهَا الضَّمَّةُ الظَّاهِرَةُ."]]}, "0-2": {"k": [["وَ", "атф ҳарфи («ва»), фатҳага мабний, эъробдан унга ўрин йўқ"], ["اَلتِّسْعُونَ", "الرَّابِعُ га маътуф, раф қилинган, аломати و"]], "s": "атф+​маътуф", "j": "R", "a": [["الْوَاوُ", "حَرْفُ عَطْفٍ مَبْنِيٌّ عَلَى الْفَتْحِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["التِّسْعُونَ", "مَعْطُوفٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الْوَاوُ لِأَنَّهُ مُلْحَقٌ بِجَمْعِ الْمُذَكَّرِ السَّالِمِ."]]}, "1-0": {"k": [["بَيْنَ", "музоф бўлиб зарф макон, насб қилинган, аломати зоҳирий фатҳа, ўзи шибҳи жумла бўлиб, маҳзуф хабар бўлмиш كَائِنٌ га мутааллиқ"], ["", "мубтадоси ҳам маҳзуф: (اَلْحِوَارُ كَائِنٌ) بَيْنَ طَالِبَتَيْنِ — «Суҳбат 2 толиба орасида»", "n"]], "s": "зарф", "j": "N", "a": [["بَيْنَ", "ظَرْفُ مَكَانٍ مَنْصُوبٌ وَعَلَامَةُ نَصْبِهِ الْفَتْحَةُ الظَّاهِرَةُ، وَهُوَ مُضَافٌ، وَشِبْهُ الْجُمْلَةِ مُتَعَلِّقٌ بِخَبَرٍ مَحْذُوفٍ لِمُبْتَدَإٍ مَحْذُوفٍ تَقْدِيرُهُ: الْحِوَارُ كَائِنٌ."]]}, "1-1": {"k": [["طَالِبَتَيْنِ", "музофун илайҳ, жар қилинган, аломати ي"]], "s": "муз.илайҳ", "j": "J", "a": [["طَالِبَتَيْنِ", "مُضَافٌ إِلَيْهِ مَجْرُورٌ وَعَلَامَةُ جَرِّهِ الْيَاءُ لِأَنَّهُ مُثَنًّى."]]}, "2-0": {"k": [["أَعْتَقِدُ", "музорий феъли, раф қилинган, аломати зоҳирий замма, тагида вожиб ҳолдаги أَنَا мустатир замир бор бўлиб, у фоил"]], "s": "муз.феъли", "j": "R", "a": [["أَعْتَقِدُ", "فِعْلٌ مُضَارِعٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ، وَالْفَاعِلُ ضَمِيرٌ مُسْتَتِرٌ وُجُوباً تَقْدِيرُهُ: أَنَا."], ["", "وَجُمْلَةُ «أَعْتَقِدُ أَنَّكِ طَالِبَةٌ جَدِيدَةٌ» ابْتِدَائِيَّةٌ (اسْتِئْنَافِيَّةٌ) لَا مَحَلَّ لَهَا مِنَ الْإِعْرَابِ."]], "jm": "«أَعْتَقِدُ أَنَّكِ طَالِبَةٌ جَدِيدَةٌ» — ибтидоий (истиънофий) жумла, янги гап бошланади, эъробдан унга ўрин йўқ."}, "2-1": {"k": [["أَنَّ", "таъкид ва насб ҳарфи, фатҳага мабний, эъробдан унга ўрин йўқ"], ["كِ", "муттасил замир бўлиб أَنَّ нинг исми, касрага мабний, насб ўринда"], ["", "أَنَّ ўз исми ва хабари билан масдар ўрнида туради (كَوْنَكِ طَالِبَةً جَدِيدَةً), у أَعْتَقِدُ нинг мафъулун биҳи бўлиб, насб ўринда", "n"]], "s": "насб+​أَنَّ исми", "j": "", "a": [["أَنَّ", "حَرْفُ تَوْكِيدٍ وَنَصْبٍ مَبْنِيٌّ عَلَى الْفَتْحِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["الْكَافُ", "ضَمِيرٌ مُتَّصِلٌ مَبْنِيٌّ عَلَى الْكَسْرِ فِي مَحَلِّ نَصْبٍ اسْمُ «أَنَّ»."]]}, "2-2": {"k": [["طَالِبَةٌ", "أَنَّ нинг хабари, раф қилинган, аломати зоҳирий замма, ўзи мавсуф"]], "s": "أَنَّ хабари", "j": "R", "a": [["طَالِبَةٌ", "خَبَرُ «أَنَّ» مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ."]]}, "2-3": {"k": [["جَدِيدَةٌ", "сифат, раф қилинган, аломати зоҳирий замма"]], "s": "сифат", "j": "R", "a": [["جَدِيدَةٌ", "صِفَةٌ مَرْفُوعَةٌ وَعَلَامَةُ رَفْعِهَا الضَّمَّةُ الظَّاهِرَةُ."]]}, "3-0": {"k": [["نَعَمْ", "жавоб ҳарфи, сукунга мабний, эъробдан унга ўрин йўқ"]], "s": "жавоб ҳарфи", "j": "", "a": [["نَعَمْ", "حَرْفُ جَوَابٍ مَبْنِيٌّ عَلَى السُّكُونِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."]]}, "3-1": {"k": [["اِلْتَحَقْ", "мозий феъли, сукунга мабний"], ["تُ", "муттасил замир бўлиб фоил, заммага мабний, раф ўринда"]], "s": "моз.феъли+​фоил", "j": "", "a": [["اِلْتَحَقْ", "فِعْلٌ مَاضٍ مَبْنِيٌّ عَلَى السُّكُونِ لِاتِّصَالِهِ بِضَمِيرِ الرَّفْعِ الْمُتَحَرِّكِ."], ["تُ", "ضَمِيرٌ مُتَّصِلٌ مَبْنِيٌّ عَلَى الضَّمِّ فِي مَحَلِّ رَفْعٍ فَاعِلٌ."], ["", "وَجُمْلَةُ «اِلْتَحَقْتُ بِالْمَعْهَدِ …» ابْتِدَائِيَّةٌ (اسْتِئْنَافِيَّةٌ) لَا مَحَلَّ لَهَا مِنَ الْإِعْرَابِ."]], "jm": "«اِلْتَحَقْتُ بِالْمَعْهَدِ …» — ибтидоий (истиънофий) жумла, жавоб ҳарфидан кейин, эъробдан унга ўрин йўқ."}, "3-2": {"k": [["بِ", "жар ҳарфи, касрага мабний, эъробдан унга ўрин йўқ"], ["اَلْمَعْهَدِ", "мажрур, بِ сабаб жар қилинган, аломати зоҳирий касра"], ["", "жар ва мажрур шибҳи жумла бўлиб, اِلْتَحَقْتُ га мутааллиқ", "n"]], "s": "жар+​мажрур", "j": "J", "a": [["الْبَاءُ", "حَرْفُ جَرٍّ مَبْنِيٌّ عَلَى الْكَسْرِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["الْمَعْهَدِ", "اسْمٌ مَجْرُورٌ وَعَلَامَةُ جَرِّهِ الْكَسْرَةُ الظَّاهِرَةُ."]]}, "3-3": {"k": [["هَذِهِ", "исм ишора бўлиб зарф замон ўрнида турган ноиби зарф, касрага мабний, насб ўринда, ўзи шибҳи жумла бўлиб, اِلْتَحَقْتُ га мутааллиқ"], ["", "исм ишора замонга ишора қилгани учун зарф ўрнига ўтган (ноиби зарф)", "n"]], "s": "зарф", "j": "", "a": [["هَذِهِ", "اسْمُ إِشَارَةٍ مَبْنِيٌّ عَلَى الْكَسْرِ فِي مَحَلِّ نَصْبٍ نَائِبٌ عَنْ ظَرْفِ الزَّمَانِ، مُتَعَلِّقٌ بِـ«الْتَحَقْتُ»."]]}, "3-4": {"k": [["اَلسَّنَةَ", "бадал, насб қилинган, аломати зоҳирий фатҳа"], ["", "هَذِهِ дан бадал", "n"]], "s": "бадал", "j": "N", "a": [["السَّنَةَ", "بَدَلٌ مَنْصُوبٌ وَعَلَامَةُ نَصْبِهِ الْفَتْحَةُ الظَّاهِرَةُ."]]}, "4-0": {"k": [["هَلْ", "истифҳом ҳарфи, сукунга мабний, эъробдан унга ўрин йўқ"]], "s": "истифҳом ҳарфи", "j": "", "a": [["هَلْ", "حَرْفُ اسْتِفْهَامٍ مَبْنِيٌّ عَلَى السُّكُونِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["", "وَجُمْلَةُ «هَلْ دَرَسْتِ اللُّغَةَ الْعَرَبِيَّةَ …» ابْتِدَائِيَّةٌ (اسْتِئْنَافِيَّةٌ) لَا مَحَلَّ لَهَا مِنَ الْإِعْرَابِ."]], "jm": "«هَلْ دَرَسْتِ اللُّغَةَ الْعَرَبِيَّةَ …» — ибтидоий (истиънофий) жумла, янги гап бошланади, эъробдан унга ўрин йўқ."}, "4-1": {"k": [["دَرَسْ", "мозий феъли, сукунга мабний"], ["تِ", "муттасил замир бўлиб фоил, касрага мабний, раф ўринда"]], "s": "моз.феъли+​фоил", "j": "", "a": [["دَرَسْ", "فِعْلٌ مَاضٍ مَبْنِيٌّ عَلَى السُّكُونِ لِاتِّصَالِهِ بِضَمِيرِ الرَّفْعِ الْمُتَحَرِّكِ."], ["تِ", "ضَمِيرٌ مُتَّصِلٌ مَبْنِيٌّ عَلَى الْكَسْرِ فِي مَحَلِّ رَفْعٍ فَاعِلٌ."]]}, "4-2": {"k": [["اَللُّغَةَ", "мафъулун биҳ, насб қилинган, аломати зоҳирий фатҳа"], ["", "ўзи мавсуф", "n"]], "s": "маф.биҳ", "j": "N", "a": [["اللُّغَةَ", "مَفْعُولٌ بِهِ مَنْصُوبٌ وَعَلَامَةُ نَصْبِهِ الْفَتْحَةُ الظَّاهِرَةُ."]]}, "4-3": {"k": [["اَلْعَرَبِيَّةَ", "сифат, насб қилинган, аломати зоҳирий фатҳа"]], "s": "сифат", "j": "N", "a": [["الْعَرَبِيَّةَ", "صِفَةٌ مَنْصُوبَةٌ وَعَلَامَةُ نَصْبِهَا الْفَتْحَةُ الظَّاهِرَةُ."]]}, "4-4": {"k": [["فِي", "жар ҳарфи, сукунга мабний, эъробдан унга ўрин йўқ"]], "s": "жар ҳарфи", "j": "", "a": [["فِي", "حَرْفُ جَرٍّ مَبْنِيٌّ عَلَى السُّكُونِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."]]}, "4-5": {"k": [["بَلَدِ", "музоф бўлиб мажрур, فِي сабаб жар қилинган, аломати зоҳирий касра"], ["كِ", "муттасил замир бўлиб музофун илайҳ, касрага мабний, жар ўринда"], ["", "жар ва мажрур шибҳи жумла бўлиб, دَرَسْتِ га мутааллиқ", "n"]], "s": "мажрур+​муз.илайҳ", "j": "J", "a": [["بَلَدِ", "اسْمٌ مَجْرُورٌ بِـ«فِي» وَعَلَامَةُ جَرِّهِ الْكَسْرَةُ الظَّاهِرَةُ، وَهُوَ مُضَافٌ."], ["كِ", "ضَمِيرٌ مُتَّصِلٌ مَبْنِيٌّ عَلَى الْكَسْرِ فِي مَحَلِّ جَرٍّ مُضَافٌ إِلَيْهِ."]]}, "5-0": {"k": [["هَذِهِ", "исм ишора бўлиб мубтадо, касрага мабний, раф ўринда"]], "s": "мубтадо", "j": "", "a": [["هَذِهِ", "اسْمُ إِشَارَةٍ مَبْنِيٌّ عَلَى الْكَسْرِ فِي مَحَلِّ رَفْعٍ مُبْتَدَأٌ."], ["", "وَجُمْلَةُ «هَذِهِ أَوَّلُ مَرَّةٍ …» ابْتِدَائِيَّةٌ (اسْتِئْنَافِيَّةٌ) لَا مَحَلَّ لَهَا مِنَ الْإِعْرَابِ."]], "jm": "«هَذِهِ أَوَّلُ مَرَّةٍ …» — ибтидоий (истиънофий) жумла, янги гап бошланади, эъробдан унга ўрин йўқ."}, "5-1": {"k": [["أَوَّلُ", "музоф бўлиб хабар, раф қилинган, аломати зоҳирий замма"]], "s": "хабар", "j": "R", "a": [["أَوَّلُ", "خَبَرٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ، وَهُوَ مُضَافٌ."]]}, "5-2": {"k": [["مَرَّةٍ", "музофун илайҳ, жар қилинган, аломати зоҳирий касра"], ["", "ўзи мавсуф", "n"]], "s": "муз.илайҳ", "j": "J", "a": [["مَرَّةٍ", "مُضَافٌ إِلَيْهِ مَجْرُورٌ وَعَلَامَةُ جَرِّهِ الْكَسْرَةُ الظَّاهِرَةُ."]]}, "5-3": {"k": [["أَدْرُسُ", "музорий феъли, раф қилинган, аломати зоҳирий замма, тагида вожиб ҳолдаги أَنَا мустатир замир бор бўлиб, у фоил"]], "s": "муз.феъли", "j": "R", "a": [["أَدْرُسُ", "فِعْلٌ مُضَارِعٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ، وَالْفَاعِلُ ضَمِيرٌ مُسْتَتِرٌ وُجُوباً تَقْدِيرُهُ: أَنَا."], ["", "وَجُمْلَةُ «أَدْرُسُ فِيهَا الْعَرَبِيَّةَ» فِي مَحَلِّ جَرٍّ صِفَةٌ لِـ«مَرَّةٍ»."]], "jm": "«أَدْرُسُ فِيهَا الْعَرَبِيَّةَ» жумласи مَرَّةٍ нинг сифати бўлиб, жар ўринда."}, "5-4": {"k": [["فِي", "жар ҳарфи, сукунга мабний, эъробдан унга ўрин йўқ"], ["هَا", "муттасил замир бўлиб мажрур, сукунга мабний, жар ўринда"], ["", "жар ва мажрур шибҳи жумла бўлиб, أَدْرُسُ га мутааллиқ", "n"]], "s": "жар+​мажрур", "j": "", "a": [["فِي", "حَرْفُ جَرٍّ مَبْنِيٌّ عَلَى السُّكُونِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["هَا", "ضَمِيرٌ مُتَّصِلٌ مَبْنِيٌّ عَلَى السُّكُونِ فِي مَحَلِّ جَرٍّ بِحَرْفِ الْجَرِّ."]]}, "5-5": {"k": [["اَلْعَرَبِيَّةَ", "мафъулун биҳ, насб қилинган, аломати зоҳирий фатҳа"]], "s": "маф.биҳ", "j": "N", "a": [["الْعَرَبِيَّةَ", "مَفْعُولٌ بِهِ مَنْصُوبٌ وَعَلَامَةُ نَصْبِهِ الْفَتْحَةُ الظَّاهِرَةُ."]]}, "6-0": {"k": [["أَنَا", "мунфасил замир бўлиб мубтадо, сукунга мабний, раф ўринда"]], "s": "мубтадо", "j": "", "a": [["أَنَا", "ضَمِيرٌ مُنْفَصِلٌ مَبْنِيٌّ عَلَى السُّكُونِ فِي مَحَلِّ رَفْعٍ مُبْتَدَأٌ."], ["", "وَجُمْلَةُ «أَنَا دَرَسْتُ …» ابْتِدَائِيَّةٌ (اسْتِئْنَافِيَّةٌ) لَا مَحَلَّ لَهَا مِنَ الْإِعْرَابِ."]], "jm": "«أَنَا دَرَسْتُ …» — ибтидоий (истиънофий) жумла, янги гап бошланади, эъробдан унга ўрин йўқ."}, "6-1": {"k": [["دَرَسْ", "мозий феъли, сукунга мабний"], ["تُ", "муттасил замир бўлиб фоил, заммага мабний, раф ўринда"]], "s": "моз.феъли+​фоил", "j": "", "a": [["دَرَسْ", "فِعْلٌ مَاضٍ مَبْنِيٌّ عَلَى السُّكُونِ لِاتِّصَالِهِ بِضَمِيرِ الرَّفْعِ الْمُتَحَرِّكِ."], ["تُ", "ضَمِيرٌ مُتَّصِلٌ مَبْنِيٌّ عَلَى الضَّمِّ فِي مَحَلِّ رَفْعٍ فَاعِلٌ."], ["", "وَجُمْلَةُ «دَرَسْتُ …» فِي مَحَلِّ رَفْعٍ خَبَرُ الْمُبْتَدَإِ «أَنَا»."]], "jm": "«دَرَسْتُ الْعَرَبِيَّةَ …» — феъл ва фоилдан иборат жумла мубтадога хабар бўлиб, раф ўринда."}, "6-2": {"k": [["اَلْعَرَبِيَّةَ", "мафъулун биҳ, насб қилинган, аломати зоҳирий фатҳа"]], "s": "маф.биҳ", "j": "N", "a": [["الْعَرَبِيَّةَ", "مَفْعُولٌ بِهِ مَنْصُوبٌ وَعَلَامَةُ نَصْبِهِ الْفَتْحَةُ الظَّاهِرَةُ."]]}, "6-3": {"k": [["ثَلَاثَ", "музоф бўлиб зарф замон ўрнида турган ноиби зарф, насб қилинган, аломати зоҳирий фатҳа, ўзи шибҳи жумла бўлиб, دَرَسْتُ га мутааллиқ"], ["", "сон замонга музоф бўлгани учун зарф ўрнига ўтган; سَنَةٌ муаннас бўлгани учун сон ثَلَاثٌ (ة сиз)", "n"]], "s": "зарф", "j": "N", "a": [["ثَلَاثَ", "نَائِبٌ عَنْ ظَرْفِ الزَّمَانِ مَنْصُوبٌ وَعَلَامَةُ نَصْبِهِ الْفَتْحَةُ الظَّاهِرَةُ، وَهُوَ مُضَافٌ، مُتَعَلِّقٌ بِـ«دَرَسْتُ»."]]}, "6-4": {"k": [["سَنَوَاتٍ", "музофун илайҳ, жар қилинган, аломати зоҳирий касра"]], "s": "муз.илайҳ", "j": "J", "a": [["سَنَوَاتٍ", "مُضَافٌ إِلَيْهِ مَجْرُورٌ وَعَلَامَةُ جَرِّهِ الْكَسْرَةُ الظَّاهِرَةُ."]]}, "6-5": {"k": [["فِي", "жар ҳарфи, сукунга мабний, эъробдан унга ўрин йўқ"]], "s": "жар ҳарфи", "j": "", "a": [["فِي", "حَرْفُ جَرٍّ مَبْنِيٌّ عَلَى السُّكُونِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."]]}, "6-6": {"k": [["بَلَدِ", "музоф бўлиб мажрур, فِي сабаб жар қилинган, аломати тақдирий (яъни фаразан) касра, аломат ўрнининг ي га мос ҳаракат билан банд бўлиши унинг зоҳир бўлишига тўсқинлик қилган"], ["ي", "муттасил замир бўлиб музофун илайҳ, сукунга мабний, жар ўринда"], ["", "жар ва мажрур шибҳи жумла бўлиб, دَرَسْتُ га мутааллиқ", "n"]], "s": "мажрур+​муз.илайҳ", "j": "J", "a": [["بَلَدِ", "اسْمٌ مَجْرُورٌ بِـ«فِي» وَعَلَامَةُ جَرِّهِ الْكَسْرَةُ الْمُقَدَّرَةُ عَلَى مَا قَبْلَ يَاءِ الْمُتَكَلِّمِ، مَنَعَ مِنْ ظُهُورِهَا اشْتِغَالُ الْمَحَلِّ بِالْحَرَكَةِ الْمُنَاسِبَةِ، وَهُوَ مُضَافٌ."], ["ي", "ضَمِيرٌ مُتَّصِلٌ مَبْنِيٌّ عَلَى السُّكُونِ فِي مَحَلِّ جَرٍّ مُضَافٌ إِلَيْهِ."]]}, "7-0": {"k": [["لِ", "жар ҳарфи, касрага мабний, эъробдан унга ўрин йўқ"], ["مَا", "исм истифҳом бўлиб мажрур, сукунга мабний, жар ўринда"], ["ذَا", "зоида ҳарф, сукунга мабний, эъробдан унга ўрин йўқ"], ["", "жар ва мажрур шибҳи жумла бўлиб, تَدْرُسِينَ га мутааллиқ", "n"]], "s": "жар+​мажрур+​зоида", "j": "", "a": [["اللَّامُ", "حَرْفُ جَرٍّ مَبْنِيٌّ عَلَى الْكَسْرِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["مَا", "اسْمُ اسْتِفْهَامٍ مَبْنِيٌّ عَلَى السُّكُونِ فِي مَحَلِّ جَرٍّ بِاللَّامِ."], ["ذَا", "حَرْفٌ زَائِدٌ مَبْنِيٌّ عَلَى السُّكُونِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["", "وَجُمْلَةُ «لِمَاذَا تَدْرُسِينَهَا …» ابْتِدَائِيَّةٌ (اسْتِئْنَافِيَّةٌ) لَا مَحَلَّ لَهَا مِنَ الْإِعْرَابِ."]], "jm": "«لِمَاذَا تَدْرُسِينَهَا …» — ибтидоий (истиънофий) жумла, янги гап бошланади, эъробдан унга ўрин йўқ."}, "7-1": {"k": [["تَدْرُسِينَ", "музорий феъли, раф қилинган, аломати нуннинг жойида туриши, ي бориз муттасил замир бўлиб, у фоил, сукунга мабний, раф ўринда"], ["هَا", "муттасил замир бўлиб мафъулун биҳ, сукунга мабний, насб ўринда"]], "s": "муз.феъли+​фоил+​маф.биҳ", "j": "R", "a": [["تَدْرُسِينَ", "فِعْلٌ مُضَارِعٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ ثُبُوتُ النُّونِ لِأَنَّهُ مِنَ الْأَفْعَالِ الْخَمْسَةِ، وَيَاءُ الْمُخَاطَبَةِ ضَمِيرٌ مُتَّصِلٌ مَبْنِيٌّ عَلَى السُّكُونِ فِي مَحَلِّ رَفْعٍ فَاعِلٌ."], ["الْهَاءُ", "ضَمِيرٌ مُتَّصِلٌ مَبْنِيٌّ عَلَى السُّكُونِ فِي مَحَلِّ نَصْبٍ مَفْعُولٌ بِهِ."]]}, "7-2": {"k": [["مَرَّةً", "мафъулун мутлақ, насб қилинган, аломати зоҳирий фатҳа, ўзи мавсуф"]], "s": "маф.мутлақ", "j": "N", "a": [["مَرَّةً", "مَفْعُولٌ مُطْلَقٌ (نَائِبٌ عَنِ الْمَصْدَرِ لِأَنَّهُ عَدَدُهُ) مَنْصُوبٌ وَعَلَامَةُ نَصْبِهِ الْفَتْحَةُ الظَّاهِرَةُ."]]}, "7-3": {"k": [["ثَانِيَةً", "сифат, насб қилинган, аломати зоҳирий фатҳа"]], "s": "сифат", "j": "N", "a": [["ثَانِيَةً", "صِفَةٌ مَنْصُوبَةٌ وَعَلَامَةُ نَصْبِهَا الْفَتْحَةُ الظَّاهِرَةُ."]]}, "7-4": {"k": [["إِذَنْ", "жавоб ва жазо ҳарфи, сукунга мабний, эъробдан унга ўрин йўқ"], ["", "бу ерда феълдан олдин келмагани учун ҳеч нарсани насб қилмайди", "n"]], "s": "жавоб ва жазо ҳарфи", "j": "", "a": [["إِذَنْ", "حَرْفُ جَوَابٍ وَجَزَاءٍ مَبْنِيٌّ عَلَى السُّكُونِ، لَا عَمَلَ لَهُ، لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."]]}, "8-0": {"k": [["فِي", "жар ҳарфи, сукунга мабний, эъробдан унга ўрин йўқ"]], "s": "жар ҳарфи", "j": "", "a": [["فِي", "حَرْفُ جَرٍّ مَبْنِيٌّ عَلَى السُّكُونِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."]]}, "8-1": {"k": [["بَلَدِ", "музоф бўлиб мажрур, فِي сабаб жар қилинган, аломати тақдирий (яъни фаразан) касра, аломат ўрнининг ي га мос ҳаракат билан банд бўлиши унинг зоҳир бўлишига тўсқинлик қилган"], ["ي", "муттасил замир бўлиб музофун илайҳ, сукунга мабний, жар ўринда"], ["", "жар ва мажрур шибҳи жумла бўлиб, نَتَعَلَّمُ га мутааллиқ", "n"]], "s": "мажрур+​муз.илайҳ", "j": "J", "a": [["بَلَدِ", "اسْمٌ مَجْرُورٌ بِـ«فِي» وَعَلَامَةُ جَرِّهِ الْكَسْرَةُ الْمُقَدَّرَةُ عَلَى مَا قَبْلَ يَاءِ الْمُتَكَلِّمِ، مَنَعَ مِنْ ظُهُورِهَا اشْتِغَالُ الْمَحَلِّ بِالْحَرَكَةِ الْمُنَاسِبَةِ، وَهُوَ مُضَافٌ."], ["ي", "ضَمِيرٌ مُتَّصِلٌ مَبْنِيٌّ عَلَى السُّكُونِ فِي مَحَلِّ جَرٍّ مُضَافٌ إِلَيْهِ."]]}, "8-2": {"k": [["نَتَعَلَّمُ", "музорий феъли, раф қилинган, аломати зоҳирий замма, тагида вожиб ҳолдаги نَحْنُ мустатир замир бор бўлиб, у фоил"]], "s": "муз.феъли", "j": "R", "a": [["نَتَعَلَّمُ", "فِعْلٌ مُضَارِعٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ، وَالْفَاعِلُ ضَمِيرٌ مُسْتَتِرٌ وُجُوباً تَقْدِيرُهُ: نَحْنُ."], ["", "وَجُمْلَةُ «فِي بَلَدِي نَتَعَلَّمُ …» ابْتِدَائِيَّةٌ (اسْتِئْنَافِيَّةٌ) لَا مَحَلَّ لَهَا مِنَ الْإِعْرَابِ."]], "jm": "«فِي بَلَدِي نَتَعَلَّمُ …» — ибтидоий (истиънофий) жумла, янги гап бошланади, эъробдан унга ўрин йўқ."}, "8-3": {"k": [["اَلْقِرَاءَةَ", "мафъулун биҳ, насб қилинган, аломати зоҳирий фатҳа"]], "s": "маф.биҳ", "j": "N", "a": [["الْقِرَاءَةَ", "مَفْعُولٌ بِهِ مَنْصُوبٌ وَعَلَامَةُ نَصْبِهِ الْفَتْحَةُ الظَّاهِرَةُ."]]}, "8-4": {"k": [["وَ", "атф ҳарфи («ва»), фатҳага мабний, эъробдан унга ўрин йўқ"], ["اَلْقَوَاعِدَ", "الْقِرَاءَةَ га маътуф, насб қилинган, аломати зоҳирий фатҳа"]], "s": "атф+​маътуф", "j": "N", "a": [["الْوَاوُ", "حَرْفُ عَطْفٍ مَبْنِيٌّ عَلَى الْفَتْحِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["الْقَوَاعِدَ", "اسْمٌ مَعْطُوفٌ عَلَى «الْقِرَاءَةَ» مَنْصُوبٌ وَعَلَامَةُ نَصْبِهِ الْفَتْحَةُ الظَّاهِرَةُ."]]}, "8-5": {"k": [["وَ", "атф ҳарфи («ва»), фатҳага мабний, эъробдан унга ўрин йўқ"], ["اَلتَّرْجَمَةَ", "الْقِرَاءَةَ га маътуф, насб қилинган, аломати зоҳирий фатҳа"]], "s": "атф+​маътуф", "j": "N", "a": [["الْوَاوُ", "حَرْفُ عَطْفٍ مَبْنِيٌّ عَلَى الْفَتْحِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["التَّرْجَمَةَ", "اسْمٌ مَعْطُوفٌ عَلَى «الْقِرَاءَةَ» مَنْصُوبٌ وَعَلَامَةُ نَصْبِهِ الْفَتْحَةُ الظَّاهِرَةُ."]]}, "8-6": {"k": [["وَ", "атф ҳарфи («ва»), фатҳага мабний, эъробдан унга ўрин йўқ"], ["لَا", "нафий ҳарфи, сукунга мабний, эъробдан унга ўрин йўқ"]], "s": "атф+​нафий", "j": "", "a": [["الْوَاوُ", "حَرْفُ عَطْفٍ مَبْنِيٌّ عَلَى الْفَتْحِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["لَا", "حَرْفُ نَفْيٍ مَبْنِيٌّ عَلَى السُّكُونِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["", "وَجُمْلَةُ «لَا نَتَعَلَّمُ الْحَدِيثَ …» مَعْطُوفَةٌ عَلَى جُمْلَةِ «نَتَعَلَّمُ الْقِرَاءَةَ …» لَا مَحَلَّ لَهَا مِنَ الْإِعْرَابِ."]], "jm": "«لَا نَتَعَلَّمُ الْحَدِيثَ …» жумласи «نَتَعَلَّمُ الْقِرَاءَةَ …» жумласига маътуф, эъробдан унга ўрин йўқ."}, "8-7": {"k": [["نَتَعَلَّمُ", "музорий феъли, раф қилинган, аломати зоҳирий замма, тагида вожиб ҳолдаги نَحْنُ мустатир замир бор бўлиб, у фоил"]], "s": "муз.феъли", "j": "R", "a": [["نَتَعَلَّمُ", "فِعْلٌ مُضَارِعٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ، وَالْفَاعِلُ ضَمِيرٌ مُسْتَتِرٌ وُجُوباً تَقْدِيرُهُ: نَحْنُ."]]}, "8-8": {"k": [["اَلْحَدِيثَ", "мафъулун биҳ, насб қилинган, аломати зоҳирий фатҳа"]], "s": "маф.биҳ", "j": "N", "a": [["الْحَدِيثَ", "مَفْعُولٌ بِهِ مَنْصُوبٌ وَعَلَامَةُ نَصْبِهِ الْفَتْحَةُ الظَّاهِرَةُ."]]}, "8-9": {"k": [["بِ", "жар ҳарфи, касрага мабний, эъробдан унга ўрин йўқ"], ["اَللُّغَةِ", "мажрур, بِ сабаб жар қилинган, аломати зоҳирий касра"], ["", "ўзи мавсуф", "n"], ["", "жар ва мажрур шибҳи жумла бўлиб, الْحَدِيثَ га мутааллиқ", "n"]], "s": "жар+​мажрур", "j": "J", "a": [["الْبَاءُ", "حَرْفُ جَرٍّ مَبْنِيٌّ عَلَى الْكَسْرِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["اللُّغَةِ", "اسْمٌ مَجْرُورٌ وَعَلَامَةُ جَرِّهِ الْكَسْرَةُ الظَّاهِرَةُ."]]}, "8-10": {"k": [["اَلْعَرَبِيَّةِ", "сифат, жар қилинган, аломати зоҳирий касра"]], "s": "сифат", "j": "J", "a": [["الْعَرَبِيَّةِ", "صِفَةٌ مَجْرُورَةٌ وَعَلَامَةُ جَرِّهَا الْكَسْرَةُ الظَّاهِرَةُ."]]}, "9-0": {"k": [["وَ", "ибтидо (истиъноф) ҳарфи, фатҳага мабний, эъробдан унга ўрин йўқ"], ["لَكِنَّ", "истидрок ва насб ҳарфи, фатҳага мабний, эъробдан унга ўрин йўқ"], ["كِ", "муттасил замир бўлиб لَكِنَّ нинг исми, касрага мабний, насб ўринда"]], "s": "ибтидо+​насб+​لَكِنَّ исми", "j": "", "a": [["الْوَاوُ", "حَرْفُ اسْتِئْنَافٍ مَبْنِيٌّ عَلَى الْفَتْحِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["لَكِنَّ", "حَرْفُ اسْتِدْرَاكٍ وَنَصْبٍ مَبْنِيٌّ عَلَى الْفَتْحِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["الْكَافُ", "ضَمِيرٌ مُتَّصِلٌ مَبْنِيٌّ عَلَى الْكَسْرِ فِي مَحَلِّ نَصْبٍ اسْمُ «لَكِنَّ»."], ["", "وَجُمْلَةُ «لَكِنَّكِ تَتَحَدَّثِينَ …» ابْتِدَائِيَّةٌ (اسْتِئْنَافِيَّةٌ) لَا مَحَلَّ لَهَا مِنَ الْإِعْرَابِ."]], "jm": "«لَكِنَّكِ تَتَحَدَّثِينَ …» — ибтидоий (истиънофий) жумла, янги гап бошланади, эъробдан унга ўрин йўқ."}, "9-1": {"k": [["تَتَحَدَّثِينَ", "музорий феъли, раф қилинган, аломати нуннинг жойида туриши, ي бориз муттасил замир бўлиб, у фоил, сукунга мабний, раф ўринда"]], "s": "муз.феъли+​фоил", "j": "R", "a": [["تَتَحَدَّثِينَ", "فِعْلٌ مُضَارِعٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ ثُبُوتُ النُّونِ لِأَنَّهُ مِنَ الْأَفْعَالِ الْخَمْسَةِ، وَيَاءُ الْمُخَاطَبَةِ ضَمِيرٌ مُتَّصِلٌ مَبْنِيٌّ عَلَى السُّكُونِ فِي مَحَلِّ رَفْعٍ فَاعِلٌ."], ["", "وَجُمْلَةُ «تَتَحَدَّثِينَ …» فِي مَحَلِّ رَفْعٍ خَبَرُ «لَكِنَّ»."]], "jm": "«تَتَحَدَّثِينَ الْعَرَبِيَّةَ …» жумласи لَكِنَّ нинг хабари бўлиб, раф ўринда."}, "9-2": {"k": [["اَلْعَرَبِيَّةَ", "мафъулун биҳ, насб қилинган, аломати зоҳирий фатҳа"]], "s": "маф.биҳ", "j": "N", "a": [["الْعَرَبِيَّةَ", "مَفْعُولٌ بِهِ مَنْصُوبٌ وَعَلَامَةُ نَصْبِهِ الْفَتْحَةُ الظَّاهِرَةُ."]]}, "9-3": {"k": [["اَلْآنَ", "зарф замон, фатҳага мабний, насб ўринда, ўзи шибҳи жумла бўлиб, تَتَحَدَّثِينَ га мутааллиқ"]], "s": "зарф", "j": "", "a": [["الْآنَ", "ظَرْفُ زَمَانٍ مَبْنِيٌّ عَلَى الْفَتْحِ فِي مَحَلِّ نَصْبٍ، مُتَعَلِّقٌ بِـ«تَتَحَدَّثِينَ»."]]}, "9-4": {"k": [["جَيِّداً", "сифат, насб қилинган, аломати зоҳирий фатҳа"], ["", "олдидан маҳзуф (ҳазф қилинган) мафъулун мутлақ бор, ўзи мавсуф: تَحَدُّثاً جَيِّداً", "n"]], "s": "сифат", "j": "N", "a": [["جَيِّداً", "صِفَةٌ لِمَفْعُولٍ مُطْلَقٍ مَحْذُوفٍ تَقْدِيرُهُ: «تَحَدُّثاً جَيِّداً»، مَنْصُوبَةٌ وَعَلَامَةُ نَصْبِهَا الْفَتْحَةُ الظَّاهِرَةُ."]], "o": [["✅ Саҳифада шу:", "جَيِّداً — маҳзуф мафъулун мутлақнинг сифати: تَحَدُّثاً جَيِّداً (китобдаги كَثِيراً қолипи)."], ["↔️ Бошқа фикр:", "جَيِّداً — мафъулун мутлақдан ноиб (نَائِبٌ عَنِ الْمَفْعُولِ الْمُطْلَقِ) дейилади; маъно бир."]]}, "10-0": {"k": [["تَعَلَّمْ", "мозий феъли, сукунга мабний"], ["تُ", "муттасил замир бўлиб фоил, заммага мабний, раф ўринда"]], "s": "моз.феъли+​фоил", "j": "", "a": [["تَعَلَّمْ", "فِعْلٌ مَاضٍ مَبْنِيٌّ عَلَى السُّكُونِ لِاتِّصَالِهِ بِضَمِيرِ الرَّفْعِ الْمُتَحَرِّكِ."], ["تُ", "ضَمِيرٌ مُتَّصِلٌ مَبْنِيٌّ عَلَى الضَّمِّ فِي مَحَلِّ رَفْعٍ فَاعِلٌ."], ["", "وَجُمْلَةُ «تَعَلَّمْتُ الْحَدِيثَ …» ابْتِدَائِيَّةٌ (اسْتِئْنَافِيَّةٌ) لَا مَحَلَّ لَهَا مِنَ الْإِعْرَابِ."]], "jm": "«تَعَلَّمْتُ الْحَدِيثَ …» — ибтидоий (истиънофий) жумла, янги гап бошланади, эъробдан унга ўрин йўқ."}, "10-1": {"k": [["اَلْحَدِيثَ", "мафъулун биҳ, насб қилинган, аломати зоҳирий фатҳа"]], "s": "маф.биҳ", "j": "N", "a": [["الْحَدِيثَ", "مَفْعُولٌ بِهِ مَنْصُوبٌ وَعَلَامَةُ نَصْبِهِ الْفَتْحَةُ الظَّاهِرَةُ."]]}, "10-2": {"k": [["بِ", "жар ҳарфи, касрага мабний, эъробдан унга ўрин йўқ"], ["اَللُّغَةِ", "мажрур, بِ сабаб жар қилинган, аломати зоҳирий касра"], ["", "ўзи мавсуф", "n"], ["", "жар ва мажрур шибҳи жумла бўлиб, الْحَدِيثَ га мутааллиқ", "n"]], "s": "жар+​мажрур", "j": "J", "a": [["الْبَاءُ", "حَرْفُ جَرٍّ مَبْنِيٌّ عَلَى الْكَسْرِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["اللُّغَةِ", "اسْمٌ مَجْرُورٌ وَعَلَامَةُ جَرِّهِ الْكَسْرَةُ الظَّاهِرَةُ."]]}, "10-3": {"k": [["اَلْعَرَبِيَّةِ", "сифат, жар қилинган, аломати зоҳирий касра"]], "s": "сифат", "j": "J", "a": [["الْعَرَبِيَّةِ", "صِفَةٌ مَجْرُورَةٌ وَعَلَامَةُ جَرِّهَا الْكَسْرَةُ الظَّاهِرَةُ."]]}, "10-4": {"k": [["هُنَا", "зарф макон, сукунга мабний, насб ўринда, ўзи шибҳи жумла бўлиб, تَعَلَّمْتُ га мутааллиқ"]], "s": "зарф", "j": "", "a": [["هُنَا", "اسْمُ إِشَارَةٍ لِلْمَكَانِ مَبْنِيٌّ عَلَى السُّكُونِ فِي مَحَلِّ نَصْبٍ ظَرْفُ مَكَانٍ، مُتَعَلِّقٌ بِـ«تَعَلَّمْتُ»."]]}, "10-5": {"k": [["فِي", "жар ҳарфи, сукунга мабний, эъробдан унга ўрин йўқ"]], "s": "жар ҳарфи", "j": "", "a": [["فِي", "حَرْفُ جَرٍّ مَبْنِيٌّ عَلَى السُّكُونِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["", "وَجُمْلَةُ «فِي الْمَعْهَدِ مُخْتَبَرٌ …» ابْتِدَائِيَّةٌ (اسْتِئْنَافِيَّةٌ) لَا مَحَلَّ لَهَا مِنَ الْإِعْرَابِ."]], "jm": "«فِي الْمَعْهَدِ مُخْتَبَرٌ …» — ибтидоий (истиънофий) жумла, янги гап бошланади, эъробдан унга ўрин йўқ."}, "10-6": {"k": [["اَلْمَعْهَدِ", "мажрур, فِي сабаб жар қилинган, аломати зоҳирий касра"], ["", "жар ва мажрур шибҳи жумла бўлиб, маҳзуф хабари муқаддам бўлмиш مَوْجُودٌ га мутааллиқ", "n"]], "s": "мажрур", "j": "J", "a": [["الْمَعْهَدِ", "اسْمٌ مَجْرُورٌ بِـ«فِي» وَعَلَامَةُ جَرِّهِ الْكَسْرَةُ الظَّاهِرَةُ."]]}, "10-7": {"k": [["مُخْتَبَرٌ", "мубтадо муаххар, раф қилинган, аломати зоҳирий замма"]], "s": "мубтадо муаххар", "j": "R", "a": [["مُخْتَبَرٌ", "مُبْتَدَأٌ مُؤَخَّرٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ."]]}, "10-8": {"k": [["وَ", "атф ҳарфи («ва»), фатҳага мабний, эъробдан унга ўрин йўқ"], ["حَاسُوبٌ", "مُخْتَبَرٌ га маътуф, раф қилинган, аломати зоҳирий замма"]], "s": "атф+​маътуф", "j": "R", "a": [["الْوَاوُ", "حَرْفُ عَطْفٍ مَبْنِيٌّ عَلَى الْفَتْحِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["حَاسُوبٌ", "اسْمٌ مَعْطُوفٌ عَلَى «مُخْتَبَرٌ» مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ."]]}, "10-9": {"k": [["وَ", "атф ҳарфи («ва»), фатҳага мабний, эъробдан унга ўрин йўқ"], ["إِذَاعَةٌ", "مُخْتَبَرٌ га маътуф, раф қилинган, аломати зоҳирий замма"]], "s": "атф+​маътуф", "j": "R", "a": [["الْوَاوُ", "حَرْفُ عَطْفٍ مَبْنِيٌّ عَلَى الْفَتْحِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["إِذَاعَةٌ", "اسْمٌ مَعْطُوفٌ عَلَى «مُخْتَبَرٌ» مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ."]]}, "10-10": {"k": [["وَ", "атф ҳарфи («ва»), фатҳага мабний, эъробдан унга ўрин йўқ"], ["مَكْتَبَةٌ", "مُخْتَبَرٌ га маътуф, раф қилинган, аломати зоҳирий замма"]], "s": "атф+​маътуф", "j": "R", "a": [["الْوَاوُ", "حَرْفُ عَطْفٍ مَبْنِيٌّ عَلَى الْفَتْحِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["مَكْتَبَةٌ", "اسْمٌ مَعْطُوفٌ عَلَى «مُخْتَبَرٌ» مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ."]]}, "11-0": {"k": [["لَا", "нафий ҳарфи, сукунга мабний, эъробдан унга ўрин йўқ"]], "s": "нафий ҳарфи", "j": "", "a": [["لَا", "حَرْفُ نَفْيٍ مَبْنِيٌّ عَلَى السُّكُونِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["", "وَجُمْلَةُ «لَا أَسْتَطِيعُ نُطْقَ …» ابْتِدَائِيَّةٌ (اسْتِئْنَافِيَّةٌ) لَا مَحَلَّ لَهَا مِنَ الْإِعْرَابِ."]], "jm": "«لَا أَسْتَطِيعُ نُطْقَ …» — ибтидоий (истиънофий) жумла, янги гап бошланади, эъробдан унга ўрин йўқ."}, "11-1": {"k": [["أَسْتَطِيعُ", "музорий феъли, раф қилинган, аломати зоҳирий замма, тагида вожиб ҳолдаги أَنَا мустатир замир бор бўлиб, у фоил"]], "s": "муз.феъли", "j": "R", "a": [["أَسْتَطِيعُ", "فِعْلٌ مُضَارِعٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ، وَالْفَاعِلُ ضَمِيرٌ مُسْتَتِرٌ وُجُوباً تَقْدِيرُهُ: أَنَا."]]}, "11-2": {"k": [["نُطْقَ", "музоф бўлиб мафъулун биҳ, насб қилинган, аломати зоҳирий фатҳа"]], "s": "маф.биҳ", "j": "N", "a": [["نُطْقَ", "مَفْعُولٌ بِهِ مَنْصُوبٌ وَعَلَامَةُ نَصْبِهِ الْفَتْحَةُ الظَّاهِرَةُ، وَهُوَ مُضَافٌ."]]}, "11-3": {"k": [["اَلْأَصْوَاتِ", "музофун илайҳ, жар қилинган, аломати зоҳирий касра"]], "s": "муз.илайҳ", "j": "J", "a": [["الْأَصْوَاتِ", "مُضَافٌ إِلَيْهِ مَجْرُورٌ وَعَلَامَةُ جَرِّهِ الْكَسْرَةُ الظَّاهِرَةُ."]]}, "11-4": {"k": [["ق", "الْأَصْوَاتِ дан бадал, жар ўринда"], ["", "ҳарф номи сифатида айтилгани учун ҳикоя қилинади (ўзгармайди)", "n"]], "s": "бадал", "j": "", "a": [["ق", "بَدَلٌ مِنَ «الْأَصْوَاتِ» مَحْكِيٌّ فِي مَحَلِّ جَرٍّ."]]}, "11-5": {"k": [["ظ", "ق га маътуф (атф ҳарфи ҳазф қилинган), жар ўринда"], ["", "ҳарф номи сифатида айтилгани учун ҳикоя қилинади (ўзгармайди)", "n"]], "s": "маътуф", "j": "", "a": [["ظ", "مَعْطُوفٌ عَلَى «ق» بِحَرْفِ عَطْفٍ مَحْذُوفٍ، مَحْكِيٌّ فِي مَحَلِّ جَرٍّ."]]}, "11-6": {"k": [["ح", "ق га маътуф (атф ҳарфи ҳазф қилинган), жар ўринда"], ["", "ҳарф номи сифатида айтилгани учун ҳикоя қилинади (ўзгармайди)", "n"]], "s": "маътуф", "j": "", "a": [["ح", "مَعْطُوفٌ عَلَى «ق» بِحَرْفِ عَطْفٍ مَحْذُوفٍ، مَحْكِيٌّ فِي مَحَلِّ جَرٍّ."]]}, "11-7": {"k": [["جَيِّداً", "сифат, насб қилинган, аломати зоҳирий фатҳа"], ["", "олдидан маҳзуф (ҳазф қилинган) мафъулун мутлақ бор, ўзи мавсуф: نُطْقاً جَيِّداً", "n"]], "s": "сифат", "j": "N", "a": [["جَيِّداً", "صِفَةٌ لِمَفْعُولٍ مُطْلَقٍ مَحْذُوفٍ تَقْدِيرُهُ: «نُطْقاً جَيِّداً»، مَنْصُوبَةٌ وَعَلَامَةُ نَصْبِهَا الْفَتْحَةُ الظَّاهِرَةُ."]], "o": [["✅ Саҳифада шу:", "جَيِّداً — маҳзуф мафъулун мутлақнинг сифати: نُطْقاً جَيِّداً (китобдаги كَثِيراً қолипи)."], ["↔️ Бошқа фикр:", "جَيِّداً — мафъулун мутлақдан ноиб (نَائِبٌ عَنِ الْمَفْعُولِ الْمُطْلَقِ) дейилади; маъно бир."]]}, "12-0": {"k": [["هُنَاكَ", "зарф макон, фатҳага мабний, насб ўринда, ўзи шибҳи жумла бўлиб, маҳзуф хабари муқаддам бўлмиш مَوْجُودَةٌ га мутааллиқ"]], "s": "зарф", "j": "", "a": [["هُنَاكَ", "اسْمُ إِشَارَةٍ لِلْمَكَانِ مَبْنِيٌّ عَلَى الْفَتْحِ فِي مَحَلِّ نَصْبٍ ظَرْفُ مَكَانٍ، مُتَعَلِّقٌ بِخَبَرٍ مُقَدَّمٍ مَحْذُوفٍ تَقْدِيرُهُ: مَوْجُودَةٌ."], ["", "وَجُمْلَةُ «هُنَاكَ تَدْرِيبَاتٌ …» ابْتِدَائِيَّةٌ (اسْتِئْنَافِيَّةٌ) لَا مَحَلَّ لَهَا مِنَ الْإِعْرَابِ."]], "jm": "«هُنَاكَ تَدْرِيبَاتٌ …» — ибтидоий (истиънофий) жумла, янги гап бошланади, эъробдан унга ўрин йўқ."}, "12-1": {"k": [["تَدْرِيبَاتٌ", "мубтадо муаххар, раф қилинган, аломати зоҳирий замма"], ["", "ўзи мавсуф", "n"]], "s": "мубтадо муаххар", "j": "R", "a": [["تَدْرِيبَاتٌ", "مُبْتَدَأٌ مُؤَخَّرٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ."]]}, "12-2": {"k": [["صَوْتِيَّةٌ", "сифат, раф қилинган, аломати зоҳирий замма"], ["", "1чи сифат", "n"]], "s": "сифат", "j": "R", "a": [["صَوْتِيَّةٌ", "صِفَةٌ مَرْفُوعَةٌ وَعَلَامَةُ رَفْعِهَا الضَّمَّةُ الظَّاهِرَةُ."]]}, "12-3": {"k": [["جَيِّدَةٌ", "сифат, раф қилинган, аломати зоҳирий замма"], ["", "2чи сифат", "n"]], "s": "сифат", "j": "R", "a": [["جَيِّدَةٌ", "صِفَةٌ مَرْفُوعَةٌ وَعَلَامَةُ رَفْعِهَا الضَّمَّةُ الظَّاهِرَةُ."]]}, "12-4": {"k": [["فِي", "жар ҳарфи, сукунга мабний, эъробдан унга ўрин йўқ"]], "s": "жар ҳарфи", "j": "", "a": [["فِي", "حَرْفُ جَرٍّ مَبْنِيٌّ عَلَى السُّكُونِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."]]}, "12-5": {"k": [["مُخْتَبَرِ", "музоф бўлиб мажрур, فِي сабаб жар қилинган, аломати зоҳирий касра"], ["", "жар ва мажрур шибҳи жумла бўлиб, маҳзуф сифат бўлмиш كَائِنَةٌ га мутааллиқ", "n"]], "s": "мажрур", "j": "J", "a": [["مُخْتَبَرِ", "اسْمٌ مَجْرُورٌ بِـ«فِي» وَعَلَامَةُ جَرِّهِ الْكَسْرَةُ الظَّاهِرَةُ، وَهُوَ مُضَافٌ."]]}, "12-6": {"k": [["اَللُّغَةِ", "музофун илайҳ, жар қилинган, аломати зоҳирий касра"]], "s": "муз.илайҳ", "j": "J", "a": [["اللُّغَةِ", "مُضَافٌ إِلَيْهِ مَجْرُورٌ وَعَلَامَةُ جَرِّهِ الْكَسْرَةُ الظَّاهِرَةُ."]]}, "13-0": {"k": [["وَ", "атф ҳарфи («ва»), фатҳага мабний, эъробдан унга ўрин йўқ"], ["لَا", "нафий ҳарфи, сукунга мабний, эъробдан унга ўрин йўқ"]], "s": "атф+​нафий", "j": "", "a": [["الْوَاوُ", "حَرْفُ عَطْفٍ مَبْنِيٌّ عَلَى الْفَتْحِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["لَا", "حَرْفُ نَفْيٍ مَبْنِيٌّ عَلَى السُّكُونِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["", "وَجُمْلَةُ «لَا أَسْتَطِيعُ التَّحَدُّثَ …» ابْتِدَائِيَّةٌ (اسْتِئْنَافِيَّةٌ) لَا مَحَلَّ لَهَا مِنَ الْإِعْرَابِ."]], "jm": "«لَا أَسْتَطِيعُ التَّحَدُّثَ …» — ибтидоий (истиънофий) жумла, وَ — бу ерда атф (олдинги гапга), эъробдан унга ўрин йўқ."}, "13-1": {"k": [["أَسْتَطِيعُ", "музорий феъли, раф қилинган, аломати зоҳирий замма, тагида вожиб ҳолдаги أَنَا мустатир замир бор бўлиб, у фоил"]], "s": "муз.феъли", "j": "R", "a": [["أَسْتَطِيعُ", "فِعْلٌ مُضَارِعٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ، وَالْفَاعِلُ ضَمِيرٌ مُسْتَتِرٌ وُجُوباً تَقْدِيرُهُ: أَنَا."]]}, "13-2": {"k": [["اَلتَّحَدُّثَ", "мафъулун биҳ, насб қилинган, аломати зоҳирий фатҳа"]], "s": "маф.биҳ", "j": "N", "a": [["التَّحَدُّثَ", "مَفْعُولٌ بِهِ مَنْصُوبٌ وَعَلَامَةُ نَصْبِهِ الْفَتْحَةُ الظَّاهِرَةُ."]]}, "13-3": {"k": [["بِ", "жар ҳарфи, касрага мабний, эъробдан унга ўрин йўқ"], ["اَللُّغَةِ", "мажрур, بِ сабаб жар қилинган, аломати зоҳирий касра"], ["", "ўзи мавсуф", "n"], ["", "жар ва мажрур шибҳи жумла бўлиб, التَّحَدُّثَ га мутааллиқ", "n"]], "s": "жар+​мажрур", "j": "J", "a": [["الْبَاءُ", "حَرْفُ جَرٍّ مَبْنِيٌّ عَلَى الْكَسْرِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["اللُّغَةِ", "اسْمٌ مَجْرُورٌ وَعَلَامَةُ جَرِّهِ الْكَسْرَةُ الظَّاهِرَةُ."]]}, "13-4": {"k": [["اَلْعَرَبِيَّةِ", "сифат, жар қилинган, аломати зоҳирий касра"]], "s": "сифат", "j": "J", "a": [["الْعَرَبِيَّةِ", "صِفَةٌ مَجْرُورَةٌ وَعَلَامَةُ جَرِّهَا الْكَسْرَةُ الظَّاهِرَةُ."]]}, "13-5": {"k": [["وَ", "атф ҳарфи («ва»), фатҳага мабний, эъробдан унга ўрин йўқ"], ["لَا", "нафий ҳарфи, сукунга мабний, эъробдан унга ўрин йўқ"]], "s": "атф+​нафий", "j": "", "a": [["الْوَاوُ", "حَرْفُ عَطْفٍ مَبْنِيٌّ عَلَى الْفَتْحِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["لَا", "حَرْفُ نَفْيٍ مَبْنِيٌّ عَلَى السُّكُونِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["", "وَجُمْلَةُ «لَا أَفْهَمُ كَلَامَ …» مَعْطُوفَةٌ عَلَى جُمْلَةِ «لَا أَسْتَطِيعُ التَّحَدُّثَ …» لَا مَحَلَّ لَهَا مِنَ الْإِعْرَابِ."]], "jm": "«لَا أَفْهَمُ كَلَامَ …» жумласи «لَا أَسْتَطِيعُ التَّحَدُّثَ …» жумласига маътуф, эъробдан унга ўрин йўқ."}, "13-6": {"k": [["أَفْهَمُ", "музорий феъли, раф қилинган, аломати зоҳирий замма, тагида вожиб ҳолдаги أَنَا мустатир замир бор бўлиб, у фоил"]], "s": "муз.феъли", "j": "R", "a": [["أَفْهَمُ", "فِعْلٌ مُضَارِعٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ، وَالْفَاعِلُ ضَمِيرٌ مُسْتَتِرٌ وُجُوباً تَقْدِيرُهُ: أَنَا."]]}, "13-7": {"k": [["كَلَامَ", "музоф бўлиб мафъулун биҳ, насб қилинган, аломати зоҳирий фатҳа"]], "s": "маф.биҳ", "j": "N", "a": [["كَلَامَ", "مَفْعُولٌ بِهِ مَنْصُوبٌ وَعَلَامَةُ نَصْبِهِ الْفَتْحَةُ الظَّاهِرَةُ، وَهُوَ مُضَافٌ."]]}, "13-8": {"k": [["اَلْمُدَرِّسَةِ", "музофун илайҳ, жар қилинган, аломати зоҳирий касра"]], "s": "муз.илайҳ", "j": "J", "a": [["الْمُدَرِّسَةِ", "مُضَافٌ إِلَيْهِ مَجْرُورٌ وَعَلَامَةُ جَرِّهِ الْكَسْرَةُ الظَّاهِرَةُ."]]}, "13-9": {"k": [["وَ", "атф ҳарфи («ва»), фатҳага мабний, эъробдан унга ўрин йўқ"], ["اَلطَّالِبَاتِ", "الْمُدَرِّسَةِ га маътуф, жар қилинган, аломати зоҳирий касра"]], "s": "атф+​маътуф", "j": "J", "a": [["الْوَاوُ", "حَرْفُ عَطْفٍ مَبْنِيٌّ عَلَى الْفَتْحِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["الطَّالِبَاتِ", "اسْمٌ مَعْطُوفٌ عَلَى «الْمُدَرِّسَةِ» مَجْرُورٌ وَعَلَامَةُ جَرِّهِ الْكَسْرَةُ الظَّاهِرَةُ."]]}, "13-10": {"k": [["أُرِيدُ", "музорий феъли, раф қилинган, аломати зоҳирий замма, тагида вожиб ҳолдаги أَنَا мустатир замир бор бўлиб, у фоил"]], "s": "муз.феъли", "j": "R", "a": [["أُرِيدُ", "فِعْلٌ مُضَارِعٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ، وَالْفَاعِلُ ضَمِيرٌ مُسْتَتِرٌ وُجُوباً تَقْدِيرُهُ: أَنَا."], ["", "وَجُمْلَةُ «أُرِيدُ أَنْ أَتَعَلَّمَ …» ابْتِدَائِيَّةٌ (اسْتِئْنَافِيَّةٌ) لَا مَحَلَّ لَهَا مِنَ الْإِعْرَابِ."]], "jm": "«أُرِيدُ أَنْ أَتَعَلَّمَ …» — ибтидоий (истиънофий) жумла, янги гап бошланади, эъробдан унга ўрин йўқ."}, "13-11": {"k": [["أَنْ", "насб ва масдар ҳарфи, сукунга мабний, эъробдан унга ўрин йўқ"]], "s": "насб ҳарфи", "j": "", "a": [["أَنْ", "حَرْفُ مَصْدَرٍ وَنَصْبٍ مَبْنِيٌّ عَلَى السُّكُونِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."]]}, "13-12": {"k": [["أَتَعَلَّمَ", "музорий феъли, أَنْ сабаб насб қилинган, аломати зоҳирий фатҳа, тагида вожиб ҳолдаги أَنَا мустатир замир бор бўлиб, у фоил"], ["", "أَنْ ва феълдан изоҳланган масдар (تَعَلُّمَ), яъни мафъулун биҳ бўлиб, насб ўринда", "n"]], "s": "муз.феъли", "j": "N", "a": [["أَتَعَلَّمَ", "فِعْلٌ مُضَارِعٌ مَنْصُوبٌ بِـ«أَنْ» وَعَلَامَةُ نَصْبِهِ الْفَتْحَةُ الظَّاهِرَةُ، وَالْفَاعِلُ ضَمِيرٌ مُسْتَتِرٌ وُجُوباً تَقْدِيرُهُ: أَنَا."]]}, "13-13": {"k": [["اَلْعَرَبِيَّةَ", "мафъулун биҳ, насб қилинган, аломати зоҳирий фатҳа"]], "s": "маф.биҳ", "j": "N", "a": [["الْعَرَبِيَّةَ", "مَفْعُولٌ بِهِ مَنْصُوبٌ وَعَلَامَةُ نَصْبِهِ الْفَتْحَةُ الظَّاهِرَةُ."]]}, "13-14": {"k": [["جَيِّداً", "сифат, насб қилинган, аломати зоҳирий фатҳа"], ["", "олдидан маҳзуф (ҳазф қилинган) мафъулун мутлақ бор, ўзи мавсуф: تَعَلُّماً جَيِّداً", "n"]], "s": "сифат", "j": "N", "a": [["جَيِّداً", "صِفَةٌ لِمَفْعُولٍ مُطْلَقٍ مَحْذُوفٍ تَقْدِيرُهُ: «تَعَلُّماً جَيِّداً»، مَنْصُوبَةٌ وَعَلَامَةُ نَصْبِهَا الْفَتْحَةُ الظَّاهِرَةُ."]], "o": [["✅ Саҳифада шу:", "جَيِّداً — маҳзуф мафъулун мутлақнинг сифати: تَعَلُّماً جَيِّداً (китобдаги كَثِيراً қолипи)."], ["↔️ Бошқа фикр:", "جَيِّداً — мафъулун мутлақдан ноиб (نَائِبٌ عَنِ الْمَفْعُولِ الْمُطْلَقِ) дейилади; маъно бир."]]}, "13-15": {"k": [["مَاذَا", "исм истифҳом бўлиб олдинга ўтган мафъулун биҳ, сукунга мабний, насб ўринда"]], "s": "маф.биҳ", "j": "", "a": [["مَاذَا", "اسْمُ اسْتِفْهَامٍ مَبْنِيٌّ عَلَى السُّكُونِ فِي مَحَلِّ نَصْبٍ مَفْعُولٌ بِهِ مُقَدَّمٌ."], ["", "وَجُمْلَةُ «مَاذَا أَفْعَلُ» ابْتِدَائِيَّةٌ (اسْتِئْنَافِيَّةٌ) لَا مَحَلَّ لَهَا مِنَ الْإِعْرَابِ."]], "jm": "«مَاذَا أَفْعَلُ» — ибтидоий (истиънофий) жумла, янги гап бошланади, эъробдан унга ўрин йўқ."}, "13-16": {"k": [["أَفْعَلُ", "музорий феъли, раф қилинган, аломати зоҳирий замма, тагида вожиб ҳолдаги أَنَا мустатир замир бор бўлиб, у фоил"]], "s": "муз.феъли", "j": "R", "a": [["أَفْعَلُ", "فِعْلٌ مُضَارِعٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ، وَالْفَاعِلُ ضَمِيرٌ مُسْتَتِرٌ وُجُوباً تَقْدِيرُهُ: أَنَا."]]}, "14-0": {"k": [["اِحْفَظِي", "амр феъли, ن нинг ҳазф бўлишига мабний, ي бориз муттасил замир бўлиб, у фоил, сукунга мабний, раф ўринда"]], "s": "амр феъли+​фоил", "j": "", "a": [["اِحْفَظِي", "فِعْلُ أَمْرٍ مَبْنِيٌّ عَلَى حَذْفِ النُّونِ، وَيَاءُ الْمُخَاطَبَةِ ضَمِيرٌ مُتَّصِلٌ مَبْنِيٌّ عَلَى السُّكُونِ فِي مَحَلِّ رَفْعٍ فَاعِلٌ."], ["", "وَجُمْلَةُ «اِحْفَظِي جُزْءاً …» ابْتِدَائِيَّةٌ (اسْتِئْنَافِيَّةٌ) لَا مَحَلَّ لَهَا مِنَ الْإِعْرَابِ."]], "jm": "«اِحْفَظِي جُزْءاً …» — ибтидоий (истиънофий) жумла, янги гап бошланади, эъробдан унга ўрин йўқ."}, "14-1": {"k": [["جُزْءاً", "мафъулун биҳ, насб қилинган, аломати зоҳирий фатҳа"], ["", "ўзи мавсуф", "n"]], "s": "маф.биҳ", "j": "N", "a": [["جُزْءاً", "مَفْعُولٌ بِهِ مَنْصُوبٌ وَعَلَامَةُ نَصْبِهِ الْفَتْحَةُ الظَّاهِرَةُ."]]}, "14-2": {"k": [["مِنَ", "жар ҳарфи, сукунга мабний, кейинги ال билан 2 сукун йўлиқмаслиги учун фатҳа қилинган, эъробдан унга ўрин йўқ"]], "s": "жар ҳарфи", "j": "", "a": [["مِنْ", "حَرْفُ جَرٍّ مَبْنِيٌّ عَلَى السُّكُونِ، وَحُرِّكَ بِالْفَتْحِ لِالْتِقَاءِ السَّاكِنَيْنِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."]]}, "14-3": {"k": [["اَلْقُرْآنِ", "мажрур, مِنْ сабаб жар қилинган, аломати зоҳирий касра"], ["", "жар ва мажрур шибҳи жумла бўлиб, маҳзуф сифат бўлмиш كَائِناً га мутааллиқ", "n"], ["", "ўзи мавсуф", "n"]], "s": "мажрур", "j": "J", "a": [["الْقُرْآنِ", "اسْمٌ مَجْرُورٌ بِـ«مِنْ» وَعَلَامَةُ جَرِّهِ الْكَسْرَةُ الظَّاهِرَةُ."]]}, "14-4": {"k": [["اَلْكَرِيمِ", "сифат, жар қилинган, аломати зоҳирий касра"]], "s": "сифат", "j": "J", "a": [["الْكَرِيمِ", "صِفَةٌ مَجْرُورَةٌ وَعَلَامَةُ جَرِّهَا الْكَسْرَةُ الظَّاهِرَةُ."]]}, "14-5": {"k": [["وَ", "атф ҳарфи («ва»), фатҳага мабний, эъробдан унга ўрин йўқ"], ["بَعْضَ", "музоф бўлиб جُزْءاً га маътуф, насб қилинган, аломати зоҳирий фатҳа"]], "s": "атф+​маътуф", "j": "N", "a": [["الْوَاوُ", "حَرْفُ عَطْفٍ مَبْنِيٌّ عَلَى الْفَتْحِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["بَعْضَ", "اسْمٌ مَعْطُوفٌ عَلَى «جُزْءاً» مَنْصُوبٌ وَعَلَامَةُ نَصْبِهِ الْفَتْحَةُ الظَّاهِرَةُ، وَهُوَ مُضَافٌ."]]}, "14-6": {"k": [["اَلْأَحَادِيثِ", "музофун илайҳ, жар қилинган, аломати зоҳирий касра"], ["", "ўзи мавсуф", "n"]], "s": "муз.илайҳ", "j": "J", "a": [["الْأَحَادِيثِ", "مُضَافٌ إِلَيْهِ مَجْرُورٌ وَعَلَامَةُ جَرِّهِ الْكَسْرَةُ الظَّاهِرَةُ."]]}, "14-7": {"k": [["اَلنَّبَوِيَّةِ", "сифат, жар қилинган, аломати зоҳирий касра"]], "s": "сифат", "j": "J", "a": [["النَّبَوِيَّةِ", "صِفَةٌ مَجْرُورَةٌ وَعَلَامَةُ جَرِّهَا الْكَسْرَةُ الظَّاهِرَةُ."]]}, "14-8": {"k": [["وَ", "атф ҳарфи («ва»), фатҳага мабний, эъробдан унга ўрин йўқ"], ["تَحَدَّثِي", "амр феъли, ن нинг ҳазф бўлишига мабний, ي бориз муттасил замир бўлиб, у фоил, сукунга мабний, раф ўринда"]], "s": "атф+​амр феъли+​фоил", "j": "", "a": [["الْوَاوُ", "حَرْفُ عَطْفٍ مَبْنِيٌّ عَلَى الْفَتْحِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["تَحَدَّثِي", "فِعْلُ أَمْرٍ مَبْنِيٌّ عَلَى حَذْفِ النُّونِ، وَيَاءُ الْمُخَاطَبَةِ ضَمِيرٌ مُتَّصِلٌ مَبْنِيٌّ عَلَى السُّكُونِ فِي مَحَلِّ رَفْعٍ فَاعِلٌ."], ["", "وَجُمْلَةُ «تَحَدَّثِي بِالْعَرَبِيَّةِ كَثِيراً» مَعْطُوفَةٌ عَلَى جُمْلَةِ «اِحْفَظِي جُزْءاً …» لَا مَحَلَّ لَهَا مِنَ الْإِعْرَابِ."]], "jm": "«تَحَدَّثِي بِالْعَرَبِيَّةِ كَثِيراً» жумласи «اِحْفَظِي جُزْءاً …» жумласига маътуф, эъробдан унга ўрин йўқ."}, "14-9": {"k": [["بِ", "жар ҳарфи, касрага мабний, эъробдан унга ўрин йўқ"], ["اَلْعَرَبِيَّةِ", "мажрур, بِ сабаб жар қилинган, аломати зоҳирий касра"], ["", "жар ва мажрур шибҳи жумла бўлиб, تَحَدَّثِي га мутааллиқ", "n"]], "s": "жар+​мажрур", "j": "J", "a": [["الْبَاءُ", "حَرْفُ جَرٍّ مَبْنِيٌّ عَلَى الْكَسْرِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["الْعَرَبِيَّةِ", "اسْمٌ مَجْرُورٌ وَعَلَامَةُ جَرِّهِ الْكَسْرَةُ الظَّاهِرَةُ."]]}, "14-10": {"k": [["كَثِيراً", "сифат, насб қилинган, аломати зоҳирий фатҳа"], ["", "олдидан маҳзуф (ҳазф қилинган) мафъулун мутлақ бор, ўзи мавсуф: تَحَدُّثاً كَثِيراً", "n"]], "s": "сифат", "j": "N", "a": [["كَثِيراً", "صِفَةٌ لِمَفْعُولٍ مُطْلَقٍ مَحْذُوفٍ تَقْدِيرُهُ: «تَحَدُّثاً كَثِيراً»، مَنْصُوبَةٌ وَعَلَامَةُ نَصْبِهَا الْفَتْحَةُ الظَّاهِرَةُ."]], "o": [["✅ Саҳифада шу:", "كَثِيراً — маҳзуф мафъулун мутлақнинг сифати: تَحَدُّثاً كَثِيراً (китобдаги كَثِيراً қолипи)."], ["↔️ Бошқа фикр:", "كَثِيراً — мафъулун мутлақдан ноиб (نَائِبٌ عَنِ الْمَفْعُولِ الْمُطْلَقِ) дейилади; маъно бир."]]}, "15-0": {"k": [["هَذِهِ", "исм ишора бўлиб мубтадо, касрага мабний, раф ўринда"]], "s": "мубтадо", "j": "", "a": [["هَذِهِ", "اسْمُ إِشَارَةٍ مَبْنِيٌّ عَلَى الْكَسْرِ فِي مَحَلِّ رَفْعٍ مُبْتَدَأٌ."], ["", "وَجُمْلَةُ «هَذِهِ نَصِيحَةٌ مُفِيدَةٌ» ابْتِدَائِيَّةٌ (اسْتِئْنَافِيَّةٌ) لَا مَحَلَّ لَهَا مِنَ الْإِعْرَابِ."]], "jm": "«هَذِهِ نَصِيحَةٌ مُفِيدَةٌ» — ибтидоий (истиънофий) жумла, янги гап бошланади, эъробдан унга ўрин йўқ."}, "15-1": {"k": [["نَصِيحَةٌ", "хабар, раф қилинган, аломати зоҳирий замма"], ["", "ўзи мавсуф", "n"]], "s": "хабар", "j": "R", "a": [["نَصِيحَةٌ", "خَبَرٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ."]]}, "15-2": {"k": [["مُفِيدَةٌ", "сифат, раф қилинган, аломати зоҳирий замма"]], "s": "сифат", "j": "R", "a": [["مُفِيدَةٌ", "صِفَةٌ مَرْفُوعَةٌ وَعَلَامَةُ رَفْعِهَا الضَّمَّةُ الظَّاهِرَةُ."]]}, "15-3": {"k": [["سَ", "истиқбол ҳарфи, фатҳага мабний, эъробдан унга ўрин йўқ"], ["أَتَّبِعُ", "музорий феъли, раф қилинган, аломати зоҳирий замма, тагида вожиб ҳолдаги أَنَا мустатир замир бор бўлиб, у фоил"], ["هَا", "муттасил замир бўлиб мафъулун биҳ, сукунга мабний, насб ўринда"]], "s": "истиқбол+​муз.феъли+​маф.биҳ", "j": "R", "a": [["السِّينُ", "حَرْفُ اسْتِقْبَالٍ مَبْنِيٌّ عَلَى الْفَتْحِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["أَتَّبِعُ", "فِعْلٌ مُضَارِعٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ، وَالْفَاعِلُ ضَمِيرٌ مُسْتَتِرٌ وُجُوباً تَقْدِيرُهُ: أَنَا."], ["الْهَاءُ", "ضَمِيرٌ مُتَّصِلٌ مَبْنِيٌّ عَلَى السُّكُونِ فِي مَحَلِّ نَصْبٍ مَفْعُولٌ بِهِ."], ["", "وَجُمْلَةُ «سَأَتَّبِعُهَا» ابْتِدَائِيَّةٌ (اسْتِئْنَافِيَّةٌ) لَا مَحَلَّ لَهَا مِنَ الْإِعْرَابِ."]], "jm": "«سَأَتَّبِعُهَا» — ибтидоий (истиънофий) жумла, янги гап бошланади, эъробдан унга ўрин йўқ."}, "15-4": {"k": [["إِنْ", "шарт ҳарфи, сукунга мабний, эъробдан унга ўрин йўқ"]], "s": "шарт ҳарфи", "j": "", "a": [["إِنْ", "حَرْفُ شَرْطٍ جَازِمٌ مَبْنِيٌّ عَلَى السُّكُونِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["", "وَجُمْلَةُ «شَاءَ اللَّهُ» فِعْلُ الشَّرْطِ وَفَاعِلُهُ، وَجُمْلَةُ الشَّرْطِ اعْتِرَاضِيَّةٌ لَا مَحَلَّ لَهَا مِنَ الْإِعْرَابِ."]], "jm": "«إِنْ شَاءَ اللَّهُ» — шарт жумласи, жавоби маҳзуф (олдинги гап унга далолат қилади), эъробдан унга ўрин йўқ."}, "15-5": {"k": [["شَاءَ", "мозий феъли, фатҳага мабний, إِنْ сабаб жазм ўринда (шарт феъли)"], ["", "шартнинг жавоби маҳзуф: олдинги سَأَتَّبِعُهَا унга далолат қилади", "n"]], "s": "моз.феъли", "j": "", "a": [["شَاءَ", "فِعْلٌ مَاضٍ مَبْنِيٌّ عَلَى الْفَتْحِ فِي مَحَلِّ جَزْمٍ فِعْلُ الشَّرْطِ، وَجَوَابُ الشَّرْطِ مَحْذُوفٌ دَلَّ عَلَيْهِ مَا قَبْلَهُ."]]}, "15-6": {"k": [["اَللَّهُ", "лафзи жалола бўлиб фоил, раф қилинган, аломати зоҳирий замма"]], "s": "фоил", "j": "R", "a": [["اللَّهُ", "لَفْظُ الْجَلَالَةِ فَاعِلٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ."]]}, "16-0": {"k": [["إِذَنْ", "жавоб ва жазо ҳарфи, сукунга мабний, эъробдан унга ўрин йўқ"], ["", "орада سَ келгани учун феълни насб қилмайди", "n"]], "s": "жавоб ва жазо ҳарфи", "j": "", "a": [["إِذَنْ", "حَرْفُ جَوَابٍ وَجَزَاءٍ مَبْنِيٌّ عَلَى السُّكُونِ، لَا عَمَلَ لَهُ لِلْفَصْلِ بِالسِّينِ، لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."]]}, "16-1": {"k": [["سَ", "истиқбол ҳарфи, фатҳага мабний, эъробдан унга ўрин йўқ"], ["تَتَعَلَّمِينَ", "музорий феъли, раф қилинган, аломати нуннинг жойида туриши, ي бориз муттасил замир бўлиб, у фоил, сукунга мабний, раф ўринда"]], "s": "истиқбол+​муз.феъли+​фоил", "j": "R", "a": [["السِّينُ", "حَرْفُ اسْتِقْبَالٍ مَبْنِيٌّ عَلَى الْفَتْحِ لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."], ["تَتَعَلَّمِينَ", "فِعْلٌ مُضَارِعٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ ثُبُوتُ النُّونِ لِأَنَّهُ مِنَ الْأَفْعَالِ الْخَمْسَةِ، وَيَاءُ الْمُخَاطَبَةِ ضَمِيرٌ مُتَّصِلٌ مَبْنِيٌّ عَلَى السُّكُونِ فِي مَحَلِّ رَفْعٍ فَاعِلٌ."], ["", "وَجُمْلَةُ «سَتَتَعَلَّمِينَ الْعَرَبِيَّةَ جَيِّداً» ابْتِدَائِيَّةٌ (اسْتِئْنَافِيَّةٌ) لَا مَحَلَّ لَهَا مِنَ الْإِعْرَابِ."]], "jm": "«سَتَتَعَلَّمِينَ الْعَرَبِيَّةَ جَيِّداً» — ибтидоий (истиънофий) жумла, إِذَنْ дан кейин, эъробдан унга ўрин йўқ."}, "16-2": {"k": [["اَلْعَرَبِيَّةَ", "мафъулун биҳ, насб қилинган, аломати зоҳирий фатҳа"]], "s": "маф.биҳ", "j": "N", "a": [["الْعَرَبِيَّةَ", "مَفْعُولٌ بِهِ مَنْصُوبٌ وَعَلَامَةُ نَصْبِهِ الْفَتْحَةُ الظَّاهِرَةُ."]]}, "16-3": {"k": [["جَيِّداً", "сифат, насб қилинган, аломати зоҳирий фатҳа"], ["", "олдидан маҳзуф (ҳазф қилинган) мафъулун мутлақ бор, ўзи мавсуф: تَعَلُّماً جَيِّداً", "n"]], "s": "сифат", "j": "N", "a": [["جَيِّداً", "صِفَةٌ لِمَفْعُولٍ مُطْلَقٍ مَحْذُوفٍ تَقْدِيرُهُ: «تَعَلُّماً جَيِّداً»، مَنْصُوبَةٌ وَعَلَامَةُ نَصْبِهَا الْفَتْحَةُ الظَّاهِرَةُ."]], "o": [["✅ Саҳифада шу:", "جَيِّداً — маҳзуф мафъулун мутлақнинг сифати: تَعَلُّماً جَيِّداً (китобдаги كَثِيراً қолипи)."], ["↔️ Бошқа фикр:", "جَيِّداً — мафъулун мутлақдан ноиб (نَائِبٌ عَنِ الْمَفْعُولِ الْمُطْلَقِ) дейилади; маъно бир."]]}};
+var GT={"1": [[1, "хабарийя"]], "2": [[3, "хабарийя"]], "3": [[4, "хабарийя"]], "4": [[5, "истифҳомийя"]], "5": [[5, "хабарийя"]], "6": [[6, "хабарийя"]], "7": [[4, "истифҳомийя"]], "8": [[10, "хабарийя"]], "9": [[4, "хабарийя"]], "10": [[4, "хабарийя"], [10, "хабарийя"]], "11": [[7, "хабарийя"]], "12": [[6, "хабарийя"]], "13": [[9, "хабарийя"], [14, "хабарийя"], [16, "истифҳомийя"]], "14": [[10, "иншоийя (амр)"]], "15": [[2, "хабарийя"], [3, "хабарийя"], [6, "хабарийя"]], "16": [[3, "хабарийя"]]};
+/* qo'shimcha ma'lumot (hujjatda yo'q) */
+var QT={"MUBXAB": ["Мубтадо ва хабар", ["Исмий гап икки қисмдан иборат: мубтадо (кимдан/нимадан гап кетяпти) ва хабар (у ҳақида нима дейиляпти). Иккаласи ҳам раф қилинади: الْمَالُ كَثِيرٌ.", "Мубтадо одатда маърифа бўлади (ال билан, алам, замир ёки изофада), хабар кўпинча накра бўлади.", "Хабар уч хил бўлади: муфрад (كَثِيرٌ), жумла (بِلَادُنَا تَحْتَاجُ إِلَيْنَا) ва шибҳи жумла, яъни жар ҳарфи ва мажрур ёки зарф (وَإِلَيْهِ النُّشُورُ).", "Шибҳи жумла хабар олдинга ўтиши мумкин; бу «фақат» маъносини беради: وَإِلَيْهِ النُّشُورُ — «қайта тирилиш фақат Унинг ҳузурига». Мубтадо накра бўлса, хабарни олдинга ўтказиш вожиб: فِي الْبَيْتِ رَجُلٌ.", "Кўпчилик наҳвчилар фикрича мубтадони ибтидо (маънавий омил), хабарни эса мубтадо раф қилади.", "Сарлавҳалардаги исмлар хабари ёки мубтадоси маҳзуф деб таркиб қилинади: (هَذَا) الدَّرْسُ الثَّانِي."]], "LAYSA": ["لَيْسَ — كَانَ нинг синглиси", ["Кана синглилари мубтадо ва хабарга киради: мубтадо уларнинг исми бўлиб раф қилинади, хабар уларнинг хабари бўлиб насб қилинади: السَّفَرُ حَرَامٌ → لَيْسَ السَّفَرُ حَرَاماً.", "لَيْسَ нинг маъноси «эмас» — инкор; кўпинча ҳозирги замонни инкор қилади.", "لَيْسَ — жомид феъл: фақат мозий шакли бор, музорий ва амри йўқ.", "Хабарига зоида بِ қўшилиши мумкин: لَيْسَ السَّفَرُ بِحَرَامٍ — бунда حَرَامٍ лафзан жар қилинган, насб ўринда.", "Кана синглилари: كَانَ، أَصْبَحَ، أَضْحَى، أَمْسَى، ظَلَّ، بَاتَ، صَارَ، لَيْسَ، مَا زَالَ، مَا بَرِحَ، مَا فَتِئَ، مَا انْفَكَّ، مَا دَامَ."]], "LAKINNA": ["لَكِنَّ — إِنَّ нинг синглиси", ["Инна синглилари кана синглиларининг тескариси: мубтадони насб қилади (исми бўлади), хабарни раф қилади (хабари бўлади): إِنَّ الْمَالَ كَثِيرٌ.", "Исми замир бўлса, ҳарфга уланади: لَكِنَّكَ، إِنَّهُ، لَعَلَّنَا.", "لَكِنَّ маъноси — истидрок: олдинги гапдан келиб чиқадиган фикрни тўғрилаш («лекин»).", "Инна синглилари: إِنَّ، أَنَّ (таъкид)، كَأَنَّ (ўхшатиш)، لَكِنَّ (истидрок)، لَيْتَ (орзу)، لَعَلَّ (умид).", "Ташдидсиз لَكِنْ амал қилмайди, ундан кейин оддий гап келади: وَلَكِنْ هَلْ فَكَّرْتَ…"]], "NASB": ["Музорийни насб қилувчи ҳарфлар", ["Музорийни насб қилувчи ҳарфлар: أَنْ، لَنْ، كَيْ، إِذَنْ.", "لَنْ — келаси замонни инкор қилади: لَنْ أَذْهَبَ «бормайман».", "أَنْ — масдарий ҳарф: феъл билан бирга масдар ҳосил қилади: أَرْجُو أَنْ تَعُودَ = أَرْجُو عَوْدَتَكَ.", "Насб аломати — фатҳа; амсилатул хомсада — нуннинг ҳазф бўлиши: لَنْ تَذْهَبُوا.", "Маҳзуф أَنْ билан ҳам насб қилинади: لِ (сабаб), حَتَّى, сабабият фа си ва бошқалардан кейин: جِئْتُ لِأَتَعَلَّمَ."]], "MUDRAF": ["Музорийнинг рафи", ["Музорий феъли уни насб ёки жазм қилувчи сўз бўлмаса раф қилинади.", "Раф аломати — замма: أَعُودُ، تَعْمَلُ.", "Охири و ёки ي бўлса, замма оғир бўлгани учун айтилмайди (тақдирий): أَرْجُو، أَمْشِي; лекин фатҳа кўринади: لَنْ أَرْجُوَ.", "Амсилатул хомсада раф аломати — нуннинг жойида туриши: تَعْمَلُونَ، تَعْمَلِينَ.", "Жазм қилувчилар: لَمْ، لَمَّا، амр ломи، наҳй لَا си ва шарт сўзлари (إِنْ، مَنْ، مَا…)."]], "SIN": ["سَ ва سَوْفَ", ["سَ ва سَوْفَ — истиқбол ҳарфлари: музорийни келаси замонга хослайди.", "سَ — яқин келажак, سَوْفَ — узоқроқ келажак учун: سَأُسَافِرُ، سَوْفَ أُسَافِرُ.", "Улар амал қилмайди — феъл раф қилинганича қолади: سَأَغْتَرِبُ."]], "AMR": ["Амр феълининг биноси", ["Амр феъли доим мабний бўлади; музорийсининг жазмдаги аломатига мабний:", "• охири саҳиҳ бўлса — сукунга: اكْتُبْ", "• охири иллат ҳарфи бўлса — иллат ҳарфининг ҳазфига: امْشِ، ادْعُ، اسْعَ", "• амсилатул хомсадан бўлса — ن нинг ҳазф бўлишига: امْشُوا، كُلُوا، اكْتُبِي", "Амсилатул хомса: يَفْعَلَانِ، تَفْعَلَانِ، يَفْعَلُونَ، تَفْعَلُونَ، تَفْعَلِينَ — рафда ن билан, насб ва жазмда ن тушади.", "Жам вовидан кейин ёзиладиган алиф (фарқлаш ҳарфи) ўқилмайди: امْشُوا.", "أَكَلَ дан амр қисқа: كُلْ، كُلُوا (худди шундай: أَخَذَ → خُذْ)."]], "FASIHA": ["Фасиҳа фа си", ["Яширин шартга далолат қилади: إِذَا كَانَ الْأَمْرُ كَذَلِكَ فَامْشُوا — «шундай экан, юринглар».", "Олдинги гапдан келиб чиқадиган натижани билдиради."]], "MOZI": ["Мозий феълнинг биноси", ["Мозий феъл доим мабний; асли — фатҳага: فَكَّرَ، قَالَ.", "Ҳаракатли бориз фоил замири (تُ، تَ، تِ، نَا، نَ) уланса — сукунга: فَكَّرْتُ، فَكَّرْتَ.", "Жам вови уланса — заммага: اغْتَرَبُوا.", "Охири алиф бўлса, фатҳа тақдирий: تَعَالَى، سَعَى."]], "TAALA": ["تَعَالَى", ["Охири алиф бўлган сўзда ҳаракат айтилмайди — тақдирий (сабаби: таъаззур, яъни талаффуз имконсиз).", "Охири و ёки ي бўлганда эса сабаби — сақал (оғирлик): أَرْجُو، الثَّانِي.", "Аллоҳ номидан кейин ҳурмат учун айтилади: تَعَالَى، عَزَّ وَجَلَّ، سُبْحَانَهُ."]], "MANQUS": ["Исм манқус", ["Охири ي бўлиб, олдидаги ҳарф касрали исм: الثَّانِي، الْقَاضِي.", "Раф ва жарда ҳаракат тақдирий (оғирлик учун), насбда фатҳа кўринади: رَأَيْتُ الْقَاضِيَ.", "Накра бўлса, раф ва жарда ي тушиб, танвин олади: ثَانٍ، قَاضٍ."]], "SIFAT": ["Сифат (наът)", ["Сифат мавсуфига тўрт нарсада эргашади: эъроб, маърифа/накра, жинс (музаккар/муаннас), сон.", "Мисол: الدَّرْسُ الثَّانِي، اللَّهُ الْعَظِيمُ.", "Ақлсиз нарсаларнинг кўплигига сифат муаннас бирликда келади: بِلَادٍ غَرِيبَةٍ."]], "MULHAQ": ["Жам музаккар солимга мулҳақ сўзлар", ["Ўнликлар (عِشْرُونَ … تِسْعُونَ), шунингдек أُولُو، أَهْلُونَ، سِنُونَ، بَنُونَ жам музаккар солимдек турланади.", "Рафда و, насб ва жарда ي: جَاءَ عِشْرُونَ، رَأَيْتُ عِشْرِينَ.", "Тартиб сонлари: الْحَادِي وَالْعِشْرُونَ … الثَّانِي وَالتِّسْعُونَ — бирлик فَاعِلٍ вазнида, ўнлик و билан атф қилинади."]], "ATF": ["Атф ҳарфлари", ["Маътуф ўзидан олдингисига эъробда эргашади: عَلَى دِينِهِمْ وَثَقَافَتِهِمْ.", "وَ — жамлаш («ва»)؛ فَ — кетма-кет, тез؛ ثُمَّ — кетма-кет, орада вақт бор؛ أَوْ — «ёки» (танлаш)؛ أَمْ — «ёки» (саволда)؛ بَلْ — «балки»؛ لَا — «эмас»."]], "MUTANNA": ["Тасния", ["Рафда ا, насб ва жарда ي: مَرَّتَانِ، مَرَّتَيْنِ.", "Охиридаги ن касрали бўлади ва эъроб аломати эмас; изофада тушади: كِتَابَا الطَّالِبِ."]], "MUTLAQ": ["Мафъулун мутлақ", ["Феълнинг ўз масдари: феълни таъкидлайди, турини ёки сонини билдиради: شَكَرْتُهُ شُكْراً.", "Феъли кўпинча ҳазф қилинади: شُكْراً، عَفْواً، صَبْراً، حَمْداً.", "Унинг ўрнига ўтадиганлар (наиб): сон (مَرَّتَيْنِ), كُلٌّ ва بَعْضٌ (كُلَّ الشُّكْرِ), сифати."]], "GHAYR": ["Ғайри мунсариф исм", ["Танвин олмайди ва жарда касра ўрнига фатҳа олади: مَرَرْتُ بِمَسَاجِدَ.", "Икки ҳолатда касра олади: ال билан келса (فِي الْمَسَاجِدِ) ёки музоф бўлса (فِي مَنَاكِبِهَا).", "Баъзи сабаблари: мунтаҳал жумуъ вазни (مَفَاعِلُ، مَفَاعِيلُ)، أَفْعَلُ вазнидаги сифат، муаннас алифи (صَحْرَاءُ)، فَعْلَانُ сифат (عَطْشَانُ) ва кўп атоқли отлар (فَاطِمَةُ، إِبْرَاهِيمُ).", "Бу дарсда: زَيْنَبُ، مَرْيَمُ (муаннас атоқли от), أَشْيَاءُ (муаннас алифи), آخَرُ (أَفْعَلُ вазнидаги сифат), فَوَاكِهُ (мунтаҳал жумуъ): مُشْكِلَةُ مَرْيَمَ، فِي أَشْيَاءَ، فِي أَمْرٍ آخَرَ — лекин عَصِيرَ الْفَوَاكِهِ (ال билан — касра)."]], "YA": ["Мутакаллим ي си", ["ي — «менинг» маъносидаги муттасил замир: وَطَنِي «ватаним».", "Ундан олдинги ҳарф доим касра олади (мослик учун), шунинг учун сўзнинг эъроб ҳаракати кўринмайди — тақдирий:", "هَذَا وَطَنِي (раф)، أُحِبُّ وَطَنِي (насб)، مِنْ وَطَنِي (жар) — учаласи бир хил ўқилади.", "ي нинг ўзи сукунга (баъзан фатҳага: وَطَنِيَ) мабний, жар ўринда — музофун илайҳ."]], "PRON": ["Муттасил замирлар", ["Замирлар доим мабний; ўрни қаерга уланганига қараб:", "• исмга — музофун илайҳ, жар ўринда: رَاتِبُكَ", "• феълга — мафъулун биҳ, насб ўринда: أَزُورُهُمْ (ёки бориз фоил замири: فَكَّرْتُ، اغْتَرَبُوا)", "• жар ҳарфига — мажрур, жар ўринда: إِلَيْنَا، فِيكَ", "• إِنَّ синглисига — унинг исми, насб ўринда: لَكِنَّكَ", "هُ، هُمْ، هُمَا، هُنَّ — касра ёки ي дан кейин касра олади: رِزْقِهِ، دِينِهِمْ، فِيهِمْ."]], "IDAFA": ["Изофа", ["Музоф танвин ва ال олмайди: خَارِجَ وَطَنِي، خَمْسَ سَنَوَاتٍ.", "Музофун илайҳ доим жар қилинади.", "Музофнинг ўз эъроби гапдаги ўрнига қараб (мубтадо, фоил, зарф…)."]], "ZARF": ["Зарф (мафъулун фийҳ)", ["Иш-ҳаракатнинг вақти ёки жойини билдиради, «-да» маъносини беради; насб қилинади.", "Зарф замон: يَوْمَ، لَيْلَةَ، صَبَاحاً; зарф макон: خَارِجَ، أَمَامَ، فَوْقَ، عِنْدَ، مَعَ.", "Баъзи зарфлар мабний: هُنَا، هُنَاكَ، إِذَا، حَيْثُ — насб ўринда. اَلْآنَ ни китобимиз (65-дарс) насб қилинган, аломати фатҳа деб беради; кўп наҳв китобларида у фатҳага мабний.", "Зарф ўрнига ўтадиганлар: сон (خَمْسَ سَنَوَاتٍ), зарфнинг сифати (طَوِيلاً — асли زَمَناً طَوِيلاً), كُلٌّ ва بَعْضٌ.", "Зарф ҳамда жар ҳарфи ва мажрур бирор феълга ёки феълдек амал қиладиган сўзга боғланади (мутааллиқ)."]], "ISHARA": ["Исм ишоралар", ["Яқин учун: هَذَا، هَذِهِ، هَذَانِ، هَاتَانِ، هَؤُلَاءِ.", "Узоқ учун: ذَلِكَ، تِلْكَ، أُولَئِكَ.", "ذَلِكَ = ذَا + لِ (узоқлик ломи) + كَ (хитоб ҳарфи).", "Жой учун: هُنَا (бу ерда)، هُنَاكَ / هُنَالِكَ (у ерда).", "هَذَانِ ва هَاتَانِ тасниядек турланади, қолганлари мабний."]], "FAIL": ["Фоил", ["Ишни бажарувчи; доим раф қилинади ва феълдан кейин келади.", "Феъл олдин келса, фоил кўплик бўлса ҳам феъл бирликда қолади: جَاءَ الطُّلَّابُ.", "Фоил зоҳир (алоҳида исм), бориз муттасил замир (فَكَّرْتُ) ёки мустатир замир (هُوَ، أَنَا) бўлади.", "اللَّهُ сўзи таркибда ҳурмат учун «лафзи жалола» (لَفْظُ الْجَلَالَةِ) деб аталади."]], "MAFUL": ["Мафъулун биҳ", ["Иш ўтадиган нарса; насб қилинади: تَصْحَبَ أَوْلَادَكَ.", "Баъзи феъллар икки мафъулун биҳ олади:", "• «айлантирмоқ» маъносидаги جَعَلَ، صَيَّرَ، اتَّخَذَ — мафъуллари асли мубтадо ва хабар: الْأَرْضُ ذَلُولٌ → جَعَلَ الْأَرْضَ ذَلُولاً", "• «бермоқ» маъносидаги أَعْطَى، مَنَحَ ва «гумон қилмоқ» маъносидаги ظَنَّ، حَسِبَ."]], "JARR": ["Жар ҳарфлари", ["Ўзидан кейинги исмни жар қилади: مِنْ، إِلَى، عَنْ، عَلَى، فِي، بِ، لِ، كَ، حَتَّى، رُبَّ، مُنْذُ.", "إِلَى ва عَلَى замирга уланганда алиф ي га айланади: إِلَيْهِ، عَلَيْكَ.", "لِ замир билан фатҳа олади: لَكَ، لَهُ، لَكُمْ (фақат ي билан: لِي).", "لِ + ال: алиф ёзилмайди — لِلْعَمَلِ.", "Жар ҳарфи ва мажрур бирор феълга ёки феълга ўхшаш сўзга боғланади (мутааллиқ); бундай сўз бўлмаса — маҳзуф (ҳазф қилинган) сўзга (хабар, сифат ёки ҳол бўлиб)."]], "MIM": ["Жам мими", ["كُمْ ва هُمْ даги م сукунли; кейинги сўз ال билан бошланса, икки сукун учрашмаслиги учун замма олади: لَكُمُ الْأَرْضَ، عَلَيْهِمُ الْقِتَالُ."]], "HAL": ["Ҳол", ["Иш пайтидаги ҳолатни билдиради, «қандай?» саволига жавоб беради; насб қилинади.", "Ҳол кўпинча накра, зул ҳол эса маърифа бўлади.", "Битта зул ҳолга бир нечта ҳол келиши мумкин: تَعُودَ سَالِماً غَانِماً.", "Ҳол жумла ҳам бўлади: جَاءَ وَهُوَ يَضْحَكُ.", "كَيْفَ — тўлиқ феълдан олдин келса ҳол (كَيْفَ تُحَافِظُ؟), мубтадодан олдин келса хабар (كَيْفَ حَالُكَ؟)."]], "SHART": ["Шарт гапи", ["Уч қисм: шарт сўзи + шарт феъли + жавоб: إِنْ تَدْرُسْ تَنْجَحْ.", "Жазм қилувчи шарт сўзлари: إِنْ، مَنْ، مَا، مَهْمَا، مَتَى، أَيْنَ، حَيْثُمَا. Жазм қилмайдиганлар: إِذَا، لَوْ، لَوْلَا.", "Шарт феъли мозий бўлса, жазм ўринда бўлади: إِنْ شَاءَ اللَّهُ.", "Жавоб олдинги гапдан тушунилса, ҳазф қилинади: أَعُودُ إِنْ شَاءَ اللَّهُ.", "إِذَا — келаси замон зарфи: шартига музоф, жавоби билан насб қилинади.", "إِلَّا = إِنْ + لَا: «акс ҳолда».", "Жавобга ف қўшилиши вожиб ҳоллар: исмий гап, амр/наҳй/савол, жомид феъл, ёки قَدْ، مَا، لَنْ، سَ، سَوْفَ билан келса."]], "ISTIF": ["Савол сўзлари", ["Ҳарфлар: هَلْ ва ҳамза (أَ). هَلْ нинг жавоби — نَعَمْ ёки لَا.", "Исмлар: مَنْ، مَا، مَتَى، أَيْنَ، كَيْفَ، كَمْ، أَيُّ — гапда ўрни бор (мубтадо, хабар, ҳол, мафъулун биҳ…).", "Савол исмлари мабний, фақат أَيُّ мўъроб."]], "MAWSUL": ["Исм мавсул", ["الَّذِي، الَّتِي، اللَّذَانِ، اللَّتَانِ، الَّذِينَ، اللَّاتِي; умумий: مَنْ، مَا.", "Ўзидан кейинги жумла — сила, эъробдан унга ўрин йўқ.", "Силада мавсулга қайтувчи замир бўлади: هُوَ الَّذِي جَعَلَ — جَعَلَ даги мустатир هُوَ.", "اللَّذَانِ ва اللَّتَانِ тасниядек мўъроб, қолганлари мабний."]], "DAMIR": ["Мунфасил замирлар", ["أَنَا، نَحْنُ، أَنْتَ، أَنْتِ، أَنْتُمَا، أَنْتُمْ، أَنْتُنَّ، هُوَ، هِيَ، هُمَا، هُمْ، هُنَّ.", "Ҳаммаси мабний; гапда раф ўринда келади (мубтадо, хабар…).", "Насб ўрни учун إِيَّا билан: إِيَّاكَ نَعْبُدُ."]], "QAT": ["فَقَطْ", ["قَطْ — «етарли, бас» маъносидаги исм (حَسْبُ каби); فَ — зоида. Бирга: «фақат».", "Ташдидли قَطُّ — бошқа сўз: «ҳеч қачон», ўтган замонни инкор билан келади: مَا رَأَيْتُهُ قَطُّ."]], "DUA": ["Дуо маъносидаги мозий", ["Мозий феъл дуо маъносида келади: بَارَكَ اللَّهُ فِيكَ، رَحِمَهُ اللَّهُ، رَضِيَ اللَّهُ عَنْهُ.", "Бундай жумла жумлатун дуоийя дейилади (7-дарс), эъробдан унга ўрин йўқ."]], "JMS": ["Жам муаннас солим", ["ـَاتٌ қўшимчали кўплик: سَنَوَاتٌ، مُعَلِّمَاتٌ.", "Рафда замма, насб ва жарда касра: رَأَيْتُ السَّنَوَاتِ."]], "AF5": ["Афъоли хамса", ["Музорий феълнинг 5 шакли: يَفْعَلَانِ، تَفْعَلَانِ، يَفْعَلُونَ، تَفْعَلُونَ، تَفْعَلِينَ.", "Рафда охиридаги ن сақланади — бу раф аломати: تَسْكُنَانِ، تَدْرُسَانِ، تَخْتَلِفَانِ.", "Насб ва жазмда ن тушиб қолади: لَنْ تَسْكُنَا، لَمْ تَدْرُسَا.", "ا (икки киши), و (кўпчилик), ي (бир аёл) — фоил бўлган муттасил замир."]], "KANA": ["كَانَ ва синглилари", ["كَانَ ва синглилари (ظَلَّ، أَصْبَحَ، صَارَ، لَيْسَ …) мубтадо ва хабарга киради: мубтадо раф қилинган ҳолда унинг исми, хабар эса насб қилиниб унинг хабари бўлади.", "زَيْنَبُ نَحِيفَةٌ (хабар — раф) → ظَلَّتْ زَيْنَبُ نَحِيفَةً (хабар — насб).", "تَكُونَ — كَانَ нинг музориси: أَنْ تَكُونَ سَمِينَةً — исми яширин (هِيَ), хабари سَمِينَةً.", "ظَلَّ — «…лигича қолди, … давом этди» маъносида."]], "SHURU": ["Бошлаш феъллари", ["أَخَذَ، بَدَأَ، شَرَعَ، جَعَلَ «… а бошлади» маъносида келса, бошлаш феъли (афъолуш шуруъ) бўлади.", "Исмини раф қилади: أَخَذَتْ زَيْنَبُ … — زَيْنَبُ унинг исми.", "Хабари фақат мудори феъл билан бошланадиган жумла бўлади ва насб ўринда туради: تَتَنَاوَلُ … ; лекин феълнинг ўзи раф ҳолида қолади.", "أَخَذَ «олди» маъносида бўлса оддий феъл: أَخَذَهُ — уни олди."]], "JAZM": ["لَمْ ва жазм", ["لَمْ мудори феълни жазм қилади ва маъносини ўтган замон инкорига айлантиради: لَمْ تَنْجَحْ — «муваффақ бўлмади».", "Охири соғлом феълда жазм аломати — сукун: تَنْجَحْ، يَنْقُصْ، تُمَارِسْ.", "Ўртаси иллатли феълда сукун келганда 2 сукун йўлиқмаслиги учун иллат ҳарфи тушади: تَسْتَطِيعُ → لَمْ تَسْتَطِعْ.", "Афъоли хамсада жазм аломати — ن нинг тушиши: لَمْ تَدْرُسَا.", "Нафий لَا си мудорийни ўзгартирмайди: لَا تَسْتَطِيعُ — раф."]], "ADAD": ["Сонлар (21–99)", ["Ўнликлар (عِشْرُونَ … تِسْعُونَ) жамъ музаккар солимга мулҳақ: рафда و, насб ва жарда ي: وَزْنُهَا تِسْعُونَ / إِلَى سَبْعِينَ.", "Мураккаб сонда бирлик олдин, ўнлик кейин келади ва و билан боғланади: خَمْسَةٌ وَخَمْسُونَ — ўнлик бирликка маътуф.", "3–9 сонлари санаб ўтилган нарсага жинсда тескари бўлади: خَمْسَةُ كُتُبٍ، خَمْسُ سَنَوَاتٍ.", "11–99 дан кейинги санаб ўтилган нарса (тамйиз) бирлик ва насб бўлади: خَمْسَةٌ وَخَمْسُونَ كَيْلاً."]], "TAMYIZ": ["Тамйиз", ["Тамйиз — ноаниқ қолган сўзнинг нимани назарда тутганини аниқлаб берадиган накра, мансуб исм.", "Сондан кейин: خَمْسَةٌ وَخَمْسُونَ كَيْلاً — «55 (нима?) кило»."]], "MASDARM": ["أَنْ + феъл = масдар", ["أَنْ ва ундан кейинги мудори масдар маъносини беради: أَنْ تَكُونَ = اَلْكَوْنُ «бўлиш», أَنْ يَصِلَ = اَلْوُصُولُ «етиш».", "Бу масдар гапда исм каби ўрин олади: تُرِيدُ أَنْ تَكُونَ … — мафъулун биҳ; يَجِبُ أَنْ يَصِلَ … — фоил."]], "FA": ["فَ ҳарфи", ["Кетма-кетлик ва сабаб-натижани билдиради: فَزَادَ وَزْنُهَا — «натижада вазни ошди».", "Олдинги гапнинг сабабини тушунтириш учун ҳам келади: فَهُمَا تَسْكُنَانِ … — «чунки иккови … яшайди»."]], "WAWHAL": ["Ҳол вови", ["Ҳол жумласи олдидан келадиган وَ «… ҳолда» маъносини беради: فَزَادَ وَزْنُهَا وَلَمْ يَنْقُصْ — «камаймаган ҳолда ошди».", "Ундан кейинги жумла ҳол бўлиб, насб ўринда бўлади."]], "BADAL": ["Бадал", ["Исм ишорадан кейин келган ال ли исм кўпинча бадал (ёки атфи баён) бўлади ва эъробда унга эргашади: فِي هَذِهِ الْمُشْكِلَةِ — هَذِهِ жар ўринда, الْمُشْكِلَةِ ҳам жар қилинган."]], "LANAFI": ["Зотни инкор қилувчи لَا", ["لَا النَّافِيَةُ لِلْجِنْسِ — бир турдаги нарсанинг умуман йўқлигини билдиради: لَا بُدَّ — «чора йўқ».", "إِنَّ каби амал қилади: исмини насб, хабарини раф қилади.", "Исми мудоф бўлмаса, фатҳага мабний бўлиб, насб ўринда туради: لَا بُدَّ.", "Хабари кўпинча ҳазф қилинади: لَا بُدَّ مِنَ الْحِمْيَةِ — مِنَ الْحِمْيَةِ маҳзуф хабарга (مَوْجُودٌ) мутааллиқ.", "لَا بُدَّ مِنْ … — «… зарур, … шарт»."]], "ANNA": ["أَنَّ ва масдар", ["أَنَّ — إِنَّ нинг синглиси: исмини насб, хабарини раф қилади.", "أَنَّ ўз исми ва хабари билан бирга масдар ўрнида туради: أَعْتَقِدُ أَنَّكَ لَمْ تَتَّبِعِ الْحِمْيَةَ = أَعْتَقِدُ عَدَمَ اتِّبَاعِكَ الْحِمْيَةَ.", "Гап ўртасида келади (أَنَّ), гап бошида ва قَالَ дан кейин — إِنَّ.", "Хабари жумла бўлиши мумкин: لَمْ تَتَّبِعْ … — раф ўринда."]], "JAZMK": ["Жазм ва 2 сукун", ["لَمْ мудори феълни жазм қилади; жазм аломати — сукун: لَمْ تَتَّبِعْ.", "Кейинги сўз ال билан бошланса, 2 сукун йўлиқмаслиги учун сукун касрага алмашади: لَمْ تَتَّبِعِ الْحِمْيَةَ، لَمْ تُمَارِسِ الرِّيَاضَةَ.", "Бу касра эъроб аломати эмас — феъл барибир мажзум.", "Ўртаси иллатли феълда иллат ҳарфи тушади: أَسْتَطِيعُ → لَمْ أَسْتَطِعْ.", "Амр феълида ҳам шундай: اتَّبِعْ → اتَّبِعِ الْحِمْيَةَ."]], "MUQ": ["Муқаддар замма", ["Охири ي бўлган мудори феълда (يَكْفِي، يَمْشِي) раф аломати — ي даги муқаддар (кўринмас) замма, чунки ي да замма оғир.", "Насбда фатҳа кўринади: لَنْ يَكْفِيَ.", "Жазмда ي тушади: لَمْ يَكْفِ."]], "WAHD": ["وَحْدَ", ["وَحْدَ — «ёлғиз, бир ўзи» маъносидаги исм; доим насб қилинади ва олмошга музоф бўлади: وَحْدَهُ، وَحْدَكَ، وَحْدِي.", "Гапда ҳол бўлади: اَلدَّوَاءُ وَحْدَهُ لَا يَكْفِي — «дорининг ўзи (ёлғиз) кифоя қилмайди»."]], "NIDA": ["Нидо (мунодо)", ["يَا — нидо ҳарфи («эй»).", "Мунодо алам ёки аниқ шахсга қаратилган накра бўлса, танвинсиз заммага мабний, насб ўринда: يَا دُكْتُورُ، يَا مُحَمَّدُ.", "Мунодо мудоф бўлса, насб қилинади: يَا طَالِبَ الْعِلْمِ."]], "WIQ": ["Виқоя нуни", ["Мутакаллим ي си феълга уланганда, феъл охири касрадан сақланиши учун орага نِ қўшилади: قَابِلْنِي، يُقَابِلُنِي.", "Бу نِ — ҳарф, эъробдан ўрни йўқ; ي — мафъулун биҳ, насб ўринда."]], "FASL": ["Фасл замири", ["Мубтадо ва ال ли хабар орасида келган мунфасил замир (هُوَ، هِيَ، هُمْ …) хабарни сифатдан ажратади ва таъкидлайди: الْإِنْسَانُ السَّمِينُ هُوَ الصَّحِيحُ.", "Эъробдан ўрни йўқ; таржимада «… саналади, айнан …» маъносини беради."]], "NAHY": ["Наҳий لَا си", ["لَا النَّاهِيَةُ — тақиқ ҳарфи, мудори феълни жазм қилади: لَا تَأْكُلْ «ема».", "Нафий لَا сидан фарқи: لَا تَأْكُلُ (раф) — «емайсан»; لَا تَأْكُلْ (жазм) — «ема!».", "Кейинги сўз ال билан бошланса, сукун касрага алмашади: لَا تَأْكُلِ الْخُبْزَ.", "Афъоли хамсада жазм аломати — ن нинг тушиши: تُسْرِفُونَ → لَا تُسْرِفُوا."]], "ZAID": ["Зоида بِ", ["بِ баъзан таъкид учун ортиқча (зоида) келади: بِحَسْبِ ابْنِ آدَمَ = حَسْبُ ابْنِ آدَمَ.", "Ундан кейинги сўз лафзан мажрур бўлади, лекин гапдаги ўрни бўйича (маҳаллан) марфуъ ёки мансуб."]], "JMSM": ["Жамъ музаккар солим", ["Рафда و: الْمُسْرِفُونَ؛ насб ва жарда ي: الْمُسْرِفِينَ، قَائِلِينَ.", "Охиридаги ن фатҳали бўлиб, бирликдаги танвин ўрнига келади."]]};
+var QMP={"0-0": ["MUBXAB"], "0-2": ["ATF"], "1-0": ["ZARF"], "1-1": ["IDAFA"], "2-0": ["MUDRAF"], "2-1": ["KANA", "ANNA", "PRON"], "2-2": ["MUBXAB"], "3-1": ["MOZI", "PRON"], "3-2": ["JARR"], "3-3": ["ISHARA", "ZARF"], "4-1": ["PRON"], "4-2": ["MAFUL"], "4-4": ["JARR"], "4-5": ["JARR", "IDAFA", "PRON"], "5-0": ["ISHARA", "MUBXAB"], "5-1": ["MUBXAB"], "5-2": ["IDAFA"], "5-3": ["MUDRAF"], "5-4": ["JARR", "PRON"], "5-5": ["MAFUL"], "6-0": ["DAMIR", "MUBXAB"], "6-1": ["MOZI", "PRON"], "6-2": ["MAFUL"], "6-3": ["ZARF"], "6-4": ["IDAFA"], "6-5": ["JARR"], "6-6": ["JARR", "IDAFA", "PRON"], "7-0": ["ZAID", "ISTIF", "JARR"], "7-1": ["MUDRAF", "PRON"], "7-2": ["MUTLAQ"], "8-0": ["JARR"], "8-1": ["JARR", "IDAFA", "PRON"], "8-2": ["MUDRAF"], "8-3": ["MAFUL"], "8-4": ["ATF"], "8-5": ["ATF"], "8-7": ["MUDRAF"], "8-8": ["MAFUL"], "8-9": ["JARR"], "9-0": ["KANA", "PRON"], "9-1": ["MUDRAF", "PRON"], "9-2": ["MAFUL"], "9-3": ["ZARF"], "9-4": ["MUTLAQ"], "10-0": ["MOZI", "PRON"], "10-1": ["MAFUL"], "10-2": ["JARR"], "10-4": ["ZARF"], "10-5": ["JARR"], "10-6": ["JARR"], "10-7": ["MUBXAB"], "10-8": ["ATF"], "10-9": ["ATF"], "10-10": ["ATF"], "11-1": ["MUDRAF"], "11-2": ["MAFUL"], "11-3": ["IDAFA"], "11-7": ["MUTLAQ"], "12-0": ["ZARF"], "12-1": ["MUBXAB"], "12-4": ["JARR"], "12-5": ["JARR"], "12-6": ["IDAFA"], "13-1": ["MUDRAF"], "13-2": ["MAFUL"], "13-3": ["JARR"], "13-6": ["MUDRAF"], "13-7": ["MAFUL"], "13-8": ["IDAFA"], "13-9": ["ATF"], "13-10": ["MUDRAF"], "13-13": ["MAFUL"], "13-14": ["MUTLAQ"], "13-15": ["ISTIF", "MAFUL"], "13-16": ["MUDRAF"], "14-0": ["AMR", "PRON"], "14-1": ["MAFUL"], "14-2": ["JARR"], "14-3": ["JARR"], "14-5": ["ATF"], "14-6": ["IDAFA"], "14-8": ["AMR", "PRON"], "14-9": ["JARR"], "14-10": ["MUTLAQ"], "15-0": ["ISHARA", "MUBXAB"], "15-1": ["MUBXAB"], "15-3": ["MUDRAF", "PRON"], "15-4": ["SHART"], "15-5": ["SHART"], "15-6": ["FAIL"], "16-1": ["MUDRAF", "PRON"], "16-2": ["MAFUL"], "16-3": ["MUTLAQ"]};
+var CK=[[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
+
+/* gap bo'laklari: m=mubtado(inna ismi) x=xabar f=fe'l o=foil b=maf'ul bih j=jar-majrur h=zarf/hol */
+var CATOV={"0-0": "m", "0-1": "^", "0-2": "^", "1-0": "h", "1-1": "^", "2-0": "f", "2-1": "m", "2-2": "x", "2-3": "^", "3-1": "f", "3-2": "j", "3-3": "h", "3-4": "^", "4-1": "f", "4-2": "b", "4-3": "^", "4-4": ">", "4-5": "j", "5-0": "m", "5-1": "x", "5-2": "^", "5-3": "f", "5-4": "j", "5-5": "b", "6-0": "m", "6-1": "f", "6-2": "b", "6-3": "h", "6-4": "^", "6-5": ">", "6-6": "j", "7-0": "j", "7-1": "f", "7-2": "-", "7-3": "-", "8-0": ">", "8-1": "j", "8-2": "f", "8-3": "b", "8-4": "^", "8-5": "^", "8-7": "f", "8-8": "b", "8-9": "j", "8-10": "^", "9-0": "m", "9-1": "f", "9-2": "b", "9-3": "h", "9-4": "-", "10-0": "f", "10-1": "b", "10-2": "j", "10-3": "^", "10-4": "h", "10-5": ">", "10-6": "j", "10-7": "m", "10-8": "^", "10-9": "^", "10-10": "^", "11-1": "f", "11-2": "b", "11-3": "^", "11-4": "^", "11-5": "^", "11-6": "^", "11-7": "-", "12-0": "h", "12-1": "m", "12-2": "^", "12-3": "^", "12-4": ">", "12-5": "j", "12-6": "^", "13-1": "f", "13-2": "b", "13-3": "j", "13-4": "^", "13-6": "f", "13-7": "b", "13-8": "^", "13-9": "^", "13-10": "f", "13-12": "f", "13-13": "b", "13-14": "-", "13-15": "b", "13-16": "f", "14-0": "f", "14-1": "b", "14-2": ">", "14-3": "j", "14-4": "^", "14-5": "^", "14-6": "^", "14-7": "^", "14-8": "f", "14-9": "j", "14-10": "-", "15-0": "m", "15-1": "x", "15-2": "^", "15-3": "f", "15-5": "f", "15-6": "o", "16-1": "f", "16-2": "b", "16-3": "-"},CAT={},bolak=false;
+function catOf(o){
+  var ty=o.ty||"",r=o.role||"";
+  if(/[Фф]еъл/.test(ty))return "f";
+  if(/[Мм]афъул мутлақ/.test(r))return "-";
+  if(/^Ҳарф \(жарр ҳарфи\)/.test(ty))return ">";
+  if(/^(Сифат|Мудоф илайҳ|Атф|Бадал|Ишоранинг)/.test(r))return "^";
+  if(/^Ҳарф/.test(ty))return "";
+  if(/^Хабар|нинг хабари/.test(r))return "x";
+  if(/^Мубтадо|^Сарлавҳа: мубтадо|мубтадо$|нинг исми/.test(r))return "m";
+  if(/^Фоил/.test(r))return "o";
+  if(/^Мафъул биҳ/.test(r))return "b";
+  if(/^Жар-мажрур/.test(ty)||/жарр ҳарфидан кейин/i.test(r))return "j";
+  if(/^Зарф|^Ҳол|[Ҳҳ]ол ўрнида/.test(r)||/зарф/.test(ty))return "h";
+  return "";
+}
+function mkCat(){
+  D.forEach(function(l,i){var ws=l[1].split("/"),prev="",tmp=[];
+    ws.forEach(function(w,j){var k=i+"-"+j,c=CATOV[k]||catOf(get(k));if(c=="^")c=prev;tmp.push(c);if(c&&c!=">")prev=c});
+    for(var j=tmp.length-1;j>=0;j--){if(tmp[j]==">")tmp[j]=(j+1<tmp.length&&tmp[j+1]!=">")?tmp[j+1]:""}
+    tmp.forEach(function(c,j){if(c)CAT[i+"-"+j]=c});
+  });
+}
+function bol(){
+  bolak=!bolak;document.getElementById("bl").classList.toggle("on",bolak);
+  document.getElementById("tx").classList.toggle("tartib",bolak);document.getElementById("lg").classList.toggle("on",bolak);
+}
+function paintCat(){
+  document.querySelectorAll("#tx .ws span[data-i]").forEach(function(e){var c=CAT[e.getAttribute("data-i")];if(c)e.classList.add("p"+c)});
+  document.querySelectorAll("#tx .ts").forEach(function(e){var l=e.getAttribute("data-l"),ws=e.getAttribute("data-w").split(","),c="";
+    ["f","o","m","x","b","j","h"].forEach(function(x){if(!c&&ws.some(function(j){return CAT[l+"-"+j]==x}))c=x});
+    if(c)e.classList.add("p"+c)});
+}
+function build(){
+  var h="";
+  D.forEach(function(l,i){
+    var ws=l[1].split("/"),cs=(CK[i]||[]).concat([[ws.length-1,TR[i].length]]),pw0=0,pt=0;
+    h+='<div class="ln">';
+    cs.forEach(function(c,ci){
+      h+='<div class="ck"><div class="r1">'+(ci==0&&l[0]?'<div class="sp">'+l[0]+(/-$/.test(l[0])?'':' :')+'</div>':'')+'<div class="ws">';
+      var NR={},nn=0;for(var t2=pt;t2<c[1];t2++){nn++;TR[i][t2][1].forEach(function(q){if(NR[q]===undefined)NR[q]=nn})}
+      for(var j=pw0;j<=c[0];j++){var o=info(ws[j]);all.push(o);var SE=IRB[i+'-'+j];h+='<span data-i="'+i+'-'+j+'"'+(NR[j]!==undefined?' data-n="'+NR[j]+'"':'')+(SE&&SE.s?' data-s="'+SE.s+'"':'')+'>'+(show?o.v:plain(o.v))+o.pu+'</span>'}
+      h+='</div></div><div class="tr">';
+      for(var t=pt;t<c[1];t++){var x=TR[i][t];h+='<span class="ts" data-n="'+(t-pt+1)+'" data-l="'+i+'" data-w="'+x[1].join(",")+'" onclick="ts(this)">'+x[0]+'</span> '}
+      h+='</div></div>';pw0=c[0]+1;pt=c[1];
+    });
+    h+='</div>';
+  });
+  document.getElementById("tx").innerHTML=h;paintCat();
+}
+function get(k){var p=k.split("-"),f=D[p[0]][1].split("/")[p[1]];return info(f)}
+function hl(l,ws){
+  var ln=document.querySelectorAll(".ln")[l];
+  document.querySelectorAll(".ws span.on,.ts.on").forEach(function(e){e.classList.remove("on")});
+  ws.forEach(function(j){var e=ln.querySelector('[data-i="'+l+'-'+j+'"]');if(e)e.classList.add("on")});
+  ln.querySelectorAll(".ts").forEach(function(t){var a=t.getAttribute("data-w").split(",");if(ws.some(function(j){return a.indexOf(String(j))>-1}))t.classList.add("on")});
+}
+function ts(e){var tr=e.parentNode;if(hidetr&&!tr.classList.contains("rev")){tr.classList.add("rev");return}hl(+e.getAttribute("data-l"),e.getAttribute("data-w").split(",").map(Number))}
+function arw(s){return String(s).replace(/[\u0600-\u06FF]+(?:[\s\u060C]+[\u0600-\u06FF]+)*/g,function(m){return '<span class="ar">'+m+'</span>'})}
+function xl1(o,t){return /^[\u0600-\u06FF]+ — /.test(t)?arw(t):'<span class="ar">'+o.v+'</span> — '+arw(t)}
+function xl(o,t,d){var L=t.split("\n");return L.map(function(s,i){return '<div>'+(i?arw(s):xl1(o,s))+(d||'')+'</div>'}).join('')}
+var JN={R:"раф қилинган",N:"насб қилинган",J:"жар қилинган",Z:"жазм қилинган"};
+function gtype(k){var p=k.split("-"),L=GT[p[0]];if(!L)return "";for(var i=0;i<L.length;i++)if(+p[1]<=L[i][0])return "Жумлатун "+L[i][1]+".";return ""}
+function tline(l){if(l[2]=="n")return '<div class="tl tno"><span class="tn">↳</span> '+arw(l[1])+'</div>';return '<div class="tl">'+(l[0]?'<span class="ar">'+l[0]+'</span> — ':'<span class="tn">↳</span> ')+arw(l[1])+'</div>'}
+function mainLine(k){var E=IRB[k];if(!E||!E.k)return "";for(var i=0;i<E.k.length;i++)if(E.k[i][0]&&/қилинган/.test(E.k[i][1]))return tline(E.k[i]);return tline(E.k[0])}
+function tgl(b){b.classList.toggle("on");b.nextSibling.classList.toggle("hide")}
+function irbRows(k,o,WP,q){
+  var E=IRB[k],h="";if(!E)return "";
+  h+='<div class="tk"><i>📘 Таркиб</i>'+E.k.map(tline).join("");if(E.jm)h+='<div class="jmb"><b>ЖУМЛА</b>'+String(E.jm).replace(/[\u0600-\u06FF]+(?:[\s\u060C…]+[\u0600-\u06FF]+)*/g,function(m){return '<bdi class="ar">'+m+'</bdi>'})+'</div>';
+  var g=gtype(k);if(g)h+='<div class="jt">'+g+'</div>';
+  h+='</div>';
+  var x="";(E.x||[]).forEach(function(s){x+='<div class="xi">'+arw(s)+'</div>'});
+  if(x)h+='<button class="qmb tb" onclick="tgl(this)">💡 Эслатма</button><div class="qmx hide">'+x+'</div>';
+  if(E.a){var a="";E.a.forEach(function(p){a+='<div>'+(p[0]?'<b>'+p[0]+':</b> ':'')+p[1]+'</div>'});h+='<button class="qmb" onclick="tgl(this)">📜 Арабча эъроб</button><div class="qmx hide"><div class="irb">'+a+'</div></div>'}
+  if(E.o){var t='';E.o.forEach(function(p){t+='<div class="oi"><b>'+arw(p[0])+'</b> '+arw(p[1])+'</div>'});
+    h+='<button class="qmb" onclick="tgl(this)">⚖️ Бошқа фикрлар</button><div class="qmx hide">'+t+'</div>'}
+  if(!q&&QMP[k]){var m='';QMP[k].forEach(function(t){var T=QT[t];m+='<div class="qmt"><b>'+arw(T[0])+'</b><ul>'+T[1].map(function(s){return '<li>'+arw(s)+'</li>'}).join('')+'</ul></div>'});
+    h+='<button class="qmb" onclick="tgl(this)">📖 Қўшимча маълумот</button><div class="qmx hide">'+m+'</div>'}
+  return h;
+}
+function op(el){
+  var k=el.getAttribute("data-i"),q=k.split("-");hl(+q[0],[+q[1]]);
+  var o=get(k),E=IRB[k]||{},j=E.j||"";
+  var ir=irb(k),WP=wparts(o),mbn=!j||!!E.q,h='<div class="big">'+(WP?wshow(o,mbn?{pre:"",mid:""}:ir,WP):(mbn?o.v:ir.pre+'<b>'+ir.mid+'</b>'+ir.post))+'</div>';
+  h=h.replace('<b>','<b class="c'+j+'">');
+  if(o.mn)h+='<div class="mnl">'+o.mn+'</div>';
+  h+='<div class="hk"><span class="c'+(j||'M')+'">● '+(j?JN[j]+(E.q?' · аломати тақдирий':''):'мабний')+'</span></div>';
+  h+=irbRows(k,o,WP,false);
+  h+='<button class="x" onclick="document.getElementById(\'sh\').classList.remove(\'on\')">Ёпиш</button>';
+  document.getElementById("sb").innerHTML=h;
+  document.getElementById("sh").classList.add("on");
+}
+function cl(e){if(e.target.id=="sh")e.target.classList.remove("on")}
+var fs=22;function fz(d){fs=Math.max(14,Math.min(44,fs+d));document.documentElement.style.setProperty("--fs",fs+"px")}
+function tog(el){var keep=[].map.call(document.querySelectorAll(".ws span.on"),function(x){return x.getAttribute("data-i")}),i=-1,t=0;if(el&&el.closest){var c=el.closest(".ln");if(c){i=[].indexOf.call(document.querySelectorAll(".ln"),c);t=c.getBoundingClientRect().top}}show=!show;document.getElementById("tg").classList.toggle("on",show);build();if(hidetr)document.getElementById("tx").classList.add("hidetr");if(keep.length){var q=keep[0].split("-");hl(+q[0],keep.map(function(k){return +k.split("-")[1]}))}if(i>=0){var n=document.querySelectorAll(".ln")[i];if(n)window.scrollBy(0,n.getBoundingClientRect().top-t)}}
+function tab(n){
+  for(var i=1;i<=3;i++){
+    document.getElementById("p"+i).classList.toggle("hide",n!=i);
+    document.getElementById("t"+i).className=n==i?"on":"";
+  }
+  if(n==3&&!QZ.length)qstart();
+}
+var VOC=[];
+var HLS={};
+function gl(){
+  var h="";
+  VOC.forEach(function(q){
+    var m="";
+    q[2].forEach(function(t){t.split(/\s(?=\d\.\s)/).forEach(function(x){m+='<div>'+x+'</div>'})});
+    var hk=HLS[q[0]];
+    if(hk=="*")m=m.replace(/<div>/g,'<div><mark>').replace(/<\/div>/g,'</mark></div>');
+    else if(hk)m=m.replace(hk,'<mark>'+hk+'</mark>');
+    var ex="";
+    q[3].forEach(function(e){ex+='<div class="eb"><div class="ar2">'+e[0]+'</div>';for(var i=1;i<e.length;i++)ex+='<div class="ex">'+e[i]+'</div>';ex+='</div>'});
+    var bl=q[1].replace(/[\u064B-\u065F\u0670]/g,"").length;h+='<div class="g"><div class="hd'+(bl>16?' lg':'')+'"><span class="ar vw">'+q[1]+'</span><div class="mn"><div class="vno">'+q[0]+'.</div>'+m+'</div></div>'+(ex?'<div class="exs">'+ex+'</div>':'')+'</div>';
+  });
+  document.getElementById("p2").innerHTML=(VOC.length?h:'<p class="hint">Луғат файли ҳали юборилмаган.</p>');
+}
+var tm=null,lg=false,cur=null,tx=document.getElementById("tx");
+tx.addEventListener("pointerdown",function(e){var s=e.target.closest(".ws span[data-i]");if(!s)return;cur=s;lg=false;sw=false;sx=e.clientX;sy=e.clientY;tm=setTimeout(function(){lg=true;op(s)},450)});
+var sw=false,sx=0,sy=0;
+tx.addEventListener("pointermove",function(e){
+  if(!cur||lg||sw||pz)return;
+  var dx=e.clientX-sx,dy=e.clientY-sy;
+  if(Math.abs(dx)>14&&Math.abs(dx)>Math.abs(dy)){
+    sw=true;clearTimeout(tm);setLoop(-1);
+    var q=cur.getAttribute("data-i").split("-");
+    for(var k=0;k<TM.length;k++){if(TM[k][0]==+q[0]&&TM[k][1]==+q[1]){progSeek=true;au.currentTime=Math.max(0,TM[k][2]-0.05);stopAt=null;var p=au.play();if(p&&p.catch)p.catch(function(){});break}}
+  }
+});
+function up(e){clearTimeout(tm);if(sw){sw=false;cur=null;return}if(cur&&!lg&&e.type=="pointerup"){var q=cur.getAttribute("data-i").split("-");hl(+q[0],[+q[1]])}cur=null}
+tx.addEventListener("pointerup",up);tx.addEventListener("pointercancel",up);
+tx.addEventListener("contextmenu",function(e){var s=e.target.closest(".ws span[data-i]");e.preventDefault();if(s&&!lg&&!sw){clearTimeout(tm);lg=true;cur=null;op(s)}});
+["selectstart","dragstart"].forEach(function(n){tx.addEventListener(n,function(e){e.preventDefault()})});
+var p3=document.getElementById("p3");p3.addEventListener("contextmenu",function(e){e.preventDefault()});p3.addEventListener("selectstart",function(e){e.preventDefault()});
+mkCat();build();gl();
+var TM=[[1, 0, 6.01, 6.49, 6.31], [1, 1, 6.45, 7.35, 7.35], [2, 0, 9.75, 10.29, 10.17], [2, 1, 10.25, 10.61, 10.51], [2, 2, 10.57, 11.21, 10.95], [2, 3, 11.17, 11.61, 11.61], [3, 0, 12.11, 12.77, 12.41], [3, 1, 12.73, 13.31, 13.21], [3, 2, 13.27, 13.93, 13.79], [3, 3, 13.89, 14.25, 14.15], [3, 4, 14.21, 14.53, 14.53], [4, 0, 15.15, 15.35, 15.31], [4, 1, 15.31, 15.77, 15.69], [4, 2, 15.73, 16.17, 16.01], [4, 3, 16.13, 16.83, 16.65], [4, 4, 16.79, 17.01, 16.93], [4, 5, 16.97, 17.45, 17.45], [5, 0, 17.91, 18.37, 18.23], [5, 1, 18.33, 18.67, 18.57], [5, 2, 18.63, 19.09, 18.87], [5, 3, 19.05, 19.45, 19.33], [5, 4, 19.41, 19.65, 19.63], [5, 5, 19.61, 20.21, 20.21], [6, 0, 21.01, 21.23, 21.17], [6, 1, 21.19, 21.61, 21.53], [6, 2, 21.57, 22.37, 22.17], [6, 3, 22.33, 22.85, 22.73], [6, 4, 22.81, 23.45, 23.31], [6, 5, 23.41, 23.63, 23.55], [6, 6, 23.59, 23.99, 23.99], [7, 0, 24.61, 25.17, 25.07], [7, 1, 25.13, 25.95, 25.87], [7, 2, 25.91, 26.39, 26.15], [7, 3, 26.35, 27.05, 26.77], [7, 4, 27.01, 27.31, 27.31], [8, 0, 28.49, 28.67, 28.59], [8, 1, 28.63, 29.07, 29.07], [8, 2, 29.59, 30.25, 30.15], [8, 3, 30.21, 31.07, 30.75], [8, 4, 31.03, 32.03, 31.91], [8, 5, 31.99, 32.73, 32.73], [8, 6, 33.27, 33.55, 33.49], [8, 7, 33.51, 34.15, 34.07], [8, 8, 34.11, 34.67, 34.59], [8, 9, 34.63, 35.17, 35.01], [8, 10, 35.13, 35.71, 35.71], [9, 0, 36.49, 37.29, 37.15], [9, 1, 37.25, 38.13, 38.03], [9, 2, 38.09, 38.87, 38.69], [9, 3, 38.83, 39.29, 39.15], [9, 4, 39.25, 39.71, 39.71], [10, 0, 40.73, 41.25, 41.17], [10, 1, 41.21, 41.75, 41.65], [10, 2, 41.71, 42.25, 42.09], [10, 3, 42.21, 43.05, 42.83], [10, 4, 43.01, 43.29, 43.29], [10, 5, 43.95, 44.07, 44.05], [10, 6, 44.03, 44.61, 44.51], [10, 7, 44.57, 45.29, 45.09], [10, 8, 45.25, 46.23, 45.93], [10, 9, 46.19, 47.19, 46.85], [10, 10, 47.15, 47.77, 47.77], [11, 0, 48.61, 48.83, 48.75], [11, 1, 48.79, 49.39, 49.29], [11, 2, 49.35, 49.69, 49.61], [11, 3, 49.65, 50.71, 50.33], [11, 4, 50.67, 51.05, 51.05], [11, 5, 51.51, 52.35, 51.93], [11, 6, 52.31, 52.95, 52.65], [11, 7, 52.91, 53.37, 53.37], [12, 0, 53.81, 54.25, 54.13], [12, 1, 54.21, 54.95, 54.79], [12, 2, 54.91, 55.69, 55.41], [12, 3, 55.65, 56.33, 56.11], [12, 4, 56.29, 56.49, 56.41], [12, 5, 56.45, 57.01, 56.93], [12, 6, 56.97, 57.31, 57.31], [13, 0, 57.99, 58.39, 58.27], [13, 1, 58.35, 58.91, 58.83], [13, 2, 58.87, 59.57, 59.45], [13, 3, 59.53, 60.01, 59.89], [13, 4, 59.97, 60.57, 60.57], [13, 5, 61.45, 61.89, 61.73], [13, 6, 61.85, 62.33, 62.19], [13, 7, 62.29, 62.73, 62.65], [13, 8, 62.69, 63.51, 63.31], [13, 9, 63.47, 64.31, 64.31], [13, 10, 65.07, 65.47, 65.35], [13, 11, 65.43, 65.63, 65.55], [13, 12, 65.59, 66.21, 66.11], [13, 13, 66.17, 66.93, 66.73], [13, 14, 66.89, 67.33, 67.33], [13, 15, 68.03, 68.41, 68.39], [13, 16, 68.37, 68.79, 68.79], [14, 0, 69.63, 70.27, 70.13], [14, 1, 70.23, 70.73, 70.59], [14, 2, 70.69, 70.91, 70.85], [14, 3, 70.87, 71.51, 71.43], [14, 4, 71.47, 71.97, 71.97], [14, 5, 72.69, 73.15, 73.07], [14, 6, 73.11, 73.85, 73.77], [14, 7, 73.81, 74.51, 74.51], [14, 8, 75.21, 76.01, 75.93], [14, 9, 75.97, 76.91, 76.69], [14, 10, 76.87, 77.33, 77.33], [15, 0, 78.23, 78.77, 78.61], [15, 1, 78.73, 79.39, 79.17], [15, 2, 79.35, 79.85, 79.85], [15, 3, 80.51, 81.57, 81.37], [15, 4, 81.53, 81.75, 81.65], [15, 5, 81.71, 82.01, 81.95], [15, 6, 81.97, 82.33, 82.33], [16, 0, 82.95, 83.27, 83.27], [16, 1, 83.97, 84.97, 84.89], [16, 2, 84.93, 85.81, 85.59], [16, 3, 85.77, 87.11, 87.11]],au=document.querySelector("audio"),lastI=-2,raf=null,stopAt=null,progSeek=false,hold=false;
+function pick(t){for(var k=0;k<TM.length;k++){if(t>=TM[k][2]&&t<TM[k][3]+0.05)return k}return -1}
+function show1(k){
+  document.querySelectorAll(".ws span.pl,.ts.pl").forEach(function(e){e.classList.remove("pl")});
+  if(k>=0)document.querySelectorAll(".ws span.on,.ts.on").forEach(function(e){e.classList.remove("on")});
+  if(k<0)return;
+  var e=document.querySelector('.ws span[data-i="'+TM[k][0]+'-'+TM[k][1]+'"]');
+  if(!e)return;e.classList.add("pl");document.querySelectorAll(".ln")[TM[k][0]].querySelectorAll(".ts").forEach(function(t){if(t.getAttribute("data-w").split(",").indexOf(String(TM[k][1]))>-1)t.classList.add("pl")});
+  if(!au.paused&&(stopAt===null||loopL>=0)&&Date.now()-uScr>2500)follow(e);
+}
+function tick(){
+  if(hold){hold=false;return}
+  if(stopAt!==null&&au.currentTime>=stopAt){if(loopL>=0){progSeek=true;stopAt=LS[loopL][1];au.currentTime=LS[loopL][0];raf=requestAnimationFrame(tick);return}stopAt=null;hold=true;au.pause();raf=null;return}
+  var k=pick(au.currentTime);
+  var e=k>=0?document.querySelector('.ws span[data-i="'+TM[k][0]+'-'+TM[k][1]+'"]'):null;
+  if(k!==lastI||(e&&!e.classList.contains("pl"))){lastI=k;show1(k)}
+  if(!au.paused&&!au.ended)raf=requestAnimationFrame(tick);else raf=null;
+}
+document.addEventListener("click",function(e){if(e.target.closest(".ws span,.ts,.sheet,.spd,audio,button"))return;document.querySelectorAll(".ws span.on,.ts.on,.ws span.pl,.ts.pl").forEach(function(x){x.classList.remove("on");x.classList.remove("pl")})});
+
+var LS={};TM.forEach(function(t){var x=LS[t[0]];if(!x)LS[t[0]]=[t[2],t[3]];else{x[0]=Math.min(x[0],t[2]);x[1]=Math.max(x[1],t[3])}});
+var loopL=-1,hidetr=false,plFrom=-1,uScr=0;
+/* ikki barmoq bilan harf o'lchami */
+var pz=null;
+function pd(t){var dx=t[0].clientX-t[1].clientX,dy=t[0].clientY-t[1].clientY;return Math.sqrt(dx*dx+dy*dy)}
+var wb=document.querySelector(".w");
+wb.addEventListener("touchstart",function(e){if(e.touches.length==2){pz={d:pd(e.touches),f:fs};clearTimeout(tm);cur=null;lg=true}},{passive:true});
+wb.addEventListener("touchmove",function(e){if(pz&&e.touches.length==2){e.preventDefault();var f=Math.round(pz.f*pd(e.touches)/pz.d);f=Math.max(14,Math.min(48,f));if(f!=fs){fs=f;document.documentElement.style.setProperty("--fs",fs+"px")}}},{passive:false});
+wb.addEventListener("touchend",function(e){if(e.touches.length<2)pz=null},{passive:true});
+
+/* ekran o'qilayotgan so'zga ergashadi */
+var SC=null,fAn=null;
+function scroller(){return SC||document.scrollingElement||document.documentElement}
+function follow(e){
+  var sc=scroller(),r=e.getBoundingClientRect(),vt=SC?SC.getBoundingClientRect().top:0,vh=SC?SC.clientHeight:window.innerHeight;
+  var y=r.top-vt;if(y>vh*0.22&&r.bottom-vt<vh*0.72)return;
+  var from=sc.scrollTop,to=Math.max(0,Math.min(sc.scrollHeight-vh,from+y-vh*0.4)),t0=0;
+  if(Math.abs(to-from)<4)return;
+  if(fAn)cancelAnimationFrame(fAn);
+  function st(ts){if(!t0)t0=ts;var p=Math.min(1,(ts-t0)/350),q=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;sc.scrollTop=from+(to-from)*q;if(sc==document.scrollingElement)window.scrollTo(0,sc.scrollTop);fAn=p<1?requestAnimationFrame(st):null}
+  fAn=requestAnimationFrame(st);
+}
+function fitBox(){
+  var de=document.scrollingElement||document.documentElement;
+  if(de.scrollHeight-window.innerHeight<40&&document.getElementById("tx").offsetHeight>screen.height*0.8){
+    var w=document.querySelector(".w");w.classList.add("box");w.style.height=Math.round(screen.availHeight*0.8)+"px";SC=w;
+  }
+}
+setTimeout(fitBox,300);
+
+["touchmove","wheel"].forEach(function(n){window.addEventListener(n,function(){uScr=Date.now()},{passive:true})});
+function setLoop(i){loopL=i;var b=document.getElementById("lpb");if(b)b.classList.toggle("on",i>=0)}
+function lpt(){
+  if(loopL>=0){setLoop(-1);stopAt=null;return}
+  var t=au.currentTime,l=-1;for(var k=0;k<TM.length;k++){if(TM[k][2]<=t+0.05)l=TM[k][0]}
+  if(l<0)l=TM[0][0];pline(l,1);
+}
+function ppi(){var b=document.getElementById("pp");if(b){b.textContent=au.paused?"▶":"⏸";b.classList.toggle("on",!au.paused)}}
+function ppl(){if(au.paused){if(loopL<0)stopAt=null;uScr=0;var p=au.play();if(p&&p.catch)p.catch(function(){})}else au.pause()}
+function pline(i,loop){
+  if(!LS[i])return;
+  if(loop&&loopL==i){setLoop(-1);stopAt=null;au.pause();return}
+  plFrom=loop?-1:i;setLoop(loop?i:-1);uScr=0;
+  progSeek=true;au.currentTime=Math.max(0,LS[i][0]-0.05);stopAt=loop?LS[i][1]+0.15:null;
+  var p=au.play();if(p&&p.catch)p.catch(function(){});
+}
+function ttr(){
+  hidetr=!hidetr;var t=document.getElementById("tx");t.classList.toggle("hidetr",hidetr);
+  t.querySelectorAll(".tr.rev").forEach(function(x){x.classList.remove("rev")});
+  var b=document.getElementById("tt");b.classList.toggle("on",!hidetr);
+}
+/* so'zni qismlarga ajratish: وَ + التِّسْعُونَ */
+function wparts(o){
+  var ty=o.ty||"",P=null,m=ty.match(/^(\S+) — ([^+]+?) \+ (.+)$/);
+  if(m)P=[[m[1],m[2]],[null,m[3]]];
+  else{var p=ty.match(/\(([^()]*—[^()]*)\)\s*$/);if(p){P=p[1].split(/,\s*(?=\S+ — )/).map(function(x){var q=x.split(" — ");return [q[0],q.slice(1).join(" — ")]})}}
+  if(!P||P.length<2)return null;
+  var U=[];o.v.replace(/[\u0621-\u064A][\u064B-\u0652\u0670]*/g,function(x,i){U.push([i,x])});
+  var R=[],ui=0;
+  for(var i=0;i<P.length;i++){
+    var st=ui<U.length?U[ui][0]:o.v.length,en;
+    if(i<P.length-1){var n=plain(P[i][0]).replace(/[^\u0621-\u064A]/g,"").length;ui+=n;en=ui<U.length?U[ui][0]:o.v.length}else en=o.v.length;
+    R.push({s:st,e:en,d:P[i][1]});
+  }
+  return R;
+}
+function wshow(o,ir,R){
+  var a=ir.pre.length,b=a+ir.mid.length,h=[];
+  R.forEach(function(r){var t=o.v.slice(r.s,r.e),x;
+    if(a>=r.s&&b<=r.e)x=t.slice(0,a-r.s)+'<b>'+t.slice(a-r.s,b-r.s)+'</b>'+t.slice(b-r.s);else x=t;
+    if(/^لْ/.test(t)&&r.s>0)x='ا'+x;
+    r.h=x;h.push(x)});
+  return h.join('<span class="wp">+</span>');
+}
+/* i'rob harfi: harakat aynan qaysi harfga tushishi */
+function irb(k){
+  var o=get(k),v=o.v,L=[];
+  v.replace(/[\u0621-\u064A][\u064B-\u0652\u0670]*/g,function(m,i){L.push([i,m])});
+  var sk=0;
+  if(o.c=="M"&&/олмош/.test(o.role+" "+o.why)&&!/^(Ҳарф|Жар)/.test(o.ty)){var p=plain(v);if(/(هم|ها|نا|كم)$/.test(p))sk=2;else if(/[هك]$/.test(p))sk=1}
+  if(!sk&&/аломати (و|ي|ن|ا)/.test(o.role+" "+o.why)&&/(ون|ين|ان)$/.test(plain(v)))sk=1;
+  if(!sk&&/ي га уланганлиги/.test(o.why))sk=1;
+  var ix=L.length-1-sk;if(ix<0)ix=L.length-1;
+  if(L[ix][1]=="ا"&&ix>0&&/\u064B/.test(L[ix-1][1]))ix--;
+  if(L[ix][1]=="\u0627\u064B"&&ix>0){var u0=L[ix-1],e0=L[ix][0]+L[ix][1].length;return {pre:v.slice(0,u0[0]),mid:v.slice(u0[0],e0),post:v.slice(e0),sk:sk,o:o}}
+  var u=L[ix];
+  return {pre:v.slice(0,u[0]),mid:u[1],post:v.slice(u[0]+u[1].length),sk:sk,o:o};
+}
+function qcase(o){if(QV[o.c])return o.c;var w=o.why||"";if(/^Мажрур/.test(w))return "J";if(/^Марфуъ/.test(w))return "R";if(/^Мансуб/.test(w))return "N";return null}
+function qhk(ir){var h=ir.mid.replace(/[^ً-ِ]/g,"");return h.charAt(h.length-1)}
+/* ---- i'rob mashqi ---- */
+var QZ=[],qi=0,qsc=0,qmis=[],qdone=false,qmode="m";
+var QV={R:["ُ","ٌ","замма"],N:["َ","ً","фатҳа"],J:["ِ","ٍ","касра"],Z:["ْ","","сукун"]};
+/* qiyin joylar: kalit -> [ta'sir qilgan so'z, sababi] */
+var TRK={"2-2": ["2-1", "طَالِبَةٌ — أَنَّ нинг хабари, шунинг учун раф қилинган."], "3-4": ["3-3", "السَّنَةَ — هَذِهِ дан бадал; هَذِهِ ноиби зарф (насб ўринда) бўлгани учун у ҳам насб қилинган."], "5-2": ["5-1", "مَرَّةٍ — أَوَّلُ нинг музофун илайҳи, шунинг учун жар қилинган."], "6-3": ["6-1", "ثَلَاثَ — замонга музоф бўлиб зарф ўрнида турибди (ноиби зарф), шунинг учун насб қилинган."], "7-2": ["7-1", "مَرَّةً — мафъулун мутлақ (неча марталиги), шунинг учун насб қилинган."], "7-3": ["7-2", "ثَانِيَةً — مَرَّةً нинг сифати, шунинг учун насб қилинган."], "8-4": ["8-3", "الْقَوَاعِدَ — الْقِرَاءَةَ га маътуф, шунинг учун насб қилинган."], "9-4": ["9-1", "جَيِّداً — маҳзуф мафъулун мутлақнинг (تَحَدُّثاً) сифати, шунинг учун насб қилинган."], "10-7": ["10-6", "مُخْتَبَرٌ — мубтадо муаххар (хабари олдинга ўтган), шунинг учун раф қилинган."], "12-1": ["12-0", "تَدْرِيبَاتٌ — мубтадо муаххар (хабари هُنَاكَ билан олдинга ўтган), шунинг учун раф қилинган."], "13-9": ["13-8", "الطَّالِبَاتِ — الْمُدَرِّسَةِ га маътуф, шунинг учун жар қилинган."], "13-12": ["13-11", "أَتَعَلَّمَ — أَنْ сабаб насб қилинган."], "14-5": ["14-1", "بَعْضَ — جُزْءاً га маътуф, шунинг учун насб қилинган."], "14-10": ["14-8", "كَثِيراً — маҳзуф мафъулун мутлақнинг (تَحَدُّثاً) сифати, шунинг учун насб қилинган."], "15-6": ["15-5", "اللَّهُ — شَاءَ нинг фоили, шунинг учун раф қилинган."]};
+var ANS={};
+function qlast(o){var hk=o.e[1].replace(/[^ً-ِ]/g,"");return hk.charAt(hk.length-1)}
+/* ---- mashq: so'z oxiri harakatini topish (bitta umumiy mashq) ---- */
+var QUR={};
+function qsh(A){for(var a=A.length-1;a>0;a--){var b=Math.floor(Math.random()*(a+1)),t=A[a];A[a]=A[b];A[b]=t}return A}
+var QOV={"2-2": [{"w": "طَالِبَةٌ", "c": "R", "lb": "танвинли замма"}, {"w": "طَالِبَةً", "c": "N", "lb": "танвинли фатҳа"}, {"w": "طَالِبَةٍ", "c": "J", "lb": "танвинли касра"}], "3-4": [{"w": "السَّنَةُ", "c": "R", "lb": "замма"}, {"w": "السَّنَةَ", "c": "N", "lb": "фатҳа"}, {"w": "السَّنَةِ", "c": "J", "lb": "касра"}], "5-2": [{"w": "مَرَّةٌ", "c": "R", "lb": "танвинли замма"}, {"w": "مَرَّةً", "c": "N", "lb": "танвинли фатҳа"}, {"w": "مَرَّةٍ", "c": "J", "lb": "танвинли касра"}], "6-3": [{"w": "ثَلَاثُ", "c": "R", "lb": "замма"}, {"w": "ثَلَاثَ", "c": "N", "lb": "фатҳа"}, {"w": "ثَلَاثِ", "c": "J", "lb": "касра"}], "7-2": [{"w": "مَرَّةُ", "c": "R", "lb": "замма"}, {"w": "مَرَّةَ", "c": "N", "lb": "фатҳа"}, {"w": "مَرَّةِ", "c": "J", "lb": "касра"}], "7-3": [{"w": "ثَانِيَةُ", "c": "R", "lb": "замма"}, {"w": "ثَانِيَةَ", "c": "N", "lb": "фатҳа"}, {"w": "ثَانِيَةِ", "c": "J", "lb": "касра"}], "8-4": [{"w": "وَالْقَوَاعِدُ", "c": "R", "lb": "замма"}, {"w": "وَالْقَوَاعِدَ", "c": "N", "lb": "фатҳа"}, {"w": "وَالْقَوَاعِدِ", "c": "J", "lb": "касра"}], "9-4": [{"w": "جَيِّدٌ", "c": "R", "lb": "танвинли замма"}, {"w": "جَيِّداً", "c": "N", "lb": "танвинли фатҳа"}, {"w": "جَيِّدٍ", "c": "J", "lb": "танвинли касра"}], "10-7": [{"w": "مُخْتَبَرٌ", "c": "R", "lb": "танвинли замма"}, {"w": "مُخْتَبَراً", "c": "N", "lb": "танвинли фатҳа"}, {"w": "مُخْتَبَرٍ", "c": "J", "lb": "танвинли касра"}], "12-1": [{"w": "تَدْرِيبَاتٌ", "c": "R", "lb": "танвинли замма"}, {"w": "تَدْرِيبَاتاً", "c": "N", "lb": "танвинли фатҳа"}, {"w": "تَدْرِيبَاتٍ", "c": "J", "lb": "танвинли касра"}], "13-9": [{"w": "وَالطَّالِبَاتُ", "c": "R", "lb": "замма"}, {"w": "وَالطَّالِبَاتِ ", "c": "N", "lb": "касра (фатҳа ўрнида)"}, {"w": "وَالطَّالِبَاتِ", "c": "J", "lb": "касра"}], "13-12": [{"w": "أَتَعَلَّمُ", "c": "R", "lb": "замма"}, {"w": "أَتَعَلَّمَ", "c": "N", "lb": "фатҳа"}, {"w": "أَتَعَلَّمْ", "c": "Z", "lb": "сукун"}], "14-5": [{"w": "وَبَعْضُ", "c": "R", "lb": "замма"}, {"w": "وَبَعْضَ", "c": "N", "lb": "фатҳа"}, {"w": "وَبَعْضِ", "c": "J", "lb": "касра"}], "14-10": [{"w": "كَثِيرٌ", "c": "R", "lb": "танвинли замма"}, {"w": "كَثِيراً", "c": "N", "lb": "танвинли фатҳа"}, {"w": "كَثِيرٍ", "c": "J", "lb": "танвинли касра"}], "15-6": [{"w": "اللَّهُ", "c": "R", "lb": "замма"}, {"w": "اللَّهَ", "c": "N", "lb": "фатҳа"}, {"w": "اللَّهِ", "c": "J", "lb": "касра"}]};
+function qends(k){
+  if(QOV[k])return QOV[k];
+  var o=get(k),ir=irb(k),c=qcase(o);if(!c)return null;
+  var mid=ir.mid,base=mid.replace(/[ً-ْ]/g,""),tn=/[ً-ٍ]/.test(mid),sd=/ّ/.test(mid)?"ّ":"",core=base.replace(/(.)ا$/,"$1"),noA=/[ةىء]/.test(core)||!!ir.sk;
+  var R={R:core+sd+(tn?"ٌ":"ُ"),N:core+sd+(tn?(noA?"ً":"اً"):"َ"),J:core+sd+(tn?"ٍ":"ِ")};
+  var fl=/[Фф]еъл/.test(o.ty||""),cs=["R","N","J"];
+  if(fl){R.Z=core+sd+"\u0652";cs=["R","N","Z"]}
+  else if(/ات$/.test(plain(ir.pre+core)))cs=["R","J"];
+  var out=[],hit=false;
+  cs.forEach(function(x){var w=ir.pre+R[x]+ir.post;if(w==o.v)hit=true;out.push({w:w,c:x})});
+  if(!hit)return null;
+  return out;
+}
+function qpool(){
+  var P=[];
+  D.forEach(function(l,i){if(i==0)return;l[1].split("/").forEach(function(w,j){
+    var k=i+"-"+j,o=get(k);if(!TRK[k]||QUR[k]||/кўринмайди|айтилмайди/.test(o.why||""))return;
+    if(qends(k))P.push({l:i,w:j});
+  })});
+  return P;
+}
+function qstart(){
+  clearTimeout(qtm);QZ=qsh(qpool());QZ.forEach(function(q){q.o=qends(q.l+"-"+q.w);q.ch=null;q.ok=false});qi=0;qsc=0;qshow();
+}
+function qline(l,tw,cls){
+  var h="";D[l][1].split("/").forEach(function(w,j){var x=info(w);
+    h+='<span data-q="'+l+'-'+j+'"'+(j==tw?' class="qt"':'')+'>'+plain(x.v)+'</span>'+x.pu+" "});
+  return '<div class="qs'+(cls?" "+cls:"")+'">'+h+'</div>';
+}
+function qshow(){
+  var q=QZ[qi],k=q.l+"-"+q.w,am=TRK[k],ctx="";
+  if(am){var al=+am[0].split("-")[0];if(al!=q.l)ctx=qline(al,-1,"qc")}
+  var tr=TR[q.l].map(function(t){return t[0]}).join(" ");
+  var ops="";q.o.forEach(function(x,i){ops+='<button data-x="'+i+'" onclick="qans(this)"><b>'+x.w+'</b><span>'+(x.lb||QV[x.c][2])+'</span></button>'});
+  var nv='<div class="qnv"><button onclick="qgo(-1)"'+(qi==0?' disabled':'')+'>‹</button><span>Савол '+(qi+1)+' / '+QZ.length+''+'</span><button onclick="qgo(1)">›</button></div>';
+  document.getElementById("p3").innerHTML='<div class="qbox">'+nv+'<div class="qhd"><span></span><span>Тўғри: '+qsc+'</span></div>'+
+   ctx+qline(q.l,q.w)+'<div class="qtr">'+tr+'</div>'+
+   '<div class="qo">'+ops+'</div><div class="qf" id="qf"></div>'+
+   '<div class="qb hide" id="qb"><button onclick="pw('+q.l+','+q.w+')">🔊 Тинглаш</button><button class="pr" onclick="qgo(1)">'+(qi==QZ.length-1?'Натижа':'Кейинги')+'</button></div></div>';
+  if(q.ch!=null)qfb(q);
+}
+function qans(b){
+  var q=QZ[qi];if(q.ch!=null)return;
+  var k=q.l+"-"+q.w,o=get(k),i=+b.getAttribute("data-x");
+  q.ch=i;q.ok=q.o[i].w==o.v;if(q.ok)qsc++;
+  document.querySelector(".qhd span:last-child").textContent="Тўғри: "+qsc;
+  qfb(q);
+  if(q.ok){var me=q;clearTimeout(qtm);qtm=setTimeout(function(){if(QZ[qi]===me&&document.getElementById("qf"))qgo(1)},1000)}
+}
+var qtm=null;
+function qfb(q){
+  var k=q.l+"-"+q.w,o=get(k),am=TRK[k],ok=q.ok;
+  document.querySelectorAll(".qo button").forEach(function(x){var j=+x.getAttribute("data-x");if(q.o[j].w==o.v)x.classList.add("ok");else if(j==q.ch)x.classList.add("no")});
+  var t=document.querySelector('.qs [data-q="'+k+'"]');if(t)t.textContent=o.v;
+  var h='<div class="res" style="color:'+(ok?'#16a34a':'#dc2626')+'">'+(ok?'Тўғри!':'Хато. Тўғриси: <span class="ar">'+o.v+'</span>')+'</div>';
+  if(am){var as=document.querySelector('.qs [data-q="'+am[0]+'"]');if(as)as.classList.add("qa");
+    h+='<div class="qam"><b>Боғлиқ сўз:</b> <span class="ar">'+get(am[0]).v+'</span><br>'+arw(am[1])+'</div>'}
+  if(!am){var ml=mainLine(k);if(ml)h+='<div class="xul">'+ml+'</div>'}
+  h+='<button class="qex" onclick="this.classList.toggle(\'on\');this.nextSibling.classList.toggle(\'hide\')">Изоҳ</button><div class="hide">'+irbRows(k,o,null,true)+'</div>';
+  document.getElementById("qf").innerHTML=h;
+  document.getElementById("qb").classList.remove("hide");
+}
+function qgo(d){
+  clearTimeout(qtm);
+  if(!document.getElementById("qf"))return;
+  if(d>0){if(QZ[qi].ch==null)return;if(qi==QZ.length-1){qres();return}qi++}
+  else{if(qi==0)return;qi--}
+  qshow();document.getElementById("p3").scrollIntoView({block:"start"});
+}
+function qnext(){qgo(1)}
+function qres(){
+  var qmis=QZ.filter(function(q){return !q.ok});
+  var h='<div class="qbox"><div class="qhd"><span>Натижа</span></div><div class="qsc">'+qsc+' / '+QZ.length+'</div>';
+  if(qmis.length){h+='<div class="qq">Хато қилинган сўзлар:</div>';qmis.forEach(function(q){var k=q.l+"-"+q.w,o=get(k),am=TRK[k];h+='<div class="g"><div class="hd"><span class="ar vw">'+o.v+'</span><div class="mn"><div>'+(am?arw(am[1]):mainLine(k))+'</div></div></div></div>'})}
+  h+='<div class="qb"><button onclick="qi=QZ.length-1;qshow()">‹ Саволларга қайтиш</button><button class="pr" onclick="qstart()">Қайтадан</button></div></div>';
+  document.getElementById("p3").innerHTML=h;
+}
+(function(){var p3=document.getElementById("p3"),sx=null,sy=0;
+  p3.addEventListener("touchstart",function(e){if(e.touches.length==1){sx=e.touches[0].clientX;sy=e.touches[0].clientY}else sx=null},{passive:true});
+  p3.addEventListener("touchend",function(e){if(sx==null)return;var t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;sx=null;
+    if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.6)qgo(dx>0?-1:1)},{passive:true});
+  document.addEventListener("keydown",function(e){if(p3.classList.contains("hide"))return;if(e.key=="ArrowRight")qgo(1);else if(e.key=="ArrowLeft")qgo(-1)});
+})();
+function pw(l,w){
+  if(!au)return;setLoop(-1);
+  for(var k=0;k<TM.length;k++){if(TM[k][0]==l&&TM[k][1]==w){
+    progSeek=true;au.currentTime=Math.max(0,TM[k][2]-0.05);stopAt=(TM[k][4]!=null?TM[k][4]:TM[k][3])+0.02;
+    var p=au.play();if(p&&p.catch)p.catch(function(){});return}}
+}
+function spd(r,b){
+  au.playbackRate=r;au.preservesPitch=true;au.webkitPreservesPitch=true;
+  document.querySelectorAll(".spd button").forEach(function(x){x.classList.remove("on")});b.classList.add("on");
+}
+if(au){
+  au.addEventListener("play",function(){uScr=0;lastI=-2;ppi();if(!raf)raf=requestAnimationFrame(tick)});
+  au.addEventListener("seeked",function(){if(progSeek)progSeek=false;else{stopAt=null;if(loopL>=0)setLoop(-1)}lastI=-2;tick()});
+  au.addEventListener("pause",function(){ppi();if(au.currentTime<(stopAt||0)-0.05||loopL<0){if(loopL>=0)setLoop(-1)}stopAt=null;tick()});
+  au.addEventListener("ended",function(){lastI=-2;show1(-1)});
+}
+/* ---- joyni eslab qolish (faqat shu brauzerda) ---- */
+(function(){
+  var K="dars94-holat",S={},p1=document.getElementById("p1"),t0=Date.now();
+  try{S=JSON.parse(localStorage.getItem(K)||"{}")||{}}catch(e){S={}}
+  try{if("scrollRestoration" in history)history.scrollRestoration="manual"}catch(e){}
+  function sv(){try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}}
+  function vis(){return !p1.classList.contains("hide")}
+  function getPos(){var L=document.querySelectorAll("#tx .ln"),vt=SC?SC.getBoundingClientRect().top:0;for(var i=0;i<L.length;i++){var r=L[i].getBoundingClientRect();if(r.bottom-vt>70)return [i,Math.round(r.top-vt)]}return null}
+  function setPos(p){var L=document.querySelectorAll("#tx .ln");if(!p||!L[p[0]])return;var sc=scroller(),vt=SC?SC.getBoundingClientRect().top:0,r=L[p[0]].getBoundingClientRect(),y=Math.max(0,sc.scrollTop+(r.top-vt)-p[1]);sc.scrollTop=y;if(!SC)window.scrollTo(0,y)}
+  function keep(){if(vis()){var p=getPos();if(p)S.pos=p}S.fs=fs;if(au)S.at=Math.round(au.currentTime*10)/10;sv()}
+  var tmS=null;function onS(){clearTimeout(tmS);tmS=setTimeout(keep,300)}
+  window.addEventListener("scroll",onS,{passive:true});document.querySelector(".w").addEventListener("scroll",onS,{passive:true});
+  document.addEventListener("visibilitychange",function(){if(document.hidden)keep()});window.addEventListener("pagehide",keep);
+  /* tugmalar */
+  var _tab=tab;tab=function(n){if(vis()){var p=getPos();if(p)S.pos=p}_tab(n);S.tab=n;sv();if(n==3&&QZ.length&&!document.getElementById("p3").innerHTML)qshow();if(n==1&&S.pos)setPos(S.pos)};
+  var _tog=tog;tog=function(el){_tog(el);S.show=show;sv()};
+  var _bol=bol;bol=function(){_bol();S.bol=bolak;sv()};
+  var _ttr=ttr;ttr=function(){_ttr();S.htr=hidetr;sv()};
+  var _fz=fz;fz=function(d){_fz(d);S.fs=fs;sv()};
+  document.querySelector(".w").addEventListener("touchend",function(){if(S.fs!==fs){S.fs=fs;sv()}},{passive:true});
+  /* audio */
+  if(au){var la=0;au.addEventListener("timeupdate",function(){var n=Date.now();if(n-la>2000){la=n;S.at=Math.round(au.currentTime*10)/10;sv()}});au.addEventListener("pause",function(){S.at=Math.round(au.currentTime*10)/10;sv()})}
+  /* mashq */
+  function saveQ(){S.q={o:QZ.map(function(q){return [q.l,q.w]}),ch:QZ.map(function(q){return q.ch}),qi:qi};sv()}
+  var _qshow=qshow;qshow=function(){_qshow();S.qr=0;saveQ()};
+  var _qans=qans;qans=function(b){_qans(b);saveQ()};
+  var _qres=qres;qres=function(){_qres();S.qr=1;saveQ()};
+  /* tiklash */
+  try{
+    if(S.fs&&S.fs!=fs){fs=S.fs;document.documentElement.style.setProperty("--fs",fs+"px")}
+    if(S.show)tog();
+    if(S.bol)bol();
+    if(S.htr)ttr();
+    if(S.q&&S.q.o&&S.q.o.length){
+      var Z=[],okAll=true;
+      S.q.o.forEach(function(x,i){var k=x[0]+"-"+x[1],o=TRK[k]&&!QUR[k]?qends(k):null;if(!o){okAll=false;return}var c=S.q.ch[i];Z.push({l:x[0],w:x[1],o:o,ch:(c==null?null:c),ok:c!=null&&o[c]&&o[c].w==get(k).v})});
+      if(okAll&&Z.length){QZ=Z;qi=Math.min(S.q.qi||0,Z.length-1);qsc=Z.filter(function(q){return q.ok}).length;if(S.qr)_qres();else _qshow()}
+    }
+    
+    if(au&&S.at>0){var st=function(){try{progSeek=true;au.currentTime=S.at}catch(e){}};if(au.readyState>=1)st();else au.addEventListener("loadedmetadata",st,{once:true})}
+    if(S.pos&&vis()){var rp=function(){if(uScr<t0&&vis())setPos(S.pos)};setTimeout(rp,450);setTimeout(rp,1300);window.addEventListener("load",function(){setTimeout(rp,50)});if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){setTimeout(rp,50)})}
+  }catch(e){}
+})();
+</script>
+<script>window.DARSFONT="";</script>
+<script>
+(function(){
+  var st=document.getElementById("fstat");
+  function say(t){if(st)st.textContent="🔤 Шрифт: "+t}
+  try{
+    if(!window.FontFace){say("йўқ (FontFace)");return}var f=new FontFace("DarsNaskh","url(naskh.woff)");
+    f.load().then(function(ff){document.fonts.add(ff);say("юкланди ✓")}).catch(function(e){say("юкланмади ✗ "+(e&&e.message||e))});
+  }catch(e){say("хато ✗ "+e.message)}
+})();
+</script>
+<script>window.HDR={"s0": 3.2, "e": 5.33, "rows": [{"a": "اَلدَّرْسُ الرَّابِعُ وَالتِّسْعُونَ", "u": "94-дарс", "t": [3.2, 5.33]}]}</script>
+<script src="hdr.js"></script>
+<script src="sarflink.js"></script>
+<script>window.TKG={"1": [[0, 1, "шибҳи жумла — маҳзуф хабар (كَائِنٌ) га мутааллиқ", "s"]], "3": [[2, 2, "шибҳи жумла — اِلْتَحَقْتُ га мутааллиқ", "s"], [3, 3, "шибҳи жумла — اِلْتَحَقْتُ га мутааллиқ", "s"]], "4": [[4, 5, "шибҳи жумла — دَرَسْتِ га мутааллиқ", "s"]], "5": [[4, 4, "шибҳи жумла — أَدْرُسُ га мутааллиқ", "s"]], "6": [[3, 4, "шибҳи жумла — دَرَسْتُ га мутааллиқ", "s"], [5, 6, "шибҳи жумла — دَرَسْتُ га мутааллиқ", "s"]], "7": [[0, 0, "шибҳи жумла — تَدْرُسِينَ га мутааллиқ", "s"]], "8": [[0, 1, "шибҳи жумла — نَتَعَلَّمُ га мутааллиқ", "s"], [9, 9, "шибҳи жумла — الْحَدِيثَ га мутааллиқ", "s"]], "9": [[3, 3, "шибҳи жумла — تَتَحَدَّثِينَ га мутааллиқ", "s"]], "10": [[2, 2, "шибҳи жумла — الْحَدِيثَ га мутааллиқ", "s"], [4, 4, "шибҳи жумла — تَعَلَّمْتُ га мутааллиқ", "s"], [5, 6, "шибҳи жумла — маҳзуф хабар муқаддам (مَوْجُودٌ) га мутааллиқ", "s"]], "12": [[0, 0, "шибҳи жумла — маҳзуф хабар муқаддам (مَوْجُودَةٌ) га мутааллиқ", "s"], [4, 6, "шибҳи жумла — маҳзуф сифат бўлмиш كَائِنَةٌ га мутааллиқ", "s"]], "13": [[3, 3, "шибҳи жумла — التَّحَدُّثَ га мутааллиқ", "s"]], "14": [[2, 3, "шибҳи жумла — маҳзуф сифат бўлмиш كَائِناً га мутааллиқ", "s"], [9, 9, "шибҳи жумла — تَحَدَّثِي га мутааллиқ", "s"]]};window.TKT={"1": [[1, "Жумлатун хабарийя."]], "2": [[3, "Жумлатун феълийя, хабарийя."]], "3": [[4, "Жумлатун феълийя, хабарийя."]], "4": [[5, "Жумлатун феълийя, истифҳомийя."]], "5": [[5, "Жумлатун исмийя, хабарийя."]], "6": [[6, "Жумлатун исмийя, хабарийя."]], "7": [[4, "Жумлатун феълийя, истифҳомийя."]], "8": [[10, "Жумлатун феълийя, хабарийя."]], "9": [[4, "Жумлатун исмийя, хабарийя."]], "10": [[4, "Жумлатун феълийя, хабарийя."], [10, "Жумлатун исмийя, хабарийя."]], "11": [[7, "Жумлатун феълийя, хабарийя."]], "12": [[6, "Жумлатун исмийя, хабарийя."]], "13": [[9, "Жумлатун феълийя, хабарийя."], [14, "Жумлатун феълийя, хабарийя."], [16, "Жумлатун феълийя, истифҳомийя."]], "14": [[10, "Жумлатун феълийя, иншоийя (амр)."]], "15": [[2, "Жумлатун исмийя, хабарийя."], [3, "Жумлатун феълийя, хабарийя."], [6, "Жумлатун феълийя, хабарийя."]], "16": [[3, "Жумлатун феълийя, хабарийя."]]};window.TKU={}</script>
+<script src="tarkib2.js"></script>
+<script src="shell.js"></script>
+<script>if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(function(){})</script>
+</body>
+</html>

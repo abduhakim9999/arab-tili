@@ -1,6 +1,7 @@
-/* Avval telefondagi nusxa darhol ochiladi, yangisi orqa fonda yuklab olinadi.
-   Yangi versiya (VER) chiqqanda hammasi qaytadan yuklanadi. */
-var C = 'arab-tili-v165';
+/* Sahifalar (HTML): avval internetdan yangisi (3 s kutadi), internet bo'lmasa telefondagi nusxa.
+   Audio va boshqa fayllar: telefondagi nusxa darhol, yangisi orqa fonda.
+   Yangi versiya (C) chiqqanda eski kesh o'chadi va ochiq sahifalar o'zi yangilanadi. */
+var C = 'arab-tili-v166';
 var FILES = ["./", "index.html", "tinglash.html", "fel.html", "tg.js", "shell.js", "shell.css", "manifest.webmanifest", "icon-192.png", "icon-512.png", "icon-maskable-512.png", "1.html", "2.html", "3.html", "4.html", "5.html", "70.html", "71.html", "72.html", "73.html", "74.html", "91.html", "92.html", "93.html", "94.html", "feellar.html", "sarf.html", "sarf-idx.json", "sarflink.js", "tarkib.js", "tarkib2.js", "hdr.js", "naskh.woff", "a1-8915a8a5.mp3", "a2-e553110d.mp3", "a3-25daf782.mp3", "a4-34c34994.mp3", "a5-676f8ab1.mp3", "a70-38568abf.mp3", "a71-10b47ba4.mp3", "a72-b1ffc444.mp3", "a73-26e4389d.mp3", "a74-999cfa80.mp3", "a91-c13b9797.mp3", "a92-73d0b542.mp3", "a93-97fe1435.mp3", "a94-16e5fd3e.mp3", "l74-9e9786c9.mp3", "l93-8289a139.mp3", "t94-37420e71.mp3", "l94-6160c09c.mp3", "v93-f316df5b.mp3"];
 var TG = 'https://telegram.org/js/telegram-web-app.js';
 
@@ -11,9 +12,17 @@ self.addEventListener('install', function (e) {
 });
 
 self.addEventListener('activate', function (e) {
+  var upd = false;
   e.waitUntil(caches.keys().then(function (ks) {
-    return Promise.all(ks.filter(function (k) { return k !== C; }).map(function (k) { return caches.delete(k); }));
-  }).then(function () { return self.clients.claim(); }));
+    var old = ks.filter(function (k) { return k !== C; }); upd = old.length > 0;
+    return Promise.all(old.map(function (k) { return caches.delete(k); }));
+  }).then(function () { return self.clients.claim(); }).then(function () {
+    if (!upd) return;
+    /* yangi versiya: ochiq sahifalarni bir marta qayta yuklash */
+    return self.clients.matchAll({ type: 'window' }).then(function (cs) {
+      cs.forEach(function (cl) { try { cl.navigate(cl.url); } catch (x) {} });
+    });
+  }));
 });
 
 /* audio: so'ralgan bo'lakni saqlangan fayldan kesib berish (orqaga-oldinga surish uchun) */
@@ -49,6 +58,12 @@ self.addEventListener('fetch', function (e) {
         if (res && (res.ok || res.type === 'opaque')) c.put(r, res.clone());
         return res;
       });
+      var page = r.mode === 'navigate' || /\.html$|\/$/.test(new URL(r.url).pathname);
+      if (page && hit) {
+        /* sahifa: yangisi 3 s ichida kelsa — o'sha, kelmasa — telefondagi nusxa */
+        return Promise.race([net.catch(function () { return hit; }),
+                             new Promise(function (ok) { setTimeout(function () { ok(hit); }, 3000); })]);
+      }
       if (hit) { e.waitUntil(net.catch(function () {})); return hit; }
       return net;
     });

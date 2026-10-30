@@ -41,7 +41,7 @@ Generator skriptlarda (d03, d04, d73, a70, irb/*92*, site/build.py) ular hali bo
 - `site/tarkib.py`: ST_FIX (gap → исмийя/феълийя) va SJ_FIX (shibh jumla → yashirin so'z) — qo'lda qarorlar, qayta yasaganda saqlanadi.
 - Rang yorlig'i CM da bo'lmasa so'z rangsiz qoladi: genNN.py dagi CM ga qo'shing yoki `CATOV.update(...)`.
 - Versiya: repo ildizidan `sh src/build/bump.sh` (VER, sw.js, bosh sahifa «i» oynasi).
-- Batafsil qoidalar: loyiha hujjati claude/texnik-eslatma.md.
+- Batafsil qoidalar: `docs/texnik.md` (texnika) va `docs/kitob-konspekti.md` (grammatika).
 
 ## Tinglash (29.10.2026)
 - `tinglash.html` — eshitib o'rganish pleyeri: har dars uchun bitta yaxlit mp3 (telefon qulfda ham uzilmaydi), «Матн» va «Луғат» yo'laklari.

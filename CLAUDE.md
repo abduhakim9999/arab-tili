@@ -37,7 +37,7 @@ Batafsil hujjatlar repoda emas, claude.ai «Arab Tili» loyihasida: `claude/kito
 - https://abduhakim9999.github.io/arab-tili/ — GitHub Pages, `main` dan.
 - Telegram Mini App: bot `@Arabtilihivar_bot`, `t.me/Arabtilihivar_bot/darslar`.
 - Bosh sahifa: Ruqaa «نُورُ الطَّالِبِ» (o'zgartirilmaydi); panel Сарф · Феъллар · Эшитиш; «Давом этиш»; 1-китоб, 2-китоб. Minimal uslub.
-- Darslar: 1-kitob **1, 2, 3, 4, 5**; 2-kitob **70, 71, 72, 73, 74, 91, 92, 93**. Har dars — `NN.html` + `aNN-ҳэш.mp3`.
+- Darslar: 1-kitob **1, 2, 3, 4, 5**; 2-kitob **70, 71, 72, 73, 74, 91, 92, 93, 94**. Har dars — `NN.html` + `aNN-ҳэш.mp3`.
 - Boshqa sahifalar: `feellar.html` (200 fe'l, test, reyting), `fel.html` (kunlik fe'l testi), `sarf.html`, `tinglash.html` (eshitib o'rganish).
 
 ### Yig'ish muhiti
@@ -48,7 +48,7 @@ Batafsil hujjatlar repoda emas, claude.ai «Arab Tili» loyihasida: `claude/kito
 - Dars boshi ovozi: `scratchpad/hdr/hNN.mp3` + `hcfg.json`.
 - Ovozni matnga moslash: GitHub Actions `align.yml` — `align/in/NAME.mp3` + `NAME.txt` push qilinsa `align/out/NAME.align.json` chiqadi (~2 daqiqa).
 - **Diqqat:** `build.py` natijasidagi eski darslar sahifalari repodagidan farq qiladi (ular to'g'ridan-to'g'ri tuzatilgan). Yangi dars qo'shganda faqat yangi `NN.html`, `aNN-…mp3`, `index.html` ni nusxalang, `sw.js` ga qo'lda qo'shing. Kichik o'zgarishda tayyor faylni tuzating va `src/build` dagi nusxasini ham.
-- Versiya: repo ildizidan `sh src/build/bump.sh` (qo'lda sed qilinmaydi). Hozir **v162**.
+- Versiya: repo ildizidan `sh src/build/bump.sh` (qo'lda sed qilinmaydi). Hozir **v163** (eng yangisi — `sw.js` 3-qatorida).
 - Foydalanuvchi ko'rib chiqishi kerak bo'lgan katta o'zgarish alohida branch'da, «ha» dan keyin main'ga.
 
 ### Dars sahifasi tuzilishi
@@ -77,3 +77,12 @@ Batafsil hujjatlar repoda emas, claude.ai «Arab Tili» loyihasida: `claude/kito
 - Ahmad va Badr suhbati; ovoz ElevenLabs (Mehdi + Omar), foydalanuvchi yozuvi xira bo'lgani uchun.
 - Tarkib mashhur kitoblar bo'yicha: «أَهْلًا وَسَهْلًا» — yashirin جِئْتَ/وَطِئْتَ ning maf'ulun bihi; «مَعَ السَّلَامَةِ» — مَعَ zarf, yashirin اِذْهَبْ ga mutaalliq (gap — феълийя); «أَخِي، صَدِيقِي» — taqdiriy zamma (61-dars qolipi), أَخٌ besh ismdan.
 - Lug'at 74–94, mashq 7 ta.
+
+## 9. 94-dars (30.10.2026 qilingan)
+- «بَيْنَ طَالِبَتَيْنِ»; audio — «العربية بين يديك» 2-kitob 79-dars (boshidagi kirish 28.1 s gacha kesilgan).
+- Generator d93 yordamchilaridan foydalanadi (`h93.py` + `data93.py` ning 1-qismi).
+- Tarkib mashhur kitoblar bo'yicha: noibi zarf (هَذِهِ السَّنَةَ، ثَلَاثَ سَنَوَاتٍ), jumla sifat, الْآنَ, muhmal إِذَنْ, mahkiy harflar, إِنْ شَاءَ اللَّهُ (javobi yashirin), أَنَّ masdar, لَكِنَّ — إِنَّ qolipida.
+- Lug'at yo'q (fayl berilmagan), mashq 15 ta.
+
+## 10. Yangi dars — `yangi-dars` skilli
+Yangi dars fayllari tashlanganda `yangi-dars` skilli ishlatiladi; u ish oxirida shu faylni ham yangilaydi.

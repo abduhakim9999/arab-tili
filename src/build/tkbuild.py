@@ -7,6 +7,8 @@ import json, re, sys, os, asyncio, subprocess, hashlib, tempfile
 
 N = sys.argv[1]; DRY = '--dry' in sys.argv
 VOICE = 'ar-SA-HamedNeural'
+# Секинроқ ва жарангдорроқ (94-дарсдан, фойдаланувчи талаби): RATE=-10% CLR=1
+RATE = os.environ.get('RATE', '+0%'); CLR = os.environ.get('CLR') == '1'
 H = 'ًٌٍَُِْ'
 dec = json.JSONDecoder()
 
@@ -122,7 +124,7 @@ async def one(t):
     async with sem:
         for _ in range(4):
             try:
-                await edge_tts.Communicate(t, VOICE).save(fn[t] + '.mp3'); return
+                await edge_tts.Communicate(t, VOICE, rate=RATE).save(fn[t] + '.mp3'); return
             except Exception as e: err = e; await asyncio.sleep(2)
         raise err
 async def allv(): await asyncio.gather(*[one(t) for t in texts])
@@ -130,7 +132,7 @@ asyncio.run(allv())
 TRIM = 'silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.05,areverse,silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.1,areverse'
 def run(*a): subprocess.run(list(a), check=True)
 def dur(f): return float(subprocess.check_output(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', f]))
-for t in texts: run('ffmpeg', '-v', 'error', '-y', '-i', fn[t] + '.mp3', '-af', TRIM, '-ar', '24000', '-ac', '1', fn[t] + '.wav')
+for t in texts: run('ffmpeg', '-v', 'error', '-y', '-i', fn[t] + '.mp3', '-af', TRIM + (',highpass=f=90,equalizer=f=220:t=q:w=1:g=-2,equalizer=f=3200:t=q:w=1.2:g=3,equalizer=f=6000:t=q:w=1:g=1.5' if CLR else ''), '-ar', '24000', '-ac', '1', fn[t] + '.wav')
 sil = {}
 def z(g):
     if g not in sil:

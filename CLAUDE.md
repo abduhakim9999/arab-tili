@@ -58,7 +58,7 @@ Batafsil hujjatlar repoda emas, claude.ai «Arab Tili» loyihasida: `claude/kito
 - Mashq: faqat qiyin joylar; to'g'ri javobda o'zi keyingisiga o'tadi.
 
 ## 5. Eshitish (`tinglash.html`)
-- Rejimlar: Матн (arabcha gap → o'zbekcha tarjima), Луғат, Таркиб (arabcha e'rob). Hozir faqat **74 va 93**.
+- Rejimlar: Матн (arabcha gap → o'zbekcha tarjima), Луғат, Таркиб (arabcha e'rob). Hozir **74, 93 va 94** (94: Матн — ElevenLabs SARHAD narrator, sekinroq va jarangdor; Таркиб — Hamed, `RATE=-10% CLR=1 python3 src/build/tkbuild.py 94`).
 - Skriptlar: `src/build/scratchpad/listen/` (`mk93.py`, `build_t.py`, `sp93.py`), Таркиб — `src/build/tkbuild.py NN`.
 - Har rejim bitta yaxlit mp3 (telefon qulfda ham uzilmasin).
 - **Ochiq ish:** 1–5 va 70–73, 91–92 darslarni qo'shish.

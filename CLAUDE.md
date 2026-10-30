@@ -27,8 +27,9 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
 
 ## Darslar holati
 - Sayt: https://abduhakim9999.github.io/arab-tili/ · Mini App `t.me/Arabtilihivar_bot/darslar` · versiya `sw.js` dagi `var C`.
-- Darslar: 1-kitob **1–5**; 2-kitob **70–74, 91–94**.
-- Eshitish: **74, 93, 94**. Ochiq ish: 1–5, 70–73, 91–92 ni qo'shish.
+- Darslar: 1-kitob **1–6**; 2-kitob **70–74, 91–94**.
+- Eshitish: **6, 74, 93, 94**. Ochiq ish: 1–5, 70–73, 91–92 ni qo'shish.
 - Oxirgi qilinganlar (30.10.2026):
+  - 6-dars — Нада ва Ҳуда (5-darsning muannas shakli); audio — foydalanuvchi yozuvi (tiniq); lug'at yo'q, mashq 7; Eshitish: Матн + Таркиб.
   - 5-dars — Ahmad va Badr; ovoz ElevenLabs (Mehdi + Omar), yozuv xira bo'lgani uchun; lug'at 74–94, mashq 7.
   - 94-dars — «بَيْنَ طَالِبَتَيْنِ»; audio «العربية بين يديك» 2-kitob 79-dars (kirish 28.1 s gacha kesilgan); lug'at yo'q, mashq 15; Eshitish: Матн (SARHAD) + Таркиб (Hamed).

@@ -63,3 +63,36 @@ def dp_parts(f, texts, noise=-40, mind=0.18):
     for j in range(N, 0, -1):
         a = P[i][j]; out.append([ch[a][0], ch[i - 1][1]]); i = a
     return out[::-1]
+
+
+def line_bounds(seg, SIL, pad=0.06, end_pad=0.3):
+    """Gaplar chegarasi (30.10.2026): chegara FAQAT bir gapning oxirgi so'zi tugashi bilan keyingi gapning
+    birinchi so'zi boshlanishi orasida bo'ladi. Shu oraliqda jimlik bo'lsa — eng uzun jimlikning o'rtasi,
+    bo'lmasa — oraliq o'rtasi. seg: {qator: [boshi, oxiri]} (so'z vaqtlaridan); SIL: [(start, end)] jimliklar.
+    Qaytaradi: {qator: [a0, b0]} — kesiladigan joy."""
+    lis = sorted(seg); cut = {}
+    def gap_cut(e, s):
+        best = None
+        for x, y in SIL:
+            a, b = max(x, e), min(y, s)
+            if b - a > 0.02 and (best is None or b - a > best[1] - best[0]): best = (a, b)
+        return (best[0] + best[1]) / 2 if best else (e + s) / 2
+    for k, li in enumerate(lis):
+        a, b = seg[li]
+        a0 = gap_cut(seg[lis[k - 1]][1], a) if k else max(0.0, a - 0.25)
+        b0 = gap_cut(b, seg[lis[k + 1]][0]) if k + 1 < len(lis) else b + end_pad
+        cut[li] = [round(a0, 3), round(b0, 3)]
+    return cut
+
+
+def check_bounds(cut, words):
+    """Tekshiruv: har bo'lakda o'z gapining hamma so'zi to'liq bor, boshqa gapning so'zi yo'q.
+    words: [(qator, start, end)] — mustaqil manba (ElevenLabs Scribe) bo'yicha. Xato bo'lsa SystemExit."""
+    bad = []
+    for li, s, e in words:
+        a0, b0 = cut[li]
+        if s < a0 - 0.02 or e > b0 + 0.02: bad.append('qator %s: so\'z %.2f–%.2f bo\'lakdan (%.2f–%.2f) chiqib qolgan' % (li, s, e, a0, b0))
+        for lj, (c0, d0) in cut.items():
+            if lj != li and s > c0 + 0.02 and e < d0 - 0.02: bad.append('qator %s so\'zi %s-qator bo\'lagiga tushgan' % (li, lj))
+    if bad: raise SystemExit('BO\'LAKLAR XATO:\n' + '\n'.join(bad))
+    return True

@@ -35,17 +35,19 @@ g_ar, g_h = TGT - lufs(AUD), TGT - lufs(HDR)
 s1, s2 = sil(T + '/s1.wav', 0.6), sil(T + '/s2.wav', 1.0)
 e = subprocess.run(['ffmpeg', '-hide_banner', '-i', AUD, '-af', 'silencedetect=noise=-36dB:d=0.12', '-f', 'null', '-'], capture_output=True, text=True).stderr
 SIL = list(zip([float(x) for x in re.findall(r'silence_start: (-?[\d.]+)', e)], [float(x) for x in re.findall(r'silence_end: ([\d.]+)', e)]))
-BND = []
-for k in range(len(lis) - 1):
-    m = (seg[lis[k]][1] + seg[lis[k + 1]][0]) / 2
-    x, y = min(SIL, key=lambda s: 0 if s[0] <= m <= s[1] else min(abs(s[0] - m), abs(s[1] - m)))
-    BND.append((x + 0.06, y - 0.06))
+CUT = line_bounds(seg, SIL)
+# mustaqil tekshiruv: ElevenLabs Scribe so'z vaqtlari (align/out/c94.scribe.json, dlgNN timeline) -> sahifa timeline
+SC = [w for w in json.load(open(R + '/align/out/c94.scribe.json'))['words'] if w.get('type', 'word') == 'word']
+AL = json.load(open(R + '/align/out/c94.align.json'))
+off = TM[[i for i, x in enumerate(TM) if x[0] != 0][0]][2] + 0.04 - AL[0]['start']  # sarlavha siljishi
+pos = [(li, wi) for li, wi, *_ in TM if li != 0]
+assert len(SC) == len(pos), (len(SC), len(pos))
+check_bounds(CUT, [(li, w['start'] + off, w['end'] + off) for (li, wi), w in zip(pos, SC)])
+print('bo\'laklar tekshirildi: hammasi to\'g\'ri')
 h = cut(HDR, T + '/h.wav', gain=g_h)
 items = [(h, 'h', 0), (s1, None, 0)]
 for k, li in enumerate(lis):
-    a, b = seg[li]
-    a0 = BND[k - 1][1] if k else max([y for x, y in SIL if y <= a + 0.05] or [a - 0.1]) - 0.06
-    b0 = BND[k][0] if k + 1 < len(lis) else min([x for x, y in SIL if x >= b - 0.05] or [b + 0.3]) + 0.06
+    a0, b0 = CUT[li]
     items += [(cut(AUD, T + '/a%02d.wav' % li, a0, b0, g_ar), 'ar', li), (s1, None, 0), (uz[li], 'uz', li), (s2, None, 0)]
 parts, M, t = [], [], 0.0
 for f, kind, idx in items:

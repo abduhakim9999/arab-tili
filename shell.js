@@ -465,3 +465,9 @@
     '</ul>' : '') + '</div>';
   hp.insertAdjacentHTML('afterbegin', h);
 })();
+
+/* --- Таркиб (ранглар) ҳар доим ёқиқ очилади; керак бўлса тугма билан ўчирилади (ўчириш фақат шу сафарга) --- */
+(function () {
+  if (typeof window.bol != 'function' || !document.getElementById('bl')) return;
+  if (!window.bolak) window.bol();
+})();

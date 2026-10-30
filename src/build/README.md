@@ -12,6 +12,8 @@ Bu papka faqat Claude uchun. Sayt va bot shu fayllarsiz ham ishlaydi.
 - `outputs/lessonNN/index.html` — yig'uvchi kiritadigan dars sahifalari. `genNN.py` dagi qolip `lesson71`.
 
 ## Tiklash (yangi sessiyada)
+Avval: `sh src/build/lock.sh check` (BAND bo'lsa — foydalanuvchiga ayt, boshqa chat ishlayapti), keyin `sh src/build/lock.sh on "ish nomi"` va `git rev-parse HEAD > .git/claude-base` (deploy.sh to'qnashuvni shu bo'yicha tekshiradi).
+
 Yo'llar skriptlarda qattiq yozilgan, shuning uchun eski joylariga qaytariladi:
 
     S=/tmp/claude-0/-home-claude/d13da55d-9a5a-5fc0-96fe-93eeb8284943/scratchpad
@@ -40,7 +42,7 @@ Generator skriptlarda (d03, d04, d73, a70, irb/*92*, site/build.py) ular hali bo
 - GT (gap turi) — har gapning OXIRGI so'z raqami. 74/93-darslarda boshi yozilgan edi, oxiriga o'girildi (gen74.py, gen93.py).
 - `site/tarkib.py`: ST_FIX (gap → исмийя/феълийя) va SJ_FIX (shibh jumla → yashirin so'z) — qo'lda qarorlar, qayta yasaganda saqlanadi.
 - Rang yorlig'i CM da bo'lmasa so'z rangsiz qoladi: genNN.py dagi CM ga qo'shing yoki `CATOV.update(...)`.
-- Versiya: repo ildizidan `sh src/build/bump.sh` (VER, sw.js, bosh sahifa «i» oynasi).
+- Joylash: faqat `bash src/build/deploy.sh "xabar"` (to'qnashuvni tekshiradi, versiyani oshiradi, push; rad etilsa qayta uradi). Ish tugagach `sh src/build/lock.sh off`.
 - Batafsil qoidalar: `docs/texnik.md` (texnika) va `docs/kitob-konspekti.md` (grammatika).
 
 ## Tinglash (29.10.2026)

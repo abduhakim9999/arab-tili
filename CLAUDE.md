@@ -26,7 +26,7 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
 - Ish oxirida yangilik bo'lsa — tegishli joyga yoziladi (yuqoridagi jadval bo'yicha), boshqa joyga takrorlanmaydi.
 
 ## Darslar holati
-- Sayt: https://abduhakim9999.github.io/arab-tili/ · Mini App `t.me/Arabtilihivar_bot/darslar` · versiya `sw.js` 3-qatorida.
+- Sayt: https://abduhakim9999.github.io/arab-tili/ · Mini App `t.me/Arabtilihivar_bot/darslar` · versiya `sw.js` dagi `var C`.
 - Darslar: 1-kitob **1–5**; 2-kitob **70–74, 91–94**.
 - Eshitish: **74, 93, 94**. Ochiq ish: 1–5, 70–73, 91–92 ni qo'shish.
 - Oxirgi qilinganlar (30.10.2026):

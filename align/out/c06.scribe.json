@@ -1,0 +1,125 @@
+{
+"language_code": "ara",
+"words": [
+{
+"text": "السلام",
+"type": "word",
+"start": 1.9,
+"end": 2.52
+},
+{
+"text": "عليكم.",
+"type": "word",
+"start": 2.68,
+"end": 3.4
+},
+{
+"text": "وعليكم",
+"type": "word",
+"start": 4.059,
+"end": 4.76
+},
+{
+"text": "السلام.",
+"type": "word",
+"start": 4.82,
+"end": 5.46
+},
+{
+"text": "هذه",
+"type": "word",
+"start": 6.2,
+"end": 6.92
+},
+{
+"text": "أختي،",
+"type": "word",
+"start": 6.96,
+"end": 7.48
+},
+{
+"text": "هي",
+"type": "word",
+"start": 8.3,
+"end": 8.52
+},
+{
+"text": "طبيبة.",
+"type": "word",
+"start": 8.72,
+"end": 9.26
+},
+{
+"text": "أهلًا",
+"type": "word",
+"start": 10.6,
+"end": 11.14
+},
+{
+"text": "وسهلًا.",
+"type": "word",
+"start": 11.3,
+"end": 11.98
+},
+{
+"text": "هذه",
+"type": "word",
+"start": 12.68,
+"end": 13.28
+},
+{
+"text": "صديقتي،",
+"type": "word",
+"start": 13.34,
+"end": 14.18
+},
+{
+"text": "هي",
+"type": "word",
+"start": 14.92,
+"end": 15.14
+},
+{
+"text": "طالبة.",
+"type": "word",
+"start": 15.32,
+"end": 15.86
+},
+{
+"text": "أهلًا",
+"type": "word",
+"start": 16.98,
+"end": 17.44
+},
+{
+"text": "وسهلًا.",
+"type": "word",
+"start": 17.62,
+"end": 18.26
+},
+{
+"text": "مع",
+"type": "word",
+"start": 18.9,
+"end": 19.12
+},
+{
+"text": "السلامة.",
+"type": "word",
+"start": 19.14,
+"end": 19.78
+},
+{
+"text": "مع",
+"type": "word",
+"start": 20.78,
+"end": 21.0
+},
+{
+"text": "السلامة.",
+"type": "word",
+"start": 21.0,
+"end": 21.62
+}
+]
+}

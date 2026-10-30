@@ -4,7 +4,7 @@ import tarkib
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.environ.get('OUT') or '/mnt/user-data/outputs/arab-tili'
-VER = '163'
+VER = '164'
 
 LESSONS = [
     # (raqam, manba, sarlavha, arabcha sarlavha, kalit, savollar soni)
@@ -24,7 +24,7 @@ LESSONS = [
     (94, '/mnt/user-data/outputs/lesson94/index.html', 'Икки толиба орасида', 'بَيْنَ طَالِبَتَيْنِ', 'dars94-holat', 15),
 ]
 
-LISTEN = [74, 93]
+LISTEN = [74, 93, 94]
 HDRD = '/tmp/claude-0/-home-claude/d13da55d-9a5a-5fc0-96fe-93eeb8284943/scratchpad/hdr'
 HCFG = json.load(open(HDRD + '/hcfg.json'))
 DROP0 = {70, 74, 91, 92, 93, 94}

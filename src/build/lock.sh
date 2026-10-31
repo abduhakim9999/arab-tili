@@ -9,6 +9,10 @@ case "$1" in
            T=$(git show origin/main:$F | sed -n 1p); NOW=$(date +%s)
            if [ $((NOW - T)) -lt 10800 ]; then echo "BAND: $(git show origin/main:$F | sed -n 2p) ($(( (NOW - T)/60 )) daqiqa oldin)"; exit 1; fi
          fi; echo "BO'SH" ;;
-  on)  printf '%s\n%s\n' "$(date +%s)" "${2:-ish}" > $F; git add $F; git commit -q -m "ish boshlandi: ${2:-ish}" -- $F; git push -q origin HEAD:main; echo "belgi qo'yildi" ;;
-  off) git pull -q --rebase origin main; git rm -q $F 2>/dev/null && git commit -q -m "ish tugadi" -- $F && git push -q origin HEAD:main; echo "belgi olindi" ;;
+  on|off) # alohida vaqtinchalik nusxada (worktree) — ishchi papkadagi o'zgarish/commit'lar saytga tushib ketmaydi
+       git fetch -q origin main; WT=$(mktemp -d); git worktree add -q --detach "$WT" origin/main
+       if [ "$1" = on ]; then printf '%s\n%s\n' "$(date +%s)" "${2:-ish}" > "$WT/$F"; git -C "$WT" add $F; git -C "$WT" commit -q -m "ish boshlandi: ${2:-ish}"
+       else git -C "$WT" rm -q $F 2>/dev/null && git -C "$WT" commit -q -m "ish tugadi" || true; fi
+       git -C "$WT" push -q origin HEAD:main || true; git worktree remove --force "$WT"
+       [ "$1" = on ] && echo "belgi qo'yildi" || echo "belgi olindi" ;;
 esac

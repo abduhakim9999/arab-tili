@@ -1,0 +1,134 @@
+{
+ "raqam_uz": "Yettinchi dars.",
+ "gaplar_uz": {
+  "1": "Sizga omonlik boʻlsin!",
+  "2": "Sizga ham omonlik boʻlsin!",
+  "3": "Bu oilamning surati.",
+  "4": "E qoyil! Bu kim?",
+  "5": "Bu otam Adnon. U muhandis.",
+  "6": "Bu-chi kim?",
+  "7": "Bu onam Saida. U vrach.",
+  "8": "Bu-chi kim?",
+  "9": "Bu akam, yoki ukam, Iyso. U talaba.",
+  "10": "Bu-chi kim?",
+  "11": "Bu opam, yoki singlim, Abla. U muallima. Bu buvam, bu esa buvim.",
+  "12": "E qoyil!"
+ },
+ "lugat": [
+  {
+   "i": 0,
+   "ar": "سَبْعُنْ، سَبْعَتُنْ",
+   "uz": "Yetti, yettita."
+  },
+  {
+   "i": 1,
+   "ar": "سَابِعُنْ، سَابِعَتُنْ",
+   "uz": "Yettinchi."
+  },
+  {
+   "i": 2,
+   "ar": "عَلِيُّنْ",
+   "uz": "Ali, erkak ismi."
+  },
+  {
+   "i": 3,
+   "ar": "عَمَّارُنْ",
+   "uz": "Ammor, erkak ismi."
+  },
+  {
+   "i": 4,
+   "ar": "صُورَتُنْ، صُوَرُنْ",
+   "uz": "Surat; jam: suratlar."
+  },
+  {
+   "i": 5,
+   "ar": "أُسْرَتُنْ، أُسَرُنْ",
+   "uz": "Oila; jam: oilalar."
+  },
+  {
+   "i": 6,
+   "ar": "مَنْ؟",
+   "uz": "Kim?"
+  },
+  {
+   "i": 7,
+   "ar": "وَالِدُنْ",
+   "uz": "Ota."
+  },
+  {
+   "i": 8,
+   "ar": "عَدْنَانُ",
+   "uz": "Adnon, erkak ismi."
+  },
+  {
+   "i": 9,
+   "ar": "وَالِدَتُنْ",
+   "uz": "Ona."
+  },
+  {
+   "i": 10,
+   "ar": "سَعِيدَةُ",
+   "uz": "Saida, ayol ismi."
+  },
+  {
+   "i": 11,
+   "ar": "عِيسَى",
+   "uz": "Iyso, erkak ismi."
+  },
+  {
+   "i": 12,
+   "ar": "شَاءَ، يَشَاءُ، شَأْ، مَشِيئَتُنْ",
+   "uz": "Xohlamoq."
+  },
+  {
+   "i": 13,
+   "ar": "مَا",
+   "uz": "Nimaiki."
+  },
+  {
+   "i": 14,
+   "ar": "عَبْلَةُ",
+   "uz": "Abla, ayol ismi."
+  },
+  {
+   "i": 15,
+   "ar": "مُعَلِّمُنْ، مُعَلِّمُونَ",
+   "uz": "Muallim; jam: muallimlar."
+  },
+  {
+   "i": 16,
+   "ar": "مُعَلِّمَتُنْ، مُعَلِّمَاتُنْ",
+   "uz": "Muallima; jam: muallimalar."
+  },
+  {
+   "i": 17,
+   "ar": "جَدُّنْ، أَجْدَادُنْ",
+   "uz": "Buva, bobo; jam: buvalar, bobolar."
+  },
+  {
+   "i": 18,
+   "ar": "جَدَّتُنْ، جَدَّاتُنْ",
+   "uz": "Buvi, momo; jam: buvilar, momolar."
+  },
+  {
+   "i": 19,
+   "ar": "وَ",
+   "uz": "Esa, ammo."
+  },
+  {
+   "i": 20,
+   "ar": "أَنْدِيجَانُ",
+   "uz": "Andijon."
+  },
+  {
+   "i": 21,
+   "ar": "أَنْدِيجَانِيُّنْ، أَنْدِيجَانِيُّونَ",
+   "uz": "Andijonlik, andijoncha; jam: andijonliklar."
+  },
+  {
+   "i": 22,
+   "ar": "أَنْدِيجَانِيَّتُنْ، أَنْدِيجَانِيَّاتُنْ",
+   "uz": "Andijonlik qiz, andijoncha; jam: andijonlik qizlar."
+  }
+ ]
+}

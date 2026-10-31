@@ -38,33 +38,83 @@
   },
   {
    "i": 5,
-   "ar": "طَبِيبُنْ، أَطِبَّاءُ",
-   "uz": "Vrach, shifokor; jam: vrachlar, shifokorlar."
-  },
-  {
-   "i": 6,
-   "ar": "طَبِيبَتُنْ، طَبِيبَاتُنْ",
-   "uz": "Vrach ayol; jam: vrach ayollar."
-  },
-  {
-   "i": 7,
-   "ar": "طَالِبُنْ، طُلَّابُنْ",
-   "uz": "Talaba; jam: talabalar."
-  },
-  {
-   "i": 8,
-   "ar": "طَالِبَتُنْ، طَالِبَاتُنْ",
-   "uz": "Talaba qiz; jam: talaba qizlar."
-  },
-  {
-   "i": 9,
    "ar": "نَدَى",
    "uz": "Nada, ayol ismi."
   },
   {
-   "i": 10,
+   "i": 6,
    "ar": "هُدَى",
    "uz": "Huda, ayol ismi."
+  },
+  {
+   "i": 7,
+   "ar": "طَبِيبُنْ، أَطِبَّاءُ",
+   "uz": "Vrach, shifokor; jam: vrachlar, shifokorlar."
+  },
+  {
+   "i": 8,
+   "ar": "طَبِيبَتُنْ، طَبِيبَاتُنْ",
+   "uz": "Vrach ayol; jam: vrach ayollar."
+  },
+  {
+   "i": 9,
+   "ar": "طَالِبُنْ، طَالِبُونَ، طُلَّابُنْ",
+   "uz": "Oʻquvchi; tolib, talaba yigit; jam: oʻquvchilar, talabalar."
+  },
+  {
+   "i": 10,
+   "ar": "طَالِبَتُنْ، طَالِبَاتُنْ",
+   "uz": "Oʻquvchi qiz; toliba, talaba qiz; jam: oʻquvchi qizlar, talaba qizlar."
+  },
+  {
+   "i": 11,
+   "ar": "وَحْدَتُنْ، وَحَدَاتُنْ",
+   "uz": "Bob, boʻlim; jam: boblar, boʻlimlar."
+  },
+  {
+   "i": 12,
+   "ar": "وَ",
+   "uz": "Va."
+  },
+  {
+   "i": 13,
+   "ar": "تَحِيَّتُنْ، تَحِيَّاتُنْ",
+   "uz": "Salomlashish; jam: salomlashishlar."
+  },
+  {
+   "i": 14,
+   "ar": "تَعَارُفُنْ",
+   "uz": "Tanishish."
+  },
+  {
+   "i": 15,
+   "ar": "خَوَارِزْمُ",
+   "uz": "Xorazm."
+  },
+  {
+   "i": 16,
+   "ar": "خَوَارِزْمِيُّنْ، خَوَارِزْمِيُّونَ",
+   "uz": "Xorazmlik, xorazmcha; jam: xorazmliklar."
+  },
+  {
+   "i": 17,
+   "ar": "خَوَارِزْمِيَّتُنْ، خَوَارِزْمِيَّاتُنْ",
+   "uz": "Xorazmlik qiz, xorazmcha; jam: xorazmlik qizlar."
+  },
+  {
+   "i": 18,
+   "ar": "سَمَرْقَنْدُ",
+   "uz": "Samarqand."
+  },
+  {
+   "i": 19,
+   "ar": "سَمَرْقَنْدِيُّنْ، سَمَرْقَنْدِيُّونَ",
+   "uz": "Samarqandlik, samarqandcha; jam: samarqandliklar."
+  },
+  {
+   "i": 20,
+   "ar": "سَمَرْقَنْدِيَّتُنْ، سَمَرْقَنْدِيَّاتُنْ",
+   "uz": "Samarqandlik qiz, samarqandcha; jam: samarqandlik qizlar."
   }
  ]
 }

@@ -17,7 +17,7 @@ TGT = -18.0
 TRIM = ('silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.03,areverse,'
         'silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.05,areverse')
 ARF = TRIM + ',atempo=0.88'
-UZF = TRIM + ',atempo=0.92,highpass=f=90,equalizer=f=3200:t=q:w=1.2:g=2,acompressor=threshold=-20dB:ratio=2.5:attack=5:release=90'
+UZF = TRIM.replace('start_silence=0.05,areverse', 'start_silence=0.25,areverse') + ',atempo=0.95'  # 31.10: Davronbek; oxiridagi jimlikni yumshoq kesish (so'z oxiridagi undosh qirqilmasin)
 def prep(src, flt, dst):
     run(['ffmpeg', '-v', 'error', '-y', '-i', src, '-af', flt, '-ar', str(SR), '-ac', '1', dst + '.p.wav'])
     return cut(dst + '.p.wav', dst, gain=TGT - lufs(dst + '.p.wav'))

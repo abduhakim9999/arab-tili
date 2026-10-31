@@ -3,7 +3,7 @@
  "gaplar_uz": {
   "1": "Sizga omonlik boʻlsin!",
   "2": "Sizga ham omonlik boʻlsin!",
-  "3": "Bu mening opam, yoki singlim. U shifokor.",
+  "3": "Bu mening opam, yoki singlim. U vrach.",
   "4": "Tanishganimdan xursandman.",
   "5": "Bu mening dugonam. U talaba, toliba.",
   "6": "Tanishganimdan xursandman.",
@@ -39,12 +39,12 @@
   {
    "i": 5,
    "ar": "طَبِيبُنْ، أَطِبَّاءُ",
-   "uz": "Shifokor; jam: shifokorlar."
+   "uz": "Vrach, shifokor; jam: vrachlar, shifokorlar."
   },
   {
    "i": 6,
    "ar": "طَبِيبَتُنْ، طَبِيبَاتُنْ",
-   "uz": "Shifokor ayol; jam: shifokor ayollar."
+   "uz": "Vrach ayol; jam: vrach ayollar."
   },
   {
    "i": 7,

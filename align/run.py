@@ -16,7 +16,7 @@ for mp3 in sorted(glob.glob('align/in/*.mp3')):
     if not os.path.exists(wo) and not os.path.exists(txt):
         from faster_whisper import WhisperModel
         m = WhisperModel('large-v3', device='cpu', compute_type='int8')
-        segs, info = m.transcribe(mp3, language='ar', word_timestamps=True, beam_size=5, vad_filter=False)
+        segs, info = m.transcribe(mp3, language=('uz' if name.endswith('.uz') else 'ar'), word_timestamps=True, beam_size=5, vad_filter=False)
         words = [{'text': w.word.strip(), 'start': round(w.start, 3), 'end': round(w.end, 3)} for s in segs for w in s.words]
         json.dump(words, open(wo, 'w'), ensure_ascii=False, indent=0)
     ao = 'align/out/%s.align.json' % name

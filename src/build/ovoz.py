@@ -84,7 +84,7 @@ def voc_ar(s):
         if not p or p.startswith('..') or '..' in p:
             continue
         ws.append(' '.join(ar_vaqfsiz(x) for x in p.split()))
-    return '، '.join(ws)
+    return '، '.join(ws) or ('وَ' if s.strip().startswith('وَ') else s.strip())
 
 
 def voc_uz(entry):

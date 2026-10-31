@@ -38,7 +38,8 @@ Yozuv eslatmasi: kitobda tanvin fath alifdan oldingi harf ustida yozilgan (ضَ�
 - Arabcha matn to'liq harakat bilan; harakat avvalo **ovozga** (dars audiosi) qarab, keyin kitob/dars sahifasi rasmidan tekshiriladi (PDF matni buzilgan bo'ladi).
 - Sahifa interfeysi kirillda, suhbat o'zbekcha lotinda.
 - Chatda qator yoki band hech qachon arabcha so'z bilan boshlanmaydi; arabcha va o'zbekcha bitta jumlada aralashmaydi — arabcha qator oxirida, alohida.
-- Lug'at faqat foydalanuvchi lug'at faylini tashlaganda qo'shiladi; lug'at fayldagidek, o'zgartirilmaydi. Lug'atdagi fe'l ma'nosi o'sha fe'l shaklida yoziladi (moziy — «ёзди», masdar — «ёзиш»).
+- Lug'at kitob lug'atidan (foydalanuvchi tashlagan PDF) olinadi — tartib raqami va ma'nolari kitobdagidek; faqat kitobdagi «..ُونَ / ..َاتٌ» qisqartmalari to'liq ko'plik bilan yoziladi (طَالِبَاتٌ), muzakkar/muannas jufti (мз)/(мн) bilan. Kitob lug'ati bo'lmasa — dars so'zlaridan tuziladi va bu foydalanuvchiga aytiladi (31.10.2026).
+- Dars hujjatida tarjima bo'lmasa — tarjima kitob lug'atidagi misol-tarjimalar asosida qilinadi va foydalanuvchiga aytiladi (31.10.2026). Lug'atdagi fe'l ma'nosi o'sha fe'l shaklida yoziladi (moziy — «ёзди», masdar — «ёзиш»).
 - Kitobda yo'q narsa ixtiro qilinmaydi; mashhur nahv/e'rob kitoblaridan olinadi (Ibn Hishom «Mug'niy», «Alfiya» va h.k.). Ixtilofli masalada hujjatda yo'q bo'lsa — kuchli (mashhur) kitoblar bo'yicha (mas: كَانَ bilan boshlangan gap — феълийя; oldinga o'tgan nakira sifati — hol).
 - Kitobdagi gap katta e'rob kitoblariga umuman mos kelmasa — katta kitoblardagi olinadi va foydalanuvchiga aytiladi.
 - Hujjatdagi harf adashishi — opechatka, to'g'risi yoziladi.
@@ -357,6 +358,11 @@ Fe'lga qo'shiladigan harflar (fe'l qatori ichida aytiladi):
 - Jumla sifat: «… жумласи … нинг сифати бўлиб, жар (раф/насб) ўринда» (94).
 - إِذَنْ amal qilmaganda (fe'ldan oldin emas yoki orada سَ): «жавоб ва жазо ҳарфи, сукунга мабний», nasb qilmaydi (94).
 - Tilga olingan harflar (ق، ظ، ح): badal, hikoya qilinadi (mahkiy) (94).
+- مَا شَاءَ اللَّهُ — مَا «исм мавсул бўлиб хабар, сукунга мабний, раф ўринда», мубтадоси маҳзуф: (هَذَا) مَا شَاءَ اللَّهُ; شَاءَ اللَّهُ — силатул мавсул, эъробдан ўрни йўқ (оид замири маҳзуф: شَاءَهُ). ⚖️ Бошқа фикр: مَا шартия, жавоби маҳзуф: (كَانَ) (7).
+- مَنْ هَذَا؟ — مَنْ «исм истифҳом бўлиб мубтадо», هَذَا «исм ишора бўлиб хабар» (китобдаги مَا هَذَا؟ қолипи, 30). ⚖️ Бошқа фикр: هَذَا мубтадо, مَنْ муқаддам хабар (7). وَمَنْ هَذِهِ؟ даги وَ — истеъноф ҳарфи (7).
+- Исмдан кейин келган атоқли от (وَالِدِي عَدْنَانُ، أَخِي عِيسَى) — бадал (91-дарс қолипи); ⚖️ атф баён деган фикр ҳам бор (7).
+- Ғайри мунсариф атоқли отлар (عَدْنَانُ، سَعِيدَةُ، عَبْلَةُ — танвинсиз; عِيسَى — алиф мақсура, «аломати тақдирий замма … таъаззур») (7).
+- وَهَذَا جَدِّي وَهَذِهِ جَدَّتِي — وَ «атф ҳарфи («… эса»)» (7).
 - 43-dars (papkada yo'q).
 
 ---
@@ -387,3 +393,4 @@ Fe'lga qo'shiladigan harflar (fe'l qatori ichida aytiladi):
 - 2026-10-15: «💡 Эслатма» bo'limi olib tashlandi: so'zga oid izohlar Таркиб ichiga (kulrang ↳), umumiylari 📖 ga; Таркиб va arabcha e'rob tenglashtirildi.
 - 2026-10-15: Ilova ko'rinishi va texnik qarorlar → repodagi `docs/texnik.md`.
 - 2026-10-30: 5 va 94-darslar; 7-bo'limga hal qilingan yangi mavzular (noibi zarf, jumla sifat, muhmal إِذَنْ, shart إِنْ, mahkiy harflar, أَنَّ/لَكِنَّ); 8-bo'lim — xotiradagi izoh uslubi qoidalari shu yerga ko'chirildi.
+- 2026-10-31: 6–7-darslar; lug'at kitobdan (qisqartmasiz ko'plik), tarjima yo'q bo'lsa kitob misollaridan; 7-bo'limga مَا شَاءَ اللَّهُ، مَنْ هَذَا، atoqli ot badal, g'ayri munsarif ismlar.

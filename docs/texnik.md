@@ -110,3 +110,9 @@
 - Луғат овози ҳар сўз АЛОҲИДА: `listen/uNN/v/aXX.mp3` (арабча), `uXX.mp3` (ўзбекча) → `python3 src/build/lugat_yolak.py NN` → `listen/vNN.mp3/json` (бир хил тартиб, тезлик, овоз ишлови).
 - Текшириш (бепул): `python3 src/build/ovoz.py tekshir NN` → `align/in/kNN.uz.mp3` push → Whisper (ўзбекча) → `python3 src/build/ovoz.py natija NN` — мос келмаган бўлакларни кўрсатади; тузатилмагунча синовга қўйилмайди.
 - `lock.sh on/off` фақат WORKING.txt ни commit қилади (бошқа staged файллар тушиб кетмасин).
+
+### Ўзбекча овоз алмашди — 31.10.2026, фойдаланувчи қарори (Bekzod ўрнига)
+- **Асосий ўзбекча овоз: Davronbek – Journalist** `agoC45V78njTIxYzwmSb` (`eleven_v4`). Иккинчи овоз керак бўлса — **SARHAD** `rwtcHtZgYU6HN2zLNBlf`.
+- Bekzod ишлатилмайди: «o» ни «oʻ» («oʻppa»), «ch» ни «h» («vrah») қилиб ўқийди — бу овознинг ўзида (ишловсиз хом ёзувда ҳам), ёзув ёки ишловда эмас. SARHAD ва Davronbek тўғри ўқийди.
+- Davronbek'га EQ ишлови берилмайди: фақат жимлик кесиш (охири юмшоқ, 0.25 s) + atempo 0.95 + баландлик (`lugat_yolak.py`).
+- Юқоридаги Bekzod ҳақидаги қаторлар эскирган.

@@ -4,7 +4,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 D71 = os.path.join(HERE, '..', 'd71')
 exec(open(os.path.join(D71, 'data71.py'), encoding='utf-8').read())
 exec(open(os.path.join(HERE, 'data06.py'), encoding='utf-8').read())
-VOC = []
+exec(open(os.path.join(HERE, 'voc06.py'), encoding='utf-8').read())
 
 
 SRC = '/mnt/user-data/outputs/lesson71/index.html'

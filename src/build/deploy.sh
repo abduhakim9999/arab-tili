@@ -23,6 +23,7 @@ for TRY in 1 2 3; do
   git stash pop -q || { echo "TO'XTA: stash qo'yishda to'qnashuv"; exit 3; }
   git sparse-checkout add docs align src/build >/dev/null 2>&1 || true
   sh src/build/bump.sh
+  git rm -q --ignore-unmatch sinov-*.html >/dev/null 2>&1 || true  # sinov sahifalari asosiy joylashda o'chadi
   git add --sparse -A ${@:-.}
   git add --sparse sw.js index.html src/build/scratchpad/site/build.py src/build/scratchpad/site/index.tpl.html
   git commit -q -m "$MSG" -m "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>" || true

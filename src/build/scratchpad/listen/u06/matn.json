@@ -1,0 +1,70 @@
+{
+ "raqam_uz": "Oltinchi dars.",
+ "gaplar_uz": {
+  "1": "Sizga omonlik boʻlsin!",
+  "2": "Sizga ham omonlik boʻlsin!",
+  "3": "Bu mening opam, yoki singlim. U shifokor.",
+  "4": "Tanishganimdan xursandman.",
+  "5": "Bu mening dugonam. U talaba, toliba.",
+  "6": "Tanishganimdan xursandman.",
+  "7": "Omon boʻling!",
+  "8": "Omon boʻling!"
+ },
+ "lugat": [
+  {
+   "i": 0,
+   "ar": "سِتُّنْ، سِتَّتُنْ",
+   "uz": "Olti, oltita."
+  },
+  {
+   "i": 1,
+   "ar": "سَادِسُنْ، سَادِسَتُنْ",
+   "uz": "Oltinchi."
+  },
+  {
+   "i": 2,
+   "ar": "هَذِهِ",
+   "uz": "Bu, muannas uchun."
+  },
+  {
+   "i": 3,
+   "ar": "هِيَ",
+   "uz": "U, muannas uchun."
+  },
+  {
+   "i": 4,
+   "ar": "أُخْتُنْ، أَخَوَاتُنْ",
+   "uz": "Opa, singil; jam: opalar, singillar."
+  },
+  {
+   "i": 5,
+   "ar": "طَبِيبُنْ، أَطِبَّاءُ",
+   "uz": "Shifokor; jam: shifokorlar."
+  },
+  {
+   "i": 6,
+   "ar": "طَبِيبَتُنْ، طَبِيبَاتُنْ",
+   "uz": "Shifokor ayol; jam: shifokor ayollar."
+  },
+  {
+   "i": 7,
+   "ar": "طَالِبُنْ، طُلَّابُنْ",
+   "uz": "Talaba; jam: talabalar."
+  },
+  {
+   "i": 8,
+   "ar": "طَالِبَتُنْ، طَالِبَاتُنْ",
+   "uz": "Talaba qiz; jam: talaba qizlar."
+  },
+  {
+   "i": 9,
+   "ar": "نَدَى",
+   "uz": "Nada, ayol ismi."
+  },
+  {
+   "i": 10,
+   "ar": "هُدَى",
+   "uz": "Huda, ayol ismi."
+  }
+ ]
+}

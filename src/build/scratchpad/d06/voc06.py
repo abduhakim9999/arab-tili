@@ -18,3 +18,5 @@ VOC = [
  ["104", "نَدَى", ["Нада (аёл исми)"], []],
  ["105", "هُدَى", ["Ҳуда (аёл исми)"], []],
 ]
+# Ovoz uchun alohida o'zbekcha matn (ovoz.py avtomatik chiqarganidan boshqacha bo'lsa)
+OVOZ = {6: 'Shifokor ayol; jam: shifokor ayollar.', 8: 'Talaba qiz; jam: talaba qizlar.'}

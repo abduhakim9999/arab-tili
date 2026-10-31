@@ -16,13 +16,17 @@ UT = ['Olti; oltita.', 'Oltinchi.', 'Bu, muannas uchun.', 'U, muannas uchun.', '
       'Talaba qiz; jami: talaba qizlar.', 'Nada, ayol ismi.', 'Huda, ayol ismi.']
 assert len(UT) == len(VOC) == 11
 UP = dp_parts(U + '/uB.mp3', UT)
+# 31.10: «jami» o'rniga «jam» (4–8-so'zlar qayta yozilgan: uJ2.mp3)
+JP = [4, 5, 6, 7, 8]
+JT = ['Opa, singil; jam: opalar, singillar.', 'Vrach, shifokor; jam: vrachlar.', 'Vrach ayol; jam: vrach ayollar.', 'Talaba; jam: talabalar.', 'Talaba qiz; jam: talaba qizlar.']
+JU = dp_parts(U + '/uJ2.mp3', JT)
 s1, s3 = sil(T + '/s1.wav', 0.6), sil(T + '/s3.wav', 1.4)
 items = [(T + '/hh.wav', 'h', 0), (s1, None, 0)]
 for i in range(len(VOC)):
     p = T + '/ap%02d.wav' % i
     run(['ffmpeg', '-v', 'error', '-y', '-i', U + '/a%02d.mp3' % i, '-af', ARF, '-ar', str(SR), '-ac', '1', p])
     ar = cut(p, T + '/v%02d.wav' % i, gain=TGT - lufs(p))
-    a, b = UP[i]; raw = cut(U + '/uB.mp3', T + '/mr%02d.wav' % i, max(0, a - 0.05), b + 0.08)
+    src, (a, b) = (U + '/uJ2.mp3', JU[JP.index(i)]) if i in JP else (U + '/uB.mp3', UP[i]); raw = cut(src, T + '/mr%02d.wav' % i, max(0, a - 0.05), b + 0.08)
     run(['ffmpeg', '-v', 'error', '-y', '-i', raw, '-af', UZF, '-ar', str(SR), '-ac', '1', T + '/mp%02d.wav' % i])
     u = cut(T + '/mp%02d.wav' % i, T + '/m%02d.wav' % i, gain=TGT - lufs(T + '/mp%02d.wav' % i))
     items += [(ar, 'ar', i), (s1, None, 0), (u, 'uz', i), (s1, None, 0), (ar, 'ar2', i), (s3, None, 0)]

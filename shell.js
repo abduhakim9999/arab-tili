@@ -466,8 +466,8 @@
   hp.insertAdjacentHTML('afterbegin', h);
 })();
 
-/* --- Таркиб (ранглар) ҳар доим ёқиқ очилади; керак бўлса тугма билан ўчирилади (ўчириш фақат шу сафарга) --- */
+/* --- Таркиб ва Ҳаракат ҳар доим ЁПИҚ очилади (31.10.2026, фойдаланувчи қарори); керак бўлса тугма билан ёқилади --- */
 (function () {
-  if (typeof window.bol != 'function' || !document.getElementById('bl')) return;
-  if (!window.bolak) window.bol();
+  if (typeof window.bol == 'function' && document.getElementById('bl') && window.bolak) window.bol();
+  if (typeof window.tog == 'function' && document.getElementById('tg') && window.show) window.tog();
 })();

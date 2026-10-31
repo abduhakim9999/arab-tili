@@ -25,6 +25,8 @@ for i in range(len(VOC)):
     a, b = UP[i]; raw = cut(U + '/uV.mp3', T + '/mr%02d.wav' % i, max(0, a - 0.05), b + 0.08)
     run(['ffmpeg', '-v', 'error', '-y', '-i', raw, '-af', UZF, '-ar', str(SR), '-ac', '1', T + '/mp%02d.wav' % i])
     u = cut(T + '/mp%02d.wav' % i, T + '/m%02d.wav' % i, gain=TGT - lufs(T + '/mp%02d.wav' % i))
+    if i in (7, 8):  # 31.10: ma'no faqat «Talaba» — 7-bo'lakning birinchi so'zi
+        u = cut(T + '/mr07.wav', T + '/tl.wav', 0, 0.53); run(['ffmpeg', '-v', 'error', '-y', '-i', u, '-af', UZF, '-ar', str(SR), '-ac', '1', T + '/tlp.wav']); u = cut(T + '/tlp.wav', T + '/m%02d.wav' % i, gain=TGT - lufs(T + '/tlp.wav'))
     items += [(ar, 'ar', i), (s1, None, 0), (u, 'uz', i), (s1, None, 0), (ar, 'ar2', i), (s3, None, 0)]
 parts, M, t = [], [], 0.0
 for f, kind, idx in items:

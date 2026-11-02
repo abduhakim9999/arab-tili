@@ -47,7 +47,7 @@ body{margin:0;color:var(--tx);font:17px/1.55 system-ui,-apple-system,"Segoe UI",
 .fw.now{background:var(--plw);box-shadow:0 0 0 3px var(--plw)}.fw.sel{outline:2px solid var(--ac);outline-offset:1px}
 .fpw{display:block;margin:6px auto 4px;border:0;border-radius:999px;background:var(--ac);color:var(--cd);font:inherit;font-size:15px;font-weight:700;padding:10px 18px;cursor:pointer}
 .fqk .c-cm,.fsb .c-cm,.flgx .c-cm{color:var(--cm)}.fqk .c-cx,.fsb .c-cx,.flgx .c-cx{color:var(--cx)}.fqk .c-cf,.fsb .c-cf,.flgx .c-cf{color:var(--cf)}
-.fqk .c-cb,.fsb .c-cb,.flgx .c-cb{color:var(--cb)}.fqk .c-cj,.fsb .c-cj,.flgx .c-cj{color:var(--cj)}.fqk .c-ch,.fsb .c-ch,.flgx .c-ch{color:var(--ch)}
+.fqk .c-cb,.fsb .c-cb,.flgx .c-cb{color:var(--cb)}.fqk .fz,.flgx .c-cz{color:var(--cz)}.fqk .c-cj,.fsb .c-cj,.flgx .c-cj{color:var(--cj)}.fqk .c-ch,.fsb .c-ch,.flgx .c-ch{color:var(--ch)}
 .hd .fw{color:var(--ac)}.fqk .hd .fw:not([class*="c-"]){color:var(--tx)}
 .fbx{display:none;margin-top:8px;background:var(--bg);border:1px solid var(--bd);border-radius:12px;padding:8px 12px;font-size:14.5px;line-height:1.55;color:var(--tx);text-align:left}
 .fqk .fbx{display:block}
@@ -66,6 +66,20 @@ body{margin:0;color:var(--tx);font:17px/1.55 system-ui,-apple-system,"Segoe UI",
 .ftb{position:sticky;top:0;z-index:15;display:flex;gap:4px;margin:0 -16px 12px;padding:8px 16px;background:var(--bg);border-bottom:1px solid var(--bd)}
 .ftb button{flex:1;border:1px solid var(--bd);background:var(--cd);color:var(--tx);border-radius:999px;padding:8px 6px;font:inherit;font-size:14.5px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .ftb button.on{background:var(--ac);border-color:var(--ac);color:var(--cd)}
+:root{--cz:#7c3aed}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--cz:#c4b5fd}}:root[data-theme="dark"]{--cz:#c4b5fd}
+.fwi{display:inline}
+.fqk .hd .fw.c-cm{color:var(--cm)}
+.fqk .sg>.ar,.fqk .hd>.ar{line-height:2.9}
+.fqk .fw[data-t]{display:inline-flex;flex-direction:column;align-items:center;vertical-align:bottom;line-height:1.5}
+.fqk .fw[data-t]::before{content:attr(data-t);font:600 10.5px/1.1 system-ui,-apple-system,sans-serif;color:var(--mu);white-space:nowrap;direction:ltr;margin-bottom:-2px}
+.fqk .fat{text-decoration:none}
+.fiz{border-radius:0 0 12px 12px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.fqk .fiz{border-bottom:2px solid;padding-bottom:3px}
+.fqk .b-cm{border-color:var(--cm)}.fqk .b-cx{border-color:var(--cx)}.fqk .b-cj{border-color:var(--cj)}.fqk .b-ch{border-color:var(--ch)}.fqk .b-mu{border-color:var(--mu)}
+.fhid{display:none;border:1.5px dashed var(--cz);border-radius:8px;padding:0 6px;font-size:.75em;color:var(--cz)}
+.fqk .fhid{display:inline-block;line-height:1.5;vertical-align:bottom}
+.fz.now,.fhid.now{background:var(--plw);border-radius:4px}
+.fk-r{color:var(--cz)}
 .fxl{margin-top:4px;background:var(--cd);border:1px solid var(--bd);border-radius:18px;padding:12px 14px 10px;box-shadow:var(--sh)}
 .fxh{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);margin-bottom:6px}
 .fxh b{display:block;font-size:17px;letter-spacing:0;text-transform:none;color:var(--tx);margin-top:2px}
@@ -205,26 +219,41 @@ var TL=[[4.9,["0-0","0-1"]],[9.7,["0-0"]],[14.2,["0-1"]],[19.4,["0-0"]],[20.8,["
  [96.9,["2-4","2-5"]],[101.4,["2-4","2-5"],["2-2"],"m"],[108.1,["2-6","2-7"]],[113.1,["2-6","2-7"],["2-2"],"m"],
  [116.2,["2-8"]],[121.1,["2-8"],["2-7"],"a"],[131.1,["2-8","2-9"]],[137.9,["2-8"],["2-7"],"a"],[142.1,["2-9"]],
  [147.9,["3-0"]],[153.1,["3-0"],["2-3"],"a"],[155.8,["3-0"]],[169.4,["3-0"],["2-3"],"a"],[172.8,["3-0"]],
- [200.9,["3-1"]],[205.6,["3-1"],["3-0"],"a"],[208.9,["3-1"]],
- [227.6,["3-2"]],[231.3,["3-3"]],[235.2,["3-3"],["3-2"],"z"],[238.9,["3-3"]],[251.1,["3-2","3-3"]],[258.4,["3-2","3-3"],["2-2"],"m"],
+ [186.0,["3-0:z"],["X"],"r"],[200.9,["3-1"]],[205.6,["3-1"],["3-0"],"a"],[208.9,["3-1"]],
+ [213.0,["3-1:z"],["X"],"r"],[227.6,["3-2"]],[231.3,["3-3"]],[235.2,["3-3"],["3-2"],"z"],[238.9,["3-3"]],[240.4,["3-3:z"],["X"],"r"],[251.1,["3-2","3-3"]],[258.4,["3-2","3-3"],["2-2"],"m"],
  [263.2,["3-4"]],[267.1,["3-4"],["3-3"],"a"],[274.0,["3-4"]],
- [290.0,["4-0"]],[294.1,["4-0"],["2-2"],"a"],[296.7,["4-0"]],[301.0,["4-0"],["2-2"],"a"],[311.0,["4-0"]],[315.6,["4-0"],["2-2"],"a"],[318.7,["4-1"]],[324.1,["4-2"]],
- [347.2,["2-2","3-0","3-1","3-2","3-3","3-4"]],[359.3,["4-0","4-1","4-2"]],
+ [278.6,["3-4:z"],["X"],"r"],[290.0,["4-0"]],[294.1,["4-0"],["2-2"],"a"],[296.7,["4-0"]],[301.0,["4-0"],["2-2"],"a"],[311.0,["4-0"]],[315.6,["4-0"],["2-2"],"a"],[318.7,["4-1"]],[324.1,["4-2"]],
+ [330.9,["4-2:z"],["X"],"r"],[342.5,["4-2"]],[347.2,["2-2","3-0","3-1","3-2","3-3","3-4"]],[359.3,["4-0","4-1","4-2"]],
  [364.0,["4-3","4-4","4-5","4-6","4-7","4-8"]],[368.9,["4-3"]],[376.2,["4-3"],["4-1"],"a"],[379.1,["4-0","4-3"]],[386.0,["4-3"]],
- [390.3,["4-4"]],[400.2,["4-5","4-6","4-7","4-8"]],[410.5,["4-4","4-5","4-6"],["4-3"],"z"],[414.4,["4-5"]],[424.7,["4-6"]],
- [444.1,["4-7","4-8"]],[446.4,["4-7","4-8"],["4-4"],"b"],[455.9,["4-7","4-8"]],[462.4,["4-5"]],[466.1,["4-6"]],[470.7,["4-7"]],[472.9,["4-8"]],
- [492.5,["4-7","4-8"]],[507.3,["4-7","4-8"],["4-4"],"b"],[513.0,["4-7","4-8"]]];
-var RK={m:"га мутааллиқ",a:"га маътуф",z:"га музофун илайҳ",b:"ни баён қилади",x:"— хабари"};
-var REL={};TL.forEach(function(r){if(r[2])r[1].forEach(function(k){if(!REL[k])REL[k]=[r[2],r[3]]})});
+ [390.3,["4-4"]],[400.2,["4-5","4-6","4-7","4-8"]],[410.5,["4-4","4-5","4-6"],["4-3"],"z"],[414.4,["4-5"]],[420.0,["4-5h"],["4-4"],"r2"],[424.7,["4-6"]],
+ [444.1,["4-7","4-8"]],[446.4,["4-7","4-8"],["4-4"],"b"],[455.9,["4-7","4-8"]],[462.4,["4-5"]],[464.2,["4-5h"],["4-4"],"r2"],[466.1,["4-6"]],[470.7,["4-7"]],[472.9,["4-8"]],
+ [477.3,["4-8:z"],["X"],"r"],[489.0,["4-8"]],[492.5,["4-7","4-8"]],[507.3,["4-7","4-8"],["4-4"],"b"],[513.0,["4-7","4-8"]]];
+var RK={r:"",r2:"га қайтади",m:"га мутааллиқ",a:"га маътуф",z:"га музофун илайҳ",b:"ни баён қилади",x:"— хабари"};
+var REL={};TL.forEach(function(r){if(r[2]&&r[2][0]!="X")r[1].forEach(function(k){if(k.indexOf(":")<0&&k.slice(-1)!="h"&&!REL[k])REL[k]=[r[2],r[3]]})});
 var AO=["farz","tah","wudu","gasl","mash","mirfaq","kab","zaqan","lihya","bashara"];
-var LG=[["cm","Мубтадо"],["cx","Хабар"],["cf","Феъл"],["cb","Мафъулун биҳ"],["cj","Жар-мажрур"],["ch","Зарф"]];
+/* So'z bo'laklari: [old qo'shimcha, o'zak, zamir, tinish belgisi] */
+var PT={"2-8":["وَ","أَسْفَلِ","",""],"3-0":["وَ","يَدَيْ","هِ",""],"3-1":["وَ","رِجْلَيْ","هِ",""],"3-3":["","مِرْفَقَيْ","هِ",""],"3-4":["وَ","كَعْبَيْ","هِ","،"],
+ "4-0":["وَ","مَسْحُ","",""],"4-2":["","رَأْسِ","هِ","،"],"4-3":["وَ","كُلِّ","",""],"4-8":["","لِحْيَتِ","هِ","."]};
+/* So'z ustidagi vazifalar */
+var TG={"0-0":"мубтадо·музоф","0-1":"илайҳ","1-0":"мубтадо·музоф","1-1":"илайҳ",
+ "2-0":"мубтадо·музоф","2-1":"илайҳ","2-2":"хабар·музоф","2-3":"илайҳ","2-5":"мажрур","2-7":"мажрур","2-8":"маътуф·музоф","2-9":"илайҳ",
+ "3-0":"маътуф·музоф","3-1":"маътуф·музоф","3-2":"зарф·музоф","3-3":"илайҳ·музоф","3-4":"маътуф·музоф",
+ "4-0":"маътуф·музоф","4-1":"илайҳ·музоф","4-2":"илайҳ·музоф","4-3":"маътуф·музоф","4-4":"мавсул·илайҳ","4-5":"феъл","4-6":"мафъул","4-8":"мажрур·музоф"};
+/* Izofa yoylari: [segment, birinchi so'z, oxirgi so'z, rang] */
+var IZ=[[0,0,1,"cm"],[1,0,1,"cm"],[2,0,1,"cm"],[2,2,3,"cx"],[2,8,9,"cj"],[3,2,3,"ch"],[4,0,2,"cx"],[4,3,4,"mu"]];
+var LG=[["cm","Мубтадо"],["cx","Хабар"],["cf","Феъл"],["cb","Мафъулун биҳ"],["cj","Жар-мажрур"],["ch","Зарф"],["cz","Замир"]];
 (function(){
   var tx=document.getElementById("tx"),bh=document.getElementById("bh"),bt=document.getElementById("bt"),bk=document.getElementById("bk"),
       sh=document.getElementById("fsh"),sb=document.getElementById("fsb");
   var H=false,T=false,K=false;try{T=localStorage.getItem("fiqh-tr")==="1"}catch(e){}
   var DH=/[ً-ْٰ]/g;
   function esc(s){return s.replace(/«([^»]*)»/g,function(m,a){return /[؀-ۿ]/.test(a)?'«<b class="ar">'+a+'</b>»':m})}
-  function wd(x,si,wi){return '<span class="fw'+(x[1]?' c-'+x[1]:'')+(AT[si+'-'+wi]?' fat':'')+'" data-s="'+si+'" data-w="'+wi+'">'+x[0]+'</span>'}
+  function wd(x,si,wi){var k=si+'-'+wi,P=PT[k],c=x[1]?' c-'+x[1]:'',in_=P?(P[0]?'<span class="fpre">'+P[0]+'</span>':'')+'<span class="fst'+c+'">'+P[1]+'</span>'+(P[2]?'<span class="fz">'+P[2]+'</span>':'')+P[3]:x[0];
+    var w='<span class="fw'+(P?'':c)+(AT[k]?' fat':'')+'" data-s="'+si+'" data-w="'+wi+'"'+(TG[k]?' data-t="'+TG[k]+'"':'')+'><span class="fwi">'+in_+'</span></span>';
+    if(k=="4-5")w+=' <span class="fhid">هُوَ</span>';return w}
+  function line(s,si){var o=[],i=0;while(i<s.w.length){var z=null;IZ.forEach(function(r){if(r[0]==si&&r[1]==i)z=r});
+      if(z){var g=[];for(var j=z[1];j<=z[2];j++)g.push(wd(s.w[j],si,j));o.push('<span class="fiz b-'+z[3]+'">'+g.join(' ')+'</span>');i=z[2]+1}else{o.push(wd(s.w[i],si,i));i++}}
+    return o.join(' ')}
   function kr(c){var L={m:"мутааллиқ",a:"атф",b:"баён",s:"сила"}[c[0]];return '<div class="fkb"><span class="fck fk-'+c[0]+'">'+L+'</span><div class="fch ar">'+c[1].map(function(g,j){return '<span class="fcc'+(c[0]=="m"&&j>0?' fsj':'')+(j==0?' fc0':'')+'">'+g+'</span>'}).join('<i>←</i>')+'</div>'+(c[2]?'<div class="fkn">'+esc(c[2])+'</div>':'')+'</div>'}
   function mx(r){return '<div class="fmx"><span>'+r[0]+'</span>'+(/[\u0600-\u06FF]/.test(r[1])?'<b class="fcc ar">'+r[1]+'</b>':'<em>'+r[1]+'</em>')+'</div>'}
   function box(s){return '<div class="fbx"><div class="fgt">исмийя</div>'+(s.mx?'<div class="fmxw">'+s.mx.map(mx).join('')+'</div>':'')+(s.kr?s.kr.map(kr).join(''):'')+(s.mn?'<div class="fkm">'+esc(s.mn)+'</div>':'')+'</div>'}
@@ -232,7 +261,7 @@ var LG=[["cm","Мубтадо"],["cx","Хабар"],["cf","Феъл"],["cb","М�
   h+='<button class="flg" id="flg" type="button">🎨 Ранглар ▾</button><div class="flgx" id="flgx">'+LG.map(function(l){return '<span><i class="c-'+l[0]+'">■</i>'+l[1]+'</span>'}).join('')+'</div>';
   var m='';
   S.forEach(function(s,si){
-    var a='<span class="ar">'+s.w.map(function(x,wi){return wd(x,si,wi)}).join(' ')+'</span>';
+    var a='<span class="ar">'+line(s,si)+'</span>';
     if(s.h)h+='<div class="hd">'+a+'<small>'+s.uz[0]+'</small>'+box(s)+'</div>';
     else m+='<div class="sg">'+a+'<div class="uz">'+s.uz.map(function(u){return '<p>'+u+'</p>'}).join('')+'</div>'+box(s)+'</div>';
   });
@@ -246,9 +275,9 @@ var LG=[["cm","Мубтадо"],["cx","Хабар"],["cf","Феъл"],["cb","М�
     '<div id="pM">'+h+'<div class="mt">'+m+'</div></div><div id="pX" hidden>'+xl+'</div><div id="pA" hidden>'+al+'</div>';
   document.getElementById("ftb").onclick=function(ev){var b=ev.target.closest("button");if(!b)return;
     [].forEach.call(this.children,function(x){x.classList.toggle("on",x===b);document.getElementById(x.dataset.p).hidden=x!==b});scrollTo(0,0)};
-  var W=[].slice.call(tx.querySelectorAll(".fw,.fs")),O=W.map(function(e){return e.textContent});
+  var W=[];[].forEach.call(tx.querySelectorAll(".fw,.fs,.fhid"),function(e){var t=document.createTreeWalker(e,NodeFilter.SHOW_TEXT),n;while(n=t.nextNode())W.push(n)});var O=W.map(function(n){return n.nodeValue});
   function draw(){
-    W.forEach(function(e,i){e.textContent=H?O[i]:O[i].replace(DH,"")});
+    W.forEach(function(n,i){n.nodeValue=H?O[i]:O[i].replace(DH,"")});
     tx.classList.toggle("no-tr",!T);tx.classList.toggle("fqk",K);
     bh.classList.toggle("on",H);bt.classList.toggle("on",T);bk.classList.toggle("on",K);
   }
@@ -272,9 +301,12 @@ var LG=[["cm","Мубтадо"],["cx","Хабар"],["cf","Феъл"],["cb","М�
   sh.addEventListener("click",function(ev){if(ev.target===sh)close()});
   document.getElementById("fsx").onclick=close;
   var au=document.getElementById("au"),NW=[],li=-1,cap=document.getElementById("fcap"),LK=[];
-  function W1(k){var a=k.split("-");return tx.querySelector('.fw[data-s="'+a[0]+'"][data-w="'+a[1]+'"]')}
-  function T1(ks){return ks.map(function(k){var a=k.split("-");return S[a[0]].w[a[1]][0].replace(/[:،.]$/,"")}).join(" ")}
-  function capt(p,l,k){return '<span class="fck fk-'+k+'">'+(k=="m"?"мутааллиқ":k=="a"?"атф":k=="z"?"музоф":k=="b"?"баён":"хабар")+'</span> «<b class="ar">'+T1(p)+'</b>» '+(k=="x"?'— хабари: «<b class="ar">'+T1(l)+'</b>»':'→ «<b class="ar">'+T1(l)+'</b>» '+RK[k])}
+  function W1(k){var z=k.indexOf(":z")>0,h=k.slice(-1)=="h";k=k.replace(":z","").replace("h","");var a=k.split("-"),e=tx.querySelector('.fw[data-s="'+a[0]+'"][data-w="'+a[1]+'"]');
+    if(e&&z)return e.querySelector(".fz");if(e&&h)return tx.querySelector(".fhid");return e}
+  function T1(ks){return ks.map(function(k){if(k.indexOf(":z")>0)return "هِ";if(k.slice(-1)=="h")return "هُوَ";var a=k.split("-");return S[a[0]].w[a[1]][0].replace(/[:،.]$/,"")}).join(" ")}
+  function capt(p,l,k){if(k=="r")return '<span class="fck fk-r">замир</span> «<b class="ar">'+T1(p)+'</b>» — муттасил замир → таҳорат қилувчига қайтади (матнда зикр қилинмаган)';
+    if(k=="r2")return '<span class="fck fk-r">замир</span> [<b class="ar">هُوَ</b>] — яширин фоил → «<b class="ar">'+T1(l)+'</b>» га қайтади';
+    return '<span class="fck fk-'+k+'">'+(k=="m"?"мутааллиқ":k=="a"?"атф":k=="z"?"музоф":k=="b"?"баён":"хабар")+'</span> «<b class="ar">'+T1(p)+'</b>» '+(k=="x"?'— хабари: «<b class="ar">'+T1(l)+'</b>»':'→ «<b class="ar">'+T1(l)+'</b>» '+RK[k])}
   au.addEventListener("pause",function(){cap.classList.remove("on")});au.addEventListener("play",function(){li=-2;lit()});
   function seg(t){var i=-1;for(var j=0;j<TL.length;j++){if(TL[j][0]<=t+0.05)i=j;else break}return i}
   function lit(){
@@ -282,7 +314,7 @@ var LG=[["cm","Мубтадо"],["cx","Хабар"],["cf","Феъл"],["cb","М�
     NW.forEach(function(e){e.classList.remove("now","lnk")});NW=[];cap.classList.remove("on");
     if(i<0)return;
     TL[i][1].forEach(function(k){var e=W1(k);if(e){e.classList.add("now");NW.push(e)}});
-    if(TL[i][2]){TL[i][2].forEach(function(k){var e=W1(k);if(e){e.classList.add("lnk");NW.push(e)}});
+    if(TL[i][2]){TL[i][2].forEach(function(k){var e=k=="X"?null:W1(k);if(e){e.classList.add("lnk");NW.push(e)}});
       cap.innerHTML=capt(TL[i][1],TL[i][2],TL[i][3]);cap.classList.add("on")}
     if(!au.paused&&NW[0]&&!document.getElementById("pM").hidden){if(au.paused)cap.classList.remove('on');var r=NW[0].getBoundingClientRect(),pb=document.querySelector(".fpb").getBoundingClientRect().top;if(r.top<60||r.bottom>pb-10)NW[0].scrollIntoView({block:"center",behavior:"smooth"})}
   }

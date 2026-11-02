@@ -69,6 +69,7 @@ body{margin:0;color:var(--tx);font:17px/1.55 system-ui,-apple-system,"Segoe UI",
 .fsh.on{display:flex}
 .fsb{position:relative;width:100%;max-width:560px;background:var(--cd);border-radius:20px 20px 0 0;padding:18px 18px calc(24px + env(safe-area-inset-bottom));box-shadow:0 -6px 24px rgba(0,0,0,.18);max-height:70vh;overflow:auto}
 .fsx{position:absolute;top:10px;left:12px;width:36px;height:36px;border-radius:50%;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font-size:18px;cursor:pointer}
+.ftgs{text-align:center;font-size:13px;font-weight:700;color:var(--mu);margin:-4px 0 6px}
 .fhw{font-size:34px;text-align:center;line-height:1.6}
 .fsb p{margin:8px 0;font-size:16px;line-height:1.55}
 .ftb{position:sticky;top:0;z-index:15;display:flex;gap:4px;margin:0 -16px 12px;padding:8px 16px;background:var(--bg);border-bottom:1px solid var(--bd)}
@@ -77,13 +78,10 @@ body{margin:0;color:var(--tx);font:17px/1.55 system-ui,-apple-system,"Segoe UI",
 :root{--cz:#7c3aed}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--cz:#c4b5fd}}:root[data-theme="dark"]{--cz:#c4b5fd}
 .fwi{display:inline}
 .fqk .hd .fw.c-cm{color:var(--cm)}
-.fqk .sg>.ar,.fqk .hd>.ar{line-height:2.9;padding-bottom:16px}
-.fqk .sg .fw,.fqk .hd .fw{display:inline-flex;flex-direction:column;align-items:center;vertical-align:bottom;line-height:1.5}
-.fqk .sg .fw:not([data-t])::before,.fqk .hd .fw:not([data-t])::before{content:"\00a0";font:600 10.5px/1.1 system-ui,sans-serif;margin-bottom:-2px}
-.fqk .fw[data-t]::before{content:attr(data-t);font:600 10.5px/1.1 system-ui,-apple-system,sans-serif;color:var(--mu);white-space:nowrap;direction:ltr;margin-bottom:-2px}
+.fqk .sg>.ar,.fqk .hd>.ar{line-height:2.5;padding-bottom:12px}
 .fqk .fat{text-decoration:none}
 .fiz{border-radius:0 0 12px 12px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
-.fqk .fiz{border-bottom:2px solid;padding-bottom:14px;opacity:1}
+.fqk .fiz{border-bottom:2px solid;padding-bottom:8px}
 .fqk .b-cm{border-color:var(--cm)}.fqk .b-cx{border-color:var(--cx)}.fqk .b-cj{border-color:var(--cj)}.fqk .b-ch{border-color:var(--ch)}.fqk .b-mu{border-color:var(--mu)}
 .fhid{display:none;border:1.5px dashed var(--cz);border-radius:8px;padding:0 6px;font-size:.75em;color:var(--cz)}
 .fqk .fhid{display:inline-block;line-height:1.5;vertical-align:bottom}
@@ -258,7 +256,7 @@ var LG=[["cm","Мубтадо"],["cx","Хабар"],["cf","Феъл"],["cb","М�
   var DH=/[ً-ْٰ]/g;
   function esc(s){return s.replace(/«([^»]*)»/g,function(m,a){return /[؀-ۿ]/.test(a)?'«<b class="ar">'+a+'</b>»':m})}
   function wd(x,si,wi){var k=si+'-'+wi,P=PT[k],c=x[1]?' c-'+x[1]:'',in_=P?(P[0]?'<span class="fpre">'+P[0]+'</span>':'')+'<span class="fst'+c+'">'+P[1]+'</span>'+(P[2]?'<span class="fz">'+P[2]+'</span>':'')+P[3]:x[0];
-    var w='<span class="fw'+(P?'':c)+(AT[k]?' fat':'')+'" data-s="'+si+'" data-w="'+wi+'"'+(TG[k]?' data-t="'+TG[k]+'"':'')+'><span class="fwi">'+in_+'</span></span>';
+    var w='<span class="fw'+(P?'':c)+(AT[k]?' fat':'')+'" data-s="'+si+'" data-w="'+wi+'"'+'><span class="fwi">'+in_+'</span></span>';
     if(k=="4-5")w+=' <span class="fhid">هُوَ</span>';return w}
   function line(s,si){var o=[],i=0;while(i<s.w.length){var z=null;IZ.forEach(function(r){if(r[0]==si&&r[1]==i)z=r});
       if(z){var g=[];for(var j=z[1];j<=z[2];j++)g.push(wd(s.w[j],si,j));o.push('<span class="fiz b-'+z[3]+'">'+g.join(' ')+'</span>');i=z[2]+1}else{o.push(wd(s.w[i],si,i));i++}}
@@ -267,7 +265,7 @@ var LG=[["cm","Мубтадо"],["cx","Хабар"],["cf","Феъл"],["cb","М�
   function mx(r){return '<div class="fmx"><span>'+r[0]+'</span>'+(/[\u0600-\u06FF]/.test(r[1])?'<b class="fcc ar">'+r[1]+'</b>':'<em>'+r[1]+'</em>')+'</div>'}
   function box(s){return '<div class="fbx"><div class="fgt">исмийя</div>'+(s.mx?'<div class="fmxw">'+s.mx.map(mx).join('')+'</div>':'')+(s.kr?s.kr.map(kr).join(''):'')+(s.mn?'<div class="fkm">'+esc(s.mn)+'</div>':'')+'</div>'}
   var h='<div class="bs ar fs">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ</div>';
-  h+='<button class="flg" id="flg" type="button">🎨 Ранглар ▾</button><div class="flgx" id="flgx">'+LG.map(function(l){return '<span><i class="c-'+l[0]+'">■</i>'+l[1]+'</span>'}).join('')+'</div><div class="flgb"><div><u class="fl-iz">فَرْضُ الْوُضُوءِ</u> изофа — музоф ва музофун илайҳ (чизиқ музоф рангида)</div><div><span class="fl-tg">маътуф·музоф</span> сўз устида — унинг ҳамма вазифалари</div><div><b class="ar fl-z">يَدَيْ<i>هِ</i></b> бинафша — қўшилган замир</div><div><span class="fl-h ar">هُوَ</span> пунктир рамка — яширин замир</div><div><span class="fl-l">сўз</span> пунктир чизиқ — устоз айтаётган боғланиш (мутааллиқ, маътуф алайҳ)</div><div><span class="fl-sj ar">مِنَ الشَّعْرِ</span> Таркиб қутисида пунктир карта — шибҳи жумла</div></div>';
+  h+='<button class="flg" id="flg" type="button">🎨 Ранглар ▾</button><div class="flgx" id="flgx">'+LG.map(function(l){return '<span><i class="c-'+l[0]+'">■</i>'+l[1]+'</span>'}).join('')+'</div><div class="flgb"><div><u class="fl-iz">فَرْضُ الْوُضُوءِ</u> изофа — музоф ва музофун илайҳ (чизиқ музоф рангида)</div><div><b class="ar fl-z">يَدَيْ<i>هِ</i></b> бинафша — қўшилган замир</div><div><span class="fl-h ar">هُوَ</span> пунктир рамка — яширин замир</div><div><span class="fl-l">сўз</span> пунктир чизиқ — устоз айтаётган боғланиш (мутааллиқ, маътуф алайҳ)</div><div><span class="fl-sj ar">مِنَ الشَّعْرِ</span> Таркиб қутисида пунктир карта — шибҳи жумла</div></div>';
   var m='';
   S.forEach(function(s,si){
     var a='<span class="ar">'+line(s,si)+'</span>';
@@ -302,7 +300,7 @@ var LG=[["cm","Мубтадо"],["cx","Хабар"],["cf","Феъл"],["cb","М�
     LK.forEach(function(z){z.classList.remove("lnk2")});LK=[];var rk=REL[e.dataset.s+'-'+e.dataset.w];
     if(rk)rk[0].forEach(function(q){var z=W1(q);if(z){z.classList.add("lnk2");LK.push(z)}});
     var k=AT[e.dataset.s+'-'+e.dataset.w];
-    sb.innerHTML='<div class="ar fhw'+(x[1]?' c-'+x[1]:'')+'">'+x[0].replace(/[:،.]$/,"")+'</div>'+(rk?'<div class="frl">'+capt([e.dataset.s+'-'+e.dataset.w],rk[0],rk[1])+'</div>':'')+(first(e.dataset.s+'-'+e.dataset.w)>=0?'<button class="fpw" type="button" data-t="'+first(e.dataset.s+'-'+e.dataset.w)+'">▶ Устоз тушунтиришини эшитиш</button>':'')+'<p>'+esc(x[2])+'</p><p class="ar fai">'+x[3]+'</p>'+(k?atm(k):'');
+    sb.innerHTML='<div class="ar fhw'+(x[1]?' c-'+x[1]:'')+'">'+x[0].replace(/[:،.]$/,"")+'</div>'+(TG[e.dataset.s+'-'+e.dataset.w]?'<div class="ftgs">'+TG[e.dataset.s+'-'+e.dataset.w].split('·').join(' · ')+'</div>':'')+(rk?'<div class="frl">'+capt([e.dataset.s+'-'+e.dataset.w],rk[0],rk[1])+'</div>':'')+(first(e.dataset.s+'-'+e.dataset.w)>=0?'<button class="fpw" type="button" data-t="'+first(e.dataset.s+'-'+e.dataset.w)+'">▶ Устоз тушунтиришини эшитиш</button>':'')+'<p>'+esc(x[2])+'</p><p class="ar fai">'+x[3]+'</p>'+(k?atm(k):'');
     sh.classList.add("on");
   });
   function atm(k){var a=ATM[k];return '<div class="fat2"><div class="fgt fga">атама</div> <b>'+a[1]+'</b> — <b class="ar">'+a[0]+'</b>'+(a[2]?'<p><i>Луғатда:</i> '+a[2]+'</p>':'')+'<p><i>Шариатда:</i> '+a[3]+'</p><p class="ar fai">'+a[4]+'</p></div>'}

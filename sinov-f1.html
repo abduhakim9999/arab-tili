@@ -22,7 +22,7 @@ body{margin:0;color:var(--tx);font:17px/1.55 system-ui,-apple-system,"Segoe UI",
 .top h1{margin:0;font-size:20px;line-height:1.25}
 .top p{margin:0;font-size:13px;color:var(--mu)}
 .pb{position:fixed;left:0;right:0;bottom:0;z-index:20;max-width:560px;margin:0 auto;padding:8px 16px calc(10px + env(safe-area-inset-bottom));background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--bd)}
-.fpl{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.fpl{display:flex;align-items:center;gap:10px;margin-top:8px}
 .fpl .fpp{width:48px;height:48px;border-radius:50%;border:0;background:var(--ac);color:var(--cd);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .fpl .fpp svg{width:22px;height:22px}
 .fpl input{flex:1;min-width:0;accent-color:var(--ac);height:28px}
@@ -63,8 +63,8 @@ body{margin:0;color:var(--tx);font:17px/1.55 system-ui,-apple-system,"Segoe UI",
   </div>
 </div>
 <div class="pb">
-  <div class="fpl"><button class="fpp" id="fpp" type="button" aria-label="Ўйнатиш"></button><input id="sk" type="range" min="0" max="1000" value="0" aria-label="Аудио"><span class="tm" id="tm">0:00 / 8:44</span><button class="fsp" id="spd" type="button">1×</button></div>
   <div class="tg"><button id="bh" type="button">Ҳаракат</button><button id="bt" type="button">Таржима</button></div>
+  <div class="fpl"><button class="fpp" id="fpp" type="button" aria-label="Ўйнатиш"></button><input id="sk" type="range" min="0" max="1000" value="0" aria-label="Аудио"><span class="tm" id="tm">0:00 / 8:44</span><button class="fsp" id="spd" type="button">1×</button></div>
 </div>
 <audio id="au" src="af1-bb8aff39.mp3" preload="metadata"></audio>
 <script>

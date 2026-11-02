@@ -70,6 +70,11 @@ body{margin:0;color:var(--tx);font:17px/1.55 system-ui,-apple-system,"Segoe UI",
 .fxm{flex:1;min-width:0}.fxm b{display:block;font-size:16px}.fxm small{display:block;font-size:13.5px;line-height:1.4;color:var(--mu)}
 .fxa{font-size:19px;line-height:1.5;color:var(--ac);flex-shrink:0;max-width:40%;text-align:right}
 .fxf{border-top:1px solid var(--bd);padding-top:8px;font-size:13.5px;color:var(--mu)}
+.fat{text-decoration:underline dotted;text-decoration-thickness:1.5px;text-underline-offset:9px;text-decoration-color:var(--mu)}
+.fal{display:flex;align-items:center;gap:10px;width:100%;padding:10px 0;border:0;border-top:1px solid var(--bd);background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.fat2{margin-top:12px;padding-top:10px;border-top:2px solid var(--bd);font-size:16px}.fsb .fat2:first-child{margin-top:0;padding-top:0;border-top:0}
+.fat2 b.ar{font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:21px;font-weight:400}.fat2 i{color:var(--mu);font-style:normal;font-weight:700}
+.fga{color:var(--ac)}
 .fsb .fai{font-size:19px;line-height:1.9;color:var(--mu);text-align:right;border-top:1px solid var(--bd);padding-top:8px}
 </style>
 </head>
@@ -159,6 +164,19 @@ var S=[
       "«مَا» — исми мавсул; «يَسْتُرُ الْبَشَرَةَ» — унинг силаси, эъробдан ўрни йўқ. Исми мавсул силаси билан бирга «كُلِّ» га музофун илайҳ ҳукмида.",
       "«مِنْ لِحْيَتِهِ» — баён учун «مِنْ»: «مَا» ни баён қилади, ҳеч нарсага мутааллиқ эмас. «مَا» ўрнига «لِحْيَتِهِ» қўйиб таржима қилинади: юзни тўсиб турган соқолининг барчасига."]}
 ];
+var ATM={
+ farz:["الْفَرْضُ","Фарз","Белгилаш, қатъий қилиш.","Шубҳаси йўқ қатъий далил билан собит бўлган амал. Уни инкор қилган кофир бўлади; таҳоратда бирор фарз қолса, таҳорат дуруст бўлмайди.","مَا ثَبَتَ بِدَلِيلٍ قَطْعِيٍّ لَا شُبْهَةَ فِيهِ."],
+ tah:["الطَّهَارَةُ","Поклик","Тозалик, ифлосликдан холи бўлиш.","Ҳадас ва нажосатдан покланиш.","النَّظَافَةُ عَنِ الْحَدَثِ وَالْخَبَثِ."],
+ wudu:["الْوُضُوءُ","Таҳорат","Чиройлилик ва тозалик.","Маълум аъзоларни ювиш ва бошга масҳ тортиш.","الْغَسْلُ وَالْمَسْحُ فِي أَعْضَاءٍ مَخْصُوصَةٍ."],
+ gasl:["الْغَسْلُ","Ювиш","","Сувни аъзо устидан оқизиш; сув томчилаб тушиши керак. Фақат ҳўллаш ювиш ҳисобланмайди.","إِسَالَةُ الْمَاءِ عَلَى الْعُضْوِ."],
+ mash:["الْمَسْحُ","Масҳ","Қўл билан силаш.","Ҳўл қўлни аъзога теккизиш.","إِصَابَةُ الْيَدِ الْمُبْتَلَّةِ الْعُضْوَ."],
+ mirfaq:["الْمِرْفَقُ","Тирсак","","Елка суяги билан билак суяги туташган бўғин. Таҳоратда тирсак ҳам ювилади.","مُلْتَقَى عَظْمِ الْعَضُدِ وَالذِّرَاعِ."],
+ kab:["الْكَعْبُ","Тўпиқ","","Болдир билан оёқ туташган жойда икки ёнда бўртиб чиққан суяк. Таҳоратда тўпиқ ҳам ювилади.","الْعَظْمُ النَّاتِئُ عِنْدَ مُلْتَقَى السَّاقِ وَالْقَدَمِ."],
+ zaqan:["الذَّقَنُ","Ияк","","Икки жағ суяги туташган жой.","مُجْتَمَعُ اللَّحْيَيْنِ."],
+ lihya:["اللِّحْيَةُ","Соқол","","Юз ва иякда ўсадиган тук.","الشَّعْرُ النَّابِتُ عَلَى الْخَدَّيْنِ وَالذَّقَنِ."],
+ bashara:["الْبَشَرَةُ","Тери","","Терининг устки қисми; матнда — юз териси.","ظَاهِرُ الْجِلْدِ."]};
+var AT={"0-1":"tah","1-0":"farz","1-1":"wudu","2-0":"farz","2-1":"wudu","2-2":"gasl","2-9":"zaqan","3-3":"mirfaq","3-4":"kab","4-0":"mash","4-6":"bashara","4-8":"lihya"};
+var AO=["farz","tah","wudu","gasl","mash","mirfaq","kab","zaqan","lihya","bashara"];
 var LG=[["cm","Мубтадо"],["cx","Хабар"],["cf","Феъл"],["cb","Мафъулун биҳ"],["cj","Жар-мажрур"],["ch","Зарф"]];
 (function(){
   var tx=document.getElementById("tx"),bh=document.getElementById("bh"),bt=document.getElementById("bt"),bk=document.getElementById("bk"),
@@ -166,7 +184,7 @@ var LG=[["cm","Мубтадо"],["cx","Хабар"],["cf","Феъл"],["cb","М�
   var H=false,T=false,K=false;try{T=localStorage.getItem("fiqh-tr")==="1"}catch(e){}
   var DH=/[ً-ْٰ]/g;
   function esc(s){return s.replace(/«([^»]*)»/g,function(m,a){return /[؀-ۿ]/.test(a)?'«<b class="ar">'+a+'</b>»':m})}
-  function wd(x,si,wi){return '<span class="fw'+(x[1]?' c-'+x[1]:'')+'" data-s="'+si+'" data-w="'+wi+'">'+x[0]+'</span>'}
+  function wd(x,si,wi){return '<span class="fw'+(x[1]?' c-'+x[1]:'')+(AT[si+'-'+wi]?' fat':'')+'" data-s="'+si+'" data-w="'+wi+'">'+x[0]+'</span>'}
   function box(s){return '<div class="fbx"><div class="fgt">исмийя</div>'+s.bx.map(function(b){return '<p>'+esc(b)+'</p>'}).join('')+'</div>'}
   var h='<div class="bs ar fs">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ</div>';
   h+='<button class="flg" id="flg" type="button">🎨 Ранглар ▾</button><div class="flgx" id="flgx">'+LG.map(function(l){return '<span><i class="c-'+l[0]+'">■</i>'+l[1]+'</span>'}).join('')+'</div>';
@@ -181,7 +199,8 @@ var LG=[["cm","Мубтадо"],["cx","Хабар"],["cf","Феъл"],["cb","М�
          ["رِجْلَيْهِ مَعَ كَعْبَيْهِ","2 оёқни ювиш","Тўпиқлари билан қўшиб"],
          ["رُبُعِ رَأْسِهِ","Масҳ тортиш","Бошнинг ¼ бирига ҳамда юз(териси)ни тўсиб турган соқолининг барига"]];
   var xl='<div class="fxl"><div class="fxh">Хулоса<b>Таҳоратнинг фарзлари — 4 та</b></div>'+X.map(function(r,i){return '<div class="fxr"><span class="fxn">'+(i+1)+'</span><div class="fxm"><b>'+r[1]+'</b><small>'+r[2]+'</small></div><span class="ar fs fxa">'+r[0]+'</span></div>'}).join('')+'<div class="fxf">Ҳар бири 1 марта.</div></div>';
-  tx.innerHTML=h+'<div class="mt">'+m+'</div>'+xl;
+  var al='<div class="fxl"><div class="fxh">Атамалар<b>Бу дарсдаги фиқҳий атамалар</b></div>'+AO.map(function(k){var a=ATM[k];return '<button class="fal" type="button" data-a="'+k+'"><span class="fxm"><b>'+a[1]+'</b><small>'+a[3].split('.')[0].split(';')[0]+'</small></span><span class="ar fxa">'+a[0]+'</span></button>'}).join('')+'</div>';
+  tx.innerHTML=h+'<div class="mt">'+m+'</div>'+xl+al;
   var W=[].slice.call(tx.querySelectorAll(".fw,.fs")),O=W.map(function(e){return e.textContent});
   function draw(){
     W.forEach(function(e,i){e.textContent=H?O[i]:O[i].replace(DH,"")});
@@ -197,9 +216,12 @@ var LG=[["cm","Мубтадо"],["cx","Хабар"],["cf","Феъл"],["cb","М�
   tx.addEventListener("click",function(ev){
     var e=ev.target.closest(".fw");if(!e)return;
     var x=S[+e.dataset.s].w[+e.dataset.w];if(cur)cur.classList.remove("sel");cur=e;e.classList.add("sel");
-    sb.innerHTML='<div class="ar fhw'+(x[1]?' c-'+x[1]:'')+'">'+x[0].replace(/[:،.]$/,"")+'</div><p>'+esc(x[2])+'</p><p class="ar fai">'+x[3]+'</p>';
+    var k=AT[e.dataset.s+'-'+e.dataset.w];
+    sb.innerHTML='<div class="ar fhw'+(x[1]?' c-'+x[1]:'')+'">'+x[0].replace(/[:،.]$/,"")+'</div><p>'+esc(x[2])+'</p><p class="ar fai">'+x[3]+'</p>'+(k?atm(k):'');
     sh.classList.add("on");
   });
+  function atm(k){var a=ATM[k];return '<div class="fat2"><div class="fgt fga">атама</div> <b>'+a[1]+'</b> — <b class="ar">'+a[0]+'</b>'+(a[2]?'<p><i>Луғатда:</i> '+a[2]+'</p>':'')+'<p><i>Шариатда:</i> '+a[3]+'</p><p class="ar fai">'+a[4]+'</p></div>'}
+  tx.addEventListener("click",function(ev){var b=ev.target.closest(".fal");if(!b)return;if(cur)cur.classList.remove("sel");cur=null;sb.innerHTML=atm(b.dataset.a);sh.classList.add("on")});
   sh.addEventListener("click",function(ev){if(ev.target===sh)close()});
   document.getElementById("fsx").onclick=close;
   draw();

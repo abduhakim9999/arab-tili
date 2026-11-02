@@ -75,7 +75,7 @@ body{margin:0;color:var(--tx);font:17px/1.55 system-ui,-apple-system,"Segoe UI",
 .fqk .fat{text-decoration:none}
 .fiz{border-radius:0 0 12px 12px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .fqk .fiz{border-bottom:2px solid;padding-bottom:3px}
-.fqk .b-cm{border-color:var(--cm)}.fqk .b-cx{border-color:var(--cx)}.fqk .b-cj{border-color:var(--cj)}.fqk .b-ch{border-color:var(--ch)}.fqk .b-mu{border-color:var(--mu)}
+.fqk .fiz{border-color:var(--mu)}
 .fhid{display:none;border:1.5px dashed var(--cz);border-radius:8px;padding:0 6px;font-size:.75em;color:var(--cz)}
 .fqk .fhid{display:inline-block;line-height:1.5;vertical-align:bottom}
 .fz.now,.fhid.now{background:var(--plw);border-radius:4px}
@@ -258,7 +258,7 @@ var LG=[["cm","Мубтадо"],["cx","Хабар"],["cf","Феъл"],["cb","М�
   function mx(r){return '<div class="fmx"><span>'+r[0]+'</span>'+(/[\u0600-\u06FF]/.test(r[1])?'<b class="fcc ar">'+r[1]+'</b>':'<em>'+r[1]+'</em>')+'</div>'}
   function box(s){return '<div class="fbx"><div class="fgt">исмийя</div>'+(s.mx?'<div class="fmxw">'+s.mx.map(mx).join('')+'</div>':'')+(s.kr?s.kr.map(kr).join(''):'')+(s.mn?'<div class="fkm">'+esc(s.mn)+'</div>':'')+'</div>'}
   var h='<div class="bs ar fs">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ</div>';
-  h+='<button class="flg" id="flg" type="button">🎨 Ранглар ▾</button><div class="flgx" id="flgx">'+LG.map(function(l){return '<span><i class="c-'+l[0]+'">■</i>'+l[1]+'</span>'}).join('')+'</div>';
+  h+='<button class="flg" id="flg" type="button">🎨 Ранглар ▾</button><div class="flgx" id="flgx">'+LG.map(function(l){return '<span><i class="c-'+l[0]+'">■</i>'+l[1]+'</span>'}).join('')+'<span><i style="color:var(--mu)">⌣</i>Изофа</span></div>';
   var m='';
   S.forEach(function(s,si){
     var a='<span class="ar">'+line(s,si)+'</span>';

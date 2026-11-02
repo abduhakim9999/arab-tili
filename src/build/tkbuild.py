@@ -94,6 +94,9 @@ for ln in lines:
                     if not mut: print('?? мутааллиқ', k, x[1])
         for j, (w, a) in enumerate(subs):
             su = (kw[j][1] if len(kw) == len(subs) else (kw[0][1] if kw else ''))
+            if j == len(subs) - 1:   # ўзбекча Таркиб тўлиқ: «↳» изоҳлари ҳам (02.11.2026)
+                for x in v['k']:
+                    if not x[0] and x[1]: su += '\n↳ ' + x[1]
             clips = [(clean(w), 0.35), (speak(a), 0)]
             sa = w + ': ' + a
             if j == len(subs) - 1:
@@ -102,13 +105,22 @@ for ln in lines:
                 if mut: clips[-1] = (clips[-1][0], 0.3); clips.append((speak(mut), 0)); sa += ' ' + mut
             chunks.append({'key': k + '.' + str(j), 'clips': clips, 'sa': sa, 'su': su, 'gap': 0.7})
         for nt in notes:
-            if re.match('وَ(ال)?جُمْلَةُ', nt): pend.setdefault(sent(idx), []).append(nt)
+            if re.match('وَ(ال)?جُمْلَةُ', nt): pend.setdefault(sent(idx), []).append((nt, v.get('jm', '')))
         nxt = int(keys[n + 1].split('-')[1]) if n + 1 < len(keys) else 10**7
         for b in sorted(pend):
             if b < nxt and (b <= idx or nxt == 10**7):
-                for i2, nt in enumerate(pend.pop(b)):
-                    chunks.append({'key': ln + 'j' + str(b) + '.' + str(i2), 'clips': [(speak(nt), 0)], 'sa': nt, 'su': '', 'gap': 0.9})
+                for i2, (nt, jm) in enumerate(pend.pop(b)):
+                    chunks.append({'key': ln + 'j' + str(b) + '.' + str(i2), 'clips': [(speak(nt), 0)], 'sa': nt, 'su': jm, 'gap': 0.9})
     chunks[-1]['gap'] = 1.4
+
+# SU=1: овоз ўзгармайди, фақат tinglash.html даги ўзбекча Таркиб қатори янгиланади
+if os.environ.get('SU') == '1':
+    LL = L['t']['l']; ch = 0
+    for c in chunks:
+        if c['key'] in LL and LL[c['key']][1] != c['su']: LL[c['key']][1] = c['su']; ch += 1
+    ting = ting[:oi] + json.dumps(L, ensure_ascii=False) + ting[oend:]
+    open('tinglash.html', 'w', encoding='utf-8').write(ting)
+    print('su янгиланди:', ch); sys.exit()
 
 if DRY:
     for c in chunks: print(c['key'], ' | '.join(t for t, g in c['clips']))

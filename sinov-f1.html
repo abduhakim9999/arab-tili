@@ -21,8 +21,9 @@ body{margin:0;color:var(--tx);font:17px/1.55 system-ui,-apple-system,"Segoe UI",
 .top .tt{flex:1;min-width:0}
 .top h1{margin:0;font-size:20px;line-height:1.25}
 .top p{margin:0;font-size:13px;color:var(--mu)}
-.tg{display:flex;gap:8px;margin:0 0 14px}
-.tg button{flex:1;border:1px solid var(--bd);background:var(--cd);color:var(--tx);border-radius:999px;padding:9px 12px;font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.tg{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;gap:10px;max-width:560px;margin:0 auto;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--bd)}
+.tg button{flex:1;min-height:48px;border:1px solid var(--bd);background:var(--cd);color:var(--tx);border-radius:999px;padding:10px 12px;font:inherit;font-size:16px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.sw{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
 .tg button.on{background:var(--ac);border-color:var(--ac);color:var(--cd)}
 .bs{text-align:center;font-size:24px;color:var(--ac);margin:6px 0 4px}
 .hd{text-align:center;margin:4px 0 14px}

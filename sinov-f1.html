@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Таҳоратнинг фарзлари</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0f7a4f">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="shell.css">
+<script src="tg.js" data-key="fiqh-f1" data-home="./"></script>
+<style>
+@font-face{font-family:"DarsNaskh";src:url(naskh.woff) format("woff");font-display:swap}
+*{box-sizing:border-box}
+body{margin:0;color:var(--tx);font:17px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%}
+.sw{max-width:560px;margin:0 auto;padding:12px 16px 90px}
+.ar{font-family:"DarsNaskh","Noto Naskh Arabic","Geeza Pro","Traditional Arabic",serif;direction:rtl;unicode-bidi:isolate}
+.top{display:flex;align-items:center;gap:10px;margin:2px 0 14px}
+.top a.bk{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;background:var(--cd);border:1px solid var(--bd);color:var(--tx);text-decoration:none;font-size:22px;flex-shrink:0}
+.top .tt{flex:1;min-width:0}
+.top h1{margin:0;font-size:20px;line-height:1.25}
+.top p{margin:0;font-size:13px;color:var(--mu)}
+.tg{display:flex;gap:8px;margin:0 0 14px}
+.tg button{flex:1;border:1px solid var(--bd);background:var(--cd);color:var(--tx);border-radius:999px;padding:9px 12px;font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.tg button.on{background:var(--ac);border-color:var(--ac);color:var(--cd)}
+.bs{text-align:center;font-size:24px;color:var(--ac);margin:6px 0 4px}
+.hd{text-align:center;margin:4px 0 14px}
+.hd .ar{display:block;font-size:30px;line-height:1.7;color:var(--ac)}
+.hd small{display:block;color:var(--mu);font-size:14px}
+.mt{background:var(--cd);border:1px solid var(--bd);border-radius:18px;padding:6px 16px;box-shadow:var(--sh)}
+.sg{padding:12px 0}
+.sg+.sg{border-top:1px solid var(--bd)}
+.sg .ar{display:block;font-size:27px;line-height:1.9;text-align:right}
+.sg .uz{margin-top:6px;font-size:16px;line-height:1.5;color:var(--tx)}
+.sg .uz p{margin:0 0 4px}
+.no-tr .uz,.no-tr .hd small{display:none}
+</style>
+</head>
+<body>
+<div class="sw">
+  <div class="top"><a class="bk" href="sinov-fiqh.html">‹</a><div class="tt"><h1>1-дарс</h1><p>Мухтасарул виқоя · Поклик боби</p></div></div>
+  <div class="tg"><button id="bh" type="button">Ҳаракат</button><button id="bt" type="button">Таржима</button></div>
+  <div id="tx">
+    <div class="bs ar">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ</div>
+    <div class="hd"><span class="ar">كِتَابُ الطَّهَارَةِ</span><small>Поклик боби</small></div>
+    <div class="hd"><span class="ar">فَرْضُ الْوُضُوءِ</span><small>Таҳоратнинг фарзлари</small></div>
+    <div class="mt">
+      <div class="sg"><span class="ar">فَرْضُ الْوُضُوءِ: غَسْلُ الْوَجْهِ مِنَ الشَّعْرِ إِلَى الْأُذُنِ وَأَسْفَلِ الذَّقَنِ،</span>
+        <div class="uz"><p>Таҳоратнинг фарзлари:</p><p>1. Юзни соч(чиққан ери)дан қулоққача ва иякнинг остигача (1 марта) ювиш</p></div></div>
+      <div class="sg"><span class="ar">وَيَدَيْهِ وَرِجْلَيْهِ مَعَ مِرْفَقَيْهِ وَكَعْبَيْهِ،</span>
+        <div class="uz"><p>2. 2 қўлни тирсаклари билан қўшиб (1 марта) ювиш</p><p>3. 2 оёқни тўпиқлари билан қўшиб (1 марта) ювиш</p></div></div>
+      <div class="sg"><span class="ar">وَمَسْحُ رُبُعِ رَأْسِهِ، وَكُلِّ مَا يَسْتُرُ الْبَشَرَةَ مِنْ لِحْيَتِهِ.</span>
+        <div class="uz"><p>4. Шунингдек, бошнинг ¼ бирига ҳамда юз(териси)ни тўсиб турган соқолининг барига (1 марта) масҳ тортиш</p><p>дан иборатдир.</p></div></div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var K="fiqh-tr",tx=document.getElementById("tx"),bh=document.getElementById("bh"),bt=document.getElementById("bt");
+  var A=[].slice.call(tx.querySelectorAll(".ar")),O=A.map(function(e){return e.textContent});
+  var H=false,T=false;try{T=localStorage.getItem(K)==="1"}catch(e){}
+  function draw(){
+    A.forEach(function(e,i){e.textContent=H?O[i]:O[i].replace(/[ً-ْٰ]/g,"")});
+    tx.classList.toggle("no-tr",!T);bh.classList.toggle("on",H);bt.classList.toggle("on",T);
+  }
+  bh.onclick=function(){H=!H;draw()};
+  bt.onclick=function(){T=!T;try{localStorage.setItem(K,T?"1":"0")}catch(e){}draw()};
+  draw();
+})();
+</script>
+</body>
+</html>

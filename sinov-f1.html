@@ -56,7 +56,15 @@ body{margin:0;color:var(--tx);font:17px/1.55 system-ui,-apple-system,"Segoe UI",
 .flg{display:none;margin:0 auto 8px;padding:4px 12px;font:500 13px/1.3 system-ui,sans-serif;color:var(--mu);background:var(--cd);border:1px solid var(--bd);border-radius:999px;cursor:pointer}
 .fqk .flg{display:block}
 .flgx{display:none;flex-wrap:wrap;justify-content:center;gap:6px 12px;font-size:13px;margin:0 0 10px}
-.fqk.flo .flgx{display:flex}.flgx i{font-style:normal;margin-right:4px}
+.fqk.flo .flgx{display:flex}
+.flgb{display:none;margin:0 0 12px;padding:8px 12px;background:var(--cd);border:1px solid var(--bd);border-radius:12px;font-size:13.5px;line-height:1.5;color:var(--tx)}
+.fqk.flo .flgb{display:block}.flgb>div{padding:4px 0}.flgb>div+div{border-top:1px dashed var(--bd)}
+.fl-iz{text-decoration:none;border-bottom:2px solid var(--cm);padding:0 2px 3px;font-family:"DarsNaskh",serif;font-size:17px;color:var(--cm)}
+.fl-tg{font:600 11px system-ui,sans-serif;color:var(--mu);border:1px solid var(--bd);border-radius:6px;padding:0 4px}
+.fl-z{font-weight:400;font-size:18px}.fl-z i{font-style:normal;color:var(--cz)}
+.fl-h{border:1.5px dashed var(--cz);border-radius:6px;padding:0 5px;color:var(--cz);font-size:15px}
+.fl-l{outline:2px dashed var(--cj);outline-offset:1px;border-radius:3px;padding:0 3px}
+.fl-sj{border:1px dashed var(--cj);border-radius:6px;padding:0 5px;font-size:16px}.flgx i{font-style:normal;margin-right:4px}
 .fsh{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.28);display:none;align-items:flex-end;justify-content:center}
 .fsh.on{display:flex}
 .fsb{position:relative;width:100%;max-width:560px;background:var(--cd);border-radius:20px 20px 0 0;padding:18px 18px calc(24px + env(safe-area-inset-bottom));box-shadow:0 -6px 24px rgba(0,0,0,.18);max-height:70vh;overflow:auto}
@@ -258,7 +266,7 @@ var LG=[["cm","Мубтадо"],["cx","Хабар"],["cf","Феъл"],["cb","М�
   function mx(r){return '<div class="fmx"><span>'+r[0]+'</span>'+(/[\u0600-\u06FF]/.test(r[1])?'<b class="fcc ar">'+r[1]+'</b>':'<em>'+r[1]+'</em>')+'</div>'}
   function box(s){return '<div class="fbx"><div class="fgt">исмийя</div>'+(s.mx?'<div class="fmxw">'+s.mx.map(mx).join('')+'</div>':'')+(s.kr?s.kr.map(kr).join(''):'')+(s.mn?'<div class="fkm">'+esc(s.mn)+'</div>':'')+'</div>'}
   var h='<div class="bs ar fs">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ</div>';
-  h+='<button class="flg" id="flg" type="button">🎨 Ранглар ▾</button><div class="flgx" id="flgx">'+LG.map(function(l){return '<span><i class="c-'+l[0]+'">■</i>'+l[1]+'</span>'}).join('')+'<span><i style="color:var(--mu)">⌣</i>Изофа (музоф ранги)</span></div>';
+  h+='<button class="flg" id="flg" type="button">🎨 Ранглар ▾</button><div class="flgx" id="flgx">'+LG.map(function(l){return '<span><i class="c-'+l[0]+'">■</i>'+l[1]+'</span>'}).join('')+'</div><div class="flgb"><div><u class="fl-iz">فَرْضُ الْوُضُوءِ</u> изофа — музоф ва музофун илайҳ (чизиқ музоф рангида)</div><div><span class="fl-tg">маътуф·музоф</span> сўз устида — унинг ҳамма вазифалари</div><div><b class="ar fl-z">يَدَيْ<i>هِ</i></b> бинафша — қўшилган замир</div><div><span class="fl-h ar">هُوَ</span> пунктир рамка — яширин замир</div><div><span class="fl-l">сўз</span> пунктир чизиқ — устоз айтаётган боғланиш (мутааллиқ, маътуф алайҳ)</div><div><span class="fl-sj ar">مِنَ الشَّعْرِ</span> Таркиб қутисида пунктир карта — шибҳи жумла</div></div>';
   var m='';
   S.forEach(function(s,si){
     var a='<span class="ar">'+line(s,si)+'</span>';

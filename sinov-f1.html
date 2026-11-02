@@ -77,8 +77,9 @@ body{margin:0;color:var(--tx);font:17px/1.55 system-ui,-apple-system,"Segoe UI",
 :root{--cz:#7c3aed}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--cz:#c4b5fd}}:root[data-theme="dark"]{--cz:#c4b5fd}
 .fwi{display:inline}
 .fqk .hd .fw.c-cm{color:var(--cm)}
-.fqk .sg>.ar,.fqk .hd>.ar{line-height:2.9}
-.fqk .fw[data-t]{display:inline-flex;flex-direction:column;align-items:center;vertical-align:bottom;line-height:1.5}
+.fqk .sg>.ar,.fqk .hd>.ar{line-height:2.9;padding-bottom:16px}
+.fqk .sg .fw,.fqk .hd .fw{display:inline-flex;flex-direction:column;align-items:center;vertical-align:bottom;line-height:1.5}
+.fqk .sg .fw:not([data-t])::before,.fqk .hd .fw:not([data-t])::before{content:"\00a0";font:600 10.5px/1.1 system-ui,sans-serif;margin-bottom:-2px}
 .fqk .fw[data-t]::before{content:attr(data-t);font:600 10.5px/1.1 system-ui,-apple-system,sans-serif;color:var(--mu);white-space:nowrap;direction:ltr;margin-bottom:-2px}
 .fqk .fat{text-decoration:none}
 .fiz{border-radius:0 0 12px 12px;-webkit-box-decoration-break:clone;box-decoration-break:clone}

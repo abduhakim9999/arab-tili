@@ -21,17 +21,17 @@ body{margin:0;color:var(--tx);font:17px/1.55 system-ui,-apple-system,"Segoe UI",
 .top .tt{flex:1;min-width:0}
 .top h1{margin:0;font-size:20px;line-height:1.25}
 .top p{margin:0;font-size:13px;color:var(--mu)}
-.pb{position:fixed;left:0;right:0;bottom:0;z-index:20;max-width:560px;margin:0 auto;padding:8px 16px calc(10px + env(safe-area-inset-bottom));background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--bd)}
+.fpb{position:fixed;left:0;right:0;bottom:0;z-index:20;max-width:560px;margin:0 auto;padding:8px 16px calc(10px + env(safe-area-inset-bottom));background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--bd)}
 .fpl{display:flex;align-items:center;gap:10px;margin-top:8px}
 .fpl .fpp{width:48px;height:48px;border-radius:50%;border:0;background:var(--ac);color:var(--cd);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .fpl .fpp svg{width:22px;height:22px}
 .fpl input{flex:1;min-width:0;accent-color:var(--ac);height:28px}
 .fpl .tm{font-size:12px;color:var(--mu);font-variant-numeric:tabular-nums;min-width:74px;text-align:center}
 .fpl .fsp{border:1px solid var(--bd);background:var(--cd);color:var(--tx);border-radius:999px;min-width:48px;height:36px;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
-.tg{display:flex;gap:10px}
-.tg button{flex:1;min-height:48px;border:1px solid var(--bd);background:var(--cd);color:var(--tx);border-radius:999px;padding:10px 12px;font:inherit;font-size:16px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.ftg{display:flex;gap:10px}
+.ftg button{flex:1;min-height:48px;border:1px solid var(--bd);background:var(--cd);color:var(--tx);border-radius:999px;padding:10px 12px;font:inherit;font-size:16px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .sw{padding-bottom:calc(160px + env(safe-area-inset-bottom))}
-.tg button.on{background:var(--ac);border-color:var(--ac);color:var(--cd)}
+.ftg button.on{background:var(--ac);border-color:var(--ac);color:var(--cd)}
 .bs{text-align:center;font-size:24px;color:var(--ac);margin:6px 0 4px}
 .hd{text-align:center;margin:4px 0 14px}
 .hd .ar{display:block;font-size:30px;line-height:1.7;color:var(--ac)}
@@ -43,27 +43,35 @@ body{margin:0;color:var(--tx);font:17px/1.55 system-ui,-apple-system,"Segoe UI",
 .sg .uz{margin-top:6px;font-size:16px;line-height:1.5;color:var(--tx)}
 .sg .uz p{margin:0 0 4px}
 .no-tr .uz,.no-tr .hd small{display:none}
+.fw{border-radius:6px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.fw.sel{background:var(--plw)}
+.fqk .c-cm,.fsb .c-cm,.flgx .c-cm{color:var(--cm)}.fqk .c-cx,.fsb .c-cx,.flgx .c-cx{color:var(--cx)}.fqk .c-cf,.fsb .c-cf,.flgx .c-cf{color:var(--cf)}
+.fqk .c-cb,.fsb .c-cb,.flgx .c-cb{color:var(--cb)}.fqk .c-cj,.fsb .c-cj,.flgx .c-cj{color:var(--cj)}.fqk .c-ch,.fsb .c-ch,.flgx .c-ch{color:var(--ch)}
+.hd .fw{color:var(--ac)}.fqk .hd .fw:not([class*="c-"]){color:var(--tx)}
+.fbx{display:none;margin-top:8px;background:var(--bg);border:1px solid var(--bd);border-radius:12px;padding:8px 12px;font-size:14.5px;line-height:1.55;color:var(--tx);text-align:left}
+.fqk .fbx{display:block}
+.fbx p{margin:4px 0}.hd .fbx .ar,.sg .fbx .ar,.fsb p .ar{display:inline;font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:19px;line-height:1.5;font-weight:400;color:inherit;text-align:inherit}
+.fgt{display:inline-block;font-size:12px;font-weight:800;color:var(--cx);border:1px solid currentColor;border-radius:999px;padding:0 8px}
+.flg{display:none;margin:0 auto 8px;padding:4px 12px;font:500 13px/1.3 system-ui,sans-serif;color:var(--mu);background:var(--cd);border:1px solid var(--bd);border-radius:999px;cursor:pointer}
+.fqk .flg{display:block}
+.flgx{display:none;flex-wrap:wrap;justify-content:center;gap:6px 12px;font-size:13px;margin:0 0 10px}
+.fqk.flo .flgx{display:flex}.flgx i{font-style:normal;margin-right:4px}
+.fsh{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.28);display:none;align-items:flex-end;justify-content:center}
+.fsh.on{display:flex}
+.fsb{position:relative;width:100%;max-width:560px;background:var(--cd);border-radius:20px 20px 0 0;padding:18px 18px calc(24px + env(safe-area-inset-bottom));box-shadow:0 -6px 24px rgba(0,0,0,.18);max-height:70vh;overflow:auto}
+.fsx{position:absolute;top:10px;left:12px;width:36px;height:36px;border-radius:50%;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font-size:18px;cursor:pointer}
+.fhw{font-size:34px;text-align:center;line-height:1.6}
+.fsb p{margin:8px 0;font-size:16px;line-height:1.55}
+.fsb .fai{font-size:19px;line-height:1.9;color:var(--mu);text-align:right;border-top:1px solid var(--bd);padding-top:8px}
 </style>
 </head>
 <body>
 <div class="sw">
   <div class="top"><a class="bk" href="sinov-fiqh.html">‹</a><div class="tt"><h1>1-дарс</h1><p>Мухтасарул виқоя · Поклик боби</p></div></div>
-  <div id="tx">
-    <div class="bs ar">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ</div>
-    <div class="hd"><span class="ar">كِتَابُ الطَّهَارَةِ</span><small>Поклик боби</small></div>
-    <div class="hd"><span class="ar">فَرْضُ الْوُضُوءِ</span><small>Таҳоратнинг фарзлари</small></div>
-    <div class="mt">
-      <div class="sg"><span class="ar">فَرْضُ الْوُضُوءِ: غَسْلُ الْوَجْهِ مِنَ الشَّعْرِ إِلَى الْأُذُنِ وَأَسْفَلِ الذَّقَنِ،</span>
-        <div class="uz"><p>Таҳоратнинг фарзлари:</p><p>1. Юзни соч(чиққан ери)дан қулоққача ва иякнинг остигача (1 марта) ювиш</p></div></div>
-      <div class="sg"><span class="ar">وَيَدَيْهِ وَرِجْلَيْهِ مَعَ مِرْفَقَيْهِ وَكَعْبَيْهِ،</span>
-        <div class="uz"><p>2. 2 қўлни тирсаклари билан қўшиб (1 марта) ювиш</p><p>3. 2 оёқни тўпиқлари билан қўшиб (1 марта) ювиш</p></div></div>
-      <div class="sg"><span class="ar">وَمَسْحُ رُبُعِ رَأْسِهِ، وَكُلِّ مَا يَسْتُرُ الْبَشَرَةَ مِنْ لِحْيَتِهِ.</span>
-        <div class="uz"><p>4. Шунингдек, бошнинг ¼ бирига ҳамда юз(териси)ни тўсиб турган соқолининг барига (1 марта) масҳ тортиш</p><p>дан иборатдир.</p></div></div>
-    </div>
-  </div>
+  <div id="tx"></div>
 </div>
-<div class="pb">
-  <div class="tg"><button id="bh" type="button">Ҳаракат</button><button id="bt" type="button">Таржима</button></div>
+<div class="fpb">
+  <div class="ftg"><button id="bh" type="button">Ҳаракат</button><button id="bt" type="button">Таржима</button><button id="bk" type="button">Таркиб</button></div>
   <div class="fpl"><button class="fpp" id="fpp" type="button" aria-label="Ўйнатиш"></button><input id="sk" type="range" min="0" max="1000" value="0" aria-label="Аудио"><span class="tm" id="tm">0:00 / 8:44</span><button class="fsp" id="spd" type="button">1×</button></div>
 </div>
 <audio id="au" src="af1-bb8aff39.mp3" preload="metadata"></audio>
@@ -84,17 +92,103 @@ body{margin:0;color:var(--tx);font:17px/1.55 system-ui,-apple-system,"Segoe UI",
   ui();
 })();
 </script>
+<div class="fsh" id="fsh"><div class="fsb"><button class="fsx" id="fsx" type="button" aria-label="Ёпиш">✕</button><div id="fsb"></div></div></div>
 <script>
+/* Fiqh 1-dars: matn, tarjima, tarkib. Tarkib — ustoz audiosidan (align/out/cf1.scribe.json). */
+var MZ="музофун илайҳ, жар қилинган, аломати зоҳирий касра",
+    HI="«هِ» — муттасил замир, музофун илайҳ; асли заммага мабний («هُ»), жар ўрнида; олдидаги ",
+    AMZ="مُضَافٌ إِلَيْهِ مَجْرُورٌ وَعَلَامَةُ جَرِّهِ الْكَسْرَةُ الظَّاهِرَةُ",
+    AHI="وَالْهَاءُ ضَمِيرٌ مُتَّصِلٌ مَبْنِيٌّ عَلَى الضَّمِّ أَصْلًا، كُسِرَ لِمُنَاسَبَةِ مَا قَبْلَهُ، فِي مَحَلِّ جَرٍّ مُضَافٌ إِلَيْهِ.",
+    AW="حَرْفُ عَطْفٍ مَبْنِيٌّ عَلَى الْفَتْحِ، لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ.",
+    UW="«وَ» — атф ҳарфи, фатҳага мабний, эъробдан ўрни йўқ. ";
+var S=[
+ {h:1,uz:["Поклик боби"],w:[
+  ["كِتَابُ","cm","Музоф бўлиб мубтадо, рафъ қилинган, аломати зоҳирий замма.","مُبْتَدَأٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ، وَهُوَ مُضَافٌ."],
+  ["الطَّهَارَةِ","","Музофун илайҳ, жар қилинган, аломати зоҳирий касра. Маъноси: поклик.",AMZ+"."]],
+  bx:["«كِتَابُ الطَّهَارَةِ» — мубтадо. Хабари — ундан кейинги бутун боб: «Поклик боби — мана шулардир»."]},
+ {h:1,uz:["Таҳоратнинг фарзлари"],w:[
+  ["فَرْضُ","cm","Музоф бўлиб мубтадо, рафъ қилинган, аломати зоҳирий замма.","مُبْتَدَأٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ، وَهُوَ مُضَافٌ."],
+  ["الْوُضُوءِ","","Музофун илайҳ, жар қилинган, аломати зоҳирий касра. Маъноси: таҳорат.",AMZ+"."]],
+  bx:["«فَرْضُ الْوُضُوءِ» — мавзу, мубтадо. Пастдаги бутун матн унга хабар. Одатда мавзулар шундай мубтадо бўлиб келади."]},
+ {uz:["Таҳоратнинг фарзлари:","1. Юзни соч(чиққан ери)дан қулоққача ва иякнинг остигача (1 марта) ювиш"],w:[
+  ["فَرْضُ","cm","Музоф бўлиб мубтадо, рафъ қилинган, аломати зоҳирий замма.","مُبْتَدَأٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ، وَهُوَ مُضَافٌ."],
+  ["الْوُضُوءِ:","","Музофун илайҳ, жар қилинган, аломати зоҳирий касра.",AMZ+"."],
+  ["غَسْلُ","cx","Музоф бўлиб хабар, рафъ қилинган, аломати зоҳирий замма. Маъноси: ювиш.","خَبَرٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ، وَهُوَ مُضَافٌ."],
+  ["الْوَجْهِ","","Музофун илайҳ, жар қилинган, аломати зоҳирий касра. Маъноси: юз.",AMZ+"."],
+  ["مِنَ","","Жар ҳарфи. «مِنَ الشَّعْرِ» — жар ва мажрур, шибҳи жумла, «غَسْلُ» га мутааллиқ.","حَرْفُ جَرٍّ مَبْنِيٌّ عَلَى السُّكُونِ، وَحُرِّكَ بِالْفَتْحِ لِالْتِقَاءِ السَّاكِنَيْنِ، لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."],
+  ["الشَّعْرِ","cj","Мажрур, аломати зоҳирий касра. «Сочдан», яъни соч чиққан еридан.","اسْمٌ مَجْرُورٌ بِـ«مِنْ» وَعَلَامَةُ جَرِّهِ الْكَسْرَةُ الظَّاهِرَةُ، وَالْجَارُّ وَالْمَجْرُورُ مُتَعَلِّقَانِ بِـ«غَسْلُ»."],
+  ["إِلَى","","Жар ҳарфи. «إِلَى الْأُذُنِ» — жар ва мажрур, «غَسْلُ» га мутааллиқ.","حَرْفُ جَرٍّ مَبْنِيٌّ عَلَى السُّكُونِ، لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."],
+  ["الْأُذُنِ","cj","Мажрур, аломати зоҳирий касра. Маъноси: қулоққача.","اسْمٌ مَجْرُورٌ بِـ«إِلَى» وَعَلَامَةُ جَرِّهِ الْكَسْرَةُ الظَّاهِرَةُ، وَالْجَارُّ وَالْمَجْرُورُ مُتَعَلِّقَانِ بِـ«غَسْلُ»."],
+  ["وَأَسْفَلِ","cj",UW+"«أَسْفَلِ» — музоф бўлиб «الْأُذُنِ» га маътуф, жар қилинган, аломати зоҳирий касра. Маъноси: пасти, остигача.",AW+" أَسْفَلِ: مَعْطُوفٌ عَلَى «الْأُذُنِ» مَجْرُورٌ وَعَلَامَةُ جَرِّهِ الْكَسْرَةُ الظَّاهِرَةُ، وَهُوَ مُضَافٌ."],
+  ["الذَّقَنِ،","","Музофун илайҳ, жар қилинган, аломати зоҳирий касра. Маъноси: ияк.",AMZ+"."]],
+  bx:["Мубтадо: «فَرْضُ الْوُضُوءِ». Хабар: «غَسْلُ الْوَجْهِ» ва ундан кейингиларнинг ҳаммаси.",
+      "«مِنَ الشَّعْرِ» → «غَسْلُ» га мутааллиқ: сочдан, яъни соч чиққан еридан.",
+      "«إِلَى الْأُذُنِ» → «غَسْلُ» га мутааллиқ: қулоққача.",
+      "«وَأَسْفَلِ الذَّقَنِ» — «الْأُذُنِ» га маътуф: қулоққача ва иякнинг остигача."]},
+ {uz:["2. 2 қўлни тирсаклари билан қўшиб (1 марта) ювиш","3. 2 оёқни тўпиқлари билан қўшиб (1 марта) ювиш"],w:[
+  ["وَيَدَيْهِ","",UW+"«يَدَيْ» — музоф бўлиб «الْوَجْهِ» га маътуф, жар қилинган, аломати «ي». Асли «يَدَانِ»: музоф бўлгани учун «ن» тушиб қолди. "+HI+"сукунли «ي» уни касра қилди. Маъноси: икки қўлини.",AW+" يَدَيْ: مَعْطُوفٌ عَلَى «الْوَجْهِ» مَجْرُورٌ وَعَلَامَةُ جَرِّهِ الْيَاءُ لِأَنَّهُ مُثَنًّى، وَحُذِفَتِ النُّونُ لِلْإِضَافَةِ، وَهُوَ مُضَافٌ. "+AHI],
+  ["وَرِجْلَيْهِ","",UW+"«رِجْلَيْ» — «يَدَيْ» га маътуф, жар қилинган, аломати «ي». "+HI+"сукунли «ي» уни касра қилди. Маъноси: икки оёғини.",AW+" رِجْلَيْ: مَعْطُوفٌ عَلَى «يَدَيْ» مَجْرُورٌ وَعَلَامَةُ جَرِّهِ الْيَاءُ لِأَنَّهُ مُثَنًّى، وَحُذِفَتِ النُّونُ لِلْإِضَافَةِ، وَهُوَ مُضَافٌ. "+AHI],
+  ["مَعَ","ch","Музоф бўлиб зарфи макон, насб қилинган, аломати зоҳирий фатҳа. Маъноси: билан.","ظَرْفُ مَكَانٍ مَنْصُوبٌ وَعَلَامَةُ نَصْبِهِ الْفَتْحَةُ الظَّاهِرَةُ، وَهُوَ مُضَافٌ، مُتَعَلِّقٌ بِـ«غَسْلُ»."],
+  ["مِرْفَقَيْهِ","","«مِرْفَقَيْ» — «مَعَ» га музофун илайҳ, жар қилинган, аломати «ي». "+HI+"сукунли «ي» уни касра қилди. Маъноси: икки тирсаги.","مِرْفَقَيْ: مُضَافٌ إِلَيْهِ مَجْرُورٌ وَعَلَامَةُ جَرِّهِ الْيَاءُ لِأَنَّهُ مُثَنًّى، وَحُذِفَتِ النُّونُ لِلْإِضَافَةِ، وَهُوَ مُضَافٌ. "+AHI],
+  ["وَكَعْبَيْهِ،","",UW+"«كَعْبَيْ» — «مِرْفَقَيْ» га маътуф, жар қилинган, аломати «ي». "+HI+"сукунли «ي» уни касра қилди. Маъноси: икки тўпиғи.",AW+" كَعْبَيْ: مَعْطُوفٌ عَلَى «مِرْفَقَيْ» مَجْرُورٌ وَعَلَامَةُ جَرِّهِ الْيَاءُ لِأَنَّهُ مُثَنًّى، وَحُذِفَتِ النُّونُ لِلْإِضَافَةِ، وَهُوَ مُضَافٌ. "+AHI]],
+  bx:["«وَيَدَيْهِ» — «الْوَجْهِ» га маътуф: «غَسْلُ يَدَيْهِ» — икки қўлини ювиш.",
+      "«وَرِجْلَيْهِ» — «يَدَيْهِ» га маътуф.",
+      "«مَعَ مِرْفَقَيْهِ» — зарф ва музофун илайҳ, шибҳи жумла → «غَسْلُ» га мутааллиқ.",
+      "«وَكَعْبَيْهِ» — «مِرْفَقَيْهِ» га маътуф.",
+      "Маъноси: икки қўлини ва икки оёғини икки тирсаги ва икки тўпиғи билан қўшиб ювиш."]},
+ {uz:["4. Шунингдек, бошнинг ¼ бирига ҳамда юз(териси)ни тўсиб турган соқолининг барига (1 марта) масҳ тортиш","дан иборатдир."],w:[
+  ["وَمَسْحُ","cx",UW+"«مَسْحُ» — музоф бўлиб хабар бўлган «غَسْلُ» га маътуф, рафъ қилинган, аломати зоҳирий замма. Маъноси: масҳ тортиш.",AW+" مَسْحُ: مَعْطُوفٌ عَلَى «غَسْلُ» مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ، وَهُوَ مُضَافٌ."],
+  ["رُبُعِ","","Музоф бўлиб музофун илайҳ, жар қилинган, аломати зоҳирий касра. Маъноси: тўртдан бири.",AMZ+"، وَهُوَ مُضَافٌ."],
+  ["رَأْسِهِ،","","«رَأْسِ» — музоф бўлиб музофун илайҳ, жар қилинган, аломати зоҳирий касра. "+HI+"касра уни касра қилди. Маъноси: бошининг.","رَأْسِ: "+AMZ+"، وَهُوَ مُضَافٌ. "+AHI],
+  ["وَكُلِّ","",UW+"«كُلِّ» — музоф бўлиб «رُبُعِ» га маътуф, жар қилинган, аломати зоҳирий касра. Яъни «وَمَسْحُ كُلِّ…» деб тушунилади.",AW+" كُلِّ: مَعْطُوفٌ عَلَى «رُبُعِ» مَجْرُورٌ وَعَلَامَةُ جَرِّهِ الْكَسْرَةُ الظَّاهِرَةُ، وَهُوَ مُضَافٌ."],
+  ["مَا","","Исми мавсул, сукунга мабний, жар ўрнида (музофун илайҳ). Маъноси: нарса.","اسْمٌ مَوْصُولٌ مَبْنِيٌّ عَلَى السُّكُونِ فِي مَحَلِّ جَرٍّ مُضَافٌ إِلَيْهِ."],
+  ["يَسْتُرُ","cf","Музореъ феъл, рафъ қилинган, аломати зоҳирий замма; остида «هُوَ» яширин замир бор — у фоил. Маъноси: тўсиб туради.","فِعْلٌ مُضَارِعٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ، وَالْفَاعِلُ ضَمِيرٌ مُسْتَتِرٌ تَقْدِيرُهُ «هُوَ»، وَالْجُمْلَةُ صِلَةُ الْمَوْصُولِ لَا مَحَلَّ لَهَا مِنَ الْإِعْرَابِ."],
+  ["الْبَشَرَةَ","cb","Мафъулун биҳ, насб қилинган, аломати зоҳирий фатҳа. Маъноси: юз, юз териси.","مَفْعُولٌ بِهِ مَنْصُوبٌ وَعَلَامَةُ نَصْبِهِ الْفَتْحَةُ الظَّاهِرَةُ."],
+  ["مِنْ","","Жар ҳарфи, сукунга мабний, эъробдан ўрни йўқ. Баён учун келган «مِنْ»: «مَا» ни баён қилади, ҳеч нарсага мутааллиқ эмас.","حَرْفُ جَرٍّ بَيَانِيٌّ مَبْنِيٌّ عَلَى السُّكُونِ، لَا مَحَلَّ لَهُ مِنَ الْإِعْرَابِ."],
+  ["لِحْيَتِهِ.","cj","«لِحْيَتِ» — музоф бўлиб мажрур, аломати зоҳирий касра. "+HI+"касра уни касра қилди. Маъноси: соқоли.","لِحْيَتِ: اسْمٌ مَجْرُورٌ بِـ«مِنْ» وَعَلَامَةُ جَرِّهِ الْكَسْرَةُ الظَّاهِرَةُ، وَهُوَ مُضَافٌ. "+AHI]],
+  bx:["«وَمَسْحُ» — хабар бўлган «غَسْلُ» га маътуф: таҳорат фарзи — ювиш ва масҳ тортишдир.",
+      "«وَكُلِّ» — «رُبُعِ» га маътуф: «وَمَسْحُ كُلِّ…» — барчасига ҳам масҳ тортиш.",
+      "«مَا» — исми мавсул; «يَسْتُرُ الْبَشَرَةَ» — унинг силаси, эъробдан ўрни йўқ. Исми мавсул силаси билан бирга «كُلِّ» га музофун илайҳ ҳукмида.",
+      "«مِنْ لِحْيَتِهِ» — баён учун «مِنْ»: «مَا» ни баён қилади, ҳеч нарсага мутааллиқ эмас. «مَا» ўрнига «لِحْيَتِهِ» қўйиб таржима қилинади: юзни тўсиб турган соқолининг барчасига."]}
+];
+var LG=[["cm","Мубтадо"],["cx","Хабар"],["cf","Феъл"],["cb","Мафъулун биҳ"],["cj","Жар-мажрур"],["ch","Зарф"]];
 (function(){
-  var K="fiqh-tr",tx=document.getElementById("tx"),bh=document.getElementById("bh"),bt=document.getElementById("bt");
-  var A=[].slice.call(tx.querySelectorAll(".ar")),O=A.map(function(e){return e.textContent});
-  var H=false,T=false;try{T=localStorage.getItem(K)==="1"}catch(e){}
+  var tx=document.getElementById("tx"),bh=document.getElementById("bh"),bt=document.getElementById("bt"),bk=document.getElementById("bk"),
+      sh=document.getElementById("fsh"),sb=document.getElementById("fsb");
+  var H=false,T=false,K=false;try{T=localStorage.getItem("fiqh-tr")==="1"}catch(e){}
+  var DH=/[ً-ْٰ]/g;
+  function esc(s){return s.replace(/«([^»]*)»/g,function(m,a){return /[؀-ۿ]/.test(a)?'«<b class="ar">'+a+'</b>»':m})}
+  function wd(x,si,wi){return '<span class="fw'+(x[1]?' c-'+x[1]:'')+'" data-s="'+si+'" data-w="'+wi+'">'+x[0]+'</span>'}
+  function box(s){return '<div class="fbx"><div class="fgt">исмийя</div>'+s.bx.map(function(b){return '<p>'+esc(b)+'</p>'}).join('')+'</div>'}
+  var h='<div class="bs ar fs">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ</div>';
+  h+='<button class="flg" id="flg" type="button">🎨 Ранглар ▾</button><div class="flgx" id="flgx">'+LG.map(function(l){return '<span><i class="c-'+l[0]+'">■</i>'+l[1]+'</span>'}).join('')+'</div>';
+  var m='';
+  S.forEach(function(s,si){
+    var a='<span class="ar">'+s.w.map(function(x,wi){return wd(x,si,wi)}).join(' ')+'</span>';
+    if(s.h)h+='<div class="hd">'+a+'<small>'+s.uz[0]+'</small>'+box(s)+'</div>';
+    else m+='<div class="sg">'+a+'<div class="uz">'+s.uz.map(function(u){return '<p>'+u+'</p>'}).join('')+'</div>'+box(s)+'</div>';
+  });
+  tx.innerHTML=h+'<div class="mt">'+m+'</div>';
+  var W=[].slice.call(tx.querySelectorAll(".fw,.fs")),O=W.map(function(e){return e.textContent});
   function draw(){
-    A.forEach(function(e,i){e.textContent=H?O[i]:O[i].replace(/[ً-ْٰ]/g,"")});
-    tx.classList.toggle("no-tr",!T);bh.classList.toggle("on",H);bt.classList.toggle("on",T);
+    W.forEach(function(e,i){e.textContent=H?O[i]:O[i].replace(DH,"")});
+    tx.classList.toggle("no-tr",!T);tx.classList.toggle("fqk",K);
+    bh.classList.toggle("on",H);bt.classList.toggle("on",T);bk.classList.toggle("on",K);
   }
   bh.onclick=function(){H=!H;draw()};
-  bt.onclick=function(){T=!T;try{localStorage.setItem(K,T?"1":"0")}catch(e){}draw()};
+  bt.onclick=function(){T=!T;try{localStorage.setItem("fiqh-tr",T?"1":"0")}catch(e){}draw()};
+  bk.onclick=function(){K=!K;draw()};
+  var lg=document.getElementById("flg");lg.onclick=function(){tx.classList.toggle("flo")};
+  var cur=null;
+  function close(){sh.classList.remove("on");if(cur)cur.classList.remove("sel");cur=null}
+  tx.addEventListener("click",function(ev){
+    var e=ev.target.closest(".fw");if(!e)return;
+    var x=S[+e.dataset.s].w[+e.dataset.w];if(cur)cur.classList.remove("sel");cur=e;e.classList.add("sel");
+    sb.innerHTML='<div class="ar fhw'+(x[1]?' c-'+x[1]:'')+'">'+x[0].replace(/[:،.]$/,"")+'</div><p>'+esc(x[2])+'</p><p class="ar fai">'+x[3]+'</p>';
+    sh.classList.add("on");
+  });
+  sh.addEventListener("click",function(ev){if(ev.target===sh)close()});
+  document.getElementById("fsx").onclick=close;
   draw();
 })();
 </script>

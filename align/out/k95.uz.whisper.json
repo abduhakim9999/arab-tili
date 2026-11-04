@@ -1,0 +1,862 @@
+[
+{
+"text": "95.",
+"start": 0.0,
+"end": 0.34
+},
+{
+"text": "Dərs",
+"start": 0.8,
+"end": 1.1
+},
+{
+"text": "Ədəbi",
+"start": 2.34,
+"end": 3.1
+},
+{
+"text": "Ərəb",
+"start": 3.1,
+"end": 3.5
+},
+{
+"text": "dili",
+"start": 3.5,
+"end": 3.7
+},
+{
+"text": "və",
+"start": 3.7,
+"end": 4.08
+},
+{
+"text": "uning",
+"start": 4.08,
+"end": 4.28
+},
+{
+"text": "təsiri",
+"start": 4.28,
+"end": 4.72
+},
+{
+"text": "Ərəb",
+"start": 5.92,
+"end": 6.68
+},
+{
+"text": "dili,",
+"start": 6.68,
+"end": 7.0
+},
+{
+"text": "Əslam",
+"start": 7.02,
+"end": 7.46
+},
+{
+"text": "dini",
+"start": 7.46,
+"end": 7.84
+},
+{
+"text": "kinişidən",
+"start": 7.84,
+"end": 8.28
+},
+{
+"text": "aldın,",
+"start": 8.28,
+"end": 8.7
+},
+{
+"text": "Ərəbistan",
+"start": 8.78,
+"end": 9.36
+},
+{
+"text": "yarım",
+"start": 9.36,
+"end": 9.84
+},
+{
+"text": "aralıda",
+"start": 9.84,
+"end": 10.22
+},
+{
+"text": "payda",
+"start": 10.22,
+"end": 10.52
+},
+{
+"text": "bolgan.",
+"start": 10.52,
+"end": 10.92
+},
+{
+"text": "Ərəblər",
+"start": 12.28,
+"end": 13.04
+},
+{
+"text": "turli",
+"start": 13.04,
+"end": 13.34
+},
+{
+"text": "tuman",
+"start": 13.34,
+"end": 13.6
+},
+{
+"text": "qabilələrdən",
+"start": 13.6,
+"end": 14.4
+},
+{
+"text": "ibarat",
+"start": 14.4,
+"end": 14.82
+},
+{
+"text": "bolib,",
+"start": 14.82,
+"end": 15.14
+},
+{
+"text": "bazı",
+"start": 16.36,
+"end": 17.12
+},
+{
+"text": "qabilələrinin",
+"start": 17.12,
+"end": 17.8
+},
+{
+"text": "uzgi",
+"start": 17.8,
+"end": 18.14
+},
+{
+"text": "xas",
+"start": 18.14,
+"end": 18.52
+},
+{
+"text": "şeyveləri",
+"start": 18.52,
+"end": 19.0
+},
+{
+"text": "mavcud",
+"start": 19.0,
+"end": 19.34
+},
+{
+"text": "edi.",
+"start": 19.34,
+"end": 19.5
+},
+{
+"text": "Bu",
+"start": 20.92,
+"end": 21.3
+},
+{
+"text": "şeyvelər",
+"start": 21.3,
+"end": 21.78
+},
+{
+"text": "arasdagi",
+"start": 21.78,
+"end": 22.24
+},
+{
+"text": "farklar",
+"start": 22.24,
+"end": 22.72
+},
+{
+"text": "isə",
+"start": 22.72,
+"end": 23.02
+},
+{
+"text": "az",
+"start": 23.02,
+"end": 23.28
+},
+{
+"text": "bolgan.",
+"start": 23.28,
+"end": 23.7
+},
+{
+"text": "Ərəblərdə",
+"start": 25.12,
+"end": 25.88
+},
+{
+"text": "umumi",
+"start": 25.88,
+"end": 26.5
+},
+{
+"text": "bir",
+"start": 26.5,
+"end": 26.7
+},
+{
+"text": "til",
+"start": 26.7,
+"end": 26.96
+},
+{
+"text": "mavcud",
+"start": 26.96,
+"end": 27.34
+},
+{
+"text": "edi.",
+"start": 27.34,
+"end": 27.6
+},
+{
+"text": "U",
+"start": 27.6,
+"end": 27.94
+},
+{
+"text": "Ədəbi",
+"start": 27.94,
+"end": 28.66
+},
+{
+"text": "Ərəb",
+"start": 28.66,
+"end": 29.02
+},
+{
+"text": "dili",
+"start": 29.02,
+"end": 29.22
+},
+{
+"text": "bolib,",
+"start": 29.22,
+"end": 29.54
+},
+{
+"text": "şeriyyət",
+"start": 29.62,
+"end": 30.38
+},
+{
+"text": "və",
+"start": 30.38,
+"end": 30.66
+},
+{
+"text": "natıqlik",
+"start": 30.66,
+"end": 31.24
+},
+{
+"text": "dili",
+"start": 31.24,
+"end": 31.44
+},
+{
+"text": "sənələdi",
+"start": 31.44,
+"end": 31.86
+},
+{
+"text": "ki,",
+"start": 31.86,
+"end": 32.02
+},
+{
+"text": "Ərəblər",
+"start": 32.12,
+"end": 32.88
+},
+{
+"text": "ozara",
+"start": 32.88,
+"end": 33.2
+},
+{
+"text": "şu",
+"start": 33.2,
+"end": 33.46
+},
+{
+"text": "tilde",
+"start": 33.46,
+"end": 33.78
+},
+{
+"text": "sözləşər",
+"start": 33.78,
+"end": 34.3
+},
+{
+"text": "edi.",
+"start": 34.3,
+"end": 34.56
+},
+{
+"text": "Keynesi",
+"start": 36.04,
+"end": 36.76
+},
+{
+"text": "Əslam",
+"start": 36.76,
+"end": 37.06
+},
+{
+"text": "dini",
+"start": 37.06,
+"end": 37.38
+},
+{
+"text": "kildi",
+"start": 37.38,
+"end": 37.8
+},
+{
+"text": "və",
+"start": 37.8,
+"end": 38.18
+},
+{
+"text": "Allah",
+"start": 38.18,
+"end": 38.46
+},
+{
+"text": "Qur",
+"start": 38.46,
+"end": 38.88
+},
+{
+"text": "'an",
+"start": 38.88,
+"end": 39.18
+},
+{
+"text": "-ı",
+"start": 39.18,
+"end": 39.18
+},
+{
+"text": "Kerimni",
+"start": 39.18,
+"end": 39.62
+},
+{
+"text": "Ədəbi",
+"start": 39.62,
+"end": 40.14
+},
+{
+"text": "Ərəb",
+"start": 40.14,
+"end": 40.48
+},
+{
+"text": "dili",
+"start": 40.48,
+"end": 40.72
+},
+{
+"text": "də",
+"start": 40.72,
+"end": 40.86
+},
+{
+"text": "nazıl",
+"start": 40.86,
+"end": 41.12
+},
+{
+"text": "qıldı.",
+"start": 41.12,
+"end": 41.4
+},
+{
+"text": "Allah",
+"start": 42.56,
+"end": 43.28
+},
+{
+"text": "Ta",
+"start": 43.28,
+"end": 43.56
+},
+{
+"text": "'ala",
+"start": 43.56,
+"end": 43.68
+},
+{
+"text": "şun",
+"start": 43.68,
+"end": 44.04
+},
+{
+"text": "dəydigən,",
+"start": 44.04,
+"end": 44.56
+},
+{
+"text": "Əlbəttə",
+"start": 44.66,
+"end": 45.4
+},
+{
+"text": "biz",
+"start": 45.4,
+"end": 45.54
+},
+{
+"text": "unı",
+"start": 45.54,
+"end": 46.02
+},
+{
+"text": "Əngləb",
+"start": 46.02,
+"end": 46.48
+},
+{
+"text": "yetişingiz",
+"start": 46.48,
+"end": 47.1
+},
+{
+"text": "üçün",
+"start": 47.1,
+"end": 47.5
+},
+{
+"text": "Ərəbçe",
+"start": 47.5,
+"end": 48.02
+},
+{
+"text": "uqılmış",
+"start": 48.02,
+"end": 48.44
+},
+{
+"text": "qılıb",
+"start": 48.44,
+"end": 48.82
+},
+{
+"text": "nazıl",
+"start": 48.82,
+"end": 49.18
+},
+{
+"text": "qıldik.",
+"start": 49.18,
+"end": 49.54
+},
+{
+"text": "Yusuf",
+"start": 49.68,
+"end": 50.24
+},
+{
+"text": "surası,",
+"start": 50.24,
+"end": 50.68
+},
+{
+"text": "ikkinci",
+"start": 50.8,
+"end": 51.42
+},
+{
+"text": "ayət.",
+"start": 51.42,
+"end": 51.78
+},
+{
+"text": "Qur",
+"start": 52.8,
+"end": 53.52
+},
+{
+"text": "'an",
+"start": 53.52,
+"end": 53.8
+},
+{
+"text": "-ı",
+"start": 53.8,
+"end": 53.84
+},
+{
+"text": "Kerim",
+"start": 53.84,
+"end": 54.2
+},
+{
+"text": "əyrəm",
+"start": 54.2,
+"end": 54.58
+},
+{
+"text": "qadimi",
+"start": 54.58,
+"end": 55.0
+},
+{
+"text": "Ərəbçe",
+"start": 55.0,
+"end": 55.44
+},
+{
+"text": "sözlərге",
+"start": 55.44,
+"end": 56.04
+},
+{
+"text": "Əngi",
+"start": 56.04,
+"end": 56.6
+},
+{
+"text": "manalar",
+"start": 56.6,
+"end": 56.98
+},
+{
+"text": "alıb",
+"start": 56.98,
+"end": 57.32
+},
+{
+"text": "kirdi.",
+"start": 57.32,
+"end": 57.68
+},
+{
+"text": "Və",
+"start": 59.02,
+"end": 59.4
+},
+{
+"text": "ilgəri",
+"start": 59.4,
+"end": 59.84
+},
+{
+"text": "Ərəb",
+"start": 59.84,
+"end": 60.18
+},
+{
+"text": "dili",
+"start": 60.18,
+"end": 60.42
+},
+{
+"text": "bilməgən",
+"start": 60.42,
+"end": 60.88
+},
+{
+"text": "Əngi",
+"start": 60.88,
+"end": 61.28
+},
+{
+"text": "usluplarını",
+"start": 61.28,
+"end": 61.84
+},
+{
+"text": "alıb",
+"start": 61.84,
+"end": 62.16
+},
+{
+"text": "kildi.",
+"start": 62.16,
+"end": 62.54
+},
+{
+"text": "Qur",
+"start": 63.84,
+"end": 64.22
+},
+{
+"text": "'an,",
+"start": 64.22,
+"end": 64.6
+},
+{
+"text": "Naxf,",
+"start": 64.62,
+"end": 65.28
+},
+{
+"text": "Sarf,",
+"start": 65.4,
+"end": 65.96
+},
+{
+"text": "Balagat",
+"start": 66.06,
+"end": 66.7
+},
+{
+"text": "kəbi",
+"start": 66.7,
+"end": 66.94
+},
+{
+"text": "Ərəb",
+"start": 66.94,
+"end": 67.34
+},
+{
+"text": "dili",
+"start": 67.34,
+"end": 67.58
+},
+{
+"text": "fanlərinin",
+"start": 67.58,
+"end": 68.12
+},
+{
+"text": "həm",
+"start": 68.12,
+"end": 68.5
+},
+{
+"text": "də",
+"start": 68.5,
+"end": 68.7
+},
+{
+"text": "tafsir,",
+"start": 68.7,
+"end": 69.26
+},
+{
+"text": "hadis,",
+"start": 69.3,
+"end": 69.96
+},
+{
+"text": "fıqh",
+"start": 70.02,
+"end": 70.56
+},
+{
+"text": "və",
+"start": 70.56,
+"end": 70.98
+},
+{
+"text": "başqa",
+"start": 70.98,
+"end": 71.36
+},
+{
+"text": "fanlər",
+"start": 71.36,
+"end": 71.7
+},
+{
+"text": "kəbi",
+"start": 71.7,
+"end": 71.92
+},
+{
+"text": "Əslam",
+"start": 71.92,
+"end": 72.32
+},
+{
+"text": "dini",
+"start": 72.32,
+"end": 72.62
+},
+{
+"text": "qə",
+"start": 72.62,
+"end": 72.84
+},
+{
+"text": "aid",
+"start": 72.84,
+"end": 73.02
+},
+{
+"text": "fanlərinin",
+"start": 73.02,
+"end": 73.64
+},
+{
+"text": "vücudki",
+"start": 73.64,
+"end": 74.08
+},
+{
+"text": "kilişi",
+"start": 74.08,
+"end": 74.46
+},
+{
+"text": "qə",
+"start": 74.46,
+"end": 74.6
+},
+{
+"text": "səbəbçi",
+"start": 74.6,
+"end": 74.98
+},
+{
+"text": "bolgan.",
+"start": 74.98,
+"end": 75.32
+},
+{
+"text": "Ərəb",
+"start": 76.48,
+"end": 77.24
+},
+{
+"text": "dili",
+"start": 77.24,
+"end": 77.56
+},
+{
+"text": "Farsça,",
+"start": 77.56,
+"end": 78.14
+},
+{
+"text": "Urduça",
+"start": 78.32,
+"end": 78.98
+},
+{
+"text": "və",
+"start": 78.98,
+"end": 79.44
+},
+{
+"text": "Suaxili",
+"start": 79.44,
+"end": 79.92
+},
+{
+"text": "dili",
+"start": 79.92,
+"end": 80.24
+},
+{
+"text": "kəbi",
+"start": 80.24,
+"end": 80.48
+},
+{
+"text": "Əslami",
+"start": 80.48,
+"end": 81.12
+},
+{
+"text": "xalqlar",
+"start": 81.12,
+"end": 81.56
+},
+{
+"text": "dilləri",
+"start": 81.56,
+"end": 81.92
+},
+{
+"text": "qə",
+"start": 81.92,
+"end": 82.12
+},
+{
+"text": "təsir",
+"start": 82.12,
+"end": 82.34
+},
+{
+"text": "qorsatdı.",
+"start": 82.34,
+"end": 82.92
+},
+{
+"text": "Nəticədə,",
+"start": 84.42,
+"end": 85.18
+},
+{
+"text": "Ərəb",
+"start": 92.16,
+"end": 93.56
+},
+{
+"text": "dili",
+"start": 93.56,
+"end": 93.78
+},
+{
+"text": "Ərəb",
+"start": 93.78,
+"end": 95.26
+},
+{
+"text": "dili",
+"start": 95.26,
+"end": 95.98
+},
+{
+"text": "Əslami",
+"start": 95.98,
+"end": 101.42
+},
+{
+"text": "xalqlar",
+"start": 101.42,
+"end": 102.18
+},
+{
+"text": "dilləri",
+"start": 102.18,
+"end": 102.4
+},
+{
+"text": "qə",
+"start": 102.4,
+"end": 102.58
+},
+{
+"text": "təsir",
+"start": 102.58,
+"end": 103.84
+},
+{
+"text": "qorsatdı.",
+"start": 103.84,
+"end": 106.66
+}
+]

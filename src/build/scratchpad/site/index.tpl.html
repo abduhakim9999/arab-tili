@@ -184,6 +184,21 @@ body{margin:0;color:var(--tx);font-family:system-ui,-apple-system,sans-serif;pad
 :root[data-theme="dark"] .cd .cib.cv{background:rgba(255,255,255,.07)!important}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .it.bk .icw b{filter:brightness(1.8)}}
 :root[data-theme="dark"] .it.bk .icw b{filter:brightness(1.8)}
+.cd.a.hero.hx{flex-direction:column;align-items:stretch;gap:12px;padding:16px 14px 14px}
+.hx .hl{display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit;min-width:0}
+.hx .hb{display:flex;gap:10px}
+.hbt{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;border-radius:14px;text-decoration:none;font-weight:700;font-size:15.5px;-webkit-tap-highlight-color:transparent}
+.hbt svg{width:20px;height:20px;flex:none;color:inherit!important;stroke:currentColor!important}
+.hbt.h1{background:rgba(255,255,255,.94);color:var(--em2,#0c5e3f)}
+.hbt.h2{background:rgba(255,255,255,.14);color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.3)}
+.bks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.bks .it.bk{flex-direction:column;align-items:center;text-align:center;gap:8px;padding:14px 10px 12px;border-radius:18px}
+.bks .it.bk .mid{width:100%}
+.bks .it.bk .mid .ar{font-size:21px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.xr{margin-top:16px}
+.xr .cd.vp{min-height:0}
+.esh{flex:none;width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--tint,rgba(15,122,79,.1));color:var(--ac);cursor:pointer}
+.esh svg{width:20px;height:20px}
 </style>
 </head>
 <body>
@@ -194,7 +209,7 @@ body{margin:0;color:var(--tx);font-family:system-ui,-apple-system,sans-serif;pad
     <dl>
       <dt>КИТОБ</dt><dd><bdi class="ar" dir="rtl">نُورُ الطَّالِبِ</bdi></dd>
       <dt>МУАЛЛИФ</dt><dd>Қаҳрамон устоз</dd>
-      <dt>ВЕРСИЯ</dt><dd id="vinfo">v189 · 04.11.2026, 23:49</dd>
+      <dt>ВЕРСИЯ</dt><dd id="vinfo">v190 · 05.11.2026, 00:06</dd>
       <dt>АЛОҚА</dt><dd>Хато ёки таклиф бўлса: <a href="https://t.me/Arabtilihivar_bot">@Arabtilihivar_bot</a></dd>
     </dl>
     <button class="x" onclick="document.getElementById('ab').classList.remove('on')">Ёпиш</button>
@@ -220,8 +235,12 @@ function prog(raw,q){
 }
 var IC1='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 6h14M5 10h14M5 14h10M5 18h7"/></svg>';
 var IC2='<svg viewBox="0 0 24 24" fill="none" stroke="#c2410c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8.5 12.2l2.4 2.4 4.6-5"/></svg>';
+/* Eshitish yo'lagi bor darslar (tinglash.html LIST) — yangi darsning Eshitishi qilinganda raqam qo'shiladi */
+var ESH=[6,7,74,93,94,95];
+var IB='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h6a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4z"/><path d="M20 5h-6a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2h6z"/></svg>';
+var IH='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4.5" height="6.5" rx="1.6"/><rect x="16.5" y="14" width="4.5" height="6.5" rx="1.6"/></svg>';
 function item(L,txt,cls,w,d,lst){
-  return '<a class="it an'+(lst?' lst':'')+'" style="animation-delay:'+d+'s" href="'+L.n+'.html">'+icn(L.n)+'<div class="mid"><div class="ar">'+L.ar+'</div><div class="t">'+L.uz+'</div>'+((txt||lst)?'<div class="pg'+cls+'">'+(lst?'<span class="lsb">▶ Давом этиш</span>':'')+txt+'</div>':'')+(w?'<div class="bar"><i style="width:'+w+'%"></i></div>':'')+'</div></a>';
+  return '<a class="it an'+(lst?' lst':'')+'" style="animation-delay:'+d+'s" href="'+L.n+'.html">'+icn(L.n)+'<div class="mid"><div class="ar">'+L.ar+'</div><div class="t">'+L.uz+'</div>'+((txt||lst)?'<div class="pg'+cls+'">'+(lst?'<span class="lsb">▶ Давом этиш</span>':'')+txt+'</div>':'')+(w?'<div class="bar"><i style="width:'+w+'%"></i></div>':'')+'</div>'+(ESH.indexOf(+L.n)>=0?'<span class="esh" data-d="'+L.n+'" role="link" aria-label="Эшитиш">'+IH+'</span>':'')+'</a>';
 }
 /* Феъллар (natijalar feellar.html'dan) */
 function cov(ch,c1,c2,m){return '<svg class="cov" viewBox="0 0 64 64" aria-hidden="true"><rect x="12" y="6" width="40" height="52" rx="5" fill="'+c1+'"/><rect x="12" y="6" width="7" height="52" rx="3" fill="'+c2+'"/><rect x="24" y="12" width="22" height="24" rx="4" fill="none" stroke="#F3D58C" stroke-width="2.2"/><text x="35" y="29" text-anchor="middle" font-size="21" fill="#F3D58C" font-family="DarsNaskh,serif">'+ch+'</text>'+m+'</svg>'}
@@ -238,7 +257,6 @@ function pnCard(){
   var hp='<path d="M27 51v-3a7 7 0 0 1 14 0v3" stroke="#F3D58C" stroke-width="2.2" fill="none" stroke-linecap="round"/><rect x="25" y="48" width="4" height="6" rx="1.5" fill="#F3D58C"/><rect x="39" y="48" width="4" height="6" rx="1.5" fill="#F3D58C"/>';
   var I=[['sarf.html','Сарф','#E6EEF8',cov('ص','#2E5E9A','#1F4673','<path d="M26 43h18M26 48h18M26 53h11" stroke="#F3D58C" stroke-width="2" stroke-linecap="round" opacity=".75"/>')],
     ['feellar.html','Феъллар','#F8E4E8',cov('ف','#9B2C3F','#6E1C2B','<path d="M29 46l4 4 8-8" stroke="#F3D58C" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>')],
-    ['tinglash.html','Эшитиш','#E3F2EA',cov('س','#1F7A5A','#145C43',hp)],
     ['fiqh.html','&nbsp;','#F6ECDD',cov('ق','#8A5A1E','#66410F','<path d="M26 44h18M26 49h18M26 54h11" stroke="#F3D58C" stroke-width="2" stroke-linecap="round" opacity=".75"/>')]];
   return '<div class="cd an vp">'+I.map(function(x){return '<a href="'+x[0]+'"><span class="cib cv" style="--cvl:'+x[2]+'">'+x[3]+'</span><span class="n">'+x[1]+'</span></a>'}).join('')+'</div>';
 }
@@ -254,7 +272,9 @@ function heroCard(last,avg){
   var raw=null;try{raw=localStorage.getItem(L.key)}catch(e){}
   var p=prog(raw,L.q),w=p&&p.done?100:(p&&p.n?Math.round(p.n*100/L.q):0);
   var I=ICO[L.n],ic=I?'<span class="cib hic" style="background:'+I.l+'"><svg viewBox="0 0 64 64" aria-hidden="true">'+I.s+'</svg></span>':'<span class="cib">'+IC1+'</span>';
-  return '<a class="cd a hero an" style="animation-delay:.08s" href="'+L.n+'.html">'+ic+'<div class="tx"><div class="n">'+(has?'Давом этиш':'Бошлаш')+'</div><div class="har">'+L.ar+'</div><div class="hs">'+(bk?bk+', ':'')+L.n+'-дарс</div><div class="bar"><i style="width:'+w+'%"></i></div></div></a>';
+  var eh=ESH.indexOf(+L.n)>=0?'tinglash.html?d='+L.n:'tinglash.html';
+  return '<div class="cd a hero hx an" style="animation-delay:.08s"><a class="hl" href="'+L.n+'.html">'+ic+'<div class="tx"><div class="n">'+(has?'Давом этиш':'Бошлаш')+'</div><div class="har">'+L.ar+'</div><div class="hs">'+(bk?bk+', ':'')+L.n+'-дарс</div><div class="bar"><i style="width:'+w+'%"></i></div></div></a>'+
+    '<div class="hb"><a class="hbt h1" href="'+L.n+'.html">'+IB+'Ўқиш</a><a class="hbt h2" href="'+eh+'">'+IH+'Эшитиш</a></div></div>';
 }
 var LC=null;
 function render(cloud){
@@ -287,6 +307,7 @@ function render(cloud){
     h='<a class="bback an" href="#"><b>‹</b>Китоблар</a><div class="bhd an"><span>'+(U0?U0[2]:'')+'</span><b>'+(U0?U0[5]:'')+'</b></div>'+BH[cur];
   }else{
     var MS=document.getElementById('ms');if(MS)MS.style.display='';
+    h+='<div class="bks">';
     BO.forEach(function(bk,i){
       var U0=null;for(var k in UNITS)if(UNITS[k][4]===bk){U0=UNITS[k];break}
       var L=BL[bk],pc=Math.round(BW[bk]/BC[bk]);
@@ -294,16 +315,17 @@ function render(cloud){
         '<div class="mid"><div class="ar">'+(U0?U0[5]:'')+'</div>'+
         (pc?'<div class="bar"><i style="width:'+pc+'%"></i></div>':'')+'</div></a>';
     });
+    h+='</div><div class="xr">'+pnCard()+'</div>';
   }
   var avg=LESSONS.length?Math.round(sum/LESSONS.length):0;
   var t='<div class="cards">'+
-    pnCard()+
     heroCard(last,avg)+
     '</div>';
   document.getElementById("top").innerHTML=t;
   document.getElementById("ls").innerHTML=h;
 }
 setTimeout(function(){document.getElementById("w").classList.remove("first")},2000);
+document.addEventListener('click',function(e){var s=e.target.closest&&e.target.closest('.esh');if(s){e.preventDefault();e.stopPropagation();location.href='tinglash.html?d='+s.dataset.d}},true);
 render();
 if(/^#k\d/.test(location.hash))setTimeout(function(){var e=document.getElementById('ms');if(e)e.scrollIntoView({block:'start'})},60);
 window.addEventListener('hashchange',function(){render();var e=document.getElementById('ms');if(e)e.scrollIntoView({block:'start'})});

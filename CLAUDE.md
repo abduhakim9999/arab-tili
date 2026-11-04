@@ -27,9 +27,12 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
 
 ## Darslar holati
 - Sayt: https://abduhakim9999.github.io/arab-tili/ · Mini App `t.me/Arabtilihivar_bot/darslar` · versiya `sw.js` dagi `var C`.
-- Darslar: 1-kitob **1–7**; 2-kitob **70–74, 91–94**.
-- Eshitish: **6, 7, 74, 93, 94**. Ochiq ish: 1–5, 70–73, 91–92 ni qo'shish.
-- Oxirgi qilinganlar (02.11.2026):
+- Darslar: 1-kitob **1–7**; 2-kitob **70–74, 91–95**.
+- Eshitish: **6, 7, 74, 93, 94, 95**. Ochiq ish: 1–5, 70–73, 91–92 ni qo'shish.
+- Oxirgi qilinganlar (04.11.2026):
+  - 95-dars — «الْعَرَبِيَّةُ الْفَصِيحَةُ وَأَثَرُهَا» (Адабий араб тили ва унинг таъсири); audio — foydalanuvchi yozuvi (tiniq, faqat sarlavha+matn; tayyorlov savollari o'qilmagan); lug'at yo'q, mashq 14; Eshitish: Матн (Davronbek) + Таркиб (Hamed).
+  - 94–95 yangi bob: k2b7 «7-БОБ · اللُّغَةُ الْعَرَبِيَّةُ» (foydalanuvchi: «بَيْنَ طَالِبَتَيْنِ» dan boshlab); 94 — bobning 1-darsi (SHOWU), bob nomi ovozi Abdullah.
+  - 6-dars Eshitish Таркиб: o'zbekcha qator to'liq (↳ izohlar + jumla izohi).
   - 7-dars — Али ва Аммор (2-боб «الْأُسْرَةُ», yangi bo'lim k1b2); hujjatda tarjima yo'q — kitob lug'ati misollaridan; lug'at 116–138 (kitobdan), mashq 8; Eshitish: Матн (Davronbek) + Луғат (Abdullah/Davronbek) + Таркиб (Hamed).
   - 6-dars lug'ati kitobdagi 95–115 bilan almashtirildi, Луғат yo'lagi qayta yasaldi.
   - 6-dars — Нада ва Ҳуда (5-darsning muannas shakli); audio — foydalanuvchi yozuvi (tiniq); lug'at 95–105 (kitobda berilmagan, dars so'zlaridan tuzildi), mashq 7; Eshitish: Матн + Луғат + Таркиб.

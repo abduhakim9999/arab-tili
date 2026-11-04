@@ -44,7 +44,17 @@ pos = [(li, wi) for li, wi, *_ in TM if li != 0]
 assert len(SC) == len(pos), (len(SC), len(pos))
 check_bounds(CUT, [(li, w['start'] + off, w['end'] + off) for (li, wi), w in zip(pos, SC)])
 print('bo\'laklar tekshirildi: hammasi to\'g\'ri')
-h = cut(HDR, T + '/h.wav', gain=g_h)
+# bosh qism (04.11.2026): bismillah -> bob ar -> bob uz -> raqam ar -> raqam uz (hcfg 94: [3.2, bob oxiri, oxiri])
+UZF = ('silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.03,areverse,'
+       'silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.25,areverse,atempo=0.95')
+def uzp(src, dst):
+    run(['ffmpeg', '-v', 'error', '-y', '-i', src, '-af', UZF, '-ar', str(SR), '-ac', '1', dst + '.p.wav'])
+    return cut(dst + '.p.wav', dst, gain=TGT - lufs(dst + '.p.wav'))
+CF = json.load(open(S + '/hdr/hcfg.json'))['94']
+hb = cut(HDR, T + '/hb.wav', 0, CF[1], g_h); hn = cut(HDR, T + '/hn.wav', CF[1], dur(HDR), g_h)
+bu = uzp(HERE + '/u94/B94uz.mp3', T + '/bu.wav'); nu = uzp(HERE + '/u94/H94uz.mp3', T + '/nu.wav')
+s05 = sil(T + '/s05.wav', 0.5)
+concat([hb, s05, bu, s05, hn, s05, nu], T + '/hh.mp3'); h = cut(T + '/hh.mp3', T + '/hh.wav')
 items = [(h, 'h', 0), (s1, None, 0)]
 for k, li in enumerate(lis):
     a0, b0 = CUT[li]

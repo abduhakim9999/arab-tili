@@ -1,7 +1,7 @@
 /* Sahifalar (HTML): avval internetdan yangisi (3 s kutadi), internet bo'lmasa telefondagi nusxa.
    Audio va boshqa fayllar: telefondagi nusxa darhol, yangisi orqa fonda.
    Yangi versiya (C) chiqqanda eski kesh o'chadi va ochiq sahifalar o'zi yangilanadi. */
-var C = 'arab-tili-v187';
+var C = 'arab-tili-v188';
 var FILES = ["./", "index.html", "tinglash.html", "fel.html", "tg.js", "shell.js", "shell.css", "manifest.webmanifest", "icon-192.png", "icon-512.png", "icon-maskable-512.png", "1.html", "2.html", "3.html", "4.html", "5.html", "6.html", "7.html", "70.html", "71.html", "72.html", "73.html", "74.html", "91.html", "92.html", "93.html", "94.html", "95.html", "feellar.html", "sarf.html", "sarf-idx.json", "sarflink.js", "tarkib.js", "tarkib2.js", "hdr.js", "naskh.woff", "a1-8915a8a5.mp3", "a2-e553110d.mp3", "a3-25daf782.mp3", "a4-34c34994.mp3", "a5-676f8ab1.mp3", "a6-821214ec.mp3", "a70-38568abf.mp3", "a71-10b47ba4.mp3", "a72-b1ffc444.mp3", "a73-26e4389d.mp3", "a74-999cfa80.mp3", "a91-c13b9797.mp3", "a92-73d0b542.mp3", "a93-97fe1435.mp3", "a95-4ed9ef7e.mp3", "l95-df5a5476.mp3", "t95-24c845bd.mp3", "a94-23515d29.mp3", "l74-42fed380.mp3", "l93-c34ddd01.mp3", "t94-dfc763c5.mp3", "l94-9efd692a.mp3", "v93-6c7751ab.mp3", "l6-a291ebdd.mp3", "t6-ce124056.mp3", "v6-1fb8622e.mp3", "a7-f726c341.mp3", "l7-3cbdab3f.mp3", "v7-595770ed.mp3", "t7-5d5688bc.mp3"];
 var TG = 'https://telegram.org/js/telegram-web-app.js';
 

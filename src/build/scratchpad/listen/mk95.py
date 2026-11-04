@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # 95-dars tinglash: l95.mp3 (Матн: арабча гап -> ўзбекча таржима). Ўзбекча — Davronbek (eleven_v4), EQ'siz: jimlik kesish + atempo 0.95.
-# Bosh qism: bismillah (h95[0:3.2]) + dars raqami (h95[6.07:]) -> o'zbekchasi (u95/H95uz.mp3). Bob nomi 95 da sahifada yo'q (SHOWU).
+# Bosh qism: bismillah (h95[0:3.2]) + dars raqami (h95[hcfg[1]:]) -> o'zbekchasi (u95/H95uz.mp3). Bob nomi 95 da sahifada yo'q (SHOWU).
 import os, sys, json, re, subprocess
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 from build_t import *
@@ -42,7 +42,7 @@ pos = [(li, wi) for li, wi, *_ in TM if li != 0]
 assert len(SC) == len(pos), (len(SC), len(pos))
 check_bounds(CUT, [(li, w['start'] + off, w['end'] + off) for (li, wi), w in zip(pos, SC)])
 print('bo\'laklar tekshirildi: hammasi to\'g\'ri')
-hb = cut(HDR, T + '/hb.wav', 0, 3.2, g_h); hn = cut(HDR, T + '/hn.wav', 6.07, 8.359184, g_h)
+hb = cut(HDR, T + '/hb.wav', 0, 3.2, g_h); CF = json.load(open(S + '/hdr/hcfg.json'))['95']; hn = cut(HDR, T + '/hn.wav', CF[1], dur(HDR), g_h)
 hr = uzp(HERE + '/u95/H95uz.mp3', T + '/hr.wav')
 concat([hb, sil(T + '/s03.wav', 0.3), hn, sil(T + '/s05.wav', 0.5), hr], T + '/hh.mp3'); h = cut(T + '/hh.mp3', T + '/hh.wav')
 items = [(h, 'h', 0), (s1, None, 0)]

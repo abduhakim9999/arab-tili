@@ -240,12 +240,9 @@
         close();
       });
     });
-    /* таржима бўлаклари — янги ранг бўйича */
-    if (window.CAT) [].forEach.call(tx.querySelectorAll('.ts'), function (e) {
+    /* таржима рангсиз (05.11.2026, фойдаланувчи қарори) */
+    [].forEach.call(tx.querySelectorAll('.ts'), function (e) {
       (e.className.match(/\bp[a-z]\b/g) || []).forEach(function (c) { e.classList.remove(c) });
-      var l = e.getAttribute('data-l'), w = (e.getAttribute('data-w') || '').split(','), c = '';
-      ['f', 'o', 'm', 'x', 'b', 'j', 'h'].forEach(function (x) { if (!c && w.some(function (j) { return CAT[l + '-' + j] == x })) c = x });
-      if (c) e.classList.add('p' + c);
     });
     /* легенда — дарс ва фиқҳда бир хил */
     var lg = document.getElementById('lg');

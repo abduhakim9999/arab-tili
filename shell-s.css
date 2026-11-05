@@ -65,6 +65,9 @@ body.nop .pbar{transform:translateY(24px);opacity:0;pointer-events:none}
 .pbar .uzb{height:36px;min-width:44px;padding:0 6px;font:inherit;font-size:13px;font-weight:700;border-radius:10px;border:1px solid currentColor;background:transparent;color:inherit;opacity:.55;cursor:pointer;transition:transform .17s,opacity .17s,background .17s}
 .pbar .uzb.on{opacity:1}
 .pbar .uzb.pop{transform:scale(1.18)}
+.pbar .esh{flex:none;width:36px;height:36px;padding:0;border:none;border-radius:18px;background:transparent;color:inherit;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.pbar .esh:active{background:var(--tint)}
+@media (max-width:400px){.pbar{gap:6px;padding:10px 8px}.pbar .pqs{width:30px}.pbar .sp{min-width:44px;padding:0 4px}.pbar .uzb{min-width:36px;padding:0 4px}}
 
 
 /* mavzu: dars sahifasi */

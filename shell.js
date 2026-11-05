@@ -225,7 +225,20 @@
     SR = r; try { localStorage.setItem('dars-tezlik', r); } catch (e) {}
   }
   function showRate() { sp.textContent = String(rate()) + '×'; }
+  /* bosib turilsa — tezliklar ro'yxati chiqadi (05.11.2026) */
+  var spm = document.createElement('div'), lpT = null, lpDone = false;
+  spm.className = 'spm';
+  spm.innerHTML = [0.5, 0.75, 1, 1.25, 1.5].map(function (r) { return '<button type="button" data-r="' + r + '">' + r + '×</button>'; }).join('');
+  pb.appendChild(spm);
+  function spmShow(on) { spm.classList.toggle('on', on); if (on) [].forEach.call(spm.children, function (b) { b.classList.toggle('on', +b.getAttribute('data-r') === rate()); }); }
+  spm.addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; e.stopPropagation(); setRate(+b.getAttribute('data-r')); showRate(); spmShow(false); });
+  document.addEventListener('click', function (e) { if (!e.target.closest('.spm') && !e.target.closest('.pbar .sp')) spmShow(false); });
+  sp.addEventListener('pointerdown', function () { lpDone = false; clearTimeout(lpT); lpT = setTimeout(function () { lpDone = true; spmShow(true); try { navigator.vibrate && navigator.vibrate(15); } catch (e) {} }, 450); });
+  ['pointerup', 'pointerleave', 'pointercancel'].forEach(function (ev) { sp.addEventListener(ev, function () { clearTimeout(lpT); }); });
+  sp.addEventListener('contextmenu', function (e) { e.preventDefault(); });
   sp.addEventListener('click', function () {
+    if (lpDone) { lpDone = false; return; }
+    if (spm.classList.contains('on')) { spmShow(false); return; }
     var i = RT.indexOf(rate());
     setRate(RT[(i + 1) % RT.length]);
     showRate();

@@ -243,8 +243,8 @@ for n in LISTEN:
 tp = open(os.path.join(HERE, 'tinglash.tpl.html'), encoding='utf-8').read().replace('__LIST__', json.dumps(LST, ensure_ascii=False))
 open(OUT + '/tinglash.html', 'w', encoding='utf-8').write(tp)
 
-files = ['./', 'index.html', 'tinglash.html', 'fel.html', 'tg.js', 'shell.js', 'shell.css', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png'] + \
-        ['%s.html' % l[0] for l in LESSONS] + ['feellar.html', 'sarf.html', 'sarf-idx.json', 'sarflink.js', 'tarkib.js', 'tarkib2.js', 'hdr.js', 'naskh.woff'] + AUD
+files = ['./', 'index.html', 'tinglash.html', 'yoriqnoma.html', 'fel.html', 'tg.js', 'shell.js', 'shell.css', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png'] + \
+        ['%s.html' % l[0] for l in LESSONS] + ['feellar.html', 'sarf.html', 'sarf-idx.json', 'sarflink.js', 'tarkib.js', 'tarkib2.js', 'hdr.js', 'naskh.woff']  # audio (AUD) versiyaga kirmaydi — sw.js o'zi keshlaydi
 sw = open(os.path.join(HERE, 'sw.tpl.js'), encoding='utf-8').read()
 sw = sw.replace('__VER__', VER).replace('__FILES__', json.dumps(files))
 open(OUT + '/sw.js', 'w', encoding='utf-8').write(sw)

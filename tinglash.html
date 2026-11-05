@@ -145,7 +145,9 @@ $('oSp').onclick=function(e){var b=e.target.closest('button');if(!b)return;O.sp=
 $('md').onclick=function(e){var b=e.target.closest('button');if(!b||cm()===b.dataset.v)return;MODE=b.dataset.v;try{localStorage.setItem('tinglash-mode',MODE)}catch(e){}load(li,!A.paused)};
 function sheet(on){$('opts').classList.toggle('on',on);$('shb').classList.toggle('on',on)}
 $('bg').onclick=function(){sheet(true)};$('oc').onclick=$('shb').onclick=function(){sheet(false)};
-ui();load(li,false);if(q)$('bk').href=q+'.html';if(LIST.length<2)$('ls').style.display='none';
+ui();load(li,false);
+(function(){var s=(location.search.match(/[?&]s=(\d+)/)||[])[1];if(s==null||cm()!=='l')return;var j=-1;M.forEach(function(x,i){if(j<0&&x[1]==='ar'&&String(x[0])===s)j=i});if(j<0)return;
+  var go=function(){A.currentTime=M[j][2];curAr=j;show(j);A.play().catch(function(){})};if(A.readyState>=1)go();else A.addEventListener('loadedmetadata',go,{once:true})})();if(q)$('bk').href=q+'.html';if(LIST.length<2)$('ls').style.display='none';
 if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(function(){});
 </script>
 </body>

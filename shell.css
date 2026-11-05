@@ -213,3 +213,6 @@ body.lo2 .w>.tabs:first-child{margin-top:-14px!important}
 .guide .gu{color:var(--cj);text-decoration:underline dotted var(--cx);text-decoration-thickness:2.5px;text-underline-offset:5px}
 .guide .gs{font:600 11.5px/1 system-ui,-apple-system,sans-serif;color:var(--ac);background:color-mix(in srgb,var(--ac) 13%,transparent);border-radius:999px;padding:5px 9px}
 .hpop .tourbtn{margin-top:10px}
+
+/* Ҳаракат (эъроб) ранглари — вазифа ранглари палитрасидан (05.11.2026): раф — фоил, насб — мафъул, жар — мажрур, жазм — феъл */
+html:root:not([data-nc]){--cR:var(--co);--cN:var(--cb);--cJ:var(--cj);--cZ:var(--cf)}

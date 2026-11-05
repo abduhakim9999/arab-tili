@@ -49,6 +49,17 @@
     '.lgd .lgk{flex-basis:100%;font-size:12px;color:var(--mu)}' +
     '.tkc{display:inline-flex;flex-direction:column;align-items:center;gap:1px}.tkc>small{direction:ltr;font:500 12px/1.2 system-ui,-apple-system,sans-serif;color:var(--mu)}' +
     '.tku{direction:ltr;font:600 13px/1.3 system-ui,-apple-system,sans-serif;color:var(--tx)}.tku i{font-style:normal;font-weight:500;color:var(--mu)}.tku b{color:var(--cj)}';
+  /* Ягона ранглар (05.11.2026): ҳар бўлак ўз вазифаси рангида; ҳарф ва музофун илайҳ рангсиз; изофа — музоф рангидаги ёй */
+  st.textContent +=
+    '#tx .ws span[data-i] span.q{padding:0!important;border-radius:0!important;background:none!important;transition:none}' +
+    '#tx.tartib .ws span[data-i] span.q0{color:var(--tx)}' +
+    '#tx.tartib .ws span.kx{text-decoration:none!important}' +
+    '#tx.tartib .ws span.iz{border-bottom:2px solid var(--izc,var(--mu));padding-bottom:7px;border-radius:0}' +
+    '#tx.tartib .ws span.iz.izr{border-bottom-right-radius:12px}#tx.tartib .ws span.iz.izl{border-bottom-left-radius:12px}' +
+    '#tx.tartib .ws span.iz.izm{margin-left:-4px;padding-left:6px}' +
+    '.zc-m{--izc:var(--cm)}.zc-o{--izc:var(--co)}.zc-x{--izc:var(--cx)}.zc-f{--izc:var(--cf)}.zc-b{--izc:var(--cb)}.zc-j{--izc:var(--cj)}.zc-h{--izc:var(--ch)}.zc-mu{--izc:var(--mu)}' +
+    '.lgd .lgi{font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:16px;color:var(--cm);border-bottom:2px solid var(--cm);border-radius:0 0 10px 10px;padding:0 3px 3px}.lgd .lgi i{font-style:normal;color:var(--tx)}' +
+    '.lgd .lgz{font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:16px}';
   document.head.appendChild(st);
 
   var bl = document.getElementById('bl');
@@ -146,8 +157,108 @@
     if (lg) { var pm = lg.querySelector('.pm'), po = lg.querySelector('.po'); if (pm && po && pm.nextSibling !== po) pm.parentNode.insertBefore(po, pm.nextSibling) }
     /* → , карта ва нуқтали чизиқ изоҳи — «?» йўриқномасида (shell.js), легендада фақат ранглар */
   }
+  function lc(s) { return String(s).replace(/[^ء-يٱ]/g, '').length }
+  function prole(u, eff, kxw) {
+    var h = u.split(',')[0];
+    if (/^(ت муаннаслик|ن сақловчи|сақловчи ҳарф|ا фарқлаш|و ишбоъ|вовул)/.test(u) || /ҳарфи|ҳарф$|ҳарф \(|зоида ҳарф/.test(h)) return '';
+    var m = u.match(/^(?:муттасил|мунфасил) замир бўлиб,? (?:у )?([^,]+)/);
+    if (m) {
+      var r = m[1];
+      if (/музофун илайҳ/.test(r)) return '';
+      if (/фоил/.test(r)) return 'o';
+      if (/мафъулун биҳ/.test(r)) return 'b';
+      if (/^мажрур/.test(r)) return kxw ? 'x' : 'j';
+      if (/нинг исми/.test(r) || /^мубтадо/.test(r)) return 'm';
+      if (/нинг хабари/.test(r) || /^хабар/.test(r)) return 'x';
+      return eff;
+    }
+    return null;
+  }
+  /* сўзни бўлакларга (олд ҳарф, асос, замир) ажратиш: ҳарфлар сони бўйича; мос келмаса — null */
+  function split(t, forms) {
+    var c = forms.map(lc), n = c.reduce(function (a, b) { return a + b }, 0), w = lc(t);
+    if (n != w) for (var i = 1; i < forms.length; i++) if (bare(forms[i - 1]) == 'ل' && /^ا?ل/.test(bare(forms[i])) && bare(forms[i]).indexOf('ال') == 0) { c[i]--; n--; }
+    if (n != w || forms.length < 2) return null;
+    var seg = forms.map(function () { return '' }), p = 0, left = c.slice();
+    for (var k = 0; k < t.length; k++) {
+      var ch = t[k];
+      if (/[ء-يٱ]/.test(ch)) { while (p < c.length - 1 && left[p] == 0) p++; left[p]--; }
+      seg[p] += ch;
+    }
+    return seg;
+  }
+  function rang() {
+    if (!window.IRB) return;
+    var CV = window.CATOV || {};
+    [].forEach.call(tx.querySelectorAll('.ln'), function (ln) {
+      if (/МАВЗУ/.test(getComputedStyle(ln, '::before').content || '') || getComputedStyle(ln).display == 'none') return;
+      var prevEff = '', prevIl = false, muzEff = '';
+      [].forEach.call(ln.querySelectorAll('.ws'), function (ws) {
+        var grp = null, gcol = '';
+        function close() {
+          if (grp && (grp.length > 1 || grp[0].inner)) grp.forEach(function (o, z) {
+            o.e.classList.add('iz', 'zc-' + (gcol || 'mu'));
+            if (z == 0) o.e.classList.add('izr');
+            if (z == grp.length - 1) o.e.classList.add('izl'); else o.e.classList.add('izm');
+          });
+          grp = null;
+        }
+        [].forEach.call(ws.querySelectorAll('span[data-i]'), function (e) {
+          var k = e.getAttribute('data-i'), E = IRB[k] || {}, K = (E.k || []).filter(function (x) { return x[0] }), A = E.a || [];
+          var raw = CV[k] !== undefined ? CV[k] : (window.catOf && window.get ? catOf(get(k)) : '');
+          var kxw = e.classList.contains('kx');
+          var roles = K.map(function (x) { return prole(x[1], null, kxw) });
+          var si = roles.indexOf(null), su = si >= 0 ? K[si][1] : '';
+          var il = E.s == 'муз.илайҳ' || /^(лафзи жалола бўлиб )?(музоф бўлиб )?музофун илайҳ/.test(su);
+          var J = E.j == 'J';
+          var eff;
+          if (il) eff = '';
+          else if (raw == '^') eff = prevIl ? (J ? '' : muzEff) : prevEff;
+          else if (raw == '>' || raw == '-') eff = '';
+          else eff = raw || '';
+          if (kxw && raw != '>' && !il && eff != 'f') eff = 'x';
+          var inIl = il || (raw == '^' && prevIl && J);
+          var muz = /музоф бўлиб/.test(su) || A.some(function (a) { return /وَهُوَ مُضَافٌ/.test(a[1]) });
+          var inner = roles.some(function (r, z) { return r === '' && /музофун илайҳ/.test(K[z][1]) });
+          /* ранг */
+          (e.className.match(/\bp[a-z]\b/g) || []).forEach(function (c) { e.classList.remove(c) });
+          if (eff) e.classList.add('p' + eff);
+          if (window.CAT) { if (eff) CAT[k] = eff; else delete CAT[k]; }
+          var seg = K.length > 1 ? split(e.textContent, K.map(function (x) { return x[0] })) : null;
+          if (seg && roles.some(function (r) { return r !== null && r !== eff })) {
+            e.innerHTML = seg.map(function (t, z) { var r = roles[z] === null ? eff : roles[z]; return '<span class="q ' + (r ? 'p' + r : 'q0') + '">' + t + '</span>' }).join('');
+          }
+          /* изофа */
+          if (grp && inIl) grp.push({ e: e, inner: inner }); else close();
+          if (!grp && muz) { grp = [{ e: e, inner: inner }]; gcol = eff; }
+          if (grp && inner && !muz) close();
+          else if (grp && inner && grp.length == 1 && grp[0].e === e) { grp[0].inner = true; close(); }
+          if (!il && raw != '^') muzEff = eff;
+          if (raw != '>') { prevEff = eff; prevIl = inIl; }
+        });
+        close();
+      });
+    });
+    /* таржима бўлаклари — янги ранг бўйича */
+    if (window.CAT) [].forEach.call(tx.querySelectorAll('.ts'), function (e) {
+      (e.className.match(/\bp[a-z]\b/g) || []).forEach(function (c) { e.classList.remove(c) });
+      var l = e.getAttribute('data-l'), w = (e.getAttribute('data-w') || '').split(','), c = '';
+      ['f', 'o', 'm', 'x', 'b', 'j', 'h'].forEach(function (x) { if (!c && w.some(function (j) { return CAT[l + '-' + j] == x })) c = x });
+      if (c) e.classList.add('p' + c);
+    });
+    /* легенда — дарс ва фиқҳда бир хил */
+    var lg = document.getElementById('lg');
+    if (lg && !lg.getAttribute('data-v2')) {
+      lg.setAttribute('data-v2', '1');
+      lg.innerHTML = '<span class="pm">● Мубтадо, исм</span><span class="po">● Фоил</span><span class="px">● Хабар</span><span class="pf">● Феъл</span>' +
+        '<span class="pb">● Мафъулун биҳ</span><span class="pj">● Мажрур</span><span class="ph">● Зарф, ҳол</span>' +
+        '<span class="lgk"><span class="lgi">فَرْضُ <i>الْوُضُوءِ</i></span> изофа — музоф рангидаги ёй · ҳарф ва музофун илайҳ — рангсиз · ' +
+        '<span class="lgz"><span style="color:var(--cf)">أَنْزَلْ</span><span style="color:var(--co)">نَا</span><span style="color:var(--cb)">هُ</span></span> замир — ўз вазифаси рангида</span>';
+    }
+  }
   function deco() {
     kx();
+    rang();
     if (window.IRB) [].forEach.call(tx.querySelectorAll('.ws span[data-i]'), function (e) {
       var E = IRB[e.getAttribute('data-i')];
       if (E && E.j) e.setAttribute('data-j', E.j); else e.removeAttribute('data-j');

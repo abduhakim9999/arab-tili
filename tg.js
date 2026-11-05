@@ -165,6 +165,8 @@
   }
   function stat(t) {
     if (!STAT_URL) return;
+    /* avtomatik brauzer (Claude sinovi, bot) va kompyuterdagi nusxa statistikaga yozilmaydi (05.11.2026) */
+    if (navigator.webdriver || /Headless|bot|crawl|spider|Lighthouse/i.test(navigator.userAgent) || /^(localhost|127\.|0\.0\.0\.0|\[::1\])/.test(location.hostname)) return;
     try {
       var u = (W && W.initDataUnsafe && W.initDataUnsafe.user) || tgUser(), d;
       if (u) {

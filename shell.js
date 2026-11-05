@@ -180,19 +180,20 @@
   ['play', 'pause', 'ended'].forEach(function (ev) { au.addEventListener(ev, function () { state(); label(); }); });
   au.addEventListener('timeupdate', label);
   au.addEventListener('loadedmetadata', label);
-  /* o'qilayotgan qator pleyer ostiga tushib qolmasin: ko'rinadigan oraliqning yuqori qismida ushlab turiladi */
+  /* o'qilayotgan gap ekran tepasida ushlab turiladi (05.11.2026: teparoq) */
   if (typeof window.follow === 'function') {
     var fA = null;
     window.follow = function (e) {
       if (!e) return;
       var ln = e.closest('.ln') || e, r = ln.getBoundingClientRect(), wr = e.getBoundingClientRect();
       var bar = document.querySelector('.tabs'), top = bar ? bar.getBoundingClientRect().bottom + 8 : 70;
+      [].forEach.call(document.querySelectorAll('.lq'), function (x) { var q = x.getBoundingClientRect(); if (q.height && q.top <= top && q.bottom > top - 8) top = q.bottom + 8; }); /* ranglar qatori tepada tursa — uning ostiga */
       var tgb = document.querySelector('.tgbar'), bot = (tgb && tgb.offsetParent ? tgb : pb).getBoundingClientRect().top - 10; if (bot < top + 120) bot = window.innerHeight - 10;
       var av = bot - top;
       var tall = r.height > av * 0.6, ref = tall ? wr : r;
-      if (ref.top >= top && ref.bottom <= top + av * 0.7) return;
+      if (ref.top >= top - 2 && ref.top <= top + av * 0.1 && ref.bottom <= bot) return; /* o'qilayotgan gap ekran tepasida turadi */
       var sc = document.scrollingElement || document.documentElement;
-      var from = sc.scrollTop, to = Math.max(0, Math.min(sc.scrollHeight - window.innerHeight, from + ref.top - top - av * 0.12)), t0 = 0;
+      var from = sc.scrollTop, to = Math.max(0, Math.min(sc.scrollHeight - window.innerHeight, from + ref.top - top - 4)), t0 = 0;
       if (Math.abs(to - from) < 4) return;
       if (fA) cancelAnimationFrame(fA);
       function st(ts) { if (!t0) t0 = ts; var p = Math.min(1, (ts - t0) / 380), q = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2; window.scrollTo(0, from + (to - from) * q); fA = p < 1 ? requestAnimationFrame(st) : null; }

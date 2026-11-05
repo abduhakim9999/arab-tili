@@ -61,6 +61,25 @@
     '.lgd .lgi{font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:16px;color:var(--cm);border-bottom:2px solid var(--cm);border-radius:0 0 10px 10px;padding:0 3px 3px}.lgd .lgi i{font-style:normal;color:var(--tx)}' +
     '.lgd .lgz{font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:16px}' +
     '.lgb{display:none!important}.lgd{gap:2px 10px!important;font-size:12px!important;justify-content:center;margin:0 0 6px!important;padding:4px 0!important;border-bottom:1px solid var(--bd)}';
+  st.textContent +=
+    '.tkx{display:block!important;margin:8px 0 2px!important;padding:8px 12px 6px!important;border-radius:12px!important;background:var(--bg)!important;border:1px solid var(--bd)!important}' +
+    '.tq+.tq{border-top:1px solid var(--bd);margin-top:6px;padding-top:6px}' +
+    '.tqh{display:flex;justify-content:flex-end;margin:0 0 4px}' +
+    '.tqgt{font:700 12px/1 system-ui,-apple-system,sans-serif;color:var(--ac);background:var(--tint,rgba(15,122,79,.1));border-radius:999px;padding:5px 10px}' +
+    '.tqr{display:flex;align-items:center;gap:8px;padding:3px 4px;direction:ltr;cursor:pointer;border-radius:8px}' +
+    '.tqk{flex:0 0 auto;min-width:78px;font:700 13px/1.2 system-ui,-apple-system,sans-serif;color:var(--mu);text-align:left}' +
+    '.tqk i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}' +
+    '.tqar{display:flex;align-items:center;gap:7px;direction:rtl;flex-wrap:wrap}' +
+    '.tqc{font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:calc(var(--fs,22px)*.85);line-height:1.5;border:1px solid var(--bd);border-radius:9px;padding:0 9px;background:var(--cd);color:var(--tx);direction:rtl;font-weight:400}' +
+    '.tqc.d{border-style:dashed;border-color:var(--mu)}' +
+    '.tqs{font:600 11.5px system-ui,sans-serif;color:var(--mu);direction:ltr}' +
+    '.tql{border-top:1px dashed var(--bd);padding:6px 4px 4px;cursor:pointer;border-radius:8px}' +
+    '.tqrow{display:flex;align-items:center;gap:7px;flex-wrap:wrap;direction:ltr}' +
+    '.tqkc{font:700 11.5px/1 system-ui,-apple-system,sans-serif;color:var(--mu);border:1px solid var(--bd);border-radius:999px;padding:4px 8px;background:var(--cd)}' +
+    '.tqn{font:400 13.5px/1.45 system-ui,-apple-system,sans-serif;color:var(--mu);margin-top:3px;direction:ltr;text-align:left}' +
+    '.tqn .ar,.tqj .ar{font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:1.25em}' +
+    '.tqj{border-top:1px solid var(--bd);margin-top:4px;padding-top:6px;font:400 13.5px/1.45 system-ui,-apple-system,sans-serif;color:var(--mu);direction:ltr;text-align:left}.tqj b{color:var(--tx)}' +
+    '.tqr.on,.tql.on{background:var(--tint,rgba(15,122,79,.1))}';
   document.head.appendChild(st);
 
   var bl = document.getElementById('bl');
@@ -286,46 +305,143 @@
     [].forEach.call(tx.querySelectorAll('[data-tkp]'), function (e) { e.style.paddingBottom = ''; e.removeAttribute('data-tkp') });
   }
 
+  /* ===== Ягона Таркиб қутиси (05.11.2026; грамматика ва фиқҳда бир хил) =====
+     гап тури → асосий бўлаклар (Мубтадо/Хабар ёки Феъл/Фоил/Мафъул) → боғланишлар (тур, сўз → боғланган сўз, изоҳ) → жумла изоҳи */
+  var DOT = { m: 'cm', x: 'cx', f: 'cf', o: 'co', b: 'cb', j: 'cj', h: 'ch' };
+  function esc(t) { return String(t).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c] }) }
+  function arb(t) { /* «арабча …» бутунича битта rtl бўлак */
+    return String(t).split(/(«[^»]*»)/).map(function (x) {
+      if (/^«[^»]*[؀-ۿ][^»]*»$/.test(x)) return '«<bdi class="ar" dir="rtl">' + esc(x.slice(1, -1)) + '</bdi>»';
+      return esc(x).replace(/([؀-ۿ][؀-ۿً-ْٰ\s،]*[؀-ۿً-ْٰ]|[؀-ۿ])/g, '<bdi class="ar">$1</bdi>');
+    }).join('');
+  }
+  function pc(e) { var m = (e.className || '').match(/\bp([a-z])\b/); return m ? m[1] : '' }
+  var PU = /[()\[\]{}.:،؛؟!,«»﴿﴾"]/g;
+  function cl(t) { return String(t).replace(PU, '').replace(/\s+/g, ' ').trim() }
+  function lead(q) { return !!q && /^[وف]$/.test(bare(q.textContent)) }
+  function wtxt(e, c) { /* бутун сўз; олд و/ف ташланади; феълда замир бўлаклари ташланади */
+    var qs = [].slice.call(e.querySelectorAll('span.q'));
+    if (qs.length < 2) return cl(e.textContent);
+    var r = qs.filter(function (q, z) { return !(z == 0 && lead(q)) && !(c == 'f' && /\bp[ob]\b/.test(q.className)) });
+    return cl((r.length ? r : qs).map(function (q) { return q.textContent }).join(''));
+  }
+  function brk(pe, e) { var q = e.querySelector('span.q'); return /[.:،؛؟!,()«»﴿﴾]\s*$/.test(pe.textContent) || /^\s*[(«﴿]/.test(e.textContent) || lead(q) }
+  function chip(t, cls) { return '<span class="tqc' + (cls ? ' ' + cls : '') + '">' + esc(t) + '</span>' }
+  function short3(a) { return a.length > 3 ? a.slice(0, 2).join(' ') + ' …' : a.join(' ') }
+  function stemUz(E) { var k = (E && E.k || []).filter(function (x) { return x[0] }); return k.length ? k.map(function (x) { return x[1] }).join(' · ') : '' }
+  function phrases(ln, i, a, b) {
+    var P = [], cur = null;
+    for (var j = a; j <= b; j++) {
+      var e = ln.querySelector('[data-i="' + i + '-' + j + '"]'); if (!e) continue;
+      var c = pc(e), iz = e.classList.contains('iz'), iz0 = e.classList.contains('izr');
+      if (c && cur && cur.c == c && !iz0 && !brk(cur.e[cur.e.length - 1], e)) { cur.e.push(e); cur.b = j; continue; }
+      if (!c && cur && iz && !iz0 && cur.iz && !brk(cur.e[cur.e.length - 1], e)) { cur.e.push(e); cur.b = j; continue; }
+      if (c) { cur = { c: c, e: [e], a: j, b: j, iz: iz }; P.push(cur); } else cur = null;
+    }
+    return P;
+  }
+  function prow(k, c, body, a, b, t) {
+    return '<div class="tqr" data-a="' + a + '" data-b="' + b + '"' + (t != null ? ' data-t="' + t + '"' : '') + '><span class="tqk"><i style="background:var(--' + (DOT[c] || 'mu') + ')"></i>' + k + '</span><span class="tqar">' + body + '</span></div>';
+  }
+  function pillars(i, ln, t, ghosts) {
+    var P = phrases(ln, i, t.a, t[0]), h = '';
+    function first(c, after, before) { for (var n = 0; n < P.length; n++) if (P[n].c == c && (after == null || P[n].a > after) && (before == null || P[n].a < before)) return P[n]; return null }
+    function ph(p, c) { var ws = (c == 'f' ? p.e.slice(0, 1) : p.e).map(function (e, z) { return z == 0 ? wtxt(e, c) : cl(e.textContent) }).filter(Boolean); return chip(short3(ws)) }
+    function E0(p) { return IRB[i + '-' + p.a] || {} }
+    if (t.st == 'исмийя') {
+      var m = first('m'), x = first('x');
+      if (m) h += prow(/нинг исми|^исми$/.test(stemUz(E0(m)) + ' ' + (E0(m).s || '')) ? 'Исм' : 'Мубтадо', 'm', ph(m, 'm'), m.a, m.b);
+      else for (var j = t.a; j <= t[0]; j++) { var mm = stemUz(IRB[i + '-' + j]).match(/мубтадоси маҳзуф: \(([؀-ۿً-ْٰ\s]+)\)/) || ((IRB[i + '-' + j] || {}).k || []).map(function (q) { return (q[1] || '').match(/мубтадоси маҳзуф: \(([؀-ۿً-ْٰ\s]+)\)/) }).filter(Boolean)[0]; if (mm) { h += prow('Мубтадо', 'm', chip(mm[1], 'd'), j, j); break } }
+      if (x) h += prow('Хабар', 'x', ph(x, 'x'), x.a, x.b);
+      else {
+        var jx = (G[i] || []).filter(function (g) { return g[3] == 'j' && /хабари?(\b|,|$)/.test(g[2]) && g[0] >= t.a && g[0] <= t[0] })[0];
+        if (jx) { var ws = []; for (var q = jx[0]; q <= jx[1]; q++) { var e = ln.querySelector('[data-i="' + i + '-' + q + '"]'); if (e) ws.push(cl(e.textContent)) } h += prow('Хабар', 'x', chip(short3(ws)) + '<small class="tqs">жумла</small>', jx[0], jx[1]); }
+      }
+    } else if (t.st == 'феълийя') {
+      var f = first('f'), fe = f ? IRB[i + '-' + f.a] || {} : {}, fu = stemUz(fe);
+      if (f) h += prow('Феъл', 'f', ph(f, 'f'), f.a, f.a);
+      else if (ghosts.indexOf('أَدْعُو') >= 0) h += prow('Феъл', 'f', chip('أَدْعُو', 'd'), t.a, t.a);
+      var fw = f ? f.e[0] : null;
+      if (f && /ноқис/.test(fu)) {
+        var mi = first('m', f.a - 1), xi = first('x', f.a - 1), hz = fu.match(/(?:жоиз|вожиб) ҳолдаги (\S+) мустатир замир/);
+        if (mi) h += prow('Исм', 'm', ph(mi, 'm'), mi.a, mi.b); else if (hz) h += prow('Исм', 'm', chip(hz[1], 'd'), f.a, f.a);
+        if (xi) h += prow('Хабар', 'x', ph(xi, 'x'), xi.a, xi.b);
+      } else if (f) {
+        var nf = first('f', f.a), bd = nf ? nf.a : null, o = first('o', f.a, bd), inO = fw && fw.querySelector('span.q.po'), hz2 = fu.match(/(?:жоиз|вожиб) ҳолдаги (\S+) мустатир замир бор бўлиб, у (ноиби фоил|фоил)/), bz = fu.match(/([؀-ۿ]+) бориз муттасил замир бўлиб, у (фоил|ноиби фоил)/);
+        var nb = /мажҳул/.test(fu) || (o && /^ноиби фоил/.test(stemUz(IRB[i + '-' + o.a])));
+        var lab = nb ? 'Ноиби фоил' : 'Фоил';
+        if (o) h += prow(lab, 'o', ph(o, 'o'), o.a, o.b);
+        else if (inO) h += prow(lab, 'o', chip(cl(inO.textContent)), f.a, f.a);
+        else if (hz2) h += prow(hz2[2] == 'ноиби фоил' ? 'Ноиби фоил' : 'Фоил', 'o', chip(hz2[1], 'd') + '<small class="tqs">яширин</small>', f.a, f.a);
+        else if (bz) h += prow(lab, 'o', chip(bz[1]), f.a, f.a);
+        var b = first('b', f.a, bd), inB = fw && fw.querySelector('span.q.pb');
+        if (b) h += prow('Мафъулун биҳ', 'b', ph(b, 'b'), b.a, b.b);
+        else if (inB) h += prow('Мафъулун биҳ', 'b', chip(cl(inB.textContent)), f.a, f.a);
+      }
+      if (!f) { for (var z = t.a; z <= t[0]; z++) if (/^мунодо/.test(stemUz(IRB[i + '-' + z]))) { var me = ln.querySelector('[data-i="' + i + '-' + z + '"]'); if (me) h += prow('Мунодо', 'b', chip(cl(me.textContent)), z, z); break } }
+    }
+    return h;
+  }
+  function findW(ln, i, w) {
+    var tb = bare(w), hit = null;
+    if (!tb) return null;
+    [].some.call(ln.querySelectorAll('.ws span[data-i]'), function (e) { var b0 = bare(e.textContent); if (b0 == tb || b0.slice(-tb.length) == tb || b0.replace(/^ال/, '') == tb.replace(/^ال/, '')) { hit = e; return true } });
+    return hit;
+  }
+  function rel(i, ln, g, ws) {
+    var kind = '', tgt = '', hid = false, note = '', ti = null, dep = chip(short3(ws), g[3] == 's' ? 'd' : '');
+    if (g[3] == 's') {
+      var src = g[2].replace(/^шибҳи жумла — ?/, '').replace(/ ?га мутааллиқ$/, '');
+      kind = /баён/.test(src) ? 'баён' : /бадал/.test(src) ? 'бадал' : /^ноиби фоил/.test(src) ? 'ноиби фоил' : 'мутааллиқ';
+      if (kind == 'мутааллиқ' && /маҳзуф|бўлмиш/.test(src)) { var k1 = tq(src); tgt = k1 ? k1[1] : ''; hid = true; var d = sjd(src); note = /^маҳзуф/.test(d.replace(/<[^>]+>/g, '')) ? d : d; }
+      else if (kind == 'мутааллиқ') { var a1 = src.match(/^(?:маҳзуф )?([؀-ۿً-ْٰ\s]+)$/); if (a1) { var we = findW(ln, i, a1[1]); tgt = we ? we.textContent.replace(/[.:،؛؟!,]+$/, '') : a1[1]; if (we) ti = we.getAttribute('data-i').split('-')[1]; } else if (src) note = arb(src); }
+      else { var a2 = src.match(/([؀-ۿً-ْٰ]+)/); if (a2) { var we2 = findW(ln, i, a2[1]); tgt = we2 ? we2.textContent.replace(/[.:،؛؟!,]+$/, '') : a2[1]; if (we2) ti = we2.getAttribute('data-i').split('-')[1]; } note = arb(src.replace(/^[؀-ۿً-ْٰ\s]+/, '').trim()); }
+      var u = U[i + '-' + g[0]]; if (u && !hid) note = (note ? note + ' · ' : '') + esc(u[1]) + ' → ' + esc(u[0]);
+    } else {
+      var lab = g[2].replace(/^жумла — ?/, '');
+      kind = /сила/.test(lab) ? 'сила' : /маътуф/.test(lab) ? 'атф' : /мафъули|мақули/.test(lab) ? 'мафъул' : /хабар/.test(lab) ? 'хабар' : /сифати/.test(lab) ? 'сифат' : /ҳол/.test(lab) ? 'ҳол' : 'жумла';
+      var a3 = lab.match(/([؀-ۿً-ْٰ]+)/);
+      if (a3) { var we3 = findW(ln, i, a3[1]); tgt = we3 ? we3.textContent.replace(/[.:،؛؟!,]+$/, '') : a3[1]; if (we3) ti = we3.getAttribute('data-i').split('-')[1]; }
+      else if (kind == 'сила') { var pe = ln.querySelector('[data-i="' + i + '-' + (g[0] - 1) + '"]'), PE = IRB[i + '-' + (g[0] - 1)] || {}; if (pe && /мавсул/.test(stemUz(PE) + (PE.s || ''))) { tgt = pe.textContent.replace(/[.:،؛؟!,]+$/, ''); ti = g[0] - 1; } }
+      note = arb(lab.replace(/[؀-ۿً-ْٰ]+\s*/, a3 ? '' : '$&').replace(/^нинг /, '').replace(/^сила жумласи,?\s*/, '').replace(/^жумласига /, '').trim());
+      note = note.replace(/^(дан|га)\s+/, '');
+    }
+    var arw = tgt ? chip(tgt, hid ? 'd' : '') + '<span class="tkar">→</span>' : '';
+    return '<div class="tql" data-a="' + g[0] + '" data-b="' + g[1] + '"' + (ti != null ? ' data-t="' + ti + '"' : '') + '><div class="tqrow"><span class="tqkc">' + kind + '</span><span class="tqar">' + arw + dep + '</span></div>' + (note ? '<div class="tqn">' + note + '</div>' : '') + '</div>';
+  }
   function lay() {
     [].forEach.call(tx.querySelectorAll('.tkx'), function (e) { e.remove() });
     if (!tx.classList.contains('tartib')) return;
     var lns = tx.querySelectorAll('.ln');
     Object.keys(G).concat(Object.keys(T)).filter(function (v, k, a) { return a.indexOf(v) == k }).forEach(function (i) {
       var ln = lns[+i]; if (!ln) return;
+      if (/МАВЗУ/.test(getComputedStyle(ln, '::before').content || '') || getComputedStyle(ln).display == 'none') return;
       var items = (G[i] || []).slice().sort(function (a, b) { return a[0] - b[0] || (b[1] - b[0]) - (a[1] - a[0]) });
-      var h = '';
-      function card(g) {
-        var ws = [];
-        for (var j = g[0]; j <= g[1]; j++) { var e = ln.querySelector('[data-i="' + i + '-' + j + '"]'); if (e) ws.push(cw(e, e.textContent)) }
-        var lab = short(g[2]), m = lab.match(/^(шибҳи жумла|жумла[^,]*|маътуф жумла|сила жумласи|жумлаи ҳолийя)(.*)$/);
-        var head = m ? m[1].replace(' → ', '') : lab, rest = m ? m[2] : '';
-        if (g[3] == 's') return sj(i, ln, g, ws);
-        return '<div class="tkr ' + g[3] + '" data-a="' + g[0] + '" data-b="' + g[1] + '"><span class="tka">' + ws.join(' ') + '</span>' +
-          '<span class="tkd"><b>' + head + '</b>' + rest.replace(/^,\s*/, ' · ').replace(/^\s*→\s*/, ' → ') + '</span></div>';
-      }
-      var used = {}, segs = (T[i] || []).filter(function (t) { return t.st });
+      function wsOf(g) { var ws = []; for (var j = g[0]; j <= g[1]; j++) { var e = ln.querySelector('[data-i="' + i + '-' + j + '"]'); if (e) ws.push(cl(e.textContent)) } return ws.filter(Boolean) }
+      var used = {}, segs = (T[i] || []).filter(function (t) { return t.st || /^[а-яўқғҳё]+йя$/.test(t[1] || '') }), h = '';
+      var jstart = {}; items.forEach(function (g) { if (g[3] == 'j') jstart[g[0]] = 1 });
       segs.forEach(function (t) {
-        var ws = [], gh = {};
-        items.forEach(function (g) { if (g[3] == 's' && g[0] >= t.a && g[0] <= t[0]) { var z = ghost(g); if (z) gh[g[0]] = z } });
-        /* нидо: يَا дан олдин яширин феъл أَدْعُو (мунодо шу феълнинг мафъули — шунинг учун насб ўринда, гап феълийя) */
-        for (var jn = t.a; jn < t[0]; jn++) { var A = IRB[i + '-' + jn], B = IRB[i + '-' + (jn + 1)]; if (A && B && /^нидо ҳарфи/.test(A.s || '') && /^мунодо/.test(B.s || '') && !gh[jn]) gh[jn] = 'أَدْعُو' }
-        for (var j = t.a; j <= t[0]; j++) { var e = ln.querySelector('[data-i="' + i + '-' + j + '"]'); if (e) ws.push(gh[j] ? gz(e.textContent, gh[j], e) : cw(e, e.textContent)) }
+        var gh = [];
+        items.forEach(function (g) { if (g[3] == 's' && g[0] >= t.a && g[0] <= t[0]) { var z = ghost(g); if (z) gh.push(z) } });
+        for (var jn = t.a; jn < t[0]; jn++) { var A = IRB[i + '-' + jn], B = IRB[i + '-' + (jn + 1)]; if (A && B && /^нидо ҳарфи/.test(A.s || '') && /^мунодо/.test(B.s || '')) gh.push('أَدْعُو') }
         var inner = '';
-        items.forEach(function (g, k) { if (g[0] >= t.a && g[0] <= t[0]) { used[k] = 1; inner += card(g) } });
-        var bare1 = !inner && !Object.keys(gh).length; /* янги маълумот йўқ: гап такрорланмайди */
-        if (bare1 && segs.length == 1 && !items.length) { h += '<div class="tkg c1"><span class="tks">' + t.st + '</span></div>'; return; }
-        h += '<div class="tkg' + (bare1 ? ' c' : '') + '"><div class="tkr g" data-a="' + t.a + '" data-b="' + t[0] + '"><span class="tks">' + t.st + '</span>' +
-          '<span class="tka">' + ws.join(' ') + '</span></div>' + (inner ? '<div class="tki">' + inner + '</div>' : '') + '</div>';
+        items.forEach(function (g, k) { if (g[0] >= t.a && g[0] <= t[0]) { used[k] = 1; inner += rel(i, ln, g, wsOf(g)) } });
+        var jm = [];
+        for (var q = t.a; q <= t[0]; q++) { var Q = IRB[i + '-' + q]; if (Q && Q.jm && !jstart[q]) jm.push(String(Q.jm).replace(/^«[^»]*»\s*—\s*/, '')) }
+        var kd = t.st || ([].some.call(ln.querySelectorAll('.ws span[data-i]'), function (e) { var j = +e.getAttribute('data-i').split('-')[1]; return j >= t.a && j <= t[0] && pc(e) == 'f' }) ? 'феълийя' : 'исмийя');
+        h += '<div class="tq"><div class="tqh"><span class="tqgt">' + (t.st || t[1]) + '</span></div>' + pillars(i, ln, { a: t.a, 0: t[0], st: kd }, gh) + inner +
+          (jm.length ? '<div class="tqj"><b>Жумла:</b> ' + jm.map(arb).join(' · ') + '</div>' : '') + '</div>';
       });
-      items.forEach(function (g, k) { if (!used[k]) h += card(g) });
+      var rest = ''; items.forEach(function (g, k) { if (!used[k]) rest += rel(i, ln, g, wsOf(g)) });
+      if (rest) h += '<div class="tq">' + rest + '</div>';
       if (!h) return;
       var box = document.createElement('div'); box.className = 'tkx'; box.innerHTML = h;
       var trs = ln.querySelectorAll('.tr'), tr = trs[trs.length - 1]; if (tr) tr.parentNode.insertBefore(box, tr.nextSibling); else ln.appendChild(box); /* таржима арабча гап тагида, қути ундан кейин */
-      [].forEach.call(box.querySelectorAll('.tkr'), function (r) {
+      [].forEach.call(box.querySelectorAll('.tqr,.tql'), function (r) {
         r.addEventListener('click', function (ev) {
           ev.stopPropagation();
           var on = !r.classList.contains('on');
-          [].forEach.call(tx.querySelectorAll('.tkr.on'), function (x) { x.classList.remove('on') });
+          [].forEach.call(tx.querySelectorAll('.tqr.on,.tql.on'), function (x) { x.classList.remove('on') });
           [].forEach.call(tx.querySelectorAll('.ws span.tkh'), function (x) { x.classList.remove('tkh', 'tkh2') });
           if (!on) return; r.classList.add('on');
           for (var j = +r.dataset.a; j <= +r.dataset.b; j++) { var e = ln.querySelector('[data-i="' + i + '-' + j + '"]'); if (e) e.classList.add('tkh') }

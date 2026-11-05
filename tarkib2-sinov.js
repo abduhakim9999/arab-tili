@@ -24,7 +24,7 @@
     '.tkr .tka{direction:rtl;text-align:right;font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:calc(var(--fs,22px)*.78);line-height:1.5;color:var(--tx)}' +
     '.tkr .tkd{font:500 12.5px/1.35 system-ui,-apple-system,sans-serif;color:var(--mu)}.tkr .tkd b{font-weight:700;color:var(--ac)}.tkr.s .tkd b{color:var(--cj)}' +
     '.tkl2{display:flex;direction:rtl;align-items:center;gap:8px;flex-wrap:wrap}.tkl2 .tka{font-size:calc(var(--fs,22px)*.78)}' +
-    '.tkar{font:700 16px system-ui;color:var(--cj)}' +
+    '.tkar{font:700 16px system-ui;color:var(--tx)}' +
     '.tkt0{font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:calc(var(--fs,22px)*.78);line-height:1.5;padding:0 8px;border-radius:8px;background:rgba(127,127,127,.08)}' +
     '.tkt0.pf{color:var(--cf)}.tkt0.pm{color:var(--cm)}.tkt0.px{color:var(--cx)}.tkt0.po{color:var(--co)}.tkt0.pb{color:var(--cb)}.tkt0.pj{color:var(--cj)}.tkt0.ph{color:var(--ch)}' +
     '.tkt0.hid{color:var(--mu);border:1px dashed var(--bd);background:none}.tkt0.hid i{font:italic 500 11.5px system-ui,sans-serif}' +
@@ -59,7 +59,8 @@
     '#tx.tartib .ws span.iz.izm{margin-left:-4px;padding-left:6px}' +
     '.zc-m{--izc:var(--cm)}.zc-o{--izc:var(--co)}.zc-x{--izc:var(--cx)}.zc-f{--izc:var(--cf)}.zc-b{--izc:var(--cb)}.zc-j{--izc:var(--cj)}.zc-h{--izc:var(--ch)}.zc-mu{--izc:var(--mu)}' +
     '.lgd .lgi{font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:16px;color:var(--cm);border-bottom:2px solid var(--cm);border-radius:0 0 10px 10px;padding:0 3px 3px}.lgd .lgi i{font-style:normal;color:var(--tx)}' +
-    '.lgd .lgz{font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:16px}';
+    '.lgd .lgz{font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:16px}' +
+    '.lgb{display:none!important}.lgd{gap:2px 10px!important;font-size:12px!important;justify-content:center;margin:0 0 6px!important;padding:4px 0!important;border-bottom:1px solid var(--bd)}';
   document.head.appendChild(st);
 
   var bl = document.getElementById('bl');
@@ -251,10 +252,9 @@
     if (lg && !lg.getAttribute('data-v2')) {
       lg.setAttribute('data-v2', '1');
       lg.innerHTML = '<span class="pm">● Мубтадо, исм</span><span class="po">● Фоил</span><span class="px">● Хабар</span><span class="pf">● Феъл</span>' +
-        '<span class="pb">● Мафъулун биҳ</span><span class="pj">● Мажрур</span><span class="ph">● Зарф, ҳол</span>' +
-        '<span class="lgk"><span class="lgi">فَرْضُ <i>الْوُضُوءِ</i></span> изофа — музоф рангидаги ёй · ҳарф ва музофун илайҳ — рангсиз · ' +
-        '<span class="lgz"><span style="color:var(--cf)">أَنْزَلْ</span><span style="color:var(--co)">نَا</span><span style="color:var(--cb)">هُ</span></span> замир — ўз вазифаси рангида</span>';
+        '<span class="pb">● Мафъулун биҳ</span><span class="pj">● Мажрур</span><span class="ph">● Зарф, ҳол</span>';
     }
+    if (lg) lg.classList.add('lgo');
   }
   function deco() {
     kx();

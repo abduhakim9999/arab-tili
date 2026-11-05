@@ -187,11 +187,11 @@
       if (!e) return;
       var ln = e.closest('.ln') || e, r = ln.getBoundingClientRect(), wr = e.getBoundingClientRect();
       var bar = document.querySelector('.tabs'), top = bar ? bar.getBoundingClientRect().bottom + 8 : 70;
-      [].forEach.call(document.querySelectorAll('.lq'), function (x) { var q = x.getBoundingClientRect(); if (q.height && q.top <= top && q.bottom > top - 8) top = q.bottom + 8; }); /* ranglar qatori tepada tursa — uning ostiga */
+      [].forEach.call(document.querySelectorAll('.lq,.lgd.lgo'), function (x) { var q = x.getBoundingClientRect(); if (q.height && q.top <= top && q.bottom > top - 8) top = q.bottom + 8; }); /* ranglar qatori tepada tursa — uning ostiga */
       var tgb = document.querySelector('.tgbar'), bot = (tgb && tgb.offsetParent ? tgb : pb).getBoundingClientRect().top - 10; if (bot < top + 120) bot = window.innerHeight - 10;
       var av = bot - top;
-      var tall = r.height > av * 0.6, a1 = tall ? e.closest('.r1') : null, ar = a1 ? a1.getBoundingClientRect() : null, ref = !tall ? r : (ar && ar.height <= av * 0.6 ? ar : wr); /* Таркибда гап баланд — арабча матн қисми тепага, қути ости кўринади */
-      if (ref.top >= top - 2 && ref.top <= top + av * 0.1 && ref.bottom <= bot) return; /* o'qilayotgan gap ekran tepasida turadi */
+      var tall = r.height > av * 0.6, a1 = tall ? e.closest('.r1') : null, ar = a1 ? a1.getBoundingClientRect() : null, ref = !tall ? r : (ar && (ar.height <= av * 0.6 || wr.bottom - ar.top <= av * 0.8) ? ar : wr); /* Таркибда гап баланд — арабча матн қисми тепага, қути ости кўринади */
+      if (ref.top >= top - 2 && ref.top <= top + av * 0.1 && (ref.bottom <= bot || wr.bottom <= bot)) return; /* o'qilayotgan gap ekran tepasida turadi */
       var sc = document.scrollingElement || document.documentElement;
       var from = sc.scrollTop, to = Math.max(0, Math.min(sc.scrollHeight - window.innerHeight, from + ref.top - top - 4)), t0 = 0;
       if (Math.abs(to - from) < 4) return;

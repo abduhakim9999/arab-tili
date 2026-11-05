@@ -190,3 +190,43 @@
   sc.onerror = statStart;
   document.head.appendChild(sc);
 })();
+
+/* Audio yuklanayotganini ko'rsatish (05.11.2026): «Юкланяпти… 40%», internet bo'lmasa — xabar */
+(function () {
+  var box = null, t = null, cur = null;
+  function el() {
+    if (box) return box;
+    box = document.createElement('div');
+    box.setAttribute('role', 'status');
+    box.style.cssText = 'position:fixed;left:50%;top:calc(10px + env(safe-area-inset-top));transform:translateX(-50%);z-index:100;' +
+      'background:var(--cd,#fff);color:var(--tx,#1e2a26);border:1px solid var(--bd,#e0dccf);border-radius:999px;padding:6px 14px;' +
+      'font:600 13.5px/1.3 system-ui,-apple-system,sans-serif;box-shadow:0 4px 14px rgba(0,0,0,.15);display:none;white-space:nowrap';
+    (document.body || document.documentElement).appendChild(box);
+    return box;
+  }
+  function pct(a) {
+    try { if (a.duration > 0 && a.buffered.length) return Math.min(99, Math.round(a.buffered.end(a.buffered.length - 1) / a.duration * 100)); } catch (e) {}
+    return -1;
+  }
+  function show(a, err) {
+    var b = el(), p = pct(a);
+    if (err || !navigator.onLine) b.textContent = !navigator.onLine ? '📵 Интернет йўқ — аудио ҳали юкланмаган' : '⚠️ Аудио юкланмади — интернетни текширинг';
+    else b.textContent = '⏳ Аудио юкланяпти…' + (p > 0 ? ' ' + p + '%' : '');
+    b.style.display = 'block';
+  }
+  function hide() { clearTimeout(t); t = null; cur = null; if (box) box.style.display = 'none'; }
+  function wait(ev) {
+    var a = ev.target; if (!a || !/^(AUDIO|VIDEO)$/.test(a.tagName)) return;
+    if (a.paused && ev.type != 'waiting') return;
+    cur = a; clearTimeout(t);
+    t = setTimeout(function () { if (cur === a) show(a); }, 500);
+  }
+  function prog(ev) { if (cur === ev.target && box && box.style.display == 'block') show(ev.target); }
+  function done(ev) { if (!cur || cur === ev.target) hide(); }
+  function fail(ev) { var a = ev.target; if (!a || !/^(AUDIO|VIDEO)$/.test(a.tagName)) return; if (!a.paused || cur === a) { cur = a; show(a, true); clearTimeout(t); t = setTimeout(hide, 5000); } }
+  document.addEventListener('waiting', wait, true);
+  document.addEventListener('stalled', wait, true);
+  document.addEventListener('progress', prog, true);
+  ['playing', 'canplaythrough', 'pause', 'ended', 'emptied'].forEach(function (n) { document.addEventListener(n, done, true); });
+  document.addEventListener('error', fail, true);
+})();

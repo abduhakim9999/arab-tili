@@ -1,21 +1,36 @@
-/* Sahifalar (HTML): avval internetdan yangisi (3 s kutadi), internet bo'lmasa telefondagi nusxa.
-   Audio va boshqa fayllar: telefondagi nusxa darhol, yangisi orqa fonda.
-   Yangi versiya (C) chiqqanda eski kesh o'chadi va ochiq sahifalar o'zi yangilanadi. */
-var C = 'arab-tili-v191';
-var FILES = ["./", "index.html", "tinglash.html", "yoriqnoma.html", "fel.html", "tg.js", "shell.js", "shell.css", "manifest.webmanifest", "icon-192.png", "icon-512.png", "icon-maskable-512.png", "1.html", "2.html", "3.html", "4.html", "5.html", "6.html", "7.html", "70.html", "71.html", "72.html", "73.html", "74.html", "91.html", "92.html", "93.html", "94.html", "95.html", "feellar.html", "sarf.html", "fiqh.html", "f1.html", "sarf-idx.json", "sarflink.js", "tarkib.js", "tarkib2.js", "hdr.js", "naskh.woff", "a1-8915a8a5.mp3", "a2-e553110d.mp3", "a3-25daf782.mp3", "a4-34c34994.mp3", "a5-676f8ab1.mp3", "a6-821214ec.mp3", "a70-38568abf.mp3", "a71-10b47ba4.mp3", "a72-b1ffc444.mp3", "a73-26e4389d.mp3", "a74-999cfa80.mp3", "a91-c13b9797.mp3", "a92-73d0b542.mp3", "a93-97fe1435.mp3", "a95-4ed9ef7e.mp3", "l95-df5a5476.mp3", "t95-24c845bd.mp3", "a94-23515d29.mp3", "l74-42fed380.mp3", "l93-c34ddd01.mp3", "t94-dfc763c5.mp3", "l94-9efd692a.mp3", "v93-6c7751ab.mp3", "l6-a291ebdd.mp3", "t6-ce124056.mp3", "v6-1fb8622e.mp3", "a7-f726c341.mp3", "l7-3cbdab3f.mp3", "v7-595770ed.mp3", "t7-5d5688bc.mp3", "af1-bb8aff39.mp3"];
+/* Sahifalar (HTML): avval internetdan yangisi (1.5 s kutadi), bo'lmasa telefondagi nusxa.
+   Kichik fayllar (sahifa, skript, shrift) — versiya bilan birga; audio (mp3) versiyaga kirmaydi:
+   birinchi eshitilganda yuklanadi va «arab-tili-audio» keshida doim qoladi (nomida xesh bor — eskirmaydi).
+   Yangi versiya (C) chiqqanda eski kesh o'chadi (audio keshi qoladi), ochiq sahifalar o'zi yangilanadi. */
+var C = 'arab-tili-v192';
+var FILES = ["./", "index.html", "tinglash.html", "yoriqnoma.html", "fel.html", "tg.js", "shell.js", "shell.css", "manifest.webmanifest", "icon-192.png", "icon-512.png", "icon-maskable-512.png", "1.html", "2.html", "3.html", "4.html", "5.html", "6.html", "7.html", "70.html", "71.html", "72.html", "73.html", "74.html", "91.html", "92.html", "93.html", "94.html", "95.html", "feellar.html", "sarf.html", "fiqh.html", "f1.html", "sarf-idx.json", "sarflink.js", "tarkib.js", "tarkib2.js", "hdr.js", "naskh.woff"];
 var TG = 'https://telegram.org/js/telegram-web-app.js';
+
+var AUD = 'arab-tili-audio', LOAD = {};
+function isMp3(u) { return /\.mp3$/i.test(new URL(u).pathname); }
 
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(C).then(function (c) {
-    return c.addAll(FILES.map(function (f) { return new Request(f, { cache: 'reload' }); }));
+    return c.addAll(FILES.filter(function (f) { return !/\.mp3$/i.test(f); }).map(function (f) { return new Request(f, { cache: 'no-cache' }); }));
   }).then(function () { return self.skipWaiting(); }));
 });
 
 self.addEventListener('activate', function (e) {
   var upd = false;
   e.waitUntil(caches.keys().then(function (ks) {
-    var old = ks.filter(function (k) { return k !== C; }); upd = old.length > 0;
-    return Promise.all(old.map(function (k) { return caches.delete(k); }));
+    var old = ks.filter(function (k) { return k !== C && k !== AUD; }); upd = old.length > 0;
+    /* eski versiyalardagi audioni yangi audio keshiga ko'chirish — qayta yuklanmasin */
+    return caches.open(AUD).then(function (a) {
+      return Promise.all(old.map(function (k) {
+        return caches.open(k).then(function (oc) {
+          return oc.keys().then(function (rs) {
+            return Promise.all(rs.filter(function (q) { return isMp3(q.url); }).map(function (q) {
+              return oc.match(q).then(function (res) { return res ? a.put(q.url.split('#')[0], res) : null; });
+            }));
+          });
+        }).catch(function () {});
+      }));
+    }).then(function () { return Promise.all(old.map(function (k) { return caches.delete(k); })); });
   }).then(function () { return self.clients.claim(); }).then(function () {
     if (!upd) return;
     /* yangi versiya: ochiq sahifalarni bir marta qayta yuklash */
@@ -40,6 +55,14 @@ function ranged(req, res) {
     });
   });
 }
+/* audio birinchi marta: tarmoqdan oqim bilan beriladi, orqa fonda butun fayl keshga yoziladi (bir marta) */
+function keep(url) {
+  if (LOAD[url]) return LOAD[url];
+  LOAD[url] = fetch(url).then(function (res) {
+    if (res && res.status === 200) return caches.open(AUD).then(function (a) { return a.put(url, res); });
+  }).catch(function () {}).then(function () { delete LOAD[url]; });
+  return LOAD[url];
+}
 
 self.addEventListener('fetch', function (e) {
   var r = e.request;
@@ -47,6 +70,15 @@ self.addEventListener('fetch', function (e) {
   var same = new URL(r.url).origin === location.origin;
   if (!same && r.url !== TG) return;
   var isRange = r.headers.has('range');
+  if (same && isMp3(r.url)) {
+    var url = r.url.split('#')[0].split('?')[0];
+    e.respondWith(caches.match(url, { ignoreSearch: true }).then(function (hit) {
+      if (hit) return isRange ? ranged(r, hit) : hit;
+      e.waitUntil(keep(url));
+      return fetch(r);
+    }));
+    return;
+  }
   e.respondWith(caches.open(C).then(function (c) {
     var key = isRange ? r.url.split('#')[0] : r;
     return c.match(key, { ignoreSearch: same }).then(function (hit) {
@@ -60,9 +92,10 @@ self.addEventListener('fetch', function (e) {
       });
       var page = r.mode === 'navigate' || /\.html$|\/$/.test(new URL(r.url).pathname);
       if (page && hit) {
-        /* sahifa: yangisi 3 s ichida kelsa — o'sha, kelmasa — telefondagi nusxa */
+        /* sahifa: yangisi 1.5 s ichida kelsa — o'sha, kelmasa — telefondagi nusxa (yangisi keshga yoziladi) */
+        e.waitUntil(net.catch(function () {}));
         return Promise.race([net.catch(function () { return hit; }),
-                             new Promise(function (ok) { setTimeout(function () { ok(hit); }, 3000); })]);
+                             new Promise(function (ok) { setTimeout(function () { ok(hit); }, 1500); })]);
       }
       if (hit) { e.waitUntil(net.catch(function () {})); return hit; }
       return net;

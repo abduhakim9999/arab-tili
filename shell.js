@@ -457,12 +457,13 @@
     row('↔️', 'суринг — шу ердан давом') +
     row('🤏', 'икки бармоқ — ҳарф катта-кичик') +
     '</ul>' + (tk ? '<b class="gh">Таркиб белгилари</b><ul>' +
-    row('<i class="ga">→</i>', 'мутааллиқ: жар ва мажрур қайси сўзга боғланган') +
+    row('<i class="ga">→</i>', 'стрелка боғланган сўзга қарайди (мутааллиқ)') +
     row('<i class="gc"></i>', 'чети чизиқли карта — шибҳи жумла') +
     row('<i class="gd">كَائِنٌ</i>', 'пунктир рамка — яширин (маҳзуф) сўз, айтилмайди') +
-    row('<i class="gu">عَلَيْكُمْ</i>', 'нуқтали чизиқ — жар ва мажрур хабар ўрнида') +
+    row('<i class="gu" style="text-decoration:none;border-bottom:2px solid var(--cm);border-radius:0 0 8px 8px;padding-bottom:3px">فَرْضُ الْوُضُوءِ</i>', 'изофа — музоф рангидаги ёй; музофун илайҳ рангсиз') +
+    row('<i class="gd" style="border:0"><span style="color:var(--cf)">أَنْزَلْ</span><span style="color:var(--co)">نَا</span><span style="color:var(--cb)">هُ</span></i>', 'қўшилган замир — ўз вазифаси рангида') +
     row('<i class="gs">исмийя</i>', 'гап тури: исмийя ёки феълийя') +
-    '</ul>' : '') + '</div>';
+    '</ul>' : '') + '<a href="yoriqnoma.html" style="display:block;margin-top:10px;font-weight:700;color:var(--ac);text-decoration:none">📖 Тўлиқ йўриқнома →</a></div>';
   hp.insertAdjacentHTML('afterbegin', h);
 })();
 

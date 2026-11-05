@@ -31,7 +31,8 @@ Yozuv eslatmasi: kitobda tanvin fath alifdan oldingi harf ustida yozilgan (ضَ�
 - Sahifada «Китобда йўқ» / «… қолипи бўйича ёзилди» izohlari va manba yorliqlari ko'rsatilmaydi (foydalanuvchi qarori). Kitobda yo'q joylarni foydalanuvchi o'zi biladi; ular shu faylning 7-bo'limida va suhbatda aytiladi. Tarkib baribir kitob qoidalariga qarab yoziladi.
 
 ### Ranglar
-- Raf, nasb, jar va jazm har biri o'z rangida; mabniy oxiri rangsiz.
+- Raf, nasb, jar va jazm har biri o'z rangida; mabniy oxiri rangsiz. Harakat rangi — doim shu holatda keladigan vazifa rangi: raf — fo'il (binafsha), nasb — maf'ul (yashil), jar — majrur (feruza), jazm — fe'l (05.11.2026).
+- So'z rangi — vazifasi; harf va muzofun ilayh rangsiz, izofa — muzof rangidagi yoy; qo'shilgan zamir — o'z vazifasi rangida; kana/inna ismi — mubtado rangida, xabari — xabar rangida (05.11.2026).
 - Barcha darslarda bir xil ranglar.
 
 ### Doimiy qoidalar
@@ -404,3 +405,4 @@ Fe'lga qo'shiladigan harflar (fe'l qatori ichida aytiladi):
 - 2026-10-30: 5 va 94-darslar; 7-bo'limga hal qilingan yangi mavzular (noibi zarf, jumla sifat, muhmal إِذَنْ, shart إِنْ, mahkiy harflar, أَنَّ/لَكِنَّ); 8-bo'lim — xotiradagi izoh uslubi qoidalari shu yerga ko'chirildi.
 - 2026-10-31: 6–7-darslar; lug'at kitobdan (qisqartmasiz ko'plik), tarjima yo'q bo'lsa kitob misollaridan; 7-bo'limga مَا شَاءَ اللَّهُ، مَنْ هَذَا، atoqli ot badal, g'ayri munsarif ismlar.
 - 2026-11-04: 95-dars; 7-bo'limga كَانَ xabari muqaddam, jumla كَانَ xabari, لَعَلَّ, ikki mafʼulli fe'l, g'ayri munsarif ko'plik, «masalan» كَـ, مِثْلُ, hol shibhi jumla.
+- 2026-11-05: ranglar dars va fiqhda yagona: harakat ranglari palitradan, zamir o'z vazifasi rangida, izofa yoyi.

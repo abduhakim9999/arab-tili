@@ -115,9 +115,9 @@
   pb.innerHTML =
     '<button class="pb" type="button" aria-label="Ўқиш / тўхтатиш"><i class="i1"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4l12 8-12 8z" fill="currentColor"/></svg></i><i class="i2"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"/></svg></i></button>' +
     '<div class="md"><div class="pq1"><div class="lb">Матнни тинглаш</div><span class="pqt">0:00</span></div>' +
-    '<div class="pq2"><button class="pqs" type="button" data-d="-5" aria-label="5 сония орқага"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V2L7 6l5 4V7a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z" fill="currentColor"/><text x="12" y="16.2" text-anchor="middle" font-size="7" font-weight="700" fill="currentColor">5</text></svg></button>' +
+    '<div class="pq2"><button class="pqs" type="button" data-d="-1" aria-label="Олдинги гап"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2v14H6zM20 5v14L9 12z" fill="currentColor"/></svg></button>' +
     '<div class="pqk"><div class="pqr"><i></i></div><b></b></div>' +
-    '<button class="pqs" type="button" data-d="5" aria-label="5 сония олдинга"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V2l5 4-5 4V7a6 6 0 1 0 6 6h2a8 8 0 1 1-8-8z" fill="currentColor"/><text x="12" y="16.2" text-anchor="middle" font-size="7" font-weight="700" fill="currentColor">5</text></svg></button></div></div>' +
+    '<button class="pqs" type="button" data-d="1" aria-label="Кейинги гап"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 5h2v14h-2zM4 5v14l11-7z" fill="currentColor"/></svg></button></div></div>' +
     (window.UZT ? '<button class="uzb" type="button" aria-label="Ўзбекча таржима">ЎЗ</button><button class="esh" type="button" aria-label="Эшитиш бўлимида очиш"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="5" height="7" rx="2"/><rect x="16" y="14" width="5" height="7" rx="2"/></svg></button>' : '') +
     '<button class="sp" type="button" aria-label="Тезлик">1×</button>';
   document.body.appendChild(pb);
@@ -156,7 +156,17 @@
   [].forEach.call(pb.querySelectorAll('.pqs'), function (b) {
     b.addEventListener('click', function () {
       if (!au.duration) return;
-      au.currentTime = Math.max(0, Math.min(au.duration - 0.1, au.currentTime + parseFloat(b.getAttribute('data-d'))));
+      var d = parseFloat(b.getAttribute('data-d')), t = au.currentTime, st = [];
+      /* oldingi / keyingi gap (05.11.2026): gap boshlari TM dan; gap boshidan 1.2 s o'tgan bo'lsa ◀ shu gap boshiga */
+      if (typeof TM !== 'undefined' && TM.length) {
+        var seen = {}; TM.forEach(function (w) { if (!(w[0] in seen) || w[2] < seen[w[0]]) seen[w[0]] = w[2]; });
+        for (var k in seen) st.push(seen[k]); st.sort(function (x, y) { return x - y; });
+        var i = -1; st.forEach(function (x, j) { if (x <= t + 0.05) i = j; });
+        var to = d > 0 ? st[i + 1] : (i >= 0 && t - st[i] > 1.2 ? st[i] : st[Math.max(0, i - 1)]);
+        if (to == null) to = d > 0 ? au.duration - 0.1 : 0;
+        if (typeof setLoop === 'function') setLoop(-1);
+        au.currentTime = Math.max(0, to - 0.05);
+      } else au.currentTime = Math.max(0, Math.min(au.duration - 0.1, t + d * 5));
       draw();
       if (!RM) { b.classList.add('pop'); setTimeout(function () { b.classList.remove('pop'); }, 170); }
     });

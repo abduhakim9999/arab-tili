@@ -53,6 +53,10 @@ body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(
 .sw{position:relative;width:48px;height:28px;border-radius:14px;background:var(--bd);border:none;cursor:pointer;flex:none;transition:background .2s}
 .sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:11px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .2s}
 .sw.on{background:var(--ac)}.sw.on::after{transform:translateX(20px)}
+.lw{display:flex;flex-direction:column;height:100vh;height:100dvh;box-sizing:border-box}
+.lw>*{flex:none}
+.lw>.stage{flex:1 1 auto;min-height:0;overflow-y:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch}
+.stage>*{flex:none}.stage::before,.stage::after{content:"";flex:1 1 0}.stage>.st-t{order:-1}
 </style>
 </head>
 <body>
@@ -102,7 +106,7 @@ function load(i,play){li=i;var L=LIST[i];TR=trk(L);M=TR.m;reps=0;curAr=-1;shown=
   if('mediaSession' in navigator){try{navigator.mediaSession.metadata=new MediaMetadata({title:L.n+'-дарс: '+(TR===L?L.uz:MN[cm()]),artist:'نور الطالب',artwork:[{src:'icon-512.png',sizes:'512x512',type:'image/png'}]})}catch(e){}}
   if(play)A.play().catch(function(){});}
 function segAt(t){for(var i=M.length-1;i>=0;i--)if(t>=M[i][2]-0.05)return i;return -1}
-function show(i){if(i===shown)return;shown=i;var L=LIST[li],st=$('st');
+function show(i){if(i===shown)return;shown=i;var L=LIST[li],st=$('st');st.scrollTop=0;
   var k=0;if(i>=0)for(var j=0;j<=i;j++)if(M[j][1]==='ar')k++;$('stn').textContent=i>=0&&M[i][1]!=='h'?k+' / '+NI:'';
   if(i<0||M[i][1]==='h'){$('sp').textContent='';$('sa').textContent=i<0?L.ar:'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ';$('su').textContent=i<0?'':L.uz;st.className='stage';return}
   var s=M[i],ln=TR.l[s[0]];$('sp').textContent=/^[\d\s.-]+$/.test(ln[2]||'')?'\u2066'+ln[2]+'\u2069':(ln[2]||'');$('sa').textContent=ln[0];$('su').textContent=O.tr?ln[1]:'';st.className='stage k-'+(s[1]==='ar2'?'ar':s[1])+(TR===L.t?' tk':'')}

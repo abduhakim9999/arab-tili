@@ -62,6 +62,9 @@ body.nop .pbar{transform:translateY(24px);opacity:0;pointer-events:none}
 .pbar .pqk.dr b{transform:scale(1.35)}
 .pbar .sp{height:36px;min-width:52px;padding:0 8px;font:inherit;font-size:14px;font-weight:700;border-radius:10px;border:1px solid currentColor;background:transparent;color:inherit;cursor:pointer;transition:transform .17s}
 .pbar .sp.pop{transform:scale(1.18)}
+.pbar .uzb{height:36px;min-width:44px;padding:0 6px;font:inherit;font-size:13px;font-weight:700;border-radius:10px;border:1px solid currentColor;background:transparent;color:inherit;opacity:.55;cursor:pointer;transition:transform .17s,opacity .17s,background .17s}
+.pbar .uzb.on{opacity:1}
+.pbar .uzb.pop{transform:scale(1.18)}
 
 
 /* mavzu: dars sahifasi */
@@ -97,6 +100,8 @@ body.nop .pbar{transform:translateY(24px);opacity:0;pointer-events:none}
 @media (prefers-color-scheme:dark){.pbar{border-color:var(--bd)!important}}
 .pbar .pqk .pqr{background:rgba(127,127,127,.22)!important}
 .pbar .sp{color:var(--ac)!important;border-color:var(--tint)!important;background:var(--tint)!important}
+.pbar .uzb{color:var(--ac)!important;border-color:var(--tint)!important}
+.pbar .uzb.on{background:var(--ac)!important;color:var(--bg)!important;border-color:var(--ac)!important}
 .sheet{border-radius:22px 22px 0 0!important}
 
 

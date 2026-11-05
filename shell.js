@@ -118,6 +118,7 @@
     '<div class="pq2"><button class="pqs" type="button" data-d="-5" aria-label="5 сония орқага"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V2L7 6l5 4V7a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z" fill="currentColor"/><text x="12" y="16.2" text-anchor="middle" font-size="7" font-weight="700" fill="currentColor">5</text></svg></button>' +
     '<div class="pqk"><div class="pqr"><i></i></div><b></b></div>' +
     '<button class="pqs" type="button" data-d="5" aria-label="5 сония олдинга"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V2l5 4-5 4V7a6 6 0 1 0 6 6h2a8 8 0 1 1-8-8z" fill="currentColor"/><text x="12" y="16.2" text-anchor="middle" font-size="7" font-weight="700" fill="currentColor">5</text></svg></button></div></div>' +
+    (window.UZT ? '<button class="uzb" type="button" aria-label="Ўзбекча таржима">ЎЗ</button>' : '') +
     '<button class="sp" type="button" aria-label="Тезлик">1×</button>';
   document.body.appendChild(pb);
   var lb = $('.lb', pb), bar = $('.pqk i', pb), sp = $('.sp', pb), lastLn = null;
@@ -161,7 +162,7 @@
     });
   });
   (function loop() { if (!au.paused) draw(); requestAnimationFrame(loop); })();
-  function state() { pb.classList.toggle('on', !au.paused && !au.ended); }
+  function state() { pb.classList.toggle('on', (!au.paused && !au.ended) || !!window.UZON); }
   function label() {
     var w = $('#tx .ws span.pl'), ln = w ? w.closest('.ln') : null;
     if (ln !== lastLn) {
@@ -205,17 +206,66 @@
   au.addEventListener('play', function () { if (au.duration && au.currentTime >= au.duration - 0.3) { try { au.currentTime = 0; } catch (e) {} } });
   au.addEventListener('seeked', draw);
   au.addEventListener('durationchange', draw);
-  /* tezlik: 1× → 0.75× → 0.5× */
-  var SB = [].slice.call(document.querySelectorAll('.spd button'));
-  function rate() { var o = SB.filter(function (b) { return b.classList.contains('on'); })[0]; return o ? parseFloat(o.textContent) : 1; }
+  /* tezlik (05.11.2026): 1× → 1.25× → 1.5× → 0.5× → 0.75× → 1×; barcha darslarda eslab qolinadi */
+  var RT = [1, 1.25, 1.5, 0.5, 0.75], UA = null, SR = 1;
+  function rate() { return au.playbackRate || 1; }
+  function setRate(r) {
+    [au, UA].forEach(function (x) { if (x) { x.playbackRate = r; x.preservesPitch = true; x.webkitPreservesPitch = true; } });
+    [].forEach.call(document.querySelectorAll('.spd button'), function (b) { b.classList.toggle('on', parseFloat(b.textContent) === r); });
+    SR = r; try { localStorage.setItem('dars-tezlik', r); } catch (e) {}
+  }
   function showRate() { sp.textContent = String(rate()) + '×'; }
   sp.addEventListener('click', function () {
-    var r = rate(), nx = r === 1 ? 0.75 : (r === 0.75 ? 0.5 : 1);
-    var b = SB.filter(function (b) { return parseFloat(b.textContent) === nx; })[0];
-    if (b && typeof spd === 'function') spd(nx, b);
+    var i = RT.indexOf(rate());
+    setRate(RT[(i + 1) % RT.length]);
     showRate();
     if (!RM) { sp.classList.add('pop'); setTimeout(function () { sp.classList.remove('pop'); }, 170); }
   });
+  try { SR = parseFloat(localStorage.getItem('dars-tezlik')) || 1; } catch (e) {} if (RT.indexOf(SR) < 0) SR = 1;
+  setRate(SR); au.addEventListener('loadedmetadata', function () { setRate(SR); showRate(); });
+
+  /* o'zbekcha tarjima (05.11.2026, sinov: 95-dars): yoqilsa har gapdan keyin Eshitishdagi o'zbekcha bo'lak o'qiladi.
+     Ma'lumot sahifada: window.UZT = {f: 'lNN-....mp3', s: {qator: [bosh, oxir]}} */
+  if (window.UZT) (function () {
+    var ub = $('.uzb', pb), on = false, END = {}, lastT = -1, done = -1, cur = null, unl = false;
+    try { on = localStorage.getItem('dars-uz') === '1'; } catch (e) {}
+    TM.forEach(function (w) { var e = w[4] != null ? w[4] : w[3]; if (!(w[0] in END) || e > END[w[0]]) END[w[0]] = e; });
+    function ua() { if (!UA) { UA = new Audio(UZT.f); UA.preload = 'auto'; setRate(rate()); } return UA; }
+    function unlock() { if (unl || !on) return; unl = true; var x = ua(), p; x.muted = true; p = x.play(); if (p && p.then) p.then(function () { x.pause(); x.muted = false; }, function () { x.muted = false; unl = false; }); else { x.pause(); x.muted = false; } }
+    function stopUz(resume) { if (!window.UZON) return; window.UZON = false; cur = null; try { UA.pause(); } catch (e) {} if (resume) { var p = au.play(); if (p && p.catch) p.catch(function () {}); } state(); }
+    function paint() { ub.classList.toggle('on', on); ub.setAttribute('aria-pressed', on ? 'true' : 'false'); }
+    ub.addEventListener('click', function () {
+      on = !on; try { localStorage.setItem('dars-uz', on ? '1' : '0'); } catch (e) {}
+      if (on) { ua().load(); unlock(); } else stopUz(true);
+      paint();
+      if (!RM) { ub.classList.add('pop'); setTimeout(function () { ub.classList.remove('pop'); }, 170); }
+    });
+    $('.pb', pb).addEventListener('click', unlock, true);
+    var pp = document.getElementById('pp'); if (pp) pp.addEventListener('click', unlock, true);
+    /* tarjima o'qilayotganda ▶/⏸ bosilsa — tarjima to'xtaydi, matn shu joydan davom etadi */
+    if (typeof window.ppl === 'function') { var op = window.ppl; window.ppl = function () { if (window.UZON) { stopUz(false); return; } return op.apply(this, arguments); }; }
+    au.addEventListener('seeked', function () { lastT = -1; done = -1; stopUz(false); });
+    au.addEventListener('play', function () { if (window.UZON) stopUz(false); });
+    (function tick() {
+      requestAnimationFrame(tick);
+      if (window.UZON) { if (UA && cur && (UA.currentTime >= cur[1] || UA.ended)) stopUz(true); return; }
+      if (!on || au.paused) { lastT = -1; return; }
+      var t = au.currentTime, prev = lastT; lastT = t;
+      if (prev < 0 || t - prev > 1.5 || t < prev) return;
+      if (typeof stopAt !== 'undefined' && stopAt !== null) return;   /* bitta so'z o'qilyapti */
+      if (typeof loopL !== 'undefined' && loopL >= 0) return;          /* gap takrorlanyapti */
+      for (var l in END) {
+        var e = END[l] + 0.12, sg = UZT.s[l];
+        if (sg && +l !== done && prev < e && t >= e) {
+          done = +l; cur = sg; window.UZON = true; au.pause();
+          var x = ua(); setRate(rate()); x.currentTime = sg[0];
+          var p = x.play(); if (p && p.catch) p.catch(function () { stopUz(true); });
+          state(); return;
+        }
+      }
+    })();
+    paint();
+  })();
   showRate(); state(); label();
   setTimeout(showRate, 600);
 

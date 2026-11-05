@@ -31,6 +31,7 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
 - Fiqh (parol bilan yopiq, `docs/texnik.md` 10): «Мухтасарул виқоя» 1-dars (1–6-qadam tayyor; 7 mashq, 8 havola qoldi).
 - Eshitish: **6, 7, 74, 93, 94, 95**. Ochiq ish: 1–5, 70–73, 91–92 ni qo'shish.
 - Oxirgi qilinganlar (05.11.2026):
+  - Таркиб qutisi grammatika va fiqhda yagona (`docs/texnik.md` 4); fiqhda Eshitishda o'qilayotgan gap ekran tepasida ergashadi.
   - Bosh sahifa «Давом этиш» kartasi oddiy (oq/to'q), 7-bob rasmi; sayt tez ochiladi — audio versiyaga kirmaydi, yuklanish belgisi (`docs/texnik.md` 1).
   - Ranglar dars va fiqhda yagona (`docs/texnik.md` 3): zamir o'z vazifasi rangida, izofa yoyi, harf va muzofun ilayh rangsiz, fe'l tilla-jigarrang, harakat ranglari palitradan, tarjima rangsiz, strelka bog'langan so'zga; ranglar tepada; `yoriqnoma.html`.
   - 95-dars — «الْعَرَبِيَّةُ الْفَصِيحَةُ وَأَثَرُهَا» (Адабий араб тили ва унинг таъсири); audio — foydalanuvchi yozuvi (tiniq, faqat sarlavha+matn; tayyorlov savollari o'qilmagan); lug'at yo'q, mashq 14; Eshitish: Матн (Davronbek) + Таркиб (Hamed).

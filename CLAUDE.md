@@ -32,6 +32,7 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
 - Fiqh (parol bilan yopiq, `docs/texnik.md` 10): «Мухтасарул виқоя» 1-dars (1–6-qadam tayyor; 7 mashq, 8 havola qoldi).
 - Eshitish: **6, 7, 74, 93, 94, 95**. Ochiq ish: 1–5, 70–73, 91–92 ni qo'shish.
 - Oxirgi qilinganlar (05.11.2026):
+  - Dars pleyeri: ⏮/⏭ gapma-gap, tezlik 0.5–1.5× (bosib tursa ro'yxat), «ЎЗ» o'zbekcha tarjima va 🎧 Eshitishga o'tish — hozircha 95-darsda (`docs/texnik.md` 5). Ochiq: «ЎЗ»ni Eshitishi bor 6, 7, 74, 93, 94 ga qo'shish.
   - Таркиб qutisi grammatika va fiqhda yagona (`docs/texnik.md` 4); Eshitishda o'qilayotgan gap ekran tepasida ergashadi — dars (`shell.js` follow, Таркибда ranglar qatori ostida) va fiqhda (`docs/texnik.md` 5, 10).
   - Bosh sahifa «Давом этиш» kartasi oddiy (oq/to'q), 7-bob rasmi; sayt tez ochiladi — audio versiyaga kirmaydi, yuklanish belgisi (`docs/texnik.md` 1).
   - Ranglar dars va fiqhda yagona (`docs/texnik.md` 3): zamir o'z vazifasi rangida, izofa yoyi, harf va muzofun ilayh rangsiz, fe'l tilla-jigarrang, harakat ranglari palitradan, tarjima rangsiz, strelka bog'langan so'zga; ranglar tepada; `yoriqnoma.html`.

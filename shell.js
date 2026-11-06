@@ -585,7 +585,7 @@
   var bar = d.createElement('div'), th = d.createElement('div'), bub = d.createElement('div');
   bar.id = 'fsbar'; th.id = 'fsth'; bub.id = 'fsbub';
   th.setAttribute('aria-label', 'Саҳифани суриш');
-  d.body.appendChild(bar); d.body.appendChild(th); d.body.appendChild(bub);
+  d.body.appendChild(th); /* 06.11.2026: tepadagi chiziq olib tashlandi — yuklanish chizig'i bilan bir xil ko'rinardi */ d.body.appendChild(bub);
   var se = d.scrollingElement || d.documentElement, drag = false, hideT = null, off = 0;
   function pb() { var p = d.querySelector('.pbar'); return p && p.offsetParent !== null ? p.getBoundingClientRect().height : 0; }
   function track() { var top = 60, bot = innerHeight - pb() - 12; return [top, Math.max(top + 80, bot)]; }
@@ -604,7 +604,6 @@
   }
   function upd() {
     var f = Math.min(1, Math.max(0, se.scrollTop / max())), t = track();
-    bar.style.width = (f * 100) + '%';
     var y = t[0] + f * (t[1] - t[0] - 52);
     th.style.top = y + 'px'; bub.style.top = (y + 4) + 'px';
     bub.innerHTML = (label() || '') + '<small>' + Math.round(f * 100) + '%</small>';

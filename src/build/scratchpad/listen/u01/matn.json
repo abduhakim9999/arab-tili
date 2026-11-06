@@ -1,0 +1,145 @@
+{
+ "raqam_uz": "Birinchi dars.",
+ "gaplar_uz": {
+  "1": "Sizga omonlik boʻlsin!",
+  "2": "Sizga ham omonlik boʻlsin!",
+  "3": "Mening ismim Xolid. Sening isming, yoki sizning ismingiz, nima?",
+  "4": "Mening ismim Xalil.",
+  "5": "Ahvoling, yoki ahvolingiz, qanday?",
+  "6": "Yaxshi. Allohga shukr! Oʻzingning ahvoling-chi, yoki oʻzingizning ahvolingiz-chi, qanday?",
+  "7": "Yaxshi. Allohga shukr!"
+ },
+ "lugat": [
+  {
+   "i": 0,
+   "ar": "وَاحِدُنْ، وَاحِدَتُنْ",
+   "uz": "Bir, bitta."
+  },
+  {
+   "i": 1,
+   "ar": "أَوَّلُنْ",
+   "uz": "Birinchi."
+  },
+  {
+   "i": 2,
+   "ar": "دَرْسُنْ، دُرُوسُنْ",
+   "uz": "Dars; jam: darslar."
+  },
+  {
+   "i": 3,
+   "ar": "سَلَامُنْ",
+   "uz": "Omonlik."
+  },
+  {
+   "i": 4,
+   "ar": "عَلَى",
+   "uz": "Ustida, ga. Jar harfi."
+  },
+  {
+   "i": 5,
+   "ar": "عَلَيْكُمْ",
+   "uz": "Sizga."
+  },
+  {
+   "i": 6,
+   "ar": "وَعَلَيْكُمُ السَّلَامُ",
+   "uz": "Sizga ham omonlik boʻlsin."
+  },
+  {
+   "i": 7,
+   "ar": "اِسْمُنْ، أَسْمَاءُنْ",
+   "uz": "Ism, nom; jam: ismlar, nomlar."
+  },
+  {
+   "i": 8,
+   "ar": "اِسْمِي",
+   "uz": "Mening ismim."
+  },
+  {
+   "i": 9,
+   "ar": "خَالِدُنْ",
+   "uz": "Xolid, erkak ismi."
+  },
+  {
+   "i": 10,
+   "ar": "اِسْمُكَ",
+   "uz": "Sening isming."
+  },
+  {
+   "i": 11,
+   "ar": "مَا؟",
+   "uz": "Nima?"
+  },
+  {
+   "i": 12,
+   "ar": "خَلِيلُنْ",
+   "uz": "Xalil, erkak ismi."
+  },
+  {
+   "i": 13,
+   "ar": "حَالُنْ، أَحْوَالُنْ",
+   "uz": "Hol, ahvol; jam: ahvollar."
+  },
+  {
+   "i": 14,
+   "ar": "كَيْفَ؟",
+   "uz": "Qanday? Qalay?"
+  },
+  {
+   "i": 15,
+   "ar": "بِخَيْرِنْ",
+   "uz": "Yaxshi."
+  },
+  {
+   "i": 16,
+   "ar": "خَيْرُنْ",
+   "uz": "Yaxshilik."
+  },
+  {
+   "i": 17,
+   "ar": "حَمْدُنْ",
+   "uz": "Hamd, maqtov."
+  },
+  {
+   "i": 18,
+   "ar": "اَللَّهُ",
+   "uz": "Alloh, beqiyos iloh."
+  },
+  {
+   "i": 19,
+   "ar": "لِلَّهِ",
+   "uz": "Allohga tegishli. Allohga."
+  },
+  {
+   "i": 22,
+   "ar": "اَلْحَمْدُ لِلَّهِ",
+   "uz": "Allohga shukr."
+  },
+  {
+   "i": 23,
+   "ar": "أَنْتَ",
+   "uz": "Sen; oʻzing."
+  },
+  {
+   "i": 25,
+   "ar": "وَكَيْفَ حَالُكَ أَنْتَ؟",
+   "uz": "Oʻzingning ahvoling-chi qalay?"
+  },
+  {
+   "i": 26,
+   "ar": "مُفْرَدَاتُنْ",
+   "uz": "Yangi soʻzlar."
+  },
+  {
+   "i": 27,
+   "ar": "حِوَارُنْ",
+   "uz": "Suhbat, dialog."
+  },
+  {
+   "i": 28,
+   "ar": "قَالَ، يَقُولُ، قُلْ، قَوْلُنْ",
+   "uz": "Aytmoq, demoq."
+  }
+ ],
+ "bob_uz": "Birinchi bob. Salomlashish va tanishish."
+}

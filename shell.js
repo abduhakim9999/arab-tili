@@ -552,3 +552,63 @@
   if (typeof window.bol == 'function' && document.getElementById('bl') && window.bolak) window.bol();
   if (typeof window.tog == 'function' && document.getElementById('tg') && window.show) window.tog();
 })();
+
+/* Siljitgich (06.11.2026): o'ng chetda ushlab suriladigan tutqich + bo'lim/gap yozuvi + tepada o'qilgan qism chizig'i.
+   Sahifa surilganda chiqadi, 1.5 s dan keyin yashirinadi. Matn: .ln (gap), Луғат: .g (so'z). */
+(function () {
+  if (window.__fs) return; window.__fs = 1;
+  var d = document, st = d.createElement('style');
+  st.textContent = '#fsbar{position:fixed;left:0;top:0;height:3px;width:0;background:var(--ac,#2f6fd6);z-index:60;pointer-events:none;transition:width .1s}' +
+    '#fsth{position:fixed;right:0;width:18px;height:52px;border-radius:9px 0 0 9px;background:var(--ac,#2f6fd6);z-index:61;opacity:0;transition:opacity .25s;touch-action:none;cursor:grab}' +
+    '#fsth.on{opacity:.9}#fsth::before{content:"";position:absolute;left:-14px;right:0;top:-10px;bottom:-10px}' +
+    '#fsbub{position:fixed;right:30px;z-index:61;background:#222;color:#fff;font:500 14px/1.3 system-ui,sans-serif;padding:8px 12px;border-radius:10px;white-space:nowrap;opacity:0;transition:opacity .2s;pointer-events:none}' +
+    '#fsbub small{display:block;font-weight:400;font-size:11px;opacity:.75}#fsbub.on{opacity:1}';
+  d.head.appendChild(st);
+  var bar = d.createElement('div'), th = d.createElement('div'), bub = d.createElement('div');
+  bar.id = 'fsbar'; th.id = 'fsth'; bub.id = 'fsbub';
+  th.setAttribute('aria-label', 'Саҳифани суриш');
+  d.body.appendChild(bar); d.body.appendChild(th); d.body.appendChild(bub);
+  var se = d.scrollingElement || d.documentElement, drag = false, hideT = null, off = 0;
+  function pb() { var p = d.querySelector('.pbar'); return p && p.offsetParent !== null ? p.getBoundingClientRect().height : 0; }
+  function track() { var top = 60, bot = innerHeight - pb() - 12; return [top, Math.max(top + 80, bot)]; }
+  function max() { return Math.max(1, se.scrollHeight - innerHeight); }
+  function label() {
+    var tb = d.querySelector('.tabs button.on'), name = tb ? tb.textContent.trim() : '', sub = '';
+    var pg = [].filter.call(d.querySelectorAll('#p1,#p2,#p3'), function (p) { return !p.classList.contains('hide'); })[0];
+    var sel = pg && pg.id === 'p1' ? '#tx .ln' : pg && pg.id === 'p2' ? '#p2 .g' : null;
+    if (sel) {
+      var els = d.querySelectorAll(sel), mid = innerHeight * 0.35, k = -1;
+      for (var i = 0; i < els.length; i++) if (els[i].getBoundingClientRect().top <= mid) k = i;
+      if (k < 0) k = 0;
+      sub = pg.id === 'p1' ? (k === 0 ? 'Сарлавҳа' : k + '-гап') : (k + 1) + '-сўз';
+    }
+    return (name ? name + (sub ? ' · ' + sub : '') : sub);
+  }
+  function upd() {
+    var f = Math.min(1, Math.max(0, se.scrollTop / max())), t = track();
+    bar.style.width = (f * 100) + '%';
+    var y = t[0] + f * (t[1] - t[0] - 52);
+    th.style.top = y + 'px'; bub.style.top = (y + 4) + 'px';
+    bub.innerHTML = (label() || '') + '<small>' + Math.round(f * 100) + '%</small>';
+  }
+  function show() {
+    if (se.scrollHeight < innerHeight * 1.6) { th.classList.remove('on'); return; }
+    th.classList.add('on'); clearTimeout(hideT);
+    if (!drag) hideT = setTimeout(function () { th.classList.remove('on'); bub.classList.remove('on'); }, 1500);
+  }
+  addEventListener('scroll', function () { upd(); if (!drag) show(); }, { passive: true });
+  addEventListener('resize', upd);
+  th.addEventListener('pointerdown', function (e) {
+    if (!th.classList.contains('on')) return;
+    drag = true; th.setPointerCapture(e.pointerId); off = e.clientY - th.getBoundingClientRect().top;
+    bub.classList.add('on'); clearTimeout(hideT); e.preventDefault();
+  });
+  th.addEventListener('pointermove', function (e) {
+    if (!drag) return; var t = track(), y = e.clientY - off;
+    var f = Math.min(1, Math.max(0, (y - t[0]) / (t[1] - t[0] - 52)));
+    se.scrollTop = f * max(); upd();
+  });
+  function end() { if (!drag) return; drag = false; show(); setTimeout(function () { if (!drag) bub.classList.remove('on'); }, 600); }
+  th.addEventListener('pointerup', end); th.addEventListener('pointercancel', end);
+  upd();
+})();

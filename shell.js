@@ -116,7 +116,7 @@
     '<button class="pb" type="button" aria-label="Ўқиш / тўхтатиш"><i class="i1"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4l12 8-12 8z" fill="currentColor"/></svg></i><i class="i2"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"/></svg></i></button>' +
     '<div class="md"><div class="pq1"><div class="lb">Матнни тинглаш</div><span class="pqt">0:00</span></div>' +
     '<div class="pq2"><button class="pqs" type="button" data-d="-1" aria-label="Олдинги гап"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2v14H6zM20 5v14L9 12z" fill="currentColor"/></svg></button>' +
-    '<div class="pqk"><div class="pqr"><i></i></div><b></b></div>' +
+    '<div class="pqk"><div class="pqr"><i></i></div><b></b></div><span class="pqn"></span>' +
     '<button class="pqs" type="button" data-d="1" aria-label="Кейинги гап"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 5h2v14h-2zM4 5v14l11-7z" fill="currentColor"/></svg></button></div></div>' +
     (window.UZT ? '<button class="uzb" type="button" aria-label="Ўзбекча таржима">ЎЗ</button><button class="esh" type="button" aria-label="Эшитиш бўлимида очиш"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="5" height="7" rx="2"/><rect x="16" y="14" width="5" height="7" rx="2"/></svg></button>' : '') +
     '<button class="sp" type="button" aria-label="Тезлик">1×</button>';
@@ -294,6 +294,18 @@
       au.pause();
       location.href = (/sinov-/.test(location.pathname) ? 'sinov-tinglash.html' : 'tinglash.html') + '?d=' + m[1] + '&t=l' + (l !== '' && t > 0.5 ? '&s=' + l : '');
     });
+  })();
+  /* surgich o'rniga gap raqami (06.11.2026): «3 / 7 гап» */
+  (function () {
+    var pn = $('.pqn', pb), N = [], last = '';
+    if (typeof TM !== 'undefined') { var seen = {}; TM.forEach(function (w) { if (w[0] > 0 && !seen[w[0]]) { seen[w[0]] = 1; N.push(w[0]); } }); }
+    function cur() {
+      if (!N.length) return '';
+      var T0 = window.UZT0 || TM, t = window.UZA ? window.UZA() : au.currentTime, l = 0;
+      T0.forEach(function (w) { if (w[2] <= t + 0.05) l = w[0]; });
+      var k = N.indexOf(l) + 1; return (k > 0 ? k : 0) + ' / ' + N.length + ' гап';
+    }
+    setInterval(function () { var x = cur(); if (x !== last) { last = x; pn.textContent = x; } }, 300);
   })();
   showRate(); state(); label();
   setTimeout(showRate, 600);

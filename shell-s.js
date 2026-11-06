@@ -630,3 +630,19 @@
   th.addEventListener('pointerup', end); th.addEventListener('pointercancel', end);
   upd();
 })();
+
+/* 06.11.2026: oxirgi gap pastdagi pleyer va tugmalar ostida qolmasin — .w pastki bo'shlig'i ular balandligiga qarab o'rnatiladi */
+(function () {
+  var w = document.querySelector('.w'); if (!w) return;
+  function fix() {
+    var top = innerHeight;
+    [].forEach.call(document.querySelectorAll('body > *, .w *'), function (e) {
+      var cs = getComputedStyle(e); if (!(cs.position === 'fixed' || (cs.position === 'sticky' && cs.bottom !== 'auto')) || cs.display === 'none' || e.id === 'fsth' || e.id === 'fsbub' || e.id === 'fsbar') return;
+      var r = e.getBoundingClientRect(); if (r.height > 0 && r.height < innerHeight * 0.5 && r.bottom > innerHeight * 0.6 && r.top < top) top = r.top;
+    });
+    var need = Math.round(innerHeight - top + 32);
+    if (need > 40) w.style.setProperty('padding-bottom', need + 'px', 'important');
+  }
+  addEventListener('resize', fix); addEventListener('load', fix); document.addEventListener('click', function () { setTimeout(fix, 300); });
+  setTimeout(fix, 500); setTimeout(fix, 1500);
+})();

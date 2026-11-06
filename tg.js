@@ -15,6 +15,11 @@
       '@keyframes gobar{from{transform:scaleX(.08)}to{transform:scaleX(.9)}}';
     (document.head || document.documentElement).appendChild(css);
   } catch (e) {}
+  /* qulf ko'pi bilan 5 s (06.11.2026): sahifa kelmasa (sekin internet) — ekran qotib qolmasin */
+  var goT = null;
+  function goOff() { clearTimeout(goT); document.documentElement.classList.remove('go'); }
+  function goOn() { document.documentElement.classList.add('go'); clearTimeout(goT); goT = setTimeout(goOff, 5000); }
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) goOff(); });
   function inTg() {
     if (W) return true;
     if (window.TelegramWebviewProxy || /tgWebApp/.test(location.hash)) return true;
@@ -25,10 +30,10 @@
     var a = ev.target.closest && ev.target.closest('a[href]');
     if (!a || ev.defaultPrevented || a.target || a.hasAttribute('download') || a.origin !== location.origin ||
         /^(#|javascript:)/.test(a.getAttribute('href')) || a.pathname === location.pathname) return;
-    document.documentElement.classList.add('go');
+    goOn();
     if (inTg()) { ev.preventDefault(); location.replace(a.href); }
   });
-  window.addEventListener('pageshow', function () { document.documentElement.classList.remove('go'); });
+  window.addEventListener('pageshow', goOff);
 
   /* yangi versiya yuklanib bo'lishi bilan sahifa bir marta o'zi yangilanadi */
   try {
@@ -36,7 +41,7 @@
       var rl = false;
       navigator.serviceWorker.addEventListener('controllerchange', function () {
         if (rl) return; rl = true;
-        document.documentElement.classList.add('go');
+        goOn();
         location.reload();
       });
     }

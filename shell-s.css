@@ -241,3 +241,7 @@ html:root:not([data-nc]){--cR:var(--co);--cN:var(--cb);--cJ:var(--cj);--cZ:var(-
 .pbar .uzb,.pbar .sp{height:42px}
 .pbar .esh{width:42px;height:42px}
 .pbar .esh svg{width:24px;height:24px}
+.pbar.mid .pq2{justify-content:center;gap:14px;margin-top:2px}
+.pbar.mid .pq1{justify-content:center;gap:10px}
+.pbar.mid .pq1 .lb{display:none}
+.pbar.mid .pqn{flex:none}

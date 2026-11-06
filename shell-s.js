@@ -121,6 +121,9 @@
     (window.UZT ? '<button class="uzb" type="button" aria-label="Ўзбекча таржима">ЎЗ</button><button class="esh" type="button" aria-label="Эшитиш бўлимида очиш"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="5" height="7" rx="2"/><rect x="16" y="14" width="5" height="7" rx="2"/></svg></button>' : '') +
     '<button class="sp" type="button" aria-label="Тезлик">1×</button>';
   document.body.appendChild(pb);
+  /* 06.11.2026: ▶ — ⏮ va ⏭ o'rtasida; gap raqami tepada vaqt yonida */
+  (function () { var q2 = pb.querySelector('.pq2'), nx = q2.querySelectorAll('.pqs')[1]; q2.insertBefore(pb.querySelector('.pb'), nx);
+    var q1 = pb.querySelector('.pq1'); q1.insertBefore(pb.querySelector('.pqn'), q1.querySelector('.pqt')); pb.classList.add('mid'); })();
   var lb = $('.lb', pb), bar = $('.pqk i', pb), sp = $('.sp', pb), lastLn = null;
   $('.pb', pb).addEventListener('click', function () { if (typeof ppl === 'function') ppl(); });
   var tk = $('.pqk', pb), th = $('.pqk b', pb), tm = $('.pqt', pb), drag = false, dragP = 0;

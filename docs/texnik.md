@@ -26,6 +26,7 @@
 - Овоз тўғрилаш: GitHub align.yml (NAME.mp3 → whisper.json; NAME.mp3+NAME.txt → align.json; NAME.url → юклаб олади), tts.yml (edge-tts). ~2 дақиқа.
 
 - Bosilganda yashil chiziq + qulf (`html.go`, `tg.js`): ko'pi bilan 5 s, ilovaga qaytganda ham yechiladi — sekin internetda ekran qotib qolmaydi (06.11.2026).
+- Yangi versiya (SW `controllerchange`): sahifa o'zi yangilanadi; o'xshamasa qayta urinadi (internet qaytganda, ilovaga qaytganda, audio to'xtaganda, 15 s da bir), audio o'ynayotganda/yozish maydonida yangilanmaydi.
 
 ## 2. Бош саҳифа (index.html + index.tpl.html — иккаласи бирга)
 - Тепада Ruqaa «نُورُ الطَّالِبِ» + орнамент (ўзгартирилмайди), «i» ойнасида версия.

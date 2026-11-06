@@ -38,12 +38,24 @@
   /* yangi versiya yuklanib bo'lishi bilan sahifa bir marta o'zi yangilanadi */
   try {
     if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-      var rl = false;
-      navigator.serviceWorker.addEventListener('controllerchange', function () {
-        if (rl) return; rl = true;
-        goOn();
-        location.reload();
-      });
+      /* 06.11.2026: o'xshamasa o'zi qayta urinadi — internet qaytganda, ilovaga qaytganda, audio to'xtaganda;
+         audio o'ynayotganda yoki yozish maydonida turganda yangilanmaydi (eshitish bo'linmasin) */
+      var upd = false, rlAt = 0;
+      var busy = function () {
+        var a = document.querySelectorAll('audio'), i;
+        for (i = 0; i < a.length; i++) if (!a[i].paused && !a[i].ended) return true;
+        var f = document.activeElement; return !!(f && /^(INPUT|TEXTAREA|SELECT)$/.test(f.tagName));
+      };
+      var rel = function () {
+        if (!upd || document.hidden || !navigator.onLine || busy() || Date.now() - rlAt < 10000) return;
+        rlAt = Date.now(); goOn(); location.reload();
+      };
+      navigator.serviceWorker.addEventListener('controllerchange', function () { upd = true; rel(); });
+      window.addEventListener('online', rel);
+      document.addEventListener('visibilitychange', function () { setTimeout(rel, 300); });
+      document.addEventListener('pause', function () { setTimeout(rel, 800); }, true);
+      document.addEventListener('ended', function () { setTimeout(rel, 800); }, true);
+      setInterval(rel, 15000);
     }
   } catch (e) {}
 

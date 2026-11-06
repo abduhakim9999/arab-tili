@@ -1,0 +1,8 @@
+# Saytga chiqmaydigan ish fayllari (06.11.2026): GitHub Pages ularni ko'chirib ulgurmay qotib qolardi
+exclude:
+  - src
+  - align
+  - docs
+  - .github
+  - CLAUDE.md
+  - WORKING.txt

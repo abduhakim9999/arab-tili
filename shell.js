@@ -262,7 +262,10 @@
     LN.sort(function (x, y) { return x.a - y.a; });
     function toL(t) { var q = null; LN.forEach(function (x) { if (x.a - 0.4 <= t) q = x; }); return q ? Math.max(0, t + UZT.o[q.l]) : 0; }
     function toA(t) { var q = null; LN.forEach(function (x) { if (x.a + UZT.o[x.l] - 0.4 <= t) q = x; }); if (!q) return 0; var o = UZT.o[q.l]; return t - o <= q.b ? t - o : q.b + 0.2; }
-    function setTM(f) { TM.forEach(function (w, i) { var o = f ? (UZT.o[w[0]] || 0) : 0; for (var j = 2; j < w.length; j++) if (T0[i][j] != null) w[j] = T0[i][j] + o; }); }
+    function setTM(f) { TM.forEach(function (w, i) {
+      /* 06.11.2026: Eshitish faylida yo'q qator (masalan 0 — sarlavha) ЎЗ rejimida belgilanmaydi — aks holda bosh qism o'qilayotganda u yonib qoladi */
+      var has = UZT.o[w[0]] != null, o = f ? (has ? UZT.o[w[0]] : 1e6) : 0;
+      for (var j = 2; j < w.length; j++) if (T0[i][j] != null) w[j] = T0[i][j] + o; }); }
     function swap(to, keepPlay) {
       if (to === cur) return;
       var t = au.currentTime || 0, go = keepPlay && !au.paused, nt = to === 'l' ? toL(t) : toA(t);
@@ -626,4 +629,20 @@
   function end() { if (!drag) return; drag = false; show(); setTimeout(function () { if (!drag) bub.classList.remove('on'); }, 600); }
   th.addEventListener('pointerup', end); th.addEventListener('pointercancel', end);
   upd();
+})();
+
+/* 06.11.2026: oxirgi gap pastdagi pleyer va tugmalar ostida qolmasin — .w pastki bo'shlig'i ular balandligiga qarab o'rnatiladi */
+(function () {
+  var w = document.querySelector('.w'); if (!w) return;
+  function fix() {
+    var top = innerHeight;
+    [].forEach.call(document.querySelectorAll('body > *, .w *'), function (e) {
+      var cs = getComputedStyle(e); if (!(cs.position === 'fixed' || (cs.position === 'sticky' && cs.bottom !== 'auto')) || cs.display === 'none' || e.id === 'fsth' || e.id === 'fsbub' || e.id === 'fsbar') return;
+      var r = e.getBoundingClientRect(); if (r.height > 0 && r.height < innerHeight * 0.5 && r.bottom > innerHeight * 0.6 && r.top < top) top = r.top;
+    });
+    var need = Math.round(innerHeight - top + 32);
+    if (need > 40) w.style.setProperty('padding-bottom', need + 'px', 'important');
+  }
+  addEventListener('resize', fix); addEventListener('load', fix); document.addEventListener('click', function () { setTimeout(fix, 300); });
+  setTimeout(fix, 500); setTimeout(fix, 1500);
 })();

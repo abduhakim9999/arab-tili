@@ -262,7 +262,11 @@
     LN.sort(function (x, y) { return x.a - y.a; });
     function toL(t) { var q = null; LN.forEach(function (x) { if (x.a - 0.4 <= t) q = x; }); return q ? Math.max(0, t + UZT.o[q.l]) : 0; }
     function toA(t) { var q = null; LN.forEach(function (x) { if (x.a + UZT.o[x.l] - 0.4 <= t) q = x; }); if (!q) return 0; var o = UZT.o[q.l]; return t - o <= q.b ? t - o : q.b + 0.2; }
-    function setTM(f) { TM.forEach(function (w, i) {
+    var HO = window.HDR && UZT.h ? { e: HDR.e, t: HDR.rows.map(function (r) { return r.t; }) } : null;
+    function setTM(f) {
+      /* 06.11.2026: sarlavha (bob, dars raqami) vaqtlari ham ЎЗ faylinikiga almashadi */
+      if (HO) { HDR.rows.forEach(function (r, i) { r.t = f && UZT.h[i] ? UZT.h[i] : HO.t[i]; }); HDR.e = f ? UZT.h[UZT.h.length - 1][1] : HO.e; }
+      TM.forEach(function (w, i) {
       /* 06.11.2026: Eshitish faylida yo'q qator (masalan 0 — sarlavha) ЎЗ rejimida belgilanmaydi — aks holda bosh qism o'qilayotganda u yonib qoladi */
       var has = UZT.o[w[0]] != null, o = f ? (has ? UZT.o[w[0]] : 1e6) : 0;
       for (var j = 2; j < w.length; j++) if (T0[i][j] != null) w[j] = T0[i][j] + o; }); }

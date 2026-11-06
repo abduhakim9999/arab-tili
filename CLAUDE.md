@@ -35,6 +35,7 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
   | Yangilik | Bor | Qolgan |
   |---|---|---|
   | Eshitish (Матн/Луғат/Таркиб) | 1, 6, 7, 74, 93, 94, 95 | 2–5, 70–73, 91–92 |
+  | ЎЗ rejimida sarlavha (bob/dars) yonishi (`UZT.h`) | 1 | 95 + «ЎЗ» qo'shiladigan darslar |
   | Pleyer «ЎЗ» tarjima + 🎧 (`UZT`) | 1, 95 | 6, 7, 74, 93, 94 (+ yangi Eshitishlar) |
   | Eshitish bosh qismi bo'laklab (bob / dars alohida, ekranda yozuv) | 1 | 6, 7, 74, 93, 94, 95 |
   | O'zbekcha ovozda qavsli variantdan bittasi | 1 | 6, 7, 74, 93, 94, 95 — tekshirish |

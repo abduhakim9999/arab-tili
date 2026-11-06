@@ -31,6 +31,16 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
 - Darslar: 1-kitob **1–7**; 2-kitob **70–74, 91–95**.
 - Fiqh (parol bilan yopiq, `docs/texnik.md` 10): «Мухтасарул виқоя» 1-dars (1–6-qadam tayyor; 7 mashq, 8 havola qoldi).
 - Eshitish: **1, 6, 7, 74, 93, 94, 95**. Ochiq ish: 2–5, 70–73, 91–92 ni qo'shish.
+- **Tarqatish ro'yxati** (bir darsda qilingan yangilik → qolgan darslarga o'tkazish; foydalanuvchi so'raganda qilinadi; har yangilikdan keyin shu yerga qator qo'shiladi, o'tkazilgani yangilanadi):
+  | Yangilik | Bor | Qolgan |
+  |---|---|---|
+  | Eshitish (Матн/Луғат/Таркиб) | 1, 6, 7, 74, 93, 94, 95 | 2–5, 70–73, 91–92 |
+  | Pleyer «ЎЗ» tarjima + 🎧 (`UZT`) | 1, 95 | 6, 7, 74, 93, 94 (+ yangi Eshitishlar) |
+  | Eshitish bosh qismi bo'laklab (bob / dars alohida, ekranda yozuv) | 1 | 6, 7, 74, 93, 94, 95 |
+  | O'zbekcha ovozda qavsli variantdan bittasi | 1 | 6, 7, 74, 93, 94, 95 — tekshirish |
+  | Ovoz: har so'z/gap alohida generatsiya (bitta audiodan qirqilmagan) | 1 | 6, 7 Луғат — tekshirish |
+  | Eshitish Таркибда o'zbekcha qator | 1, 6 | 7, 74, 93 (94, 95 — tekshirish) |
+  | Pleyer ko'rinishi, sahifa siljitgichi (`shell.js`) | hamma darslar | — |
 - Oxirgi qilinganlar (06.11.2026):
   - Pleyer: surgich o'rniga «N / M гап», ▶ o'rtada (⏮ ▶ ⏭), tugmalar kattaroq; sahifa siljitgichi (o'ng chetda tutqich + bo'lim yozuvi + tepada chiziq) — hamma darslarda (`docs/texnik.md` 5).
   - 1-dars Eshitish: Матн (dars audiosi + Davronbek), Луғат 26 so'z (Abdullah/Davronbek, har so'z alohida generatsiya), Таркиб (Hamed); bosh qism bo'laklarga (bob/dars alohida, ekranda yozuvi bilan); «ЎЗ» va 🎧 1-darsda ham. Ovoz qoidalari: `docs/texnik.md` 6.

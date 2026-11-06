@@ -237,6 +237,7 @@
   function wait(ev) {
     var a = ev.target; if (!a || !/^(AUDIO|VIDEO)$/.test(a.tagName)) return;
     if (a.paused && ev.type != 'waiting') return;
+    if (ev.type == 'stalled' && a.readyState >= 3) return; /* 06.11.2026: yetarli yuklangan bo'lsa «stalled» da yozuv chiqmasin */
     cur = a; clearTimeout(t);
     t = setTimeout(function () { if (cur === a) show(a); }, 500);
   }
@@ -248,4 +249,11 @@
   document.addEventListener('progress', prog, true);
   ['playing', 'canplaythrough', 'pause', 'ended', 'emptied'].forEach(function (n) { document.addEventListener(n, done, true); });
   document.addEventListener('error', fail, true);
+  /* 06.11.2026: audio vaqti oldinga yursa — yozuv yopiladi (avval «yuklanyapti 56%» qotib qolardi) */
+  var lastT = {};
+  document.addEventListener('timeupdate', function (ev) {
+    var a = ev.target; if (!box || box.style.display != 'block' || cur !== a) return;
+    if (!a.paused && a.currentTime > (lastT.v || 0) + 0.2) hide();
+    lastT.v = a.currentTime;
+  }, true);
 })();

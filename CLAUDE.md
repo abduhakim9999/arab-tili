@@ -40,6 +40,7 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
   | O'zbekcha ovozda qavsli variantdan bittasi | 1 | 6, 7, 74, 93, 94, 95 — tekshirish |
   | Ovoz: har so'z/gap alohida generatsiya (bitta audiodan qirqilmagan) | 1 | 6, 7 Луғат — tekshirish |
   | Eshitish Таркибда o'zbekcha qator | 1, 6 | 7, 74, 93 (94, 95 — tekshirish) |
+  | Eshitish Матнида mavzu (sarlavha) aytiladi | 1 | 6, 7, 74, 93, 94, 95 — tekshirish |
   | Pleyer ko'rinishi, sahifa siljitgichi (`shell.js`) | hamma darslar | — |
 - Oxirgi qilinganlar (06.11.2026):
   - Pleyer: surgich o'rniga «N / M гап», ▶ o'rtada (⏮ ▶ ⏭), tugmalar kattaroq; sahifa siljitgichi (o'ng chetda tutqich + bo'lim yozuvi + tepada chiziq) — hamma darslarda (`docs/texnik.md` 5).

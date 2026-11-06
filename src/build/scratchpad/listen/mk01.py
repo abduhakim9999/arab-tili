@@ -53,7 +53,10 @@ items = []
 for f, ht in [(hb_, HT[0]), (s08, None), (hv, HT[1]), (s05, 'x'), (hbu, 'x'), (s08, None), (hd, HT[2]), (s05, 'x'), (hru, 'x')]:
     items.append((f, ('h', ht) if ht and ht != 'x' else ('hx' if ht == 'x' else None), 0))
 items.append((s1, None, 0))
-for li in lis:
+# 06.11.2026: mavzu (0-qator, «حِوَارٌ») — dars audiosidan 11.75–13.15 (ikki tomoni jimlik) + o'zbekchasi g0 («Suhbat»)
+CUT[0] = [11.75, 13.15]
+uz[0] = (lambda d: (run(['ffmpeg', '-v', 'error', '-y', '-i', HERE + '/u01/g/g0.mp3', '-af', UZF, '-ar', str(SR), '-ac', '1', d + '.p.wav']), cut(d + '.p.wav', d, gain=TGT - lufs(d + '.p.wav')))[1])(T + '/u00m.wav')
+for li in [0] + lis:
     a0, b0 = CUT[li]
     items += [(cut(AUD, T + '/a%02d.wav' % li, a0, b0, g_ar), 'ar', li), (s1, None, 0), (uz[li], 'uz', li), (s2, None, 0)]
 parts, M, t = [], [], 0.0
@@ -65,7 +68,7 @@ for f, kind, idx in items:
     t += d
 concat(parts, HERE + '/l1.mp3')
 LN = {}
-for li in lis:
+for li in [0] + lis:
     sp, ws, tr = L[li]
     LN[li] = [' '.join(w['v'] + w['pu'] for w in ws), re.sub(r'\s+', ' ', ' '.join(c[0] for c in tr)).strip(), sp]
 json.dump({'m': M, 'l': LN}, open(HERE + '/l1.json', 'w'), ensure_ascii=False)

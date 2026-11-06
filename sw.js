@@ -2,7 +2,7 @@
    Kichik fayllar (sahifa, skript, shrift) — versiya bilan birga; audio (mp3) versiyaga kirmaydi:
    birinchi eshitilganda yuklanadi va «arab-tili-audio» keshida doim qoladi (nomida xesh bor — eskirmaydi).
    Yangi versiya (C) chiqqanda eski kesh o'chadi (audio keshi qoladi), ochiq sahifalar o'zi yangilanadi. */
-var C = 'arab-tili-v211';
+var C = 'arab-tili-v212';
 var FILES = ["./", "index.html", "tinglash.html", "yoriqnoma.html", "fel.html", "tg.js", "shell.js", "shell.css", "manifest.webmanifest", "icon-192.png", "icon-512.png", "icon-maskable-512.png", "1.html", "2.html", "3.html", "4.html", "5.html", "6.html", "7.html", "70.html", "71.html", "72.html", "73.html", "74.html", "91.html", "92.html", "93.html", "94.html", "95.html", "feellar.html", "sarf.html", "fiqh.html", "f1.html", "sarf-idx.json", "sarflink.js", "tarkib.js", "tarkib2.js", "hdr.js", "naskh.woff"];
 var TG = 'https://telegram.org/js/telegram-web-app.js';
 
@@ -69,6 +69,8 @@ self.addEventListener('fetch', function (e) {
   if (r.method !== 'GET') return;
   var same = new URL(r.url).origin === location.origin;
   if (!same && r.url !== TG) return;
+  /* 06.11.2026: sinov sahifalari va ularning fayllari telefonda saqlanmaydi — doim internetdan (eski nusxa chiqmasin) */
+  if (same && /\/(sinov-[^/]*|shell-s\.(js|css))$/.test(new URL(r.url).pathname)) { e.respondWith(fetch(r, { cache: 'no-store' })); return; }
   var isRange = r.headers.has('range');
   if (same && isMp3(r.url)) {
     var url = r.url.split('#')[0].split('?')[0];

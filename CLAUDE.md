@@ -32,6 +32,7 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
 - Fiqh (parol bilan yopiq, `docs/texnik.md` 10): «Мухтасарул виқоя» 1-dars (1–6-qadam tayyor; 7 mashq, 8 havola qoldi).
 - Eshitish: **1, 6, 7, 74, 93, 94, 95**. Ochiq ish: 2–5, 70–73, 91–92 ni qo'shish.
 - Oxirgi qilinganlar (06.11.2026):
+  - Pleyer: surgich o'rniga «N / M гап», ▶ o'rtada (⏮ ▶ ⏭), tugmalar kattaroq; sahifa siljitgichi (o'ng chetda tutqich + bo'lim yozuvi + tepada chiziq) — hamma darslarda (`docs/texnik.md` 5).
   - 1-dars Eshitish: Матн (dars audiosi + Davronbek), Луғат 26 so'z (Abdullah/Davronbek, har so'z alohida generatsiya), Таркиб (Hamed); bosh qism bo'laklarga (bob/dars alohida, ekranda yozuvi bilan); «ЎЗ» va 🎧 1-darsda ham. Ovoz qoidalari: `docs/texnik.md` 6.
   - (05.11.2026):
   - Dars pleyeri: ⏮/⏭ gapma-gap, tezlik 0.5–1.5× (bosib tursa ro'yxat), «ЎЗ» o'zbekcha tarjima va 🎧 Eshitishga o'tish — hozircha 95-darsda (`docs/texnik.md` 5). Ochiq: «ЎЗ»ni Eshitishi bor 6, 7, 74, 93, 94 ga qo'shish.

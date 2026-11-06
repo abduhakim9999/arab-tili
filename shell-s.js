@@ -262,7 +262,11 @@
     LN.sort(function (x, y) { return x.a - y.a; });
     function toL(t) { var q = null; LN.forEach(function (x) { if (x.a - 0.4 <= t) q = x; }); return q ? Math.max(0, t + UZT.o[q.l]) : 0; }
     function toA(t) { var q = null; LN.forEach(function (x) { if (x.a + UZT.o[x.l] - 0.4 <= t) q = x; }); if (!q) return 0; var o = UZT.o[q.l]; return t - o <= q.b ? t - o : q.b + 0.2; }
-    function setTM(f) { TM.forEach(function (w, i) {
+    var HO = window.HDR && UZT.h ? { e: HDR.e, t: HDR.rows.map(function (r) { return r.t; }) } : null;
+    function setTM(f) {
+      /* 06.11.2026: sarlavha (bob, dars raqami) vaqtlari ham ЎЗ faylinikiga almashadi */
+      if (HO) { HDR.rows.forEach(function (r, i) { r.t = f && UZT.h[i] ? UZT.h[i] : HO.t[i]; }); HDR.e = f ? UZT.h[UZT.h.length - 1][1] : HO.e; }
+      TM.forEach(function (w, i) {
       /* 06.11.2026: Eshitish faylida yo'q qator (masalan 0 — sarlavha) ЎЗ rejimida belgilanmaydi — aks holda bosh qism o'qilayotganda u yonib qoladi */
       var has = UZT.o[w[0]] != null, o = f ? (has ? UZT.o[w[0]] : 1e6) : 0;
       for (var j = 2; j < w.length; j++) if (T0[i][j] != null) w[j] = T0[i][j] + o; }); }
@@ -585,7 +589,7 @@
   var bar = d.createElement('div'), th = d.createElement('div'), bub = d.createElement('div');
   bar.id = 'fsbar'; th.id = 'fsth'; bub.id = 'fsbub';
   th.setAttribute('aria-label', 'Саҳифани суриш');
-  d.body.appendChild(bar); d.body.appendChild(th); d.body.appendChild(bub);
+  d.body.appendChild(th); /* 06.11.2026: tepadagi chiziq olib tashlandi — yuklanish chizig'i bilan bir xil ko'rinardi */ d.body.appendChild(bub);
   var se = d.scrollingElement || d.documentElement, drag = false, hideT = null, off = 0;
   function pb() { var p = d.querySelector('.pbar'); return p && p.offsetParent !== null ? p.getBoundingClientRect().height : 0; }
   function track() { var top = 60, bot = innerHeight - pb() - 12; return [top, Math.max(top + 80, bot)]; }
@@ -604,7 +608,6 @@
   }
   function upd() {
     var f = Math.min(1, Math.max(0, se.scrollTop / max())), t = track();
-    bar.style.width = (f * 100) + '%';
     var y = t[0] + f * (t[1] - t[0] - 52);
     th.style.top = y + 'px'; bub.style.top = (y + 4) + 'px';
     bub.innerHTML = (label() || '') + '<small>' + Math.round(f * 100) + '%</small>';

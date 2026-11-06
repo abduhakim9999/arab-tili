@@ -30,8 +30,10 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
 - Sayt: https://abduhakim9999.github.io/arab-tili/ · Mini App `t.me/Arabtilihivar_bot/darslar` · versiya `sw.js` dagi `var C`.
 - Darslar: 1-kitob **1–7**; 2-kitob **70–74, 91–95**.
 - Fiqh (parol bilan yopiq, `docs/texnik.md` 10): «Мухтасарул виқоя» 1-dars (1–6-qadam tayyor; 7 mashq, 8 havola qoldi).
-- Eshitish: **6, 7, 74, 93, 94, 95**. Ochiq ish: 1–5, 70–73, 91–92 ni qo'shish.
-- Oxirgi qilinganlar (05.11.2026):
+- Eshitish: **1, 6, 7, 74, 93, 94, 95**. Ochiq ish: 2–5, 70–73, 91–92 ni qo'shish.
+- Oxirgi qilinganlar (06.11.2026):
+  - 1-dars Eshitish: Матн (dars audiosi + Davronbek), Луғат 26 so'z (Abdullah/Davronbek, har so'z alohida generatsiya), Таркиб (Hamed); bosh qism bo'laklarga (bob/dars alohida, ekranda yozuvi bilan); «ЎЗ» va 🎧 1-darsda ham. Ovoz qoidalari: `docs/texnik.md` 6.
+  - (05.11.2026):
   - Dars pleyeri: ⏮/⏭ gapma-gap, tezlik 0.5–1.5× (bosib tursa ro'yxat), «ЎЗ» o'zbekcha tarjima va 🎧 Eshitishga o'tish — hozircha 95-darsda (`docs/texnik.md` 5). Ochiq: «ЎЗ»ni Eshitishi bor 6, 7, 74, 93, 94 ga qo'shish.
   - Таркиб qutisi grammatika va fiqhda yagona (`docs/texnik.md` 4); Eshitishda o'qilayotgan gap ekran tepasida ergashadi — dars (`shell.js` follow, Таркибда ranglar qatori ostida) va fiqhda (`docs/texnik.md` 5, 10).
   - Bosh sahifa «Давом этиш» kartasi oddiy (oq/to'q), 7-bob rasmi; sayt tez ochiladi — audio versiyaga kirmaydi, yuklanish belgisi (`docs/texnik.md` 1).

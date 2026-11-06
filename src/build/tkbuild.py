@@ -151,11 +151,16 @@ def z(g):
         sil[g] = os.path.join(TMP, 'z%s.wav' % g); run('ffmpeg', '-v', 'error', '-y', '-f', 'lavfi', '-i', 'anullsrc=r=24000:cl=mono', '-t', str(g), sil[g])
     return sil[g]
 # бош қисм (бисмиллаҳ + дарс рақами) — ҳивор овозидан
-hd = L['m'][0]; hsrc = os.path.join(TMP, 'h.mp3')
+HM = []
+for _m in L['m']:
+    if _m[1] != 'h': break
+    HM.append(list(_m))
+hd = HM[-1]  # bosh qism bir necha bo'lak bo'lishi mumkin (06.11.2026: bob / dars alohida)
+hsrc = os.path.join(TMP, 'h.mp3')
 open(hsrc, 'wb').write(subprocess.check_output(['git', 'show', 'HEAD:' + L['f']]))
 hw = os.path.join(TMP, 'h.wav'); run('ffmpeg', '-v', 'error', '-y', '-i', hsrc, '-t', str(hd[3]), '-ar', '24000', '-ac', '1', hw)
 seq = [hw, z(0.8)]; T = dur(hw) + 0.8
-M = [[0, 'h', 0.0, round(dur(hw), 2)]]; LL = {}
+M = HM if len(HM) > 1 else [[0, 'h', 0.0, round(dur(hw), 2)]]; LL = {}
 for c in chunks:
     st = T
     for t, g in c['clips']:

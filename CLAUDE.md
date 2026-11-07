@@ -45,6 +45,7 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
   | ЎЗ: o'zbekcha o'qilganda arabcha so'z yonadi (`UZT.w`, bepul moslash) | 1 | 95 + «ЎЗ» qo'shiladigan darslar |
   | Pleyer ko'rinishi, sahifa siljitgichi (`shell.js`) | hamma darslar | — |
 - Oxirgi qilinganlar (07.11.2026):
+  - Fiqh 1-dars: ⏮/⏭ gapma-gap, tezlik ro'yxati, sahifa siljitgichi, «Фиқҳ / Наҳв» rejimi (`docs/texnik.md` 10).
   - Fiqh paroli kuniga bir marta; tepadagi yorliqlar (dars, fiqh) fonsiz, ostida chiziq; 1-dars «ЎЗ» da o'zbekcha o'qilganda arabcha so'z yonadi (`docs/texnik.md` 5, 10).
   - (06.11.2026):
   - Pleyer: surgich o'rniga «N / M гап», ▶ o'rtada (⏮ ▶ ⏭), tugmalar kattaroq; sahifa siljitgichi (o'ng chetda tutqich + bo'lim yozuvi + tepada chiziq) — hamma darslarda (`docs/texnik.md` 5).

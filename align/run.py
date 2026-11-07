@@ -28,7 +28,7 @@ for mp3 in sorted(glob.glob('align/in/*.mp3')):
         wav = load_audio(mp3, model.dtype, model.device)
         em, stride = generate_emissions(model, wav, batch_size=4)
         text = open(txt, encoding='utf-8').read().split()
-        ts, tx = preprocess_text(' '.join(text), romanize=True, language='ara')
+        ts, tx = preprocess_text(' '.join(text), romanize=True, language=('uzb' if name.endswith('.uz') else 'ara'))  # .uz — o'zbekcha (lotin)
         segs, scores, blank = get_alignments(em, ts, tok)
         spans = get_spans(ts, segs, blank)
         res = postprocess_results(tx, spans, stride, scores)

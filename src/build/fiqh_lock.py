@@ -6,7 +6,7 @@
 
 src/fiqh/ — ochiq matn, .gitignore da (repo ochiq — commit qilinmaydi).
 Parol repoga yozilmaydi (claude.ai loyihasidagi fiqh-konspekti.md da).
-Brauzerda: PBKDF2-SHA256 (150 000) -> AES-GCM; to'g'ri kalit localStorage «fq-k» da eslab qolinadi.
+Brauzerda: PBKDF2-SHA256 (150 000) -> AES-GCM; to'g'ri kalit localStorage «fq-k» da, faqat shu kun (Toshkent vaqti, «fq-d») — har kuni bir marta parol so'raladi.
 """
 import base64, glob, hashlib, os, re, sys
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
@@ -48,10 +48,10 @@ var D="@@DATA@@";
     return crypto.subtle.decrypt({name:"AES-GCM",iv:d.slice(0,12)},k,d.slice(12))}).then(function(t){return new TextDecoder().decode(t)})}
   function show(h){function go(){document.open();document.write(h);document.close()}if(document.readyState==="complete")setTimeout(go,0);else addEventListener("load",function(){setTimeout(go,0)})}
   function ask(){f.classList.add("on");setTimeout(function(){p.focus()},50)}
-  var k=null;try{k=localStorage.getItem("fq-k")}catch(e){}
+  var T=new Date(Date.now()+18e6).toISOString().slice(0,10),k=null;try{if(localStorage.getItem("fq-d")===T)k=localStorage.getItem("fq-k");else localStorage.removeItem("fq-k")}catch(e){}
   if(k)dec(ub(k)).then(show,function(){try{localStorage.removeItem("fq-k")}catch(e){}ask()});else ask();
   f.onsubmit=function(ev){ev.preventDefault();var raw;key(p.value).then(function(r){raw=r;return dec(r)}).then(function(h){
-    try{localStorage.setItem("fq-k",b64(raw))}catch(e){}show(h)},function(){f.classList.remove("bad");void f.offsetWidth;f.classList.add("bad");p.select()})};
+    try{localStorage.setItem("fq-k",b64(raw));localStorage.setItem("fq-d",T)}catch(e){}show(h)},function(){f.classList.remove("bad");void f.offsetWidth;f.classList.add("bad");p.select()})};
 })();
 </script>
 </body>

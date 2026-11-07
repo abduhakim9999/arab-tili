@@ -291,6 +291,44 @@
     });
     if (on) { if (au.readyState >= 1) setTimeout(function () { swap('l', false); }, 0); else au.addEventListener('loadedmetadata', function () { setTimeout(function () { swap('l', false); }, 0); }, { once: true }); }
     paint();
+    /* 07.11.2026: ЎЗ rejimida o'zbekcha tarjima o'qilayotganda unga mos arabcha so'zlar yonadi (arabcha o'qilganda o'zbekcha yonganidek).
+       UZT.w = {qator: [[o'zbekcha so'z boshlari (ЎЗ fayli vaqtida)], oxiri]}; so'z -> uning .ts bo'lagi -> data-w dagi arabcha so'zlar */
+    if (UZT.w) (function () {
+      var lnK = -1, wK = -2, LW = Object.keys(UZT.w).map(function (k) { return [+k, UZT.w[k][0], UZT.w[k][1]]; });
+      function wrap(ln) {
+        if (ln.querySelector('.uw')) return; var d = 0;
+        [].forEach.call(ln.querySelectorAll('.tr'), function (tr) {
+          var tw = document.createTreeWalker(tr, NodeFilter.SHOW_TEXT), ns = [], n; while ((n = tw.nextNode())) ns.push(n);
+          ns.forEach(function (n) {
+            var fr = document.createDocumentFragment();
+            n.nodeValue.split(/(\s+)/).forEach(function (w) {
+              if (!w) return; if (/^\s+$/.test(w) || d || w.charAt(0) === '(') { if (!/^\s+$/.test(w)) d = w.indexOf(')') < 0; fr.appendChild(document.createTextNode(w)); return; }
+              var sp = document.createElement('span'); sp.className = 'uw'; sp.textContent = w; fr.appendChild(sp);
+            });
+            n.parentNode.replaceChild(fr, n);
+          });
+        });
+      }
+      function clr() { [].forEach.call(document.querySelectorAll('#tx .pu'), function (e) { e.classList.remove('pu'); }); }
+      (function lp() {
+        if (cur === 'l') {
+          var t = au.currentTime, q = null;
+          LW.forEach(function (x) { if (t >= x[1][0] - 0.1 && t <= x[2] + 0.4) q = x; });
+          var ln = q && document.querySelectorAll('#tx .ln')[q[0]], k = -1;
+          if (ln) { wrap(ln); q[1].forEach(function (s, j) { if (t >= s - 0.06) k = j; }); }
+          var key = q ? q[0] + ':' + k : '';
+          if (key !== wK) {
+            wK = key; clr();
+            var u = ln && k >= 0 ? ln.querySelectorAll('.uw')[k] : null, ts = u && u.closest('.ts');
+            if (ts) {
+              ts.classList.add('pu');
+              (ts.getAttribute('data-w') || '').split(',').forEach(function (j) { var e = ln.querySelector('.ws span[data-i="' + q[0] + '-' + j + '"]'); if (e) e.classList.add('pu'); });
+            }
+          }
+        } else if (wK !== -2) { wK = -2; clr(); }
+        requestAnimationFrame(lp);
+      })();
+    })();
     window.UZT0 = T0;
     window.UZA = function () { return cur === 'l' ? toA(au.currentTime) : au.currentTime; };
   })();

@@ -42,8 +42,11 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
   | Ovoz: har so'z/gap alohida generatsiya (bitta audiodan qirqilmagan) | 1 | 6, 7 Луғат — tekshirish |
   | Eshitish Таркибда o'zbekcha qator | 1, 6 | 7, 74, 93 (94, 95 — tekshirish) |
   | Eshitish Матнида mavzu (sarlavha) aytiladi | 1 | 6, 7, 74, 93, 94, 95 — tekshirish |
+  | ЎЗ: o'zbekcha o'qilganda arabcha so'z yonadi (`UZT.w`, bepul moslash) | 1 | 95 + «ЎЗ» qo'shiladigan darslar |
   | Pleyer ko'rinishi, sahifa siljitgichi (`shell.js`) | hamma darslar | — |
-- Oxirgi qilinganlar (06.11.2026):
+- Oxirgi qilinganlar (07.11.2026):
+  - Fiqh paroli kuniga bir marta; tepadagi yorliqlar (dars, fiqh) fonsiz, ostida chiziq; 1-dars «ЎЗ» da o'zbekcha o'qilganda arabcha so'z yonadi (`docs/texnik.md` 5, 10).
+  - (06.11.2026):
   - Pleyer: surgich o'rniga «N / M гап», ▶ o'rtada (⏮ ▶ ⏭), tugmalar kattaroq; sahifa siljitgichi (o'ng chetda tutqich + bo'lim yozuvi + tepada chiziq) — hamma darslarda (`docs/texnik.md` 5).
   - 1-dars Eshitish: Матн (dars audiosi + Davronbek), Луғат 26 so'z (Abdullah/Davronbek, har so'z alohida generatsiya), Таркиб (Hamed); bosh qism bo'laklarga (bob/dars alohida, ekranda yozuvi bilan); «ЎЗ» va 🎧 1-darsda ham. Ovoz qoidalari: `docs/texnik.md` 6.
   - (05.11.2026):

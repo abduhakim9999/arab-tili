@@ -31,6 +31,7 @@ body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(
 .stage.tk .st-ar{font-size:21px;line-height:1.9}.stage.tk .st-uz{font-size:15px}
 .stage.k-uz .st-uz{color:var(--tx);font-weight:600}
 .stage.k-uz .st-ar{opacity:.55}
+.stage.k-uz .uw{color:var(--mu);transition:color .12s}.stage.k-uz .uw.dn{color:var(--tx)}.stage.k-uz .uw.on{color:var(--ac)}
 .sp{font-size:13px;color:var(--au2,#c99434);font-weight:700;margin-bottom:4px;direction:rtl;font-family:"DarsNaskh",serif}
 .pg{display:flex;align-items:center;gap:10px;margin:16px 2px 4px;font-size:12px;color:var(--mu);font-variant-numeric:tabular-nums}
 .pg input{flex:1;accent-color:var(--ac)}
@@ -110,6 +111,13 @@ function show(i){if(i===shown)return;shown=i;var L=LIST[li],st=$('st');st.scroll
   var k=0;if(i>=0)for(var j=0;j<=i;j++)if(M[j][1]==='ar')k++;$('stn').textContent=i>=0&&M[i][1]!=='h'?k+' / '+NI:'';
   if(i<0||M[i][1]==='h'){$('sp').textContent='';$('sa').textContent=i<0?L.ar:(M[i][4]||'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ');$('su').textContent=i<0?'':(M[i][5]||'');st.className='stage';return}
   var s=M[i],ln=TR.l[s[0]];$('sp').textContent=/^[\d\s.-]+$/.test(ln[2]||'')?'\u2066'+ln[2]+'\u2069':(ln[2]||'');$('sa').textContent=ln[0];$('su').textContent=O.tr?ln[1]:'';st.className='stage k-'+(s[1]==='ar2'?'ar':s[1])+(TR===L.t?' tk':'')}
+/* 07.11.2026: o'zbekcha so'zma-so'z yonishi — M[i][4] (uz bo'lagi) — har so'z boshlanish vaqti (bepul moslash, align/) */
+function uzWrap(t){var d=0,k=0;return t.split(/(\s+)/).map(function(w){if(!w||/^\s+$/.test(w))return w;var e=w.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  if(d||w.charAt(0)==='('){d=w.indexOf(')')<0;return e}return '<span class="uw">'+e+'</span>'}).join('')}
+var UW=-2;(function(){var o=show;show=function(i){var same=i===shown;o(i);if(same)return;UW=-2;var s=M[i];if(i>=0&&s&&s[1]==='uz'&&s[4]&&O.tr)$('su').innerHTML=uzWrap($('su').textContent)}})();
+function uzTick(){var s=M[shown];if(!(shown>=0&&s&&s[1]==='uz'&&s[4]))return;var t=A.currentTime,k=-1,j;for(j=0;j<s[4].length;j++)if(t>=s[4][j]-0.06)k=j;
+  if(k===UW)return;UW=k;var w=$('su').querySelectorAll('.uw');for(j=0;j<w.length;j++){w[j].classList.toggle('on',j===k);w[j].classList.toggle('dn',j<k)}}
+(function lp(){uzTick();requestAnimationFrame(lp)})();
 function nextArFrom(i){for(var j=i+1;j<M.length;j++)if(M[j][1]==='ar')return j;return -1}
 function prevArFrom(i){for(var j=i-1;j>=0;j--)if(M[j][1]==='ar')return j;return -1}
 A.addEventListener('timeupdate',function(){var t=A.currentTime,i=segAt(t);

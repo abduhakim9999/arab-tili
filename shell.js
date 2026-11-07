@@ -291,7 +291,8 @@
     });
     if (on) { if (au.readyState >= 1) setTimeout(function () { swap('l', false); }, 0); else au.addEventListener('loadedmetadata', function () { setTimeout(function () { swap('l', false); }, 0); }, { once: true }); }
     paint();
-    /* 07.11.2026: ЎЗ rejimida o'zbekcha tarjima so'zma-so'z yonadi. UZT.w = {qator: [[so'z boshlari (ЎЗ fayli vaqtida)], oxiri]} */
+    /* 07.11.2026: ЎЗ rejimida o'zbekcha tarjima o'qilayotganda unga mos arabcha so'zlar yonadi (arabcha o'qilganda o'zbekcha yonganidek).
+       UZT.w = {qator: [[o'zbekcha so'z boshlari (ЎЗ fayli vaqtida)], oxiri]}; so'z -> uning .ts bo'lagi -> data-w dagi arabcha so'zlar */
     if (UZT.w) (function () {
       var lnK = -1, wK = -2, LW = Object.keys(UZT.w).map(function (k) { return [+k, UZT.w[k][0], UZT.w[k][1]]; });
       function wrap(ln) {
@@ -308,21 +309,23 @@
           });
         });
       }
-      function clr() { [].forEach.call(document.querySelectorAll('#tx .uw.on, #tx .uw.dn, #tx .ln.uzw'), function (e) { e.classList.remove('on', 'dn', 'uzw'); }); lnK = -1; wK = -2; }
+      function clr() { [].forEach.call(document.querySelectorAll('#tx .pu'), function (e) { e.classList.remove('pu'); }); }
       (function lp() {
-        if (cur === 'l' && !au.paused || cur === 'l' && lnK >= 0) {
+        if (cur === 'l') {
           var t = au.currentTime, q = null;
           LW.forEach(function (x) { if (t >= x[1][0] - 0.1 && t <= x[2] + 0.4) q = x; });
-          if (!q) { if (lnK >= 0) clr(); }
-          else {
-            var ln = document.querySelectorAll('#tx .ln')[q[0]];
-            if (ln) {
-              if (lnK !== q[0] || !ln.querySelector('.uw')) { clr(); wrap(ln); lnK = q[0]; ln.classList.add('uzw'); }
-              var k = -1; q[1].forEach(function (s, j) { if (t >= s - 0.06) k = j; });
-              if (k !== wK) { wK = k; [].forEach.call(ln.querySelectorAll('.uw'), function (e, j) { e.classList.toggle('on', j === k); e.classList.toggle('dn', j < k); }); }
+          var ln = q && document.querySelectorAll('#tx .ln')[q[0]], k = -1;
+          if (ln) { wrap(ln); q[1].forEach(function (s, j) { if (t >= s - 0.06) k = j; }); }
+          var key = q ? q[0] + ':' + k : '';
+          if (key !== wK) {
+            wK = key; clr();
+            var u = ln && k >= 0 ? ln.querySelectorAll('.uw')[k] : null, ts = u && u.closest('.ts');
+            if (ts) {
+              ts.classList.add('pu');
+              (ts.getAttribute('data-w') || '').split(',').forEach(function (j) { var e = ln.querySelector('.ws span[data-i="' + q[0] + '-' + j + '"]'); if (e) e.classList.add('pu'); });
             }
           }
-        } else if (lnK >= 0) clr();
+        } else if (wK !== -2) { wK = -2; clr(); }
         requestAnimationFrame(lp);
       })();
     })();

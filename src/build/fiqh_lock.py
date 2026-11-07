@@ -12,7 +12,7 @@ import base64, glob, hashlib, os, re, sys
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
 SALT = b"nur-fq-1"; IT = 150000
-FILES = ["fiqh.html"] + sorted(os.path.basename(p) for p in glob.glob("src/fiqh/f[0-9]*.html"))
+FILES = ["fiqh.html", "fkitob.html"] + sorted(os.path.basename(p) for p in glob.glob("src/fiqh/f[0-9]*.html"))
 
 SHELL = """<!DOCTYPE html>
 <html lang="uz">

@@ -46,6 +46,7 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
   | Pleyer ko'rinishi, sahifa siljitgichi (`shell.js`) | hamma darslar | — |
   | So'z oynasi: ‹ ›, Таркиб Ўзбекча/Арабча, qo'shimchalar tugma (`zoX`, `.zo-*`) | 95, fiqh 1 | 1–7, 70–74, 91–94 |
 - Oxirgi qilinganlar (07.11.2026):
+  - Fiqh: «📚 Китобни ўқиш» (`fkitob.html`) — Muqaddima (dastlabki tarjima) + 1-dars; yangi dars kelganda shu yerga ham qo'shiladi (`docs/texnik.md` 10).
   - Fiqh: «Фиқҳ / Наҳв» rejimi olib tashlandi — faqat «Таркиб» tugmasi (`docs/texnik.md` 10).
   - So'z oynasi yangilandi — 95 va fiqh 1-dars (`docs/texnik.md` 4); fiqh.html «📖 Китоб ҳақида».
   - Fiqh 1-dars: ⏮/⏭ gapma-gap, tezlik ro'yxati, sahifa siljitgichi, «Фиқҳ / Наҳв» rejimi (`docs/texnik.md` 10).

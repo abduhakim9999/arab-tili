@@ -44,7 +44,9 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
   | Eshitish Матнида mavzu (sarlavha) aytiladi | 1 | 6, 7, 74, 93, 94, 95 — tekshirish |
   | ЎЗ: o'zbekcha o'qilganda arabcha so'z yonadi (`UZT.w`, bepul moslash) | 1 | 95 + «ЎЗ» qo'shiladigan darslar |
   | Pleyer ko'rinishi, sahifa siljitgichi (`shell.js`) | hamma darslar | — |
+  | So'z oynasi: ‹ ›, Таркиб Ўзбекча/Арабча, qo'shimchalar tugma (`zoX`, `.zo-*`) | 95, fiqh 1 | 1–7, 70–74, 91–94 |
 - Oxirgi qilinganlar (07.11.2026):
+  - So'z oynasi yangilandi — 95 va fiqh 1-dars (`docs/texnik.md` 4); fiqh.html «📖 Китоб ҳақида».
   - Fiqh 1-dars: ⏮/⏭ gapma-gap, tezlik ro'yxati, sahifa siljitgichi, «Фиқҳ / Наҳв» rejimi (`docs/texnik.md` 10).
   - Fiqh paroli kuniga bir marta; tepadagi yorliqlar (dars, fiqh) fonsiz, ostida chiziq; 1-dars «ЎЗ» da o'zbekcha o'qilganda arabcha so'z yonadi (`docs/texnik.md` 5, 10).
   - (06.11.2026):

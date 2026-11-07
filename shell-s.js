@@ -291,6 +291,41 @@
     });
     if (on) { if (au.readyState >= 1) setTimeout(function () { swap('l', false); }, 0); else au.addEventListener('loadedmetadata', function () { setTimeout(function () { swap('l', false); }, 0); }, { once: true }); }
     paint();
+    /* 07.11.2026: ЎЗ rejimida o'zbekcha tarjima so'zma-so'z yonadi. UZT.w = {qator: [[so'z boshlari (ЎЗ fayli vaqtida)], oxiri]} */
+    if (UZT.w) (function () {
+      var lnK = -1, wK = -2, LW = Object.keys(UZT.w).map(function (k) { return [+k, UZT.w[k][0], UZT.w[k][1]]; });
+      function wrap(ln) {
+        if (ln.querySelector('.uw')) return; var d = 0;
+        [].forEach.call(ln.querySelectorAll('.tr'), function (tr) {
+          var tw = document.createTreeWalker(tr, NodeFilter.SHOW_TEXT), ns = [], n; while ((n = tw.nextNode())) ns.push(n);
+          ns.forEach(function (n) {
+            var fr = document.createDocumentFragment();
+            n.nodeValue.split(/(\s+)/).forEach(function (w) {
+              if (!w) return; if (/^\s+$/.test(w) || d || w.charAt(0) === '(') { if (!/^\s+$/.test(w)) d = w.indexOf(')') < 0; fr.appendChild(document.createTextNode(w)); return; }
+              var sp = document.createElement('span'); sp.className = 'uw'; sp.textContent = w; fr.appendChild(sp);
+            });
+            n.parentNode.replaceChild(fr, n);
+          });
+        });
+      }
+      function clr() { [].forEach.call(document.querySelectorAll('#tx .uw.on, #tx .uw.dn, #tx .ln.uzw'), function (e) { e.classList.remove('on', 'dn', 'uzw'); }); lnK = -1; wK = -2; }
+      (function lp() {
+        if (cur === 'l' && !au.paused || cur === 'l' && lnK >= 0) {
+          var t = au.currentTime, q = null;
+          LW.forEach(function (x) { if (t >= x[1][0] - 0.1 && t <= x[2] + 0.4) q = x; });
+          if (!q) { if (lnK >= 0) clr(); }
+          else {
+            var ln = document.querySelectorAll('#tx .ln')[q[0]];
+            if (ln) {
+              if (lnK !== q[0] || !ln.querySelector('.uw')) { clr(); wrap(ln); lnK = q[0]; ln.classList.add('uzw'); }
+              var k = -1; q[1].forEach(function (s, j) { if (t >= s - 0.06) k = j; });
+              if (k !== wK) { wK = k; [].forEach.call(ln.querySelectorAll('.uw'), function (e, j) { e.classList.toggle('on', j === k); e.classList.toggle('dn', j < k); }); }
+            }
+          }
+        } else if (lnK >= 0) clr();
+        requestAnimationFrame(lp);
+      })();
+    })();
     window.UZT0 = T0;
     window.UZA = function () { return cur === 'l' ? toA(au.currentTime) : au.currentTime; };
   })();

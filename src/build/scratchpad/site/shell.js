@@ -115,11 +115,15 @@
   pb.innerHTML =
     '<button class="pb" type="button" aria-label="Ўқиш / тўхтатиш"><i class="i1"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4l12 8-12 8z" fill="currentColor"/></svg></i><i class="i2"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"/></svg></i></button>' +
     '<div class="md"><div class="pq1"><div class="lb">Матнни тинглаш</div><span class="pqt">0:00</span></div>' +
-    '<div class="pq2"><button class="pqs" type="button" data-d="-5" aria-label="5 сония орқага"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V2L7 6l5 4V7a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z" fill="currentColor"/><text x="12" y="16.2" text-anchor="middle" font-size="7" font-weight="700" fill="currentColor">5</text></svg></button>' +
-    '<div class="pqk"><div class="pqr"><i></i></div><b></b></div>' +
-    '<button class="pqs" type="button" data-d="5" aria-label="5 сония олдинга"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V2l5 4-5 4V7a6 6 0 1 0 6 6h2a8 8 0 1 1-8-8z" fill="currentColor"/><text x="12" y="16.2" text-anchor="middle" font-size="7" font-weight="700" fill="currentColor">5</text></svg></button></div></div>' +
+    '<div class="pq2"><button class="pqs" type="button" data-d="-1" aria-label="Олдинги гап"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2v14H6zM20 5v14L9 12z" fill="currentColor"/></svg></button>' +
+    '<div class="pqk"><div class="pqr"><i></i></div><b></b></div><span class="pqn"></span>' +
+    '<button class="pqs" type="button" data-d="1" aria-label="Кейинги гап"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 5h2v14h-2zM4 5v14l11-7z" fill="currentColor"/></svg></button></div></div>' +
+    (window.UZT ? '<button class="uzb" type="button" aria-label="Ўзбекча таржима">ЎЗ</button><button class="esh" type="button" aria-label="Эшитиш бўлимида очиш"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="5" height="7" rx="2"/><rect x="16" y="14" width="5" height="7" rx="2"/></svg></button>' : '') +
     '<button class="sp" type="button" aria-label="Тезлик">1×</button>';
   document.body.appendChild(pb);
+  /* 06.11.2026: ▶ — ⏮ va ⏭ o'rtasida; gap raqami tepada vaqt yonida */
+  (function () { var q2 = pb.querySelector('.pq2'), nx = q2.querySelectorAll('.pqs')[1]; q2.insertBefore(pb.querySelector('.pb'), nx);
+    var q1 = pb.querySelector('.pq1'); q1.insertBefore(pb.querySelector('.pqn'), q1.querySelector('.pqt')); pb.classList.add('mid'); })();
   var lb = $('.lb', pb), bar = $('.pqk i', pb), sp = $('.sp', pb), lastLn = null;
   $('.pb', pb).addEventListener('click', function () { if (typeof ppl === 'function') ppl(); });
   var tk = $('.pqk', pb), th = $('.pqk b', pb), tm = $('.pqt', pb), drag = false, dragP = 0;
@@ -155,11 +159,38 @@
   [].forEach.call(pb.querySelectorAll('.pqs'), function (b) {
     b.addEventListener('click', function () {
       if (!au.duration) return;
-      au.currentTime = Math.max(0, Math.min(au.duration - 0.1, au.currentTime + parseFloat(b.getAttribute('data-d'))));
+      var d = parseFloat(b.getAttribute('data-d')), t = au.currentTime, st = [];
+      /* oldingi / keyingi gap (05.11.2026): gap boshlari TM dan; gap boshidan 1.2 s o'tgan bo'lsa ◀ shu gap boshiga */
+      if (typeof TM !== 'undefined' && TM.length) {
+        var seen = {}; TM.forEach(function (w) { if (!(w[0] in seen) || w[2] < seen[w[0]]) seen[w[0]] = w[2]; });
+        for (var k in seen) st.push(seen[k]); st.sort(function (x, y) { return x - y; });
+        var i = -1; st.forEach(function (x, j) { if (x <= t + 0.05) i = j; });
+        var to = d > 0 ? st[i + 1] : (i >= 0 && t - st[i] > 1.2 ? st[i] : st[Math.max(0, i - 1)]);
+        if (to == null) to = d > 0 ? au.duration - 0.1 : 0;
+        if (typeof setLoop === 'function') setLoop(-1);
+        au.currentTime = Math.max(0, to - 0.05);
+      } else au.currentTime = Math.max(0, Math.min(au.duration - 0.1, t + d * 5));
       draw();
       if (!RM) { b.classList.add('pop'); setTimeout(function () { b.classList.remove('pop'); }, 170); }
     });
   });
+  /* qulf ekrani va bildirishnomadagi pleyer (08.11.2026, Media Session): dars nomi, ▶/⏸, ⏮/⏭ — gapma-gap, surish */
+  if ('mediaSession' in navigator) try {
+    var MS = navigator.mediaSession, msQ = pb.querySelectorAll('.pqs');
+    var msTitle = ((m[1] ? m[1] + '-дарс: ' : '') + (m[2] || '')).replace(/\s+/g, ' ').trim() || document.title;
+    var msMeta = function () { try { MS.metadata = new MediaMetadata({ title: msTitle, artist: 'Араб тили', album: 'نُورُ الطَّالِبِ', artwork: [{ src: 'icon-192.png', sizes: '192x192', type: 'image/png' }, { src: 'icon-512.png', sizes: '512x512', type: 'image/png' }] }); } catch (e) {} };
+    var msPos = function () { try { if (au.duration && isFinite(au.duration)) MS.setPositionState({ duration: au.duration, playbackRate: au.playbackRate || 1, position: Math.max(0, Math.min(au.currentTime, au.duration)) }); } catch (e) {} };
+    var msAct = function (k, f) { try { MS.setActionHandler(k, f); } catch (e) {} };
+    msAct('play', function () { au.play().catch(function () {}); });
+    msAct('pause', function () { au.pause(); });
+    msAct('previoustrack', function () { if (msQ[0]) msQ[0].click(); });
+    msAct('nexttrack', function () { if (msQ[1]) msQ[1].click(); });
+    msAct('seekto', function (d) { if (d && d.seekTime != null) { au.currentTime = d.seekTime; draw(); msPos(); } });
+    msAct('seekbackward', null); msAct('seekforward', null);
+    ['play', 'pause', 'ended'].forEach(function (ev) { au.addEventListener(ev, function () { if (ev === 'play') msMeta(); MS.playbackState = au.paused ? 'paused' : 'playing'; msPos(); }); });
+    ['loadedmetadata', 'seeked', 'ratechange'].forEach(function (ev) { au.addEventListener(ev, msPos); });
+    msMeta();
+  } catch (e) {}
   (function loop() { if (!au.paused) draw(); requestAnimationFrame(loop); })();
   function state() { pb.classList.toggle('on', !au.paused && !au.ended); }
   function label() {
@@ -205,17 +236,142 @@
   au.addEventListener('play', function () { if (au.duration && au.currentTime >= au.duration - 0.3) { try { au.currentTime = 0; } catch (e) {} } });
   au.addEventListener('seeked', draw);
   au.addEventListener('durationchange', draw);
-  /* tezlik: 1× → 0.75× → 0.5× */
-  var SB = [].slice.call(document.querySelectorAll('.spd button'));
-  function rate() { var o = SB.filter(function (b) { return b.classList.contains('on'); })[0]; return o ? parseFloat(o.textContent) : 1; }
+  /* tezlik (05.11.2026): 1× → 1.25× → 1.5× → 0.5× → 0.75× → 1×; barcha darslarda eslab qolinadi */
+  var RT = [1, 1.25, 1.5, 0.5, 0.75], SR = 1;
+  function rate() { return au.playbackRate || 1; }
+  function setRate(r) {
+    au.playbackRate = r; au.preservesPitch = true; au.webkitPreservesPitch = true;
+    [].forEach.call(document.querySelectorAll('.spd button'), function (b) { b.classList.toggle('on', parseFloat(b.textContent) === r); });
+    SR = r; try { localStorage.setItem('dars-tezlik', r); } catch (e) {}
+  }
   function showRate() { sp.textContent = String(rate()) + '×'; }
+  /* bosib turilsa — tezliklar ro'yxati chiqadi (05.11.2026) */
+  var spm = document.createElement('div'), lpT = null, lpDone = false;
+  spm.className = 'spm';
+  spm.innerHTML = [0.5, 0.75, 1, 1.25, 1.5].map(function (r) { return '<button type="button" data-r="' + r + '">' + r + '×</button>'; }).join('');
+  pb.appendChild(spm);
+  function spmShow(on) { spm.classList.toggle('on', on); if (on) [].forEach.call(spm.children, function (b) { b.classList.toggle('on', +b.getAttribute('data-r') === rate()); }); }
+  spm.addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; e.stopPropagation(); setRate(+b.getAttribute('data-r')); showRate(); spmShow(false); });
+  document.addEventListener('click', function (e) { if (!e.target.closest('.spm') && !e.target.closest('.pbar .sp')) spmShow(false); });
+  sp.addEventListener('pointerdown', function () { lpDone = false; clearTimeout(lpT); lpT = setTimeout(function () { lpDone = true; spmShow(true); try { navigator.vibrate && navigator.vibrate(15); } catch (e) {} }, 450); });
+  ['pointerup', 'pointerleave', 'pointercancel'].forEach(function (ev) { sp.addEventListener(ev, function () { clearTimeout(lpT); }); });
+  sp.addEventListener('contextmenu', function (e) { e.preventDefault(); });
   sp.addEventListener('click', function () {
-    var r = rate(), nx = r === 1 ? 0.75 : (r === 0.75 ? 0.5 : 1);
-    var b = SB.filter(function (b) { return parseFloat(b.textContent) === nx; })[0];
-    if (b && typeof spd === 'function') spd(nx, b);
+    if (lpDone) { lpDone = false; return; }
+    if (spm.classList.contains('on')) { spmShow(false); return; }
+    var i = RT.indexOf(rate());
+    setRate(RT[(i + 1) % RT.length]);
     showRate();
     if (!RM) { sp.classList.add('pop'); setTimeout(function () { sp.classList.remove('pop'); }, 170); }
   });
+  try { SR = parseFloat(localStorage.getItem('dars-tezlik')) || 1; } catch (e) {} if (RT.indexOf(SR) < 0) SR = 1;
+  setRate(SR); au.addEventListener('loadedmetadata', function () { setRate(SR); showRate(); });
+
+  /* o'zbekcha tarjima (05.11.2026, sinov: 95-dars). «ЎЗ» yoqilsa pleyer Eshitishdagi yaxlit faylni (arabcha gap + o'zbekcha tarjima)
+     o'ynaydi — bitta fayl, ekran o'chsa ham uzilmaydi. TM vaqtlari gap siljishi (o) bo'yicha shu faylga ko'chiriladi.
+     Ma'lumot sahifada: window.UZT = {f: 'lNN-....mp3', o: {qator: siljish_soniya}} */
+  if (window.UZT && typeof TM !== 'undefined') (function () {
+    var ub = $('.uzb', pb), on = false, ORIG = au.getAttribute('src'), cur = 'a', LN = [], K = 'dars' + m[1] + '-holat';
+    try { on = localStorage.getItem('dars-uz') === '1'; } catch (e) {}
+    var T0 = TM.map(function (w) { return w.slice(); }), BY = {};
+    T0.forEach(function (w) { var q = BY[w[0]] || (BY[w[0]] = { l: w[0], a: 1e9, b: 0 }); q.a = Math.min(q.a, w[2]); q.b = Math.max(q.b, w[4] != null ? w[4] : w[3]); });
+    Object.keys(BY).forEach(function (k) { if (UZT.o[k] != null) LN.push(BY[k]); });
+    LN.sort(function (x, y) { return x.a - y.a; });
+    function toL(t) { var q = null; LN.forEach(function (x) { if (x.a - 0.4 <= t) q = x; }); return q ? Math.max(0, t + UZT.o[q.l]) : 0; }
+    function toA(t) { var q = null; LN.forEach(function (x) { if (x.a + UZT.o[x.l] - 0.4 <= t) q = x; }); if (!q) return 0; var o = UZT.o[q.l]; return t - o <= q.b ? t - o : q.b + 0.2; }
+    var HO = window.HDR && UZT.h ? { e: HDR.e, t: HDR.rows.map(function (r) { return r.t; }) } : null;
+    function setTM(f) {
+      /* 06.11.2026: sarlavha (bob, dars raqami) vaqtlari ham ЎЗ faylinikiga almashadi */
+      if (HO) { HDR.rows.forEach(function (r, i) { r.t = f && UZT.h[i] ? UZT.h[i] : HO.t[i]; }); HDR.e = f ? UZT.h[UZT.h.length - 1][1] : HO.e; }
+      TM.forEach(function (w, i) {
+      /* 06.11.2026: Eshitish faylida yo'q qator (masalan 0 — sarlavha) ЎЗ rejimida belgilanmaydi — aks holda bosh qism o'qilayotganda u yonib qoladi */
+      var has = UZT.o[w[0]] != null, o = f ? (has ? UZT.o[w[0]] : 1e6) : 0;
+      for (var j = 2; j < w.length; j++) if (T0[i][j] != null) w[j] = T0[i][j] + o; }); }
+    function swap(to, keepPlay) {
+      if (to === cur) return;
+      var t = au.currentTime || 0, go = keepPlay && !au.paused, nt = to === 'l' ? toL(t) : toA(t);
+      if (typeof setLoop === 'function') setLoop(-1);
+      try { if (typeof stopAt !== 'undefined') stopAt = null; } catch (e) {}
+      cur = to; setTM(to === 'l'); au.pause(); au.src = to === 'l' ? UZT.f : ORIG; au.load();
+      au.addEventListener('loadedmetadata', function () { try { if (typeof progSeek !== 'undefined') progSeek = true; au.currentTime = nt; } catch (e) {} setRate(SR); if (go) { var p = au.play(); if (p && p.catch) p.catch(function () {}); } }, { once: true });
+    }
+    /* joyni eslab qolish: sahifa yozgan vaqt doim asl dars audiosi vaqtida saqlansin */
+    function fixAt() { if (cur !== 'l') return; try { var S = JSON.parse(localStorage.getItem(K) || '{}') || {}; S.at = Math.round(toA(au.currentTime) * 10) / 10; localStorage.setItem(K, JSON.stringify(S)); } catch (e) {} }
+    ['timeupdate', 'pause'].forEach(function (ev) { au.addEventListener(ev, fixAt); });
+    window.addEventListener('pagehide', fixAt);
+    document.addEventListener('visibilitychange', function () { if (document.hidden) fixAt(); });
+    function paint() { ub.classList.toggle('on', on); ub.setAttribute('aria-pressed', on ? 'true' : 'false'); }
+    ub.addEventListener('click', function () {
+      on = !on; try { localStorage.setItem('dars-uz', on ? '1' : '0'); } catch (e) {}
+      swap(on ? 'l' : 'a', true); paint();
+      if (!RM) { ub.classList.add('pop'); setTimeout(function () { ub.classList.remove('pop'); }, 170); }
+    });
+    if (on) { if (au.readyState >= 1) setTimeout(function () { swap('l', false); }, 0); else au.addEventListener('loadedmetadata', function () { setTimeout(function () { swap('l', false); }, 0); }, { once: true }); }
+    paint();
+    /* 07.11.2026: ЎЗ rejimida o'zbekcha tarjima o'qilayotganda unga mos arabcha so'zlar yonadi (arabcha o'qilganda o'zbekcha yonganidek).
+       UZT.w = {qator: [[o'zbekcha so'z boshlari (ЎЗ fayli vaqtida)], oxiri]}; so'z -> uning .ts bo'lagi -> data-w dagi arabcha so'zlar */
+    if (UZT.w) (function () {
+      var lnK = -1, wK = -2, LW = Object.keys(UZT.w).map(function (k) { return [+k, UZT.w[k][0], UZT.w[k][1]]; });
+      function wrap(ln) {
+        if (ln.querySelector('.uw')) return; var d = 0;
+        [].forEach.call(ln.querySelectorAll('.tr'), function (tr) {
+          var tw = document.createTreeWalker(tr, NodeFilter.SHOW_TEXT), ns = [], n; while ((n = tw.nextNode())) ns.push(n);
+          ns.forEach(function (n) {
+            var fr = document.createDocumentFragment();
+            n.nodeValue.split(/(\s+)/).forEach(function (w) {
+              if (!w) return; if (/^\s+$/.test(w) || d || w.charAt(0) === '(') { if (!/^\s+$/.test(w)) d = w.indexOf(')') < 0; fr.appendChild(document.createTextNode(w)); return; }
+              var sp = document.createElement('span'); sp.className = 'uw'; sp.textContent = w; fr.appendChild(sp);
+            });
+            n.parentNode.replaceChild(fr, n);
+          });
+        });
+      }
+      function clr() { [].forEach.call(document.querySelectorAll('#tx .pu'), function (e) { e.classList.remove('pu'); }); }
+      (function lp() {
+        if (cur === 'l') {
+          var t = au.currentTime, q = null;
+          LW.forEach(function (x) { if (t >= x[1][0] - 0.1 && t <= x[2] + 0.4) q = x; });
+          var ln = q && document.querySelectorAll('#tx .ln')[q[0]], k = -1;
+          if (ln) { wrap(ln); q[1].forEach(function (s, j) { if (t >= s - 0.06) k = j; }); }
+          var key = q ? q[0] + ':' + k : '';
+          if (key !== wK) {
+            wK = key; clr();
+            var u = ln && k >= 0 ? ln.querySelectorAll('.uw')[k] : null, ts = u && u.closest('.ts');
+            if (ts) {
+              ts.classList.add('pu');
+              (ts.getAttribute('data-w') || '').split(',').forEach(function (j) { var e = ln.querySelector('.ws span[data-i="' + q[0] + '-' + j + '"]'); if (e) e.classList.add('pu'); });
+            }
+          }
+        } else if (wK !== -2) { wK = -2; clr(); }
+        requestAnimationFrame(lp);
+      })();
+    })();
+    window.UZT0 = T0;
+    window.UZA = function () { return cur === 'l' ? toA(au.currentTime) : au.currentTime; };
+  })();
+
+  /* 🎧 — Eshitish bo'limida shu darsni o'qilayotgan gapdan ochish */
+  if (window.UZT) (function () {
+    var hb = $('.esh', pb);
+    hb.addEventListener('click', function () {
+      var t = window.UZA ? window.UZA() : au.currentTime, l = '';
+      (window.UZT0 || TM).forEach(function (w) { if (w[2] <= t + 0.3) l = w[0]; });
+      au.pause();
+      location.href = (/sinov-/.test(location.pathname) ? 'sinov-tinglash.html' : 'tinglash.html') + '?d=' + m[1] + '&t=l' + (l !== '' && t > 0.5 ? '&s=' + l : '');
+    });
+  })();
+  /* surgich o'rniga gap raqami (06.11.2026): «3 / 7 гап» */
+  (function () {
+    var pn = $('.pqn', pb), N = [], last = '';
+    if (typeof TM !== 'undefined') { var seen = {}; TM.forEach(function (w) { if (w[0] > 0 && !seen[w[0]]) { seen[w[0]] = 1; N.push(w[0]); } }); }
+    function cur() {
+      if (!N.length) return '';
+      var T0 = window.UZT0 || TM, t = window.UZA ? window.UZA() : au.currentTime, l = 0;
+      T0.forEach(function (w) { if (w[2] <= t + 0.05) l = w[0]; });
+      var k = N.indexOf(l) + 1; return (k > 0 ? k : 0) + ' / ' + N.length + ' гап';
+    }
+    setInterval(function () { var x = cur(); if (x !== last) { last = x; pn.textContent = x; } }, 300);
+  })();
   showRate(); state(); label();
   setTimeout(showRate, 600);
 
@@ -472,4 +628,79 @@
 (function () {
   if (typeof window.bol == 'function' && document.getElementById('bl') && window.bolak) window.bol();
   if (typeof window.tog == 'function' && document.getElementById('tg') && window.show) window.tog();
+})();
+
+/* Siljitgich (06.11.2026): o'ng chetda ushlab suriladigan tutqich + bo'lim/gap yozuvi + tepada o'qilgan qism chizig'i.
+   Sahifa surilganda chiqadi, 1.5 s dan keyin yashirinadi. Matn: .ln (gap), Луғат: .g (so'z). */
+(function () {
+  if (window.__fs) return; window.__fs = 1;
+  var d = document, st = d.createElement('style');
+  st.textContent = '#fsbar{position:fixed;left:0;top:0;height:3px;width:0;background:var(--ac,#2f6fd6);z-index:60;pointer-events:none;transition:width .1s}' +
+    '#fsth{position:fixed;right:0;width:18px;height:52px;border-radius:9px 0 0 9px;background:var(--ac,#2f6fd6);z-index:61;opacity:0;transition:opacity .25s;touch-action:none;cursor:grab}' +
+    '#fsth.on{opacity:.9}#fsth::before{content:"";position:absolute;left:-14px;right:0;top:-10px;bottom:-10px}' +
+    '#fsbub{position:fixed;right:30px;z-index:61;background:#222;color:#fff;font:500 14px/1.3 system-ui,sans-serif;padding:8px 12px;border-radius:10px;white-space:nowrap;opacity:0;transition:opacity .2s;pointer-events:none}' +
+    '#fsbub small{display:block;font-weight:400;font-size:11px;opacity:.75}#fsbub.on{opacity:1}';
+  d.head.appendChild(st);
+  var bar = d.createElement('div'), th = d.createElement('div'), bub = d.createElement('div');
+  bar.id = 'fsbar'; th.id = 'fsth'; bub.id = 'fsbub';
+  th.setAttribute('aria-label', 'Саҳифани суриш');
+  d.body.appendChild(th); /* 06.11.2026: tepadagi chiziq olib tashlandi — yuklanish chizig'i bilan bir xil ko'rinardi */ d.body.appendChild(bub);
+  var se = d.scrollingElement || d.documentElement, drag = false, hideT = null, off = 0;
+  function pb() { var p = d.querySelector('.pbar'); return p && p.offsetParent !== null ? p.getBoundingClientRect().height : 0; }
+  function track() { var top = 60, bot = innerHeight - pb() - 12; return [top, Math.max(top + 80, bot)]; }
+  function max() { return Math.max(1, se.scrollHeight - innerHeight); }
+  function label() {
+    var tb = d.querySelector('.tabs button.on'), name = tb ? tb.textContent.trim() : '', sub = '';
+    var pg = [].filter.call(d.querySelectorAll('#p1,#p2,#p3'), function (p) { return !p.classList.contains('hide'); })[0];
+    var sel = pg && pg.id === 'p1' ? '#tx .ln' : pg && pg.id === 'p2' ? '#p2 .g' : null;
+    if (sel) {
+      var els = d.querySelectorAll(sel), mid = innerHeight * 0.35, k = -1;
+      for (var i = 0; i < els.length; i++) if (els[i].getBoundingClientRect().top <= mid) k = i;
+      if (k < 0) k = 0;
+      sub = pg.id === 'p1' ? (k === 0 ? 'Сарлавҳа' : k + '-гап') : (k + 1) + '-сўз';
+    }
+    return (name ? name + (sub ? ' · ' + sub : '') : sub);
+  }
+  function upd() {
+    var f = Math.min(1, Math.max(0, se.scrollTop / max())), t = track();
+    var y = t[0] + f * (t[1] - t[0] - 52);
+    th.style.top = y + 'px'; bub.style.top = (y + 4) + 'px';
+    bub.innerHTML = (label() || '') + '<small>' + Math.round(f * 100) + '%</small>';
+  }
+  function show() {
+    if (se.scrollHeight < innerHeight * 1.6) { th.classList.remove('on'); return; }
+    th.classList.add('on'); clearTimeout(hideT);
+    if (!drag) hideT = setTimeout(function () { th.classList.remove('on'); bub.classList.remove('on'); }, 1500);
+  }
+  addEventListener('scroll', function () { upd(); if (!drag) show(); }, { passive: true });
+  addEventListener('resize', upd);
+  th.addEventListener('pointerdown', function (e) {
+    if (!th.classList.contains('on')) return;
+    drag = true; th.setPointerCapture(e.pointerId); off = e.clientY - th.getBoundingClientRect().top;
+    bub.classList.add('on'); clearTimeout(hideT); e.preventDefault();
+  });
+  th.addEventListener('pointermove', function (e) {
+    if (!drag) return; var t = track(), y = e.clientY - off;
+    var f = Math.min(1, Math.max(0, (y - t[0]) / (t[1] - t[0] - 52)));
+    se.scrollTop = f * max(); upd();
+  });
+  function end() { if (!drag) return; drag = false; show(); setTimeout(function () { if (!drag) bub.classList.remove('on'); }, 600); }
+  th.addEventListener('pointerup', end); th.addEventListener('pointercancel', end);
+  upd();
+})();
+
+/* 06.11.2026: oxirgi gap pastdagi pleyer va tugmalar ostida qolmasin — .w pastki bo'shlig'i ular balandligiga qarab o'rnatiladi */
+(function () {
+  var w = document.querySelector('.w'); if (!w) return;
+  function fix() {
+    var top = innerHeight;
+    [].forEach.call(document.querySelectorAll('body > *, .w *'), function (e) {
+      var cs = getComputedStyle(e); if (!(cs.position === 'fixed' || (cs.position === 'sticky' && cs.bottom !== 'auto')) || cs.display === 'none' || e.id === 'fsth' || e.id === 'fsbub' || e.id === 'fsbar') return;
+      var r = e.getBoundingClientRect(); if (r.height > 0 && r.height < innerHeight * 0.5 && r.bottom > innerHeight * 0.6 && r.top < top) top = r.top;
+    });
+    var need = Math.round(innerHeight - top + 32);
+    if (need > 40) w.style.setProperty('padding-bottom', need + 'px', 'important');
+  }
+  addEventListener('resize', fix); addEventListener('load', fix); document.addEventListener('click', function () { setTimeout(fix, 300); });
+  setTimeout(fix, 500); setTimeout(fix, 1500);
 })();

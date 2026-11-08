@@ -174,6 +174,23 @@
       if (!RM) { b.classList.add('pop'); setTimeout(function () { b.classList.remove('pop'); }, 170); }
     });
   });
+  /* qulf ekrani va bildirishnomadagi pleyer (08.11.2026, Media Session): dars nomi, ▶/⏸, ⏮/⏭ — gapma-gap, surish */
+  if ('mediaSession' in navigator) try {
+    var MS = navigator.mediaSession, msQ = pb.querySelectorAll('.pqs');
+    var msTitle = ((m[1] ? m[1] + '-дарс: ' : '') + (m[2] || '')).replace(/\s+/g, ' ').trim() || document.title;
+    var msMeta = function () { try { MS.metadata = new MediaMetadata({ title: msTitle, artist: 'Араб тили', album: 'نُورُ الطَّالِبِ', artwork: [{ src: 'icon-192.png', sizes: '192x192', type: 'image/png' }, { src: 'icon-512.png', sizes: '512x512', type: 'image/png' }] }); } catch (e) {} };
+    var msPos = function () { try { if (au.duration && isFinite(au.duration)) MS.setPositionState({ duration: au.duration, playbackRate: au.playbackRate || 1, position: Math.max(0, Math.min(au.currentTime, au.duration)) }); } catch (e) {} };
+    var msAct = function (k, f) { try { MS.setActionHandler(k, f); } catch (e) {} };
+    msAct('play', function () { au.play().catch(function () {}); });
+    msAct('pause', function () { au.pause(); });
+    msAct('previoustrack', function () { if (msQ[0]) msQ[0].click(); });
+    msAct('nexttrack', function () { if (msQ[1]) msQ[1].click(); });
+    msAct('seekto', function (d) { if (d && d.seekTime != null) { au.currentTime = d.seekTime; draw(); msPos(); } });
+    msAct('seekbackward', null); msAct('seekforward', null);
+    ['play', 'pause', 'ended'].forEach(function (ev) { au.addEventListener(ev, function () { if (ev === 'play') msMeta(); MS.playbackState = au.paused ? 'paused' : 'playing'; msPos(); }); });
+    ['loadedmetadata', 'seeked', 'ratechange'].forEach(function (ev) { au.addEventListener(ev, msPos); });
+    msMeta();
+  } catch (e) {}
   (function loop() { if (!au.paused) draw(); requestAnimationFrame(loop); })();
   function state() { pb.classList.toggle('on', !au.paused && !au.ended); }
   function label() {

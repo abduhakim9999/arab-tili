@@ -115,7 +115,7 @@
 - Сайт статистикаси (`tg.js` `stat()` → Apps Script `STAT_URL`): автомат браузер (`navigator.webdriver`, Headless/bot) ва localhost ёзилмайди (05.11.2026) — Claude синовлари жадвалга «(браузер)» бўлиб тушмасин.
 - Vercel: api/tg.js → Google Apps Script (src/bot/eshitish.gs + appsscript.json; лойиҳа «jonatuvchi bot», жадвал «eshitish jadvali»).
 - Apps Script қўлда янгиланади: commit SHA ли raw ҳавола → Ctrl+A/Ctrl+V → 💾 → Управление развертываниями → ✏️ → Новая версия. /yangila ишламайди.
-- Vercel домени: …-theta.vercel.app (/api/tg?setup=1, ?info=1). 08.11.2026 дан Vercel сайтни ҳам беради (Build: `sh vercel-build.sh site`, Output: `_vercel`); api/ ўз жойида; vercel.json қўйилмасин. Деплой ҳолати: gh api …/commits/SHA/statuses.
+- Vercel домени: …-theta.vercel.app (/api/tg?setup=1, ?info=1). 08.11.2026 дан Vercel сайтни ҳам беради (Build: `sh vercel-build.sh site`, Output: `_vercel`); api/ ўз жойида; vercel.json қўйилмасин. Joy tejash (bepul tarif — barcha nusxalarga jami 10 GB; sayt nusxasi ~110 MB): «Ignored Build Step» — sayt faqat sayt fayllari o'zgarganda (docs/src/align/CLAUDE.md/WORKING.txt/fiqh — hisobga olinmaydi), fiqh faqat fiqh fayllari o'zgarganda yig'iladi; preview o'chiq; eski nusxalarni o'chirish muddati — Vercel panelida (Settings → Deployment Retention). Деплой ҳолати: gh api …/commits/SHA/statuses.
 - Google Sheets узун рақам ва вақтни бузади: созлама қийматлари матн (@), poll ID «'» билан; birPoll().
 - `BOT_TOKEN` фақат фойдаланувчи ўзи қўяди — сўралмайди, ҳеч қаерга ёзилмайди.
 - /panel (алоҳида чатда): 📋 Натижалар (Ҳисобот, Натижа юбориш, Натижа тури: фақат Ҳивар / фақат Кунлик феъл / иккаласи) · 🎧 Кунлик ҳивар (юбориш, навбат, ўчириш) · 🔤 Кунлик феъл · ⚙️ Созлама.

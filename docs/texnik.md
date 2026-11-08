@@ -3,7 +3,7 @@
 Грамматика — `docs/kitob-konspekti.md`. Кириш ва харита — `CLAUDE.md`. Янги дарс қадамлари — `yangi-dars` скилли. claude.ai лойиҳасидаги `claude/texnik-eslatma.md` — фақат қисқа ҳавола.
 
 ## 1. Сайт ва йиғиш
-- Сайт: https://abduhakim9999.github.io/arab-tili/ — репо abduhakim9999/arab-tili (main). Mini App: `t.me/Arabtilihivar_bot/darslar`.
+- Сайт (08.11.2026 дан асосий): **https://nurut-tolib.vercel.app/** — Vercel «arab-tili» лойиҳаси (бот api/ ҳам шу ерда), фиқҳсиз. Фиқҳ алоҳида: **https://nurut-tolib-fiqh.vercel.app/** — «arab-tili-fiqh» лойиҳаси (парол билан, дарслар сайтида ҳаволаси йўқ). Иккаласи ҳам main га push бўлганда ўзи йиғилади: `sh src/build/vercel.sh site|fiqh` → `_vercel/` (.vercelignore: align, docs, src — фақат vercel.sh). Сабаб: баъзи провайдерларда github.io очилмайди (ERR_NAME_NOT_RESOLVED) — телефон янги версияни ололмай қоларди. Эски манзил https://abduhakim9999.github.io/arab-tili/ ҳам ишлайди (фиқҳ картаси фақат github.io ва localhost да кўринади). Репо abduhakim9999/arab-tili (main). Mini App: `t.me/Arabtilihivar_bot/darslar` (BotFather да манзил nurut-tolib.vercel.app бўлиши керак).
 - Дастур ва китоб номи «نُورُ الطَّالِبِ»; Қаҳрамон устоз — китоб муаллифи. Саҳифада манба ёрлиқлари йўқ.
 - Дарслар: 1-китоб 1–7; 2-китоб 70–74, 91–95. Дастурдаги дарс рақами аудиодагидан фарқ қилиши мумкин (94 = «العربية بين يديك» 2-китоб 79-дарс); китоб ва боб рақами китобдагидек.
 - **Дарс ясаш иш файллари (build.py, dNN/, ҳдр овозлари, қолиплар) — `src/build/`; `README.md` да тиклаш тартиби.** Янги сессияда аввал шуни тиклаш. Иконкалар ва listen/l74.mp3 репо илдизидан олинади.
@@ -115,7 +115,7 @@
 - Сайт статистикаси (`tg.js` `stat()` → Apps Script `STAT_URL`): автомат браузер (`navigator.webdriver`, Headless/bot) ва localhost ёзилмайди (05.11.2026) — Claude синовлари жадвалга «(браузер)» бўлиб тушмасин.
 - Vercel: api/tg.js → Google Apps Script (src/bot/eshitish.gs + appsscript.json; лойиҳа «jonatuvchi bot», жадвал «eshitish jadvali»).
 - Apps Script қўлда янгиланади: commit SHA ли raw ҳавола → Ctrl+A/Ctrl+V → 💾 → Управление развертываниями → ✏️ → Новая версия. /yangila ишламайди.
-- Vercel домени: …-theta.vercel.app (/api/tg?setup=1, ?info=1). Vercel фақат api/ ни олади (.vercelignore); vercel.json қўйилмасин. Деплой ҳолати: gh api …/commits/SHA/statuses.
+- Vercel домени: …-theta.vercel.app (/api/tg?setup=1, ?info=1). 08.11.2026 дан Vercel сайтни ҳам беради (Build: `sh src/build/vercel.sh site`, Output: `_vercel`); api/ ўз жойида; vercel.json қўйилмасин. Деплой ҳолати: gh api …/commits/SHA/statuses.
 - Google Sheets узун рақам ва вақтни бузади: созлама қийматлари матн (@), poll ID «'» билан; birPoll().
 - `BOT_TOKEN` фақат фойдаланувчи ўзи қўяди — сўралмайди, ҳеч қаерга ёзилмайди.
 - /panel (алоҳида чатда): 📋 Натижалар (Ҳисобот, Натижа юбориш, Натижа тури: фақат Ҳивар / фақат Кунлик феъл / иккаласи) · 🎧 Кунлик ҳивар (юбориш, навбат, ўчириш) · 🔤 Кунлик феъл · ⚙️ Созлама.

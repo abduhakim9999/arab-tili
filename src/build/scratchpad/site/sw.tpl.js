@@ -4,14 +4,35 @@
    Yangi versiya (C) chiqqanda eski kesh o'chadi (audio keshi qoladi), ochiq sahifalar o'zi yangilanadi. */
 var C = 'arab-tili-v__VER__';
 var FILES = __FILES__;
+var H = {};
 var TG = 'https://telegram.org/js/telegram-web-app.js';
 
 var AUD = 'arab-tili-audio', LOAD = {};
 function isMp3(u) { return /\.mp3$/i.test(new URL(u).pathname); }
 
+/* 08.11.2026: yangilanish bo'lak-bo'lak — har fayl alohida; o'zgarmagani (H dagi xesh bir xil) eski keshdan ko'chiriladi,
+   internetdan kelmagani ham eski nusxada qoladi — o'rnatish hech qachon butunlay bekor bo'lmaydi (sekin internetda ham). */
+var HK = 'sw-hash.json';
 self.addEventListener('install', function (e) {
-  e.waitUntil(caches.open(C).then(function (c) {
-    return c.addAll(FILES.filter(function (f) { return !/\.mp3$/i.test(f); }).map(function (f) { return new Request(f, { cache: 'no-cache' }); }));
+  e.waitUntil(Promise.all([caches.open(C), caches.keys()]).then(function (a) {
+    var c = a[0], old = a[1].filter(function (k) { return k !== C && k !== AUD && /^arab-tili-v\d+$/.test(k); });
+    old.sort(function (x, y) { return +y.split('-v')[1] - +x.split('-v')[1]; });
+    return (old.length ? caches.open(old[0]) : Promise.resolve(null)).then(function (o) {
+      return (o ? o.match(HK).then(function (r) { return r ? r.json() : {}; }).catch(function () { return {}; }) : Promise.resolve({})).then(function (oh) {
+        var got = {};
+        function fromOld(f) {
+          if (!o) return Promise.resolve(false);
+          return o.match(f, { ignoreSearch: true }).then(function (r) { if (!r) return false; got[f] = oh[f] || ''; return c.put(f, r).then(function () { return true; }); });
+        }
+        function fromNet(f) {
+          return fetch(new Request(f, { cache: 'no-cache' })).then(function (r) { if (!r.ok) throw new Error(r.status); got[f] = H[f] || ''; return c.put(f, r); });
+        }
+        return Promise.all(FILES.filter(function (f) { return !/\.mp3$/i.test(f); }).map(function (f) {
+          var p = (H[f] && oh[f] === H[f]) ? fromOld(f).then(function (ok) { if (!ok) return fromNet(f); }) : fromNet(f);
+          return p.catch(function () { return fromOld(f); }).catch(function () {});
+        })).then(function () { return c.put(HK, new Response(JSON.stringify(got), { headers: { 'Content-Type': 'application/json' } })); });
+      });
+    });
   }).then(function () { return self.skipWaiting(); }));
 });
 
@@ -69,6 +90,8 @@ self.addEventListener('fetch', function (e) {
   if (r.method !== 'GET') return;
   var same = new URL(r.url).origin === location.origin;
   if (!same && r.url !== TG) return;
+  /* 06.11.2026: sinov sahifalari va ularning fayllari telefonda saqlanmaydi — doim internetdan (eski nusxa chiqmasin) */
+  if (same && /\/(sinov-[^/]*|shell-s\.(js|css))$/.test(new URL(r.url).pathname)) { e.respondWith(fetch(r, { cache: 'no-store' })); return; }
   var isRange = r.headers.has('range');
   if (same && isMp3(r.url)) {
     var url = r.url.split('#')[0].split('?')[0];

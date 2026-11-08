@@ -2,16 +2,37 @@
    Kichik fayllar (sahifa, skript, shrift) — versiya bilan birga; audio (mp3) versiyaga kirmaydi:
    birinchi eshitilganda yuklanadi va «arab-tili-audio» keshida doim qoladi (nomida xesh bor — eskirmaydi).
    Yangi versiya (C) chiqqanda eski kesh o'chadi (audio keshi qoladi), ochiq sahifalar o'zi yangilanadi. */
-var C = 'arab-tili-v243';
+var C = 'arab-tili-v244';
 var FILES = ["./", "index.html", "tinglash.html", "yoriqnoma.html", "fel.html", "tg.js", "shell.js", "shell.css", "manifest.webmanifest", "icon-192.png", "icon-512.png", "icon-maskable-512.png", "1.html", "2.html", "3.html", "4.html", "5.html", "6.html", "7.html", "70.html", "71.html", "72.html", "73.html", "74.html", "91.html", "92.html", "93.html", "94.html", "95.html", "feellar.html", "sarf.html", "fiqh.html", "fkitob.html", "f1.html", "sarf-idx.json", "sarflink.js", "tarkib.js", "tarkib2.js", "hdr.js", "naskh.woff"];
+var H = {"./": "d857ac09b8", "index.html": "d857ac09b8", "tinglash.html": "29690915f7", "yoriqnoma.html": "bda7642bbd", "fel.html": "6f8af68699", "tg.js": "86d8a98302", "shell.js": "a88af6400a", "shell.css": "2ea7b6c1a2", "manifest.webmanifest": "d3a45d859a", "icon-192.png": "0acd724f54", "icon-512.png": "59c156234d", "icon-maskable-512.png": "42e24558b4", "1.html": "046673d62a", "2.html": "5fc0130c05", "3.html": "19a6eb2605", "4.html": "aedce1f529", "5.html": "5071807448", "6.html": "a6dec0e547", "7.html": "93f18e3174", "70.html": "ec5774bbf8", "71.html": "e6c2202229", "72.html": "04c3bce760", "73.html": "c8c573c699", "74.html": "549dfff037", "91.html": "18d8acc8b6", "92.html": "3ee9349bbd", "93.html": "8041ecd412", "94.html": "44f889c0d1", "95.html": "40f54c4078", "feellar.html": "b0e4d84fb2", "sarf.html": "6546c26353", "fiqh.html": "049e77743c", "fkitob.html": "e0e728933b", "f1.html": "894790f76b", "sarf-idx.json": "bc8692a745", "sarflink.js": "c087aaf734", "tarkib.js": "3c8ae89c50", "tarkib2.js": "00876d71ed", "hdr.js": "841ad2f877", "naskh.woff": "ba5a1b03b4"};
 var TG = 'https://telegram.org/js/telegram-web-app.js';
 
 var AUD = 'arab-tili-audio', LOAD = {};
 function isMp3(u) { return /\.mp3$/i.test(new URL(u).pathname); }
 
+/* 08.11.2026: yangilanish bo'lak-bo'lak — har fayl alohida; o'zgarmagani (H dagi xesh bir xil) eski keshdan ko'chiriladi,
+   internetdan kelmagani ham eski nusxada qoladi — o'rnatish hech qachon butunlay bekor bo'lmaydi (sekin internetda ham). */
+var HK = 'sw-hash.json';
 self.addEventListener('install', function (e) {
-  e.waitUntil(caches.open(C).then(function (c) {
-    return c.addAll(FILES.filter(function (f) { return !/\.mp3$/i.test(f); }).map(function (f) { return new Request(f, { cache: 'no-cache' }); }));
+  e.waitUntil(Promise.all([caches.open(C), caches.keys()]).then(function (a) {
+    var c = a[0], old = a[1].filter(function (k) { return k !== C && k !== AUD && /^arab-tili-v\d+$/.test(k); });
+    old.sort(function (x, y) { return +y.split('-v')[1] - +x.split('-v')[1]; });
+    return (old.length ? caches.open(old[0]) : Promise.resolve(null)).then(function (o) {
+      return (o ? o.match(HK).then(function (r) { return r ? r.json() : {}; }).catch(function () { return {}; }) : Promise.resolve({})).then(function (oh) {
+        var got = {};
+        function fromOld(f) {
+          if (!o) return Promise.resolve(false);
+          return o.match(f, { ignoreSearch: true }).then(function (r) { if (!r) return false; got[f] = oh[f] || ''; return c.put(f, r).then(function () { return true; }); });
+        }
+        function fromNet(f) {
+          return fetch(new Request(f, { cache: 'no-cache' })).then(function (r) { if (!r.ok) throw new Error(r.status); got[f] = H[f] || ''; return c.put(f, r); });
+        }
+        return Promise.all(FILES.filter(function (f) { return !/\.mp3$/i.test(f); }).map(function (f) {
+          var p = (H[f] && oh[f] === H[f]) ? fromOld(f).then(function (ok) { if (!ok) return fromNet(f); }) : fromNet(f);
+          return p.catch(function () { return fromOld(f); }).catch(function () {});
+        })).then(function () { return c.put(HK, new Response(JSON.stringify(got), { headers: { 'Content-Type': 'application/json' } })); });
+      });
+    });
   }).then(function () { return self.skipWaiting(); }));
 });
 

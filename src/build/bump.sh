@@ -10,4 +10,16 @@ sed -i "s/^VER = '[0-9]*'/VER = '$N'/" $B/build.py
 sed -i "s/^var C = 'arab-tili-v[0-9]*'/var C = 'arab-tili-v$N'/" sw.js
 for f in index.html $B/index.tpl.html; do sed -i "s|<dd id=\"vinfo\">[^<]*</dd>|<dd id=\"vinfo\">v$N · $D</dd>|" $f; done
 grep -q "arab-tili-v$N'" sw.js || { echo "XATO: sw.js versiyasi yangilanmadi"; exit 1; }
+# 08.11.2026: sw.js dagi H — har keshlanadigan faylning xeshi (o'zgarmagan fayl telefonga qayta yuklanmaydi)
+python3 - <<'E'
+import re, json, hashlib
+s = open('sw.js').read()
+F = json.loads(re.search(r'^var FILES = (\[.*?\]);', s, re.M).group(1)); H = {}
+for f in F:
+    try: H[f] = hashlib.md5(open('index.html' if f == './' else f, 'rb').read()).hexdigest()[:10]
+    except OSError: pass
+s, n = re.subn(r'^var H = .*;$', 'var H = ' + json.dumps(H) + ';', s, flags=re.M)
+assert n == 1, 'sw.js: var H qatori topilmadi'
+open('sw.js', 'w').write(s)
+E
 echo "v$N · $D"

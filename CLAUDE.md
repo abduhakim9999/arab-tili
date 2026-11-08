@@ -46,7 +46,7 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
   | Pleyer ko'rinishi, sahifa siljitgichi (`shell.js`) | hamma darslar | — |
   | So'z oynasi: ‹ ›, Таркиб Ўзбекча/Арабча, qo'shimchalar tugma (`zoX`, `.zo-*`) | 95, fiqh 1 | 1–7, 70–74, 91–94 |
 - Oxirgi qilinganlar (07.11.2026):
-  - Fiqh: kitob matni va al-Qori sharhi arabchasi har darsning ichida («Шарҳ» → «📜 Асл матн · N-бет»; 41-bet tayyor, 42–46 navbatda); Muqaddima alohida karta (`fkitob.html`); «Китобни ўқиш» olib tashlandi (`docs/texnik.md` 10).
+  - Fiqh: kitob matni va al-Qori sharhi arabchasi har darsning ichida («Шарҳ» → «📜 Асл матн · N-бет»; 1-dars: 41–46-betlar tayyor); Muqaddima alohida karta (`fkitob.html`); «Китобни ўқиш» olib tashlandi (`docs/texnik.md` 10).
   - Fiqh: «📚 Китобни ўқиш» (`fkitob.html`) — Muqaddima (dastlabki tarjima) + 1-dars; yangi dars kelganda shu yerga ham qo'shiladi (`docs/texnik.md` 10).
   - Fiqh: «Фиқҳ / Наҳв» rejimi olib tashlandi — faqat «Таркиб» tugmasi (`docs/texnik.md` 10).
   - So'z oynasi yangilandi — 95 va fiqh 1-dars (`docs/texnik.md` 4); fiqh.html «📖 Китоб ҳақида».

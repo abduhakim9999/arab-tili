@@ -1,3 +1,9 @@
-/*
-!api
-!package.json
+# Vercel (08.11.2026): sayt fayllari + api/ (bot); yig'ish — src/build/vercel.sh
+/align
+/docs
+/src/*
+!/src/build
+/src/build/*
+!/src/build/vercel.sh
+/.github
+/_vercel

@@ -22,6 +22,9 @@ SHELL = """<!DOCTYPE html>
 <title>ق</title>
 <meta name="robots" content="noindex">
 <link rel="icon" href="icon-192.png">
+<script>/* 09.11.2026: fiqh alohida ilova — faqat fiqh domenida (github.io da asosiy sw.js bilan to'qnashmasin) */
+if(/fiqh/.test(location.hostname)){(function(){var h=document.head;[['manifest','fiqh.webmanifest'],['icon','fiqh-icon-192.png'],['apple-touch-icon','fiqh-icon-192.png']].forEach(function(x){var l=document.createElement('link');l.rel=x[0];l.href=x[1];h.appendChild(l)});var m=document.createElement('meta');m.name='theme-color';m.content='#5E3C14';h.appendChild(m);if('serviceWorker' in navigator)navigator.serviceWorker.register('fiqh-sw.js').catch(function(){})})()}
+</script>
 <link rel="stylesheet" href="shell.css">
 <style>
 body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--tx);font:17px/1.4 system-ui,-apple-system,sans-serif}

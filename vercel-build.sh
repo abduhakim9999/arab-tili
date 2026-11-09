@@ -6,13 +6,13 @@
 set -e
 M="$1"; O=_vercel
 rm -rf "$O"; mkdir -p "$O"
-FQ='^(fiqh|fkitob|f[0-9]+)\.html$|^af[0-9]+-.*\.mp3$'
+FQ='^(fiqh|fkitob|f[0-9]+)\.html$|^af[0-9]+-.*\.mp3$|^fiqh-.*|^fiqh\.webmanifest$'
 NO='^(vercel-build\.sh|CLAUDE\.md|_config\.yml|b2\.txt|\.gitignore|\.vercelignore|sinov-.*|shell-s\..*|tg-s\.js)$'
 ls -A | while read -r f; do
   [ -f "$f" ] || continue
   echo "$f" | grep -Eq "$NO" && continue
   if [ "$M" = fiqh ]; then
-    echo "$f" | grep -Eq "$FQ|^(shell\.css|shell\.js|tg\.js|naskh\.woff|icon-.*\.png|manifest\.webmanifest)$" || continue
+    echo "$f" | grep -Eq "$FQ|^(shell\.css|shell\.js|tg\.js|naskh\.woff|icon-.*\.png|fiqh-icon-.*\.png|fiqh\.webmanifest|fiqh-sw\.js)$" || continue
   else
     echo "$f" | grep -Eq "$FQ" && continue
   fi

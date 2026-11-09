@@ -75,7 +75,7 @@ def yop(pw):
 
 def och(pw):
     k = AESGCM(kdf(pw)); os.makedirs("src/fiqh", exist_ok=True)
-    for n in ["fiqh.html"] + sorted(glob.glob("f[0-9]*.html")):
+    for n in ["fiqh.html", "fkitob.html"] + sorted(glob.glob("f[0-9]*.html")):
         n = os.path.basename(n)
         m = re.search(r'var D="([^"]+)"', open(n, encoding="utf-8").read())
         if not m: continue

@@ -46,6 +46,7 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
   | Pleyer ko'rinishi, sahifa siljitgichi (`shell.js`) | hamma darslar | — |
   | So'z oynasi: ‹ ›, Таркиб Ўзбекча/Арабча, qo'shimchalar tugma (`zoX`, `.zo-*`) | 95, fiqh 1 | 1–7, 70–74, 91–94 |
 - Oxirgi qilinganlar (08–09.11.2026):
+  - Fiqh 1-dars: har yorliqning o'z tugmalari — Шарҳда Ҳаракат, Таржима, bet ‹ › ro'yxati, Aa; Атамалар/Хулосада panel yo'q; ishlamaydigan tugmalar olib tashlandi (`docs/texnik.md` 10). Grammatika darslarida Луғат/Машқ uchun xuddi shu — so'ralsa.
   - Sayt Vercel'ga ko'chdi: darslar https://nurut-tolib.vercel.app (fiqhsiz), fiqh https://nurut-tolib-fiqh.vercel.app (alohida «Фиқҳ» ilovasi, parol); `vercel-build.sh`, Ignored Build Step (`docs/texnik.md` 1, 8). Sabab: github.io ba'zi provayderlarda ochilmaydi.
   - sw.js yangilanishi bo'lak-bo'lak (`var H` xeshlar, o'zgarmagani ko'chiriladi) — sekin internetda ham yangilanadi (`docs/texnik.md` 1).
   - Qulf ekranidagi pleyer (Media Session) — hamma darslar va fiqh (`shell.js`, `docs/texnik.md` 5).

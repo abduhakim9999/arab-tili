@@ -45,7 +45,13 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
   | ЎЗ: o'zbekcha o'qilganda arabcha so'z yonadi (`UZT.w`, bepul moslash) | 1 | 95 + «ЎЗ» qo'shiladigan darslar |
   | Pleyer ko'rinishi, sahifa siljitgichi (`shell.js`) | hamma darslar | — |
   | So'z oynasi: ‹ ›, Таркиб Ўзбекча/Арабча, qo'shimchalar tugma (`zoX`, `.zo-*`) | 95, fiqh 1 | 1–7, 70–74, 91–94 |
-- Oxirgi qilinganlar (07.11.2026):
+- Oxirgi qilinganlar (08–09.11.2026):
+  - Sayt Vercel'ga ko'chdi: darslar https://nurut-tolib.vercel.app (fiqhsiz), fiqh https://nurut-tolib-fiqh.vercel.app (alohida «Фиқҳ» ilovasi, parol); `vercel-build.sh`, Ignored Build Step (`docs/texnik.md` 1, 8). Sabab: github.io ba'zi provayderlarda ochilmaydi.
+  - sw.js yangilanishi bo'lak-bo'lak (`var H` xeshlar, o'zgarmagani ko'chiriladi) — sekin internetda ham yangilanadi (`docs/texnik.md` 1).
+  - Qulf ekranidagi pleyer (Media Session) — hamma darslar va fiqh (`shell.js`, `docs/texnik.md` 5).
+  - Fiqh 1-dars sharhi: 41–46-betlar arabcha + so'zma-so'z tarjima; atamalar — nuqtali chiziq, bosilsa izoh; bet yozuvi tepada qotadi; Muqaddimada tepa qator qotadi (`docs/texnik.md` 10).
+  - Keyingi reja: Play Market (foydalanuvchi Google Play hisobini ochadi; TWA). Ilova tavsiyasi kartasi olib tashlandi.
+- (07.11.2026):
   - Fiqh: kitob matni va al-Qori sharhi arabchasi har darsning ichida («Шарҳ» → «📜 Асл матн · N-бет»; 1-dars: 41–46-betlar tayyor); Muqaddima alohida karta (`fkitob.html`); «Китобни ўқиш» olib tashlandi (`docs/texnik.md` 10).
   - Fiqh: «📚 Китобни ўқиш» (`fkitob.html`) — Muqaddima (dastlabki tarjima) + 1-dars; yangi dars kelganda shu yerga ham qo'shiladi (`docs/texnik.md` 10).
   - Fiqh: «Фиқҳ / Наҳв» rejimi olib tashlandi — faqat «Таркиб» tugmasi (`docs/texnik.md` 10).

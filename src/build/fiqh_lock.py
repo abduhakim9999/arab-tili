@@ -23,7 +23,7 @@ SHELL = """<!DOCTYPE html>
 <meta name="robots" content="noindex">
 <link rel="icon" href="icon-192.png">
 <script>/* 09.11.2026: fiqh alohida ilova — faqat fiqh domenida (github.io da asosiy sw.js bilan to'qnashmasin) */
-if(/fiqh/.test(location.hostname)){(function(){var h=document.head;[['manifest','fiqh.webmanifest'],['icon','fiqh-icon-192.png'],['apple-touch-icon','fiqh-icon-192.png']].forEach(function(x){var l=document.createElement('link');l.rel=x[0];l.href=x[1];h.appendChild(l)});var m=document.createElement('meta');m.name='theme-color';m.content='#5E3C14';h.appendChild(m);if('serviceWorker' in navigator)navigator.serviceWorker.register('fiqh-sw.js').catch(function(){})})()}
+function fqApp(){if(!/fiqh/.test(location.hostname))return;(function(){var h=document.head;[].forEach.call(document.querySelectorAll('link[rel=manifest],link[rel=icon],link[rel=apple-touch-icon],meta[name=theme-color]'),function(x){x.remove()});[['manifest','fiqh.webmanifest'],['icon','fiqh-icon-192.png'],['apple-touch-icon','fiqh-icon-192.png']].forEach(function(x){var l=document.createElement('link');l.rel=x[0];l.href=x[1];h.appendChild(l)});var m=document.createElement('meta');m.name='theme-color';m.content='#5E3C14';h.appendChild(m);if('serviceWorker' in navigator)navigator.serviceWorker.register('fiqh-sw.js').catch(function(){})})()}fqApp();
 </script>
 <link rel="stylesheet" href="shell.css">
 <style>
@@ -49,7 +49,7 @@ var D="@@DATA@@";
     return crypto.subtle.deriveBits({name:"PBKDF2",salt:S,iterations:@@IT@@,hash:"SHA-256"},b,256)}).then(function(x){return new Uint8Array(x)})}
   function dec(raw){var d=ub(D);return crypto.subtle.importKey("raw",raw,"AES-GCM",false,["decrypt"]).then(function(k){
     return crypto.subtle.decrypt({name:"AES-GCM",iv:d.slice(0,12)},k,d.slice(12))}).then(function(t){return new TextDecoder().decode(t)})}
-  function show(h){function go(){document.open();document.write(h);document.close()}if(document.readyState==="complete")setTimeout(go,0);else addEventListener("load",function(){setTimeout(go,0)})}
+  function show(h){function go(){document.open();document.write(h);document.close();try{fqApp()}catch(e){}}if(document.readyState==="complete")setTimeout(go,0);else addEventListener("load",function(){setTimeout(go,0)})}
   function ask(){f.classList.add("on");setTimeout(function(){p.focus()},50)}
   var T=new Date(Date.now()+18e6).toISOString().slice(0,10),k=null;try{if(localStorage.getItem("fq-d")===T)k=localStorage.getItem("fq-k");else localStorage.removeItem("fq-k")}catch(e){}
   if(k)dec(ub(k)).then(show,function(){try{localStorage.removeItem("fq-k")}catch(e){}ask()});else ask();

@@ -73,7 +73,13 @@ items = head()
 for i in range(len(VOC)):
     src = REUSE.get(i, U + '/v/a%02d.mp3' % i)
     ar = pp(src, ARF, T + '/va%02d.wav' % i)
-    u = uzp(U + '/v/m%02d.mp3' % i, T + '/vm%02d.wav' % i)   # Davronbek — EQ yo'q (texnik.md 6)
+    # 10.11.2026: jam / muannas shakli — alohida generatsiya (jNN), birinchi shakldan 0.7 s sukutdan keyin
+    js = {9: {8: U + '/v/j07.mp3'}}.get(N, {}).get(i, U + '/v/j%02d.mp3' % i)
+    if os.path.exists(js):
+        jw = pp(js, ARF, T + '/vj%02d.wav' % i)
+        concat([ar, sil(T + '/s07.wav', 0.7), jw], T + '/vaj%02d.mp3' % i); ar = cut(T + '/vaj%02d.mp3' % i, T + '/vaj%02d.wav' % i)
+    un = U + '/v/n%02d.mp3' % i   # o'zbekchasi yangilangan (muannasi / jami qo'shilgan)
+    u = uzp(un if os.path.exists(un) else U + '/v/m%02d.mp3' % i, T + '/vm%02d.wav' % i)   # Davronbek — EQ yo'q (texnik.md 6)
     items += [(ar, 'ar', i), (s1, None, 0), (u, 'uz', i), (s1, None, 0), (ar, 'ar2', i), (s3, None, 0)]
 M, t = build(items, HERE + '/v%d.mp3' % N)
 json.dump({'m': M, 'l': {i: [v[1], v[2][0]] for i, v in enumerate(VOC)}}, open(HERE + '/v%d.json' % N, 'w'), ensure_ascii=False)

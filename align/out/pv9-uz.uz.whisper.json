@@ -1,0 +1,397 @@
+[
+{
+"text": "Tokqız,",
+"start": 0.0,
+"end": 0.36
+},
+{
+"text": "tokqızdı.",
+"start": 0.54,
+"end": 1.38
+},
+{
+"text": "Tokqızıncı.",
+"start": 3.36,
+"end": 4.06
+},
+{
+"text": "Azon.",
+"start": 5.68,
+"end": 6.38
+},
+{
+"text": "Bamdat",
+"start": 8.0,
+"end": 8.7
+},
+{
+"text": "vaxtı.",
+"start": 8.7,
+"end": 9.16
+},
+{
+"text": "En",
+"start": 10.38,
+"end": 11.08
+},
+{
+"text": "kättə,",
+"start": 11.08,
+"end": 11.78
+},
+{
+"text": "uluq,",
+"start": 11.8,
+"end": 12.44
+},
+{
+"text": "cəm.",
+"start": 12.6,
+"end": 13.3
+},
+{
+"text": "En",
+"start": 13.46,
+"end": 13.98
+},
+{
+"text": "kättələr,",
+"start": 13.98,
+"end": 14.78
+},
+{
+"text": "uluqlər.",
+"start": 14.78,
+"end": 15.64
+},
+{
+"text": "En",
+"start": 16.44,
+"end": 17.42
+},
+{
+"text": "kättə,",
+"start": 17.42,
+"end": 18.14
+},
+{
+"text": "uluq,",
+"start": 18.14,
+"end": 18.82
+},
+{
+"text": "cəm.",
+"start": 18.98,
+"end": 19.7
+},
+{
+"text": "En",
+"start": 19.82,
+"end": 20.34
+},
+{
+"text": "kättələr,",
+"start": 20.34,
+"end": 21.16
+},
+{
+"text": "uluqlər.",
+"start": 21.16,
+"end": 22.02
+},
+{
+"text": "Atı,",
+"start": 23.2,
+"end": 23.9
+},
+{
+"text": "cəm,",
+"start": 24.1,
+"end": 24.86
+},
+{
+"text": "atələr.",
+"start": 24.98,
+"end": 25.9
+},
+{
+"text": "Oğıl",
+"start": 25.9,
+"end": 28.0
+},
+{
+"text": "bole,",
+"start": 28.0,
+"end": 28.26
+},
+{
+"text": "cəm,",
+"start": 28.42,
+"end": 29.16
+},
+{
+"text": "bolelər.",
+"start": 29.3,
+"end": 30.3
+},
+{
+"text": "Farzant,",
+"start": 31.87,
+"end": 32.44
+},
+{
+"text": "bole,",
+"start": 32.58,
+"end": 33.12
+},
+{
+"text": "cəm,",
+"start": 33.26,
+"end": 34.1
+},
+{
+"text": "farzantlar.",
+"start": 34.22,
+"end": 35.22
+},
+{
+"text": "Qayırdı?",
+"start": 36.87,
+"end": 37.44
+},
+{
+"text": "Sad,",
+"start": 39.05,
+"end": 39.62
+},
+{
+"text": "irkek",
+"start": 39.82,
+"end": 40.42
+},
+{
+"text": "ismi.",
+"start": 40.42,
+"end": 40.84
+},
+{
+"text": "Hammam,",
+"start": 42.61,
+"end": 43.18
+},
+{
+"text": "vanna,",
+"start": 43.28,
+"end": 43.9
+},
+{
+"text": "cəm,",
+"start": 44.14,
+"end": 44.92
+},
+{
+"text": "hammamlar.",
+"start": 45.02,
+"end": 46.02
+},
+{
+"text": "Taharet",
+"start": 47.71,
+"end": 48.28
+},
+{
+"text": "qılmaq.",
+"start": 48.28,
+"end": 48.76
+},
+{
+"text": "Sayit,",
+"start": 50.55,
+"end": 51.12
+},
+{
+"text": "irkek",
+"start": 51.16,
+"end": 51.76
+},
+{
+"text": "ismi.",
+"start": 51.76,
+"end": 52.22
+},
+{
+"text": "Xana,",
+"start": 53.28,
+"end": 54.36
+},
+{
+"text": "cəm,",
+"start": 54.56,
+"end": 55.26
+},
+{
+"text": "xana.",
+"start": 55.38,
+"end": 55.88
+},
+{
+"text": "Namaz",
+"start": 55.9,
+"end": 58.14
+},
+{
+"text": "xana,",
+"start": 58.14,
+"end": 58.14
+},
+{
+"text": "cəm,",
+"start": 58.14,
+"end": 58.14
+},
+{
+"text": "namaz",
+"start": 58.14,
+"end": 58.14
+},
+{
+"text": "xanalar.",
+"start": 58.14,
+"end": 58.14
+},
+{
+"text": "Oqimaq.",
+"start": 58.14,
+"end": 58.68
+},
+{
+"text": "Sayida,",
+"start": 60.31,
+"end": 60.9
+},
+{
+"text": "ayal",
+"start": 60.98,
+"end": 61.76
+},
+{
+"text": "ismi.",
+"start": 61.76,
+"end": 62.06
+},
+{
+"text": "Namaz",
+"start": 63.69,
+"end": 64.28
+},
+{
+"text": "xana,",
+"start": 64.28,
+"end": 64.54
+},
+{
+"text": "cəm,",
+"start": 64.66,
+"end": 65.48
+},
+{
+"text": "namaz",
+"start": 65.48,
+"end": 66.18
+},
+{
+"text": "xanalar.",
+"start": 66.18,
+"end": 66.54
+},
+{
+"text": "Namaz",
+"start": 67.72,
+"end": 68.9
+},
+{
+"text": "oqimaq.",
+"start": 68.9,
+"end": 69.32
+},
+{
+"text": "Quran.",
+"start": 70.81,
+"end": 71.4
+},
+{
+"text": "Palto,",
+"start": 73.29,
+"end": 73.88
+},
+{
+"text": "cəm,",
+"start": 74.1,
+"end": 74.9
+},
+{
+"text": "paltalar.",
+"start": 75.0,
+"end": 75.78
+},
+{
+"text": "Ey.",
+"start": 77.33,
+"end": 77.92
+},
+{
+"text": "Oşa.",
+"start": 79.59,
+"end": 80.18
+},
+{
+"text": "Kozaynak,",
+"start": 82.13,
+"end": 82.72
+},
+{
+"text": "cəm,",
+"start": 82.96,
+"end": 83.68
+},
+{
+"text": "kozaynaklar.",
+"start": 83.8,
+"end": 84.92
+},
+{
+"text": "Oşa.",
+"start": 85.9,
+"end": 87.1
+},
+{
+"text": "Masjid,",
+"start": 88.94,
+"end": 89.64
+},
+{
+"text": "cəm,",
+"start": 89.68,
+"end": 90.44
+},
+{
+"text": "masjidlar.",
+"start": 90.58,
+"end": 91.68
+},
+{
+"text": "Qana?",
+"start": 93.0,
+"end": 93.7
+},
+{
+"text": "Kettik.",
+"start": 93.82,
+"end": 94.52
+},
+{
+"text": "Oşa.",
+"start": 94.96,
+"end": 96.36
+}
+]

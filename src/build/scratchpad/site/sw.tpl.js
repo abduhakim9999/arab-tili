@@ -54,9 +54,10 @@ self.addEventListener('activate', function (e) {
     }).then(function () { return Promise.all(old.map(function (k) { return caches.delete(k); })); });
   }).then(function () { return self.clients.claim(); }).then(function () {
     if (!upd) return;
-    /* yangi versiya: ochiq sahifalarni bir marta qayta yuklash */
+    /* yangi versiya: ochiq sahifalarni bir marta qayta yuklash. 10.11.2026: tg.js li sahifalar o'zi yangilanadi
+       (controllerchange; audio o'ynayotganda kutadi, «Янгилаш» tugmasi) — bu yerda faqat tg.js siz fiqh sahifalari */
     return self.clients.matchAll({ type: 'window' }).then(function (cs) {
-      cs.forEach(function (cl) { try { cl.navigate(cl.url); } catch (x) {} });
+      cs.forEach(function (cl) { try { if (/\/(fiqh|fkitob|f\d+)\.html$/.test(new URL(cl.url).pathname)) cl.navigate(cl.url); } catch (x) {} });
     });
   }));
 });

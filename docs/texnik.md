@@ -28,6 +28,7 @@
 
 - Bosilganda yashil chiziq + qulf (`html.go`, `tg.js`): ko'pi bilan 5 s, ilovaga qaytganda ham yechiladi — sekin internetda ekran qotib qolmaydi (06.11.2026).
 - Yangi versiya (SW `controllerchange`): sahifa o'zi yangilanadi; o'xshamasa qayta urinadi (internet qaytganda, ilovaga qaytganda, audio to'xtaganda, 15 s da bir), audio o'ynayotganda/yozish maydonida yangilanmaydi.
+- **Yangilanish tekshiruvi (10.11.2026, `tg.js`):** brauzer sw.js ni faqat sahifa qayta ochilganda tekshiradi — orqa fondan qaytganda emas. Shuning uchun `tg.js` ilovaga qaytganda (visibilitychange, focus, online, Telegram `activated`) va har 10 daqiqada `reg.update()` qiladi (kamida 60 s oraliq). Audio o'ynayotganda yoki yozish maydonida yangi versiya kelsa — tepada «Янги версия тайёр · Янгилаш» tugmasi (`.upd-bar`), bosilsa darhol, bosilmasa audio to'xtaganda o'zi. `sw.js` activate endi `client.navigate` ni faqat tg.js siz fiqh sahifalariga (fiqh, fkitob, fN) qiladi — avval audio o'ynayotgan sahifani ham majburan qayta ochardi.
 
 - `sw.js`: `sinov-*` саҳифалар ва `shell-s.js/css` телефонда сақланмайди — доим интернетдан (синовда эски нусха чиқмайди, 06.11.2026).
 

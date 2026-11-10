@@ -46,13 +46,38 @@
         for (i = 0; i < a.length; i++) if (!a[i].paused && !a[i].ended) return true;
         var f = document.activeElement; return !!(f && /^(INPUT|TEXTAREA|SELECT)$/.test(f.tagName));
       };
+      /* 10.11.2026: audio sabab o'zi yangilana olmasa — tepada «Янгилаш» tugmasi (bosilsa darhol, bosilmasa audio to'xtaganda o'zi) */
+      var bar = null;
+      var showBar = function () {
+        if (bar || !document.body) return;
+        bar = document.createElement('button'); bar.type = 'button'; bar.className = 'upd-bar';
+        bar.textContent = '\u21bb Янги версия тайёр \u00b7 Янгилаш';
+        bar.style.cssText = 'position:fixed;top:calc(10px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);' +
+          'z-index:2147483000;border:0;border-radius:999px;padding:10px 18px;background:#167a4f;color:#fff;' +
+          'font:600 15px/1.2 system-ui,-apple-system,sans-serif;box-shadow:0 4px 14px rgba(0,0,0,.25);white-space:nowrap;cursor:pointer';
+        bar.addEventListener('click', function () { rlAt = Date.now(); goOn(); location.reload(); });
+        document.body.appendChild(bar);
+      };
       var rel = function () {
-        if (!upd || document.hidden || !navigator.onLine || busy() || Date.now() - rlAt < 10000) return;
+        if (!upd || document.hidden || !navigator.onLine) return;
+        if (busy()) { showBar(); return; }
+        if (Date.now() - rlAt < 10000) return;
         rlAt = Date.now(); goOn(); location.reload();
       };
+      /* 10.11.2026: yangi versiyani ilovaga qaytganda va ochiq turganda (10 daqiqada bir) so'rash —
+         brauzer o'zi faqat sahifa qayta ochilganda tekshiradi (orqa fondan qaytganda emas) */
+      var chkAt = Date.now();
+      var check = function () {
+        if (upd || document.hidden || !navigator.onLine || Date.now() - chkAt < 60000) return;
+        chkAt = Date.now();
+        navigator.serviceWorker.getRegistration().then(function (r) { if (r) return r.update(); }).catch(function () {});
+      };
       navigator.serviceWorker.addEventListener('controllerchange', function () { upd = true; rel(); });
-      window.addEventListener('online', rel);
-      document.addEventListener('visibilitychange', function () { setTimeout(rel, 300); });
+      window.addEventListener('online', function () { rel(); check(); });
+      window.addEventListener('focus', check);
+      document.addEventListener('visibilitychange', function () { setTimeout(rel, 300); setTimeout(check, 500); });
+      setInterval(check, 600000);
+      try { if (window.Telegram && Telegram.WebApp && Telegram.WebApp.onEvent) Telegram.WebApp.onEvent('activated', check); } catch (e2) {}
       document.addEventListener('pause', function () { setTimeout(rel, 800); }, true);
       document.addEventListener('ended', function () { setTimeout(rel, 800); }, true);
       setInterval(rel, 15000);

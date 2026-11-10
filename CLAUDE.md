@@ -46,6 +46,7 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
   | Pleyer ko'rinishi, sahifa siljitgichi (`shell.js`) | hamma darslar | — |
   | So'z oynasi: ‹ ›, Таркиб Ўзбекча/Арабча, qo'shimchalar tugma (`zoX`, `.zo-*`) | 95, fiqh 1 | 1–7, 70–74, 91–94 |
 - Oxirgi qilinganlar (10.11.2026):
+  - Yangi versiya ilovaga qaytganda ham tekshiriladi (chiqib-kirish shart emas); audio o'ynayotganda «Янгилаш» tugmasi (`tg.js`, `sw.js`; `docs/texnik.md` 5).
   - 8-dars «Умар ва Усмон» (shajara) va 9-dars «Бомдод азони» — bitta yozuvdan (`align/in/w89.mp3`) ajratildi; 8-dars 9-qatorida yozuvda «ابْنُهُ» o'qilmagan (sahifada hujjat matni); lug'at 139–198; Eshitish Матн+Луғат+Таркиб (`listen/mk89.py`), «ЎЗ» + so'z yonishi (`listen/uzt89.py`). Grammatika qarorlari — konspekt 7.
 - (08–09.11.2026):
   - Fiqh 1-dars: har yorliqning o'z tugmalari — Шарҳда Ҳаракат, Таржима, bet ‹ › ro'yxati, Aa; Атамалар/Хулосада panel yo'q; ishlamaydigan tugmalar olib tashlandi (`docs/texnik.md` 10). Grammatika darslarida Луғат/Машқ uchun xuddi shu — so'ralsa.

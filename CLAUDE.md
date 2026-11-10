@@ -28,24 +28,26 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
 
 ## Darslar holati
 - Sayt: https://nurut-tolib.vercel.app/ (fiqh: https://nurut-tolib-fiqh.vercel.app/; eski github.io ham ishlaydi) · Mini App `t.me/Arabtilihivar_bot/darslar` · versiya `sw.js` dagi `var C`.
-- Darslar: 1-kitob **1–7**; 2-kitob **70–74, 91–95**.
+- Darslar: 1-kitob **1–9**; 2-kitob **70–74, 91–95**.
 - Fiqh (parol bilan yopiq, `docs/texnik.md` 10): birinchi kitob — «Мухтасарул виқоя», al-Qori sharhi «فتح باب العناية» bilan (tarjima + grammatik tahlil + sharh; keyin boshqa kitoblar). 1-dars: «Матн · Атамалар · Шарҳ · Хулоса»; 7 mashq, 8 havola qoldi. Sharh matni: `src/manba/` (shifrlangan).
-- Eshitish: **1, 6, 7, 74, 93, 94, 95**. Ochiq ish: 2–5, 70–73, 91–92 ni qo'shish.
+- Eshitish: **1, 6, 7, 8, 9, 74, 93, 94, 95**. Ochiq ish: 2–5, 70–73, 91–92 ni qo'shish.
 - **Qilinmay qolganlar** (bir darsda qilingan yangilik → qolgan darslarga o'tkazish; foydalanuvchi so'raganda qilinadi; har yangilikdan keyin shu yerga qator qo'shiladi, o'tkazilgani yangilanadi):
   | Yangilik | Bor | Qolgan |
   |---|---|---|
-  | Eshitish (Матн/Луғат/Таркиб) | 1, 6, 7, 74, 93, 94, 95 | 2–5, 70–73, 91–92 |
-  | ЎЗ rejimida sarlavha (bob/dars) yonishi (`UZT.h`) | 1 | 95 + «ЎЗ» qo'shiladigan darslar |
-  | Pleyer «ЎЗ» tarjima + 🎧 (`UZT`) | 1, 95 | 6, 7, 74, 93, 94 (+ yangi Eshitishlar) |
-  | Eshitish bosh qismi bo'laklab (bob / dars alohida, ekranda yozuv) | 1 | 6, 7, 74, 93, 94, 95 |
+  | Eshitish (Матн/Луғат/Таркиб) | 1, 6, 7, 8, 9, 74, 93, 94, 95 | 2–5, 70–73, 91–92 |
+  | ЎЗ rejimida sarlavha (bob/dars) yonishi (`UZT.h`) | 1, 8, 9 | 95 + «ЎЗ» qo'shiladigan darslar |
+  | Pleyer «ЎЗ» tarjima + 🎧 (`UZT`) | 1, 8, 9, 95 | 6, 7, 74, 93, 94 (+ yangi Eshitishlar) |
+  | Eshitish bosh qismi bo'laklab (bob / dars alohida, ekranda yozuv) | 1, 8, 9 | 6, 7, 74, 93, 94, 95 |
   | O'zbekcha ovozda qavsli variantdan bittasi | 1 | 6, 7, 74, 93, 94, 95 — tekshirish |
-  | Ovoz: har so'z/gap alohida generatsiya (bitta audiodan qirqilmagan) | 1 | 6, 7 Луғат — tekshirish |
+  | Ovoz: har so'z/gap alohida generatsiya (bitta audiodan qirqilmagan) | 1, 8, 9 | 6, 7 Луғат — tekshirish |
   | Eshitish Таркибда o'zbekcha qator | 1, 6 | 7, 74, 93 (94, 95 — tekshirish) |
   | Eshitish Матнида mavzu (sarlavha) aytiladi | 1 | 6, 7, 74, 93, 94, 95 — tekshirish |
-  | ЎЗ: o'zbekcha o'qilganda arabcha so'z yonadi (`UZT.w`, bepul moslash) | 1 | 95 + «ЎЗ» qo'shiladigan darslar |
+  | ЎЗ: o'zbekcha o'qilganda arabcha so'z yonadi (`UZT.w`, bepul moslash) | 1, 8, 9 | 95 + «ЎЗ» qo'shiladigan darslar |
   | Pleyer ko'rinishi, sahifa siljitgichi (`shell.js`) | hamma darslar | — |
   | So'z oynasi: ‹ ›, Таркиб Ўзбекча/Арабча, qo'shimchalar tugma (`zoX`, `.zo-*`) | 95, fiqh 1 | 1–7, 70–74, 91–94 |
-- Oxirgi qilinganlar (08–09.11.2026):
+- Oxirgi qilinganlar (10.11.2026):
+  - 8-dars «Умар ва Усмон» (shajara) va 9-dars «Бомдод азони» — bitta yozuvdan (`align/in/w89.mp3`) ajratildi; 8-dars 9-qatorida yozuvda «ابْنُهُ» o'qilmagan (sahifada hujjat matni); lug'at 139–198; Eshitish Матн+Луғат+Таркиб (`listen/mk89.py`), «ЎЗ» + so'z yonishi (`listen/uzt89.py`). Grammatika qarorlari — konspekt 7.
+- (08–09.11.2026):
   - Fiqh 1-dars: har yorliqning o'z tugmalari — Шарҳда Ҳаракат, Таржима, bet ‹ › ro'yxati, Aa; Атамалар/Хулосада panel yo'q; ishlamaydigan tugmalar olib tashlandi (`docs/texnik.md` 10). Grammatika darslarida Луғат/Машқ uchun xuddi shu — so'ralsa.
   - Sayt Vercel'ga ko'chdi: darslar https://nurut-tolib.vercel.app (fiqhsiz), fiqh https://nurut-tolib-fiqh.vercel.app (alohida «Фиқҳ» ilovasi, parol); `vercel-build.sh`, Ignored Build Step (`docs/texnik.md` 1, 8). Sabab: github.io ba'zi provayderlarda ochilmaydi.
   - sw.js yangilanishi bo'lak-bo'lak (`var H` xeshlar, o'zgarmagani ko'chiriladi) — sekin internetda ham yangilanadi (`docs/texnik.md` 1).

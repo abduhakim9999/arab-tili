@@ -4,7 +4,7 @@ import tarkib
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.environ.get('OUT') or '/mnt/user-data/outputs/arab-tili'
-VER = '257'
+VER = '258'
 
 LESSONS = [
     # (raqam, manba, sarlavha, arabcha sarlavha, kalit, savollar soni)
@@ -15,6 +15,8 @@ LESSONS = [
     (5, '/mnt/user-data/outputs/lesson05/index.html', 'Аҳмад ва Бадр', 'أَحْمَدُ وَبَدْرٌ', 'dars05-holat', 7),
     (6, '/mnt/user-data/outputs/lesson06/index.html', 'Нада ва Ҳуда', 'نَدَى وَهُدَى', 'dars06-holat', 7),
     (7, '/mnt/user-data/outputs/lesson07/index.html', 'Али ва Аммор', 'عَلِيٌّ وَعَمَّارٌ', 'dars07-holat', 8),
+    (8, '/mnt/user-data/outputs/lesson08/index.html', 'Умар ва Усмон', 'عُمَرُ وَعُثْمَانُ', 'dars08-holat', 5),
+    (9, '/mnt/user-data/outputs/lesson09/index.html', 'Бомдод азони', 'أَذَانُ الْفَجْرِ', 'dars09-holat', 5),
     (70, '/mnt/user-data/outputs/lesson70/index.html', 'Асалда шифо бор', 'فِي الْعَسَلِ شِفَاءٌ', 'dars70-holat', 22),
     (71, '/mnt/user-data/outputs/lesson71/index.html', 'Зайнаб ва Марям дугонадир', 'زَيْنَبُ وَمَرْيَمُ صَدِيقَتَانِ', 'dars71-holat', 26),
     (72, '/mnt/user-data/outputs/lesson72/index.html', 'Врач ҳузурида', 'عِنْدَ الطَّبِيبِ', 'dars72-holat', 14),
@@ -27,11 +29,11 @@ LESSONS = [
     (95, '/mnt/user-data/outputs/lesson95/index.html', 'Адабий араб тили ва унинг таъсири', 'الْعَرَبِيَّةُ الْفَصِيحَةُ وَأَثَرُهَا', 'dars95-holat', 14),
 ]
 
-LISTEN = [1, 6, 7, 74, 93, 94, 95]
+LISTEN = [1, 6, 7, 8, 9, 74, 93, 94, 95]
 HDRD = '/tmp/claude-0/-home-claude/d13da55d-9a5a-5fc0-96fe-93eeb8284943/scratchpad/hdr'
 HCFG = json.load(open(HDRD + '/hcfg.json'))
 DROP0 = {70, 74, 91, 92, 93, 94, 95}
-TITLE = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 70: 1, 71: 0, 72: 0, 73: 0, 74: 1, 91: 1, 92: 1, 93: 1, 94: 1, 95: 1}  # mavzu qatori  # 0-qatori «الدرس …» — sarlavha bilan takrorlanmasin
+TITLE = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 70: 1, 71: 0, 72: 0, 73: 0, 74: 1, 91: 1, 92: 1, 93: 1, 94: 1, 95: 1}  # mavzu qatori  # 0-qatori «الدرس …» — sarlavha bilan takrorlanmasin
 U1 = ('الْوَحْدَةُ الْأُولَى: التَّحِيَّةُ وَالتَّعَارُفُ', '1-боб: Саломлашиш ва танишиш')
 U12 = ('الْوَحْدَةُ الثَّانِيَةُ: الْأُسْرَةُ', '2-боб: Оила')
 U21 = ('الْوَحْدَةُ الْأُولَى: الْعِنَايَةُ بِالصِّحَّةِ', '1-боб: Соғлиққа эътибор')
@@ -41,15 +43,15 @@ U27 = ('الْوَحْدَةُ السَّابِعَةُ: اللُّغَةُ ال
 # Dars boshi: bismillah, keyin dars raqami va mavzu. Ваҳда nomi faqat ваҳданинг 1-darsida (SHOWU) yoziladi.
 SHOWU = {1, 7, 70, 74, 94}
 TKNEW = {l[0] for l in LESSONS}  # Таркиб: yangi ko'rinish (tarkib2.js) — hamma darslarda
-TOPIC = {1: 'topic_hiwar.mp3', 2: 'topic_hiwar.mp3', 3: 'topic_hiwar.mp3', 4: 'topic_hiwar.mp3', 5: 'topic_hiwar.mp3', 6: 'topic_hiwar.mp3', 7: 'topic_hiwar.mp3'}  # МАВЗУ (حِوَارْ) ovozi — ElevenLabs Mehdi VO, vaqf bilan; sarlavhadan keyin qo'shiladi  # Таркиб'нинг янги кўриниши (tarkib2.js) — синов
+TOPIC = {1: 'topic_hiwar.mp3', 2: 'topic_hiwar.mp3', 3: 'topic_hiwar.mp3', 4: 'topic_hiwar.mp3', 5: 'topic_hiwar.mp3', 6: 'topic_hiwar.mp3', 7: 'topic_hiwar.mp3', 8: 'topic_hiwar.mp3', 9: 'topic_hiwar.mp3'}  # МАВЗУ (حِوَارْ) ovozi — ElevenLabs Mehdi VO, vaqf bilan; sarlavhadan keyin qo'shiladi  # Таркиб'нинг янги кўриниши (tarkib2.js) — синов
 LN = {3: 'اَلدَّرْسُ الثَّالِثُ', 4: 'اَلدَّرْسُ الرَّابِعُ', 5: 'اَلدَّرْسُ الْخَامِسُ', 6: 'اَلدَّرْسُ السَّادِسُ'}  # 3–4-darslar: raqam ElevenLabs (Mehdi) bilan qo'shilgan (hdr/mk_hnum.py); h3/h4 dagi eski «الْحِوَارُ» (cf[2]…) kesiladi, mavzu — matndagi حِوَارٌ
-HDR = {3: (('الْحِوَارُ', 'Суҳбат'), ''), 4: (('الْحِوَارُ', 'Суҳбат'), ''), 5: (('الْحِوَارُ', 'Суҳбат'), ''), 6: (('الْحِوَارُ', 'Суҳбат'), ''), 1: (U1, 'اَلدَّرْسُ الْأَوَّلُ'), 7: (U12, 'اَلدَّرْسُ السَّابِعُ'), 2: (U1, 'اَلدَّرْسُ الثَّانِي'), 70: (U21, 'اَلدَّرْسُ السَّبْعُونَ'), 71: (U21, 'اَلدَّرْسُ الْحَادِي وَالسَّبْعُونَ'),
+HDR = {3: (('الْحِوَارُ', 'Суҳбат'), ''), 4: (('الْحِوَارُ', 'Суҳбат'), ''), 5: (('الْحِوَارُ', 'Суҳбат'), ''), 6: (('الْحِوَارُ', 'Суҳбат'), ''), 1: (U1, 'اَلدَّرْسُ الْأَوَّلُ'), 7: (U12, 'اَلدَّرْسُ السَّابِعُ'), 8: (U12, 'اَلدَّرْسُ الثَّامِنُ'), 9: (U12, 'اَلدَّرْسُ التَّاسِعُ'), 2: (U1, 'اَلدَّرْسُ الثَّانِي'), 70: (U21, 'اَلدَّرْسُ السَّبْعُونَ'), 71: (U21, 'اَلدَّرْسُ الْحَادِي وَالسَّبْعُونَ'),
        72: (U21, 'اَلدَّرْسُ الثَّانِي وَالسَّبْعُونَ'), 73: (U21, 'اَلدَّرْسُ الثَّالِثُ وَالسَّبْعُونَ'),
        74: (U22, 'اَلدَّرْسُ الرَّابِعُ وَالسَّبْعُونَ'),
        91: (U26, 'اَلدَّرْسُ الْحَادِي وَالتِّسْعُونَ'), 92: (U26, 'اَلدَّرْسُ الثَّانِي وَالتِّسْعُونَ'),
        93: (U26, 'اَلدَّرْسُ الثَّالِثُ وَالتِّسْعُونَ'), 94: (U27, 'اَلدَّرْسُ الرَّابِعُ وَالتِّسْعُونَ'), 95: (U27, 'اَلدَّرْسُ الْخَامِسُ وَالتِّسْعُونَ')}
 
-UNIT = {1: 'k1b1', 2: 'k1b1', 3: 'k1b1', 4: 'k1b1', 5: 'k1b1', 6: 'k1b1', 7: 'k1b2', 70: 'k2b1', 71: 'k2b1', 72: 'k2b1', 73: 'k2b1', 74: 'k2b2', 91: 'k2b6', 92: 'k2b6', 93: 'k2b6', 94: 'k2b7', 95: 'k2b7'}
+UNIT = {1: 'k1b1', 2: 'k1b1', 3: 'k1b1', 4: 'k1b1', 5: 'k1b1', 6: 'k1b1', 7: 'k1b2', 8: 'k1b2', 9: 'k1b2', 70: 'k2b1', 71: 'k2b1', 72: 'k2b1', 73: 'k2b1', 74: 'k2b2', 91: 'k2b6', 92: 'k2b6', 93: 'k2b6', 94: 'k2b7', 95: 'k2b7'}
 # kalit: [yorliq, arabcha nomi, kitob, belgi foni]
 UNITS = {'k1b1': ['1-БОБ', 'التَّحِيَّةُ وَالتَّعَارُفُ', '1-КИТОБ', '#E3F2EA', '1', 'الْكِتَابُ الْأَوَّلُ'],
          'k1b2': ['2-БОБ', 'الْأُسْرَةُ', '1-КИТОБ', '#F4ECE0', '1', 'الْكِتَابُ الْأَوَّلُ'],
@@ -229,6 +231,7 @@ LD = os.path.join(HERE, '..', 'listen')
 LST = []
 for n in LISTEN:
     L0 = [l for l in LESSONS if l[0] == n][0]
+    if not os.path.exists(os.path.join(LD, 'l%d.mp3' % n)): continue  # skretchpadda yo'q (repoda bor) — tinglash.html repodagisi asosiy
     ab = open(os.path.join(LD, 'l%d.mp3' % n), 'rb').read()
     fn = 'l%d-%s.mp3' % (n, hashlib.md5(ab).hexdigest()[:8])
     open(os.path.join(OUT, fn), 'wb').write(ab); AUD.append(fn)

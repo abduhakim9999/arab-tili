@@ -140,7 +140,17 @@ async def one(t):
             except Exception as e: err = e; await asyncio.sleep(2)
         raise err
 async def allv(): await asyncio.gather(*[one(t) for t in texts])
-asyncio.run(allv())
+# Muhitdan speech.platform.bing.com yopiq bo'lsa (11.11.2026): TKOUT=align/tts — matnlarni GitHub tts.yml ga yozadi;
+# natija kelgach TKSRC=align/out bilan qayta ishga tushiriladi (ovoz o'sha yerdan olinadi).
+_tk = lambda t: 'tk%s_%s' % (N, hashlib.md5(t.encode()).hexdigest()[:12])
+if os.environ.get('TKOUT'):
+    for t in texts: open(os.path.join(os.environ['TKOUT'], _tk(t) + '.txt'), 'w', encoding='utf-8').write(VOICE + '|' + RATE + '\n' + t)
+    print(len(texts), 'матн ->', os.environ['TKOUT']); sys.exit()
+if os.environ.get('TKSRC'):
+    import shutil
+    for t in texts: shutil.copy(os.path.join(os.environ['TKSRC'], _tk(t) + '.mp3'), fn[t] + '.mp3')
+else:
+    asyncio.run(allv())
 TRIM = 'silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.05,areverse,silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.1,areverse'
 def run(*a): subprocess.run(list(a), check=True)
 def dur(f): return float(subprocess.check_output(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', f]))

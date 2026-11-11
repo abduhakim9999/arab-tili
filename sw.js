@@ -2,9 +2,9 @@
    Kichik fayllar (sahifa, skript, shrift) — versiya bilan birga; audio (mp3) versiyaga kirmaydi:
    birinchi eshitilganda yuklanadi va «arab-tili-audio» keshida doim qoladi (nomida xesh bor — eskirmaydi).
    Yangi versiya (C) chiqqanda eski kesh o'chadi (audio keshi qoladi), ochiq sahifalar o'zi yangilanadi. */
-var C = 'arab-tili-v265';
+var C = 'arab-tili-v266';
 var FILES = ["./", "index.html", "tinglash.html", "yoriqnoma.html", "fel.html", "tg.js", "shell.js", "shell.css", "manifest.webmanifest", "icon-192.png", "icon-512.png", "icon-maskable-512.png", "1.html", "2.html", "3.html", "4.html", "5.html", "6.html", "7.html", "8.html", "9.html", "70.html", "71.html", "72.html", "73.html", "74.html", "91.html", "92.html", "93.html", "94.html", "95.html", "96.html", "feellar.html", "sarf.html", "fiqh.html", "fkitob.html", "f1.html", "sarf-idx.json", "sarflink.js", "tarkib.js", "tarkib2.js", "hdr.js", "naskh.woff"];
-var H = {"./": "875640f0d1", "index.html": "875640f0d1", "tinglash.html": "d2e2306d60", "yoriqnoma.html": "bda7642bbd", "fel.html": "6f8af68699", "tg.js": "7486b5d989", "shell.js": "40c06c6c29", "shell.css": "2ea7b6c1a2", "manifest.webmanifest": "d3a45d859a", "icon-192.png": "0acd724f54", "icon-512.png": "59c156234d", "icon-maskable-512.png": "42e24558b4", "1.html": "046673d62a", "2.html": "5fc0130c05", "3.html": "19a6eb2605", "4.html": "aedce1f529", "5.html": "5071807448", "6.html": "a6dec0e547", "7.html": "93f18e3174", "8.html": "47c14d47fb", "9.html": "0b07e337a6", "70.html": "ec5774bbf8", "71.html": "e6c2202229", "72.html": "04c3bce760", "73.html": "c8c573c699", "74.html": "549dfff037", "91.html": "18d8acc8b6", "92.html": "3ee9349bbd", "93.html": "8041ecd412", "94.html": "44f889c0d1", "95.html": "40f54c4078", "96.html": "e66baaead0", "feellar.html": "b0e4d84fb2", "sarf.html": "6546c26353", "fiqh.html": "cd4073643a", "fkitob.html": "7742e26350", "f1.html": "da22f6503f", "sarf-idx.json": "bc8692a745", "sarflink.js": "c087aaf734", "tarkib.js": "3c8ae89c50", "tarkib2.js": "00876d71ed", "hdr.js": "841ad2f877", "naskh.woff": "ba5a1b03b4"};
+var H = {"./": "cdd8bfa12c", "index.html": "cdd8bfa12c", "tinglash.html": "d2e2306d60", "yoriqnoma.html": "bda7642bbd", "fel.html": "6f8af68699", "tg.js": "095efabcfa", "shell.js": "40c06c6c29", "shell.css": "2ea7b6c1a2", "manifest.webmanifest": "d3a45d859a", "icon-192.png": "0acd724f54", "icon-512.png": "59c156234d", "icon-maskable-512.png": "42e24558b4", "1.html": "046673d62a", "2.html": "5fc0130c05", "3.html": "19a6eb2605", "4.html": "aedce1f529", "5.html": "5071807448", "6.html": "a6dec0e547", "7.html": "93f18e3174", "8.html": "47c14d47fb", "9.html": "0b07e337a6", "70.html": "ec5774bbf8", "71.html": "e6c2202229", "72.html": "04c3bce760", "73.html": "c8c573c699", "74.html": "549dfff037", "91.html": "18d8acc8b6", "92.html": "3ee9349bbd", "93.html": "8041ecd412", "94.html": "44f889c0d1", "95.html": "40f54c4078", "96.html": "e66baaead0", "feellar.html": "b0e4d84fb2", "sarf.html": "6546c26353", "fiqh.html": "cd4073643a", "fkitob.html": "7742e26350", "f1.html": "da22f6503f", "sarf-idx.json": "bc8692a745", "sarflink.js": "c087aaf734", "tarkib.js": "3c8ae89c50", "tarkib2.js": "00876d71ed", "hdr.js": "841ad2f877", "naskh.woff": "ba5a1b03b4"};
 var TG = 'https://telegram.org/js/telegram-web-app.js';
 
 var AUD = 'arab-tili-audio', LOAD = {};
@@ -65,7 +65,7 @@ self.addEventListener('activate', function (e) {
 /* audio: so'ralgan bo'lakni saqlangan fayldan kesib berish (orqaga-oldinga surish uchun) */
 function ranged(req, res) {
   var m = /bytes=(\d*)-(\d*)/.exec(req.headers.get('range') || '');
-  if (!m) return res;
+  if (!m) return synth(res);
   return res.arrayBuffer().then(function (buf) {
     var size = buf.byteLength, a = m[1] ? +m[1] : 0, b = m[2] ? Math.min(+m[2], size - 1) : size - 1;
     if (!m[1] && m[2]) { a = Math.max(0, size - +m[2]); b = size - 1; }
@@ -77,14 +77,93 @@ function ranged(req, res) {
     });
   });
 }
-/* audio birinchi marta: tarmoqdan oqim bilan beriladi, orqa fonda butun fayl keshga yoziladi (bir marta) */
+/* AUDIO (12.11.2026). Uch qoida:
+   1) Pleyerga beriladigan har javob — SW o'zi yasagan javob (synth). Sabab: Chrome bitta audio uchun javoblar manbasini
+      solishtiradi; avval tarmoq javobi (URL bor), keyin keshdan yasalgan javob (URL yo'q) kelsa — media «seeking» da abadiy
+      qotadi («Аудио юкланяпти… 35%» qotib turishi shundan edi: fayl orqa fonda keshga tushgach gap bosilsa).
+   2) Fayl BIR marta yuklanadi (keep): o'sha yuklanishdan ham pleyer oqim oladi (feed), ham kesh yoziladi.
+   3) Yuklanish holati haqqoniy: LOAD[url] = {got, total} — sahifa so'raydi (message 'aud'), foizni shundan ko'rsatadi. */
+function synth(res) { return new Response(res.body, { status: res.status, statusText: res.statusText, headers: res.headers }); }
+function net(r) { return fetch(r).then(synth); }
+function wake(st) { var w = st.wait; st.wait = []; w.forEach(function (f) { f(); }); }
 function keep(url) {
   if (LOAD[url]) return LOAD[url];
-  LOAD[url] = fetch(url).then(function (res) {
-    if (res && res.status === 200) return caches.open(AUD).then(function (a) { return a.put(url, res); });
-  }).catch(function () {}).then(function () { delete LOAD[url]; });
-  return LOAD[url];
+  var st = LOAD[url] = { chunks: [], got: 0, total: 0, done: false, fail: false, wait: [], type: 'audio/mpeg' };
+  st.head = fetch(url).then(function (res) {
+    if (!res || res.status !== 200 || !res.body) throw new Error('status');
+    st.total = +res.headers.get('Content-Length') || 0; st.type = res.headers.get('Content-Type') || st.type;
+    st.body = res.body.getReader();
+  });
+  st.all = st.head.then(function () {
+    function rd() {
+      return st.body.read().then(function (x) {
+        if (x.done) return;
+        st.chunks.push(x.value); st.got += x.value.byteLength; wake(st);
+        return rd();
+      });
+    }
+    return rd();
+  }).then(function () {
+    if (st.total && st.got !== st.total) throw new Error('short');
+    var h = { 'Content-Type': st.type, 'Content-Length': String(st.got) };
+    return caches.open(AUD).then(function (a) { return a.put(url, new Response(new Blob(st.chunks, { type: st.type }), { status: 200, headers: h })); });
+  }).then(function () { st.done = true; }, function () { st.fail = true; }).then(function () { delete LOAD[url]; wake(st); });
+  st.head.catch(function () {});
+  return st;
 }
+/* davom etayotgan yuklanishdan a..b baytlarni oqim qilib berish (kelmagan qismini kutadi) */
+function feed(st, a, b) {
+  var pos = a, ci = 0, cs = 0; /* ci — bo'lak raqami, cs — shu bo'lak boshi (bayt) */
+  var body = new ReadableStream({
+    pull: function (c) {
+      function next() {
+        if (pos > b) { c.close(); return; }
+        while (ci < st.chunks.length && cs + st.chunks[ci].byteLength <= pos) { cs += st.chunks[ci].byteLength; ci++; }
+        if (ci < st.chunks.length) {
+          var ch = st.chunks[ci], from = pos - cs, to = Math.min(ch.byteLength, b + 1 - cs);
+          c.enqueue(ch.subarray(from, to).slice()); pos = cs + to; return;
+        }
+        if (st.fail) { c.error(new Error('net')); return; }
+        if (st.done) { c.close(); return; }
+        return new Promise(function (ok) { st.wait.push(ok); }).then(next);
+      }
+      return next();
+    }
+  });
+  return new Response(body, { status: 206, headers: { 'Content-Type': st.type, 'Content-Range': 'bytes ' + a + '-' + b + '/' + st.total,
+                                                       'Content-Length': String(b - a + 1), 'Accept-Ranges': 'bytes' } });
+}
+/* keshda yo'q audio so'rovi: yuklanish boshlangan/boshlanadi; so'ralgan joy yuklangan qismga yaqin bo'lsa — o'sha yuklanishdan,
+   uzoq bo'lsa (oldinga surilgan) — tarmoqdan shu bo'lak (yuklanish orqa fonda davom etadi) */
+var NEAR = 96 * 1024;
+function audio(e, r, url) {
+  var st = keep(url);
+  e.waitUntil(st.all);
+  var m = /bytes=(\d+)-(\d*)/.exec(r.headers.get('range') || '');
+  if (r.headers.has('range') && !m) return net(r);
+  var a = m ? +m[1] : 0;
+  return st.head.then(function () {
+    if (!st.total || st.fail || a > st.got + NEAR || a >= st.total) return net(r);
+    var b = m && m[2] ? Math.min(+m[2], st.total - 1) : st.total - 1;
+    if (!m) { /* Range'siz so'rov — to'liq javob (200) */
+      var full = feed(st, 0, st.total - 1);
+      return new Response(full.body, { status: 200, headers: { 'Content-Type': st.type, 'Content-Length': String(st.total), 'Accept-Ranges': 'bytes' } });
+    }
+    return feed(st, a, b);
+  }, function () { return net(r); });
+}
+/* sahifa so'raydi: audio telefondami, yuklanyaptimi, necha foiz ({t:'aud', url, start}) */
+self.addEventListener('message', function (e) {
+  var d = e.data || {}, port = e.ports && e.ports[0];
+  if (d.t !== 'aud' || !d.url || !port) return;
+  var url = String(d.url).split('#')[0].split('?')[0];
+  e.waitUntil(caches.match(url, { ignoreSearch: true }).then(function (hit) {
+    var st = LOAD[url];
+    if (!hit && !st && d.start) { st = keep(url); st.all.then(function () {}); }
+    port.postMessage({ cached: !!hit, loading: !!st, got: st ? st.got : 0, total: st ? st.total : 0 });
+    if (st && d.start) return st.all;
+  }));
+});
 
 self.addEventListener('fetch', function (e) {
   var r = e.request;
@@ -97,9 +176,8 @@ self.addEventListener('fetch', function (e) {
   if (same && isMp3(r.url)) {
     var url = r.url.split('#')[0].split('?')[0];
     e.respondWith(caches.match(url, { ignoreSearch: true }).then(function (hit) {
-      if (hit) return isRange ? ranged(r, hit) : hit;
-      e.waitUntil(keep(url));
-      return fetch(r);
+      if (hit) return isRange ? ranged(r, hit) : synth(hit);
+      return audio(e, r, url);
     }));
     return;
   }

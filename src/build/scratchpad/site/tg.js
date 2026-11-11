@@ -15,6 +15,11 @@
       '@keyframes gobar{from{transform:scaleX(.08)}to{transform:scaleX(.9)}}';
     (document.head || document.documentElement).appendChild(css);
   } catch (e) {}
+  /* qulf ko'pi bilan 5 s (06.11.2026): sahifa kelmasa (sekin internet) — ekran qotib qolmasin */
+  var goT = null;
+  function goOff() { clearTimeout(goT); document.documentElement.classList.remove('go'); }
+  function goOn() { document.documentElement.classList.add('go'); clearTimeout(goT); goT = setTimeout(goOff, 5000); }
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) goOff(); });
   function inTg() {
     if (W) return true;
     if (window.TelegramWebviewProxy || /tgWebApp/.test(location.hash)) return true;
@@ -25,20 +30,57 @@
     var a = ev.target.closest && ev.target.closest('a[href]');
     if (!a || ev.defaultPrevented || a.target || a.hasAttribute('download') || a.origin !== location.origin ||
         /^(#|javascript:)/.test(a.getAttribute('href')) || a.pathname === location.pathname) return;
-    document.documentElement.classList.add('go');
+    goOn();
     if (inTg()) { ev.preventDefault(); location.replace(a.href); }
   });
-  window.addEventListener('pageshow', function () { document.documentElement.classList.remove('go'); });
+  window.addEventListener('pageshow', goOff);
 
   /* yangi versiya yuklanib bo'lishi bilan sahifa bir marta o'zi yangilanadi */
   try {
     if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-      var rl = false;
-      navigator.serviceWorker.addEventListener('controllerchange', function () {
-        if (rl) return; rl = true;
-        document.documentElement.classList.add('go');
-        location.reload();
-      });
+      /* 06.11.2026: o'xshamasa o'zi qayta urinadi — internet qaytganda, ilovaga qaytganda, audio to'xtaganda;
+         audio o'ynayotganda yoki yozish maydonida turganda yangilanmaydi (eshitish bo'linmasin) */
+      var upd = false, rlAt = 0;
+      var busy = function () {
+        var a = document.querySelectorAll('audio'), i;
+        for (i = 0; i < a.length; i++) if (!a[i].paused && !a[i].ended) return true;
+        var f = document.activeElement; return !!(f && /^(INPUT|TEXTAREA|SELECT)$/.test(f.tagName));
+      };
+      /* 10.11.2026: audio sabab o'zi yangilana olmasa — tepada «Янгилаш» tugmasi (bosilsa darhol, bosilmasa audio to'xtaganda o'zi) */
+      var bar = null;
+      var showBar = function () {
+        if (bar || !document.body) return;
+        bar = document.createElement('button'); bar.type = 'button'; bar.className = 'upd-bar';
+        bar.textContent = '\u21bb Янги версия тайёр \u00b7 Янгилаш';
+        bar.style.cssText = 'position:fixed;top:calc(10px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);' +
+          'z-index:2147483000;border:0;border-radius:999px;padding:10px 18px;background:#167a4f;color:#fff;' +
+          'font:600 15px/1.2 system-ui,-apple-system,sans-serif;box-shadow:0 4px 14px rgba(0,0,0,.25);white-space:nowrap;cursor:pointer';
+        bar.addEventListener('click', function () { rlAt = Date.now(); goOn(); location.reload(); });
+        document.body.appendChild(bar);
+      };
+      var rel = function () {
+        if (!upd || document.hidden || !navigator.onLine) return;
+        if (busy()) { showBar(); return; }
+        if (Date.now() - rlAt < 10000) return;
+        rlAt = Date.now(); goOn(); location.reload();
+      };
+      /* 10.11.2026: yangi versiyani ilovaga qaytganda va ochiq turganda (10 daqiqada bir) so'rash —
+         brauzer o'zi faqat sahifa qayta ochilganda tekshiradi (orqa fondan qaytganda emas) */
+      var chkAt = Date.now();
+      var check = function () {
+        if (upd || document.hidden || !navigator.onLine || Date.now() - chkAt < 60000) return;
+        chkAt = Date.now();
+        navigator.serviceWorker.getRegistration().then(function (r) { if (r) return r.update(); }).catch(function () {});
+      };
+      navigator.serviceWorker.addEventListener('controllerchange', function () { upd = true; rel(); });
+      window.addEventListener('online', function () { rel(); check(); });
+      window.addEventListener('focus', check);
+      document.addEventListener('visibilitychange', function () { setTimeout(rel, 300); setTimeout(check, 500); });
+      setInterval(check, 600000);
+      try { if (window.Telegram && Telegram.WebApp && Telegram.WebApp.onEvent) Telegram.WebApp.onEvent('activated', check); } catch (e2) {}
+      document.addEventListener('pause', function () { setTimeout(rel, 800); }, true);
+      document.addEventListener('ended', function () { setTimeout(rel, 800); }, true);
+      setInterval(rel, 15000);
     }
   } catch (e) {}
 
@@ -165,6 +207,8 @@
   }
   function stat(t) {
     if (!STAT_URL) return;
+    /* avtomatik brauzer (Claude sinovi, bot) va kompyuterdagi nusxa statistikaga yozilmaydi (05.11.2026) */
+    if (navigator.webdriver || /Headless|bot|crawl|spider|Lighthouse/i.test(navigator.userAgent) || /^(localhost|127\.|0\.0\.0\.0|\[::1\])/.test(location.hostname)) return;
     try {
       var u = (W && W.initDataUnsafe && W.initDataUnsafe.user) || tgUser(), d;
       if (u) {
@@ -191,42 +235,116 @@
   document.head.appendChild(sc);
 })();
 
-/* Audio yuklanayotganini ko'rsatish (05.11.2026): «Юкланяпти… 40%», internet bo'lmasa — xabar */
+/* Audio yuklanishi — haqqoniy holat (12.11.2026; avvalgisi pleyer buferi foizini ko'rsatardi va qotib qolardi).
+   Audio o'ynashni kutib qolsa: SW dan so'raladi (message 'aud') — fayl telefondami, yuklanyaptimi, necha foiz.
+   • yuklanyapti      → «⬇️ Аудио юкланяпти… N%» (N — faylning haqiqiy yuklangan qismi)
+   • telefonda tayyor → pleyer o'zi qayta ulanadi va o'sha joydan davom etadi (heal) — chiqib-kirish shart emas
+   • yuklanmadi / internet yo'q → sababi yoziladi + «Юклаш» tugmasi (bosilsa qayta yuklaydi) */
 (function () {
-  var box = null, t = null, cur = null;
+  var box = null, txt = null, btn = null, t = null, cur = null, poll = null, since = 0, heals = 0, lastHeal = 0, tried = false, shownAt = 0;
   function el() {
     if (box) return box;
     box = document.createElement('div');
     box.setAttribute('role', 'status');
     box.style.cssText = 'position:fixed;left:50%;top:calc(10px + env(safe-area-inset-top));transform:translateX(-50%);z-index:100;' +
-      'background:var(--cd,#fff);color:var(--tx,#1e2a26);border:1px solid var(--bd,#e0dccf);border-radius:999px;padding:6px 14px;' +
-      'font:600 13.5px/1.3 system-ui,-apple-system,sans-serif;box-shadow:0 4px 14px rgba(0,0,0,.15);display:none;white-space:nowrap';
+      'background:var(--cd,#fff);color:var(--tx,#1e2a26);border:1px solid var(--bd,#e0dccf);border-radius:999px;padding:6px 8px 6px 14px;' +
+      'font:600 13.5px/1.3 system-ui,-apple-system,sans-serif;box-shadow:0 4px 14px rgba(0,0,0,.15);display:none;white-space:nowrap;' +
+      'align-items:center;gap:10px;max-width:calc(100vw - 24px)';
+    txt = document.createElement('span'); txt.style.cssText = 'overflow:hidden;text-overflow:ellipsis;padding-right:6px';
+    btn = document.createElement('button'); btn.type = 'button'; btn.textContent = 'Юклаш';
+    btn.style.cssText = 'display:none;border:0;border-radius:999px;padding:6px 14px;font:700 13.5px/1.2 system-ui,-apple-system,sans-serif;' +
+      'background:var(--ac,#0f7a4f);color:#fff;cursor:pointer';
+    btn.addEventListener('click', function (e) { e.stopPropagation(); if (cur) { tried = false; heals = 0; since = Date.now(); set('⬇️ Аудио юкланяпти…', false); ask(cur, true, function (s) { if (!s) heal(cur, true); }); } });
+    box.appendChild(txt); box.appendChild(btn);
     (document.body || document.documentElement).appendChild(box);
     return box;
   }
-  function pct(a) {
-    try { if (a.duration > 0 && a.buffered.length) return Math.min(99, Math.round(a.buffered.end(a.buffered.length - 1) / a.duration * 100)); } catch (e) {}
-    return -1;
+  function set(text, withBtn) { el(); txt.textContent = text; btn.style.display = withBtn ? 'block' : 'none'; box.style.display = 'flex'; if (!shownAt) shownAt = Date.now(); }
+  function hide() { clearTimeout(t); t = null; clearInterval(poll); poll = null; cur = null; shownAt = 0; if (box) box.style.display = 'none'; }
+  function src(a) { return String(a.currentSrc || a.src || '').split('#')[0].split('?')[0]; }
+  /* SW dan holat: cb({cached, loading, got, total}) yoki cb(null) — SW yo'q / javob bermadi */
+  function ask(a, start, cb) {
+    var c = navigator.serviceWorker && navigator.serviceWorker.controller, done = false;
+    function fin(v) { if (!done) { done = true; cb(v); } }
+    if (!c || !/\.mp3$/i.test(src(a))) return fin(null);
+    try {
+      var ch = new MessageChannel();
+      ch.port1.onmessage = function (e) { fin(e.data || null); };
+      c.postMessage({ t: 'aud', url: src(a), start: !!start }, [ch.port2]);
+      setTimeout(function () { fin(null); }, 1500);
+    } catch (e) { fin(null); }
   }
-  function show(a, err) {
-    var b = el(), p = pct(a);
-    if (err || !navigator.onLine) b.textContent = !navigator.onLine ? '📵 Интернет йўқ — аудио ҳали юкланмаган' : '⚠️ Аудио юкланмади — интернетни текширинг';
-    else b.textContent = '⏳ Аудио юкланяпти…' + (p > 0 ? ' ' + p + '%' : '');
-    b.style.display = 'block';
+  /* pleyerni qayta ulash: joy, tezlik saqlanadi; o'ynayotgan bo'lsa davom etadi */
+  function heal(a, force) {
+    var now = Date.now();
+    if (!force && (heals >= 4 || now - lastHeal < 4000)) return;
+    heals++; lastHeal = now;
+    var at = a.currentTime || 0, rate = a.playbackRate || 1, want = !a.paused || force || now - playAt < 4000;
+    function back() {
+      a.removeEventListener('loadedmetadata', back);
+      try { if ('progSeek' in window) window.progSeek = true; if (at > 0.05) a.currentTime = at; a.playbackRate = rate; } catch (e) {}
+      if (want) { var p = a.play(); if (p && p.catch) p.catch(function () {}); }
+    }
+    a.addEventListener('loadedmetadata', back);
+    /* manzilga «?h=…» qo'shiladi: shunchaki load() qilinsa Chrome o'z xotirasidagi eski bo'laklarni (va ularning manbasini)
+       qayta ishlatadi — qotish takrorlanadi. Yangi manzil — yangi ulanish. SW va server «?…» ni hisobga olmaydi. */
+    try { var u = src(a); if (/\.mp3$/i.test(u)) a.src = u + '?h=' + now.toString(36); else a.load(); } catch (e) {}
+    cur = a; since = now; if (!poll) poll = setInterval(tick, 700);
   }
-  function hide() { clearTimeout(t); t = null; cur = null; if (box) box.style.display = 'none'; }
+  function tick() {
+    var a = cur; if (!a) return;
+    var wait = Date.now() - since;
+    if (!navigator.onLine) { ask(a, false, function (s) { if (cur !== a) return; if (s && s.cached) heal(a); else set('📵 Интернет йўқ', true); }); return; }
+    ask(a, !tried, function (s) {
+      if (cur !== a) return;
+      tried = true;
+      if (!s) { /* SW yo'q (birinchi kirish): foizsiz; uzoq qotsa — qayta ulanadi, bo'lmasa tugma */
+        if (wait > 6000 && heals < 2) heal(a);
+        set(wait > 15000 ? '⚠️ Аудио юкланмади' : '⏳ Аудио юкланяпти…', wait > 15000); return;
+      }
+      if (s.cached) { set('⏳ Аудио очиляпти…', false); if (wait > 1200) heal(a); return; }
+      if (s.loading) {
+        var p = s.total ? Math.min(99, Math.floor(s.got / s.total * 100)) : -1;
+        set('⬇️ Аудио юкланяпти…' + (p >= 0 ? ' ' + p + '%' : ''), false); return;
+      }
+      set('⚠️ Аудио юкланмади', true);
+    });
+  }
   function wait(ev) {
     var a = ev.target; if (!a || !/^(AUDIO|VIDEO)$/.test(a.tagName)) return;
     if (a.paused && ev.type != 'waiting') return;
-    cur = a; clearTimeout(t);
-    t = setTimeout(function () { if (cur === a) show(a); }, 500);
+    if (ev.type == 'stalled' && a.readyState >= 3) return; /* yetarli yuklangan bo'lsa «stalled» da yozuv chiqmasin */
+    if (cur === a) return;
+    cur = a; clearTimeout(t); since = Date.now(); heals = 0; tried = false; t0 = a.currentTime;
+    t = setTimeout(function () { if (cur === a) { tick(); clearInterval(poll); poll = setInterval(tick, 700); } }, 500);
   }
-  function prog(ev) { if (cur === ev.target && box && box.style.display == 'block') show(ev.target); }
-  function done(ev) { if (!cur || cur === ev.target) hide(); }
-  function fail(ev) { var a = ev.target; if (!a || !/^(AUDIO|VIDEO)$/.test(a.tagName)) return; if (!a.paused || cur === a) { cur = a; show(a, true); clearTimeout(t); t = setTimeout(hide, 5000); } }
+  var t0 = 0, playAt = 0, errAt = 0;
+  document.addEventListener('play', function (ev) { if (ev.target && /^(AUDIO|VIDEO)$/.test(ev.target.tagName)) playAt = Date.now(); }, true);
+  function done(ev) {
+    if (cur && cur !== ev.target) return;
+    var now = Date.now();
+    if (ev.type === 'emptied' && now - lastHeal < 3000) return;   /* o'zimiz qayta ulayapmiz */
+    if (ev.type === 'pause' && now - errAt < 1500) return;        /* xatodan keyin brauzer o'zi to'xtatdi — foydalanuvchi emas */
+    hide();
+  }
+  /* pleyer xato bersa (ulanish uzildi, javob mos kelmadi): foydalanuvchi o'ynatmoqchi bo'lgan bo'lsa — o'zi qayta ulanadi */
+  function fail(ev) {
+    var a = ev.target; if (!a || !/^(AUDIO|VIDEO)$/.test(a.tagName)) return;
+    var now = Date.now(), want = !a.paused || cur === a || now - playAt < 4000;
+    if (!want) return;
+    errAt = now;
+    if (cur !== a) { cur = a; since = now; heals = 0; tried = false; t0 = a.currentTime; }
+    if (heals < 3 && navigator.onLine) { set('⏳ Аудио очиляпти…', false); heals++; lastHeal = 0; heal(a, true); }
+    else { clearInterval(poll); poll = setInterval(tick, 700); tick(); }
+  }
   document.addEventListener('waiting', wait, true);
   document.addEventListener('stalled', wait, true);
-  document.addEventListener('progress', prog, true);
   ['playing', 'canplaythrough', 'pause', 'ended', 'emptied'].forEach(function (n) { document.addEventListener(n, done, true); });
   document.addEventListener('error', fail, true);
+  /* audio vaqti oldinga yursa — yozuv yopiladi */
+  document.addEventListener('timeupdate', function (ev) {
+    var a = ev.target; if (cur !== a) return;
+    if (!a.paused && !a.seeking && a.currentTime > t0 + 0.3 && a.readyState >= 3) hide(); else if (a.seeking || a.currentTime < t0) t0 = a.currentTime;
+  }, true);
+  window.addEventListener('online', function () { if (cur) { tried = false; tick(); } });
 })();

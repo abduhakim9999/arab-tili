@@ -2,6 +2,7 @@
 """Ruscha dars sahifasini yasash (o'zbekcha sahifaga tegilmaydi).
 
     python3 src/ru/build.py 1 [--out DIR]     ->  DIR/ru1.html  (repo ildizidan ishga tushiriladi)
+    python3 src/ru/build.py --index --out .   ->  ru-index.js, ru.js (bosh sahifaning ruscha rejimi)
 
 Ikki qatlam:
  1) Ma'lumotda almashtiriladi (dNN.json): sarlavha, gap tarjimasi (TR), so'z ma'nosi (D ning 4-maydoni),
@@ -73,6 +74,10 @@ def make_dict(files):
                 r = r[:-len(s)].rstrip()
             if up and not keep and r[:1].isupper():
                 r = r[0].lower() + r[1:]
+            if '#' in key:   # raqamlar ekrandagi qiymat bilan almashadi (ru.js find)
+                r = re.sub(r'\d+(?:[.,]\d+)?', '#', r)
+                if r.count('#') != key.count('#'):
+                    sys.exit('%s: raqamlar soni mos emas: %s' % (where, uz))
             nk, nr = key.count('\u25CC'), r.count('\u25CC') + len(set(re.findall(r'\{\d+\}', r)))
             if nk != nr or key.count('\u00AB\u00BB') != r.count('\u00AB\u00BB') or r.count('#') > key.count('#'):
                 sys.exit('%s: o`rinlar (arabcha / «» / raqam) soni mos emas: %s' % (where, uz))
@@ -128,7 +133,7 @@ def build(n, out):
 
     # --- sarlavha
     s = s.replace('<html lang="uz">', '<html lang="ru">', 1)
-    s, k1 = re.subn(r'<title>.*?</title>', lambda m: '<title>' + W(L['title']) + '</title>', s, count=1, flags=re.S)
+    s, k1 = re.subn(r'<title>.*?</title>', lambda m: '<title>' + L['title'] + '</title>', s, count=1, flags=re.S)
     s, k2 = re.subn(r'<h1>.*?</h1>', lambda m: '<h1>' + W(L['title']) + '</h1>', s, count=1, flags=re.S)
     assert k1 == 1 and k2 == 1, 'title/h1 topilmadi'
 
@@ -225,6 +230,18 @@ def build(n, out):
         print('  ! ' + w)
 
 
+def build_index(out):
+    """Bosh sahifa uchun: ru-index.js (lug'at + ruschasi tayyor darslar) va ru.js nusxasi."""
+    import glob
+    ready = sorted(int(re.match(r'd(\d+)\.json$', os.path.basename(f)).group(1)) for f in glob.glob(os.path.join(HERE, 'd[0-9]*.json')))
+    D = make_dict([os.path.join(HERE, f) for f in ('lugat-umumiy.txt', 'lugat-bosh.txt')])
+    js = '/* src/ru/build.py --index yasaydi — qo\'lda o\'zgartirilmaydi */\nwindow.RU_LESSONS=' + J(ready) + ';\nwindow.RU_DICT=' + J(D) + ';\n'
+    os.makedirs(out, exist_ok=True)
+    open(os.path.join(out, 'ru-index.js'), 'w', encoding='utf-8').write(js)
+    open(os.path.join(out, 'ru.js'), 'w', encoding='utf-8').write(open(os.path.join(HERE, 'ru.js'), encoding='utf-8').read())
+    print('ru-index.js, ru.js -> %s (darslar %s, lug`at %d ta)' % (out, ready, len(D)))
+
+
 if __name__ == '__main__':
     a = sys.argv[1:]
     out = '.'
@@ -232,7 +249,10 @@ if __name__ == '__main__':
         i = a.index('--out')
         out = a[i + 1]
         del a[i:i + 2]
-    if not a:
+    if '--index' in a:
+        a.remove('--index')
+        build_index(out)
+    elif not a:
         sys.exit(__doc__)
     for x in a:
         build(int(x), out)

@@ -10,6 +10,8 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic&display=swap" media="print" onload="this.media='all'">
 <script src="tg.js"></script>
+<script>/* Til (11.11.2026): localStorage «til» = uz | ru. ru — ruscha qatlam (ru-index.js lug'ati + ru.js; src/ru, docs/texnik.md 12) */
+(function(){var t=null;try{t=localStorage.getItem("til")}catch(e){}window.TIL=t;if(t==="ru"){document.documentElement.lang="ru";document.write('<script src="ru-index.js"><\/script><script src="ru.js"><\/script>')}})()</script>
 <style>
 :root{--bg:#f7f5ef;--cd:#ffffff;--tx:#1c1f1d;--mu:#6b716c;--ac:#0f7a4f;--hl:#c99434;--bd:#ebe6da;--au:#8a6418;--au1:#f6dc94;--au2:#c99434;--em1:#13865a;--em2:#0c5e3f;--ind:rgba(15,122,79,.10);--plw:rgba(214,160,60,.42);--tint:rgba(15,122,79,.10);--sh:0 1px 2px rgba(20,30,25,.05),0 6px 18px rgba(20,30,25,.06);--glass:rgba(255,255,255,.82)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#06281d;--cd:#0c3527;--tx:#f1e9d4;--mu:#a6b7a8;--ac:#dcb460;--hl:#e8c06a;--bd:#1b4a38;--au:#e2bd68;--au1:#f6dc94;--au2:#c99434;--em1:#0f5c3f;--em2:#083626;--ind:rgba(220,180,96,.14);--plw:rgba(226,189,104,.32);--tint:rgba(220,180,96,.15);--sh:none;--glass:rgba(10,48,35,.86)}}
@@ -162,6 +164,13 @@ body{margin:0;color:var(--tx);font-family:system-ui,-apple-system,sans-serif;pad
 .ab dd{margin:3px 0 0;font-size:15px;line-height:1.45}
 .ab .ar{font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:18px}
 .ab a{color:var(--ac)}
+.tl{position:fixed;inset:0;z-index:60;background:var(--bg,#f6f3ec);display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px}
+.tl.on{display:flex}
+.tl h2{margin:0 0 8px;font-size:20px;text-align:center;line-height:1.4}
+.tl button,.lng button{font:600 17px inherit;padding:14px 0;width:min(280px,80vw);border-radius:14px;border:1px solid var(--bd,#e0dccf);background:var(--cd,#fff);color:inherit;cursor:pointer}
+.tl button:active{background:var(--tint,#e3f2ea)}
+.lng{display:flex;gap:8px;margin-top:4px}.lng button{width:auto;flex:1;padding:9px 0;font-size:15px}.lng button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.it.soon{opacity:.5;pointer-events:none}.it.soon .sn{font-size:12px;color:var(--mu,#6b756f)}
 .ab .x{margin-top:18px;width:100%;padding:12px;border:none;border-radius:12px;background:var(--tint);color:var(--ac);font:600 15px inherit;cursor:pointer}
 .icw{flex:none;display:flex;flex-direction:column;align-items:center;gap:5px}
 .icw b{font-size:13px;font-weight:700;color:var(--ac);white-space:nowrap;line-height:1}
@@ -212,6 +221,7 @@ body{margin:0;color:var(--tx);font-family:system-ui,-apple-system,sans-serif;pad
 </style>
 </head>
 <body>
+<div class="tl" id="tl"><h2>&#8291;Тилни танланг<br>Выберите язык&#8291;</h2><button type="button" data-l="uz">&#8291;Ўзбекча&#8291;</button><button type="button" data-l="ru">&#8291;Русский&#8291;</button></div>
 <div class="w first" id="w">
   <div class="hd an"><div><h1 dir="rtl" lang="ar">نُورُ الطَّالِبِ</h1><div class="orn" aria-hidden="true"><i></i><svg width="18" height="18" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" fill="var(--au2,#c99434)"/><rect x="5" y="5" width="14" height="14" fill="var(--au2,#c99434)" transform="rotate(45 12 12)"/><circle cx="12" cy="12" r="3" fill="var(--bg,#f6f3ec)"/></svg><i></i></div></div><button class="ib" aria-label="Илова ҳақида" onclick="document.getElementById('ab').classList.add('on')">i</button></div>
   <div class="ab" id="ab" onclick="if(event.target===this)this.classList.remove('on')"><div>
@@ -219,7 +229,8 @@ body{margin:0;color:var(--tx);font-family:system-ui,-apple-system,sans-serif;pad
     <dl>
       <dt>КИТОБ</dt><dd><bdi class="ar" dir="rtl">نُورُ الطَّالِبِ</bdi></dd>
       <dt>МУАЛЛИФ</dt><dd>Қаҳрамон устоз</dd>
-      <dt>ВЕРСИЯ</dt><dd id="vinfo">v273 · 11.11.2026, 22:08</dd>
+      <dt>ТИЛ</dt><dd><span class="lng"><button type="button" data-l="uz">&#8291;Ўзбекча&#8291;</button><button type="button" data-l="ru">&#8291;Русский&#8291;</button></span></dd>
+      <dt>ВЕРСИЯ</dt><dd id="vinfo">v274 · 11.11.2026, 22:13</dd>
       <dt>ЙЎРИҚНОМА</dt><dd><a href="yoriqnoma.html">📖 Иловадан фойдаланиш</a></dd>
       <dt>АЛОҚА</dt><dd>Хато ёки таклиф бўлса: <a href="https://t.me/Arabtilihivar_bot">@Arabtilihivar_bot</a></dd>
     </dl>
@@ -250,8 +261,12 @@ var IC2='<svg viewBox="0 0 24 24" fill="none" stroke="#c2410c" stroke-width="1.8
 var ESH=[1,6,7,8,9,74,93,94,95,96];
 var IB='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h6a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4z"/><path d="M20 5h-6a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2h6z"/></svg>';
 var IH='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4.5" height="6.5" rx="1.6"/><rect x="16.5" y="14" width="4.5" height="6.5" rx="1.6"/></svg>';
+/* Til: ru rejimida faqat ruschasi tayyor darslar ochiladi (RU_LESSONS — ru-index.js), qolgani «скоро» */
+var RUL=window.TIL==="ru"?(window.RU_LESSONS||[]):null;
+function href(n){return RUL?(RUL.indexOf(+n)>=0?'ru'+n+'.html':null):n+'.html'}
 function item(L,txt,cls,w,d,lst){
-  return '<a class="it an'+(lst?' lst':'')+'" style="animation-delay:'+d+'s" href="'+L.n+'.html">'+icn(L.n)+'<div class="mid"><div class="ar">'+L.ar+'</div><div class="t">'+L.uz+'</div>'+((txt||lst)?'<div class="pg'+cls+'">'+(lst?'<span class="lsb">▶ Давом этиш</span>':'')+txt+'</div>':'')+(w?'<div class="bar"><i style="width:'+w+'%"></i></div>':'')+'</div>'+(ESH.indexOf(+L.n)>=0?'<span class="esh" data-d="'+L.n+'" role="link" aria-label="Эшитиш">'+IH+'</span>':'')+'</a>';
+  var hr=href(L.n);if(!hr){txt='<span class="sn">\u2063скоро\u2063</span>';cls='';w=0;lst=false}
+  return '<a class="it an'+(lst?' lst':'')+(hr?'':' soon')+'" style="animation-delay:'+d+'s"'+(hr?' href="'+hr+'"':'')+'>'+icn(L.n)+'<div class="mid"><div class="ar">'+L.ar+'</div><div class="t">'+L.uz+'</div>'+((txt||lst)?'<div class="pg'+cls+'">'+(lst?'<span class="lsb">▶ Давом этиш</span>':'')+txt+'</div>':'')+(w?'<div class="bar"><i style="width:'+w+'%"></i></div>':'')+'</div>'+(ESH.indexOf(+L.n)>=0&&!RUL?'<span class="esh" data-d="'+L.n+'" role="link" aria-label="Эшитиш">'+IH+'</span>':'')+'</a>';
 }
 /* Феъллар (natijalar feellar.html'dan) */
 function cov(ch,c1,c2,m){return '<svg class="cov" viewBox="0 0 64 64" aria-hidden="true"><rect x="12" y="6" width="40" height="52" rx="5" fill="'+c1+'"/><rect x="12" y="6" width="7" height="52" rx="3" fill="'+c2+'"/><rect x="24" y="12" width="22" height="24" rx="4" fill="none" stroke="#F3D58C" stroke-width="2.2"/><text x="35" y="29" text-anchor="middle" font-size="21" fill="#F3D58C" font-family="DarsNaskh,serif">'+ch+'</text>'+m+'</svg>'}
@@ -265,6 +280,7 @@ function flCard(){
 /* Сарф bo'limi */
 var IC3='<svg viewBox="0 0 24 24" fill="none" stroke="#0f7a4f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h6a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4z"/><path d="M20 5h-6a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2h6z"/></svg>';
 function pnCard(){
+  if(RUL)return ''; /* Сарф, Феъллар — ҳозирча фақат ўзбекча */
   var hp='<path d="M27 51v-3a7 7 0 0 1 14 0v3" stroke="#F3D58C" stroke-width="2.2" fill="none" stroke-linecap="round"/><rect x="25" y="48" width="4" height="6" rx="1.5" fill="#F3D58C"/><rect x="39" y="48" width="4" height="6" rx="1.5" fill="#F3D58C"/>';
   var I=[['sarf.html','Сарф','#E6EEF8',cov('ص','#2E5E9A','#1F4673','<path d="M26 43h18M26 48h18M26 53h11" stroke="#F3D58C" stroke-width="2" stroke-linecap="round" opacity=".75"/>')],
     ['feellar.html','Феъллар','#F8E4E8',cov('ف','#9B2C3F','#6E1C2B','<path d="M29 46l4 4 8-8" stroke="#F3D58C" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>')],
@@ -279,14 +295,15 @@ function srCard(){
 }
 function heroCard(last,avg){
   var L=null;LESSONS.forEach(function(x){if(String(x.n)===last)L=x});
-  var has=!!L;if(!L)L=LESSONS[0];if(!L)return '';
+  if(L&&RUL&&!href(L.n))L=null;
+  var has=!!L;if(!L)L=RUL?LESSONS.filter(function(x){return href(x.n)})[0]:LESSONS[0];if(!L)return '';
   var U=UNITS[L.u],bk=U?U[2].toLowerCase():'';
   var raw=null;try{raw=localStorage.getItem(L.key)}catch(e){}
   var p=prog(raw,L.q),w=p&&p.done?100:(p&&p.n?Math.round(p.n*100/L.q):0);
   var I=ICO[L.n],ic=I?'<span class="cib hic" style="background:'+I.l+'"><svg viewBox="0 0 64 64" aria-hidden="true">'+I.s+'</svg></span>':'<span class="cib">'+IC1+'</span>';
   var eh=ESH.indexOf(+L.n)>=0?'tinglash.html?d='+L.n:'tinglash.html';
-  return '<div class="cd a hero hx an" style="animation-delay:.08s"><a class="hl" href="'+L.n+'.html">'+ic+'<div class="tx"><div class="n">'+(has?'Давом этиш':'Бошлаш')+'</div><div class="har">'+L.ar+'</div><div class="hs">'+(bk?bk+', ':'')+L.n+'-дарс</div><div class="bar"><i style="width:'+w+'%"></i></div></div></a>'+
-    '<div class="hb"><a class="hbt h1" href="'+L.n+'.html">'+IB+'Ўқиш</a><a class="hbt h2" href="'+eh+'">'+IH+'Эшитиш</a></div></div>';
+  return '<div class="cd a hero hx an" style="animation-delay:.08s"><a class="hl" href="'+href(L.n)+'">'+ic+'<div class="tx"><div class="n">'+(has?'Давом этиш':'Бошлаш')+'</div><div class="har">'+L.ar+'</div><div class="hs">'+(bk?bk+', ':'')+L.n+'-дарс</div><div class="bar"><i style="width:'+w+'%"></i></div></div></a>'+
+    '<div class="hb"><a class="hbt h1" href="'+href(L.n)+'">'+IB+'Ўқиш</a>'+(RUL?'':'<a class="hbt h2" href="'+eh+'">'+IH+'Эшитиш</a>')+'</div></div>';
 }
 var LC=null;
 function render(cloud){
@@ -339,6 +356,12 @@ function render(cloud){
 setTimeout(function(){document.getElementById("w").classList.remove("first")},2000);
 document.addEventListener('click',function(e){var s=e.target.closest&&e.target.closest('.esh');if(s){e.preventDefault();e.stopPropagation();location.href='tinglash.html?d='+s.dataset.d}},true);
 render();
+/* Til tanlash: birinchi kirishda ekran; keyin «Илова ҳақида» dan */
+(function(){var cur=window.TIL||'';[].forEach.call(document.querySelectorAll('.lng button'),function(b){if(b.dataset.l===cur)b.classList.add('on')});
+ if(!window.TIL)document.getElementById('tl').classList.add('on');
+ document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-l]');if(!b)return;var l=b.dataset.l;try{localStorage.setItem('til',l)}catch(x){}
+  if(l===(window.TIL||'uz')&&window.TIL){document.getElementById('ab').classList.remove('on');return}
+  if(!window.TIL&&l==='uz'){window.TIL='uz';document.getElementById('tl').classList.remove('on');return}location.reload()})})();
 if(/^#k\d/.test(location.hash))setTimeout(function(){var e=document.getElementById('ms');if(e)e.scrollIntoView({block:'start'})},60);
 window.addEventListener('hashchange',function(){render();var e=document.getElementById('ms');if(e)e.scrollIntoView({block:'start'})});
 var add=document.getElementById("add"),tip=document.getElementById("tip"),dp=null;

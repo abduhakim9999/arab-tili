@@ -12,7 +12,7 @@ Qoidalar (o'zgartirish — faqat shu yerda va talaffuz.json da):
   * O'zbekcha matn ovozga DOIM lotinda beriladi (kirilcha avtomatik o'giriladi); qavslar vergulga.
   * talaffuz.json["uz"] — ovoz noto'g'ri o'qiydigan so'zlar almashtiriladi (vrach -> shifokor ...). Yangi xato
     topilsa — faqat shu faylga bir qator qo'shiladi.
-  * Lug'at o'zbekchasi: «ma'no; jam: ko'pligi.» (ko'plik avtomatik: har ma'noga -lar; kerak bo'lsa vocNN.py da
+  * Lug'at o'zbekchasi: faqat «ma'no.» — jam va muannas aytilmaydi (11.11.2026); kerak bo'lsa vocNN.py da
     OVOZ = {tartib: 'matn'} bilan almashtiriladi).
   * Lug'at arabchasi vaqfsiz: tanvin nun bilan yoziladi (سِتٌّ -> سِتُّنْ), har so'z (juft) alohida generatsiya.
 """
@@ -97,9 +97,9 @@ def voc_uz(entry):
     for x in re.split(r'[;,]\s*', base):
         if x and not re.fullmatch(r'[\d\s\-]+', x) and x.lower() not in [i.lower() for i in items]:
             items.append(x)
-    t = ', '.join(items) + (', muannas uchun' if fem else '')
-    if ' ج ' in ar and not re.search(r' ج \.\.', ar):
-        t += '; jam: ' + ', '.join(i.lower() + 'lar' for i in items)
+    # 11.11.2026 (foydalanuvchi): o'zbekchada muannas ham, jam ham aytilmaydi — faqat ma'no
+    # (arabchasida ham belgi so'z aytilmaydi, shakllar ketma-ket o'qiladi)
+    t = ', '.join(items)
     return t[0].upper() + t[1:] + '.'
 
 

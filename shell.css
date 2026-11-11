@@ -276,3 +276,6 @@ html.til-ar .zo-uz,html:not(.til-ar) .zo-ar{display:none}
 .zo-xp{margin-top:8px;font-size:15px;line-height:1.6;background:rgba(127,127,127,.08);border-radius:12px;padding:8px 12px}
 .zo-xp.zo-h{display:none}
 .zo-xp .ar{font-family:"DarsNaskh","Noto Naskh Arabic","Geeza Pro","Traditional Arabic",serif;font-size:1.2em;line-height:1.3;unicode-bidi:isolate;direction:rtl}
+
+/* 11.11.2026: Машқда «🔊 Тинглаш» керак эмас (фойдаланувчи) */
+#qb button[onclick^="pw("]{display:none!important}

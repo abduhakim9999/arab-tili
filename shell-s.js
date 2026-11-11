@@ -722,8 +722,7 @@
   addEventListener('resize', fix); addEventListener('load', fix); document.addEventListener('click', function () { setTimeout(fix, 300); });
   setTimeout(fix, 500); setTimeout(fix, 1500);
 })();
-
-/* So'z oynasi: holat yorlig'i («● раф қилинган») bosilsa — Наҳв жадвали (sinov-nahv.html#R:zamma) ochiladi (11.11.2026).
+/* So'z oynasi: holat yorlig'i («● раф қилинган») bosilsa — Наҳв жадвали (nahv.html#R:zamma) ochiladi (11.11.2026).
    Ruscha sahifada yo'q (jadval hozircha o'zbekcha). */
 document.addEventListener('click', function (e) {
   var s = e.target.closest && e.target.closest('#sb .hk span');
@@ -732,5 +731,5 @@ document.addEventListener('click', function (e) {
   var t = (document.querySelector('#sb .tk') || {}).textContent || '', g = '', m = t.match(/аломати[^,.;]*?(замма|фатҳа|касра|сукун)/);
   if (m) g = { 'замма': 'zamma', 'фатҳа': 'fatha', 'касра': 'kasra', 'сукун': 'sukun' }[m[1]];
   else if ((m = t.match(/аломати\s+([\u0648\u064A\u0627\u0646])(?![\u0600-\u06FF])/))) g = { '\u0648': 'vov', '\u064A': 'yo', '\u0627': 'alif', '\u0646': 'nun' }[m[1]];
-  location.href = 'sinov-nahv.html#' + c + (g ? ':' + g : '');
+  location.href = 'nahv.html#' + c + (g ? ':' + g : '');
 });

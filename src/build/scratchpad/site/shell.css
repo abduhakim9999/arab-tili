@@ -222,3 +222,6 @@ html:root:not([data-nc]){--cR:var(--co);--cN:var(--cb);--cJ:var(--cj);--cZ:var(-
 
 /* ЎЗ: ўзбекча ўқилганда мос арабча сўз ёнади (07.11.2026) */
 #tx .ws span.pu,#tx .ts.pu{background:rgba(234,88,12,.25);color:var(--tx)}#tx.hidetr .tr:not(.rev) .ts.pu{background:none}
+/* So'z oynasi: holat yorlig'i — Наҳв жадвалига ҳавола (11.11.2026; shell.js) */
+html:not([lang="ru"]) #sb .hk span.cR,html:not([lang="ru"]) #sb .hk span.cN,html:not([lang="ru"]) #sb .hk span.cJ,html:not([lang="ru"]) #sb .hk span.cZ{cursor:pointer}
+html:not([lang="ru"]) #sb .hk span.cR::after,html:not([lang="ru"]) #sb .hk span.cN::after,html:not([lang="ru"]) #sb .hk span.cJ::after,html:not([lang="ru"]) #sb .hk span.cZ::after{content:" \203A";font-weight:700;opacity:.7}

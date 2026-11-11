@@ -1,0 +1,5 @@
+/* Ruscha sahifaga xos ko'rinish: to'liq yo'riqnoma hozircha faqat o'zbekcha — havolasi yashiriladi */
+.guide a[href="yoriqnoma.html"]{display:none!important}
+/* Mavzu yorlig'i CSS orqali chiqadi (DOM da yo'q). tarkib2.js shu matnni tekshiradi, shuning uchun
+   o'zbekchasi «alt» qismida qoladi; eski brauzer bu qatorni tushunmasa — o'zbekchasi ko'rinadi. */
+#tx>.ln:nth-child(1)::before{content:"ТЕМА" / "МАВЗУ"}

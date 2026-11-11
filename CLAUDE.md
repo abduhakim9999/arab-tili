@@ -62,4 +62,5 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
   - Qulf ekranidagi pleyer (Media Session) — hamma darslar va fiqh (`shell.js`, `docs/texnik.md` 5).
   - Fiqh 1-dars sharhi: 41–46-betlar arabcha + so'zma-so'z tarjima; atamalar — nuqtali chiziq, bosilsa izoh; bet yozuvi tepada qotadi; Muqaddimada tepa qator qotadi (`docs/texnik.md` 10).
   - Keyingi reja: Play Market (foydalanuvchi Google Play hisobini ochadi; TWA). Ilova tavsiyasi kartasi olib tashlandi.
+- **Keyingi rejalar** (foydalanuvchi aytganda): `docs/rejalar.md` — lug'at «Такрорлаш» (ts-fsrs), repo tartibi, Play Market, tarmoqlar.
 - Eskiroq yozuvlar (05–07.11.2026 va undan oldin): `docs/tarix.md`.

@@ -47,7 +47,7 @@ Yozuv eslatmasi: kitobda tanvin fath alifdan oldingi harf ustida yozilgan (ضَ�
 - Mashq: to'g'ri javobda 1 soniyada o'zi keyingisiga o'tadi; xatoda to'xtaydi; chapga surish — keyingi, o'ngga — oldingi (surish haqida yozuv yo'q); oldingi savollarni ko'rish mumkin, javob o'zgarmaydi; maslahat matni yo'q; «Изоҳ» yopiq; mashqda «Маъноси» yo'q; xato savollarni qayta so'rash va «Бошидан» tugmasi yo'q.
 - Mashqqa faqat qiyin joylar kiradi (oyat so'zlari kirmaydi); maqsad — harakat olib tashlanganda so'z oxiri qanday o'qilishini bilish, faqat so'z oxiri harakati so'raladi. Qiyin joy belgilari: 1) hukm beruvchi so'z uzoqda; 2) hukm beruvchi so'z maxzuf (شُكْراً، خَمْسَ); 3) kichik harf oxirni o'zgartiradi (لَنْ، أَنْ); 4) tobe' — maʼtuf, sifat, badal; 5) kam uchraydigan qurilish (لَيْسَ xabari, hol, zarf, mafʼulun mutlaq, tasniya/jam alomati).
 - Joy eslab qolinadi (matn qatori, bo'lim, tugmalar, audio vaqti, mashq holati) — faqat shu brauzerda.
-- Audio hujjatdagi matndan farq qilsa: matn hujjat bo'yicha yoziladi; audio faqat bir xil o'qilgan so'zlarga ulanadi; audiosi yo'q so'zda mashqdagi «Тинглаш» tugmasi chiqmaydi.
+- Audio hujjatdagi matndan farq qilsa: matn hujjat bo'yicha yoziladi; audio faqat bir xil o'qilgan so'zlarga ulanadi.
 - Тартиб: mafʼulun mutlaq (va uning sifati, mudof ilayhi) rangsiz; shibhi jumla xabar (فِي الْعَسَلِ) «Хабар» rangida.
 - Sinov o'zgarishlari (ko'rinish, yangi qoida) avval bitta darsda qilinadi; ma'qul bo'lsa qolgan darslarga o'tkaziladi.
 

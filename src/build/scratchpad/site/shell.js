@@ -218,7 +218,7 @@
       if (!e) return;
       var ln = e.closest('.ln') || e, r = ln.getBoundingClientRect(), wr = e.getBoundingClientRect();
       var bar = document.querySelector('.tabs'), top = bar ? bar.getBoundingClientRect().bottom + 8 : 70;
-      [].forEach.call(document.querySelectorAll('.lq,.lgd.lgo'), function (x) { var q = x.getBoundingClientRect(); if (q.height && q.top <= top && q.bottom > top - 8) top = q.bottom + 8; }); /* ranglar qatori tepada tursa — uning ostiga */
+      [].forEach.call(document.querySelectorAll('.lq,.lgd.lgo'), function (x) { var q = x.getBoundingClientRect(); if (q.height && q.top <= top + 16 && q.bottom > top - 8) top = q.bottom + 8; }); /* ranglar qatori tepada tursa — uning ostiga (11.11.2026: legenda tabdan sal pastda turadi — +16, aks holda gap uning ostida qolardi) */
       var tgb = document.querySelector('.tgbar'), bot = (tgb && tgb.offsetParent ? tgb : pb).getBoundingClientRect().top - 10; if (bot < top + 120) bot = window.innerHeight - 10;
       var av = bot - top;
       var tall = r.height > av * 0.6, a1 = tall ? e.closest('.r1') : null, ar = a1 ? a1.getBoundingClientRect() : null, ref = !tall ? r : (ar && (ar.height <= av * 0.6 || wr.bottom - ar.top <= av * 0.8) ? ar : wr); /* Таркибда гап баланд — арабча матн қисми тепага, қути ости кўринади */
@@ -231,6 +231,24 @@
       fA = requestAnimationFrame(st);
     };
   }
+  /* abzasning bo'sh joyi bosilsa — o'sha gap boshidan o'qiladi (11.11.2026, foydalanuvchi) */
+  (function () {
+    var tx = document.getElementById('tx');
+    if (!tx || typeof TM === 'undefined') return;
+    tx.addEventListener('click', function (e) {
+      if (e.target.closest('.ws span,.ts,[data-i],button,a,input,select,textarea,label,.sheet,.zo')) return;
+      var ln = e.target.closest('.ln'); if (!ln) return;
+      var sel = window.getSelection && String(window.getSelection()); if (sel) return;
+      var li = [].indexOf.call(document.querySelectorAll('.ln'), ln), st = null;
+      TM.forEach(function (w) { if (w[0] === li && (st === null || w[2] < st)) st = w[2]; });
+      if (st === null) return;
+      if (typeof setLoop === 'function') setLoop(-1);
+      if ('stopAt' in window) window.stopAt = null;
+      var go = function () { au.currentTime = Math.max(0, st - 0.05); };
+      if (au.readyState >= 1) go(); else au.addEventListener('loadedmetadata', function f() { au.removeEventListener('loadedmetadata', f); go(); });
+      if (au.paused) { var p = au.play(); if (p && p.catch) p.catch(function () {}); }
+    });
+  })();
   /* oxiriga yetganda boshiga qaytadi; oxirida turib ▶ bosilsa boshidan o'qiydi */
   au.addEventListener('ended', function () { setTimeout(function () { try { au.currentTime = 0; } catch (e) {} draw(); label(); }, 60); });
   au.addEventListener('play', function () { if (au.duration && au.currentTime >= au.duration - 0.3) { try { au.currentTime = 0; } catch (e) {} } });

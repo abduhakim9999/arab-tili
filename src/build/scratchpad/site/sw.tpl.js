@@ -65,7 +65,7 @@ self.addEventListener('activate', function (e) {
 /* audio: so'ralgan bo'lakni saqlangan fayldan kesib berish (orqaga-oldinga surish uchun) */
 function ranged(req, res) {
   var m = /bytes=(\d*)-(\d*)/.exec(req.headers.get('range') || '');
-  if (!m) return res;
+  if (!m) return synth(res);
   return res.arrayBuffer().then(function (buf) {
     var size = buf.byteLength, a = m[1] ? +m[1] : 0, b = m[2] ? Math.min(+m[2], size - 1) : size - 1;
     if (!m[1] && m[2]) { a = Math.max(0, size - +m[2]); b = size - 1; }
@@ -77,14 +77,93 @@ function ranged(req, res) {
     });
   });
 }
-/* audio birinchi marta: tarmoqdan oqim bilan beriladi, orqa fonda butun fayl keshga yoziladi (bir marta) */
+/* AUDIO (12.11.2026). Uch qoida:
+   1) Pleyerga beriladigan har javob — SW o'zi yasagan javob (synth). Sabab: Chrome bitta audio uchun javoblar manbasini
+      solishtiradi; avval tarmoq javobi (URL bor), keyin keshdan yasalgan javob (URL yo'q) kelsa — media «seeking» da abadiy
+      qotadi («Аудио юкланяпти… 35%» qotib turishi shundan edi: fayl orqa fonda keshga tushgach gap bosilsa).
+   2) Fayl BIR marta yuklanadi (keep): o'sha yuklanishdan ham pleyer oqim oladi (feed), ham kesh yoziladi.
+   3) Yuklanish holati haqqoniy: LOAD[url] = {got, total} — sahifa so'raydi (message 'aud'), foizni shundan ko'rsatadi. */
+function synth(res) { return new Response(res.body, { status: res.status, statusText: res.statusText, headers: res.headers }); }
+function net(r) { return fetch(r).then(synth); }
+function wake(st) { var w = st.wait; st.wait = []; w.forEach(function (f) { f(); }); }
 function keep(url) {
   if (LOAD[url]) return LOAD[url];
-  LOAD[url] = fetch(url).then(function (res) {
-    if (res && res.status === 200) return caches.open(AUD).then(function (a) { return a.put(url, res); });
-  }).catch(function () {}).then(function () { delete LOAD[url]; });
-  return LOAD[url];
+  var st = LOAD[url] = { chunks: [], got: 0, total: 0, done: false, fail: false, wait: [], type: 'audio/mpeg' };
+  st.head = fetch(url).then(function (res) {
+    if (!res || res.status !== 200 || !res.body) throw new Error('status');
+    st.total = +res.headers.get('Content-Length') || 0; st.type = res.headers.get('Content-Type') || st.type;
+    st.body = res.body.getReader();
+  });
+  st.all = st.head.then(function () {
+    function rd() {
+      return st.body.read().then(function (x) {
+        if (x.done) return;
+        st.chunks.push(x.value); st.got += x.value.byteLength; wake(st);
+        return rd();
+      });
+    }
+    return rd();
+  }).then(function () {
+    if (st.total && st.got !== st.total) throw new Error('short');
+    var h = { 'Content-Type': st.type, 'Content-Length': String(st.got) };
+    return caches.open(AUD).then(function (a) { return a.put(url, new Response(new Blob(st.chunks, { type: st.type }), { status: 200, headers: h })); });
+  }).then(function () { st.done = true; }, function () { st.fail = true; }).then(function () { delete LOAD[url]; wake(st); });
+  st.head.catch(function () {});
+  return st;
 }
+/* davom etayotgan yuklanishdan a..b baytlarni oqim qilib berish (kelmagan qismini kutadi) */
+function feed(st, a, b) {
+  var pos = a, ci = 0, cs = 0; /* ci — bo'lak raqami, cs — shu bo'lak boshi (bayt) */
+  var body = new ReadableStream({
+    pull: function (c) {
+      function next() {
+        if (pos > b) { c.close(); return; }
+        while (ci < st.chunks.length && cs + st.chunks[ci].byteLength <= pos) { cs += st.chunks[ci].byteLength; ci++; }
+        if (ci < st.chunks.length) {
+          var ch = st.chunks[ci], from = pos - cs, to = Math.min(ch.byteLength, b + 1 - cs);
+          c.enqueue(ch.subarray(from, to).slice()); pos = cs + to; return;
+        }
+        if (st.fail) { c.error(new Error('net')); return; }
+        if (st.done) { c.close(); return; }
+        return new Promise(function (ok) { st.wait.push(ok); }).then(next);
+      }
+      return next();
+    }
+  });
+  return new Response(body, { status: 206, headers: { 'Content-Type': st.type, 'Content-Range': 'bytes ' + a + '-' + b + '/' + st.total,
+                                                       'Content-Length': String(b - a + 1), 'Accept-Ranges': 'bytes' } });
+}
+/* keshda yo'q audio so'rovi: yuklanish boshlangan/boshlanadi; so'ralgan joy yuklangan qismga yaqin bo'lsa — o'sha yuklanishdan,
+   uzoq bo'lsa (oldinga surilgan) — tarmoqdan shu bo'lak (yuklanish orqa fonda davom etadi) */
+var NEAR = 96 * 1024;
+function audio(e, r, url) {
+  var st = keep(url);
+  e.waitUntil(st.all);
+  var m = /bytes=(\d+)-(\d*)/.exec(r.headers.get('range') || '');
+  if (r.headers.has('range') && !m) return net(r);
+  var a = m ? +m[1] : 0;
+  return st.head.then(function () {
+    if (!st.total || st.fail || a > st.got + NEAR || a >= st.total) return net(r);
+    var b = m && m[2] ? Math.min(+m[2], st.total - 1) : st.total - 1;
+    if (!m) { /* Range'siz so'rov — to'liq javob (200) */
+      var full = feed(st, 0, st.total - 1);
+      return new Response(full.body, { status: 200, headers: { 'Content-Type': st.type, 'Content-Length': String(st.total), 'Accept-Ranges': 'bytes' } });
+    }
+    return feed(st, a, b);
+  }, function () { return net(r); });
+}
+/* sahifa so'raydi: audio telefondami, yuklanyaptimi, necha foiz ({t:'aud', url, start}) */
+self.addEventListener('message', function (e) {
+  var d = e.data || {}, port = e.ports && e.ports[0];
+  if (d.t !== 'aud' || !d.url || !port) return;
+  var url = String(d.url).split('#')[0].split('?')[0];
+  e.waitUntil(caches.match(url, { ignoreSearch: true }).then(function (hit) {
+    var st = LOAD[url];
+    if (!hit && !st && d.start) { st = keep(url); st.all.then(function () {}); }
+    port.postMessage({ cached: !!hit, loading: !!st, got: st ? st.got : 0, total: st ? st.total : 0 });
+    if (st && d.start) return st.all;
+  }));
+});
 
 self.addEventListener('fetch', function (e) {
   var r = e.request;
@@ -97,9 +176,8 @@ self.addEventListener('fetch', function (e) {
   if (same && isMp3(r.url)) {
     var url = r.url.split('#')[0].split('?')[0];
     e.respondWith(caches.match(url, { ignoreSearch: true }).then(function (hit) {
-      if (hit) return isRange ? ranged(r, hit) : hit;
-      e.waitUntil(keep(url));
-      return fetch(r);
+      if (hit) return isRange ? ranged(r, hit) : synth(hit);
+      return audio(e, r, url);
     }));
     return;
   }

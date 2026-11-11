@@ -113,7 +113,7 @@ var W=[
 function wd(t){return t.replace(/\[([^\]]+)\]/g,'<b>$1</b>')}
 function lo(t){return t.charAt(0).toLowerCase()+t.slice(1)}
 function drawLg(){
-  var h='';['R','N','J','Z'].forEach(function(c){h+='<span style="--k:'+K[c][3]+'"><i></i><b>'+lo(K[c][0])+'</b> <em>· '+K[c][1]+'</em></span>'});
+  var h='';['R','N','J','Z'].forEach(function(c){h+='<span style="--k:'+K[c][3]+'"><i></i><b>'+lo(K[c][0])+'</b></span>'});
   document.getElementById('lg').innerHTML=h;
 }
 function drawA(){

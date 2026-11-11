@@ -28,5 +28,12 @@ Manba: 11.11.2026 tadqiqoti (Claude Docs: «Arab Tili loyihasi: yo'lga qo'yilgan
 ## 5. Tarmoqlar
 - `main` ichidagi 11 tarmoqni o'chirish (foydalanuvchi GitHub'da o'zi o'chiradi yoki Claude): gap-turi, legenda-yopiq, mahzuf-feil, mahzuf-korinishi, menyu-tepada, tarkib-eshitish, tarkib-tarjima, tinglash-93, uzbek-ovoz-v161, versiya-yozuvi, xabar-izohi.
 
+## 6. Bepul ovoz — VoiceStudio / OmniVoice (sinaldi 11.11.2026)
+- Model `k2-fsa/OmniVoice` (pip `omnivoice`, 3.3 GB, HuggingFace'dan yuklanadi) Claude bulut kompyuterida videokartasiz ishladi: yuklash 22 s, so'z ~18 s, gap ~23 s. ElevenLabs krediti ketmaydi.
+- Til kodlari: arabcha fusha — `arb` (`ar` tanilmaydi), o'zbekcha — `uz`.
+- O'z ovozi: foydalanuvchi eshitib «yaxshi» dedi (سَبْعٌ، صُورَةٌ، عَائِلَةٌ، مُعَلِّمٌ, bitta arabcha va bitta o'zbekcha gap).
+- Ovoz nusxalash (96-dars yozuvidan 6 s namuna): «juda yomon, o'xshamadi» — ishlatilmaydi.
+- Keyingi qadam (aytilganda): bitta dars Луғат/Матн'ini ElevenLabs bilan yonma-yon solishtirish; tanvin (vaqfsiz) va ع/ص/ح ni tekshirish.
+
 ## Kerak emas deb topilgan (Claude yaxshiroq)
 - Harakat qo'yish (Mishkal, libtashkeel, Sadeed), tahlil (CAMeL Tools, I3rab), bepul ovoz (Habibi, ArTST).

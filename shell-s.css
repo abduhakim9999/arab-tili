@@ -276,3 +276,7 @@ html.til-ar .zo-uz,html:not(.til-ar) .zo-ar{display:none}
 .zo-xp{margin-top:8px;font-size:15px;line-height:1.6;background:rgba(127,127,127,.08);border-radius:12px;padding:8px 12px}
 .zo-xp.zo-h{display:none}
 .zo-xp .ar{font-family:"DarsNaskh","Noto Naskh Arabic","Geeza Pro","Traditional Arabic",serif;font-size:1.2em;line-height:1.3;unicode-bidi:isolate;direction:rtl}
+
+/* So'z oynasi: holat yorlig'i — Наҳв жадвалига ҳавола (11.11.2026; shell.js) */
+html:not([lang="ru"]) #sb .hk span.cR,html:not([lang="ru"]) #sb .hk span.cN,html:not([lang="ru"]) #sb .hk span.cJ,html:not([lang="ru"]) #sb .hk span.cZ{cursor:pointer}
+html:not([lang="ru"]) #sb .hk span.cR::after,html:not([lang="ru"]) #sb .hk span.cN::after,html:not([lang="ru"]) #sb .hk span.cJ::after,html:not([lang="ru"]) #sb .hk span.cZ::after{content:" \203A";font-weight:700;opacity:.7}

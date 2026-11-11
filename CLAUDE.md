@@ -31,7 +31,7 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
 - Darslar: 1-kitob **1–9**; 2-kitob **70–74, 91–96**.
 - Fiqh (parol bilan yopiq, `docs/texnik.md` 10): birinchi kitob — «Мухтасарул виқоя», al-Qori sharhi «فتح باب العناية» bilan (tarjima + grammatik tahlil + sharh; keyin boshqa kitoblar). 1-dars: «Матн · Атамалар · Шарҳ · Хулоса»; 7 mashq, 8 havola qoldi. Sharh matni: `src/manba/` (shifrlangan).
 - Eshitish: **1, 6, 7, 8, 9, 74, 93, 94, 95, 96**. Ochiq ish: 2–5, 70–73, 91–92 ni qo'shish.
-- Ruscha versiya (11.11.2026): til tanlash bosh sahifada (birinchi kirishda + «Илова ҳақида»); ruschasi bor darslar: **1** (`ru1.html`). Manba `src/ru/` (`build.py`, `ru.js`, lug'atlar; `docs/texnik.md` 12). O'zbekcha sahifalarga tegilmaydi. Qolgani: 19 dars, ovoz, Sarf/Fe'llar/Eshitish.
+- Ruscha versiya (11.11.2026): til «Илова ҳақида» → ТИЛ da (sukut — o'zbekcha, boshida so'ralmaydi); ruschasi bor darslar: **1** (`ru1.html`). Manba `src/ru/` (`build.py`, `ru.js`, lug'atlar; `docs/texnik.md` 12). O'zbekcha sahifalarga tegilmaydi. Qolgani: 19 dars, ovoz, Sarf/Fe'llar/Eshitish.
 - «Наҳв» bo'limi (11.11.2026): `nahv.html` — эъроб аломатлари жадвали (2 yorliq); bosh sahifa panelida, so'z oynasidagi holat yorlig'idan o'tiladi (`docs/texnik.md` 13). Navbatda: 55 qoida kartasi ro'yxati.
 - **Qilinmay qolganlar** (bir darsda qilingan yangilik → qolgan darslarga o'tkazish; foydalanuvchi so'raganda qilinadi; har yangilikdan keyin shu yerga qator qo'shiladi, o'tkazilgani yangilanadi):
   | Yangilik | Bor | Qolgan |

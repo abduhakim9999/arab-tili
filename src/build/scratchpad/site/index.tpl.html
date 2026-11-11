@@ -164,11 +164,7 @@ body{margin:0;color:var(--tx);font-family:system-ui,-apple-system,sans-serif;pad
 .ab dd{margin:3px 0 0;font-size:15px;line-height:1.45}
 .ab .ar{font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:18px}
 .ab a{color:var(--ac)}
-.tl{position:fixed;inset:0;z-index:60;background:var(--bg,#f6f3ec);display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px}
-.tl.on{display:flex}
-.tl h2{margin:0 0 8px;font-size:20px;text-align:center;line-height:1.4}
-.tl button,.lng button{font:600 17px inherit;padding:14px 0;width:min(280px,80vw);border-radius:14px;border:1px solid var(--bd,#e0dccf);background:var(--cd,#fff);color:inherit;cursor:pointer}
-.tl button:active{background:var(--tint,#e3f2ea)}
+.lng button{font:600 17px inherit;padding:14px 0;width:min(280px,80vw);border-radius:14px;border:1px solid var(--bd,#e0dccf);background:var(--cd,#fff);color:inherit;cursor:pointer}
 .lng{display:flex;gap:8px;margin-top:4px}.lng button{width:auto;flex:1;padding:9px 0;font-size:15px}.lng button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
 .it.soon{opacity:.5;pointer-events:none}.it.soon .sn{font-size:12px;color:var(--mu,#6b756f)}
 .ab .x{margin-top:18px;width:100%;padding:12px;border:none;border-radius:12px;background:var(--tint);color:var(--ac);font:600 15px inherit;cursor:pointer}
@@ -221,16 +217,15 @@ body{margin:0;color:var(--tx);font-family:system-ui,-apple-system,sans-serif;pad
 </style>
 </head>
 <body>
-<div class="tl" id="tl"><h2>&#8291;Тилни танланг<br>Выберите язык&#8291;</h2><button type="button" data-l="uz">&#8291;Ўзбекча&#8291;</button><button type="button" data-l="ru">&#8291;Русский&#8291;</button></div>
 <div class="w first" id="w">
   <div class="hd an"><div><h1 dir="rtl" lang="ar">نُورُ الطَّالِبِ</h1><div class="orn" aria-hidden="true"><i></i><svg width="18" height="18" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" fill="var(--au2,#c99434)"/><rect x="5" y="5" width="14" height="14" fill="var(--au2,#c99434)" transform="rotate(45 12 12)"/><circle cx="12" cy="12" r="3" fill="var(--bg,#f6f3ec)"/></svg><i></i></div></div><button class="ib" aria-label="Илова ҳақида" onclick="document.getElementById('ab').classList.add('on')">i</button></div>
   <div class="ab" id="ab" onclick="if(event.target===this)this.classList.remove('on')"><div>
     <h3>Илова ҳақида</h3>
     <dl>
+      <dt>ТИЛ</dt><dd><span class="lng"><button type="button" data-l="uz">&#8291;Ўзбекча&#8291;</button><button type="button" data-l="ru">&#8291;Русский&#8291;</button></span></dd>
       <dt>КИТОБ</dt><dd><bdi class="ar" dir="rtl">نُورُ الطَّالِبِ</bdi></dd>
       <dt>МУАЛЛИФ</dt><dd>Қаҳрамон устоз</dd>
-      <dt>ТИЛ</dt><dd><span class="lng"><button type="button" data-l="uz">&#8291;Ўзбекча&#8291;</button><button type="button" data-l="ru">&#8291;Русский&#8291;</button></span></dd>
-      <dt>ВЕРСИЯ</dt><dd id="vinfo">v275 · 11.11.2026, 23:29</dd>
+      <dt>ВЕРСИЯ</dt><dd id="vinfo">v276 · 11.11.2026, 23:44</dd>
       <dt>ЙЎРИҚНОМА</dt><dd><a href="yoriqnoma.html">📖 Иловадан фойдаланиш</a></dd>
       <dt>АЛОҚА</dt><dd>Хато ёки таклиф бўлса: <a href="https://t.me/Arabtilihivar_bot">@Arabtilihivar_bot</a></dd>
     </dl>
@@ -357,12 +352,10 @@ function render(cloud){
 setTimeout(function(){document.getElementById("w").classList.remove("first")},2000);
 document.addEventListener('click',function(e){var s=e.target.closest&&e.target.closest('.esh');if(s){e.preventDefault();e.stopPropagation();location.href='tinglash.html?d='+s.dataset.d}},true);
 render();
-/* Til tanlash: birinchi kirishda ekran; keyin «Илова ҳақида» dan */
-(function(){var cur=window.TIL||'';[].forEach.call(document.querySelectorAll('.lng button'),function(b){if(b.dataset.l===cur)b.classList.add('on')});
- if(!window.TIL)document.getElementById('tl').classList.add('on');
- document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-l]');if(!b)return;var l=b.dataset.l;try{localStorage.setItem('til',l)}catch(x){}
-  if(l===(window.TIL||'uz')&&window.TIL){document.getElementById('ab').classList.remove('on');return}
-  if(!window.TIL&&l==='uz'){window.TIL='uz';document.getElementById('tl').classList.remove('on');return}location.reload()})})();
+/* Til: sukut bo'yicha o'zbekcha; o'zgartirish — «Илова ҳақида» → ТИЛ (11.11.2026: birinchi kirishdagi so'rov olib tashlandi) */
+(function(){var cur=window.TIL||'uz';[].forEach.call(document.querySelectorAll('.lng button'),function(b){if(b.dataset.l===cur)b.classList.add('on')});
+ document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.lng [data-l]');if(!b)return;var l=b.dataset.l;try{localStorage.setItem('til',l)}catch(x){}
+  if(l===cur){document.getElementById('ab').classList.remove('on');return}location.reload()})})();
 if(/^#k\d/.test(location.hash))setTimeout(function(){var e=document.getElementById('ms');if(e)e.scrollIntoView({block:'start'})},60);
 window.addEventListener('hashchange',function(){render();var e=document.getElementById('ms');if(e)e.scrollIntoView({block:'start'})});
 var add=document.getElementById("add"),tip=document.getElementById("tip"),dp=null;

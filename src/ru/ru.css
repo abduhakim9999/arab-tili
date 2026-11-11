@@ -3,3 +3,6 @@
 /* Mavzu yorlig'i CSS orqali chiqadi (DOM da yo'q). tarkib2.js shu matnni tekshiradi, shuning uchun
    o'zbekchasi «alt» qismida qoladi; eski brauzer bu qatorni tushunmasa — o'zbekchasi ko'rinadi. */
 #tx>.ln:nth-child(1)::before{content:"ТЕМА" / "МАВЗУ"}
+/* Tepadagi yorliqlar: «Упражнение» uzun — tor ekranda (390px dan kichik) harf shunga yarasha kichrayadi,
+   aks holda uchta yorliq teng bo'lmay, ostidagi chiziq siljib qoladi. Keng ekranda shell.css dagi 15px. */
+html body.lo2 .tabs button{font-size:min(15px,calc(5.2vw - 5.2px))!important;white-space:nowrap}

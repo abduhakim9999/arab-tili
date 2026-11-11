@@ -28,15 +28,15 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
 
 ## Darslar holati
 - Sayt: https://nurut-tolib.vercel.app/ (fiqh: https://nurut-tolib-fiqh.vercel.app/; eski github.io ham ishlaydi) · Mini App `t.me/Arabtilihivar_bot/darslar` · versiya `sw.js` dagi `var C`.
-- Darslar: 1-kitob **1–9**; 2-kitob **70–74, 91–95**.
+- Darslar: 1-kitob **1–9**; 2-kitob **70–74, 91–96**.
 - Fiqh (parol bilan yopiq, `docs/texnik.md` 10): birinchi kitob — «Мухтасарул виқоя», al-Qori sharhi «فتح باب العناية» bilan (tarjima + grammatik tahlil + sharh; keyin boshqa kitoblar). 1-dars: «Матн · Атамалар · Шарҳ · Хулоса»; 7 mashq, 8 havola qoldi. Sharh matni: `src/manba/` (shifrlangan).
-- Eshitish: **1, 6, 7, 8, 9, 74, 93, 94, 95**. Ochiq ish: 2–5, 70–73, 91–92 ni qo'shish.
+- Eshitish: **1, 6, 7, 8, 9, 74, 93, 94, 95, 96**. Ochiq ish: 2–5, 70–73, 91–92 ni qo'shish.
 - **Qilinmay qolganlar** (bir darsda qilingan yangilik → qolgan darslarga o'tkazish; foydalanuvchi so'raganda qilinadi; har yangilikdan keyin shu yerga qator qo'shiladi, o'tkazilgani yangilanadi):
   | Yangilik | Bor | Qolgan |
   |---|---|---|
-  | Eshitish (Матн/Луғат/Таркиб) | 1, 6, 7, 8, 9, 74, 93, 94, 95 | 2–5, 70–73, 91–92 |
+  | Eshitish (Матн/Луғат/Таркиб) | 1, 6, 7, 8, 9, 74, 93, 94, 95, 96 | 2–5, 70–73, 91–92 |
   | ЎЗ rejimida sarlavha (bob/dars) yonishi (`UZT.h`) | 1, 8, 9 | 95 + «ЎЗ» qo'shiladigan darslar |
-  | Pleyer «ЎЗ» tarjima + 🎧 (`UZT`) | 1, 8, 9, 95 | 6, 7, 74, 93, 94 (+ yangi Eshitishlar) |
+  | Pleyer «ЎЗ» tarjima + 🎧 (`UZT`) | 1, 8, 9, 95 | 6, 7, 74, 93, 94, 96 (+ yangi Eshitishlar) |
   | Eshitish bosh qismi bo'laklab (bob / dars alohida, ekranda yozuv) | 1, 8, 9 | 6, 7, 74, 93, 94, 95 |
   | O'zbekcha ovozda qavsli variantdan bittasi | 1 | 6, 7, 74, 93, 94, 95 — tekshirish |
   | Ovoz: har so'z/gap alohida generatsiya (bitta audiodan qirqilmagan) | 1, 8, 9 | 6, 7 Луғат — tekshirish |
@@ -47,8 +47,10 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
   | Луғат arabchasi vaqfsiz: Hijozi ovozi + IPA (`ipa.py`), avtomat fonema tekshiruvi (`phcheck.py`) | 7, 8, 9 | 1, 6 (+ yangi darslar shu usulda) |
   | Луғат o'zbekchasida «jam» aytilmaydi (faqat ma'no; `ovoz.py voc_uz`) | yangi darslardan | 7, 8, 9 da «jam» qolgan — qayta yasalmaydi |
   | Pleyer ko'rinishi, sahifa siljitgichi (`shell.js`) | hamma darslar | — |
+  | Abzas bo'sh joyi bosilsa o'qiydi; Таркибда o'qilayotgan gap legenda ostida qolmaydi (`shell.js`) | hamma darslar | — |
   | So'z oynasi: ‹ ›, Таркиб Ўзбекча/Арабча, qo'shimchalar tugma (`zoX`, `.zo-*`) | 95, fiqh 1 | 1–7, 70–74, 91–94 |
 - Oxirgi qilinganlar (10–11.11.2026):
+  - 96-dars «السَّفَرُ لِطَلَبِ الْعِلْمِ» (Илм ўрганиш учун сафар қилиш; k2b7, Шариф ва Ҳорун): audio — foydalanuvchi yozuvi (tiniq, sarlavhadan); lug'at yo'q, mashq 12; Eshitish Матн (Davronbek) + Таркиб (Hamed, GitHub tts orqali). Grammatika qarorlari — konspekt 7. Abzas bosilsa o'qiydi, Таркибда gap legenda ostida qolmaydi (`shell.js`, hamma darslar; `docs/texnik.md` 5).
   - 7–9-dars Луғат arabchasi Hijozi ovozida (`fkqevZRU7Xj52dY1CTkq`, v4) vaqfsiz qayta yasaldi: oxiri harakatli so'z IPA bilan (`listen/ipa.py`), ortiqcha gap kesiladi (`trim1.py`), xatolar bepul fonema tanigich bilan topilib (`phcheck.py`) urg'u+bo'g'in belgili IPA bilan tuzatildi (`picks.txt`). Hamed (Microsoft) va nun usuli sinaldi — vaqf qiladi, yaramadi (`docs/texnik.md` 5).
   - 7–9-dars Луғат tinglash qayta yasaldi: harflar o'qilmaydi, har shakl alohida + sukut, fe'l 4 shakl, o'zbekchada muannas yo'q (`docs/texnik.md` 5).
   - Yangi versiya ilovaga qaytganda ham tekshiriladi (chiqib-kirish shart emas); audio o'ynayotganda «Янгилаш» tugmasi (`tg.js`, `sw.js`; `docs/texnik.md` 5).

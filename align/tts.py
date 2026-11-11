@@ -5,7 +5,8 @@ async def one(f):
     if os.path.exists(o): return
     lines = open(f, encoding='utf-8').read().split('\n', 1)
     voice, text = lines[0].strip(), lines[1].strip()
-    c = edge_tts.Communicate(text, voice, rate='-15%', boundary='WordBoundary')
+    voice, rate = (voice.split('|') + ['-15%'])[:2]  # 1-qator: «ovoz» yoki «ovoz|tezlik»
+    c = edge_tts.Communicate(text, voice, rate=rate, boundary='WordBoundary')
     W = []
     with open(o, 'wb') as fp:
         async for ch in c.stream():

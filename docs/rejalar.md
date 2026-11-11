@@ -17,6 +17,8 @@ Manba: 11.11.2026 tadqiqoti (Claude Docs: «Arab Tili loyihasi: yo'lga qo'yilgan
 - Push paytida yengil avtomat tekshiruv (GitHub Actions): sahifa ochiladimi, `sw.js` FILES dagi fayllar bormi.
 - Yig'ishni tiklanadigan qilish: skriptlardagi eski sessiya yo'li (`d13da55d…`, 23 fayl) o'rniga bitta o'zgaruvchi; `shell.js`, `shell.css`, `tg.js` uchun bitta manba (ildiz va `src/build` farq qiladi).
 - Audio'ni git tarixidan tashqarida saqlash (masalan Cloudflare R2 — mobil ilova rejasida): tarixda 2530 mp3, 374 MB; oyiga ~340 MB o'sish.
+  - Qachon boshlanadi: GitHub'dagi repo hajmi **700–800 MB** ga yetganda (foydalanuvchi qarori, 11.11.2026; o'shanda 337 MB). GitHub: 1 GB gacha tavsiya, 5 GB dan ogohlantiradi, bitta fayl 100 MB dan katta bo'lsa qabul qilmaydi. Hajmni ko'rish: `gh api -X GET search/repositories -f q='repo:abduhakim9999/arab-tili' --jq '.items[0].size'` (KB).
+  - `src/build/scratchpad/` dagi mp3 lar repodan olinmaydi: ~37 MB — Eshitish manba ovozlari (pullik, qayta yig'ish uchun kerak); saytdagisi bilan bir xillari git'da qo'shimcha joy olmaydi.
 - Ochiq savol: Vercel bepul tarifida kunlik joylash chegarasi.
 
 ## 3. Play Market

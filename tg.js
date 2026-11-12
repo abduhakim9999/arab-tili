@@ -23,7 +23,12 @@
   function inTg() {
     if (W) return true;
     if (window.TelegramWebviewProxy || /tgWebApp/.test(location.hash)) return true;
-    try { return !!sessionStorage.getItem('__telegram__initParams'); } catch (e) { return false; }
+    /* 11.11.2026: telegram-web-app.js Telegramdan tashqarida ham bu kalitga «{}» yozadi —
+       ilovada (PWA) havolalar location.replace bo'lib, telefon «orqaga» tugmasi ilovani yopardi. */
+    try {
+      var p = JSON.parse(sessionStorage.getItem('__telegram__initParams') || '{}');
+      return !!(p && (p.tgWebAppData || p.tgWebAppVersion));
+    } catch (e) { return false; }
   }
   /* sahifalar orasida o'tish: Telegramda tarix yig'ilmasin */
   document.addEventListener('click', function (ev) {
@@ -31,7 +36,11 @@
     if (!a || ev.defaultPrevented || a.target || a.hasAttribute('download') || a.origin !== location.origin ||
         /^(#|javascript:)/.test(a.getAttribute('href')) || a.pathname === location.pathname) return;
     goOn();
-    if (inTg()) { ev.preventDefault(); location.replace(a.href); }
+    if (inTg()) { ev.preventDefault(); location.replace(a.href); return; }
+    /* ilova/brauzer: kelgan sahifaga («‹») qaytishda — tarixda orqaga (tarix aylanib qolmasin) */
+    if (history.length > 1 && document.referrer && a.href.split('#')[0] === document.referrer.split('#')[0]) {
+      ev.preventDefault(); history.back();
+    }
   });
   window.addEventListener('pageshow', goOff);
 

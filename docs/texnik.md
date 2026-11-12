@@ -32,6 +32,7 @@
 - «?» — умумий йўриқнома (shell.js охирида, ҳамма дарсда бир хил): Тугмалар; Матн билан (👆 босиш, ✋ босиб туриш, ↔️ суриш, 🤏 икки бармоқ); Таркиб белгилари (→ мутааллиқ, чети чизиқли карта — шибҳи жумла, пунктир рамка — яширин сўз, нуқтали чизиқ — жар ва мажрур хабар ўрнида, исмийя/феълийя). Пастида «🧭 Турни қайта кўриш». Версия йўқ.
 - Овоз тўғрилаш: GitHub align.yml (NAME.mp3 → whisper.json; NAME.mp3+NAME.txt → align.json; NAME.url → юклаб олади), tts.yml (edge-tts). ~2 дақиқа.
 
+- **Telefon «orqaga» tugmasi (11.11.2026, `tg.js` `inTg()`):** `telegram-web-app.js` Telegramdan tashqarida ham sessionStorage `__telegram__initParams` ga «{}» yozadi — ilova (PWA) Telegram deb o'ylanib, havolalar `location.replace` bo'lardi va «orqaga» ilovani yopardi. Endi Telegram faqat `tgWebAppData`/`tgWebAppVersion` bo'lsa. Ilovada kelgan sahifaga havola («‹») — `history.back()` (tarix aylanib qolmaydi).
 - Bosilganda yashil chiziq + qulf (`html.go`, `tg.js`): ko'pi bilan 5 s, ilovaga qaytganda ham yechiladi — sekin internetda ekran qotib qolmaydi (06.11.2026).
 - Yangi versiya (SW `controllerchange`): sahifa o'zi yangilanadi; o'xshamasa qayta urinadi (internet qaytganda, ilovaga qaytganda, audio to'xtaganda, 15 s da bir), audio o'ynayotganda/yozish maydonida yangilanmaydi.
 - **Луғат tinglash qoidasi (11.11.2026, foydalanuvchi; 7, 8, 9-darslar — `listen/lugat2.py N`):**

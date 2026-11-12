@@ -144,7 +144,8 @@ document.write('<script src="' + SN + 'fsrs.js"><\/script><script src="' + SN + 
     try { j = (JSON.parse(L(KJ) || '{}').j) || []; } catch (e) {}
     E = Takror.yarat({ lugat: D.l, mashq: D.m, darslar: D.d, faol: FAOL, jurnal: j });
   }
-  function saqla() { LS(KJ, JSON.stringify({ v: 1, j: E.jurnal })); }
+  function xul() { LS(SINOV ? 'takror-sinov-xulosa' : 'takror-xulosa', JSON.stringify(E.xulosa(hozir()))); }
+  function saqla() { LS(KJ, JSON.stringify({ v: 1, j: E.jurnal })); xul(); }
 
   /* ---- ovoz: lug'at yo'lagidagi bo'lak ---- */
   function toxta() { if (auT) { clearInterval(auT); auT = null; } try { au.pause(); } catch (e) {} }
@@ -171,7 +172,8 @@ document.write('<script src="' + SN + 'fsrs.js"><\/script><script src="' + SN + 
     clearTimeout(tmq); toxta(); cur = null; jami0 = 0; mash(0);
     document.body.classList.remove('tq-ses');
     var t = hozir(), b = E.bugun(t), h = E.hisob(), dt = new Date(t), html = '';
-    html += '<div class="top"><a href="./" aria-label="Бош саҳифа">‹</a><div><small>' + dnom() + '</small><h1>Такрорлаш</h1></div></div>';
+    xul();
+    html += '<div class="top"><a href="' + (SINOV ? 'sinov-index.html' : './') + '" aria-label="Бош саҳифа">‹</a><div><small>' + dnom() + '</small><h1>Такрорлаш</h1></div></div>';
     if (SINOV) html += '<div class="tq-sn"><span>🧪 Синов · бугун ' + ('0' + dt.getDate()).slice(-2) + '.' + ('0' + (dt.getMonth() + 1)).slice(-2) +
       '</span><button id="s1">+1 кун</button><button id="s0">Тозалаш</button></div>';
     if (b.takror + b.yangi) html += '<section class="tq-c"><div class="tq-ns"><div><b>' + b.takror + '</b><span>такрор</span></div><div><b>' + b.yangi +

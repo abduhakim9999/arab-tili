@@ -106,7 +106,7 @@
       var x = tanla(h.L1, oxirgi) || tanla(h.R, oxirgi);
       if (!x) {
         // yangilar: ikki so'zdan keyin bitta mashq savoli; oxirida qo'shimcha kartalar
-        if (h.YQ.length && (!h.YA.length || h.yQ * 2 < h.yA)) x = h.YQ[0];
+        if (h.YQ.length && (!h.YA.length || (h.yQ + 1) * 2 <= h.yA)) x = h.YQ[0];
         else x = h.YA[0] || h.YX[0];
       }
       if (!x) x = tanla(h.L2, oxirgi) || h.L1[0] || h.L2[0];

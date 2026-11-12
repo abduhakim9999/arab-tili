@@ -111,11 +111,13 @@ document.write('<script src="' + SN + 'fsrs.js"><\/script><script src="' + SN + 
   var SINOV = !!SN;
   var FAOL = [1];                       /* sinov: faqat 1-dars. Keyin — o'quvchi ochgan 1-kitob darslari. */
   var KJ = SINOV ? 'takror-sinov-j' : 'takror-j', KS = 'takror-sinov-kun';
+  var KM = 'takror-mashgulot';         /* sahifa o'zi yangilansa (yangi versiya) mashg'ulot davom etadi */
   var app = document.getElementById('app'), bar = document.getElementById('bar'), au = document.getElementById('au');
   var E = null, D = null, cur = null, t0 = 0, jami0 = 0, tmq = null, auF = '', auT = null;
 
   function L(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function LS(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} }
+  function mash(v) { try { if (v == null) return sessionStorage.getItem(KM); v ? sessionStorage.setItem(KM, '1') : sessionStorage.removeItem(KM); } catch (e) {} return null; }
   function siljish() { return SINOV ? (+L(KS) || 0) : 0; }
   function hozir() { return Date.now() + siljish() * 86400000; }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -130,7 +132,8 @@ document.write('<script src="' + SN + 'fsrs.js"><\/script><script src="' + SN + 
     app.innerHTML = '';
     Promise.all([f('lugat.json'), f('mashq.json'), f('darslar.json')]).then(function (a) {
       D = { l: a[0].s, m: a[1].s, d: a[2].s };
-      qur(); bosh();
+      qur();
+      if (mash() && E.keyingi(hozir())) { document.body.classList.add('tq-ses'); keyingi(); } else bosh();
     }).catch(function () {
       app.innerHTML = '<div class="tq-er">Маълумот юкланмади. Интернетни текширинг.<br><button class="tq-b" id="qy">Қайта уриниш</button></div>';
       document.getElementById('qy').onclick = yukla;
@@ -165,7 +168,7 @@ document.write('<script src="' + SN + 'fsrs.js"><\/script><script src="' + SN + 
     return d[0].kitob + '-китоб · ' + (d.length > 1 ? d[0].n + '–' + d[d.length - 1].n + '-дарслар' : d[0].n + '-дарс');
   }
   function bosh() {
-    clearTimeout(tmq); toxta(); cur = null; jami0 = 0;
+    clearTimeout(tmq); toxta(); cur = null; jami0 = 0; mash(0);
     document.body.classList.remove('tq-ses');
     var t = hozir(), b = E.bugun(t), h = E.hisob(), dt = new Date(t), html = '';
     html += '<div class="top"><a href="./" aria-label="Бош саҳифа">‹</a><div><small>' + dnom() + '</small><h1>Такрорлаш</h1></div></div>';
@@ -178,7 +181,7 @@ document.write('<script src="' + SN + 'fsrs.js"><\/script><script src="' + SN + 
       '<div class="tq-pr"><i style="width:' + (h.jami ? Math.round(h.bilgan * 100 / h.jami) : 0) + '%"></i></div>' +
       '<div class="tq-mu">ўрганилмоқда ' + h.organilmoqda + ' · мустаҳкам ' + h.mustahkam + '</div></section>';
     app.innerHTML = html; bar.hidden = true; bar.innerHTML = '';
-    var go = document.getElementById('go'); if (go) go.onclick = function () { document.body.classList.add('tq-ses'); keyingi(); };
+    var go = document.getElementById('go'); if (go) go.onclick = function () { mash(1); document.body.classList.add('tq-ses'); keyingi(); };
     if (SINOV) {
       document.getElementById('s1').onclick = function () { LS(KS, String(siljish() + 1)); bosh(); };
       document.getElementById('s0').onclick = function () { if (confirm('Синов натижалари ўчирилсинми?')) { LS(KJ, null); LS(KS, null); qur(); bosh(); } };

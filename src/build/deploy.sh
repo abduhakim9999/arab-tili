@@ -21,12 +21,14 @@ for TRY in 1 2 3; do
   git stash -q --include-untracked || true
   git reset -q --hard origin/main
   git stash pop -q || { echo "TO'XTA: stash qo'yishda to'qnashuv"; exit 3; }
-  git sparse-checkout add docs align src/build >/dev/null 2>&1 || true
+  git sparse-checkout add docs align src/build data >/dev/null 2>&1 || true
+  # data/ (lug'at, mashq, qoida — ilova va «Такрорлаш» o'qiydi) dars sahifalariga mos bo'lsin — docs/texnik.md 14
+  if [ -f src/build/tekshir_data.py ] && [ -d data ]; then python3 src/build/tekshir_data.py || { echo "TO'XTA: data/ eskirgan yoki buzilgan"; exit 5; }; fi
   sh src/build/bump.sh
-  git rm -q --ignore-unmatch sinov-*.html >/dev/null 2>&1 || true  # sinov sahifalari asosiy joylashda o'chadi
+  git rm -q --ignore-unmatch 'sinov-*' >/dev/null 2>&1 || true  # sinov fayllari (sahifa, js, json) asosiy joylashda o'chadi
   git add --sparse -A ${@:-.}
   git add --sparse sw.js index.html src/build/scratchpad/site/build.py src/build/scratchpad/site/index.tpl.html
-  git commit -q -m "$MSG" -m "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>" || true
+  git commit -q -m "$MSG" -m "${CLAUDE_IMZO:-Co-Authored-By: Claude <noreply@anthropic.com>}" || true
   if git push -q origin HEAD:main; then
     git rev-parse HEAD > .git/claude-base; echo "Joylandi: $(grep "^var C" sw.js)"; exit 0
   fi

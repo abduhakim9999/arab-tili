@@ -3,14 +3,13 @@
 Foydalanuvchi aytganda qilinadi. Qilingani shu yerdan o'chirilib, tegishli joyga (texnik.md / CLAUDE.md) yoziladi.
 Manba: 11.11.2026 tadqiqoti (Claude Docs: «Arab Tili loyihasi: yo'lga qo'yilganlik tadqiqoti»).
 
-## 1. Lug'at «Такрорлаш» — ts-fsrs (eng foydali)
-- Kutubxona: ts-fsrs (open-spaced-repetition, JS, server kerak emas). Nusxasi repoga qo'yiladi (CDN emas).
-- O'quvchi: bosh sahifada «🔁 Такрорлаш · бугун N сўз» → arabcha so'z (harakatli, ovozi o'zi) → «Кўрсатиш» → ma'no, ko'plik / fe'l shakllari → baho tugmasi. Bilmagani shu kuni yana, bilgani 1 kun → 3 kun → hafta (FSRS hisoblaydi). Oxirida «Бугунга тамом. Эртага N сўз».
-- So'zlar: o'quvchi ochgan darslar lug'ati; kuniga yangi so'z chegarasi, takrorlar hammasi.
-- Ish: yangi `takror.html` + kutubxona nusxasi + bosh sahifada karta; dars sahifalariga tegilmaydi; `sw.js` FILES. Avval sinov.
-- Ovoz: mavjud Луғат kliplari (yangi generatsiya yo'q).
-- Cheklov: natija telefonda (localStorage); keyin Telegram CloudStorage (feellar.html dagidek).
-- Hal qilinmagan: tugmalar 2 ta (Билмадим/Билдим — tavsiya) yoki 4 ta; kuniga nechta yangi so'z (taklif 10); sinov darsi (taklif 7-dars, 23 so'z, Hijozi ovozi).
+## 1. O'quvchi taraqqiyoti: takror, reyting, ilova (foydalanuvchi qarorlari, 12.11.2026)
+Qilingan qismi — `docs/texnik.md` 14 (ma'lumot fayllari, «Такрорлаш» sinovi).
+- **Qarorlar:** sayt, Telegram Mini App va kelajakdagi app — bitta server, bitta hisob, bitta kod. Hisob ichki raqam bilan; kirish hozir Telegram, keyin Google va Apple. Natijalar avval qurilmada (oflayn), keyin serverga sinxronlanadi. Taxallusni o'quvchi o'zi yozadi (takrorlanmasin, nojo'ya so'z o'tmasin). So'z, mashq savoli va qoida belgilari — o'zgarmas raqamli `data/` fayllarida. Takror va ball hisobi alohida modul (`takror.js`); reyting serverda hisoblanadi (aldab bo'lmasin). Hozirgi «Машқ» qoidalari o'zgarmaydi; takror — alohida bo'lim. Xavfsizlik va o'quvchi ma'lumotlari maxfiyligiga e'tibor.
+- **Qamrov:** takror va reyting 1-kitob boshidan; yangi dars qo'shilsa o'zi kiradi. 2-kitob darslari hozircha kirmaydi. Atoqli otlar va harflar takrorga kirmaydi.
+- **Funksiyalar:** 1) oraliqli takror (FSRS, ~90%); 2) faol eslash kartalari (arabcha → ma'no, ma'no → arabcha, ovoz → ma'no, so'z oxiri harakati); 3) «Билган сўзларим»; 4) qoidalar xaritasi (savollar qoida belgilari bilan — qaysi qoida mustahkam, qaysi zaif); 5) kunlik maqsad, streak (muzlatish bilan), taqvimda faollik; 6) haftalik reyting/liga (taxallus; ball faqat to'g'ri takror va yangi o'zlashtirilgan so'z uchun); 7) eslatma (hozir bot, appda push); 8) kitob darslari asosidagi o'z daraja shkalasi va daraja testi (A1–C2 yozilmaydi); 9) statistika (so'zlar, takrorlar, aniqlik, vaqt).
+- **Bosqichlar:** 1) ma'lumot fayllari — qilindi; 2) bitta darsda sinov (kartalar, FSRS, hisoblagich) — 1-dars, sinovda; 3) server va hisob; 4) reyting, streak, eslatma; 5) Android app (o'rta yo'l: haqiqiy qobiq — pleyer, push, oflayn; darslar saytdan) → Play Market; 6) rivojlantirish, daraja testi, fikrlar; 7) to'laqonli Android app (o'sha server va ma'lumotlar); 8) Apple.
+- **Ochiq:** 2 tugma va kuniga 10 yangi so'z, «bilgan» = 7 kun — Claude tavsiyasi bilan qo'yildi, foydalanuvchi sinovda ko'rib tasdiqlaydi. O'zini baholash (Билдим) reyting ballida qanday hisoblanishi — 4-bosqichda hal qilinadi.
 
 ## 2. Repo va joylash tartibi
 - Ish belgisi (`lock.sh`), sinov (`sinov.sh`) va align fayllarini `main` dan alohida tarmoqqa chiqarish: Vercel'da 21 yig'ishdan 4 tasi reliz edi (10–11.11). Sinov havolasi o'zgaradi — avval kelishiladi.

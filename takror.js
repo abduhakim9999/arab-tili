@@ -145,6 +145,8 @@
       javob: function (id, bildi, ms, t) { var e = [id, t, bildi ? 3 : 1, Math.max(0, Math.min(60000, Math.round(ms || 0)))]; qosh(e); return e; },
       keyingi: keyingi, bugun: bugun, ertaga: ertaga, hisob: hisob,
       karta: function (id) { return S[id] ? S[id].c : null; },
+      /* bosh sahifa kartasi uchun qisqa hisob (localStorage takror-xulosa) — bosh sahifa takror.js ni yuklamaydi */
+      xulosa: function (t) { var b = bugun(t), h = hisob(); return { v: 1, kun: kun(t), qoldi: b.takror + b.yangi, ertaga: ertaga(t), bilgan: h.bilgan, jami: h.jami }; },
       kun: kun
     };
   }

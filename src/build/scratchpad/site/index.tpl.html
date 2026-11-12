@@ -214,6 +214,16 @@ body{margin:0;color:var(--tx);font-family:system-ui,-apple-system,sans-serif;pad
 .cd.a.hero .bar{display:none!important}
 .cd.a .cib.hic{background:var(--tint)!important;box-shadow:none!important}
 .hbt.h1,.hbt.h2{background:var(--tint)!important;color:var(--ac)!important;box-shadow:none!important}
+/* «Такрорлаш» картаси (12.11.2026; docs/texnik.md 14) — сон takror.html ёзган хулосадан (takror-xulosa) */
+.cd.tqh{grid-column:1/-1;display:flex!important;flex-direction:row!important;align-items:center;gap:12px;text-align:left;min-height:0!important;padding:12px 14px;background:var(--cd);color:var(--tx);border:1px solid var(--bd);border-radius:18px;box-shadow:var(--sh);text-decoration:none}
+.tqh .cib{background:var(--tint)!important;box-shadow:none!important;color:var(--ac);display:flex;align-items:center;justify-content:center}
+.tqh .cib svg{width:24px;height:24px}
+.tqh .tx{flex:1;min-width:0;text-align:left}
+.tqh .n{font-size:17px;font-weight:800;color:var(--ac);margin-bottom:1px}
+.tqh .hs{font-size:13.5px;color:var(--mu)}
+.tqh .tqn{font-size:30px;line-height:1;font-weight:700;color:var(--ac);font-variant-numeric:tabular-nums}
+.tqh .tqn.ok{font-size:22px}
+.tqh .tqa{font-size:22px;color:var(--mu)}
 </style>
 </head>
 <body>
@@ -301,6 +311,20 @@ function heroCard(last,avg){
   return '<div class="cd a hero hx an" style="animation-delay:.08s"><a class="hl" href="'+href(L.n)+'">'+ic+'<div class="tx"><div class="n">'+(has?'Давом этиш':'Бошлаш')+'</div><div class="har">'+L.ar+'</div><div class="hs">'+(bk?bk+', ':'')+L.n+'-дарс</div><div class="bar"><i style="width:'+w+'%"></i></div></div></a>'+
     '<div class="hb"><a class="hbt h1" href="'+href(L.n)+'">'+IB+'Ўқиш</a>'+(RUL?'':'<a class="hbt h2" href="'+eh+'">'+IH+'Эшитиш</a>')+'</div></div>';
 }
+function trCard(){
+  if(RUL)return ''; /* ҳозирча фақат ўзбекча */
+  var sn=/\/sinov-[^\/]*$/.test(location.pathname),x=null,sl=0;
+  try{x=JSON.parse(localStorage.getItem(sn?'takror-sinov-xulosa':'takror-xulosa')||'null');if(sn)sl=+(localStorage.getItem('takror-sinov-kun')||0)}catch(e){}
+  var kun=Math.floor((Date.now()+sl*864e5-new Date().getTimezoneOffset()*6e4)/864e5),n=null,s='Янги сўзларни ўрганишни бошланг';
+  if(x&&x.v===1){
+    if(x.kun===kun)n=x.qoldi;else if(x.kun===kun-1)n=x.ertaga;else if(x.kun<kun)n=-1;
+    s='Билган сўзлар: '+x.bilgan+' / '+x.jami;
+  }
+  var r=n===null?'<span class="tqa">›</span>':n===0?'<span class="tqn ok">✓</span>':n>0?'<span class="tqn">'+n+'</span>':'<span class="tqa">›</span>';
+  var t=n===0?'Бугунга тамом':n>0?'Бугун '+n+' та':n===-1?'Такрорлар кутмоқда':'';
+  var ic='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 21v-5h5"/></svg>';
+  return '<a class="cd tqh an" style="animation-delay:.12s" href="'+(sn?'sinov-':'')+'takror.html"><span class="cib">'+ic+'</span><div class="tx"><div class="n">Такрорлаш</div><div class="hs">'+(t?t+' · ':'')+s+'</div></div>'+r+'</a>';
+}
 var LC=null;
 function render(cloud){
   if(cloud)LC=cloud;else cloud=LC;
@@ -344,7 +368,7 @@ function render(cloud){
   }
   var avg=LESSONS.length?Math.round(sum/LESSONS.length):0;
   var t='<div class="cards">'+
-    heroCard(last,avg)+
+    heroCard(last,avg)+trCard()+
     '</div>';
   document.getElementById("top").innerHTML=t;
   document.getElementById("ls").innerHTML=h;

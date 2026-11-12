@@ -50,8 +50,9 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
   | Луғат o'zbekchasida «jam» aytilmaydi (faqat ma'no; `ovoz.py voc_uz`) | yangi darslardan | 7, 8, 9 da «jam» qolgan — qayta yasalmaydi |
   | Pleyer ko'rinishi, sahifa siljitgichi (`shell.js`) | hamma darslar | — |
   | Abzas bo'sh joyi bosilsa o'qiydi; Таркибда o'qilayotgan gap legenda ostida qolmaydi (`shell.js`) | hamma darslar | — |
-  | So'z oynasi: ‹ ›, Таркиб Ўзбекча/Арабча, qo'shimchalar tugma (`zoX`, `.zo-*`) | 95, fiqh 1 | 1–7, 70–74, 91–94 |
+  | So'z oynasi: ‹ ›, Таркиб Ўзбекча/Арабча, qo'shimchalar tugma (`zoX`, `.zo-*`) | hamma darslar, fiqh 1 | — |
 - Oxirgi qilinganlar (10–12.11.2026):
+  - So'z oynasi (‹ ›, ✕, Таркиб Ўзбекча/Арабча, qo'shimchalar tugma) hamma darslarga o'tkazildi (`docs/texnik.md` 4).
   - Fiqh: 1-darsga «Машқ» (5 fiqhiy + 5 grammatik savol); Muqaddimaga al-Qori sharhi (34–40-betlar, arabcha + tarjima, archive.org skaneri bo'yicha); grammatika darsiga havola bekor (`docs/texnik.md` 10).
   - Машқdagi «🔊 Тинглаш» tugmasi hamma darslardan o'chirildi; yangi darslarda ham qo'yilmaydi (`docs/texnik.md` 5).
   - «Аудио юкланяпти… N%» qotib qolishi tuzatildi (hamma darslar, Eshitish): sababi — pleyerga tarmoq javobi va keshdan yasalgan javob aralash berilgani (Chrome media qotadi). Endi har mp3 javobi SW yasagan; fayl bir marta yuklanadi; foiz haqiqiy (SW dan); qotsa o'zi qayta ulanadi; yuklanmasa «Юклаш» tugmasi (`sw.js`, `tg.js`; `docs/texnik.md` 1).

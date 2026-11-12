@@ -29,7 +29,7 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
 ## Darslar holati
 - Sayt: https://nurut-tolib.vercel.app/ (fiqh: https://nurut-tolib-fiqh.vercel.app/; eski github.io ham ishlaydi) · Mini App `t.me/Arabtilihivar_bot/darslar` · versiya `sw.js` dagi `var C`.
 - Darslar: 1-kitob **1–9**; 2-kitob **70–74, 91–96**.
-- Fiqh (parol bilan yopiq, `docs/texnik.md` 10): birinchi kitob — «Мухтасарул виқоя», al-Qori sharhi «فتح باب العناية» bilan (tarjima + grammatik tahlil + sharh; keyin boshqa kitoblar). 1-dars: «Матн · Атамалар · Шарҳ · Хулоса»; 7 mashq, 8 havola qoldi. Sharh matni: `src/manba/` (shifrlangan).
+- Fiqh (parol bilan yopiq, `docs/texnik.md` 10): birinchi kitob — «Мухтасарул виқоя», al-Qori sharhi «فتح باب العناية» bilan (tarjima + grammatik tahlil + sharh; keyin boshqa kitoblar). 1-dars: «Матн · Атамалар · Шарҳ · Хулоса · Машқ». Fiqh va arab tili — alohida programmalar (bir-biriga havola yo'q). Sharh matni: `src/manba/` (shifrlangan).
 - Eshitish: **1, 6, 7, 8, 9, 74, 93, 94, 95, 96**. Ochiq ish: 2–5, 70–73, 91–92 ni qo'shish.
 - Ruscha versiya (11.11.2026): til «Илова ҳақида» → ТИЛ da (sukut — o'zbekcha, boshida so'ralmaydi); ruschasi bor darslar: **1** (`ru1.html`). Manba `src/ru/` (`build.py`, `ru.js`, lug'atlar; `docs/texnik.md` 12). O'zbekcha sahifalarga tegilmaydi. Qolgani: 19 dars, ovoz, Sarf/Fe'llar/Eshitish.
 - «Наҳв» bo'limi (11.11.2026): `nahv.html` — эъроб аломатлари жадвали (2 yorliq); bosh sahifa panelida, so'z oynasidagi holat yorlig'idan o'tiladi (`docs/texnik.md` 13). Navbatda: 55 qoida kartasi ro'yxati.
@@ -52,6 +52,7 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
   | Abzas bo'sh joyi bosilsa o'qiydi; Таркибда o'qilayotgan gap legenda ostida qolmaydi (`shell.js`) | hamma darslar | — |
   | So'z oynasi: ‹ ›, Таркиб Ўзбекча/Арабча, qo'shimchalar tugma (`zoX`, `.zo-*`) | 95, fiqh 1 | 1–7, 70–74, 91–94 |
 - Oxirgi qilinganlar (10–12.11.2026):
+  - Fiqh: 1-darsga «Машқ» (5 fiqhiy + 5 grammatik savol); Muqaddimaga al-Qori sharhi (34–40-betlar, arabcha + tarjima, archive.org skaneri bo'yicha); grammatika darsiga havola bekor (`docs/texnik.md` 10).
   - Машқdagi «🔊 Тинглаш» tugmasi hamma darslardan o'chirildi; yangi darslarda ham qo'yilmaydi (`docs/texnik.md` 5).
   - «Аудио юкланяпти… N%» qotib qolishi tuzatildi (hamma darslar, Eshitish): sababi — pleyerga tarmoq javobi va keshdan yasalgan javob aralash berilgani (Chrome media qotadi). Endi har mp3 javobi SW yasagan; fayl bir marta yuklanadi; foiz haqiqiy (SW dan); qotsa o'zi qayta ulanadi; yuklanmasa «Юклаш» tugmasi (`sw.js`, `tg.js`; `docs/texnik.md` 1).
   - 96-dars «السَّفَرُ لِطَلَبِ الْعِلْمِ» (Илм ўрганиш учун сафар қилиш; k2b7, Шариф ва Ҳорун): audio — foydalanuvchi yozuvi (tiniq, sarlavhadan); lug'at yo'q, mashq 12; Eshitish Матн (Davronbek) + Таркиб (Hamed, GitHub tts orqali); «ЎЗ» + so'z yonishi (`listen/uzt96.py`). Grammatika qarorlari — konspekt 7. Abzas bosilsa o'qiydi, Таркибда gap legenda ostida qolmaydi (`shell.js`, hamma darslar; `docs/texnik.md` 5).

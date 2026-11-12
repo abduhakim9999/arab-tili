@@ -28,6 +28,8 @@
     var ST = F.State, faol = {}, lv = {};
     (o.faol || []).forEach(function (d) { faol[d] = 1; });
     (o.darslar || []).forEach(function (d) { if (d.lv) lv[d.n] = d.lv; });
+    var ust = {};                                            // «Йўл»da xato qilingan mashq savollari (id) — faol bo'lmasa ham kiradi, yangilar ichida birinchi
+    (o.ustun || []).forEach(function (id) { ust[id] = 1; });
 
     /* ---- kartalar ---- */
     var K = [], KM = {}, mano = {};
@@ -41,7 +43,7 @@
       qoy({ id: nk + 'u', tur: 'u', nk: nk, n: n, old: nk + 'a' });
       if (n.au) qoy({ id: nk + 'o', tur: 'o', nk: nk, n: n, old: nk + 'u' });
     });
-    o.mashq.forEach(function (q) { if (faol[q.d]) qoy({ id: 'q' + q.id, tur: 'q', nk: 'q' + q.id, s: q }); });
+    o.mashq.forEach(function (q) { if (faol[q.d] || ust[q.id]) qoy({ id: 'q' + q.id, tur: 'q', nk: 'q' + q.id, s: q, u: ust[q.id] ? 1 : 0 }); });
 
     /* ---- jurnal → holat ---- */
     var J = [], S = {};
@@ -92,6 +94,7 @@
         else if (x.tur === 'q') YQ.push(x);
         else if (S[x.old] && S[x.old].rv >= 1 && !nota[x.nk] && !rn[x.nk]) YX.push(x);
       });
+      YQ.sort(function (a, b) { return b.u - a.u; });            // xatolar birinchi (sort barqaror)
       YA = YA.slice(0, Math.max(0, soz.yangi - yA));
       YQ = YQ.slice(0, Math.max(0, soz.yangiQ - yQ));
       YX = YX.slice(0, Math.max(0, soz.yangiQosh - yX));

@@ -142,7 +142,9 @@ document.write('<script src="' + SN + 'fsrs.js"><\/script><script src="' + SN + 
   function qur() {
     var j = [];
     try { j = (JSON.parse(L(KJ) || '{}').j) || []; } catch (e) {}
-    E = Takror.yarat({ lugat: D.l, mashq: D.m, darslar: D.d, faol: FAOL, jurnal: j });
+    var ust = [];                                       /* «Йўл»dagi xatolar (yol.html) — yangi mashq savollari ichida birinchi */
+    try { ust = JSON.parse(L(SINOV ? 'yol-sinov-xato' : 'yol-xato') || '[]') || []; } catch (e) {}
+    E = Takror.yarat({ lugat: D.l, mashq: D.m, darslar: D.d, faol: FAOL, jurnal: j, ustun: ust });
   }
   function xul() { LS(SINOV ? 'takror-sinov-xulosa' : 'takror-xulosa', JSON.stringify(E.xulosa(hozir()))); }
   function saqla() { LS(KJ, JSON.stringify({ v: 1, j: E.jurnal })); xul(); }

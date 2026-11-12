@@ -27,7 +27,9 @@ function fqApp(){if(!/fiqh/.test(location.hostname))return;(function(){var h=doc
 </script>
 <link rel="stylesheet" href="shell.css">
 <style>
-body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--tx);font:17px/1.4 system-ui,-apple-system,sans-serif}
+@font-face{font-family:"DarsNaskh";src:url(naskh.woff) format("woff");font-display:swap}
+.cv{width:150px;height:auto;border-radius:10px;box-shadow:0 8px 22px rgba(0,0,0,.28)}
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;gap:18px;align-items:center;justify-content:center;background:var(--bg);color:var(--tx);font:17px/1.4 system-ui,-apple-system,sans-serif}
 #f{display:none;gap:8px;padding:16px}
 #f.on{display:flex}
 #p{font:inherit;font-size:18px;padding:12px 14px;border:1px solid var(--bd);border-radius:14px;background:var(--cd);color:var(--tx);width:190px;text-align:center}
@@ -38,6 +40,7 @@ body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:c
 </head>
 <body>
 <a class="bk" href="./">‹</a>
+<svg class="cv" viewBox="0 0 200 280" role="img" aria-label="Мухтасарул виқоя — муқова"><rect x="0" y="0" width="200" height="280" rx="10" fill="#5E3C14"/><rect x="184" y="0" width="16" height="280" rx="6" fill="#43290C"/><rect x="14" y="14" width="160" height="252" rx="6" fill="none" stroke="#D9B46A" stroke-width="2"/><rect x="21" y="21" width="146" height="238" rx="4" fill="none" stroke="#D9B46A" stroke-width=".8" stroke-dasharray="3 3"/><g transform="translate(94 62)" fill="none" stroke="#D9B46A" stroke-width="1.6"><rect x="-15.84" y="-15.84" width="31.68" height="31.68"/><rect x="-15.84" y="-15.84" width="31.68" height="31.68" transform="rotate(45)"/><circle r="7.128"/></g><text x="94" y="126" text-anchor="middle" font-size="25" fill="#F4E6C3" font-family="DarsNaskh,Noto Naskh Arabic,serif">مُخْتَصَرُ</text><text x="94" y="158" text-anchor="middle" font-size="25" fill="#F4E6C3" font-family="DarsNaskh,Noto Naskh Arabic,serif">الْوِقَايَةِ</text><path d="M54 176 H84 M104 176 H134" stroke="#D9B46A" stroke-width="1.2"/><rect x="89" y="171" width="10" height="10" transform="rotate(45 94 176)" fill="#D9B46A"/><text x="94" y="203" text-anchor="middle" font-size="14" fill="#D9B46A" font-family="DarsNaskh,Noto Naskh Arabic,serif">النُّقَايَةُ</text><text x="94" y="228" text-anchor="middle" font-size="11" fill="#F4E6C3" font-family="DarsNaskh,Noto Naskh Arabic,serif">صَدْرُ الشَّرِيعَةِ الْمَحْبُوبِيُّ</text><g transform="translate(94 250)" fill="none" stroke="#D9B46A" stroke-width="1.6"><rect x="-5.04" y="-5.04" width="10.08" height="10.08"/><rect x="-5.04" y="-5.04" width="10.08" height="10.08" transform="rotate(45)"/><circle r="2.2680000000000002"/></g></svg>
 <form id="f" autocomplete="on"><input id="p" type="password" autocomplete="current-password" aria-label="Парол"><button type="submit" aria-label="Кириш">→</button></form>
 <script>
 var D="@@DATA@@";

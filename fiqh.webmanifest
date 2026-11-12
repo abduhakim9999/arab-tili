@@ -5,7 +5,7 @@
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#5E3C14",
+  "background_color": "#2E1C07",
   "theme_color": "#5E3C14",
   "icons": [
     {"src": "fiqh-icon-192.png", "sizes": "192x192", "type": "image/png"},

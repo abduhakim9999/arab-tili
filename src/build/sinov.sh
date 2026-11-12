@@ -16,7 +16,7 @@ for f in "$@"; do
                *) cp "$f" "$WT/$b";; esac
 done
 cd "$WT"
-git add -A . && git commit -q -m "sinov: $*" -m "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
+git add -A . && git commit -q -m "sinov: $*" -m "${CLAUDE_IMZO:-Co-Authored-By: Claude <noreply@anthropic.com>}"
 for TRY in 1 2 3; do
   git push -q origin HEAD:main && { echo "Sinovga qo'yildi (1–2 daqiqada ochiladi)."; exit 0; }
   git fetch -q origin main && git rebase -q origin/main

@@ -52,6 +52,7 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
   | Abzas bo'sh joyi bosilsa o'qiydi; Таркибда o'qilayotgan gap legenda ostida qolmaydi (`shell.js`) | hamma darslar | — |
   | So'z oynasi: ‹ ›, Таркиб Ўзбекча/Арабча, qo'shimchalar tugma (`zoX`, `.zo-*`) | hamma darslar, fiqh 1 | — |
 - Oxirgi qilinganlar (10–12.11.2026):
+  - «Такрорлаш» (12.11.2026): `takror.html` — FSRS bilan so'z takrori (arabcha → ma'no, ma'no → arabcha, ovoz → ma'no) va so'z oxiri savollari, «Билган сўзларим»; bosh sahifada «Давом этиш» ostida karta. Hozircha faqat 1-dars (15 so'z, 10 savol); atoqli ot va harflar kirmaydi. Ma'lumot fayllari `data/` (`src/build/ajrat.py`; dars o'zgarsa qayta ishga tushiriladi, aks holda `deploy.sh` to'xtaydi). Batafsil `docs/texnik.md` 14, reja `docs/rejalar.md` 1.
   - So'z oynasi (‹ ›, ✕, Таркиб Ўзбекча/Арабча, qo'shimchalar tugma) hamma darslarga o'tkazildi (`docs/texnik.md` 4).
   - Fiqh: 1-darsga «Машқ» (5 fiqhiy + 5 grammatik savol); Muqaddimaga al-Qori sharhi (34–40-betlar, arabcha + tarjima, archive.org skaneri bo'yicha); grammatika darsiga havola bekor (`docs/texnik.md` 10).
   - Машқdagi «🔊 Тинглаш» tugmasi hamma darslardan o'chirildi; yangi darslarda ham qo'yilmaydi (`docs/texnik.md` 5).
@@ -68,5 +69,5 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
   - Qulf ekranidagi pleyer (Media Session) — hamma darslar va fiqh (`shell.js`, `docs/texnik.md` 5).
   - Fiqh 1-dars sharhi: 41–46-betlar arabcha + so'zma-so'z tarjima; atamalar — nuqtali chiziq, bosilsa izoh; bet yozuvi tepada qotadi; Muqaddimada tepa qator qotadi (`docs/texnik.md` 10).
   - Keyingi reja: Play Market (foydalanuvchi Google Play hisobini ochadi; TWA). Ilova tavsiyasi kartasi olib tashlandi.
-- **Keyingi rejalar** (foydalanuvchi aytganda): `docs/rejalar.md` — lug'at «Такрорлаш» (ts-fsrs), repo tartibi, Play Market, tarmoqlar.
+- **Keyingi rejalar** (foydalanuvchi aytganda): `docs/rejalar.md` — o'quvchi taraqqiyoti (takror 2–9-darslar, server, reyting, ilova), repo tartibi, Play Market, tarmoqlar.
 - Eskiroq yozuvlar (05–07.11.2026 va undan oldin): `docs/tarix.md`.

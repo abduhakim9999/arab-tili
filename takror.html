@@ -147,6 +147,15 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .lg-bm[aria-pressed="true"]{color:var(--tq-no)}
 .lg-bm[aria-pressed="true"] svg{fill:currentColor}
 .lg-e{padding:28px 16px;text-align:center;color:var(--mu)}
+.lg-qy{font-style:normal;font-weight:700;color:var(--tq-no)}
+/* ⓘ — «Билган сўзларим» qoidasi (qisqa; batafsili yo'riqnomada) */
+.tq-h{display:flex;align-items:center;gap:6px}
+.tq-ib{position:relative;width:28px;height:28px;margin:-6px 0;padding:0;border:0;border-radius:50%;background:none;color:var(--mu);display:inline-flex;align-items:center;justify-content:center}
+.tq-ib::after{content:"";position:absolute;inset:-8px}
+.tq-ib svg{width:19px;height:19px}
+.tq-ib[aria-expanded="true"]{color:var(--ac);background:var(--tint)}
+.tq-iz{margin:10px 0 0;padding:10px 12px;border-radius:12px;background:var(--tint);font-size:14px;line-height:1.5}
+.tq-iz a{color:var(--ac);font-weight:700}
 /* машқ: тур бўйича учта машқ */
 .mq-c{display:flex;align-items:center;gap:14px;width:100%;box-sizing:border-box;margin:0 0 10px;padding:14px 12px 16px 14px;border-radius:18px;border:1.5px solid var(--bd);background:var(--cd);box-shadow:inset 0 -4px 0 var(--bd);text-align:left}
 .mq-c:active{transform:translateY(2px);box-shadow:inset 0 -2px 0 var(--bd)}
@@ -177,7 +186,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 <div class="tq-bar" id="bar" hidden></div>
 <audio id="au" preload="none"></audio>
 <script>
-document.write('<script src="fsrs.js"><\/script><script src="takror.js"><\/script>');
+document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js"><\/script>');   /* sinovda takror.js ning sinov nusxasi */
 </script>
 <script>
 (function () {
@@ -291,19 +300,22 @@ document.write('<script src="fsrs.js"><\/script><script src="takror.js"><\/scrip
     var RV = FSRS.State.Review, sn = {};
     E.jurnal.forEach(function (e) { var m = /^w(\d+)[auos]$/.exec(e[0]); if (m) { var a = sn[m[1]] = sn[m[1]] || [0, 0]; a[e[2] === 1 ? 1 : 0]++; } });
     return D.l.filter(function (r) { return r.tk; }).map(function (r) {
-      var best = 0, bor = false, st, dr;
-      ['a', 'u', 'o'].forEach(function (t) { var c = EA.karta('w' + r.id + t); if (!c) return; bor = true; if (c.state === RV && c.stability > best) best = c.stability; });
-      if (best >= EA.sozlama.mustahkam) { st = 'm'; dr = 4; }
+      var best = 0, bor = false, st, dr, sb = {};
+      ['a', 'u', 'o'].forEach(function (t) { var c = EA.karta('w' + r.id + t); if (!c) return; bor = true; if (c.state === RV) { sb[t] = c.stability; if (c.stability > best) best = c.stability; } });
+      if ((sb.a || 0) >= EA.sozlama.mustahkam && (sb.u || 0) >= EA.sozlama.bilgan) { st = 'm'; dr = 4; }       /* mustahkam: ikki tomonlama (takror.js hisob() bilan bir xil) */
       else if (best >= EA.sozlama.bilgan) { st = 'g'; dr = 3; }
       else if (W.b[r.id]) { st = 'b'; dr = best ? 2 : bor ? 1 : 0; }
       else if (W.a[r.id]) { st = 'a'; dr = 4; }
       else if (bor) { st = 'o'; dr = best ? 2 : 1; }
       else { st = W.k[r.id] ? 't' : 'y'; dr = 0; }
-      return { r: r, st: st, dr: dr, ok: (sn[r.id] || [0, 0])[0], no: (sn[r.id] || [0, 0])[1] };
+      var no = (sn[r.id] || [0, 0])[1];
+      return { r: r, st: st, dr: dr, ok: (sn[r.id] || [0, 0])[0], no: no, qy: no >= QIYIN && (st === 'o' || st === 'b' || st === 't' || st === 'y') };   /* qy — «қийин сўз» */
     });
   }
   var HN = { m: 'мустаҳкам', g: 'биламан', a: 'ўзим белгилаган', o: 'ўрганилмоқда', b: 'билмайман', t: 'текширилмаган', y: 'кўрилмаган' };
   var HT6 = ['m', 'g', 'a', 'o', 'b', 't', 'y'];
+  var INF = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5"/><circle cx="12" cy="7.7" r=".7" fill="currentColor"/></svg>';
+  var QIYIN = 4;                                         /* shuncha marta xato qilingan, hali bilinmagan so'z — «қийин» (Anki'dagi «leech» kabi) */
   var AB = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.4l2.8 2.8L16 9.6"/></svg>';
   var BM = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h11a1 1 0 0 1 1 1V21l-6.5-4.2L5.5 21V4.5a1 1 0 0 1 1-1z"/></svg>';
   function lugat() {
@@ -311,14 +323,16 @@ document.write('<script src="fsrs.js"><\/script><script src="takror.js"><\/scrip
     document.body.classList.remove('tq-ses');
     if (QAYTA) qur();
     var S = sozlar(), c = { m: 0, g: 0, a: 0, o: 0, b: 0, t: 0, y: 0 }, lv = {}, nom = {};
-    S.forEach(function (x) { c[x.st]++; });
+    var qyn = 0;
+    S.forEach(function (x) { c[x.st]++; if (x.qy) qyn++; });
+    if (LF === 'q' && !qyn) LF = 'h';
     D.d.forEach(function (d) { if (d.lv) lv[d.n] = d.lv; nom[d.n] = d.uz; });
     app.innerHTML = tepa() +
       '<section class="tq-c"><div class="tq-h">Сўз базаси</div><div class="tq-big sm"><b>' + (c.m + c.g + c.a) + '</b><span>/ ' + S.length + ' сўзни биламан</span></div>' +
       '<div class="lg-br" aria-hidden="true">' + HT6.map(function (k) { return c[k] ? '<i class="' + k + '" style="flex:' + c[k] + '"></i>' : ''; }).join('') + '</div>' +
       '<div class="lg-lg">' + HT6.map(function (k) { return '<span><i class="' + k + '"></i>' + HN[k] + ' <b>' + c[k] + '</b></span>'; }).join('') + '</div></section>' +
       '<input class="lg-q" id="lq" type="search" inputmode="search" autocomplete="off" placeholder="Қидириш: арабча ёки ўзбекча" aria-label="Қидириш" value="' + esc(LQ) + '">' +
-      '<div class="lg-ch" role="group" aria-label="Саралаш">' + [['h', 'Ҳаммаси', S.length], ['b', 'Билмаганларим', c.b], ['o', 'Ўрганилмоқда', c.o], ['g', 'Биламан', c.m + c.g + c.a], ['t', 'Текширилмаган', c.t]].map(function (f) {
+      '<div class="lg-ch" role="group" aria-label="Саралаш">' + [['h', 'Ҳаммаси', S.length], ['b', 'Билмаганларим', c.b], ['o', 'Ўрганилмоқда', c.o], ['g', 'Биламан', c.m + c.g + c.a], ['t', 'Текширилмаган', c.t]].concat(qyn ? [['q', 'Қийин', qyn]] : []).map(function (f) {
         return '<button data-f="' + f[0] + '" aria-pressed="' + (LF === f[0]) + '">' + f[1] + ' · ' + f[2] + '</button>'; }).join('') + '</div>' +
       '<p class="lg-hn"><span>' + AB + 'аниқ биламан</span><span>' + BM + 'билмайман</span></p><div id="lr"></div>';
     bar.hidden = true; bar.innerHTML = ''; tabUla();
@@ -328,12 +342,12 @@ document.write('<script src="fsrs.js"><\/script><script src="takror.js"><\/scrip
       function yop() { if (qism) h += '<h3 class="lg-d">' + dars + '-дарс · ' + esc(nom[dars] || '') + '<span>' + n + ' сўз</span></h3><div class="lg-l">' + qism + '</div>'; qism = ''; n = 0; }
       S.forEach(function (x) {
         var r = x.r;
-        if (LF !== 'h' && !(LF === 'g' ? (x.st === 'g' || x.st === 'm' || x.st === 'a') : x.st === LF)) return;
+        if (LF !== 'h' && !(LF === 'q' ? x.qy : LF === 'g' ? (x.st === 'g' || x.st === 'm' || x.st === 'a') : x.st === LF)) return;
         if (q && plain(r.ar).indexOf(q) < 0 && r.uz.join(' ').toLowerCase().indexOf(q) < 0) return;
         if (r.d !== dars) { yop(); dars = r.d; }
         n++;
         qism += '<div class="lg-r ' + x.st + '"><button class="lg-w"' + (r.au && lv[r.d] ? ' data-au="' + r.id + '"' : '') + '><b class="ar" lang="ar">' + esc(r.ar) + '</b><span>' + esc(mano(r)) + '</span>' + (shakllar(r) ? '<small>' + shakllar(r) + '</small>' : '') + '</button>' +
-          '<div class="lg-s"><span class="lg-p d' + x.dr + '" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>' + HN[x.st] + (x.ok + x.no ? ' · ✓' + x.ok + (x.no ? ' ✗' + x.no : '') : '') + '</span></div>' +
+          '<div class="lg-s"><span class="lg-p d' + x.dr + '" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>' + (x.qy ? '<em class="lg-qy">қийин</em> ' : '') + HN[x.st] + (x.ok + x.no ? ' · ✓' + x.ok + (x.no ? ' ✗' + x.no : '') : '') + '</span></div>' +
           '<button class="lg-ab" data-id="' + r.id + '" aria-pressed="' + (W.a[r.id] ? 'true' : 'false') + '" aria-label="«Аниқ биламан» деб белгилаш">' + AB + '</button>' +
           '<button class="lg-bm" data-id="' + r.id + '" aria-pressed="' + (W.b[r.id] ? 'true' : 'false') + '" aria-label="«Билмайман» деб белгилаш">' + BM + '</button></div>';
       });
@@ -508,10 +522,13 @@ document.write('<script src="fsrs.js"><\/script><script src="takror.js"><\/scrip
     if (b.takror + b.yangi) html += '<section class="tq-c"><div class="tq-ns"><div><b>' + b.takror + '</b><span>такрор</span></div><div><b>' + b.yangi +
       '</b><span>янги</span></div></div><button class="tq-b tq-b1" id="go">Бошлаш</button></section>';
     else html += '<section class="tq-c tq-dn"><h2>Бугунга тамом</h2><p>Эртага ' + E.ertaga(t) + ' та</p></section>';
-    html += '<section class="tq-c"><div class="tq-h">Билган сўзларим</div><div class="tq-big"><b>' + (h.bilgan + an) + '</b><span>/ ' + (h.jami + an) + '</span></div>' +
+    html += '<section class="tq-c"><div class="tq-h">Билган сўзларим<button class="tq-ib" id="bi" aria-expanded="false" aria-controls="biz" aria-label="Қандай ҳисобланади">' + INF + '</button></div><div class="tq-big"><b>' + (h.bilgan + an) + '</b><span>/ ' + (h.jami + an) + '</span></div>' +
       '<div class="tq-pr"><i style="width:' + (h.jami + an ? Math.round((h.bilgan + an) * 100 / (h.jami + an)) : 0) + '%"></i></div>' +
-      '<div class="tq-mu">ўрганилмоқда ' + h.organilmoqda + ' · мустаҳкам ' + h.mustahkam + (an ? ' · ўзим белгилаган ' + an : '') + '</div></section>';
+      '<div class="tq-mu">ўрганилмоқда ' + h.organilmoqda + ' · мустаҳкам ' + h.mustahkam + (an ? ' · ўзим белгилаган ' + an : '') + '</div>' +
+      '<div class="tq-iz" id="biz" hidden>Сўз камида <b>' + E.sozlama.bilgan + ' кун</b> эсда турса — «биламан»: одатда 4 та тўғри жавоб, икки ҳафтача. <b>' + E.sozlama.mustahkam + ' кун</b> ва маънодан арабчасини ҳам айта олсангиз — «мустаҳкам». Хато қилинса, сўз қайтадан бошланади. <a href="' + SN + 'yoriqnoma.html#takror">Батафсил</a></div></section>';
     app.innerHTML = html; bar.hidden = true; bar.innerHTML = ''; tabUla();
+    var bi = document.getElementById('bi');
+    if (bi) bi.onclick = function () { var z = document.getElementById('biz'), och = z.hidden; z.hidden = !och; bi.setAttribute('aria-expanded', String(och)); };
     var go = document.getElementById('go'); if (go) go.onclick = function () { mash(1); document.body.classList.add('tq-ses'); keyingi(); };
     if (SINOV) {
       document.getElementById('s1').onclick = function () { LS(KS, String(siljish() + 1)); bosh(); };

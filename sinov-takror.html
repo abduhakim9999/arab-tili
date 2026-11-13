@@ -48,7 +48,9 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .tq-big b{font-size:34px;line-height:1.1;font-weight:700;color:var(--ac)}
 .tq-big span{font-size:17px;color:var(--mu)}
 .tq-pr{height:6px;border-radius:3px;background:var(--tint);overflow:hidden}
-.tq-pr i{display:block;height:100%;border-radius:3px;background:var(--ac);transition:width .25s}
+.tq-pr i{display:block;height:100%;border-radius:3px;background:var(--ac);transition:width .35s ease}
+.tq-st .tq-pr{height:10px;border-radius:5px}
+.tq-st .tq-pr i{border-radius:5px}
 .tq-c .tq-pr{margin:0 0 10px}
 .tq-sn{display:flex;align-items:center;gap:8px;margin:0 0 12px;padding:8px 10px 8px 12px;border:1px dashed var(--bd);border-radius:12px;font-size:13.5px;color:var(--mu)}
 .tq-sn span{flex:1}
@@ -186,7 +188,8 @@ document.write('<script src="fsrs.js"><\/script><script src="takror.js"><\/scrip
   var KJ = SINOV ? 'takror-sinov-j' : 'takror-j', KS = 'takror-sinov-kun';
   var KM = 'takror-mashgulot';         /* sahifa o'zi yangilansa (yangi versiya) mashg'ulot davom etadi */
   var app = document.getElementById('app'), bar = document.getElementById('bar'), au = document.getElementById('au');
-  var E = null, D = null, cur = null, t0 = 0, jami0 = 0, tmq = null, auF = '', auT = null;
+  var E = null, D = null, cur = null, t0 = 0, tmq = null, auF = '', auT = null;
+  var qD = 0, qT = 0, qW = 0;                          /* mashg'ulot chizig'i: bajarilgan qadam, jami qadam, oldingi kenglik (%) */
 
   function L(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function LS(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} }
@@ -492,7 +495,7 @@ document.write('<script src="fsrs.js"><\/script><script src="takror.js"><\/scrip
     window.scrollTo(0, 0);
   }
   function bosh() {
-    clearTimeout(tmq); toxta(); cur = null; jami0 = 0; mash(0);
+    clearTimeout(tmq); toxta(); cur = null; qD = 0; qT = 0; qW = 0; mash(0);
     document.body.classList.remove('tq-ses');
     if (QAYTA) qur();                                   /* «аниқ биламан» belgisi o'zgargan — kartalar qayta yig'iladi */
     if (TAB === 'l') { lugat(); return; }
@@ -523,17 +526,25 @@ document.write('<script src="fsrs.js"><\/script><script src="takror.js"><\/scrip
     var x = E.keyingi(hozir());
     if (!x) { bosh(); return; }
     cur = x.k; t0 = Date.now();
-    if (x.qoldi > jami0) jami0 = x.qoldi;
-    var bosh_ = '<div class="tq-st"><button id="yop" aria-label="Ёпиш">✕</button><div class="tq-pr"><i style="width:' +
-      Math.round((1 - x.qoldi / jami0) * 100) + '%"></i></div><span>' + x.qoldi + '</span></div>';
+    /* Chiziq har to'g'ri javobda siljiydi (13.11.2026): qadamlar sanaladi, kartalar emas. Yangi karta — ikki qadam (birinchi ko'rish va
+       mustahkamlash: «билдим»dan keyin ham shu mashg'ulotda yana bir marta so'raladi), takrordagi — bir qadam. Noto'g'ri javobda joyida qoladi;
+       qo'shimcha qadam kerak bo'lsa jami (qT) o'sadi — chiziq orqaga qaytmaydi. O'ngdagi son — qolgan qadamlar. */
+    var bg = E.bugun(hozir()), qol = bg.takror + 2 * bg.yangi, eski = qW;
+    if (qD + qol > qT) qT = qD + qol;
+    qW = qT ? Math.round(qD * 100 / qT) : 0;
+    var bosh_ = '<div class="tq-st"><button id="yop" aria-label="Ёпиш">✕</button><div class="tq-pr" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + qW +
+      '"><i id="qpi" style="width:' + eski + '%"></i></div><span aria-label="Қолган қадамлар">' + (qT - qD) + '</span></div>';
     if (cur.tur === 'q') savol(bosh_, x); else soz(bosh_, x);
     document.getElementById('yop').onclick = bosh;
+    var qi = document.getElementById('qpi');             /* oldingi kenglikdan yangisiga — silliq siljiydi */
+    if (qi && qW !== eski) requestAnimationFrame(function () { requestAnimationFrame(function () { qi.style.width = qW + '%'; }); });
     window.scrollTo(0, 0);
   }
   function tugma(h, two) { bar.innerHTML = '<div' + (two ? ' class="two"' : '') + '>' + h + '</div>'; bar.hidden = false; }
   function javob(bildi) {
     if (!cur) return;
     E.javob(cur.id, bildi, Date.now() - t0, hozir());
+    if (bildi) qD++;
     if (cur.n) {                                        /* so'z kartasi: bilmadi → «bilmayman»ga; bildi → yod bo'lgan bo'lsa undan chiqadi */
       if (!bildi) { if (!W.b[cur.n.id]) { W.b[cur.n.id] = 1; delete W.k[cur.n.id]; wYoz(); } } else tozala();
     }
@@ -614,7 +625,7 @@ document.write('<script src="fsrs.js"><\/script><script src="takror.js"><\/scrip
         });
         document.getElementById('qg').innerHTML = chiz(true);
         if (q.sabab) document.getElementById('qs').innerHTML = mix(q.sabab);
-        E.javob(cur.id, ok, Date.now() - t0, hozir()); saqla();
+        E.javob(cur.id, ok, Date.now() - t0, hozir()); if (ok) qD++; saqla();
         tugma('<button class="tq-b tq-b1" id="kn">Кейинги</button>');
         document.getElementById('kn').onclick = keyingi;
         if (ok) tmq = setTimeout(keyingi, 1000);

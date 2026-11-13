@@ -142,11 +142,11 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
 
   /* natijalarni tozalash: yo'l natijalari, xatolar ro'yxati, takror jurnali va darslardagi mashq javoblari */
   document.getElementById('del').onclick = function () {
-    if (!confirm('Йўл натижалари, такрорлаш журнали ва дарслардаги машқ жавоблари ўчирилади. Давом этилсинми?')) return;
+    if (!confirm('Йўл натижалари, сўз базаси (белгилар ва такрорлаш журнали) ва дарслардаги машқ жавоблари ўчирилади. Давом этилсинми?')) return;
     var p = SN ? 'yol-sinov' : 'yol', hz = String(Date.now());
     /* bo'sh holat + yangi vaqt belgisi yoziladi (o'chirilmaydi): aks holda Telegram bulutidagi eski nusxa qaytib keladi (tg.js pull) */
     LS(p, '{"v":1,"d":{},"e":{}}'); LS(p + '-t', hz);
-    [p + '-xato', p + '-xato-soz', p + '-kitob', SN ? 'takror-sinov-j' : 'takror-j', SN ? 'takror-sinov-xulosa' : 'takror-xulosa', 'takror-sinov-kun'].forEach(function (k) { LS(k, null); });
+    [p + '-xato', p + '-kitob', SN ? 'soz-sinov' : 'soz', SN ? 'takror-sinov-j' : 'takror-j', SN ? 'takror-sinov-xulosa' : 'takror-xulosa', 'takror-sinov-kun'].forEach(function (k) { LS(k, null); });
     try { sessionStorage.removeItem('takror-mashgulot'); } catch (e) {}
     try {
       for (var i = 0; i < localStorage.length; i++) {

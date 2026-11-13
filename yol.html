@@ -53,7 +53,14 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
 .y-fn img{display:block;width:100%;height:auto}
 .y-fn.ak img:nth-child(even){transform:scaleY(-1)}
 .y-fn img.so{-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 120px),transparent);mask-image:linear-gradient(to bottom,#000 calc(100% - 120px),transparent)}
-.y-bk{position:relative;z-index:3;height:132px;margin:-66px 16px 0;background:var(--cd);color:var(--tx);border-radius:20px;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.26)}
+.y-bk{position:relative;z-index:3;height:132px;margin:0 16px;background:var(--cd);color:var(--tx);border:1.5px solid rgba(224,185,90,.9);border-radius:20px;overflow:hidden;box-shadow:0 8px 22px rgba(0,0,0,.3)}
+.y-bs.b1 .y-bk{margin-top:-66px}
+.y-bs:not(.b1){padding-top:48px}
+/* боб чегараси: тилла ҳошияли равоқ тасма (икки манзара туташган чизиқни ёпади) */
+.y-rv{position:absolute;z-index:3;left:0;right:0;top:-34px;height:70px;pointer-events:none;filter:drop-shadow(0 4px 5px rgba(0,0,0,.3))}
+.y-rv>svg{display:block;width:100%;height:100%}
+.y-rv i{position:absolute;left:50%;top:3px;width:40px;height:40px;margin-left:-20px;box-sizing:border-box;border-radius:50%;border:3px solid #E0B95A;background:#0C5E3F;display:flex}
+.y-rv i svg{width:100%;height:100%}
 .y-bk .tx{position:relative;z-index:1;width:206px;max-width:62%;height:100%;box-sizing:border-box;padding:12px 0 14px 16px;display:flex;flex-direction:column;gap:1px}
 .y-bk small{font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--ac)}
 .y-bk b{font-size:24px;line-height:1.55;text-align:left;white-space:nowrap}
@@ -62,9 +69,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
 .y-sg i{flex:1;max-width:24px;height:6px;border-radius:3px;background:var(--bd)}
 .y-sg i.o{background:var(--y-ok)}
 .y-sg i.h{background:var(--y-tl)}
-.y-bki{position:absolute;right:0;top:0;width:196px;max-width:58%;height:100%;overflow:hidden;-webkit-mask-image:linear-gradient(to right,transparent,#000 36%);mask-image:linear-gradient(to right,transparent,#000 36%)}
-img.y-bki{object-fit:cover;object-position:46% 50%}
-.y-bki img{display:block;max-width:none;height:auto}
+.y-bki{position:absolute;right:0;top:0;width:196px;max-width:58%;height:100%;object-fit:cover;object-position:46% 50%;-webkit-mask-image:linear-gradient(to right,transparent,#000 36%);mask-image:linear-gradient(to right,transparent,#000 36%)}
 .y-yl{position:relative;z-index:1;margin-top:10px}
 
 .y-ts{position:absolute;z-index:1;width:42px;height:23px;margin:-11px 0 0 -21px;border-radius:50%;background:var(--ts,#EFE8D4);box-shadow:0 5px 0 var(--ty,rgba(0,0,0,.3))}
@@ -119,7 +124,7 @@ img.y-bki{object-fit:cover;object-position:46% 50%}
 .y-nav{position:fixed;z-index:20;left:50%;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom,0px));width:calc(100% - 24px);max-width:536px;height:66px;box-sizing:border-box;padding:0 4px;border-radius:24px;background:var(--cd);box-shadow:0 6px 20px rgba(0,0,0,.3);display:flex;align-items:stretch}
 .y-nav a,.y-nav button{flex:1;min-width:0;border:0;background:none;padding:0;font-size:12px;font-weight:600;color:var(--mu);text-decoration:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
 .y-nav a,.y-nav button{white-space:nowrap}
-@media (max-width:350px){.y-nav a,.y-nav button{font-size:11px}.y-pg svg{display:none}.y-hr h1{font-size:22px}.y-bk b{font-size:21px}.y-bk .uz{font-size:12.5px}.y-bk .tx{max-width:66%}.y-bki{max-width:46%}.y-lb{font-size:13px}}
+@media (max-width:350px){.y-nav a,.y-nav button{font-size:11px}.y-pg svg{display:none}.y-hr h1{font-size:22px}.y-bk b{font-size:21px}.y-bk .uz{font-size:12.5px}.y-bk .tx{max-width:66%}.y-bki{max-width:46%}.y-lb{font-size:13px}.y-b{font-size:16px}.y-md{width:66px;height:66px}}
 .y-nav .i{position:relative;width:52px;height:30px;border-radius:15px;display:flex;align-items:center;justify-content:center}
 .y-nav svg{width:24px;height:24px}
 .y-nav .on{color:var(--ac);font-weight:700}
@@ -129,20 +134,49 @@ img.y-bki{object-fit:cover;object-position:46% 50%}
 /* пастдан чиқадиган ойна */
 .y-sh{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.35);display:flex;align-items:flex-end;justify-content:center}
 .y-sh[hidden]{display:none}
-.y-sb{width:100%;max-width:560px;background:var(--bg);border-radius:22px 22px 0 0;padding:10px 16px calc(16px + env(safe-area-inset-bottom,0px));box-sizing:border-box;max-height:86vh;overflow:auto}
-.y-sb .gr{width:40px;height:5px;border-radius:3px;background:var(--bd);margin:0 auto 12px}
+.y-sb{position:relative;width:100%;max-width:560px;background:var(--bg);border-radius:26px 26px 0 0;padding:8px 16px calc(18px + env(safe-area-inset-bottom,0px));box-sizing:border-box;max-height:86vh;overflow:auto;overscroll-behavior:contain;box-shadow:0 -6px 24px rgba(0,0,0,.25)}
+.y-sb .gr{width:44px;height:5px;border-radius:3px;background:var(--bd);margin:0 auto 10px}
+.y-x{position:absolute;right:10px;top:10px;width:44px;height:44px;border-radius:50%;border:0;background:var(--tint);color:var(--mu);display:flex;align-items:center;justify-content:center}
+.y-x svg{width:18px;height:18px}
 .y-sb h2{font-size:20px;line-height:1.3;margin:0 0 2px}
+.y-sb>h2{margin:6px 48px 10px 0;min-height:30px}
 .y-sb .ar.t{display:block;font-size:24px;line-height:1.7;text-align:left}
-.y-sb p{margin:8px 0 14px;color:var(--mu);font-size:14.5px}
-.y-b{display:block;width:100%;height:54px;border-radius:14px;border:1px solid var(--bd);background:var(--cd);font-size:17px;font-weight:650;text-decoration:none;color:var(--tx);text-align:center;line-height:52px;box-sizing:border-box}
-.y-b1{background:var(--ac);border-color:var(--ac);color:var(--y-act)}
-.y-b:active{transform:scale(.985)}
-.y-sb .y-b+.y-b{margin-top:8px}
+.y-sb p{margin:8px 0 14px;color:var(--mu);font-size:14.5px;line-height:1.45}
+/* ойна боши: дарс белгиси, ҳолати, номи */
+.y-vh{display:flex;align-items:center;gap:14px;margin:2px 44px 10px 0}
+.y-vh .m{min-width:0}
+.y-vh small{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:2px;font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--ac)}
+.y-md{position:relative;width:76px;height:76px;flex-shrink:0;box-sizing:border-box;border-radius:50%;border:3px solid var(--y-tl);background:#FFFDF6;box-shadow:0 4px 0 rgba(0,0,0,.16);display:flex;align-items:center;justify-content:center;color:#0C5E3F;font-size:24px;font-weight:700}
+.y-md .ic{width:100%;height:100%;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.y-md .ic svg{width:66%;height:66%}
+.y-md.qf{border-color:#C7D0C4}
+.y-md.qf .ic{background:#E9EDE6!important}
+.y-md.qf .ic svg{filter:grayscale(1);opacity:.5}
+.y-md.ex{width:68px;height:77px;border:0;border-radius:0;background:none;box-shadow:none}
+.y-md.ex>svg{width:68px;height:77px;filter:drop-shadow(0 4px 0 rgba(0,0,0,.16))}
+.y-md.kx{border:4px solid #0C5E3F;background:#E9C469}
+.y-md.kx>svg{width:38px;height:38px}
+.y-hl{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:700;letter-spacing:0;background:rgba(201,148,52,.2);color:var(--au)}
+.y-hl svg{width:12px;height:12px}
+.y-hl.qf{background:var(--bd);color:var(--mu)}
+.y-hl.ok{background:var(--y-okb);color:var(--y-ok)}
+/* тугмалар: ҳажмли (пастки қирраси бор), босилганда чўкади */
+.y-b{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:58px;padding:7px 16px 11px;box-sizing:border-box;border-radius:16px;border:1.5px solid var(--bd);background:var(--cd);box-shadow:inset 0 -4px 0 var(--bd);font-size:17px;font-weight:700;line-height:1.2;text-decoration:none;color:var(--tx);text-align:center;transition:transform .06s,box-shadow .06s}
+.y-b svg{width:20px;height:20px;flex-shrink:0;color:var(--ac)}
+.y-b .t{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left}
+.y-b small{font-size:13px;font-weight:500;color:var(--mu)}
+.y-b1{background:var(--ac);border-color:transparent;color:var(--y-act);box-shadow:inset 0 -4px 0 rgba(0,0,0,.25)}
+.y-b1 svg{color:inherit}
+.y-b:active{transform:translateY(2px);box-shadow:inset 0 -2px 0 var(--bd)}
+.y-b1:active{box-shadow:inset 0 -2px 0 rgba(0,0,0,.25)}
+.y-sb .y-b+.y-b{margin-top:10px}
 .y-ns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 12px;text-align:center}
-.y-ns div{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:10px 6px}
+.y-ns>div{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:10px 6px}
 .y-ns b{display:block;font-size:26px;line-height:1.2;font-variant-numeric:tabular-nums}
 .y-ns span{font-size:11.5px;font-weight:700;letter-spacing:.06em;color:var(--mu);text-transform:uppercase}
-.y-rw{display:flex;align-items:center;gap:12px;width:100%;min-height:60px;box-sizing:border-box;padding:8px 14px;margin-top:8px;border-radius:14px;border:1px solid var(--bd);background:var(--cd);color:var(--tx);text-decoration:none;font-size:16px;font-weight:600;text-align:left}
+.y-ns .st{display:flex;justify-content:center;gap:2px;margin-top:3px}
+.y-ns .st svg{width:14px;height:14px}
+.y-rw{display:flex;align-items:center;gap:12px;width:100%;min-height:62px;box-sizing:border-box;padding:8px 14px 11px;margin-top:8px;border-radius:16px;border:1.5px solid var(--bd);background:var(--cd);box-shadow:inset 0 -3px 0 var(--bd);color:var(--tx);text-decoration:none;font-size:16px;font-weight:600;text-align:left}
 .y-rw.on{border-color:var(--ac)}
 .y-rw span{flex:1}
 .y-rw small{display:block;font-size:13px;font-weight:400;color:var(--mu)}
@@ -183,7 +217,6 @@ img.y-bki{object-fit:cover;object-position:46% 50%}
 .y-ai{font-size:1.5em;line-height:1}
 .y-bar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--bd);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px))}
 .y-bar>div{max-width:528px;margin:0 auto;display:grid;gap:10px}
-.y-bar .y-b{line-height:normal}
 .y-nt{text-align:center;padding:24px 16px}
 .y-nt .bg{font-size:54px;line-height:1.1;font-weight:700;font-variant-numeric:tabular-nums}
 .y-nt.ok .bg{color:var(--y-ok)}
@@ -214,14 +247,14 @@ img.y-bki{object-fit:cover;object-position:46% 50%}
   var QAD = 112, Y0 = 76;                             /* tugunlar orasi va birinchi tugun, px */
   var KNOM = { 1: 'الْكِتَابُ الْأَوَّلُ', 2: 'الْكِتَابُ الثَّانِي', 3: 'الْكِتَابُ الثَّالِثُ', 4: 'الْكِتَابُ الرَّابِعُ' };
   /* Bob mavzusi: f — fon rasmi (640×1280), ak — uzun yo'lda ikkinchi nusxa aks ettirib ulanadi (faqat o'simlikli fon; boshqasida rasm pastda zamin rangiga eriydi), z — zamin rangi, ts — tosh rangi, ty — soya, rb — romb koshin,
-     kr — karta uchun alohida rasm, k — karta rasmi fondan qirqimi [x, y, kenglik], uz — bob nomi tarjimasi */
+     kr — bob kartasi rasmi (alohida chizilgan, krem fonda; fondan qirqilmaydi — ostidagi manzara bilan qo'shilib ketadi), uz — bob nomi tarjimasi */
   var MV = {
     k1b1: { f: 'bog', ak: 1, z: '#5B9133', ts: '#EFE8D4', ty: 'rgba(37,79,18,.45)', kr: 'bob1', uz: 'Саломлашиш ва танишиш' },
-    k1b2: { f: 'hovli', z: '#F1CFA3', ts: '#2A9D9A', ty: 'rgba(122,90,44,.4)', rb: 1, k: [392, 130, 248], uz: 'Оила' },
-    k2b1: { f: 'tog', z: '#95A453', ts: '#ECE9E0', ty: 'rgba(60,75,25,.45)', k: [0, 20, 248], uz: 'Соғлиқни сақлаш' },
-    k2b2: { f: 'daryo', z: '#A5BE52', ts: '#FFF8E6', ty: 'rgba(70,95,20,.45)', k: [0, 50, 248], uz: 'Дам олиш' },
-    k2b6: { f: 'shahar', z: '#E3C7A4', ts: '#B9552F', ty: 'rgba(110,80,40,.4)', rb: 1, k: [0, 40, 248], uz: 'Касблар' },
-    k2b7: { f: 'madrasa', z: '#E5D4BC', ts: '#2B5FA8', ty: 'rgba(100,80,50,.35)', rb: 1, k: [0, 20, 248], uz: 'Араб тили' }
+    k1b2: { f: 'hovli', z: '#F1CFA3', ts: '#2A9D9A', ty: 'rgba(122,90,44,.4)', rb: 1, kr: 'k-hovli', uz: 'Оила' },
+    k2b1: { f: 'tog', z: '#95A453', ts: '#ECE9E0', ty: 'rgba(60,75,25,.45)', kr: 'k-tog', uz: 'Соғлиқни сақлаш' },
+    k2b2: { f: 'daryo', z: '#A5BE52', ts: '#FFF8E6', ty: 'rgba(70,95,20,.45)', kr: 'k-daryo', uz: 'Дам олиш' },
+    k2b6: { f: 'shahar', z: '#E3C7A4', ts: '#B9552F', ty: 'rgba(110,80,40,.4)', rb: 1, kr: 'k-shahar', uz: 'Касблар' },
+    k2b7: { f: 'madrasa', z: '#E5D4BC', ts: '#2B5FA8', ty: 'rgba(100,80,50,.35)', rb: 1, kr: 'k-madrasa', uz: 'Араб тили' }
   };
   var app = document.getElementById('app'), bar = document.getElementById('bar'), sh = document.getElementById('sh'), sb = document.getElementById('sb'), nav = document.getElementById('nav');
   var D = null, R = null, Q = {}, IK = {}, TUZ = null, P = null, KT = 0, SZ = {};
@@ -242,6 +275,8 @@ img.y-bki{object-fit:cover;object-position:46% 50%}
     kubok: sv('<path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3M12 14v4M8 21h8M9 18h6"/>', 2),
     qalqon: '<svg viewBox="0 0 92 104" fill="none" aria-hidden="true"><path d="M46 4 L86 18 V52 C86 76 70 92 46 100 C22 92 6 76 6 52 V18 Z" fill="#0f7a4f" stroke="#E0B95A" stroke-width="4" stroke-linejoin="round"/><g stroke="#f6dc94" stroke-width="2.6" stroke-linejoin="round"><rect x="32" y="35" width="28" height="28"/><rect x="32" y="35" width="28" height="28" transform="rotate(45 46 49)"/></g></svg>',
     past: sv('<path d="M6 9l6 6 6-6"/>', 2.6),
+    x: sv('<path d="M6 6l12 12M18 6L6 18"/>', 2.8),
+    qlq: sv('<path d="M12 3l7.5 2.6v5.9c0 4.6-3 8-7.5 9.5-4.5-1.5-7.5-4.9-7.5-9.5V5.6z"/><path d="M9 12l2.2 2.2L15.2 10"/>'),
     bayroq: sv('<path d="M5 21V4M5 4h12l-2.5 4L17 12H5"/>', 2.4),
     oyin: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z"/></svg>',
     uy: sv('<path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/>'),
@@ -250,6 +285,7 @@ img.y-bki{object-fit:cover;object-position:46% 50%}
     kitob: sv('<path d="M12 6c-2-1.5-4.5-2-8-2v14c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2V4c-3.5 0-6 .5-8 2zM12 6v14"/>'),
     tish: sv('<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>', 2)
   };
+  var RAVOQ = '<svg viewBox="0 0 390 70" preserveAspectRatio="none"><path d="M0,30 Q110,30 195,6 Q280,30 390,30 L390,64 Q280,64 195,40 Q110,64 0,64 Z" fill="#0C5E3F"/><g fill="none" stroke-linecap="round"><path d="M0,30 Q110,30 195,6 Q280,30 390,30" stroke="#E0B95A" stroke-width="3"/><path d="M390,64 Q280,64 195,40 Q110,64 0,64" stroke="#E0B95A" stroke-width="3"/><path d="M0,36 Q110,36 195,12 Q280,36 390,36" stroke="#f6dc94" stroke-opacity=".5"/><path d="M390,58 Q280,58 195,34 Q110,58 0,58" stroke="#f6dc94" stroke-opacity=".5"/></g><path d="M15.0,43.3 l3.6,3.6 l-3.6,3.6 l-3.6,-3.6 zM39.0,42.6 l3.6,3.6 l-3.6,3.6 l-3.6,-3.6 zM63.0,41.3 l3.6,3.6 l-3.6,3.6 l-3.6,-3.6 zM87.0,39.3 l3.6,3.6 l-3.6,3.6 l-3.6,-3.6 zM111.0,36.5 l3.6,3.6 l-3.6,3.6 l-3.6,-3.6 zM135.0,32.8 l3.6,3.6 l-3.6,3.6 l-3.6,-3.6 zM159.0,28.3 l3.6,3.6 l-3.6,3.6 l-3.6,-3.6 zM231.0,28.3 l3.6,3.6 l-3.6,3.6 l-3.6,-3.6 zM255.0,32.8 l3.6,3.6 l-3.6,3.6 l-3.6,-3.6 zM279.0,36.5 l3.6,3.6 l-3.6,3.6 l-3.6,-3.6 zM303.0,39.3 l3.6,3.6 l-3.6,3.6 l-3.6,-3.6 zM327.0,41.3 l3.6,3.6 l-3.6,3.6 l-3.6,-3.6 zM351.0,42.6 l3.6,3.6 l-3.6,3.6 l-3.6,-3.6 zM375.0,43.3 l3.6,3.6 l-3.6,3.6 l-3.6,-3.6 z" fill="#E0B95A"/></svg><i><svg viewBox="0 0 40 40" fill="none" stroke="#f6dc94" stroke-width="1.8" stroke-linejoin="round"><rect x="12.5" y="12.5" width="15" height="15"/><rect x="12.5" y="12.5" width="15" height="15" transform="rotate(45 20 20)"/></svg></i>';
   var YUL = '<path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5-5.8-3.1-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/>';
   function yulduz(p) {
     var n = p >= 100 ? 3 : p >= 90 ? 2 : p >= OTISH ? 1 : 0, h = '';
@@ -397,9 +433,9 @@ img.y-bki{object-fit:cover;object-position:46% 50%}
     if (m.f) for (j = 0; j < (m.ak ? Math.max(1, Math.ceil(jami / (2 * W))) : 1); j++) fon += '<img' + (m.ak ? '' : ' class="so"') + ' src="' + rasm(m.f) + '" alt="" loading="lazy" decoding="async">';
     b.d.forEach(function (d) { seg += '<i class="' + (H.d[d.n].ot ? 'o' : H.hz === 'd' + d.n ? 'h' : '') + '"></i>'; });
     if (m.kr) kr = '<img class="y-bki" src="' + rasm(m.kr) + '" alt="" loading="lazy" decoding="async">';
-    else if (m.f && m.k) { var s = 196 / m.k[2]; kr = '<span class="y-bki"><img src="' + rasm(m.f) + '" alt="" loading="lazy" decoding="async" style="width:' + Math.round(640 * s) + 'px;margin:-' + Math.round(m.k[1] * s) + 'px 0 0 -' + Math.round(m.k[0] * s) + 'px"></span>'; }
-    h += '<section class="y-bs' + (m.rb ? ' rb' : '') + '" style="' + (m.z ? '--zm:' + m.z + ';' : '') + (m.ts ? '--ts:' + m.ts + ';' : '') + (m.ty ? '--ty:' + m.ty : '') + '">' +
-      '<div class="y-fn' + (m.ak ? ' ak' : '') + '" aria-hidden="true">' + fon + '</div>' +
+    var b1 = k.b[0] === b;                             /* kitobning birinchi bobi: karta tepa tasma ustiga chiqadi; qolganlarida — ravoq tasma */
+    h += '<section class="y-bs' + (m.rb ? ' rb' : '') + (b1 ? ' b1' : '') + '" style="' + (m.z ? '--zm:' + m.z + ';' : '') + (m.ts ? '--ts:' + m.ts + ';' : '') + (m.ty ? '--ty:' + m.ty : '') + '">' +
+      '<div class="y-fn' + (m.ak ? ' ak' : '') + '" aria-hidden="true">' + fon + '</div>' + (b1 ? '' : '<div class="y-rv" aria-hidden="true">' + RAVOQ + '</div>') +
       '<div class="y-bk"><div class="tx"><small>' + b.raq + '-БОБ · ' + hb.d + ' / ' + b.d.length + ' ДАРС</small><b class="ar" lang="ar">' + esc(b.nom) + '</b>' +
       (m.uz ? '<span class="uz">' + m.uz + '</span>' : '') + '<div class="y-sg" aria-hidden="true">' + seg + '</div></div>' + kr + '</div>' +
       '<div class="y-yl" style="height:' + bal + 'px">';
@@ -448,8 +484,34 @@ img.y-bki{object-fit:cover;object-position:46% 50%}
   function yop() { sh.hidden = true; sb.innerHTML = ''; }
   sh.onclick = function (e) { if (e.target === sh) yop(); };
   function ochVaraq(h) {
-    sb.innerHTML = '<div class="gr"></div>' + h + '<button class="y-b" id="yp" style="margin-top:12px">Ёпиш</button>'; sh.hidden = false;
+    sb.innerHTML = '<div class="gr" aria-hidden="true"></div><button class="y-x" id="yp" aria-label="Ёпиш">' + IC.x + '</button>' + h;
+    sb.style.transition = ''; sb.style.transform = ''; sh.hidden = false;
     document.getElementById('yp').onclick = yop;
+  }
+  /* oynani pastga surib yopish (✕, tashqarisini bosish va Esc ham yopadi) */
+  (function () {
+    var y0 = null, dy = 0;
+    sb.addEventListener('touchstart', function (e) { y0 = sb.scrollTop <= 0 ? e.touches[0].clientY : null; dy = 0; sb.style.transition = ''; }, { passive: true });
+    sb.addEventListener('touchmove', function (e) {
+      if (y0 == null) return;
+      dy = e.touches[0].clientY - y0;
+      if (dy < 8) { sb.style.transform = ''; return; }
+      if (e.cancelable) e.preventDefault();
+      sb.style.transform = 'translateY(' + (dy - 8) + 'px)';
+    }, { passive: false });
+    sb.addEventListener('touchend', function () {
+      if (y0 == null) return;
+      y0 = null;
+      if (dy > 96) yop(); else { sb.style.transition = 'transform .18s'; sb.style.transform = ''; }
+      dy = 0;
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !sh.hidden) yop(); });
+  })();
+  function varaqBosh(md, kichik, nom, arab) {
+    return '<div class="y-vh">' + md + '<div class="m"><small>' + kichik + '</small><h2>' + nom + '</h2>' + (arab ? '<span class="ar t" lang="ar">' + arab + '</span>' : '') + '</div></div>';
+  }
+  function varaqNatija(r) {
+    return '<div class="y-ns"><div><b>' + r.b + '%</b><span>энг яхши</span><div class="st">' + yulduz(r.b) + '</div></div><div><b>' + r.s + '%</b><span>охирги</span><div class="st">' + yulduz(r.s) + '</div></div></div>';
   }
   function kitobMenyu() {
     var h = '<h2>Китоблар</h2>';
@@ -463,28 +525,28 @@ img.y-bki{object-fit:cover;object-position:46% 50%}
     [].forEach.call(sb.querySelectorAll('[data-k]'), function (b) { b.onclick = function () { KT = +b.getAttribute('data-k'); LS(KK, String(KT)); yop(); xarita(true); }; });
   }
   function varaq(id) {
-    var t = id[0], h = '';
+    var t = id[0], h = '', OKB = '<span class="y-hl ok">' + IC.ok + 'Ўтилди</span>';
     if (t === 'd') {
-      var n = +id.slice(1), d = D.filter(function (x) { return x.n === n; })[0], s = P.d[n], r = s.r;
-      h += '<h2>' + n + '-дарс · ' + esc(d.uz) + '</h2><span class="ar t" lang="ar">' + esc(d.ar) + '</span>';
-      if (r) h += '<div class="y-ns"><div><b>' + r.b + '%</b><span>энг яхши</span></div><div><b>' + r.s + '%</b><span>охирги</span></div></div>';
+      var n = +id.slice(1), d = D.filter(function (x) { return x.n === n; })[0], s = P.d[n], r = s.r, qf = !s.ot && !s.op, ik = IK[n];
+      h += varaqBosh('<span class="y-md' + (qf ? ' qf' : '') + '">' + (ik ? '<span class="ic" style="background:' + ik.l + '"><svg viewBox="0 0 64 64" aria-hidden="true">' + ik.s + '</svg></span>' : n) + '</span>',
+        n + '-ДАРС' + (s.ot ? OKB : qf ? '<span class="y-hl qf">' + IC.qulf + 'Қулф</span>' : '<span class="y-hl">Очиқ</span>'), esc(d.uz), esc(d.ar));
+      if (r) h += varaqNatija(r);
       if (s.imt && !(r && r.b >= OTISH)) h += '<p>Боб ёки китоб имтиҳони орқали ўтилган.</p>';
-      else if (s.ot) h += '<p>Ўтилди. Хато қилинган саволлар «Такрорлаш»га қўшилди.</p>';
-      else if (s.op) h += '<p>Дарс ичидаги «Машқ»ни ечинг. ' + OTISH + '% ва ундан кўп бўлса — дарс ўтилади, кейингиси очилади.' + (r ? ' Машқ охиридаги «Қайтадан» тугмаси билан қайта топширса бўлади.' : '') + '</p>';
-      else h += '<p>Қулфланган. Олдинги дарс машқидан ' + OTISH + '% олинг ёки бу бобнинг имтиҳонини топширинг. Дарс матни, таркиб ва эшитиш — доим очиқ.</p>';
-      h += '<a class="y-b y-b1" href="' + d.sahifa + '">Дарсни очиш</a>';
-      if (!s.ot && !s.op) { var bb = bobi(n); if (bb) h += '<button class="y-b" data-ex="b' + bb.k + '">Боб имтиҳонини топшириш</button>'; }
+      else if (s.ot) h += '<p>Хато қилинган саволлар «Такрорлаш»га қўшилди.</p>';
+      else if (s.op) h += '<p>Дарсдаги «Машқ»дан ' + OTISH + '% олсангиз, кейинги дарс очилади.' + (r ? ' Қайта топшириш — машқ охиридаги «Қайтадан» тугмаси.' : '') + '</p>';
+      else h += '<p>Очиш учун олдинги дарс машқидан ' + OTISH + '% олинг ёки боб имтиҳонини топширинг. Дарсни ўқиш ва эшитиш доим очиқ.</p>';
+      h += '<a class="y-b y-b1" href="' + d.sahifa + '">' + (qf ? IC.kitob + 'Дарсни ўқиш' : s.ot ? IC.kitob + 'Дарсни очиш' : IC.oyin + 'Дарсни бошлаш') + '</a>';
+      if (qf) { var bb = bobi(n); if (bb) h += '<button class="y-b" data-ex="b' + bb.k + '">' + IC.qlq + '<span class="t">Боб имтиҳонини топшириш<small>' + savollar('b', bb.k).length + ' савол · ўтсангиз, бу боб ўтилган бўлади</small></span></button>'; }
     } else {
-      var kalit = id.slice(1), bob = t === 'b', hs = bob ? P.b[kalit] : P.k[kalit], rr = hs.r;
-      if (bob) { var bo = bobTop(kalit); h += '<h2>' + bo.raq + '-боб имтиҳони</h2><span class="ar t" lang="ar">' + esc(bo.nom) + '</span>'; }
-      else h += '<h2>' + kalit + '-китоб имтиҳони</h2><span class="ar t" lang="ar">' + (KNOM[kalit] || '') + '</span>';
-      var sav = savollar(t, kalit).length;
-      if (rr) h += '<div class="y-ns"><div><b>' + rr.b + '%</b><span>энг яхши</span></div><div><b>' + rr.s + '%</b><span>охирги</span></div></div>';
-      h += '<p>' + sav + ' савол · ' + OTISH + '% (' + Math.ceil(sav * OTISH / 100) + ' та тўғри) — ўтиш. ';
+      var kalit = id.slice(1), bob = t === 'b', hs = bob ? P.b[kalit] : P.k[kalit], rr = hs.r, sav = savollar(t, kalit).length, bo = bob ? bobTop(kalit) : null;
+      h += varaqBosh(bob ? '<span class="y-md ex">' + IC.qalqon + '</span>' : '<span class="y-md kx">' + IC.kubok + '</span>',
+        sav + ' САВОЛ · ' + OTISH + '% — ЎТИШ' + (hs.ot ? OKB : ''), bob ? bo.raq + '-боб имтиҳони' : kalit + '-китоб имтиҳони', bob ? esc(bo.nom) : (KNOM[kalit] || ''));
+      if (rr) h += varaqNatija(rr);
+      h += '<p>' + Math.ceil(sav * OTISH / 100) + ' та тўғри жавоб — ўтиш. ';
       if (hs.ot) h += 'Ўтилди.';
       else if (hs.op) h += 'Ўтсангиз, ' + (bob ? 'кейинги боб' : 'кейинги китоб') + ' очилади.';
       else h += 'Билсангиз — ҳозир топширинг: ўтсангиз, ' + (bob ? 'шу бобгача бўлган дарслар' : 'шу китоб') + ' ўтилган ҳисобланади ва ' + (bob ? 'кейинги боб' : 'кейинги китоб') + ' очилади.';
-      h += '</p><button class="y-b y-b1" data-ex="' + id + '">' + (rr ? 'Қайта топшириш' : 'Бошлаш') + '</button>';
+      h += '</p><button class="y-b y-b1" data-ex="' + id + '">' + (rr ? IC.takror + 'Қайта топшириш' : IC.oyin + 'Бошлаш') + '</button>';
     }
     ochVaraq(h);
     [].forEach.call(sb.querySelectorAll('[data-ex]'), function (b) { b.onclick = function () { yop(); imtihon(b.getAttribute('data-ex')); }; });

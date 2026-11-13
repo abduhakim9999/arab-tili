@@ -1,13 +1,14 @@
 /* ҚОБИҚ — bitta ilova (13.11.2026; docs/texnik.md 18).
    Asosiy sahifalarning hammasida bir xil: tepa tasma uslubi (.q-hd), qator kartalari (.q-rw) va pastdagi 4 tugma
-   (Йўл · Луғат · Қоидалар · Яна). Ishlatish: <script src="qobiq.js"> → Qobiq.nav('yol' | 'takror' | 'qoida' | 'yana').
+   (Бош саҳифа · Луғат · Қоидалар · Яна). Ishlatish: <script src="qobiq.js"> → Qobiq.nav('yol' | 'takror' | 'qoida' | 'yana').
    Mashg'ulot va imtihon paytida (body.y-ses, body.tq-ses) tugmalar yashirinadi. Dars sahifalarida qobiq yo'q — ular to'liq ekranda o'qiladi. */
 (function () {
   var SN = /\/sinov-[^\/]*$/.test(location.pathname) ? 'sinov-' : '';
   var UY = SN + 'yol.html';                            /* asosiy ekran — xarita */
   function sv(d) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>'; }
   var B = [
-    ['yol', 'Йўл', UY, sv('<circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h6a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h6"/>')],
+    /* 14.11.2026: «Йўл» → «Бош саҳифа» (uy belgisi); xaritada qayta bosilsa — kitob tanlash oynasi (yol.html Qobiq.ustiga) */
+    ['yol', 'Бош саҳифа', UY, sv('<path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/>')],
     /* 13.11.2026: «Такрорлаш» → «Луғат» (bilmagan so'zlar lug'atga tushadi, takror ham o'sha yerdan boshlanadi); kalit va fayl nomi o'zgarmadi */
     ['takror', 'Луғат', SN + 'takror.html', sv('<rect x="4" y="4.5" width="16" height="15" rx="3"/><path d="M8 10h8M8 14h5"/>')],
     ['qoida', 'Қоидалар', SN + 'qoidalar.html', sv('<path d="M12 6c-2-1.5-4.5-2-8-2v14c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2V4c-3.5 0-6 .5-8 2zM12 6v14"/>')],

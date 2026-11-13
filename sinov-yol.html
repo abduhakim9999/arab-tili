@@ -280,7 +280,9 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
 .y-bb .m .r svg{width:16px;height:16px;flex-shrink:0;opacity:.85}
 .y-bl{display:flex;align-items:center;gap:12px;width:100%;box-sizing:border-box;min-height:64px;margin-top:8px;padding:8px 14px 10px 10px;border-radius:16px;border:1.5px solid var(--bd);background:var(--cd);color:var(--tx);text-align:left;box-shadow:inset 0 -3px 0 var(--bd)}
 .y-bl.on{border-color:var(--br)}
-.y-bl .n{flex-shrink:0;width:42px;height:42px;border-radius:12px;background:var(--br);color:#fff;font-size:19px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.y-bl .n{flex-shrink:0;width:76px;height:60px;border-radius:12px;background:var(--br);color:#fff;font-size:19px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.y-bl img.n{object-fit:cover;object-position:74% 50%;background:#FFF8E7;border:1.5px solid color-mix(in srgb,var(--br) 45%,transparent);box-sizing:border-box}
+.y-bl .t small{font-size:11.5px;font-weight:800;letter-spacing:.08em;color:color-mix(in srgb,var(--br) 72%,#000)}
 .y-bl .t{flex:1;min-width:0;display:flex;flex-direction:column}
 .y-bl .t b{font-weight:700;line-height:1.3}
 .y-bl .t .ar{font-size:18px;line-height:1.5;color:var(--mu);text-align:left}
@@ -539,15 +541,14 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
     document.documentElement.style.setProperty('--y-hd', (KR[k.n] || KR[1]).hd);
     html += '<header class="y-hd"><div class="y-hr"><div class="y-kt" role="tablist" aria-label="Китоблар">' +
       TUZ.map(function (x) { var hk = H.k[x.n];
-        return '<button role="tab" aria-selected="' + (x.n === k.n) + '"' + (x.n === k.n ? ' class="on"' : '') + ' data-kt="' + x.n + '">' + x.n + '-китоб<i>' +
-          (hk.ot ? IC.ok : hk.o + '/' + hk.j) + '</i></button>'; }).join('') + '</div>' +
+        return '<button role="tab" aria-selected="' + (x.n === k.n) + '"' + (x.n === k.n ? ' class="on"' : '') + ' data-kt="' + x.n + '">' + x.n + '-китоб' + (hk.ot ? '<i>' + IC.ok + '</i>' : '') + '</button>'; }).join('') + '</div>' +
       '<button class="y-gr" id="kr" aria-pressed="' + RY + '">' + (RY ? IC.yol + '<span>Харита</span>' : IC.royxat + '<span>Рўйхат</span>') + '</button></div>' +
       (SINOV ? '<div class="y-sn"><span>🧪 Синов</span><button id="s0">Тозалаш</button></div>' : '') + '</header>' +
       /* bob tasmasi: tepada qotib turadi; ‹ › — bobdan bobga */
       '<div class="y-bb" id="bb"><div><button id="bb0" aria-label="Олдинги боб">' + IC.chap + '</button>' +
       '<button class="m" id="bbm" aria-haspopup="dialog" aria-label="Боблар рўйхати"><small id="bbs"></small><span class="r"><b id="bbn"></b>' + IC.past + '</span></button>' +
       '<button id="bb1" aria-label="Кейинги боб">' + IC.ong + '</button></div></div>';
-    BB = k.b.map(function (b) { return { raq: b.raq, uz: (MV[b.k] || {}).uz || '', nom: b.nom, d: H.b[b.k].d, n: b.d.length, r: bobRang(b, k), ot: H.b[b.k].ot }; });
+    BB = k.b.map(function (b) { return { raq: b.raq, uz: (MV[b.k] || {}).uz || '', nom: b.nom, d: H.b[b.k].d, n: b.d.length, r: bobRang(b, k), ot: H.b[b.k].ot, kr: (MV[b.k] || {}).kr }; });
     k.b.forEach(function (b) { html += RY ? royxatHtml(b, k, H) : bobHtml(b, k, H, W); });
     app.innerHTML = html;
     navChiz(); ctaChiz(H); bbI = -1; bobBar();
@@ -669,8 +670,10 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
   function bobRoyxat() {
     var h = '<h2>' + KT + '-китоб боблари</h2>';
     BB.forEach(function (x, j) {
-      h += '<button class="y-bl' + (j === bbI ? ' on' : '') + '" data-bj="' + j + '" style="--br:' + x.r + '"><span class="n">' + x.raq + '</span><span class="t"><b>' + esc(x.uz || '') + '</b>' +
-        '<span class="ar" lang="ar">' + esc(x.nom) + '</span></span><em' + (x.ot ? ' class="ok"' : '') + '>' + (x.ot ? IC.ok : x.d + ' / ' + x.n) + '</em></button>';
+      h += '<button class="y-bl' + (j === bbI ? ' on' : '') + '" data-bj="' + j + '" style="--br:' + x.r + '">' +
+        (x.kr ? '<img class="n" src="' + rasm(x.kr) + '" alt="" decoding="async">' : '<span class="n">' + x.raq + '</span>') +
+        '<span class="t"><small>' + x.raq + '-БОБ</small><b>' + esc(x.uz || '') + '</b><span class="ar" lang="ar">' + esc(x.nom) + '</span></span>' +
+        (x.ot ? '<em class="ok">' + IC.ok + '</em>' : '') + '</button>';
     });
     ochVaraq(h);
     [].forEach.call(sb.querySelectorAll('[data-bj]'), function (b) { b.onclick = function () { var j = +b.getAttribute('data-bj'); yop(); setTimeout(function () { bobga(j); }, 60); }; });

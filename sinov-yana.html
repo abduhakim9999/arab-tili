@@ -51,7 +51,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
 
   <a class="q-rw" id="soz" href="sozlamalar.html"><span class="q-ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 13.5a7.6 7.6 0 0 0 0-3l2-1.5-2-3.4-2.3.9a7.6 7.6 0 0 0-2.6-1.5L14.1 2.5H9.9L9.5 5a7.6 7.6 0 0 0-2.6 1.5l-2.3-.9-2 3.4 2 1.5a7.6 7.6 0 0 0 0 3l-2 1.5 2 3.4 2.3-.9a7.6 7.6 0 0 0 2.6 1.5l.4 2.5h4.2l.4-2.5a7.6 7.6 0 0 0 2.6-1.5l2.3.9 2-3.4z"/></svg></span>
     <span class="t">Созламалар<small>Ёзув, овоз, такрор, кўриниш</small></span><svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></a>
-  <a class="q-rw" href="yoriqnoma.html"><span class="q-ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-2-1.5-4.5-2-8-2v14c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2V4c-3.5 0-6 .5-8 2zM12 6v14"/></svg></span>
+  <a class="q-rw" id="yor" href="yoriqnoma.html"><span class="q-ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-2-1.5-4.5-2-8-2v14c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2V4c-3.5 0-6 .5-8 2zM12 6v14"/></svg></span>
     <span class="t">Йўриқнома<small>Иловадан фойдаланиш</small></span><svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></a>
   <a class="q-rw" href="https://t.me/Arabtilihivar_bot" target="_blank" rel="noopener"><span class="q-ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 4H4a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h3v3.5L11.5 17H20a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1z"/><path d="M8 9h8M8 12.5h5"/></svg></span>
     <span class="t">Фикр юбориш<small>Хато ёки таклиф — Telegram орқали</small></span><svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></a>
@@ -67,7 +67,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
 (function () {
   var $ = function (i) { return document.getElementById(i); };
   var ODAM = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg>';
-  $('soz').href = SN + 'sozlamalar.html';
+  $('soz').href = SN + 'sozlamalar.html'; $('yor').href = SN + 'yoriqnoma.html';
 
   /* hisob: Telegram ichida — foydalanuvchi nomi (natija Telegram hisobiga bog'langan kod bilan saqlanadi, baza.js);
      saytda — «Telegram орқали кириш» (hozircha sinov: asosiy saytga o'tkazilganda ulanadi) */

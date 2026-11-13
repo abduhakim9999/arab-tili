@@ -227,7 +227,7 @@ def main():
                 r['asl'] = bosh_id[r['ar']]          # shu so'zning keyingi ma'nosi — karta birinchisiniki
             else:
                 bosh_id[r['ar']] = wid
-            r['tk'] = 1 if (r['tur'] in ('soz', 'fel') and 'asl' not in r and t.get('tk', 1)) else 0
+            r['tk'] = 1 if (r['tur'] in ('soz', 'fel', 'harf', 'zamir') and 'asl' not in r and t.get('tk', 1)) else 0   # 13.11.2026: harf va olmoshlar ham bazaga kiradi (atoqli ot — yo'q)
             r['uz'] = uz
             if ex:
                 r['x'] = ex

@@ -24,6 +24,8 @@ for TRY in 1 2 3; do
   git sparse-checkout add docs align src/build data >/dev/null 2>&1 || true
   # data/ (lug'at, mashq, qoida — ilova va «Такрорлаш» o'qiydi) dars sahifalariga mos bo'lsin — docs/texnik.md 14
   if [ -f src/build/tekshir_data.py ] && [ -d data ]; then python3 src/build/tekshir_data.py || { echo "TO'XTA: data/ eskirgan yoki buzilgan"; exit 5; }; fi
+  # «Йўл» tugunlaridagi dars ikonkalari bosh sahifadagi ICO dan (docs/texnik.md 15) — har joylashda yangilanadi
+  if [ -f src/build/ikonka.py ]; then python3 src/build/ikonka.py >/dev/null || { echo "TO'XTA: ikonka.py ishlamadi"; exit 6; }; fi
   sh src/build/bump.sh
   git rm -q --ignore-unmatch 'sinov-*' >/dev/null 2>&1 || true  # sinov fayllari (sahifa, js, json) asosiy joylashda o'chadi
   git add --sparse -A ${@:-.}

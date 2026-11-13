@@ -1,6 +1,10 @@
 /* Telegram Mini App ulanishi + natijalarni Telegram bulutida saqlash */
 (function () {
   var me = document.currentScript;
+  /* ko'rinish: «Созламалар» → Кўриниш (yorug / tungi; avto — telefon sozlamasi). docs/texnik.md 16 */
+  try { var _k = JSON.parse(localStorage.getItem('sozlama') || '{}').kor; if (_k === 'yorug' || _k === 'tungi') document.documentElement.setAttribute('data-theme', _k === 'tungi' ? 'dark' : 'light'); } catch (e) {}
+  /* «Офлайн сақлаш» o'chirilgan bo'lsa — saqlangan dars ovozlari (sw.js keshi) har sahifa ochilganda tozalanadi: telefonda yig'ilib qolmaydi */
+  try { if (JSON.parse(localStorage.getItem('sozlama') || '{}').oflayn === false && window.caches) caches.delete('arab-tili-audio'); } catch (e) {}
   var KEY = me.getAttribute('data-key') || '';
   var HOME = me.getAttribute('data-home') || '';
   var TK = KEY + '-t', W = null, tm = null, last = 0, BLOCK = false;

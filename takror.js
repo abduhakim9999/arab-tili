@@ -128,15 +128,17 @@
       return { k: x, yangi: !S[x.id], qoldi: h.L1.length + h.L2.length + h.R.length + h.YA.length + h.YQ.length + h.YX.length };
     }
 
+    /* 14.11.2026: «Такрорлаш · N» — kartalar emas, so'zlar (bir so'zning bir necha kartasi bitta) va savollar soni */
+    function sanoq(a) { var u = {}, s = 0, q = 0; a.forEach(function (x) { if (u[x.nk]) return; u[x.nk] = 1; if (x.tur === 'q') q++; else s++; }); return { soz: s, savol: q, jami: s + q }; }
     function bugun(t) {
-      var h = holat(t);
-      return { takror: h.L1.length + h.L2.length + h.R.length, yangi: h.YA.length + h.YQ.length + h.YX.length };
+      var h = holat(t), n = sanoq(h.L1.concat(h.L2, h.R, h.YA, h.YQ, h.YX));
+      return { takror: h.L1.length + h.L2.length + h.R.length, yangi: h.YA.length + h.YQ.length + h.YX.length, soz: n.soz, savol: n.savol, jami: n.jami };
     }
 
     /* bugungi ish tugagan deb: ertaga nechta karta chiqadi */
     function ertaga(t) {
       var h = holat(kunBoshi(kun(t) + 1) + KUN / 2);
-      return h.L1.length + h.L2.length + h.R.length + h.YA.length + h.YQ.length + h.YX.length;
+      return sanoq(h.L1.concat(h.L2, h.R, h.YA, h.YQ, h.YX)).jami;
     }
 
     function hisob() {
@@ -161,7 +163,7 @@
       keyingi: keyingi, bugun: bugun, ertaga: ertaga, hisob: hisob,
       karta: function (id) { return S[id] ? S[id].c : null; },
       /* bosh sahifa kartasi uchun qisqa hisob (localStorage takror-xulosa) — bosh sahifa takror.js ni yuklamaydi */
-      xulosa: function (t) { var b = bugun(t), h = hisob(); return { v: 1, kun: kun(t), qoldi: b.takror + b.yangi, ertaga: ertaga(t), bilgan: h.bilgan, jami: h.jami }; },
+      xulosa: function (t) { var b = bugun(t), h = hisob(); return { v: 1, kun: kun(t), qoldi: b.jami, ertaga: ertaga(t), bilgan: h.bilgan, jami: h.jami }; },
       kun: kun
     };
   }

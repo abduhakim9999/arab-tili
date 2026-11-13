@@ -11,6 +11,8 @@ Qilingan qismi — `docs/texnik.md` 14 (ma'lumot fayllari, «Такрорлаш�
 - **Bosqichlar:** 1) ma'lumot fayllari — qilindi; 2) bitta darsda sinov (kartalar, FSRS, hisoblagich) — 1-dars, saytga joylandi 12.11.2026 (keyingisi: 2–9-darslarni ochish); 3) server va hisob; 4) reyting, streak, eslatma; 5) Android app (o'rta yo'l: haqiqiy qobiq — pleyer, push, oflayn; darslar saytdan) → Play Market; 6) rivojlantirish, daraja testi, fikrlar; 7) to'laqonli Android app (o'sha server va ma'lumotlar); 8) Apple.
 - **Ochiq:** 2 tugma va kuniga 10 yangi so'z, «bilgan» = 7 kun — Claude tavsiyasi bilan qo'yildi, foydalanuvchi sinovda ko'rib tasdiqlaydi. O'zini baholash (Билдим) reyting ballida qanday hisoblanishi — 4-bosqichda hal qilinadi.
 
+- **«Йўл» dizayni — qolgan ish (13.11.2026; tafsilot `docs/texnik.md` 15):** 1) qolgan 4 bob foni ElevenLabs'da — tog' yonbag'ri (k2b1), daryo (k2b2), eski shahar (k2b6), madrasa hovlisi (k2b7); ≈664 kredit, ruxsat bilan; 2) tanlangan dizaynni `yol.html` ga o'tkazish (fon, zigzag tugunlar, dars ikonkalari, bob kartasi, pastki tugmalar qatori) — sinov saytida; 3) sozlamalar sahifasi (4 guruh, «Эркин режим»); 4) foydalanuvchi ko'rib «joyla» degach — asosiy saytga (bosh sahifaga «Йўл» kartasi, `sw.js` FILES). Kod `yol-sinov` tarmog'ida. ElevenLabs'da 13.11 da jami ≈1248 kredit ketgan (1-bob rasmi, yo'l g'oyalari, bog' va hovli fonlari).
+
 ## 2. Repo va joylash tartibi
 - Ish belgisi (`lock.sh`), sinov (`sinov.sh`) va align fayllarini `main` dan alohida tarmoqqa chiqarish: Vercel'da 21 yig'ishdan 4 tasi reliz edi (10–11.11). Sinov havolasi o'zgaradi — avval kelishiladi.
 - Push paytida yengil avtomat tekshiruv (GitHub Actions): sahifa ochiladimi, `sw.js` FILES dagi fayllar bormi.

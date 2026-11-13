@@ -582,7 +582,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
     return h + '</div></section>';
   }
 
-  /* pastki tugmalar — umumiy qobiq (qobiq.js): Йўл · Такрорлаш · Қоидалар · Яна */
+  /* pastki tugmalar — umumiy qobiq (qobiq.js): Йўл · Луғат · Қоидалар · Яна */
   function navChiz() {
     if (!window.Qobiq) return;
     Qobiq.ustiga = function () { if (!IM) window.scrollTo(0, 0); };
@@ -716,7 +716,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
       /* qs — oynadagi qisqa qator, iz — ⓘ ichidagi batafsil. «Навбати келмаган» — yo'lda navbati yetmagan dars (o'qish va eshitish ochiq). */
       var qs = '', iz = '';
       if (s.imt) qs = 'Имтиҳон орқали ўтилган.';
-      else if (s.ot) iz = 'Билмаган сўзларингиз «Такрорлаш»да чиқади ва боб имтиҳонида сўралади.';
+      else if (s.ot) iz = 'Билмаган сўзларингиз «Луғат»га тушади: ўша ерда такрорланади ва боб имтиҳонида сўралади.';
       else if (s.op) {
         qs = 'Ўтиш: машқ ' + OTISH + '%' + (s.ls ? ' + сўзларни саралаш.' : '.');
         iz = s.ls ? 'Дарсдаги «Машқ»дан ' + OTISH + '% олинг ва сўзларни сараланг — билмаганларингизни белгиланг. Шунда кейинги дарс очилади.'
@@ -762,7 +762,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
     ws.forEach(function (x) { if (W.b[x.id]) bel[x.id] = 1; });
     document.body.classList.add('y-ses');
     app.innerHTML = '<div class="y-in"><div class="y-top"><button id="yq" aria-label="Йўлга қайтиш">‹</button><div><small>' + n + '-дарс · ' + ws.length + ' сўз</small><h1>Сўзларни саралаш</h1></div></div>' +
-      '<p class="y-sp">Билмаган сўзларингизни белгиланг — улар «Такрорлаш»да чиқади.</p><div class="y-sl">' +
+      '<p class="y-sp">Билмаган сўзларингизни белгиланг — улар «Луғат»га тушади.</p><div class="y-sl">' +
       ws.map(function (x) { return '<button class="y-sr" data-id="' + x.id + '" aria-pressed="' + (bel[x.id] ? 'true' : 'false') + '"><b class="ar" lang="ar">' + esc(x.ar) + '</b><span>' + esc(mano(x)) + (shakllar(x) ? '<small>' + shakllar(x) + '</small>' : '') + '</span><i aria-hidden="true">' + IC.x + '</i></button>'; }).join('') +
       '</div></div>';
     function tay() {
@@ -1010,7 +1010,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
     h += '<section class="y-c y-nt ' + (ok ? 'ok' : 'no') + '"><div class="bg">' + p + '%</div><h2>' + (ok ? 'Ўтдингиз' : 'Ҳали ўтмадингиз') + '</h2><p>' + IM.tog + ' / ' + IM.n + ' тўғри · ўтиш — ' + OTISH + '%</p>' +
       (keyin ? '<p>' + keyin + '</p>' : '') + '</section>';
     if (IM.xato.length) {
-      h += '<section class="y-c"><div class="y-h">Хато қилинган сўзлар · «Такрорлаш»га қўшилди</div>';
+      h += '<section class="y-c"><div class="y-h">Хато қилинган сўзлар · «Луғат»га қўшилди</div>';
       IM.xato.forEach(function (q) {
         h += '<div class="y-xt"><span>' + (q.lug ? esc(mano(q.r)) + (shakllar(q.r) ? '<small>' + shakllar(q.r) + '</small>' : '') : mix(q.sabab || '')) + '</span><b class="ar" lang="ar">' + esc(q.lug ? q.r.ar : q.gap[q.w][0]) + '</b></div>';
       });

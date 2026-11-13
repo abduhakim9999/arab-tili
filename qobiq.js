@@ -1,6 +1,6 @@
 /* ҚОБИҚ — bitta ilova (13.11.2026; docs/texnik.md 18).
    Asosiy sahifalarning hammasida bir xil: tepa tasma uslubi (.q-hd), qator kartalari (.q-rw) va pastdagi 4 tugma
-   (Йўл · Такрорлаш · Қоидалар · Яна). Ishlatish: <script src="qobiq.js"> → Qobiq.nav('yol' | 'takror' | 'qoida' | 'yana').
+   (Йўл · Луғат · Қоидалар · Яна). Ishlatish: <script src="qobiq.js"> → Qobiq.nav('yol' | 'takror' | 'qoida' | 'yana').
    Mashg'ulot va imtihon paytida (body.y-ses, body.tq-ses) tugmalar yashirinadi. Dars sahifalarida qobiq yo'q — ular to'liq ekranda o'qiladi. */
 (function () {
   var SN = /\/sinov-[^\/]*$/.test(location.pathname) ? 'sinov-' : '';
@@ -8,7 +8,8 @@
   function sv(d) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>'; }
   var B = [
     ['yol', 'Йўл', UY, sv('<circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h6a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h6"/>')],
-    ['takror', 'Такрорлаш', SN + 'takror.html', sv('<path d="M4 12a8 8 0 0 1 13.7-5.7L20 8.5M20 4v4.5h-4.5M20 12a8 8 0 0 1-13.7 5.7L4 15.5M4 20v-4.5h4.5"/>')],
+    /* 13.11.2026: «Такрорлаш» → «Луғат» (bilmagan so'zlar lug'atga tushadi, takror ham o'sha yerdan boshlanadi); kalit va fayl nomi o'zgarmadi */
+    ['takror', 'Луғат', SN + 'takror.html', sv('<rect x="4" y="4.5" width="16" height="15" rx="3"/><path d="M8 10h8M8 14h5"/>')],
     ['qoida', 'Қоидалар', SN + 'qoidalar.html', sv('<path d="M12 6c-2-1.5-4.5-2-8-2v14c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2V4c-3.5 0-6 .5-8 2zM12 6v14"/>')],
     ['yana', 'Яна', SN + 'yana.html', sv('<circle cx="5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="19" cy="12" r="1.7"/>')]
   ];
@@ -49,7 +50,7 @@
   if (!SN && 'serviceWorker' in navigator) try { navigator.serviceWorker.register('sw.js').catch(function () {}); } catch (e) {}
 
   function J(k, d) { try { return JSON.parse(localStorage.getItem(k) || 'null') || d; } catch (e) { return d; } }
-  /* «Такрорлаш» ustidagi son — bugungi savollar soni: takror.html yozgan xulosadan (xarita tepasidagi «такрор» bilan bir xil).
+  /* «Луғат» ustidagi son — bugungi takror savollari soni: takror.html yozgan xulosadan (xarita tepasidagi «такрор» bilan bir xil).
      Xulosa kechagi bo'lsa — o'sha kungi «ertaga» soni; undan eski bo'lsa — «!» (takrorlar kutmoqda, soni noma'lum). */
   function son() {
     var x = J(SN ? 'takror-sinov-xulosa' : 'takror-xulosa', null), sl = 0;

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Такрорлаш</title>
+<title>Луғат</title>
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#0f766e">
 <link rel="icon" href="icon-192.png">
@@ -38,9 +38,6 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .tq-b:active{transform:scale(.985)}
 
 /* бош кўриниш */
-.tq-ns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 16px;text-align:center}
-.tq-ns b{display:block;font-size:44px;line-height:1.1;font-weight:700;font-variant-numeric:tabular-nums}
-.tq-ns span{font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--mu);text-transform:uppercase}
 .tq-dn{text-align:center;padding:28px 16px}
 .tq-dn h2{font-size:22px;margin:0 0 2px}
 .tq-dn p{margin:0;color:var(--mu)}
@@ -147,6 +144,12 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .lg-bm[aria-pressed="true"]{color:var(--tq-no)}
 .lg-bm[aria-pressed="true"] svg{fill:currentColor}
 .lg-e{padding:28px 16px;text-align:center;color:var(--mu)}
+/* Луғат kartasidagi takror tugmasi va «bugunga tamom» (13.11.2026: Такрор + Луғат bitta) */
+.lg-go{margin-top:16px;height:56px;border:0;border-radius:16px;box-shadow:inset 0 -4px 0 rgba(0,0,0,.2);font-weight:700;transition:transform .06s,box-shadow .06s}
+.lg-go:active{transform:translateY(2px);box-shadow:inset 0 -2px 0 rgba(0,0,0,.2)}
+.lg-tm{margin-top:16px;padding:12px;border-radius:14px;background:var(--tint);text-align:center;font-size:16px;font-weight:700}
+.lg-tm small{display:block;font-size:13.5px;font-weight:400;color:var(--mu)}
+.lg-d.no{color:var(--tq-no)}
 .lg-qy{font-style:normal;font-weight:700;color:var(--tq-no)}
 /* ⓘ — «Билган сўзларим» qoidasi (qisqa; batafsili yo'riqnomada) */
 .tq-h{display:flex;align-items:center;gap:6px}
@@ -193,7 +196,7 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
   var SINOV = !!SN;
   var FAOL = [1];                       /* so'zlari saralangan darslar (baza: W.s); hech biri saralanmagan bo'lsa — 1-dars */
   var KB = SINOV ? 'soz-sinov' : 'soz'; /* SO'Z BAZASI belgilari (yol.html bilan umumiy): {v, b:{id:1} bilmayman, k:{id:1} «bilaman» deb aytilgan, s:{dars:vaqt}} */
-  var W = null, TAB = 't', LF = 'h', LQ = '', MQ = null;   /* TAB: 't' такрор, 'l' луғат, 'm' машқ; LF — lug'at filtri; LQ — qidiruv; MQ — ketayotgan mashq */
+  var W = null, TAB = 'l', LF = 'h', LQ = '', MQ = null;   /* TAB: 't' такрор, 'l' луғат, 'm' машқ; LF — lug'at filtri; LQ — qidiruv; MQ — ketayotgan mashq */
   var KJ = SINOV ? 'takror-sinov-j' : 'takror-j', KS = 'takror-sinov-kun';
   var KM = 'takror-mashgulot';         /* sahifa o'zi yangilansa (yangi versiya) mashg'ulot davom etadi */
   var app = document.getElementById('app'), bar = document.getElementById('bar'), au = document.getElementById('au');
@@ -222,8 +225,8 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
     app.innerHTML = '';
     Promise.all([f('lugat.json'), f('mashq.json'), f('darslar.json')]).then(function (a) {
       D = { l: a[0].s, m: a[1].s, d: a[2].s };
-      try { var tb = sessionStorage.getItem('takror-tab'); if (tb === 'l' || tb === 'm') TAB = tb; } catch (e) {}
-      if (location.hash === '#harflar') TAB = 'm'; else if (location.hash === '#lugat') TAB = 'l';        /* «Наҳв» sahifasidagi havola */
+      try { var tb = sessionStorage.getItem('takror-tab'); if (tb === 'm') TAB = tb; } catch (e) {}
+      if (location.hash === '#harflar') TAB = 'm'; else if (location.hash === '#lugat') TAB = 'l';   /* yorliqlar: l — Луғат (takror shu yerdan boshlanadi), m — Машқ */        /* «Наҳв» sahifasidagi havola */
       qur();
       if (mash() && E.keyingi(hozir())) { document.body.classList.add('tq-ses'); keyingi(); } else bosh();
     }).catch(function () {
@@ -253,9 +256,8 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
     for (id in W.b) { c = E.karta('w' + id + 'a'); if (c && c.state === FSRS.State.Review && c.stability >= E.sozlama.bilgan) { delete W.b[id]; W.k[id] = 1; o = true; } }
     if (o) wYoz();
   }
-  /* faol darslardagi «аниқ биламан» so'zlar soni — hisobda bilganlarga qo'shiladi (kartalari yo'q, shuning uchun E.hisob() sanamaydi) */
-  function aFaol() { var f = {}, n = 0; FAOL.forEach(function (d) { f[d] = 1; }); D.l.forEach(function (r) { if (r.tk && W.a[r.id] && f[r.d]) n++; }); return n; }
-  function xul() { var x = E.xulosa(hozir()), n = aFaol(); x.bilgan += n; x.jami += n; LS(SINOV ? 'takror-sinov-xulosa' : 'takror-xulosa', JSON.stringify(x)); }
+  /* xulosa (xarita tepasi va pastki tugma o'qiydi): bilgan/jami — «mening so'zlarim» bo'yicha, Луғат kartasidagi son bilan bir xil */
+  function xul(S) { var x = E.xulosa(hozir()), h = menHisob(S || sozlar()); x.bilgan = h.c.m + h.c.g + h.c.a; x.jami = h.men.length; LS(SINOV ? 'takror-sinov-xulosa' : 'takror-xulosa', JSON.stringify(x)); }
   function saqla() { LS(KJ, JSON.stringify({ v: 1, j: E.jurnal })); xul(); }
 
   /* ---- ovoz: lug'at yo'lagidagi bo'lak ---- */
@@ -280,15 +282,15 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
     if (d.length > 1 && (d[0].kitob !== d[d.length - 1].kitob || d[d.length - 1].n - d[0].n !== d.length - 1)) return d.length + ' та дарс сўзлари';
     return d[0].kitob + '-китоб · ' + (d.length > 1 ? d[0].n + '–' + d[d.length - 1].n + '-дарслар' : d[0].n + '-дарс');
   }
-  function tepa() {
+  function tepa(S) {
     var bn = 0, k; for (k in W.b) bn++;
-    xul(); if (window.Qobiq) Qobiq.nav('takror');      /* pastki tugmalar: ustidagi son — bugungi savollar (xulosadan) */
-    return '<div class="top"><div><small>' + dnom() + '</small><h1>Такрорлаш</h1></div></div>' +
-      '<div class="tq-tb" role="tablist"><button role="tab" data-t="t" aria-selected="' + (TAB === 't') + '">Такрор</button><button role="tab" data-t="l" aria-selected="' + (TAB === 'l') + '">Луғат' + (bn ? '<b>' + bn + '</b>' : '') + '</button><button role="tab" data-t="m" aria-selected="' + (TAB === 'm') + '">Машқ</button></div>';
+    xul(S); if (window.Qobiq) Qobiq.nav('takror');     /* pastki tugmalar: ustidagi son — bugungi savollar (xulosadan) */
+    return '<div class="top"><div><small>' + dnom() + '</small><h1>Луғат</h1></div></div>' +
+      '<div class="tq-tb" role="tablist"><button role="tab" data-t="l" aria-selected="' + (TAB === 'l') + '">Луғат' + (bn ? '<b>' + bn + '</b>' : '') + '</button><button role="tab" data-t="m" aria-selected="' + (TAB === 'm') + '">Машқ</button></div>';
   }
   function tabUla() {
     [].forEach.call(app.querySelectorAll('.tq-tb button'), function (b) {
-      b.onclick = function () { var t = b.getAttribute('data-t'); if (t === TAB) return; TAB = t; try { sessionStorage.setItem('takror-tab', t); } catch (e) {} if (t === 't') qur(); bosh(); };
+      b.onclick = function () { var t = b.getAttribute('data-t'); if (t === TAB) return; TAB = t; try { sessionStorage.setItem('takror-tab', t); } catch (e) {} if (t === 'l') qur(); bosh(); };
     });
   }
 
@@ -318,40 +320,65 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
   var QIYIN = 4;                                         /* shuncha marta xato qilingan, hali bilinmagan so'z — «қийин» (Anki'dagi «leech» kabi) */
   var AB = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.4l2.8 2.8L16 9.6"/></svg>';
   var BM = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h11a1 1 0 0 1 1 1V21l-6.5-4.2L5.5 21V4.5a1 1 0 0 1 1-1z"/></svg>';
+  /* «mening so'zlarim»: boshlangan (so'zlari saralangan) darslar so'zlari + boshqa darsdan belgilangan yoki javob berilgan so'zlar.
+     Hamma joyda shu hisob ko'rinadi (karta, xulosa, xarita tepasi); butun baza — «Ҳамма дарслар» filtri. */
+  function menHisob(S) {
+    var f = {}, men, c = { m: 0, g: 0, a: 0, o: 0, b: 0, t: 0, y: 0 }, qy = 0;
+    FAOL.forEach(function (d) { f[d] = 1; });
+    men = S.filter(function (x) { return f[x.r.d] || W.b[x.r.id] || W.a[x.r.id] || x.ok + x.no > 0; });
+    men.forEach(function (x) { c[x.st]++; if (x.qy) qy++; });
+    return { men: men, c: c, qy: qy };
+  }
   function lugat() {
     clearTimeout(tmq); toxta(); cur = null; mash(0);
     document.body.classList.remove('tq-ses');
     if (QAYTA) qur();
-    var S = sozlar(), c = { m: 0, g: 0, a: 0, o: 0, b: 0, t: 0, y: 0 }, lv = {}, nom = {};
-    var qyn = 0;
-    S.forEach(function (x) { c[x.st]++; if (x.qy) qyn++; });
+    var S = sozlar(), H = menHisob(S), M = H.men, c = H.c, qyn = H.qy, lv = {}, nom = {};
+    var t = hozir(), bg = E.bugun(t), bugun = bg.takror + bg.yangi, dt = new Date(t), bilgan = c.m + c.g + c.a;
     if (LF === 'q' && !qyn) LF = 'h';
     D.d.forEach(function (d) { if (d.lv) lv[d.n] = d.lv; nom[d.n] = d.uz; });
-    app.innerHTML = tepa() +
-      '<section class="tq-c"><div class="tq-h">Сўз базаси</div><div class="tq-big sm"><b>' + (c.m + c.g + c.a) + '</b><span>/ ' + S.length + ' сўзни биламан</span></div>' +
-      '<div class="lg-br" aria-hidden="true">' + HT6.map(function (k) { return c[k] ? '<i class="' + k + '" style="flex:' + c[k] + '"></i>' : ''; }).join('') + '</div>' +
-      '<div class="lg-lg">' + HT6.map(function (k) { return '<span><i class="' + k + '"></i>' + HN[k] + ' <b>' + c[k] + '</b></span>'; }).join('') + '</div></section>' +
+    var bor = HT6.filter(function (k) { return c[k]; });
+    app.innerHTML = tepa(S) +
+      (SINOV ? '<div class="tq-sn"><span>🧪 Синов · бугун ' + ('0' + dt.getDate()).slice(-2) + '.' + ('0' + (dt.getMonth() + 1)).slice(-2) + '</span><button id="s1">+1 кун</button><button id="s0">Тозалаш</button></div>' : '') +
+      '<section class="tq-c"><div class="tq-h">Сўзларим<button class="tq-ib" id="bi" aria-expanded="false" aria-controls="biz" aria-label="Қандай ҳисобланади">' + INF + '</button></div>' +
+      '<div class="tq-big"><b>' + bilgan + '</b><span>/ ' + M.length + ' сўзни биламан</span></div>' +
+      '<div class="lg-br" aria-hidden="true">' + bor.map(function (k) { return '<i class="' + k + '" style="flex:' + c[k] + '"></i>'; }).join('') + '</div>' +
+      '<div class="lg-lg">' + bor.map(function (k) { return '<span><i class="' + k + '"></i>' + HN[k] + ' <b>' + c[k] + '</b></span>'; }).join('') + '</div>' +
+      '<div class="tq-iz" id="biz" hidden>Сўз камида <b>' + E.sozlama.bilgan + ' кун</b> эсда турса — «биламан»: одатда 4 та тўғри жавоб, икки ҳафтача. <b>' + E.sozlama.mustahkam + ' кун</b> ва маънодан арабчасини ҳам айта олсангиз — «мустаҳкам». Хато қилинса, сўз қайтадан бошланади. <a href="' + SN + 'yoriqnoma.html#takror">Батафсил</a></div>' +
+      (bugun ? '<button class="tq-b tq-b1 lg-go" id="go">Такрорлаш · ' + bugun + ' та</button>' : '<div class="lg-tm">Бугунга тамом<small>эртага ' + E.ertaga(t) + ' та</small></div>') + '</section>' +
       '<input class="lg-q" id="lq" type="search" inputmode="search" autocomplete="off" placeholder="Қидириш: арабча ёки ўзбекча" aria-label="Қидириш" value="' + esc(LQ) + '">' +
-      '<div class="lg-ch" role="group" aria-label="Саралаш">' + [['h', 'Ҳаммаси', S.length], ['b', 'Билмаганларим', c.b], ['o', 'Ўрганилмоқда', c.o], ['g', 'Биламан', c.m + c.g + c.a], ['t', 'Текширилмаган', c.t]].concat(qyn ? [['q', 'Қийин', qyn]] : []).map(function (f) {
+      '<div class="lg-ch" role="group" aria-label="Саралаш">' + [['h', 'Ҳаммаси', M.length], ['b', 'Билмаганларим', c.b], ['o', 'Ўрганилмоқда', c.o], ['g', 'Биламан', bilgan], ['t', 'Текширилмаган', c.t]].concat(qyn ? [['q', 'Қийин', qyn]] : [], [['x', 'Ҳамма дарслар', S.length]]).map(function (f) {
         return '<button data-f="' + f[0] + '" aria-pressed="' + (LF === f[0]) + '">' + f[1] + ' · ' + f[2] + '</button>'; }).join('') + '</div>' +
       '<p class="lg-hn"><span>' + AB + 'аниқ биламан</span><span>' + BM + 'билмайман</span></p><div id="lr"></div>';
     bar.hidden = true; bar.innerHTML = ''; tabUla();
+    var bi = document.getElementById('bi');
+    bi.onclick = function () { var z = document.getElementById('biz'), och = z.hidden; z.hidden = !och; bi.setAttribute('aria-expanded', String(och)); };
+    var go = document.getElementById('go'); if (go) go.onclick = function () { mash(1); document.body.classList.add('tq-ses'); keyingi(); };
+    if (SINOV) {
+      document.getElementById('s1').onclick = function () { LS(KS, String(siljish() + 1)); bosh(); };
+      document.getElementById('s0').onclick = function () { if (confirm('Синов натижалари ўчирилсинми?')) { LS(KJ, null); LS(KS, null); LS(KB, null); qur(); bosh(); } };
+    }
     var lr = document.getElementById('lr');
+    function qator(x) {
+      var r = x.r;
+      return '<div class="lg-r ' + x.st + '"><button class="lg-w"' + (r.au && lv[r.d] ? ' data-au="' + r.id + '"' : '') + '><b class="ar" lang="ar">' + esc(r.ar) + '</b><span>' + esc(mano(r)) + '</span>' + (shakllar(r) ? '<small>' + shakllar(r) + '</small>' : '') + '</button>' +
+        '<div class="lg-s"><span class="lg-p d' + x.dr + '" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>' + (x.qy ? '<em class="lg-qy">қийин</em> ' : '') + HN[x.st] + (x.ok + x.no ? ' · ✓' + x.ok + (x.no ? ' ✗' + x.no : '') : '') + '</span></div>' +
+        '<button class="lg-ab" data-id="' + r.id + '" aria-pressed="' + (W.a[r.id] ? 'true' : 'false') + '" aria-label="«Аниқ биламан» деб белгилаш">' + AB + '</button>' +
+        '<button class="lg-bm" data-id="' + r.id + '" aria-pressed="' + (W.b[r.id] ? 'true' : 'false') + '" aria-label="«Билмайман» деб белгилаш">' + BM + '</button></div>';
+    }
     function royxat() {
-      var q = plain(LQ.trim()).toLowerCase(), h = '', dars = 0, n = 0, qism = '';
+      var q = plain(LQ.trim()).toLowerCase(), h = '', dars = 0, n = 0, qism = '', bil = '', bn = 0;
       function yop() { if (qism) h += '<h3 class="lg-d">' + dars + '-дарс · ' + esc(nom[dars] || '') + '<span>' + n + ' сўз</span></h3><div class="lg-l">' + qism + '</div>'; qism = ''; n = 0; }
-      S.forEach(function (x) {
+      (LF === 'x' ? S : M).forEach(function (x) {
         var r = x.r;
-        if (LF !== 'h' && !(LF === 'q' ? x.qy : LF === 'g' ? (x.st === 'g' || x.st === 'm' || x.st === 'a') : x.st === LF)) return;
+        if (LF !== 'h' && LF !== 'x' && !(LF === 'q' ? x.qy : LF === 'g' ? (x.st === 'g' || x.st === 'm' || x.st === 'a') : x.st === LF)) return;
         if (q && plain(r.ar).indexOf(q) < 0 && r.uz.join(' ').toLowerCase().indexOf(q) < 0) return;
+        if (LF === 'h' && !q && x.st === 'b') { bil += qator(x); bn++; return; }      /* «Ҳаммаси»: bilmaganlar eng tepada, alohida guruh */
         if (r.d !== dars) { yop(); dars = r.d; }
-        n++;
-        qism += '<div class="lg-r ' + x.st + '"><button class="lg-w"' + (r.au && lv[r.d] ? ' data-au="' + r.id + '"' : '') + '><b class="ar" lang="ar">' + esc(r.ar) + '</b><span>' + esc(mano(r)) + '</span>' + (shakllar(r) ? '<small>' + shakllar(r) + '</small>' : '') + '</button>' +
-          '<div class="lg-s"><span class="lg-p d' + x.dr + '" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>' + (x.qy ? '<em class="lg-qy">қийин</em> ' : '') + HN[x.st] + (x.ok + x.no ? ' · ✓' + x.ok + (x.no ? ' ✗' + x.no : '') : '') + '</span></div>' +
-          '<button class="lg-ab" data-id="' + r.id + '" aria-pressed="' + (W.a[r.id] ? 'true' : 'false') + '" aria-label="«Аниқ биламан» деб белгилаш">' + AB + '</button>' +
-          '<button class="lg-bm" data-id="' + r.id + '" aria-pressed="' + (W.b[r.id] ? 'true' : 'false') + '" aria-label="«Билмайман» деб белгилаш">' + BM + '</button></div>';
+        n++; qism += qator(x);
       });
       yop();
+      if (bil) h = '<h3 class="lg-d no">Билмаганларим<span>' + bn + ' сўз</span></h3><div class="lg-l">' + bil + '</div>' + h;
       lr.innerHTML = h || '<div class="lg-e">' + (LF === 'b' && !q ? 'Билмаган сўз йўқ. Дарс охирида сўзларни сараланг ёки шу ерда белгиланг.' : 'Ҳеч нарса топилмади.') + '</div>';
     }
     royxat();
@@ -365,7 +392,7 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
         var id = (bm || ab).getAttribute('data-id'), y = window.pageYOffset, edi = !!W.a[id];
         if (ab) { if (W.a[id]) { delete W.a[id]; W.k[id] = 1; } else { W.a[id] = 1; delete W.b[id]; delete W.k[id]; } }
         else if (W.b[id]) { delete W.b[id]; W.k[id] = 1; } else { W.b[id] = 1; delete W.k[id]; delete W.a[id]; }
-        wYoz(); if (edi !== !!W.a[id]) qur();           /* «аниқ биламан» kunlik takrorga kirmaydi — kartalar qayta yig'iladi */
+        wYoz(); qur();                                  /* belgi takror navbatini o'zgartiradi (bilmayman — birinchi, aniq bilaman — kirmaydi) */
         lugat(); window.scrollTo(0, y);
       } else if (w) {
         var r = D.l.filter(function (x) { return String(x.id) === w.getAttribute('data-au'); })[0];
@@ -508,32 +535,12 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
     document.getElementById('mq2').onclick = function () { qur(); mqBoshla(m); };
     window.scrollTo(0, 0);
   }
+  /* 13.11.2026 (foydalanuvchi qarori): «Такрор» va «Луғат» — bitta joy. Bilmagan so'zlar lug'atga tushadi, takror ham shu yerdan boshlanadi. */
   function bosh() {
     clearTimeout(tmq); toxta(); cur = null; qD = 0; qT = 0; qW = 0; mash(0);
     document.body.classList.remove('tq-ses');
     if (QAYTA) qur();                                   /* «аниқ биламан» belgisi o'zgargan — kartalar qayta yig'iladi */
-    if (TAB === 'l') { lugat(); return; }
-    if (TAB === 'm') { mashqKor(); return; }
-    var t = hozir(), b = E.bugun(t), h = E.hisob(), an = aFaol(), dt = new Date(t), html = '';
-    xul();
-    html += tepa();
-    if (SINOV) html += '<div class="tq-sn"><span>🧪 Синов · бугун ' + ('0' + dt.getDate()).slice(-2) + '.' + ('0' + (dt.getMonth() + 1)).slice(-2) +
-      '</span><button id="s1">+1 кун</button><button id="s0">Тозалаш</button></div>';
-    if (b.takror + b.yangi) html += '<section class="tq-c"><div class="tq-ns"><div><b>' + b.takror + '</b><span>такрор</span></div><div><b>' + b.yangi +
-      '</b><span>янги</span></div></div><button class="tq-b tq-b1" id="go">Бошлаш</button></section>';
-    else html += '<section class="tq-c tq-dn"><h2>Бугунга тамом</h2><p>Эртага ' + E.ertaga(t) + ' та</p></section>';
-    html += '<section class="tq-c"><div class="tq-h">Билган сўзларим<button class="tq-ib" id="bi" aria-expanded="false" aria-controls="biz" aria-label="Қандай ҳисобланади">' + INF + '</button></div><div class="tq-big"><b>' + (h.bilgan + an) + '</b><span>/ ' + (h.jami + an) + '</span></div>' +
-      '<div class="tq-pr"><i style="width:' + (h.jami + an ? Math.round((h.bilgan + an) * 100 / (h.jami + an)) : 0) + '%"></i></div>' +
-      '<div class="tq-mu">ўрганилмоқда ' + h.organilmoqda + ' · мустаҳкам ' + h.mustahkam + (an ? ' · ўзим белгилаган ' + an : '') + '</div>' +
-      '<div class="tq-iz" id="biz" hidden>Сўз камида <b>' + E.sozlama.bilgan + ' кун</b> эсда турса — «биламан»: одатда 4 та тўғри жавоб, икки ҳафтача. <b>' + E.sozlama.mustahkam + ' кун</b> ва маънодан арабчасини ҳам айта олсангиз — «мустаҳкам». Хато қилинса, сўз қайтадан бошланади. <a href="' + SN + 'yoriqnoma.html#takror">Батафсил</a></div></section>';
-    app.innerHTML = html; bar.hidden = true; bar.innerHTML = ''; tabUla();
-    var bi = document.getElementById('bi');
-    if (bi) bi.onclick = function () { var z = document.getElementById('biz'), och = z.hidden; z.hidden = !och; bi.setAttribute('aria-expanded', String(och)); };
-    var go = document.getElementById('go'); if (go) go.onclick = function () { mash(1); document.body.classList.add('tq-ses'); keyingi(); };
-    if (SINOV) {
-      document.getElementById('s1').onclick = function () { LS(KS, String(siljish() + 1)); bosh(); };
-      document.getElementById('s0').onclick = function () { if (confirm('Синов натижалари ўчирилсинми?')) { LS(KJ, null); LS(KS, null); LS(KB, null); qur(); bosh(); } };
-    }
+    if (TAB === 'm') mashqKor(); else lugat();
     window.scrollTo(0, 0);
   }
 

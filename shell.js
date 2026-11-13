@@ -733,3 +733,54 @@ document.addEventListener('click', function (e) {
   else if ((m = t.match(/аломати\s+([\u0648\u064A\u0627\u0646])(?![\u0600-\u06FF])/))) g = { '\u0648': 'vov', '\u064A': 'yo', '\u0627': 'alif', '\u0646': 'nun' }[m[1]];
   location.href = 'nahv.html#' + c + (g ? ':' + g : '');
 });
+
+/* --- «Билмайман» belgisi: darsning «Луғат» yorlig'ida (13.11.2026; hamma darslar; qoida — docs/texnik.md 15 «So'z bazasi») ---
+   Belgi so'z bazasiga yoziladi (localStorage «soz»: b — bilmayman, k — bilaman); xaritadagi dars oxiri saralashida oldindan belgilangan turadi.
+   Qator ↔ baza: sahifadagi VOC ning kitob raqami (kn) → data/lugat.json dagi id; dars raqami tg.js ning data-key («darsNN-holat») dan.
+   Bazaga kirmaydigan so'zda (atoqli ot, takror yozuv) belgi chiqmaydi. lugat.json faqat «Луғат» ochilganda yuklanadi. */
+(function () {
+  var SN = /\/sinov-[^\/]*$/.test(location.pathname), KB = SN ? 'soz-sinov' : 'soz';
+  var sc = document.querySelector('script[data-key]'), DN = sc ? +((sc.getAttribute('data-key') || '').match(/^dars(\d+)-holat$/) || [0, 0])[1] : 0;   /* faqat arab tili darslari (fiqh emas) */
+  var ID = null, yuk = false, p2 = document.getElementById('p2');
+  if (!DN || !p2 || typeof VOC === 'undefined') return;
+  var BM = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h11a1 1 0 0 1 1 1V21l-6.5-4.2L5.5 21V4.5a1 1 0 0 1 1-1z"/></svg>';
+  var css = document.createElement('style');
+  css.textContent = '#p2 .g .bm{width:44px;height:44px;flex:none;margin:-6px -6px 0 -10px;padding:0;border:0;border-radius:12px;background:none;color:var(--mu);opacity:.45;display:flex;align-items:center;justify-content:center;cursor:pointer}' +
+    '#p2 .g .bm svg{width:22px;height:22px}#p2 .g .bm[aria-pressed="true"]{color:#b3261e;opacity:1}#p2 .g .bm[aria-pressed="true"] svg{fill:currentColor}';
+  document.head.appendChild(css);
+  function ol() { var W; try { W = JSON.parse(localStorage.getItem(KB) || '{}') || {}; } catch (e) { W = {}; } W.v = 1; W.b = W.b || {}; W.k = W.k || {}; W.s = W.s || {}; return W; }
+  function chiz() {
+    if (!ID) return;
+    var W = ol();
+    [].forEach.call(p2.querySelectorAll('.g'), function (g, i) {
+      var q = VOC[i], id = q && ID[q[0]], hd = g.querySelector('.hd'), b = hd && hd.querySelector('.bm');
+      if (!id || !hd) return;
+      if (!b) {
+        b = document.createElement('button');
+        b.className = 'bm'; b.type = 'button'; b.setAttribute('aria-label', '«Билмайман» деб белгилаш'); b.innerHTML = BM;
+        b.onclick = function (e) {
+          e.stopPropagation();
+          var W = ol();
+          if (W.b[id]) { delete W.b[id]; W.k[id] = 1; } else { W.b[id] = 1; delete W.k[id]; }
+          try { localStorage.setItem(KB, JSON.stringify(W)); } catch (x) {}
+          b.setAttribute('aria-pressed', W.b[id] ? 'true' : 'false');
+        };
+        hd.appendChild(b);
+      }
+      b.setAttribute('aria-pressed', W.b[id] ? 'true' : 'false');
+    });
+  }
+  function yukla() {
+    if (yuk) { chiz(); return; }
+    yuk = true;
+    fetch(SN ? 'sinov-lugat.json' : 'data/lugat.json').then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (j) {
+      ID = {}; j.s.forEach(function (r) { if (r.d === DN && r.tk) ID[r.kn] = r.id; });
+      chiz();
+    }).catch(function () { yuk = false; });
+  }
+  var gl0 = window.gl, tab0 = window.tab;
+  if (typeof gl0 === 'function') window.gl = function () { gl0.apply(this, arguments); chiz(); };
+  if (typeof tab0 === 'function') window.tab = function (n) { tab0.apply(this, arguments); if (n == 2) yukla(); };
+  if (!p2.classList.contains('hide')) yukla();
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) chiz(); });
+})();

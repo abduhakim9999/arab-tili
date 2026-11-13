@@ -448,6 +448,8 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
   function xarita(birinchi) {
     bar.hidden = true; bar.innerHTML = ''; document.body.classList.remove('y-ses');
     var H = P = hisobla(), W = Math.min(window.innerWidth || 390, 560), html = '';
+    try { var hzd = H.hz && H.hz[0] === 'd' ? D.filter(function (x) { return 'd' + x.n === H.hz; })[0] : null;      /* bosh sahifadagi «Йўл» kartasi uchun qisqa hisob */
+      LS(KY + '-xulosa', JSON.stringify({ v: 1, o: H.otdi, j: H.jami, hz: hzd ? hzd.n + '-дарс' : H.hz ? (H.hz[0] === 'b' ? 'боб имтиҳони' : 'китоб имтиҳони') : '' })); } catch (e) {}
     var k = TUZ.filter(function (x) { return x.n === KT; })[0] || TUZ[0];
     html += '<header class="y-hd"><div class="y-hr"><h1>Йўл</h1><button class="y-kb" id="kb" aria-haspopup="dialog">' + k.n + '-китоб' + IC.past + '</button>' +
       '<span class="y-pg" aria-label="Ўтилган дарслар">' + IC.bayroq + H.otdi + ' / ' + H.jami + '</span>' +

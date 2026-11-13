@@ -642,10 +642,13 @@
   hp.insertAdjacentHTML('afterbegin', h);
 })();
 
-/* --- Таркиб ва Ҳаракат ҳар доим ЁПИҚ очилади (31.10.2026, фойдаланувчи қарори); керак бўлса тугма билан ёқилади --- */
+/* --- Таркиб ва Ҳаракат ҳар доим ЁПИҚ очилади (31.10.2026, фойдаланувчи қарори); керак бўлса тугма билан ёқилади.
+       13.11.2026: «Созламалар» → «Ҳаракатлар» ёқилган бўлса (sozlama.harakat), дарс ҳаракат билан очилади (сукут — ўчиқ, ўзгармади) --- */
 (function () {
+  var har = false;
+  try { har = JSON.parse(localStorage.getItem('sozlama') || '{}').harakat === true; } catch (e) {}
   if (typeof window.bol == 'function' && document.getElementById('bl') && window.bolak) window.bol();
-  if (typeof window.tog == 'function' && document.getElementById('tg') && window.show) window.tog();
+  if (typeof window.tog == 'function' && document.getElementById('tg') && !!window.show !== har) window.tog();
 })();
 
 /* Siljitgich (06.11.2026): o'ng chetda ushlab suriladigan tutqich + bo'lim/gap yozuvi + tepada o'qilgan qism chizig'i.
@@ -783,4 +786,24 @@ document.addEventListener('click', function (e) {
   if (typeof tab0 === 'function') window.tab = function (n) { tab0.apply(this, arguments); if (n == 2) yukla(); };
   if (!p2.classList.contains('hide')) yukla();
   document.addEventListener('visibilitychange', function () { if (!document.hidden) chiz(); });
+})();
+
+/* --- «Созламалар» → Арабча ёзув катталиги (13.11.2026; docs/texnik.md 16) ---
+   Sozlama — boshlang'ich holat: o'zgartirilganda (sozlama.oqT) har darsga BIR MARTA qo'llanadi («sozlama-q» da belgilanadi),
+   keyin darsning o'z «Aa» tugmasi va saqlangan o'lchami ustun. Sozlama hech o'zgartirilmagan bo'lsa — hech narsa qilinmaydi.
+   («Ҳаракат» va «Таржима» sozlamasi alohida kod talab qilmaydi — yuqoridagi «fe-pref» ning o'zi.) */
+(function () {
+  var sc = document.querySelector('script[data-key]'), K = sc ? sc.getAttribute('data-key') || '' : '';
+  if (!/-holat$/.test(K) || typeof fz !== 'function') return;
+  var Z, Q;
+  try { Z = JSON.parse(localStorage.getItem('sozlama') || '{}') || {}; } catch (e) { return; }
+  if (!Z.oqT) return;
+  try { Q = JSON.parse(localStorage.getItem('sozlama-q') || '{}') || {}; } catch (e) { Q = {}; }
+  if (Q[K] >= Z.oqT) return;
+  try {
+    var maq = { k: 18, o: 22, K: 28 }[Z.yozuv];
+    if (maq && typeof fs === 'number' && fs !== maq) fz(maq - fs);
+  } catch (e) {}
+  Q[K] = Z.oqT;
+  try { localStorage.setItem('sozlama-q', JSON.stringify(Q)); } catch (e) {}
 })();

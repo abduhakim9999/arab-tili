@@ -60,20 +60,20 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
 
   <h2>ЎҚИШ</h2>
   <div class="s-c">
-    <div class="s-r col dis">
-      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px"><span class="t" style="flex-direction:row;align-items:center">Арабча ёзув катталиги<span class="s-tz">тез орада</span></span><span class="s-ar" lang="ar">اَلسَّلَامُ عَلَيْكُمْ</span></div>
-      <div class="s-sg"><button disabled aria-pressed="false">Кичик</button><button disabled aria-pressed="true">Ўрта</button><button disabled aria-pressed="false">Катта</button></div>
+    <div class="s-r col">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px"><span class="t">Арабча ёзув катталиги</span><span class="s-ar" id="nam" lang="ar">اَلسَّلَامُ عَلَيْكُمْ</span></div>
+      <div class="s-sg" data-k="yozuv" role="group" aria-label="Арабча ёзув катталиги"><button data-v="k">Кичик</button><button data-v="o">Ўрта</button><button data-v="K">Катта</button></div>
     </div>
-    <button class="s-r dis" role="switch" aria-checked="true" disabled><span class="t"><span>Ҳаракатлар<span class="s-tz">тез орада</span></span><small>Арабча матнда ҳаракат белгилари</small></span><span class="s-sw" aria-hidden="true"></span></button>
-    <button class="s-r dis" role="switch" aria-checked="true" disabled><span class="t"><span>Таржима<span class="s-tz">тез орада</span></span><small>Матн остида таржимаси кўринади</small></span><span class="s-sw" aria-hidden="true"></span></button>
+    <button class="s-r" role="switch" data-k="harakat"><span class="t">Ҳаракатлар<small>Дарс матни ҳаракатлар билан очилади</small></span><span class="s-sw" aria-hidden="true"></span></button>
+    <button class="s-r" role="switch" data-k="tarjima"><span class="t">Таржима<small>Матн остидаги таржима очиқ туради (ўчиқ бўлса — босилганда очилади)</small></span><span class="s-sw" aria-hidden="true"></span></button>
   </div>
 
   <h2>ЭШИТИШ</h2>
   <div class="s-c">
     <div class="s-r sg"><span class="t">Ўқиш тезлиги</span><div class="s-sg" data-k="tezlik" role="group" aria-label="Ўқиш тезлиги"><button data-v="0.75">Секин</button><button data-v="1">Оддий</button><button data-v="1.25">Тез</button></div></div>
     <button class="s-r" role="switch" data-k="uz"><span class="t">Ўзбекча таржима овози<small>Арабчадан кейин таржимаси ўқилади</small></span><span class="s-sw" aria-hidden="true"></span></button>
-    <button class="s-r dis" role="switch" aria-checked="true" disabled><span class="t"><span>Офлайн сақлаш<span class="s-tz">тез орада</span></span><small>Очилган дарс овози телефонда қолади</small></span><span class="s-sw" aria-hidden="true"></span></button>
-    <button class="s-r dis" disabled><span class="t"><span>Сақланган овозларни тозалаш<span class="s-tz">тез орада</span></span></span></button>
+    <button class="s-r" role="switch" data-k="oflayn"><span class="t">Офлайн сақлаш<small>Тингланган дарс овози телефонда қолади</small></span><span class="s-sw" aria-hidden="true"></span></button>
+    <button class="s-r" id="ovt"><span class="t">Сақланган овозларни тозалаш<small id="ovs">…</small></span></button>
   </div>
 
   <h2>МАШҚ ВА ТАКРОР</h2>
@@ -113,14 +113,25 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
     if (k === 'til') return L('til') === 'ru' ? 'ru' : 'uz';
     if (k === 'yangi') return String(SZ.yangi || 10);
     if (k === 'kor') return SZ.kor || 'avto';
-    if (k === 'tovush') return SZ.tovush !== false;
+    if (k === 'tovush' || k === 'oflayn') return SZ[k] !== false;   /* sukut — yoqilgan */
+    if (k === 'tarjima') return !!pref().t;            /* darslardagi «Таржима» tugmasi bilan bitta joy: «fe-pref» (shell.js). Harakat — sozlama.harakat (sukut o'chiq) */
+    if (k === 'yozuv') return SZ.yozuv || 'o';
     return !!SZ[k];
   }
+  function pref() { var p; try { p = JSON.parse(L('fe-pref') || 'null'); } catch (e) { p = null; } return p || { h: 0, t: 0, b: 0 }; }
   function yoz(k, v) {
     if (k === 'tezlik') LS('dars-tezlik', v);
     else if (k === 'uz') LS('dars-uz', v ? '1' : '0');
     else if (k === 'til') LS('til', v);
-    else { SZ[k] = k === 'yangi' ? +v : v; saqla(); if (k === 'kor') korQoy(); }
+    else if (k === 'tarjima') { var p = pref(); p.t = v ? 1 : 0; LS('fe-pref', JSON.stringify(p)); }
+    else {
+      SZ[k] = k === 'yangi' ? +v : v;
+      if (k === 'yozuv') SZ.oqT = Date.now();          /* yozuv kattaligi o'zgardi — shell.js har darsga bir marta qo'llaydi */
+      saqla();
+      if (k === 'kor') korQoy();
+      if (k === 'yozuv') namuna();
+      if (k === 'oflayn' && v === false) ovozTozala(true);
+    }
   }
   [].forEach.call(document.querySelectorAll('.s-sg[data-k]'), function (g) {
     var k = g.getAttribute('data-k');
@@ -134,6 +145,18 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
     b.onclick = function () { yoz(k, !ol(k)); boya(); };
     boya();
   });
+
+  /* yozuv kattaligi namunasi; saqlangan dars ovozlari (sw.js keshi «arab-tili-audio») */
+  function namuna() { var n = document.getElementById('nam'); if (n) n.style.fontSize = ({ k: 20, o: 24, K: 30 })[SZ.yozuv || 'o'] + 'px'; }
+  namuna();
+  function ovozSoni(f) { if (!window.caches) { f(0); return; } caches.open('arab-tili-audio').then(function (c) { return c.keys(); }).then(function (k) { f(k.length); }).catch(function () { f(0); }); }
+  function ovozYoz() { ovozSoni(function (n) { var e = document.getElementById('ovs'); if (e) e.textContent = n ? n + ' та файл сақланган' : 'Сақланган овоз йўқ'; }); }
+  function ovozTozala(jim) {
+    if (!window.caches) return;
+    caches.delete('arab-tili-audio').then(function () { ovozYoz(); if (!jim) xabar('Сақланган овозлар тозаланди'); }).catch(function () {});
+  }
+  ovozYoz();
+  document.getElementById('ovt').onclick = function () { if (confirm('Телефонда сақланган дарс овозлари ўчирилсинми? Кейин тинглаганда қайта юкланади.')) ovozTozala(); };
 
   /* versiya — sw.js dagi «var C» */
   fetch('sw.js', { cache: 'no-store' }).then(function (r) { return r.text(); }).then(function (t) {

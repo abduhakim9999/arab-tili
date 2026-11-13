@@ -261,7 +261,7 @@ Umumiy reja (hisob, server, reyting, app — bosqichlar) — `docs/rejalar.md` 1
 - **Joylandi (12.11.2026):** asosiy saytda — `takror.html`, `takror.js`, `fsrs.js`, `data/` (sw.js FILES va `site/build.py` da — oflayn ishlaydi), bosh sahifa kartasi. Faol darslar hozircha `FAOL = [1]`.
 - **Hali qilinmagan:** faol darslar = o'quvchi ochgan 1-kitob darslari, ruscha, server/hisob (3-bosqich), reyting/streak/eslatma (4-bosqich), qoidalar xaritasi, statistika; `yangi-dars` skilliga «`ajrat.py`» qadami.
 
-## 15. «Йўл» — darslar xaritasi (12.11.2026, foydalanuvchi qarori; hozir — SINOV)
+## 15. «Йўл» — darslar xaritasi va so'z bazasi (12–13.11.2026, foydalanuvchi qarori; saytda 13.11.2026 dan)
 - **Qarorlar:** vahda = kitobdagi bob (`darslar.json` → `bob`); o'tish chegarasi **80%**; dars matni, tarkib, eshitish doim ochiq — qulf faqat xaritadagi belgi va keyingi tugunga; 80% dan past bo'lsa qayta topshiriladi (dars «Машқ»i oxirida «Қайтадан» bor; imtihonda «Қайта топшириш»). Biladigan o'quvchi istalgan bob/kitob imtihonini oldindan topshirib o'tib ketadi (o'tsa — shu bobgacha / shu kitob o'tilgan hisoblanadi). Xato qilingan savollar «Такрорлаш»ga tushadi.
 - **Sahifa `yol.html`** (ekransiz ma'lumot: `data/darslar.json`, `data/mashq.json`, `data/ikonka.json`): kitob → bob kartasi (rang, «N / M») → darslar egri yo'l bo'ylab → bob imtihoni (qalqon) → kitob oxirida kitob imtihoni (kubok). Tugun holatlari: qulf (kulrang, 🔒), ochiq (halqa), hozirgi (to'lqinli halqa, «Бошлаш»), o'tilgan (✓, foiz, yulduz: 80+ ★, 90+ ★★, 100 ★★★). Tugun bosilsa — pastdan oyna (eng yaxshi / oxirgi foiz, «Дарсни очиш», qulfli darsda «Боб имтиҳонини топшириш»). Savoli yo'q dars yo'lda chiqmaydi.
 - **So'z bazasi (13.11.2026, foydalanuvchi qarori: darslardagi hamma so'z yodlanadi va bitta bazada yig'iladi).** Har so'zning holati bitta joyda hisoblanadi; unga dars oxiridagi saralash, imtihonlar, «Такрорлаш» va «Луғат»dagi qo'lda belgi yozadi.
@@ -281,7 +281,7 @@ Umumiy reja (hisob, server, reyting, app — bosqichlar) — `docs/rejalar.md` 1
 - **Imtihon:** savollar `mashq.json` dan, bob — ko'pi bilan 15, kitob — 20; har darsdan teng (navbatma-navbat, tasodifiy). Ko'rinishi «Такрорлаш» savoli qolipi (gap harakatsiz, 3 variant, to'g'rida 1 s dan keyin o'zi o'tadi, xatoda to'xtaydi, sabab qatori). Oxirida foiz, o'tdi/o'tmadi, xato so'zlar ro'yxati.
 - **Saqlash:** localStorage `yol` — `{v:1, d:{dars:{b eng yaxshi, s oxirgi, j savol soni, t}}, e:{"bk1b1"|"k1":{b,s,t}}}` (tg.js orqali Telegram bulutiga ham); xatolar — `yol-xato` (mashq id ro'yxati). Sinovda `yol-sinov`, `yol-sinov-xato`, «🧪 Синов · Тозалаш».
 - **«Такрорлаш» bilan bog'lanish:** `takror.js` — `yarat({…, ustun: [id…]})`: shu id'li mashq savollari dars faol bo'lmasa ham kartaga kiradi va yangi savollar ichida birinchi chiqadi (kunlik `yangiQ` chegarasi ichida). `takror.html` `ustun` ni `yol-xato` dan oladi.
-- **Hali qilinmagan (asosiy saytga «joyla» deyilganda):** bosh sahifaga «Йўл» kirish kartasi; `sw.js` FILES ga `yol.html`, `sozlamalar.html`, `data/ikonka.json` (fon rasmlari FILES ga kirmaydi — ochilganda keshga tushadi); `deploy.sh` ga `ikonka.py` tekshiruvi; dars sahifasida qulf (hozir dars «Машқ»i qulflanmaydi — natija baribir saqlanadi, dars ochilganda o'tilgan bo'ladi); ruscha.
+- **Asosiy saytga joylandi (13.11.2026):** bosh sahifada «Йўл» kartasi (`ylCard()`, `index.html` va andozasi; soni `yol.html` yozgan `yol-xulosa` dan — `{v,o,j,hz}`); `sw.js` FILES ga `yol.html`, `sozlamalar.html`, `data/ikonka.json` (`build.py` ro'yxatida ham); fon rasmlari FILES ga kirmaydi — ko'rilganda sw keshiga tushadi; `vercel-build.sh` `fon/` papkasini ham ko'chiradi; `deploy.sh` har joylashda `ikonka.py` ni ishga tushiradi. **Hali qilinmagan:** dars sahifasida qulf (dars «Машқ»i qulflanmaydi — natija baribir saqlanadi), ruscha.
 - **Dizayn (13.11.2026, foydalanuvchi tanladi; kodda — `yol.html`, sinovda).** Dizayn sahifasi — claude.ai artifact «Йўл — харита дизайни» (https://claude.ai/artifact/XghverUBGYfZ9GxAaAoo8L), «Танланган» bo'limi. Qoida: **fon — rasm, qolgan hammasi kod** (yo'l toshlari, tugunlar, yozuv, tugmalar) — tiniq turadi, ruschaga o'zi o'tadi, dars ko'paysa o'zi uzayadi. Odam va hayvon chizilmaydi.
   - Ekran: tepada to'q yashil tasma (`.y-hd`): «Йўл», kitob almashtirgich (`#kb`, «N-китоб ▾»; oxirgi ko'rilgan kitob — `yol-kitob`), «o'tilgan / jami», sozlamalar tugmasi. Har bob — alohida bo'lak (`section.y-bs`): fon (`.y-fn`), bob kartasi (`.y-bk`, tilla hoshiyali), yo'l (`.y-yl`).
   - **Bob chegarasi** (13.11, foydalanuvchi izohi: ikki rasm tekis chiziqda uchrashmasin): kitobning birinchi bobida (`.b1`) karta tepa tasma ustiga yarim chiqadi; qolgan boblar boshida **ravoq tasma** (`.y-rv`, `RAVOQ` SVG: to'q yashil, tilla hoshiya, romb naqsh, o'rtada sakkiz qirrali yulduzli muhr) — ikki manzara tutashgan chiziqni yopadi, karta uning ostida (o'z manzarasida) turadi.
@@ -298,7 +298,7 @@ Umumiy reja (hisob, server, reyting, app — bosqichlar) — `docs/rejalar.md` 1
   - Imtihonda to'g'ri/xato javobda tovush va tebranish (`sado()`; «Созламалар»da o'chiriladi). «Эркин режим» yoqilsa hamma tugun ochiq (`hisobla()`), natijalar baribir yoziladi.
 - **Sinovga qo'yish** (fayllar `sinov-` bilan, `sinov.sh` html dan boshqasini o'z nomi bilan qo'yadi — shuning uchun vaqtinchalik nusxalar): `yol.html`, `sozlamalar.html`, `takror.html` + `sinov-takror.js`, `sinov-fsrs.js`, `sinov-lugat.json`, `sinov-mashq.json`, `sinov-darslar.json`, `sinov-ikonka.json`, `sinov-fon-‹nom›.jpg` (12 ta: 6 fon, `bob1`, 5 ta `k-…`).
 
-## 16. «Созламалар» (13.11.2026, foydalanuvchi qarori; hozir — SINOV)
+## 16. «Созламалар» (13.11.2026, foydalanuvchi qarori; saytda 13.11.2026 dan)
 - **Sahifa `sozlamalar.html`** — «Йўл» tepasidagi tishli g'ildirakdan; «‹» → `yol.html`. 4 guruh. Dars ichidagi Aa / harakat / tezlik tugmalari joyida qoladi — sozlamada faqat boshlang'ich holati.
 - **Ishlaydiganlari va kalitlari:**
   | Sozlama | Qayerda saqlanadi | Kim o'qiydi |
@@ -311,7 +311,14 @@ Umumiy reja (hisob, server, reyting, app — bosqichlar) — `docs/rejalar.md` 1
   | Тил | `til` («uz»/«ru») | bosh sahifa (mavjud kalit, 12-bo'lim) |
   | Кўриниш (Ёруғ / Тунги / Авто) | `sozlama.kor` («yorug»/«tungi»/«avto») | `<html data-theme>`: `yol.html`, `sozlamalar.html`, `takror.html` boshidagi bir qator + `tg.js` boshida (qolgan hamma sahifalar — asosiy saytga joylangandan keyin) |
   `sozlama` — bitta JSON, `tg.js` orqali Telegram bulutiga ham yoziladi (`data-key="sozlama"`).
-- **«тез орада» (ko'rinadi, bosilmaydi — `shell.js` / `sw.js` ga ish kerak):** arabcha yozuv kattaligi, harakatlar, tarjima ko'rinishi (dars sahifalari bu holatni har darsning o'z `darsNN-holat` ida saqlaydi — umumiy boshlang'ich qiymat yo'q); oflayn saqlash va saqlangan ovozlarni tozalash (`sw.js` keshi).
+- **O'qish va oflayn sozlamalari (13.11.2026):**
+  | Sozlama | Qayerda saqlanadi | Qanday ishlaydi |
+  |---|---|---|
+  | Арабча ёзув катталиги (Кичик 18 / Ўрта 22 / Катта 28) | `sozlama.yozuv` + `sozlama.oqT` (o'zgargan vaqt) | `shell.js` oxiridagi bo'lak: har darsga **bir marta** qo'llaydi (`sozlama-q` da dars kaliti → `oqT`), keyin darsning o'z «Aa» si va saqlangan o'lchami ustun |
+  | Ҳаракатлар | `sozlama.harakat` (sukut — o'chiq) | `shell.js` «Таркиб ва Ҳаракат ҳар доим ёпиқ» bo'lagi: yoqilgan bo'lsa dars harakat bilan ochiladi. Sukut o'zgarmadi (31.10.2026 qarori) |
+  | Таржима | `fe-pref.t` (darsdagi «Таржима» tugmasi bilan bitta joy) | `shell.js` ning mavjud `fe-pref` kodi |
+  | Офлайн сақлаш | `sozlama.oflayn` (sukut — yoqilgan) | o'chirilgan bo'lsa `tg.js` har sahifa ochilganda `arab-tili-audio` keshini o'chiradi (ovoz telefonda yig'ilmaydi; `sw.js` ga tegilmadi) |
+  | Сақланган овозларни тозалаш | — | `caches.delete('arab-tili-audio')`; ostida nechta fayl saqlangani ko'rinadi |
 - **Фикр юбориш** — `https://t.me/Arabtilihivar_bot`; **Илова версияси** — `sw.js` dagi `var C` o'qiladi.
 - **«Натижаларни тозалаш»** (tasdiq bilan): `yol` ga bo'sh holat **yoziladi** (o'chirilmaydi — aks holda `tg.js` Telegram bulutidagi eski nusxani qaytaradi) + `yol-t`; `yol-xato`, `yol-kitob`, so'z bazasi belgilari (`soz`), takror jurnali (`takror-j`, `takror-xulosa`) o'chadi; har `darsNN-holat` dan faqat `q` va `qr` (mashq javoblari) olib tashlanadi, o'qish joyi va boshqa holat qoladi. Sinov sahifasida `yol-sinov…`, `takror-sinov-…` kalitlari; **dars javoblari sinovda ham haqiqiy** (github.io dagi darslar bilan bitta xotira).
 - Keyin (server bilan): kunlik maqsad, eslatma vaqti, taxallus. G'oya (alohida ish): o'zbekcha lotin yozuvi.

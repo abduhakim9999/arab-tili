@@ -22,6 +22,7 @@ if [ "$M" = fiqh ]; then
   cp "$O/fiqh.html" "$O/index.html"
 else
   [ -d fq ] && cp -r fq "$O/"
+  [ -d fon ] && cp -r fon "$O/"     # «Йўл» xaritasi manzaralari va bob kartasi rasmlari (docs/texnik.md 15)
   [ -d data ] && cp -r data "$O/"   # lug'at, mashq, qoida ma'lumot fayllari (docs/texnik.md 14)
   # sw.js: fiqh fayllari keshlanmaydi
   command -v python3 >/dev/null || { echo 'python3 yo`q — sw.js o`zgarmadi'; exit 0; }

@@ -311,6 +311,14 @@ function heroCard(last,avg){
   return '<div class="cd a hero hx an" style="animation-delay:.08s"><a class="hl" href="'+href(L.n)+'">'+ic+'<div class="tx"><div class="n">'+(has?'Давом этиш':'Бошлаш')+'</div><div class="har">'+L.ar+'</div><div class="hs">'+(bk?bk+', ':'')+L.n+'-дарс</div><div class="bar"><i style="width:'+w+'%"></i></div></div></a>'+
     '<div class="hb"><a class="hbt h1" href="'+href(L.n)+'">'+IB+'Ўқиш</a>'+(RUL?'':'<a class="hbt h2" href="'+eh+'">'+IH+'Эшитиш</a>')+'</div></div>';
 }
+function ylCard(){
+  /* «Йўл» картаси (13.11.2026; docs/texnik.md 15) — сон yol.html ёзган хулосадан (yol-xulosa) */
+  if(RUL)return '';
+  var x=null;try{x=JSON.parse(localStorage.getItem('yol-xulosa')||'null')}catch(e){}
+  var s=x&&x.v===1?'Ўтилган: '+x.o+' / '+x.j+(x.hz?' · навбатда '+x.hz:''):'Дарслар харитаси: дарс, сўзлар, имтиҳон';
+  var ic='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h6a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h6"/></svg>';
+  return '<a class="cd tqh an" style="animation-delay:.1s" href="yol.html"><span class="cib">'+ic+'</span><div class="tx"><div class="n">Йўл</div><div class="hs">'+s+'</div></div><span class="tqa">›</span></a>';
+}
 function trCard(){
   if(RUL)return ''; /* ҳозирча фақат ўзбекча */
   var sn=/\/sinov-[^\/]*$/.test(location.pathname),x=null,sl=0;
@@ -368,7 +376,7 @@ function render(cloud){
   }
   var avg=LESSONS.length?Math.round(sum/LESSONS.length):0;
   var t='<div class="cards">'+
-    heroCard(last,avg)+trCard()+
+    heroCard(last,avg)+ylCard()+trCard()+
     '</div>';
   document.getElementById("top").innerHTML=t;
   document.getElementById("ls").innerHTML=h;

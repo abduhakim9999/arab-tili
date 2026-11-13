@@ -1,0 +1,157 @@
+/* So'z bazasi va natijalarni serverda saqlash — telefon almashsa yo'qolmasin (13.11.2026; docs/texnik.md 17).
+   Nima saqlanadi: «soz» (so'z belgilari), «takror-j» (takror jurnali), «yol» (xarita natijalari), «yol-xato». Sozlamalar va dars holati — yo'q.
+   Kim: maxfiy «ko'chirish kodi» (localStorage «baza-kod», 26 belgi) — ism, telefon so'ralmaydi. Telegram ichida kod Telegram bulutida turadi:
+   o'sha hisobda hamma qurilmada bir xil. Saytda/ilovada boshqa qurilmaga «Созламалар»dan kod kiritib ko'chiriladi.
+   Birlashtirish: jurnal — ikkala tomondagi yozuvlar yig'indisi; belgilar — so'zma-so'z, yangisi ustun; yo'l — yangisi + eng yaxshi foizlar;
+   «Натижаларни тозалаш» — r (tozalash vaqti): tozalashni ko'rmagan nusxa tashlanadi, jurnalda undan eski yozuvlar o'chadi.
+   Sahifalar: yol.html, takror.html, sozlamalar.html (window.Baza). Sinov sahifalarida ishlamaydi. */
+(function () {
+  if (/\/sinov-[^\/]*$/.test(location.pathname)) return;
+  var API = /(^|\.)vercel\.app$/.test(location.hostname) ? '/api/soz' : 'https://nurut-tolib.vercel.app/api/soz';
+  var LSs = null; try { LSs = window.localStorage; } catch (e) {}
+  if (!LSs || !window.fetch) return;
+  var set0 = Storage.prototype.setItem, rem0 = Storage.prototype.removeItem;      /* tg.js o'ragan bo'lishi mumkin — zanjir saqlanadi */
+  var KEYS = { 'soz': 1, 'takror-j': 1, 'yol': 1, 'yol-xato': 1 }, KODRE = /^[a-z0-9]{20,64}$/;
+  var ichki = false, band = false, tm = null, tingl = [];
+
+  function L(k) { try { return LSs.getItem(k); } catch (e) { return null; } }
+  function S(k, v) { ichki = true; try { v == null ? rem0.call(LSs, k) : set0.call(LSs, k, v); } catch (e) {} ichki = false; }
+  function J(k, d) { try { var v = JSON.parse(L(k) || 'null'); return v == null ? d : v; } catch (e) { return d; } }
+  function kanon(x) {                                   /* kalitlari tartiblangan JSON — solishtirish uchun */
+    if (x === null || typeof x !== 'object') return JSON.stringify(x === undefined ? null : x);
+    if (Array.isArray(x)) return '[' + x.map(kanon).join(',') + ']';
+    return '{' + Object.keys(x).sort().map(function (k) { return JSON.stringify(k) + ':' + kanon(x[k]); }).join(',') + '}';
+  }
+  function xabar(h) { tingl.forEach(function (f) { try { f(h); } catch (e) {} }); }
+
+  /* mahalliy o'zgarishni payqash: 15 s dan keyin serverga yuboriladi */
+  try {
+    Storage.prototype.setItem = function (k, v) { set0.call(this, k, v); if (!ichki && this === LSs && KEYS[k]) iflos(); };
+    Storage.prototype.removeItem = function (k) { rem0.call(this, k); if (!ichki && this === LSs && KEYS[k]) iflos(); };
+  } catch (e) {}
+  function iflos() { S('baza-oz', String(Date.now())); clearTimeout(tm); tm = setTimeout(function () { sinx(); }, 15000); }
+
+  function lokal() {
+    var soz = J('soz', null), jr = J('takror-j', null);
+    return { v: 1, r: +L('baza-r') || 0, soz: soz, yol: J('yol', null), yolT: +L('yol-t') || 0, j: (jr && jr.j) || [], xato: J('yol-xato', []) || [] };
+  }
+  function bormi(d) { return !!(d.j.length || (d.soz && (Object.keys(d.soz.s || {}).length || Object.keys(d.soz.b || {}).length)) || (d.yol && (Object.keys(d.yol.d || {}).length || Object.keys(d.yol.e || {}).length)) || d.r); }
+
+  function sozQ(n, e) {                                 /* n — yangisi, e — eskisi */
+    var o = { v: 1, b: {}, k: {}, s: {}, t: n.t || 0 }, id;
+    for (id in (e.s || {})) o.s[id] = e.s[id];
+    for (id in (n.s || {})) o.s[id] = Math.max(o.s[id] || 0, n.s[id]);
+    for (id in (e.b || {})) o.b[id] = 1;
+    for (id in (e.k || {})) if (!o.b[id]) o.k[id] = 1;
+    for (id in (n.b || {})) { o.b[id] = 1; delete o.k[id]; }
+    for (id in (n.k || {})) { o.k[id] = 1; delete o.b[id]; }
+    return o;
+  }
+  function yolQ(n, e) {
+    var o = JSON.parse(JSON.stringify(n));
+    ['d', 'e'].forEach(function (g) {
+      o[g] = o[g] || {};
+      for (var id in (e[g] || {})) { var x = e[g][id], y = o[g][id]; if (!y) o[g][id] = x; else if ((x.b || 0) > (y.b || 0)) y.b = x.b; }
+    });
+    return o;
+  }
+  function birlash(a, b) {                              /* a — mahalliy, b — serverdagi (bo'lmasa null) */
+    if (!b || b.v !== 1) return a;
+    var r = Math.max(a.r || 0, b.r || 0), o = { v: 1, r: r }, km = {}, j = [];
+    var A = (a.r || 0) === r ? a : null, B = (b.r || 0) === r ? b : null;          /* tozalashni ko'rmagan nusxa hisobga olinmaydi */
+    [a.j || [], b.j || []].forEach(function (js) { js.forEach(function (e) { var k = e[0] + '|' + e[1]; if (e[1] >= r && !km[k]) { km[k] = 1; j.push(e); } }); });
+    j.sort(function (x, y) { return x[1] - y[1]; });
+    o.j = j;
+    var sa = A && A.soz, sb = B && B.soz;
+    o.soz = sa && sb ? ((sa.t || 0) >= (sb.t || 0) ? sozQ(sa, sb) : sozQ(sb, sa)) : (sa || sb || null);
+    var ya = A && A.yol, yb = B && B.yol;
+    if (ya && yb) { var an = (A.yolT || 0) >= (B.yolT || 0); o.yol = an ? yolQ(ya, yb) : yolQ(yb, ya); o.yolT = Math.max(A.yolT || 0, B.yolT || 0); }
+    else { o.yol = ya || yb || null; o.yolT = ya ? A.yolT || 0 : yb ? B.yolT || 0 : 0; }
+    var xm = {}, x = [];
+    [A && A.xato, B && B.xato].forEach(function (xs) { (xs || []).forEach(function (i) { if (!xm[i]) { xm[i] = 1; x.push(i); } }); });
+    o.xato = x;
+    return o;
+  }
+  function teng(a, b) { return !!b && (a.r || 0) === (b.r || 0) && (a.j || []).length === (b.j || []).length && kanon(a.soz) === kanon(b.soz) && kanon(a.yol) === kanon(b.yol) && kanon(a.xato || []) === kanon(b.xato || []); }
+  function qoy(o) {                                     /* birlashgan hujjatni telefonga yozish; o'zgardimi? */
+    var e = lokal(), ozg = false;
+    if (kanon(e.soz) !== kanon(o.soz)) { S('soz', o.soz ? JSON.stringify(o.soz) : null); ozg = true; }
+    if (kanon(e.yol) !== kanon(o.yol)) { S('yol', o.yol ? JSON.stringify(o.yol) : null); ozg = true; }
+    if (o.yol && o.yolT && +L('yol-t') !== o.yolT) S('yol-t', String(o.yolT));
+    if (e.j.length !== o.j.length) { S('takror-j', o.j.length ? JSON.stringify({ v: 1, j: o.j }) : null); ozg = true; }
+    if (kanon(e.xato) !== kanon(o.xato)) { S('yol-xato', o.xato.length ? JSON.stringify(o.xato) : null); ozg = true; }
+    if ((e.r || 0) !== (o.r || 0)) S('baza-r', o.r ? String(o.r) : null);
+    return ozg;
+  }
+
+  /* ko'chirish kodi */
+  function tgW() { try { var w = window.Telegram && Telegram.WebApp; return w && w.initData && w.CloudStorage && w.isVersionAtLeast && w.isVersionAtLeast('6.9') ? w : null; } catch (e) { return null; } }
+  function tgIchi() { try { return !!(window.TelegramWebviewProxy || /tgWebApp/.test(location.hash) || (JSON.parse(sessionStorage.getItem('__telegram__initParams') || '{}').tgWebAppData)); } catch (e) { return false; } }
+  function yangiKod() { var a = new Uint8Array(26), s = '', al = 'abcdefghijklmnopqrstuvwxyz0123456789'; (window.crypto || window.msCrypto).getRandomValues(a); for (var i = 0; i < 26; i++) s += al[a[i] % 36]; return s; }
+  function kodOl(cb) {
+    var k = L('baza-kod'), urin = 0;
+    if (k && !KODRE.test(k)) k = null;
+    if (!tgIchi()) { cb(k); return; }
+    (function kut() {                                   /* Telegram skripti yuklanishini 3 s gacha kutish */
+      var w = tgW();
+      if (!w) { if (++urin > 12) { cb(k); return; } setTimeout(kut, 250); return; }
+      var bitdi = false, t = setTimeout(function () { if (!bitdi) { bitdi = true; cb(k); } }, 3000);
+      w.CloudStorage.getItem('baza-kod', function (err, val) {
+        if (bitdi) return;
+        bitdi = true; clearTimeout(t);
+        if (!err && val && KODRE.test(val)) { if (val !== k) S('baza-kod', val); cb(val); }     /* Telegram hisobidagi kod ustun */
+        else { if (k) try { w.CloudStorage.setItem('baza-kod', k); } catch (e) {} cb(k); }
+      });
+    })();
+  }
+  function so(kod, amal, d) {
+    return fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ kod: kod, amal: amal, d: d }), keepalive: amal === 'yoz' && JSON.stringify(d).length < 60000 })
+      .then(function (r) { return r.json(); }).then(function (j) { if (!j || !j.ok) throw new Error((j && j.xato) || 'xato'); return j; });
+  }
+
+  /* sinxronlash: serverdagini olish → birlashtirish → telefonga yozish → farq bo'lsa serverga yozish */
+  function sinx(cb) {
+    if (band) { if (cb) cb(false); return; }
+    band = true; clearTimeout(tm);
+    var tugat = function (ok, ozg) { band = false; if (ok) { S('baza-t', String(Date.now())); S('baza-oz', null); } xabar({ ok: ok, ozgardi: !!ozg }); if (cb) cb(ok, !!ozg); };
+    kodOl(function (kod) {
+      var lo = lokal();
+      if (!kod) {
+        if (!bormi(lo)) { band = false; if (cb) cb(false); return; }              /* saqlaydigan narsa yo'q — kod ham, fayl ham yaratilmaydi */
+        kod = yangiKod(); S('baza-kod', kod);
+        var w = tgW(); if (w) try { w.CloudStorage.setItem('baza-kod', kod); } catch (e) {}
+      }
+      so(kod, 'ol').then(function (j) {
+        var lo2 = lokal(), bir = birlash(lo2, j.d), ozg = qoy(bir);
+        if (teng(bir, j.d) || !bormi(bir)) { tugat(true, ozg); return; }
+        return so(kod, 'yoz', bir).then(function () { tugat(true, ozg); });
+      }).catch(function () { tugat(false, false); });
+    });
+  }
+
+  window.Baza = {
+    sinx: sinx,
+    kod: function () { var k = L('baza-kod'); return k && KODRE.test(k) ? k : ''; },
+    vaqt: function () { return +L('baza-t') || 0; },
+    kutmoqda: function () { return !!L('baza-oz'); },
+    tinglash: function (f) { tingl.push(f); },
+    /* boshqa qurilmadagi kodni kiritish: shu telefondagi natijalar o'sha kod ostidagilar bilan birlashadi */
+    kodQoy: function (k, cb) {
+      k = String(k || '').trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+      if (!KODRE.test(k)) { cb(false); return; }
+      S('baza-kod', k);
+      var w = tgW(); if (w) try { w.CloudStorage.setItem('baza-kod', k); } catch (e) {}
+      sinx(cb);
+    },
+    /* «Натижаларни тозалаш»: tozalash vaqti qo'yiladi — serverdagi va boshqa qurilmalardagi nusxa ham tozalanadi */
+    tozala: function (cb) { S('baza-r', String(Date.now())); sinx(cb); }
+  };
+
+  /* sahifa ochilganda; yashirilganda (chiqishdan oldin) — o'zgarish bo'lsa */
+  setTimeout(function () {
+    sinx(function (ok, ozg) {
+      if (ok && ozg) { try { if (!sessionStorage.getItem('baza-r1')) { sessionStorage.setItem('baza-r1', '1'); location.reload(); } } catch (e) {} }
+    });
+  }, 1200);
+  document.addEventListener('visibilitychange', function () { if (document.hidden && L('baza-oz')) sinx(); });
+})();

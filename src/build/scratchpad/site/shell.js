@@ -765,6 +765,7 @@ document.addEventListener('click', function (e) {
           e.stopPropagation();
           var W = ol();
           if (W.b[id]) { delete W.b[id]; W.k[id] = 1; } else { W.b[id] = 1; delete W.k[id]; }
+          W.t = Date.now();
           try { localStorage.setItem(KB, JSON.stringify(W)); } catch (x) {}
           b.setAttribute('aria-pressed', W.b[id] ? 'true' : 'false');
         };

@@ -13,7 +13,7 @@
 var SN = /\/sinov-[^\/]*$/.test(location.pathname) ? 'sinov-' : '';
 /* ko'rinish (sozlamalar): yorug' / tungi */
 try { var _k = JSON.parse(localStorage.getItem('sozlama') || '{}').kor; if (_k === 'yorug' || _k === 'tungi') document.documentElement.setAttribute('data-theme', _k === 'tungi' ? 'dark' : 'light'); } catch (e) {}
-document.write('<script src="tg.js" data-key="' + (SN ? 'yol-sinov' : 'yol') + '" data-home="./"><\/script>');
+document.write('<script src="tg.js" data-key="' + (SN ? 'yol-sinov' : 'yol') + '" data-home="./"><\/script>' + (SN ? '' : '<script src="baza.js"><\/script>'));
 </script>
 <style>
 @font-face{font-family:"DarsNaskh";src:url(naskh.woff)}
@@ -344,7 +344,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
   }
   function ol() { try { R = JSON.parse(L(KY) || '{}') || {}; } catch (e) { R = {}; } R.v = 1; R.d = R.d || {}; R.e = R.e || {}; wOl(); }
   function wOl() { try { W = JSON.parse(L(KB) || '{}') || {}; } catch (e) { W = {}; } W.v = 1; W.b = W.b || {}; W.k = W.k || {}; W.s = W.s || {}; KOR = null; }
-  function wYoz() { LS(KB, JSON.stringify(W)); }
+  function wYoz() { W.t = Date.now(); LS(KB, JSON.stringify(W)); }   /* t — baza.js birlashtirishi uchun (qaysi nusxa yangi) */
   function hozir() { return Date.now() + (SINOV ? (+L('takror-sinov-kun') || 0) * 86400000 : 0); }   /* sinovda «+1 кун» siljishi bilan (takror.html dagi kabi) */
   function jurnalOl() { try { return (JSON.parse(L(KJ) || '{}').j) || []; } catch (e) { return []; } }
   function jurnalQosh(a) { LS(KJ, JSON.stringify({ v: 1, j: jurnalOl().concat(a) })); KOR = null; }

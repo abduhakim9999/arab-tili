@@ -14,7 +14,7 @@
 var SN = /\/sinov-[^\/]*$/.test(location.pathname) ? 'sinov-' : '';
 function korQoy() { try { var k = JSON.parse(localStorage.getItem('sozlama') || '{}').kor, e = document.documentElement; if (k === 'yorug' || k === 'tungi') e.setAttribute('data-theme', k === 'tungi' ? 'dark' : 'light'); else e.removeAttribute('data-theme'); } catch (x) {} }
 korQoy();
-document.write('<script src="tg.js" data-key="sozlama" data-home="' + SN + 'yol.html"><\/script>');
+document.write('<script src="tg.js" data-key="sozlama" data-home="' + SN + 'yol.html"><\/script>' + (SN ? '' : '<script src="baza.js"><\/script>'));
 </script>
 <style>
 body{margin:0;background-color:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-tap-highlight-color:transparent}
@@ -46,6 +46,11 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
 .s-tz{display:inline-block;margin-left:8px;padding:1px 8px;border-radius:8px;background:var(--tint);color:var(--ac);font-size:11.5px;font-weight:700;letter-spacing:.02em;vertical-align:1px;white-space:nowrap}
 .s-ar{font-family:"DarsNaskh","Noto Naskh Arabic",serif;direction:rtl;unicode-bidi:isolate;font-size:24px;line-height:1.4;font-weight:400;color:var(--mu)}
 @font-face{font-family:"DarsNaskh";src:url(naskh.woff)}
+.s-mb{flex-shrink:0;height:44px;padding:0 14px;border-radius:12px;border:1px solid var(--bd);background:var(--tint);color:var(--ac);font-size:14.5px;font-weight:700}
+.s-mb[disabled]{opacity:.5}
+.s-kd{display:flex;align-items:center;gap:8px}
+.s-kd code{flex:1;min-width:0;padding:10px 12px;border-radius:12px;background:var(--tint);font:600 14px/1.4 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.03em;overflow-wrap:anywhere}
+.s-kd input{flex:1;min-width:0;height:44px;box-sizing:border-box;padding:0 12px;border-radius:12px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit;font-size:15px}
 .s-del{display:block;width:100%;height:56px;margin-top:20px;border-radius:20px;border:1px solid var(--bd);background:var(--cd);color:#B3261E;font-size:16px;font-weight:600}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .s-del{color:#ff9b91}}
 :root[data-theme="dark"] .s-del{color:#ff9b91}
@@ -81,6 +86,15 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
     <div class="s-r sg"><span class="t">Кунлик янги сўзлар</span><div class="s-sg" data-k="yangi" role="group" aria-label="Кунлик янги сўзлар"><button data-v="10">10</button><button data-v="15">15</button><button data-v="20">20</button></div></div>
     <button class="s-r" role="switch" data-k="tovush"><span class="t">Товуш ва тебраниш<small>Имтиҳонда тўғри ва хато жавобда</small></span><span class="s-sw" aria-hidden="true"></span></button>
     <button class="s-r" role="switch" data-k="erkin" style="min-height:76px"><span class="t">Эркин режим<small>Ҳамма дарслар қулфсиз очилади. Устоз билан ўқийдиганлар учун</small></span><span class="s-sw" aria-hidden="true"></span></button>
+  </div>
+
+  <h2 id="bz-h2">НАТИЖАЛАРНИ САҚЛАШ</h2>
+  <div class="s-c" id="bz">
+    <div class="s-r"><span class="t">Серверда сақлаш<small id="bz-h">…</small></span><button class="s-mb" id="bz-s">Ҳозир сақлаш</button></div>
+    <div class="s-r col"><span class="t">Кўчириш коди<small>Бошқа телефонда шу кодни киритсангиз, натижаларингиз ўша ерга ўтади. Кодни бошқаларга берманг.</small></span>
+      <div class="s-kd"><code id="bz-k">—</code><button class="s-mb" id="bz-n">Нусхалаш</button></div></div>
+    <div class="s-r col"><span class="t">Бошқа телефондан кўчириш<small>Эски телефондаги кодни киритинг — натижалар бирлашади.</small></span>
+      <div class="s-kd"><input id="bz-i" type="text" placeholder="Кодни киритинг" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Кўчириш коди"><button class="s-mb" id="bz-q">Кўчириш</button></div></div>
   </div>
 
   <h2>УМУМИЙ</h2>
@@ -158,6 +172,33 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
   ovozYoz();
   document.getElementById('ovt').onclick = function () { if (confirm('Телефонда сақланган дарс овозлари ўчирилсинми? Кейин тинглаганда қайта юкланади.')) ovozTozala(); };
 
+  /* natijalarni serverda saqlash (baza.js; docs/texnik.md 17) */
+  (function () {
+    var B = window.Baza, quti = document.getElementById('bz');
+    if (!B) { quti.innerHTML = '<div class="s-r"><span class="t"><small>Синов саҳифасида ишламайди — асосий сайтда.</small></span></div>'; return; }
+    var h = document.getElementById('bz-h'), kd = document.getElementById('bz-k'), bs = document.getElementById('bz-s'), bn = document.getElementById('bz-n');
+    function chiz() {
+      var k = B.kod(), t = B.vaqt(), d = t ? new Date(t) : null, ik = function (n) { return ('0' + n).slice(-2); };
+      kd.textContent = k ? k.match(/.{1,5}/g).join('-') : '—';
+      bn.disabled = !k;
+      h.textContent = !k ? 'Ҳали сақланадиган натижа йўқ' : B.kutmoqda() ? 'Сақланмаган ўзгаришлар бор' : d ? 'Сақланган: ' + ik(d.getDate()) + '.' + ik(d.getMonth() + 1) + ', ' + ik(d.getHours()) + ':' + ik(d.getMinutes()) : 'Ҳали сақланмаган';
+    }
+    chiz(); B.tinglash(chiz);
+    bs.onclick = function () { bs.disabled = true; B.sinx(function (ok) { bs.disabled = false; chiz(); xabar(ok ? 'Сақланди' : B.kod() ? 'Сақлаб бўлмади. Интернетни текширинг.' : 'Ҳали сақланадиган натижа йўқ'); }); };
+    bn.onclick = function () {
+      var k = B.kod(); if (!k) return;
+      var yoz = k.match(/.{1,5}/g).join('-');
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(yoz).then(function () { xabar('Код нусхаланди'); }, function () { xabar('Кодни қўлда кўчиринг'); });
+      else xabar('Кодни қўлда кўчиринг');
+    };
+    document.getElementById('bz-q').onclick = function () {
+      var inp = document.getElementById('bz-i'), q = this;
+      if (!inp.value.trim()) { inp.focus(); return; }
+      q.disabled = true;
+      B.kodQoy(inp.value, function (ok) { q.disabled = false; chiz(); if (ok) inp.value = ''; xabar(ok ? 'Кўчирилди — натижалар бирлашди' : 'Код нотўғри ёки интернет йўқ'); });
+    };
+  })();
+
   /* versiya — sw.js dagi «var C» */
   fetch('sw.js', { cache: 'no-store' }).then(function (r) { return r.text(); }).then(function (t) {
     var m = t.match(/var\s+C\s*=\s*['"]([^'"]+)['"]/); if (m) document.getElementById('ver').textContent = m[1];
@@ -179,6 +220,7 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
         if (S && (S.q || S.qr)) { delete S.q; delete S.qr; localStorage.setItem(k, JSON.stringify(S)); localStorage.setItem(k + '-t', hz); }
       }
     } catch (e) {}
+    if (window.Baza) Baza.tozala();                     /* serverdagi va boshqa qurilmalardagi nusxa ham tozalanadi */
     xabar('Натижалар тозаланди');
   };
 })();

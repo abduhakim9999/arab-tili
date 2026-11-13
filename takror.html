@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="shell.css">
 <script>try{var _k=JSON.parse(localStorage.getItem('sozlama')||'{}').kor;if(_k==='yorug'||_k==='tungi')document.documentElement.setAttribute('data-theme',_k==='tungi'?'dark':'light')}catch(e){}</script>
 <script src="tg.js" data-key="takror" data-home="./"></script>
+<script src="baza.js"></script>
 <style>
 @font-face{font-family:"DarsNaskh";src:url(naskh.woff)}
 :root{--tq-ok:#17794a;--tq-okb:rgba(23,121,74,.12);--tq-no:#b3261e;--tq-nob:rgba(179,38,30,.10);--tq-act:#fff}
@@ -181,7 +182,7 @@ document.write('<script src="' + SN + 'fsrs.js"><\/script><script src="' + SN + 
   function LS(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} }
   function mash(v) { try { if (v == null) return sessionStorage.getItem(KM); v ? sessionStorage.setItem(KM, '1') : sessionStorage.removeItem(KM); } catch (e) {} return null; }
   function wOl() { try { W = JSON.parse(L(KB) || '{}') || {}; } catch (e) { W = {}; } W.v = 1; W.b = W.b || {}; W.k = W.k || {}; W.s = W.s || {}; }
-  function wYoz() { LS(KB, JSON.stringify(W)); }
+  function wYoz() { W.t = Date.now(); LS(KB, JSON.stringify(W)); }   /* t — baza.js birlashtirishi uchun */
   function mano(r) { var u = r.uz.join('; '); return (u.match(/(^|[\s;,])\d+\./g) || []).length > 1 ? u : u.replace(/^\d+\.\s*/, ''); }
   function siljish() { return SINOV ? (+L(KS) || 0) : 0; }
   function hozir() { return Date.now() + siljish() * 86400000; }

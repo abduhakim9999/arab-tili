@@ -15,8 +15,11 @@
     yangiQ: 5,        // kuniga yangi mashq savoli
     yangiQosh: 10,    // kuniga yangi qo'shimcha karta (ma'no → arabcha, ovoz → ma'no)
     eslab: 0.9,       // FSRS: eslab qolish darajasi
-    bilgan: 7,        // «bilgan so'z»: barqarorlik shuncha kundan kam emas
-    mustahkam: 30
+    /* Chegaralar 13.11.2026 da qattiqlashdi (foydalanuvchi qarori, jahon tajribasi bo'yicha; oldin 7 va 30 edi):
+       bilgan — Anki'dagi «pishgan karta» chegarasi; xatosiz borilsa 4-to'g'ri javobda, ~2 haftada yetiladi (2 kun → 11 kun → 46 kun);
+       mustahkam — 5-to'g'ri javob, ~2 oy; qo'shimcha shart: ma'no → arabcha kartasi ham kamida «bilgan» (tanish va aytib berish — ikki mahorat). */
+    bilgan: 21,       // «биламан»: barqarorlik (so'z esda turadigan muddat) shuncha kundan kam emas
+    mustahkam: 90     // «мустаҳкам»: arabcha → ma'no kartasi shuncha kun + ma'no → arabcha kartasi «bilgan»
   };
 
   function yarat(o) {
@@ -140,7 +143,8 @@
         if (!s) return;
         if (s.c.state === ST.Review && s.c.stability >= soz.bilgan) {
           r.bilgan++;
-          if (s.c.stability >= soz.mustahkam) r.mustahkam++;
+          var u = S[x.nk + 'u'];                               // ikki tomonlama: ma'no → arabcha ham bilinsa
+          if (s.c.stability >= soz.mustahkam && u && u.c.state === ST.Review && u.c.stability >= soz.bilgan) r.mustahkam++;
         } else r.organilmoqda++;
       });
       return r;

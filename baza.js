@@ -4,6 +4,8 @@
    o'sha hisobda hamma qurilmada bir xil. Saytda/ilovada boshqa qurilmaga «Созламалар»dan kod kiritib ko'chiriladi.
    Birlashtirish: jurnal — ikkala tomondagi yozuvlar yig'indisi; belgilar — so'zma-so'z, yangisi ustun; yo'l — yangisi + eng yaxshi foizlar;
    «Натижаларни тозалаш» — r (tozalash vaqti): tozalashni ko'rmagan nusxa tashlanadi, jurnalda undan eski yozuvlar o'chadi.
+   Tozalashdan oldingi nusxa 30 kun saqlanadi (telefonda «baza-eski», serverda — kod + «eski» ostida); «Қайтариш» — yangi r + rk
+   (rk — jurnal chegarasi: qaytarilgan eski yozuvlar o'chmasin).
    Sahifalar: yol.html, takror.html, sozlamalar.html (window.Baza). Sinov sahifalarida ishlamaydi. */
 (function () {
   if (/\/sinov-[^\/]*$/.test(location.pathname)) return;
@@ -33,18 +35,21 @@
 
   function lokal() {
     var soz = J('soz', null), jr = J('takror-j', null);
-    return { v: 1, r: +L('baza-r') || 0, soz: soz, yol: J('yol', null), yolT: +L('yol-t') || 0, j: (jr && jr.j) || [], xato: J('yol-xato', []) || [] };
+    var rk = L('baza-rk');
+    return { v: 1, r: +L('baza-r') || 0, rk: rk == null ? undefined : +rk || 0, soz: soz, yol: J('yol', null), yolT: +L('yol-t') || 0, j: (jr && jr.j) || [], xato: J('yol-xato', []) || [] };
   }
-  function bormi(d) { return !!(d.j.length || (d.soz && (Object.keys(d.soz.s || {}).length || Object.keys(d.soz.b || {}).length)) || (d.yol && (Object.keys(d.yol.d || {}).length || Object.keys(d.yol.e || {}).length)) || d.r); }
+  function bormi(d) { return !!(d.j.length || (d.soz && (Object.keys(d.soz.s || {}).length || Object.keys(d.soz.b || {}).length || Object.keys(d.soz.a || {}).length)) || (d.yol && (Object.keys(d.yol.d || {}).length || Object.keys(d.yol.e || {}).length)) || d.r); }
 
-  function sozQ(n, e) {                                 /* n — yangisi, e — eskisi */
-    var o = { v: 1, b: {}, k: {}, s: {}, t: n.t || 0 }, id;
+  /* n — yangisi, e — eskisi. Har so'zda bitta holat: b («билмайман») / a («аниқ биламан») / k (biladi, tekshirilmagan);
+     yangisida holat bo'lsa — o'sha, bo'lmasa — eskisidagi. */
+  function sozQ(n, e) {
+    var o = { v: 1, b: {}, k: {}, a: {}, s: {}, t: n.t || 0 }, id, ids = {};
     for (id in (e.s || {})) o.s[id] = e.s[id];
     for (id in (n.s || {})) o.s[id] = Math.max(o.s[id] || 0, n.s[id]);
-    for (id in (e.b || {})) o.b[id] = 1;
-    for (id in (e.k || {})) if (!o.b[id]) o.k[id] = 1;
-    for (id in (n.b || {})) { o.b[id] = 1; delete o.k[id]; }
-    for (id in (n.k || {})) { o.k[id] = 1; delete o.b[id]; }
+    function hol(x, i) { return (x.b || {})[i] ? 'b' : (x.a || {})[i] ? 'a' : (x.k || {})[i] ? 'k' : ''; }
+    [e, n].forEach(function (x) { ['b', 'a', 'k'].forEach(function (g) { for (var i in (x[g] || {})) ids[i] = 1; }); });
+    for (id in ids) o[hol(n, id) || hol(e, id)][id] = 1;
+    if (!Object.keys(o.a).length) delete o.a;          /* belgi yo'q bo'lsa hujjat avvalgidek qoladi (ortiqcha qayta yozish bo'lmasin) */
     return o;
   }
   function yolQ(n, e) {
@@ -59,7 +64,9 @@
     if (!b || b.v !== 1) return a;
     var r = Math.max(a.r || 0, b.r || 0), o = { v: 1, r: r }, km = {}, j = [];
     var A = (a.r || 0) === r ? a : null, B = (b.r || 0) === r ? b : null;          /* tozalashni ko'rmagan nusxa hisobga olinmaydi */
-    [a.j || [], b.j || []].forEach(function (js) { js.forEach(function (e) { var k = e[0] + '|' + e[1]; if (e[1] >= r && !km[k]) { km[k] = 1; j.push(e); } }); });
+    var fl = A && A.rk != null ? A.rk : B && B.rk != null ? B.rk : r;                /* jurnal chegarasi: odatda r; «Қайтариш»dan keyin — rk */
+    if (fl < r) o.rk = fl;
+    [a.j || [], b.j || []].forEach(function (js) { js.forEach(function (e) { var k = e[0] + '|' + e[1]; if (e[1] >= fl && !km[k]) { km[k] = 1; j.push(e); } }); });
     j.sort(function (x, y) { return x[1] - y[1]; });
     o.j = j;
     var sa = A && A.soz, sb = B && B.soz;
@@ -72,7 +79,7 @@
     o.xato = x;
     return o;
   }
-  function teng(a, b) { return !!b && (a.r || 0) === (b.r || 0) && (a.j || []).length === (b.j || []).length && kanon(a.soz) === kanon(b.soz) && kanon(a.yol) === kanon(b.yol) && kanon(a.xato || []) === kanon(b.xato || []); }
+  function teng(a, b) { return !!b && (a.r || 0) === (b.r || 0) && (a.rk == null ? -1 : a.rk) === (b.rk == null ? -1 : b.rk) && (a.j || []).length === (b.j || []).length && kanon(a.soz) === kanon(b.soz) && kanon(a.yol) === kanon(b.yol) && kanon(a.xato || []) === kanon(b.xato || []); }
   function qoy(o) {                                     /* birlashgan hujjatni telefonga yozish; o'zgardimi? */
     var e = lokal(), ozg = false;
     if (kanon(e.soz) !== kanon(o.soz)) { S('soz', o.soz ? JSON.stringify(o.soz) : null); ozg = true; }
@@ -81,6 +88,7 @@
     if (e.j.length !== o.j.length) { S('takror-j', o.j.length ? JSON.stringify({ v: 1, j: o.j }) : null); ozg = true; }
     if (kanon(e.xato) !== kanon(o.xato)) { S('yol-xato', o.xato.length ? JSON.stringify(o.xato) : null); ozg = true; }
     if ((e.r || 0) !== (o.r || 0)) S('baza-r', o.r ? String(o.r) : null);
+    if ((e.rk == null ? -1 : e.rk) !== (o.rk == null ? -1 : o.rk)) S('baza-rk', o.rk == null ? null : String(o.rk));
     return ozg;
   }
 
@@ -107,6 +115,37 @@
   function so(kod, amal, d) {
     return fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ kod: kod, amal: amal, d: d }), keepalive: amal === 'yoz' && JSON.stringify(d).length < 60000 })
       .then(function (r) { return r.json(); }).then(function (j) { if (!j || !j.ok) throw new Error((j && j.xato) || 'xato'); return j; });
+  }
+
+  function post(o) {
+    return fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(o) })
+      .then(function (r) { return r.json(); }).then(function (j) { if (!j || !j.ok) throw new Error((j && j.xato) || 'xato'); return j; });
+  }
+
+  /* «Telegram орқали кириш» — Telegram ilovasi tomoni (13.11.2026; docs/texnik.md 18). Sayt t.me/…?startapp=kir_<belgi> ni ochadi;
+     ilova shu belgi bilan ochilganda foydalanuvchidan tasdiq so'raydi va o'z kodini serverga shu belgi ostida qo'yadi (10 daqiqa, bir marta o'qiladi).
+     Tasdiqsiz hech narsa yuborilmaydi: begona havola orqali natijalarga ulanib olishning oldi olinadi. */
+  function ulashSorov() {
+    if (!tgIchi()) return;
+    var urin = 0;
+    (function kut() {
+      var w = tgW();
+      if (!w) { if (++urin <= 16) setTimeout(kut, 250); return; }
+      var sp = ''; try { sp = (w.initDataUnsafe && w.initDataUnsafe.start_param) || ''; } catch (e) {}
+      var m = /^kir_([a-z0-9]{20,40})$/.exec(sp);
+      if (!m) return;
+      try { if (sessionStorage.getItem('baza-ul-' + m[1])) return; sessionStorage.setItem('baza-ul-' + m[1], '1'); } catch (e) {}
+      var MATN = 'Сайт шу Telegram ҳисобингиздаги натижаларга уланади. Буни ўзингиз бошлаган бўлсангизгина тасдиқланг.';
+      var ayt = function (t) { try { if (w.showAlert) { w.showAlert(t); return; } } catch (e) {} try { alert(t); } catch (e) {} };
+      var sora = function (f) { try { if (w.showConfirm) { w.showConfirm(MATN, f); return; } } catch (e) {} f(window.confirm(MATN)); };
+      sora(function (ha) {
+        if (!ha) return;
+        kodOl(function (kod) {
+          if (!kod) { kod = yangiKod(); S('baza-kod', kod); try { w.CloudStorage.setItem('baza-kod', kod); } catch (e) {} }
+          post({ amal: 'ulash', tok: m[1], kod: kod }).then(function () { ayt('Уланди. Сайтга қайтинг.'); }, function () { ayt('Уланмади. Интернетни текширинг ва қайта уриниб кўринг.'); });
+        });
+      });
+    })();
   }
 
   /* sinxronlash: serverdagini olish → birlashtirish → telefonga yozish → farq bo'lsa serverga yozish */
@@ -144,9 +183,37 @@
       sinx(cb);
     },
     /* «Натижаларни тозалаш»: tozalash vaqti qo'yiladi — serverdagi va boshqa qurilmalardagi nusxa ham tozalanadi */
-    tozala: function (cb) { S('baza-r', String(Date.now())); sinx(cb); }
+    tozala: function (cb) { S('baza-r', String(Date.now())); S('baza-rk', null); sinx(cb); },
+    /* «Қайтариш»: sahifa eski nusxani telefonga yozib bo'lgach chaqiradi. Yangi r — boshqa qurilmalardagi (bo'sh) nusxadan ustun bo'lishi uchun;
+       rk — o'sha nusxaning eski chegarasi: jurnaldagi eski yozuvlar tozalashdan oldingi bo'lsa ham saqlanadi. */
+    qaytar: function (rk, cb) { S('baza-r', String(Date.now())); S('baza-rk', String(+rk || 0)); sinx(cb); },
+    /* tozalashdan oldingi nusxa — serverda alohida fayl (kod + «eski»); d: {v:1, ar: vaqt, r, rk, ls: {kalit: qiymat}}. Bo'shatish: {v:1, ar:0}. */
+    eskiYoz: function (d, cb) {
+      var k = L('baza-kod');
+      if (!k || !KODRE.test(k)) { if (cb) cb(false); return; }
+      so(k + 'eski', 'yoz', d).then(function () { if (cb) cb(true); }).catch(function () { if (cb) cb(false); });
+    },
+    /* «Telegram орқали кириш» — sayt tomoni: belgi yasaladi (10 daqiqa), Telegram'da tasdiqlangach kod serverdan bir marta olinadi */
+    ulashBoshla: function () { var t = yangiKod(); S('baza-ulash', JSON.stringify({ tok: t, t: Date.now() })); return t; },
+    ulashKutmoqda: function () { var u = J('baza-ulash', null); return !!(u && u.tok && Date.now() - u.t < 10 * 60 * 1000); },
+    ulashTekshir: function (cb) {
+      var u = J('baza-ulash', null);
+      if (!u || !u.tok || !(Date.now() - u.t < 10 * 60 * 1000)) { S('baza-ulash', null); cb(false, true); return; }     /* cb(ulandi, tugadi) */
+      post({ amal: 'ulashOl', tok: u.tok }).then(function (j) {
+        if (!j.kod) { cb(false, false); return; }
+        S('baza-ulash', null); S('baza-tg', '1');
+        window.Baza.kodQoy(j.kod, function () { cb(true, true); });
+      }).catch(function () { cb(false, false); });
+    },
+    tgUlangan: function () { return !!L('baza-tg'); },
+    eskiOl: function (cb) {
+      var k = L('baza-kod');
+      if (!k || !KODRE.test(k)) { cb(null); return; }
+      so(k + 'eski', 'ol').then(function (j) { cb(j.d && j.d.v === 1 && j.d.ar && j.d.ls ? j.d : null); }).catch(function () { cb(null); });
+    }
   };
 
+  setTimeout(ulashSorov, 700);
   /* sahifa ochilganda; yashirilganda (chiqishdan oldin) — o'zgarish bo'lsa */
   setTimeout(function () {
     sinx(function (ok, ozg) {

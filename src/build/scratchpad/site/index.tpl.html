@@ -9,6 +9,11 @@
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic&display=swap" media="print" onload="this.media='all'">
+<script>/* ҚОБИҚ (13.11.2026; docs/texnik.md 18): asosiy ekran — xarita (yol.html). O'zbekcha rejimda bosh sahifa darhol unga o'tadi —
+   manzildagi so'rov va Telegram ma'lumoti (#tgWebAppData…) bilan birga. Shu sahifa qoladi: ruscha rejimda (xarita hozircha faqat o'zbekcha)
+   va guruhdagi fe'l testi havolasida (start_param fel_…, pastdagi skript fel.html ga o'tkazadi). */
+(function(){try{var sp=(/[?&]tgWebAppStartParam=([^&#]*)/.exec(location.search)||[])[1]||"";
+if(localStorage.getItem("til")!=="ru"&&!/^fel_/.test(sp))location.replace("yol.html"+location.search+location.hash)}catch(e){}})()</script>
 <script src="tg.js"></script>
 <script>/* Til (11.11.2026): localStorage «til» = uz | ru. ru — ruscha qatlam (ru-index.js lug'ati + ru.js; src/ru, docs/texnik.md 12) */
 (function(){var t=null;try{t=localStorage.getItem("til")}catch(e){}window.TIL=t;if(t==="ru"){document.documentElement.lang="ru";document.write('<script src="ru-index.js"><\/script><script src="ru.js"><\/script>')}})()</script>

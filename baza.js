@@ -117,6 +117,37 @@
       .then(function (r) { return r.json(); }).then(function (j) { if (!j || !j.ok) throw new Error((j && j.xato) || 'xato'); return j; });
   }
 
+  function post(o) {
+    return fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(o) })
+      .then(function (r) { return r.json(); }).then(function (j) { if (!j || !j.ok) throw new Error((j && j.xato) || 'xato'); return j; });
+  }
+
+  /* «Telegram орқали кириш» — Telegram ilovasi tomoni (13.11.2026; docs/texnik.md 18). Sayt t.me/…?startapp=kir_<belgi> ni ochadi;
+     ilova shu belgi bilan ochilganda foydalanuvchidan tasdiq so'raydi va o'z kodini serverga shu belgi ostida qo'yadi (10 daqiqa, bir marta o'qiladi).
+     Tasdiqsiz hech narsa yuborilmaydi: begona havola orqali natijalarga ulanib olishning oldi olinadi. */
+  function ulashSorov() {
+    if (!tgIchi()) return;
+    var urin = 0;
+    (function kut() {
+      var w = tgW();
+      if (!w) { if (++urin <= 16) setTimeout(kut, 250); return; }
+      var sp = ''; try { sp = (w.initDataUnsafe && w.initDataUnsafe.start_param) || ''; } catch (e) {}
+      var m = /^kir_([a-z0-9]{20,40})$/.exec(sp);
+      if (!m) return;
+      try { if (sessionStorage.getItem('baza-ul-' + m[1])) return; sessionStorage.setItem('baza-ul-' + m[1], '1'); } catch (e) {}
+      var MATN = 'Сайт шу Telegram ҳисобингиздаги натижаларга уланади. Буни ўзингиз бошлаган бўлсангизгина тасдиқланг.';
+      var ayt = function (t) { try { if (w.showAlert) { w.showAlert(t); return; } } catch (e) {} try { alert(t); } catch (e) {} };
+      var sora = function (f) { try { if (w.showConfirm) { w.showConfirm(MATN, f); return; } } catch (e) {} f(window.confirm(MATN)); };
+      sora(function (ha) {
+        if (!ha) return;
+        kodOl(function (kod) {
+          if (!kod) { kod = yangiKod(); S('baza-kod', kod); try { w.CloudStorage.setItem('baza-kod', kod); } catch (e) {} }
+          post({ amal: 'ulash', tok: m[1], kod: kod }).then(function () { ayt('Уланди. Сайтга қайтинг.'); }, function () { ayt('Уланмади. Интернетни текширинг ва қайта уриниб кўринг.'); });
+        });
+      });
+    })();
+  }
+
   /* sinxronlash: serverdagini olish → birlashtirish → telefonga yozish → farq bo'lsa serverga yozish */
   function sinx(cb) {
     if (band) { if (cb) cb(false); return; }
@@ -162,6 +193,19 @@
       if (!k || !KODRE.test(k)) { if (cb) cb(false); return; }
       so(k + 'eski', 'yoz', d).then(function () { if (cb) cb(true); }).catch(function () { if (cb) cb(false); });
     },
+    /* «Telegram орқали кириш» — sayt tomoni: belgi yasaladi (10 daqiqa), Telegram'da tasdiqlangach kod serverdan bir marta olinadi */
+    ulashBoshla: function () { var t = yangiKod(); S('baza-ulash', JSON.stringify({ tok: t, t: Date.now() })); return t; },
+    ulashKutmoqda: function () { var u = J('baza-ulash', null); return !!(u && u.tok && Date.now() - u.t < 10 * 60 * 1000); },
+    ulashTekshir: function (cb) {
+      var u = J('baza-ulash', null);
+      if (!u || !u.tok || !(Date.now() - u.t < 10 * 60 * 1000)) { S('baza-ulash', null); cb(false, true); return; }     /* cb(ulandi, tugadi) */
+      post({ amal: 'ulashOl', tok: u.tok }).then(function (j) {
+        if (!j.kod) { cb(false, false); return; }
+        S('baza-ulash', null); S('baza-tg', '1');
+        window.Baza.kodQoy(j.kod, function () { cb(true, true); });
+      }).catch(function () { cb(false, false); });
+    },
+    tgUlangan: function () { return !!L('baza-tg'); },
     eskiOl: function (cb) {
       var k = L('baza-kod');
       if (!k || !KODRE.test(k)) { cb(null); return; }
@@ -169,6 +213,7 @@
     }
   };
 
+  setTimeout(ulashSorov, 700);
   /* sahifa ochilganda; yashirilganda (chiqishdan oldin) — o'zgarish bo'lsa */
   setTimeout(function () {
     sinx(function (ok, ozg) {

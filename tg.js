@@ -7,6 +7,14 @@
   try { if (JSON.parse(localStorage.getItem('sozlama') || '{}').oflayn === false && window.caches) caches.delete('arab-tili-audio'); } catch (e) {}
   var KEY = me.getAttribute('data-key') || '';
   var HOME = me.getAttribute('data-home') || '';
+  /* ҚОБИҚ (13.11.2026): bosh sahifaga qaytadigan sahifalar (darslar, Сарф, Наҳв, йўриқнома…) oxirgi ochilgan bo'limga qaytadi —
+     qobiq.js uni sessionStorage «qobiq-uy» ga yozadi (yol.html / takror.html / qoidalar.html / yana.html). Yozuv bo'lmasa — bosh sahifa
+     (u xaritaga o'tkazadi). Ruscha rejimda — eski bosh sahifa. */
+  var UY = '';
+  try { if (localStorage.getItem('til') !== 'ru') UY = sessionStorage.getItem('qobiq-uy') || ''; } catch (e) {}
+  if (!/^[a-z-]+\.html$/.test(UY)) UY = '';
+  function uyMi(p) { return /\/(index\.html)?$/.test(p); }   /* sayt ildizi (bosh sahifa) */
+  if (UY && uyMi(new URL(HOME || 'x', location.href).pathname)) HOME = UY;
   var TK = KEY + '-t', W = null, tm = null, last = 0, BLOCK = false;
   var LT0 = 0; try { LT0 = +(localStorage.getItem(TK) || 0); } catch (e) {}
 
@@ -40,11 +48,13 @@
     if (!a || ev.defaultPrevented || a.target || a.hasAttribute('download') || a.origin !== location.origin ||
         /^(#|javascript:)/.test(a.getAttribute('href')) || a.pathname === location.pathname) return;
     goOn();
-    if (inTg()) { ev.preventDefault(); location.replace(a.href); return; }
+    var href = a.href;
+    if (UY && uyMi(a.pathname) && !uyMi(location.pathname)) href = new URL(UY, location.href).href;   /* bosh sahifa havolasi → oxirgi bo'lim */
+    if (inTg()) { ev.preventDefault(); location.replace(href); return; }
     /* ilova/brauzer: kelgan sahifaga («‹») qaytishda — tarixda orqaga (tarix aylanib qolmasin) */
-    if (history.length > 1 && document.referrer && a.href.split('#')[0] === document.referrer.split('#')[0]) {
+    if (history.length > 1 && document.referrer && href.split('#')[0] === document.referrer.split('#')[0]) {
       ev.preventDefault(); history.back();
-    }
+    } else if (href !== a.href) { ev.preventDefault(); location.replace(href); }
   });
   window.addEventListener('pageshow', goOff);
 

@@ -29,6 +29,8 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
 .n-tg{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:54px;box-sizing:border-box;margin-top:14px;padding:6px 16px 10px;border:0;border-radius:16px;background:#229ED9;color:#fff;box-shadow:inset 0 -4px 0 rgba(0,0,0,.2);font-size:16.5px;font-weight:700;transition:transform .06s,box-shadow .06s}
 .n-tg:active{transform:translateY(2px);box-shadow:inset 0 -2px 0 rgba(0,0,0,.2)}
 .n-tg svg{width:22px;height:22px;flex-shrink:0}
+.n-tg[hidden]{display:none}
+.n-tip{margin:-2px 4px 10px;font-size:13.5px;line-height:1.45;color:var(--mu)}
 .n-xb{margin:10px 0 0;padding:10px 12px;border-radius:12px;background:var(--tint);font-size:14px;line-height:1.45}
 /* ilova haqida */
 .n-inf{background:var(--cd);border:1.5px solid var(--bd);border-radius:18px;overflow:hidden}
@@ -56,6 +58,10 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
   <a class="q-rw" href="https://t.me/Arabtilihivar_bot" target="_blank" rel="noopener"><span class="q-ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 4H4a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h3v3.5L11.5 17H20a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1z"/><path d="M8 9h8M8 12.5h5"/></svg></span>
     <span class="t">Фикр юбориш<small>Хато ёки таклиф — Telegram орқали</small></span><svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></a>
 
+  <button class="q-rw" id="add" hidden><span class="q-ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M12 8.5v6M9 11.5h6"/></svg></span>
+    <span class="t">Бош экранга қўшиш<small>Илова каби очилади</small></span></button>
+  <p class="n-tip" id="tip" hidden>iPhone'да: пастдаги «Улашиш» тугмаси → «На экран Домой / Add to Home Screen»</p>
+
   <h2 class="q-h">ИЛОВА ҲАҚИДА</h2>
   <div class="n-inf">
     <div><span>Китоб</span><b class="ar" lang="ar">نُورُ الطَّالِبِ</b></div>
@@ -70,7 +76,8 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
   $('soz').href = SN + 'sozlamalar.html'; $('yor').href = SN + 'yoriqnoma.html';
 
   /* hisob: Telegram ichida — foydalanuvchi nomi (natija Telegram hisobiga bog'langan kod bilan saqlanadi, baza.js);
-     saytda — «Telegram орқали кириш» (hozircha sinov: asosiy saytga o'tkazilganda ulanadi) */
+     saytda — «Telegram орқали кириш»: Telegram ilovasi ochiladi, u yerda tasdiqlangach sayt o'sha hisob kodiga ulanadi (docs/texnik.md 18).
+     Kirish majburiy emas — ilova kirmasdan ham ishlaydi. */
   function hisob() {
     var u = null, B = window.Baza;
     try { u = window.Telegram.WebApp.initDataUnsafe.user || null; } catch (e) {}
@@ -82,6 +89,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
       $('hn').textContent = nom;
       $('hs').textContent = 'Натижалар Telegram ҳисобингизда сақланади' + (saq ? ' · ' + saq.toLowerCase() : '');
       $('tgk').hidden = true;
+    } else if (B && B.tgUlangan && B.tgUlangan()) {
+      $('av').innerHTML = ODAM;
+      $('hn').textContent = 'Ҳисоб';
+      $('hs').textContent = 'Telegram ҳисобига уланган' + (saq ? ' · ' + saq.toLowerCase() : '');
+      $('tgk').hidden = true;
     } else {
       $('av').innerHTML = ODAM;
       $('hn').textContent = 'Ҳисоб';
@@ -92,11 +104,41 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
   hisob();
   document.addEventListener('tgready', hisob);
   if (window.Baza && Baza.tinglash) Baza.tinglash(hisob);
+  var kt = null, BZ = window.Baza;
+  function xb(t) { var x = $('xb'); x.textContent = t; x.hidden = !t; }
+  function tek() {
+    if (document.hidden) return;
+    BZ.ulashTekshir(function (ok, tugadi) {
+      if (ok) { clearInterval(kt); xb('Уланди — натижалар Telegram ҳисобингиз билан бирлашди.'); hisob(); }
+      else if (tugadi) { clearInterval(kt); xb('Вақт тугади. Қайта уриниб кўринг.'); }
+    });
+  }
+  function kut() { clearInterval(kt); kt = setInterval(tek, 3000); }
   $('tgk').onclick = function () {
-    var x = $('xb');
-    x.textContent = 'Синов саҳифасида уланмайди. Асосий сайтга ўтказилганда ишлайди: Telegram очилади, тасдиқлайсиз — натижалар ҳисобингизга боғланади.';
-    x.hidden = false;
+    if (!BZ || !BZ.ulashBoshla) { xb('Синов саҳифасида уланмайди — асосий сайтда ишлайди.'); return; }
+    var tok = BZ.ulashBoshla();
+    try { window.open('https://t.me/Arabtilihivar_bot/darslar?startapp=kir_' + tok, '_blank'); } catch (e) {}
+    xb('Telegram очилди. У ерда тасдиқланг ва шу саҳифага қайтинг.');
+    kut();
   };
+  if (BZ && BZ.ulashKutmoqda && BZ.ulashKutmoqda()) { xb('Telegram\'да тасдиқлашингиз кутилмоқда…'); kut(); }
+  document.addEventListener('visibilitychange', function () { if (!document.hidden && BZ && BZ.ulashKutmoqda && BZ.ulashKutmoqda()) tek(); });
+
+  /* «Бош экранга қўшиш» (oldin bosh sahifada edi): Telegram ichida — Telegram o'zi qo'shadi; Android Chrome — o'rnatish taklifi; iPhone — yo'l-yo'riq */
+  var add = $('add'), dp = null;
+  function tgAdd() {
+    try {
+      var w = Telegram.WebApp;
+      if (!(w.isVersionAtLeast('8.0') && w.addToHomeScreen)) return;
+      var kor = function () { add.hidden = false; add.onclick = function () { w.addToHomeScreen(); }; };
+      if (w.checkHomeScreenStatus) w.checkHomeScreenStatus(function (s) { if (s !== 'added' && s !== 'unsupported') kor(); }); else kor();
+      if (w.onEvent) w.onEvent('homeScreenAdded', function () { add.hidden = true; });
+    } catch (e) {}
+  }
+  if (document.documentElement.classList.contains('in-tg')) tgAdd(); else document.addEventListener('tgready', tgAdd);
+  window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); dp = e; add.hidden = false; add.onclick = function () { dp.prompt(); dp.userChoice.then(function () { add.hidden = true; }); }; });
+  var ios = /iphone|ipad|ipod/i.test(navigator.userAgent), yakka = window.navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
+  setTimeout(function () { if (ios && !yakka && !document.documentElement.classList.contains('in-tg')) $('tip').hidden = false; }, 800);
 
   /* versiya — sw.js dagi «var C» */
   fetch('sw.js', { cache: 'no-store' }).then(function (r) { return r.text(); }).then(function (t) {

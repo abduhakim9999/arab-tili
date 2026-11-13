@@ -27,6 +27,7 @@
     /* qator kartasi: hajmli (pastida qalin chiziq), bosilganda pastga tushadi */
     '.q-rw{display:flex;align-items:center;gap:14px;width:100%;min-height:68px;box-sizing:border-box;padding:10px 14px 13px;margin:0 0 10px;border-radius:18px;border:1.5px solid var(--bd);background:var(--cd);box-shadow:inset 0 -3px 0 var(--bd);color:var(--tx);text-decoration:none;font:inherit;font-size:16.5px;font-weight:700;text-align:left;cursor:pointer;transition:transform .06s,box-shadow .06s}' +
     '.q-rw:active{transform:translateY(2px);box-shadow:inset 0 -1px 0 var(--bd)}' +
+    '.q-rw[hidden]{display:none}' +
     '.q-rw .t{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}' +
     '.q-rw small{font-size:13.5px;font-weight:400;line-height:1.35;color:var(--mu)}' +
     '.q-rw .ch{width:18px;height:18px;flex-shrink:0;color:var(--mu)}' +
@@ -43,6 +44,9 @@
     '.q-nav a:focus-visible{outline:2px solid var(--ac);outline-offset:-4px;border-radius:18px}' +
     'body.y-ses .q-nav,body.tq-ses .q-nav{display:none}';
   try { var st = document.createElement('style'); st.textContent = css; (document.head || document.documentElement).appendChild(st); } catch (e) {}
+
+  /* sw.js: oldin bosh sahifa ro'yxatdan o'tkazardi; endi u xaritaga o'tkazib yuboradi — shuning uchun qobiq sahifalari o'zi ro'yxatdan o'tkazadi */
+  if (!SN && 'serviceWorker' in navigator) try { navigator.serviceWorker.register('sw.js').catch(function () {}); } catch (e) {}
 
   function J(k, d) { try { return JSON.parse(localStorage.getItem(k) || 'null') || d; } catch (e) { return d; } }
   /* «Такрорлаш» ustidagi son — bugungi savollar soni: takror.html yozgan xulosadan (xarita tepasidagi «такрор» bilan bir xil).
@@ -64,6 +68,8 @@
       var n = document.getElementById('q-nav');
       if (!n) { n = document.createElement('nav'); n.id = 'q-nav'; n.className = 'q-nav'; n.setAttribute('aria-label', 'Асосий бўлимлар'); document.body.appendChild(n); }
       var s = son();
+      /* tg.js uchun: dars va ichki sahifalardan «orqaga» shu bo'limga qaytaradi */
+      try { sessionStorage.setItem('qobiq-uy', B.filter(function (b) { return b[0] === faol; })[0][2]); } catch (e) {}
       n.innerHTML = B.map(function (b) {
         return '<a' + (b[0] === faol ? ' class="on" aria-current="page"' : '') + ' href="' + b[2] + '" data-q="' + b[0] + '"><span class="i">' + b[3] +
           (b[0] === 'takror' && s ? '<b>' + s + '</b>' : '') + '</span>' + b[1] + '</a>';

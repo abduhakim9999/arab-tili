@@ -8,6 +8,7 @@
 <meta name="theme-color" content="#0f766e">
 <link rel="icon" href="icon-192.png">
 <link rel="stylesheet" href="shell.css">
+<script>try{var _k=JSON.parse(localStorage.getItem('sozlama')||'{}').kor;if(_k==='yorug'||_k==='tungi')document.documentElement.setAttribute('data-theme',_k==='tungi'?'dark':'light')}catch(e){}</script>
 <script src="tg.js" data-key="takror" data-home="./"></script>
 <style>
 @font-face{font-family:"DarsNaskh";src:url(naskh.woff)}
@@ -144,7 +145,9 @@ document.write('<script src="' + SN + 'fsrs.js"><\/script><script src="' + SN + 
     try { j = (JSON.parse(L(KJ) || '{}').j) || []; } catch (e) {}
     var ust = [];                                       /* «Йўл»dagi xatolar (yol.html) — yangi mashq savollari ichida birinchi */
     try { ust = JSON.parse(L(SINOV ? 'yol-sinov-xato' : 'yol-xato') || '[]') || []; } catch (e) {}
-    E = Takror.yarat({ lugat: D.l, mashq: D.m, darslar: D.d, faol: FAOL, jurnal: j, ustun: ust });
+    var yn = 0;                                        /* «Созламалар» → кунлик янги сўзлар (10 / 15 / 20) */
+    try { yn = +JSON.parse(L('sozlama') || '{}').yangi || 0; } catch (e) {}
+    E = Takror.yarat({ lugat: D.l, mashq: D.m, darslar: D.d, faol: FAOL, jurnal: j, ustun: ust, sozlama: yn ? { yangi: yn } : null });
   }
   function xul() { LS(SINOV ? 'takror-sinov-xulosa' : 'takror-xulosa', JSON.stringify(E.xulosa(hozir()))); }
   function saqla() { LS(KJ, JSON.stringify({ v: 1, j: E.jurnal })); xul(); }

@@ -45,11 +45,14 @@
   try { var st = document.createElement('style'); st.textContent = css; (document.head || document.documentElement).appendChild(st); } catch (e) {}
 
   function J(k, d) { try { return JSON.parse(localStorage.getItem(k) || 'null') || d; } catch (e) { return d; } }
-  /* «Такрорлаш» ustidagi son: mashqdagi xatolar + «bilmayman» belgili so'zlar */
+  /* «Такрорлаш» ustidagi son — bugungi savollar soni: takror.html yozgan xulosadan (xarita tepasidagi «такрор» bilan bir xil).
+     Xulosa kechagi bo'lsa — o'sha kungi «ertaga» soni; undan eski bo'lsa — «!» (takrorlar kutmoqda, soni noma'lum). */
   function son() {
-    var n = (J(SN ? 'yol-sinov-xato' : 'yol-xato', []) || []).length, b = (J(SN ? 'soz-sinov' : 'soz', {}) || {}).b || {}, k;
-    for (k in b) n++;
-    return n;
+    var x = J(SN ? 'takror-sinov-xulosa' : 'takror-xulosa', null), sl = 0;
+    if (!x || x.v !== 1) return '';
+    if (SN) try { sl = +localStorage.getItem('takror-sinov-kun') || 0; } catch (e) {}
+    var kun = Math.floor((Date.now() + sl * 864e5 - new Date().getTimezoneOffset() * 6e4) / 864e5);
+    return (x.kun === kun ? x.qoldi : x.kun === kun - 1 ? x.ertaga : '!') || '';
   }
   function birXil(a, b) { return a.split('#')[0] === b.split('#')[0]; }
 

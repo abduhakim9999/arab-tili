@@ -54,6 +54,27 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
 .s-del{display:block;width:100%;height:56px;margin-top:20px;border-radius:20px;border:1px solid var(--bd);background:var(--cd);color:#B3261E;font-size:16px;font-weight:600}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .s-del{color:#ff9b91}}
 :root[data-theme="dark"] .s-del{color:#ff9b91}
+/* o'chirilgan natijalarni qaytarish qatori; tozalashni tasdiqlash oynasi (so'zni yozib) */
+.s-qt{display:flex;align-items:center;gap:12px;margin-top:10px;padding:10px 10px 10px 16px;border-radius:16px;background:var(--tint);font-size:14px;line-height:1.4}
+.s-qt[hidden]{display:none}
+.s-qt span{flex:1;min-width:0}
+.s-qt button{flex-shrink:0;height:44px;padding:0 16px;border-radius:12px;border:0;background:var(--ac);color:#fff;font-size:15px;font-weight:700}
+.s-dg{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.5);display:flex;align-items:flex-start;justify-content:center;padding:14vh 16px 16px;box-sizing:border-box}
+.s-dg[hidden]{display:none}
+.s-dk{width:100%;max-width:420px;box-sizing:border-box;padding:20px;border-radius:22px;background:var(--cd);color:var(--tx);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.s-dk h2{margin:0 0 6px;font-size:20px;line-height:1.3;color:#B3261E}
+.s-dk p{margin:0 0 14px;font-size:14.5px;line-height:1.5;color:var(--mu)}
+.s-dk label{display:block;margin:0 0 8px;font-size:15px}
+.s-dk input{display:block;width:100%;height:52px;box-sizing:border-box;padding:0 14px;border-radius:14px;border:1.5px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit;font-size:18px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.s-dk input:focus{outline:2px solid var(--ac);outline-offset:1px}
+.s-dk small{display:block;margin:6px 2px 0;font-size:12.5px;color:var(--mu)}
+.s-da{display:flex;gap:10px;margin-top:16px}
+.s-da button{flex:1;height:52px;border-radius:16px;border:1.5px solid var(--bd);background:var(--cd);color:var(--tx);font-size:16px;font-weight:700}
+.s-da #md-ok{border-color:#B3261E;background:#B3261E;color:#fff}
+.s-da #md-ok:disabled{opacity:.35}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .s-dk h2{color:#ff9b91}:root:not([data-theme="light"]) .s-qt button{color:#06281d}}
+:root[data-theme="dark"] .s-dk h2{color:#ff9b91}
+:root[data-theme="dark"] .s-qt button{color:#06281d}
 .s-ok{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);padding:10px 16px;border-radius:14px;background:var(--tx);color:var(--bg);font-size:14.5px;font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,.3);z-index:21}
 .s-ok[hidden]{display:none}
 @media (max-width:350px){.s-sg button{padding:0 8px;font-size:13px}.s-r{font-size:15px}}
@@ -104,6 +125,17 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
   </div>
 
   <button class="s-del" id="del">Натижаларни тозалаш</button>
+  <div class="s-qt" id="qt" hidden><span id="qt-t"></span><button id="qt-b">Қайтариш</button></div>
+</div>
+<div class="s-dg" id="md" hidden>
+  <div class="s-dk" role="dialog" aria-modal="true" aria-labelledby="md-h">
+    <h2 id="md-h">Натижаларни тозалаш</h2>
+    <p>Йўл, сўз базаси ва машқ жавоблари ўчади. 30 кун ичида қайтариш мумкин.</p>
+    <label for="md-i">Тасдиқлаш учун <b>ЎЧИРИШ</b> деб ёзинг</label>
+    <input id="md-i" type="text" autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false" placeholder="ЎЧИРИШ">
+    <small>Лотинча ҳам бўлади: OCHIRISH</small>
+    <div class="s-da"><button id="md-x">Бекор</button><button id="md-ok" disabled>Ўчириш</button></div>
+  </div>
 </div>
 <div class="s-ok" id="ok" role="status" hidden></div>
 <script>
@@ -197,25 +229,72 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
     };
   })();
 
-  /* natijalarni tozalash: yo'l natijalari, xatolar ro'yxati, takror jurnali va darslardagi mashq javoblari */
-  document.getElementById('del').onclick = function () {
-    if (!confirm('Йўл натижалари, сўз базаси (белгилар ва такрорлаш журнали) ва дарслардаги машқ жавоблари ўчирилади. Давом этилсинми?')) return;
-    var p = SN ? 'yol-sinov' : 'yol', hz = String(Date.now());
+  /* NATIJALARNI TOZALASH — qat'iy (13.11.2026, foydalanuvchi qarori): tasodifan bosilmasin va adashib o'chirilgani qaytsin.
+     1) tasdiq — so'zni qo'lda yozish (ЎЧИРИШ; lotincha OCHIRISH ham — klaviaturada «Ў» bo'lmasligi mumkin);
+     2) o'chirishdan oldingi nusxa 30 kun turadi: telefonda KE kalitida, serverda (baza.js eskiYoz) — «Қайтариш» tugmasi.
+     O'chadiganlari: yo'l natijalari, xatolar ro'yxati, so'z bazasi (belgilar, takror jurnali), darslardagi mashq javoblari. */
+  var p = SN ? 'yol-sinov' : 'yol', KE = SN ? 'baza-sinov-eski' : 'baza-eski', KUN30 = 30 * 864e5;
+  var KAL = [p, p + '-t', p + '-xato', p + '-kitob', SN ? 'soz-sinov' : 'soz', SN ? 'takror-sinov-j' : 'takror-j', SN ? 'takror-sinov-xulosa' : 'takror-xulosa'];
+  var $ = function (i) { return document.getElementById(i); };
+  function G(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function darsKalit(f) { try { for (var i = 0; i < localStorage.length; i++) { var k = localStorage.key(i); if (/^dars\d+-holat$/.test(k)) f(k); } } catch (e) {} }
+  function arxOl() { try { var a = JSON.parse(G(KE) || 'null'); return a && a.v === 1 && a.ar && a.ls ? a : null; } catch (e) { return null; } }
+
+  /* o'chirishdan oldingi nusxa; saqlaydigan narsa bo'lmasa — null (oldingi nusxa ustiga bo'sh yozilmasin) */
+  function arxYasa() {
+    var ls = {}, bor = false, rk = G('baza-rk');
+    KAL.forEach(function (k) { var v = G(k); if (v != null) ls[k] = v; });
+    try { var y = JSON.parse(ls[p] || '{}'); if (Object.keys(y.d || {}).length || Object.keys(y.e || {}).length) bor = true; } catch (e) {}
+    if (ls[KAL[4]] || ls[KAL[5]] || ls[KAL[2]]) bor = true;
+    darsKalit(function (k) { try { var S = JSON.parse(G(k) || 'null'); if (S && (S.q || S.qr)) { ls[k] = G(k); bor = true; } } catch (e) {} });
+    return bor ? { v: 1, ar: Date.now(), r: SN ? 0 : +G('baza-r') || 0, rk: SN || rk == null ? null : +rk || 0, ls: ls } : null;
+  }
+  function tozala() {
+    var hz = String(Date.now()), arx = arxYasa();
+    if (arx) { LS(KE, JSON.stringify(arx)); if (window.Baza) Baza.eskiYoz(arx); }
     /* bo'sh holat + yangi vaqt belgisi yoziladi (o'chirilmaydi): aks holda Telegram bulutidagi eski nusxa qaytib keladi (tg.js pull) */
     LS(p, '{"v":1,"d":{},"e":{}}'); LS(p + '-t', hz);
-    [p + '-xato', p + '-kitob', SN ? 'soz-sinov' : 'soz', SN ? 'takror-sinov-j' : 'takror-j', SN ? 'takror-sinov-xulosa' : 'takror-xulosa', 'takror-sinov-kun'].forEach(function (k) { LS(k, null); });
+    KAL.slice(2).concat(['takror-sinov-kun']).forEach(function (k) { LS(k, null); });
     try { sessionStorage.removeItem('takror-mashgulot'); } catch (e) {}
-    try {
-      for (var i = 0; i < localStorage.length; i++) {
-        var k = localStorage.key(i);
-        if (!/^dars\d+-holat$/.test(k)) continue;
-        var S = JSON.parse(localStorage.getItem(k) || 'null');
-        if (S && (S.q || S.qr)) { delete S.q; delete S.qr; localStorage.setItem(k, JSON.stringify(S)); localStorage.setItem(k + '-t', hz); }
-      }
-    } catch (e) {}
+    darsKalit(function (k) {
+      try { var S = JSON.parse(G(k) || 'null'); if (S && (S.q || S.qr)) { delete S.q; delete S.qr; localStorage.setItem(k, JSON.stringify(S)); localStorage.setItem(k + '-t', hz); } } catch (e) {}
+    });
     if (window.Baza) Baza.tozala();                     /* serverdagi va boshqa qurilmalardagi nusxa ham tozalanadi */
-    xabar('Натижалар тозаланди');
-  };
+    qtChiz(); xabar('Натижалар тозаланди');
+  }
+  /* qaytarish: nusxadagi qiymatlar joyiga yoziladi (hozirgilari o'rniga); vaqt belgilari yangi — Telegram bulutidagi bo'sh nusxadan ustun bo'lsin */
+  function qaytar() {
+    var arx = arxOl(), hz = String(Date.now()), k;
+    if (!arx) return;
+    for (k in arx.ls) { LS(k, arx.ls[k]); if (/^dars\d+-holat$/.test(k)) LS(k + '-t', hz); }
+    LS(p + '-t', hz); LS(KE, null);
+    if (window.Baza) { Baza.qaytar(arx.rk != null ? arx.rk : arx.r || 0); Baza.eskiYoz({ v: 1, ar: 0 }); }
+    qtChiz(); xabar('Натижалар қайтарилди');
+  }
+  function qtChiz() {
+    var a = arxOl(), q = $('qt');
+    if (a && Date.now() - a.ar > KUN30) { LS(KE, null); if (window.Baza) Baza.eskiYoz({ v: 1, ar: 0 }); a = null; }      /* muddati o'tgan nusxa o'chiriladi */
+    q.hidden = !a;
+    if (!a) return;
+    var d = new Date(a.ar), ik = function (n) { return ('0' + n).slice(-2); }, qol = Math.max(1, Math.ceil((a.ar + KUN30 - Date.now()) / 864e5));
+    $('qt-t').textContent = 'Ўчирилган: ' + ik(d.getDate()) + '.' + ik(d.getMonth() + 1) + ' · яна ' + qol + ' кун сақланади';
+  }
+  qtChiz();
+  /* telefonda nusxa yo'q va natijalar bo'sh bo'lsa — serverdan so'raladi (boshqa qurilmada tozalangan yoki brauzer xotirasi o'chgan bo'lishi mumkin) */
+  if (!arxOl() && window.Baza && Baza.kod() && !G('soz') && !G('takror-j')) Baza.eskiOl(function (d) { if (d && Date.now() - d.ar <= KUN30 && !arxOl()) { LS(KE, JSON.stringify(d)); qtChiz(); } });
+  $('qt-b').onclick = function () { if (confirm('Ўчирилган натижалар қайтарилсинми? Ҳозиргилари ўрнига ёзилади.')) qaytar(); };
+
+  /* tasdiqlash oynasi */
+  var md = $('md'), mi = $('md-i'), mok = $('md-ok');
+  function togri() { return ['ЎЧИРИШ', 'УЧИРИШ', 'OCHIRISH', 'UCHIRISH'].indexOf(mi.value.toUpperCase().replace(/[^A-ZА-ЯЁЎҚҒҲ]/g, '')) > -1; }
+  function mdYop() { md.hidden = true; mi.value = ''; mok.disabled = true; $('del').focus(); }
+  $('del').onclick = function () { md.hidden = false; mi.value = ''; mok.disabled = true; setTimeout(function () { mi.focus(); }, 50); };
+  mi.oninput = function () { mok.disabled = !togri(); };
+  mi.onkeydown = function (e) { if (e.key === 'Enter' && togri()) mok.click(); };
+  mok.onclick = function () { if (!togri()) return; mdYop(); tozala(); };
+  $('md-x').onclick = mdYop;
+  md.onclick = function (e) { if (e.target === md) mdYop(); };
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !md.hidden) mdYop(); });
 })();
 </script>
 </body>

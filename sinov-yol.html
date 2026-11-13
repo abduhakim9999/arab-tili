@@ -396,8 +396,8 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
     });
   }
   function ol() { try { R = JSON.parse(L(KY) || '{}') || {}; } catch (e) { R = {}; } R.v = 1; R.d = R.d || {}; R.e = R.e || {}; wOl(); }
-  function wOl() { try { W = JSON.parse(L(KB) || '{}') || {}; } catch (e) { W = {}; } W.v = 1; W.b = W.b || {}; W.k = W.k || {}; W.s = W.s || {}; KOR = null; }
-  function wYoz() { W.t = Date.now(); LS(KB, JSON.stringify(W)); }   /* t — baza.js birlashtirishi uchun (qaysi nusxa yangi) */
+  function wOl() { try { W = JSON.parse(L(KB) || '{}') || {}; } catch (e) { W = {}; } W.v = 1; W.b = W.b || {}; W.k = W.k || {}; W.s = W.s || {}; W.a = W.a || {}; for (var i in W.a) if (W.b[i]) delete W.a[i]; KOR = null; }   /* a — «аниқ биламан» (takror.html «Луғат»da qo'yiladi); b ustun */
+  function wYoz() { W.t = Date.now(); var a = W.a, bor = false, i; for (i in a) { bor = true; break; } if (!bor) delete W.a; LS(KB, JSON.stringify(W)); W.a = a || {}; }   /* t — baza.js birlashtirishi uchun (qaysi nusxa yangi); bo'sh «a» yozilmaydi */
   function hozir() { return Date.now() + (SINOV ? (+L('takror-sinov-kun') || 0) * 86400000 : 0); }   /* sinovda «+1 кун» siljishi bilan (takror.html dagi kabi) */
   function jurnalOl() { try { return (JSON.parse(L(KJ) || '{}').j) || []; } catch (e) { return []; } }
   function jurnalQosh(a) { LS(KJ, JSON.stringify({ v: 1, j: jurnalOl().concat(a) })); KOR = null; }
@@ -769,7 +769,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
       var c = 0, k; for (k in bel) c++;
       tugma('<button class="y-b y-b1" id="tay">' + (c ? 'Тайёр · ' + c + ' та билмайман' : 'Тайёр · ҳаммасини биламан') + '</button>');
       document.getElementById('tay').onclick = function () {
-        ws.forEach(function (x) { if (bel[x.id]) { W.b[x.id] = 1; delete W.k[x.id]; } else { delete W.b[x.id]; W.k[x.id] = 1; } });
+        ws.forEach(function (x) { if (bel[x.id]) { W.b[x.id] = 1; delete W.k[x.id]; delete W.a[x.id]; } else { delete W.b[x.id]; if (!W.a[x.id]) W.k[x.id] = 1; } });
         W.s[n] = Date.now(); wYoz(); xarita(true);
       };
     }
@@ -795,12 +795,13 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
   /* lug'at qismi: bob — shu bobdagi «bilmayman» so'zlarning hammasi + «bilaman» deganlardan SON.tek tasi (avval hali tekshirilmaganlari);
      birorta darsi saralanmagan bob (oldindan topshirish) — tasodifiy SON.lug ta; kitob — SON.lugK ta, bilmaganlar birinchi */
   function lugTanla(t, dars) {
-    var bil = [], tek = [], qol = [], kor = korilgan(), sar = false;
+    var bil = [], aniq = [], tek = [], qol = [], kor = korilgan(), sar = false;
     dars.forEach(function (d) {
       if (W.s[d.n]) sar = true;
-      (LG[d.n] || []).forEach(function (x) { if (W.b[x.id]) bil.push(x); else if (W.k[x.id] && !kor[x.id]) tek.push(x); else qol.push(x); });
+      (LG[d.n] || []).forEach(function (x) { if (W.b[x.id]) bil.push(x); else if (W.a[x.id] && !kor[x.id]) aniq.push(x); else if (W.k[x.id] && !kor[x.id]) tek.push(x); else qol.push(x); });
     });
-    aralash(bil); aralash(tek); aralash(qol);
+    aralash(bil); aralash(aniq); aralash(tek); aralash(qol);
+    tek = aniq.concat(tek);                              /* «аниқ биламан» deb o'zi belgilagan, hali sinalmagan so'zlar tekshiruvda birinchi */
     if (t !== 'b') return bil.concat(tek, qol).slice(0, SON.lugK);
     if (!sar) return tek.concat(qol).slice(0, SON.lug);
     return bil.concat(tek.concat(qol).slice(0, SON.tek));
@@ -912,7 +913,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
     if (q.lug) {                                       /* lug'at javobi bazaga: jurnal (takror hisobi) + xato so'z «bilmayman»ga; xato so'z oxirida qayta so'raladi — to'g'ri topilmaguncha */
       jurnalQosh([['w' + q.id + q.tur, hozir(), ok ? 3 : 1, Math.max(0, Math.min(60000, Date.now() - IM.t0))]]);
       if (!ok) {
-        if (!W.b[q.id]) { W.b[q.id] = 1; delete W.k[q.id]; wYoz(); }
+        if (!W.b[q.id]) { W.b[q.id] = 1; delete W.k[q.id]; delete W.a[q.id]; wYoz(); }   /* «аниқ биламан» edi — xato topildi: «билмайман»ga */
         IM.s.push({ lug: 1, id: q.id, d: q.d, r: q.r, tur: q.tur === 'u' ? 'u' : 'a', ops: aralash(q.ops.slice()), qayta: 1 });
       }
     }
@@ -999,7 +1000,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
       var oz = false;
       darslari(IM.t, IM.kalit).forEach(function (d) {
         if (W.s[d.n] || !(LG[d.n] || []).length) return;
-        LG[d.n].forEach(function (x) { if (!W.b[x.id]) W.k[x.id] = 1; });
+        LG[d.n].forEach(function (x) { if (!W.b[x.id] && !W.a[x.id]) W.k[x.id] = 1; });
         W.s[d.n] = Date.now(); oz = true;
       });
       if (oz) wYoz();

@@ -222,6 +222,9 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
 .y-sr{display:flex;align-items:center;gap:12px;width:100%;min-height:62px;box-sizing:border-box;padding:6px 12px 6px 14px;border-radius:14px;border:1.5px solid var(--bd);background:var(--cd);text-align:left}
 .y-sr b{flex-shrink:0;max-width:48%;font-size:25px;line-height:1.6;font-weight:400}
 .y-sr span{flex:1;min-width:0;font-size:14.5px;line-height:1.3;color:var(--mu)}
+.y-sr small,.y-xt small{display:block;margin-top:1px;font-size:12.5px;color:var(--mu)}
+.y-sr small .ar,.y-xt small .ar,.y-s small .ar{font-size:19px;line-height:1.5;color:var(--tx)}
+.y-s small{display:block;font-size:13px;line-height:1.6;color:var(--mu)}
 .y-sr i{width:30px;height:30px;flex-shrink:0;box-sizing:border-box;border-radius:50%;border:1.5px solid var(--bd);display:flex;align-items:center;justify-content:center;color:transparent}
 .y-sr i svg{width:14px;height:14px}
 .y-sr[aria-pressed="true"]{border-color:var(--y-no);background:var(--y-nob)}
@@ -610,7 +613,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
     document.body.classList.add('y-ses');
     app.innerHTML = '<div class="y-in"><div class="y-top"><button id="yq" aria-label="Йўлга қайтиш">‹</button><div><small>' + n + '-дарс · ' + ws.length + ' сўз</small><h1>Сўзларни саралаш</h1></div></div>' +
       '<p class="y-sp">Билмаган сўзларингизни белгиланг. Улар «Билмаганларим»га тушади ва «Такрорлаш»да чиқади; қолганлари кейин текширилади.</p><div class="y-sl">' +
-      ws.map(function (x) { return '<button class="y-sr" data-id="' + x.id + '" aria-pressed="' + (bel[x.id] ? 'true' : 'false') + '"><b class="ar" lang="ar">' + esc(x.ar) + '</b><span>' + esc(mano(x)) + '</span><i aria-hidden="true">' + IC.x + '</i></button>'; }).join('') +
+      ws.map(function (x) { return '<button class="y-sr" data-id="' + x.id + '" aria-pressed="' + (bel[x.id] ? 'true' : 'false') + '"><b class="ar" lang="ar">' + esc(x.ar) + '</b><span>' + esc(mano(x)) + (shakllar(x) ? '<small>' + shakllar(x) + '</small>' : '') + '</span><i aria-hidden="true">' + IC.x + '</i></button>'; }).join('') +
       '</div></div>';
     function tay() {
       var c = 0, k; for (k in bel) c++;
@@ -676,6 +679,13 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
 
   /* ---- lug'at savoli: 'a' arabcha → ma'no, 'u' ma'no → arabcha, 'o' ovoz → ma'no (ovozi bor so'zda); 4 variant ---- */
   function mano(r) { var u = r.uz[0] || ''; return (u.match(/(^|[\s;,])\d+\./g) || []).length > 1 ? u : u.replace(/^\d+\.\s*/, ''); }   /* bitta ma'noli yozuvda tartib raqami («1.») ko'rsatilmaydi */
+  /* ko'pligi va muannasi (faqat lug'atda yozilgani): ro'yxatlarda va javobdan keyin ko'rsatiladi; savolning o'zida va variantlarda — yo'q */
+  function shakllar(r) {
+    var p = [];
+    if (r.jam && r.jam.length) p.push('жам <bdi class="ar" lang="ar">' + esc(r.jam.join('، ')) + '</bdi>');
+    if (r.mn) p.push('муаннас <bdi class="ar" lang="ar">' + esc(r.mn) + '</bdi>');
+    return p.join(' · ');
+  }
   function yalang(x) { return plain(x).replace(/[.\sـ؟?]/g, ''); }
   function sof(x) { return x.replace(/\((мз|мн)\)/g, '').replace(/\s+/g, ' ').trim().toLowerCase(); }
   /* chalg'ituvchi variant bo'la olmaydi: o'sha so'z, uning muzakkar/muannas jufti yoki ma'nosi bir xil so'z */
@@ -789,7 +799,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
           if (q.ops[m].id === r.id) y.classList.add('ok'); else if (m === n) y.classList.add('no');
           y.disabled = true;
         });
-        document.getElementById('qs').innerHTML = '<bdi class="ar y-ai" lang="ar">' + esc(r.ar) + '</bdi> — ' + esc(mano(r));
+        document.getElementById('qs').innerHTML = '<bdi class="ar y-ai" lang="ar">' + esc(r.ar) + '</bdi> — ' + esc(mano(r)) + (shakllar(r) ? '<small>' + shakllar(r) + '</small>' : '');
         imJavob(ok, q);
       };
     });
@@ -852,7 +862,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
     if (IM.xato.length) {
       h += '<section class="y-c"><div class="y-h">Хато қилинган сўзлар · «Такрорлаш»га қўшилди</div>';
       IM.xato.forEach(function (q) {
-        h += '<div class="y-xt"><span>' + (q.lug ? esc(mano(q.r)) : mix(q.sabab || '')) + '</span><b class="ar" lang="ar">' + esc(q.lug ? q.r.ar : q.gap[q.w][0]) + '</b></div>';
+        h += '<div class="y-xt"><span>' + (q.lug ? esc(mano(q.r)) + (shakllar(q.r) ? '<small>' + shakllar(q.r) + '</small>' : '') : mix(q.sabab || '')) + '</span><b class="ar" lang="ar">' + esc(q.lug ? q.r.ar : q.gap[q.w][0]) + '</b></div>';
       });
       h += '</section>';
     }

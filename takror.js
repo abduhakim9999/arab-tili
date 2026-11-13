@@ -3,7 +3,7 @@
    Haqiqat manbasi — jurnal: [kartaId, vaqt (ms), baho (1 — bilmadi, 3 — bildi), sarflangan ms].
    Kartalar holati har safar jurnaldan qayta hisoblanadi (serverda ham xuddi shunday — aldab bo'lmaydi).
    Karta raqamlari data/lugat.json va data/mashq.json dagi o'zgarmas id'dan: w12a (arabcha → ma'no),
-   w12u (ma'no → arabcha), w12o (ovoz → ma'no), q5 (so'z oxiri harakati). Batafsil: docs/texnik.md 14. */
+   w12u (ma'no → arabcha), w12o (ovoz → ma'no), w12s (shakllari: ko'plik / fe'l shakllari / harf turi), q5 (so'z oxiri harakati). Batafsil: docs/texnik.md 14. */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory(require('./fsrs.js'));
   else root.Takror = factory(root.FSRS);
@@ -47,6 +47,11 @@
       qoy({ id: nk + 'a', tur: 'a', nk: nk, n: n, u: usz[r.id] ? 1 : 0 });
       qoy({ id: nk + 'u', tur: 'u', nk: nk, n: n, old: nk + 'a' });
       if (n.au) qoy({ id: nk + 'o', tur: 'o', nk: nk, n: n, old: nk + 'u' });
+      /* shakl kartasi (13.11.2026: «Машқ» takrorga qo'shildi): ko'pligi (ism), muzore'-amr-masdari (fe'l), turi (harf).
+         Qaysi so'zda nima so'ralishini sahifa aytadi (o.shakl(r) → 'j' | 'k' | 't' | ''). Ma'no kartasi kamida bir marta kun o'tib
+         to'g'ri takrorlangach chiqadi (qo'shimcha kartalar qatorida, kuniga yangiQosh tadan). */
+      var sh = o.shakl ? o.shakl(r) : '';
+      if (sh) qoy({ id: nk + 's', tur: 's', nk: nk, n: n, old: nk + 'a', sh: sh });
     });
     o.mashq.forEach(function (q) { if (faol[q.d] || ust[q.id]) qoy({ id: 'q' + q.id, tur: 'q', nk: 'q' + q.id, s: q, u: ust[q.id] ? 1 : 0 }); });
 

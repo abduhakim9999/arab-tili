@@ -280,6 +280,12 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
 .y-cta svg{width:18px;height:18px;flex-shrink:0;color:inherit}
 .y-cta small{font-size:14.5px;font-weight:600;color:inherit;opacity:.78;white-space:nowrap}
 @media (max-width:380px){.y-bb b{font-size:14.5px}.y-bb button:not(.m){width:46px}}
+.y-kk{position:relative;z-index:1;padding:6px 16px 0;max-width:528px;margin:0 auto}
+.y-lsb .y-kk{padding:10px 0 0}
+.y-kk .y-b{margin:0;min-height:54px;gap:6px;box-shadow:inset 0 -3px 0 var(--bd),0 4px 14px rgba(0,0,0,.22)}
+.y-kk .y-b svg{width:18px;height:18px}
+.y-kk .y-kk1{border:0;background:#E0B95A;color:#2B1D00;box-shadow:inset 0 -4px 0 rgba(0,0,0,.2),0 6px 18px rgba(0,0,0,.3)}
+.y-kk .y-kk1 svg{color:inherit}
 .y-lsb{padding:0 16px 6px}
 .y-lsb:last-child{padding-bottom:calc(200px + env(safe-area-inset-bottom,0px))}
 .y-lh{display:flex;align-items:flex-end;gap:12px;padding:18px 4px 10px}
@@ -521,6 +527,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
     app.innerHTML = html;
     navChiz(); ctaChiz(H); bbI = -1; bobBar();
     document.getElementById('st1').onclick = kitobMenyu;
+    [].forEach.call(app.querySelectorAll('[data-kk]'), function (b) { b.onclick = function () { KT = +b.getAttribute('data-kk'); LS(KK, String(KT)); xarita(true); window.scrollTo(0, 0); }; });
     document.getElementById('kr').onclick = function () { RY = !RY; LS(KY + '-kor', RY ? 'r' : null); xarita(true); };
     document.getElementById('bb0').onclick = function () { bobga(bbI - 1); };
     document.getElementById('bb1').onclick = function () { bobga(bbI + 1); };
@@ -579,10 +586,16 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
           (rr ? '<span class="s"><span>' + rr.b + '%</span>' + (u.h.ot ? yulduz(rr.b) : '') + '</span>' : '<span class="m">' + son + ' савол</span>') + '</button>';
       }
     });
-    return h + '</div></section>';
+    return h + '</div>' + (k.b[k.b.length - 1] === b ? kitobTugma(k, H) : '') + '</section>';
+  }
+  /* kitobning oxirida (oxirgi bob ostida): keyingi kitobga o'tish tugmasi. Kitobning oxirgi darsi o'tilgan bo'lsa — asosiy (oltin) tugma */
+  function kitobTugma(k, H) {
+    var i = TUZ.indexOf(k), kn = TUZ[i + 1], ob = k.b[k.b.length - 1], od = ob.d[ob.d.length - 1];
+    if (!kn) return '';
+    return '<div class="y-kk"><button class="y-b' + (od && H.d[od.n].ot ? ' y-kk1' : '') + '" data-kk="' + kn.n + '">' + kn.n + '-китобга ўтиш' + IC.ong + '</button></div>';
   }
 
-  /* pastki tugmalar — umumiy qobiq (qobiq.js): Йўл · Такрорлаш · Қоидалар · Яна */
+  /* pastki tugmalar — umumiy qobiq (qobiq.js): Йўл · Луғат · Қоидалар · Яна */
   function navChiz() {
     if (!window.Qobiq) return;
     Qobiq.ustiga = function () { if (!IM) window.scrollTo(0, 0); };
@@ -655,7 +668,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
         (x.ot ? '<em class="ok">' + (x.r ? x.r.b + '%' : '') + IC.ok + '</em>' : x.r ? '<em>' + x.r.b + '%</em>' : '<em>' + IC.ong + '</em>') + '</button>';
     };
     h += imt('b', 'b' + b.k, hb);
-    if (k.b[k.b.length - 1] === b) h += imt('k', 'k' + k.n, H.k[k.n]);
+    if (k.b[k.b.length - 1] === b) h += imt('k', 'k' + k.n, H.k[k.n]) + kitobTugma(k, H);
     return h + '</section>';
   }
 
@@ -716,7 +729,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
       /* qs — oynadagi qisqa qator, iz — ⓘ ichidagi batafsil. «Навбати келмаган» — yo'lda navbati yetmagan dars (o'qish va eshitish ochiq). */
       var qs = '', iz = '';
       if (s.imt) qs = 'Имтиҳон орқали ўтилган.';
-      else if (s.ot) iz = 'Билмаган сўзларингиз «Такрорлаш»да чиқади ва боб имтиҳонида сўралади.';
+      else if (s.ot) iz = 'Билмаган сўзларингиз «Луғат»га тушади: ўша ерда такрорланади ва боб имтиҳонида сўралади.';
       else if (s.op) {
         qs = 'Ўтиш: машқ ' + OTISH + '%' + (s.ls ? ' + сўзларни саралаш.' : '.');
         iz = s.ls ? 'Дарсдаги «Машқ»дан ' + OTISH + '% олинг ва сўзларни сараланг — билмаганларингизни белгиланг. Шунда кейинги дарс очилади.'
@@ -762,7 +775,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
     ws.forEach(function (x) { if (W.b[x.id]) bel[x.id] = 1; });
     document.body.classList.add('y-ses');
     app.innerHTML = '<div class="y-in"><div class="y-top"><button id="yq" aria-label="Йўлга қайтиш">‹</button><div><small>' + n + '-дарс · ' + ws.length + ' сўз</small><h1>Сўзларни саралаш</h1></div></div>' +
-      '<p class="y-sp">Билмаган сўзларингизни белгиланг — улар «Такрорлаш»да чиқади.</p><div class="y-sl">' +
+      '<p class="y-sp">Билмаган сўзларингизни белгиланг — улар «Луғат»га тушади.</p><div class="y-sl">' +
       ws.map(function (x) { return '<button class="y-sr" data-id="' + x.id + '" aria-pressed="' + (bel[x.id] ? 'true' : 'false') + '"><b class="ar" lang="ar">' + esc(x.ar) + '</b><span>' + esc(mano(x)) + (shakllar(x) ? '<small>' + shakllar(x) + '</small>' : '') + '</span><i aria-hidden="true">' + IC.x + '</i></button>'; }).join('') +
       '</div></div>';
     function tay() {
@@ -1010,7 +1023,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
     h += '<section class="y-c y-nt ' + (ok ? 'ok' : 'no') + '"><div class="bg">' + p + '%</div><h2>' + (ok ? 'Ўтдингиз' : 'Ҳали ўтмадингиз') + '</h2><p>' + IM.tog + ' / ' + IM.n + ' тўғри · ўтиш — ' + OTISH + '%</p>' +
       (keyin ? '<p>' + keyin + '</p>' : '') + '</section>';
     if (IM.xato.length) {
-      h += '<section class="y-c"><div class="y-h">Хато қилинган сўзлар · «Такрорлаш»га қўшилди</div>';
+      h += '<section class="y-c"><div class="y-h">Хато қилинган сўзлар · «Луғат»га қўшилди</div>';
       IM.xato.forEach(function (q) {
         h += '<div class="y-xt"><span>' + (q.lug ? esc(mano(q.r)) + (shakllar(q.r) ? '<small>' + shakllar(q.r) + '</small>' : '') : mix(q.sabab || '')) + '</span><b class="ar" lang="ar">' + esc(q.lug ? q.r.ar : q.gap[q.w][0]) + '</b></div>';
       });

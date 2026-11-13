@@ -264,20 +264,26 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
 .y-er{text-align:center;padding:40px 16px;color:var(--mu)}
 .y-er button{margin-top:14px}
 /* ҚОБИҚ (13.11.2026): tepada qisqa hisob, qotib turadigan bob tasmasi, katta «Давом этиш», ro'yxat ko'rinishi */
-.y-bb{position:sticky;top:0;z-index:6;background:var(--y-hd);color:#fff;padding:6px 12px 10px}
-.y-bb.st{padding-top:calc(6px + env(safe-area-inset-top,0px));box-shadow:0 4px 12px rgba(0,0,0,.3)}
-.y-bb>div{display:flex;align-items:stretch;gap:8px;max-width:536px;margin:0 auto}
-.y-bb button{height:50px;border:0;border-radius:15px;background:rgba(255,255,255,.14);color:#fff;box-shadow:inset 0 -3px 0 rgba(0,0,0,.18);transition:transform .06s,box-shadow .06s}
-.y-bb button:active:not(:disabled){transform:translateY(2px);box-shadow:inset 0 -1px 0 rgba(0,0,0,.18)}
-.y-bb button:not(.m){width:52px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.y-bb button:not(.m) svg{width:24px;height:24px}
-.y-bb button:disabled{opacity:.32;cursor:default}
-.y-bb .m{flex:1;min-width:0;padding:3px 10px 6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px}
+/* боб тасмаси (13.11, фойдаланувчи: тасманинг ўзи босилади, ‹ › керак эмас) — босилса боблар рўйхати тасма остидан тушиб келади */
+.y-bb{position:sticky;top:0;z-index:6;display:block;width:100%;box-sizing:border-box;border:0;margin:0;background:var(--y-hd);color:#fff;padding:8px 12px 11px;font:inherit;text-align:center;cursor:pointer}
+.y-bb.st{padding-top:calc(8px + env(safe-area-inset-top,0px));box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.y-bb .m{max-width:536px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:1px;transition:opacity .1s}
+.y-bb:active .m{opacity:.75}
 .y-bb small{font-size:11px;line-height:1.3;font-weight:700;letter-spacing:.08em;color:#f6dc94;white-space:nowrap}
-.y-bb b{max-width:100%;font-size:15.5px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.y-bb b{max-width:100%;font-size:16px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .y-bb b .ar{font-size:20px;line-height:1.2}
-.y-bb .m .r{display:flex;align-items:center;gap:4px;max-width:100%;min-width:0}
-.y-bb .m .r svg{width:16px;height:16px;flex-shrink:0;opacity:.85}
+.y-bb .r{display:flex;align-items:center;justify-content:center;gap:6px;max-width:100%;min-width:0}
+.y-bb .r svg{width:18px;height:18px;flex-shrink:0;opacity:.9;transition:transform .28s cubic-bezier(.2,.9,.25,1)}
+.y-bb.och .r svg{transform:rotate(180deg)}
+.y-dd{position:fixed;left:0;right:0;bottom:0;z-index:25;background:rgba(0,0,0,0);transition:background .24s}
+.y-dd[hidden]{display:none}
+.y-dd.on{background:rgba(0,0,0,.4)}
+.y-dp{max-width:560px;margin:0 auto;max-height:72vh;overflow:auto;overscroll-behavior:contain;box-sizing:border-box;padding:2px 12px 14px;background:var(--bg);border-radius:0 0 24px 24px;box-shadow:0 14px 30px rgba(0,0,0,.32);transform-origin:top center;transform:translateY(-16px) scaleY(.92);opacity:0;transition:transform .3s cubic-bezier(.2,.9,.25,1.08),opacity .2s}
+.y-dd.on .y-dp{transform:none;opacity:1}
+.y-dd .y-bl{opacity:0;transform:translateY(-10px);transition:opacity .22s,transform .3s cubic-bezier(.2,.9,.25,1.08),border-color .2s;transition-delay:calc(var(--i,0) * 45ms + 70ms)}
+.y-dd.on .y-bl{opacity:1;transform:none}
+.y-dd:not(.on) .y-bl{transition-delay:0s}
+@media (prefers-reduced-motion:reduce){.y-dp,.y-dd .y-bl,.y-bb .r svg{transition:none}}
 .y-bl{display:flex;align-items:center;gap:12px;width:100%;box-sizing:border-box;min-height:64px;margin-top:8px;padding:8px 14px 10px 10px;border-radius:16px;border:1.5px solid var(--bd);background:var(--cd);color:var(--tx);text-align:left;box-shadow:inset 0 -3px 0 var(--bd)}
 .y-bl.on{border-color:var(--br)}
 .y-bl .n{flex-shrink:0;width:76px;height:60px;border-radius:12px;background:var(--br);color:#fff;font-size:19px;font-weight:800;display:flex;align-items:center;justify-content:center}
@@ -294,7 +300,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
 .y-cta .y-b:active{transform:translateY(2px);box-shadow:inset 0 -2px 0 rgba(0,0,0,.2),0 3px 10px rgba(0,0,0,.3)}
 .y-cta svg{width:18px;height:18px;flex-shrink:0;color:inherit}
 .y-cta small{font-size:14.5px;font-weight:600;color:inherit;opacity:.78;white-space:nowrap}
-@media (max-width:380px){.y-bb b{font-size:14.5px}.y-bb button:not(.m){width:46px}}
+@media (max-width:380px){.y-bb b{font-size:15px}}
 /* китоб охири — кейинги китобга ўтиш картаси (13.11): нима бўлгани ва кейинги қадам аниқ ёзилади */
 .y-kk{position:relative;z-index:3;padding:14px 16px 0;max-width:528px;margin:0 auto}
 .y-lsb .y-kk{padding:14px 0 0}
@@ -338,6 +344,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
 <div class="y-bar" id="bar" hidden></div>
 <audio id="au" preload="none"></audio>
 <div class="y-sh" id="sh" hidden><div class="y-sb" id="sb"></div></div>
+<div class="y-dd" id="bd" hidden><div class="y-dp" id="bdp" role="menu" aria-label="Боблар"></div></div>
 <script>
 (function () {
   'use strict';
@@ -533,6 +540,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
   /* ---- xarita ---- */
   function xarita(birinchi) {
     bar.hidden = true; bar.innerHTML = ''; document.body.classList.remove('y-ses');
+    if (bd && !bd.hidden) { clearTimeout(bdT); bd.classList.remove('on'); bd.hidden = true; bdp.innerHTML = ''; document.body.style.overflow = ''; }   /* boblar ro'yxati ochiq qolmasin */
     var H = P = hisobla(), W = Math.min(window.innerWidth || 390, 560), html = '';
     try { var hzd = H.hz && H.hz[0] === 'd' ? D.filter(function (x) { return 'd' + x.n === H.hz; })[0] : null;      /* bosh sahifadagi «Йўл» kartasi uchun qisqa hisob */
       LS(KY + '-xulosa', JSON.stringify({ v: 1, o: H.otdi, j: H.jami, hz: hzd ? hzd.n + '-дарс' : H.hz ? (H.hz[0] === 'b' ? 'боб имтиҳони' : 'китоб имтиҳони') : '' })); } catch (e) {}
@@ -545,9 +553,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
       '<button class="y-gr" id="kr" aria-pressed="' + RY + '">' + (RY ? IC.yol + '<span>Харита</span>' : IC.royxat + '<span>Рўйхат</span>') + '</button></div>' +
       (SINOV ? '<div class="y-sn"><span>🧪 Синов</span><button id="s0">Тозалаш</button></div>' : '') + '</header>' +
       /* bob tasmasi: tepada qotib turadi; ‹ › — bobdan bobga */
-      '<div class="y-bb" id="bb"><div><button id="bb0" aria-label="Олдинги боб">' + IC.chap + '</button>' +
-      '<button class="m" id="bbm" aria-haspopup="dialog" aria-label="Боблар рўйхати"><small id="bbs"></small><span class="r"><b id="bbn"></b>' + IC.past + '</span></button>' +
-      '<button id="bb1" aria-label="Кейинги боб">' + IC.ong + '</button></div></div>';
+      '<button class="y-bb" id="bb" aria-haspopup="true" aria-expanded="false" aria-controls="bd" aria-label="Боблар рўйхати"><span class="m"><small id="bbs"></small><span class="r"><b id="bbn"></b>' + IC.past + '</span></span></button>';
     BB = k.b.map(function (b) { return { raq: b.raq, uz: (MV[b.k] || {}).uz || '', nom: b.nom, d: H.b[b.k].d, n: b.d.length, r: bobRang(b, k), ot: H.b[b.k].ot, kr: (MV[b.k] || {}).kr }; });
     k.b.forEach(function (b) { html += RY ? royxatHtml(b, k, H) : bobHtml(b, k, H, W); });
     app.innerHTML = html;
@@ -556,9 +562,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
       var n = +(b.getAttribute('data-kk') || b.getAttribute('data-kt')); if (n === KT && b.hasAttribute('data-kt')) return;
       KT = n; LS(KK, String(KT)); xarita(true); }; });
     document.getElementById('kr').onclick = function () { RY = !RY; LS(KY + '-kor', RY ? 'r' : null); xarita(true); };
-    document.getElementById('bb0').onclick = function () { bobga(bbI - 1); };
-    document.getElementById('bb1').onclick = function () { bobga(bbI + 1); };
-    document.getElementById('bbm').onclick = bobRoyxat;
+    document.getElementById('bb').onclick = bobRoyxat;
     [].forEach.call(app.querySelectorAll('[data-i]'), function (n) { n.onclick = function (e) { if (e.target.closest && e.target.closest('.y-bsh')) return; varaq(n.getAttribute('data-i')); }; });
     [].forEach.call(app.querySelectorAll('[data-ex]'), function (n) { n.onclick = function (e) { e.stopPropagation(); imtihon(n.getAttribute('data-ex')); }; });
     [].forEach.call(app.querySelectorAll('[data-sr]'), function (n) { n.onclick = function (e) { e.stopPropagation(); sarala(+n.getAttribute('data-sr')); }; });
@@ -656,8 +660,6 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
     bbI = j; var x = BB[j]; if (!x) return;
     document.getElementById('bbs').textContent = x.raq + '-БОБ · ' + x.d + ' / ' + x.n + ' ДАРС';
     document.getElementById('bbn').innerHTML = x.uz ? esc(x.uz) : '<span class="ar" lang="ar">' + esc(x.nom) + '</span>';
-    document.getElementById('bb0').disabled = j === 0;
-    document.getElementById('bb1').disabled = j >= ss.length - 1;
     bb.style.setProperty('--bbr', x.r);
   }
   function bobga(j) {
@@ -666,18 +668,34 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
     var sekin = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
     try { window.scrollTo({ top: Math.max(0, y), behavior: sekin ? 'auto' : 'smooth' }); } catch (e) { window.scrollTo(0, Math.max(0, y)); }
   }
-  /* bob tasmasi bosilganda: kitobdagi boblar ro'yxati — bosilgan bobga o'tadi */
+  /* bob tasmasi bosilganda: kitobdagi boblar ro'yxati tasma ostidan tushib keladi (animatsiya); bosilgan bobga o'tadi. Qayta bosish, tashqarisi, Esc — yopadi */
+  var bd = document.getElementById('bd'), bdp = document.getElementById('bdp'), bdT = null;
   function bobRoyxat() {
-    var h = '<h2>' + KT + '-китоб боблари</h2>';
+    var bb = document.getElementById('bb'); if (!bb) return;
+    if (!bd.hidden && bd.classList.contains('on')) { bobYop(); return; }
+    clearTimeout(bdT);
+    var h = '';
     BB.forEach(function (x, j) {
-      h += '<button class="y-bl' + (j === bbI ? ' on' : '') + '" data-bj="' + j + '" style="--br:' + x.r + '">' +
+      h += '<button class="y-bl' + (j === bbI ? ' on' : '') + '" role="menuitem" data-bj="' + j + '" style="--br:' + x.r + ';--i:' + j + '">' +
         (x.kr ? '<img class="n" src="' + rasm(x.kr) + '" alt="" decoding="async">' : '<span class="n">' + x.raq + '</span>') +
         '<span class="t"><small>' + x.raq + '-БОБ</small><b>' + esc(x.uz || '') + '</b><span class="ar" lang="ar">' + esc(x.nom) + '</span></span>' +
         (x.ot ? '<em class="ok">' + IC.ok + '</em>' : '') + '</button>';
     });
-    ochVaraq(h);
-    [].forEach.call(sb.querySelectorAll('[data-bj]'), function (b) { b.onclick = function () { var j = +b.getAttribute('data-bj'); yop(); setTimeout(function () { bobga(j); }, 60); }; });
+    bdp.innerHTML = h; bdp.scrollTop = 0;
+    bd.style.top = Math.max(0, Math.round(bb.getBoundingClientRect().bottom)) + 'px';
+    bd.hidden = false; bb.classList.add('och'); bb.setAttribute('aria-expanded', 'true'); document.body.style.overflow = 'hidden';
+    bd.offsetHeight; bd.classList.add('on');
+    [].forEach.call(bdp.querySelectorAll('[data-bj]'), function (b) { b.onclick = function () { var j = +b.getAttribute('data-bj'); bobYop(function () { bobga(j); }); }; });
   }
+  function bobYop(keyin) {
+    var bb = document.getElementById('bb');
+    bd.classList.remove('on'); document.body.style.overflow = '';
+    if (bb) { bb.classList.remove('och'); bb.setAttribute('aria-expanded', 'false'); }
+    clearTimeout(bdT); bdT = setTimeout(function () { bd.hidden = true; bdp.innerHTML = ''; }, 260);
+    if (keyin) setTimeout(keyin, 140);
+  }
+  bd.onclick = function (e) { if (e.target === bd) bobYop(); };
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !bd.hidden) bobYop(); });
   window.addEventListener('scroll', function () { if (!bbR) bbR = requestAnimationFrame(function () { bbR = 0; bobBar(); }); }, { passive: true });
 
   /* ro'yxat ko'rinishi: bitta bob — sarlavha va darslar qatori (ustoz bilan o'qiganda darsni tez topish uchun) */

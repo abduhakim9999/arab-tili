@@ -30,16 +30,18 @@
     (o.darslar || []).forEach(function (d) { if (d.lv) lv[d.n] = d.lv; });
     var ust = {};                                            // «Йўл»da xato qilingan mashq savollari (id) — faol bo'lmasa ham kiradi, yangilar ichida birinchi
     (o.ustun || []).forEach(function (id) { ust[id] = 1; });
+    var usz = {};                                            // «Йўл»da xato qilingan so'zlar (lugat id) — darsi faol bo'lmasa ham kiradi, yangi so'zlar ichida birinchi
+    (o.ustunSoz || []).forEach(function (id) { usz[id] = 1; });
 
     /* ---- kartalar ---- */
     var K = [], KM = {}, mano = {};
     function qoy(c) { K.push(c); KM[c.id] = c; }
     o.lugat.forEach(function (r) { if (faol[r.d]) { var a = r.asl || r.id; (mano[a] = mano[a] || []).push(r); } });
     o.lugat.forEach(function (r) {
-      if (!r.tk || !faol[r.d]) return;
+      if (!r.tk || !(faol[r.d] || usz[r.id])) return;
       var nk = 'w' + r.id;
       var n = { id: r.id, r: r, m: mano[r.id] || [r], au: r.au && lv[r.d] ? { f: lv[r.d], s: r.au[0], e: r.au[1] } : null };
-      qoy({ id: nk + 'a', tur: 'a', nk: nk, n: n });
+      qoy({ id: nk + 'a', tur: 'a', nk: nk, n: n, u: usz[r.id] ? 1 : 0 });
       qoy({ id: nk + 'u', tur: 'u', nk: nk, n: n, old: nk + 'a' });
       if (n.au) qoy({ id: nk + 'o', tur: 'o', nk: nk, n: n, old: nk + 'u' });
     });
@@ -95,6 +97,7 @@
         else if (S[x.old] && S[x.old].rv >= 1 && !nota[x.nk] && !rn[x.nk]) YX.push(x);
       });
       YQ.sort(function (a, b) { return b.u - a.u; });            // xatolar birinchi (sort barqaror)
+      YA.sort(function (a, b) { return b.u - a.u; });
       YA = YA.slice(0, Math.max(0, soz.yangi - yA));
       YQ = YQ.slice(0, Math.max(0, soz.yangiQ - yQ));
       YX = YX.slice(0, Math.max(0, soz.yangiQosh - yX));

@@ -145,9 +145,11 @@ document.write('<script src="' + SN + 'fsrs.js"><\/script><script src="' + SN + 
     try { j = (JSON.parse(L(KJ) || '{}').j) || []; } catch (e) {}
     var ust = [];                                       /* «Йўл»dagi xatolar (yol.html) — yangi mashq savollari ichida birinchi */
     try { ust = JSON.parse(L(SINOV ? 'yol-sinov-xato' : 'yol-xato') || '[]') || []; } catch (e) {}
+    var usz = [];                                       /* «Йўл»dagi lug'at sinovi va imtihonlarda xato qilingan so'zlar — yangi so'zlar ichida birinchi */
+    try { usz = JSON.parse(L(SINOV ? 'yol-sinov-xato-soz' : 'yol-xato-soz') || '[]') || []; } catch (e) {}
     var yn = 0;                                        /* «Созламалар» → кунлик янги сўзлар (10 / 15 / 20) */
     try { yn = +JSON.parse(L('sozlama') || '{}').yangi || 0; } catch (e) {}
-    E = Takror.yarat({ lugat: D.l, mashq: D.m, darslar: D.d, faol: FAOL, jurnal: j, ustun: ust, sozlama: yn ? { yangi: yn } : null });
+    E = Takror.yarat({ lugat: D.l, mashq: D.m, darslar: D.d, faol: FAOL, jurnal: j, ustun: ust, ustunSoz: usz, sozlama: yn ? { yangi: yn } : null });
   }
   function xul() { LS(SINOV ? 'takror-sinov-xulosa' : 'takror-xulosa', JSON.stringify(E.xulosa(hozir()))); }
   function saqla() { LS(KJ, JSON.stringify({ v: 1, j: E.jurnal })); xul(); }

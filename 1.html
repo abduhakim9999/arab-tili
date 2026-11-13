@@ -666,6 +666,57 @@ if(au){
 <script>var UZT={"f":"l1-a68e8a04.mp3","o":{"0":7.21,"1":9.33,"2":12.59,"3":16.02,"4":20.53,"5":23.69,"6":26.51,"7":32.21},"h":[[4.0,14.23],[15.03,18.36]],"w":{"0":[[21.04],21.86],"1":[[25.41,25.89,26.39],27.09],"2":[[31.54,31.92,32.26,32.74],33.42],"3":[[39.3,39.64,40.1,41.02,41.34,41.64],42.24],"4":[[46.29,46.63,47.17],47.91],"5":[[51.73,52.23],52.97],"6":[[60.66,61.54,62.04,62.88,63.34,64.16],64.8],"7":[[70.47,71.41,71.97],72.59]}};</script>
 <script src="shell.js"></script>
 <style>.dh .lq{width:44px;height:44px;flex:none;border-radius:22px;border:1px solid var(--bd);background:var(--cd);color:var(--ac);display:flex;align-items:center;justify-content:center;text-decoration:none;margin-right:6px}</style><script>(function(){var d=document.querySelector(".dh"),q=d&&d.querySelector(".q");if(!q)return;var a=document.createElement("a");a.className="lq";a.href="tinglash.html?d=1";a.setAttribute("aria-label","Тинглаш");a.innerHTML='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="5" height="7" rx="2" fill="currentColor"/><rect x="16" y="14" width="5" height="7" rx="2" fill="currentColor"/></svg>';d.insertBefore(a,q)})()</script>
+<script>
+/* «Билмайман» белгиси — Луғат ёрлиғида (13.11.2026, SINOV: faqat 1-dars; qoida — docs/texnik.md 15 «So'z bazasi»).
+   Belgi so'z bazasiga yoziladi (localStorage «soz»: b — bilmayman, k — bilaman); xaritadagi dars oxiri saralashida oldindan belgilangan turadi.
+   Qator ↔ baza: VOC dagi kitob raqami (kn) → data/lugat.json dagi id. Bazaga kirmaydigan so'zda (atoqli ot, takror) belgi chiqmaydi. */
+(function () {
+  var SN = /\/sinov-[^\/]*$/.test(location.pathname), KB = SN ? 'soz-sinov' : 'soz';
+  var sc = document.querySelector('script[data-key]'), DN = sc ? +((sc.getAttribute('data-key') || '').match(/\d+/) || [0])[0] : 0;
+  var ID = null, yuk = false, p2 = document.getElementById('p2');
+  if (!DN || !p2 || typeof VOC === 'undefined') return;
+  var BM = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h11a1 1 0 0 1 1 1V21l-6.5-4.2L5.5 21V4.5a1 1 0 0 1 1-1z"/></svg>';
+  var css = document.createElement('style');
+  css.textContent = '#p2 .g .bm{width:44px;height:44px;flex:none;margin:-6px -6px 0 -10px;padding:0;border:0;border-radius:12px;background:none;color:var(--mu);opacity:.45;display:flex;align-items:center;justify-content:center;cursor:pointer}' +
+    '#p2 .g .bm svg{width:22px;height:22px}#p2 .g .bm[aria-pressed="true"]{color:#b3261e;opacity:1}#p2 .g .bm[aria-pressed="true"] svg{fill:currentColor}';
+  document.head.appendChild(css);
+  function ol() { var W; try { W = JSON.parse(localStorage.getItem(KB) || '{}') || {}; } catch (e) { W = {}; } W.v = 1; W.b = W.b || {}; W.k = W.k || {}; W.s = W.s || {}; return W; }
+  function chiz() {
+    if (!ID) return;
+    var W = ol();
+    [].forEach.call(p2.querySelectorAll('.g'), function (g, i) {
+      var q = VOC[i], id = q && ID[q[0]], hd = g.querySelector('.hd'), b = hd && hd.querySelector('.bm');
+      if (!id || !hd) return;
+      if (!b) {
+        b = document.createElement('button');
+        b.className = 'bm'; b.type = 'button'; b.setAttribute('aria-label', '«Билмайман» деб белгилаш'); b.innerHTML = BM;
+        b.onclick = function (e) {
+          e.stopPropagation();
+          var W = ol();
+          if (W.b[id]) { delete W.b[id]; W.k[id] = 1; } else { W.b[id] = 1; delete W.k[id]; }
+          try { localStorage.setItem(KB, JSON.stringify(W)); } catch (x) {}
+          b.setAttribute('aria-pressed', W.b[id] ? 'true' : 'false');
+        };
+        hd.appendChild(b);
+      }
+      b.setAttribute('aria-pressed', W.b[id] ? 'true' : 'false');
+    });
+  }
+  function yukla() {
+    if (yuk) { chiz(); return; }
+    yuk = true;
+    fetch(SN ? 'sinov-lugat.json' : 'data/lugat.json').then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (j) {
+      ID = {}; j.s.forEach(function (r) { if (r.d === DN && r.tk) ID[r.kn] = r.id; });
+      chiz();
+    }).catch(function () { yuk = false; });
+  }
+  var gl0 = window.gl, tab0 = window.tab;
+  if (typeof gl0 === 'function') window.gl = function () { gl0.apply(this, arguments); chiz(); };
+  if (typeof tab0 === 'function') window.tab = function (n) { tab0.apply(this, arguments); if (n == 2) yukla(); };
+  if (!p2.classList.contains('hide')) yukla();
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) chiz(); });
+})();
+</script>
 <script>if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(function(){})</script>
 </body>
 </html>

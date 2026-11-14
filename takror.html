@@ -467,12 +467,11 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
     var ch = function (k) { return '<i class="lg-ch2 ' + k + '">' + HN[k] + '</i>'; };
     return '<section class="tq-c lg-yo" id="yo"' + (och ? '' : ' hidden') + '><div class="lg-yh">Сўзлар бу ерга қандай тушади?</div><ol class="lg-qd">' +
       '<li><span>1</span><div><b>Дарсни ўқинг, «Машқ»ни ишланг</b></div></li>' +
-      '<li><span>2</span><div><b>Сўзларни сараланг</b><small>Дарс охирида билмаган сўзларингизни белгилайсиз</small></div></li>' +
-      '<li><span>3</span><div><b>Сўзлар шу ерга тушади</b><small>Белгилаганларингиз — ' + ch('b') + ', қолганлари — ' + ch('g') + ' (такрорда текширилади)</small></div></li>' +
-      '<li><span>4</span><div><b>Ҳар куни «Такрорлаш»</b><small>Тўғри топган сўзингиз бир поғона юқорига кўтарилади:</small>' +
+      '<li><span>2</span><div><b>Сўзлар шу ерга ўзи тушади</b><small>«Машқ» тугагач, дарс сўзлари «ўрганяпман» бўлиб қўшилади</small></div></li>' +
+      '<li><span>3</span><div><b>Ҳар куни «Такрорлаш»</b><small>Тўғри топган сўзингиз бир поғона юқорига кўтарилади, хато топгани — пастга тушади:</small>' +
         '<div class="lg-zn">' + ch('b') + '<em>›</em>' + ch('o') + '<em>›</em>' + ch('g') + '<em>›</em>' + ch('m') + '</div>' +
         '<small>' + BILDI + ' кун кетма-кет тўғри — биламан; ' + MUST + ' кундан кейин ҳам тўғри — мустаҳкам; хато — яна билмайман</small></div></li></ol>' +
-      (sar ? '' : '<p class="lg-yn">Ҳозирча ҳеч бир дарс сараланмаган — 1-дарс сўзлари кўрсатиляпти. Дарсни тугатиб, сўзларни сараланг.</p>') +
+      (sar ? '' : '<p class="lg-yn">Ҳозирча 1-дарс сўзлари кўрсатиляпти. Дарс «Машқ»ини тугатсангиз, унинг сўзлари ўзи қўшилади.</p>') +
       '<div class="lg-yf"><a href="' + SN + 'yoriqnoma.html#takror">Батафсил</a><button class="tq-b tq-b1" id="yok">Тушунарли</button></div></section>';
   }
   function lugat() {
@@ -600,7 +599,7 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
       });
       yop();
       if (bil) h = '<h3 class="lg-d no">Билмаганларим<span>' + bn + ' сўз</span></h3><div class="lg-l">' + bil + '</div>' + h;
-      lr.innerHTML = h || '<div class="lg-e">' + (LF === 'b' && !q ? 'Билмаган сўз йўқ. Дарс охирида сўзларни сараланг ёки шу ерда белгиланг.' : 'Ҳеч нарса топилмади.') + '</div>';
+      lr.innerHTML = h || '<div class="lg-e">' + (LF === 'b' && !q ? 'Билмаган сўз йўқ. Билмаган сўзингизни шу ерда белгиланг.' : 'Ҳеч нарса топилмади.') + '</div>';
     }
     royxat();
     document.getElementById('lq').oninput = function () { LQ = this.value; royxat(); };

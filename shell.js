@@ -790,6 +790,71 @@ document.addEventListener('click', function (e) {
   document.addEventListener('visibilitychange', function () { if (!document.hidden) chiz(); });
 })();
 
+/* --- «Билмайман» belgisi so'z oynasida (14.11.2026, foydalanuvchi: «Сўзларни саралаш» o'rniga — matndagi so'z bosilganda yoki Луғатda belgilansin) ---
+   Matndagi so'z lug'at yozuviga harakatsiz yozuvi bo'yicha bog'lanadi (ar, qavsdagi, ko'plik, muannas, fe'l shakllari; «ال» va «وَ/فَ/بِ/لِ/كَ» oldi qo'shimchasiz).
+   Topilsa — oyna tepasida «Билмайман» tugmasi (so'z bazasi «soz»: b ↔ k, darsning Луғат belgisi bilan bir xil). Topilmasa — tugma yo'q (to'qilmaydi). */
+(function () {
+  var SN = /\/sinov-[^\/]*$/.test(location.pathname), KB = SN ? 'soz-sinov' : 'soz';
+  var sc = document.querySelector('script[data-key]'), DN = sc ? +((sc.getAttribute('data-key') || '').match(/^dars(\d+)-holat$/) || [0, 0])[1] : 0;
+  var sb = document.getElementById('sb'), MAP = null, yuk = false;
+  if (!DN || !sb || !window.MutationObserver) return;
+  var BM = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h11a1 1 0 0 1 1 1V21l-6.5-4.2L5.5 21V4.5a1 1 0 0 1 1-1z"/></svg>';
+  var css = document.createElement('style');
+  css.textContent = '.zo-bm{display:flex;align-items:center;gap:8px;margin:10px auto 0;height:40px;padding:0 16px;border-radius:20px;border:1.5px solid var(--bd,#e3ddd0);background:none;color:var(--mu,#6b716c);font:inherit;font-size:15px;font-weight:600;cursor:pointer}' +
+    '.zo-bm svg{width:19px;height:19px}.zo-bm[aria-pressed="true"]{border-color:#b3261e;background:rgba(179,38,30,.08);color:#b3261e}.zo-bm[aria-pressed="true"] svg{fill:currentColor}';
+  document.head.appendChild(css);
+  function yal(x) { return String(x || '').replace(/[\u064B-\u065F\u0670\u0640]/g, '').replace(/[\u0623\u0625\u0622\u0671]/g, '\u0627').replace(/[^\u0621-\u064A]/g, ''); }
+  function variant(w) {                                /* so'z → qidiriladigan shakllar */
+    var v = [w], m = w.replace(/^[\u0648\u0641]/, '');
+    [w, m].forEach(function (x) {
+      if (/^\u0627\u0644/.test(x)) v.push(x.slice(2));
+      if (/^[\u0628\u0644\u0643]\u0627\u0644/.test(x)) v.push(x.slice(3));
+      if (/^\u0644\u0644/.test(x)) v.push(x.slice(2));
+      v.push(x);
+    });
+    return v;
+  }
+  function ol() { var W; try { W = JSON.parse(localStorage.getItem(KB) || '{}') || {}; } catch (e) { W = {}; } W.v = 1; W.b = W.b || {}; W.k = W.k || {}; W.s = W.s || {}; return W; }
+  function qur(j) {
+    MAP = {};
+    var qosh = function (s, r) {
+      String(s || '').split(/[\s\u060C,;:.()\/]+/).concat([s]).forEach(function (p) {
+        var k = yal(p); if (k.length < 2) return; k = k.replace(/^\u0627\u0644/, '') || k;
+        if (!MAP[k] || (r.d === DN && MAP[k].d !== DN)) MAP[k] = r;   /* shu darsdagi yozuv ustun */
+      });
+    };
+    j.s.forEach(function (r) {
+      if (!r.tk || r.asl) return;
+      [r.ar, r.al, r.mn].concat(r.jam || [], r.fel || []).forEach(function (s) { if (s) qosh(s, r); });
+    });
+  }
+  function top(txt) { var a = variant(yal(txt)); for (var i = 0; i < a.length; i++) if (a[i] && MAP[a[i]]) return MAP[a[i]]; return null; }
+  function qoy() {
+    var mid = sb.querySelector('.zo-mid'); if (!mid || sb.querySelector('.zo-bm')) return;
+    var c = mid.cloneNode(true), mn = c.querySelector('.mnl'); if (mn) mn.parentNode.removeChild(mn);
+    var r = top(c.textContent); if (!r) return;
+    var W = ol(), b = document.createElement('button');
+    b.type = 'button'; b.className = 'zo-bm';
+    var yoz = function () { b.setAttribute('aria-pressed', W.b[r.id] ? 'true' : 'false'); b.innerHTML = BM + '<span>Билмайман</span>'; };
+    b.onclick = function (e) {
+      e.stopPropagation(); W = ol();
+      if (W.b[r.id]) { delete W.b[r.id]; W.k[r.id] = 1; } else { W.b[r.id] = 1; delete W.k[r.id]; if (W.a) delete W.a[r.id]; }
+      W.t = Date.now();
+      try { localStorage.setItem(KB, JSON.stringify(W)); } catch (x) {}
+      yoz();
+    };
+    yoz();
+    var hk = sb.querySelector('.hk'), hd = sb.querySelector('.zo-hd');
+    (hk || hd).insertAdjacentElement('afterend', b);
+  }
+  new MutationObserver(function () {
+    if (!sb.querySelector('.zo-mid')) return;
+    if (MAP) { qoy(); return; }
+    if (yuk) return; yuk = true;
+    fetch(SN ? 'sinov-lugat.json' : 'data/lugat.json').then(function (x) { if (!x.ok) throw 0; return x.json(); }).then(function (j) { qur(j); qoy(); }).catch(function () { yuk = false; });
+  }).observe(sb, { childList: true, subtree: true });
+})();
+
 /* --- «Созламалар» → Арабча ёзув катталиги (13.11.2026; docs/texnik.md 16) ---
    Sozlama — boshlang'ich holat: o'zgartirilganda (sozlama.oqT) har darsga BIR MARTA qo'llanadi («sozlama-q» da belgilanadi),
    keyin darsning o'z «Aa» tugmasi va saqlangan o'lchami ustun. Sozlama hech o'zgartirilmagan bo'lsa — hech narsa qilinmaydi.

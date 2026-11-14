@@ -338,6 +338,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
 .y-kk .y-kk1{border:0;background:#E0B95A;color:#2B1D00;box-shadow:inset 0 -4px 0 rgba(0,0,0,.2),0 6px 18px rgba(0,0,0,.3)}
 .y-kk .y-kk1 svg{color:inherit}
 .y-lsb{padding:0 16px 6px}
+.y-lsb .y-bk{margin:16px 0 12px;box-shadow:0 4px 14px rgba(0,0,0,.12)}
 .y-lsb:last-child{padding-bottom:calc(200px + env(safe-area-inset-bottom,0px))}
 .y-lh{display:flex;align-items:flex-end;gap:12px;padding:18px 4px 10px}
 .y-lh>div{flex:1;min-width:0}
@@ -666,7 +667,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
   }
 
   /* bob tasmasi: ekran tepasidagi bob nomi va hisobi; ‹ › tugmalari holati */
-  var BB = [], bbI = -1, bbR = 0, RY = L(KY + '-kor') === 'r';   /* RY — ro'yxat ko'rinishi */
+  var BB = [], bbI = -1, bbR = 0, RY = L(KY + '-kor') !== 'x';   /* RY — ro'yxat ko'rinishi; 14.11.2026: hammada birinchi ro'yxat, xaritani tanlagan — 'x' */
   function bobBar() {
     var bb = document.getElementById('bb'); if (!bb || IM) return;
     var ss = app.querySelectorAll('[data-b]'), r = bb.getBoundingClientRect(), chiz = r.bottom + 90, i, j = 0;
@@ -716,9 +717,13 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
 
   /* ro'yxat ko'rinishi: bitta bob — sarlavha va darslar qatori (ustoz bilan o'qiganda darsni tez topish uchun) */
   function royxatHtml(b, k, H) {
-    var hb = H.b[b.k], m = MV[b.k] || {};
-    var h = '<section class="y-lsb" data-b="' + b.k + '"><div class="y-lh"><div><small>' + b.raq + '-БОБ · ' + hb.d + ' / ' + b.d.length + ' ДАРС</small><b>' + esc(m.uz || '') + '</b></div>' +
-      '<span class="ar" lang="ar">' + esc(b.nom) + '</span></div>';
+    var hb = H.b[b.k], m = MV[b.k] || {}, seg = '';
+    b.d.forEach(function (d) { seg += '<i' + (H.d[d.n].ot ? ' class="o"' : '') + '></i>'; });
+    /* 14.11.2026 (foydalanuvchi): ro'yxatda ham bob — rasmli karta (xaritadagi kabi; bosilsa boblar ro'yxati) */
+    var h = '<section class="y-lsb" data-b="' + b.k + '" style="--br:' + bobRang(b, k) + '">' +
+      '<div class="y-bk" role="button" tabindex="0" aria-label="Боблар рўйхати"><div class="tx"><small>' + b.raq + '-БОБ · ' + hb.d + ' / ' + b.d.length + ' ДАРС' + IC.past + '</small><b class="ar" lang="ar">' + esc(b.nom) + '</b>' +
+      (m.uz ? '<span class="uz">' + m.uz + '</span>' : '') + '<div class="y-sg" aria-hidden="true">' + seg + '</div></div>' +
+      (m.kr ? '<img class="y-bki" src="' + rasm(m.kr) + '" alt="" loading="lazy" decoding="async">' : '') + '</div>';
     b.d.forEach(function (d) {
       var u = H.d[d.n], qf = !u.ot && !u.op, ik = IK[d.n], r = u.r, lq = u.ls && u.mo && !u.lo;
       h += '<button class="y-li' + (H.hz === 'd' + d.n ? ' hz' : '') + (qf ? ' qf' : '') + '" data-i="d' + d.n + '" aria-label="' + d.n + '-дарс: ' + esc(d.uz) + (u.ot ? ', ўтилган' : qf ? ', навбати келмаган' : '') + '">' +
@@ -753,7 +758,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
     [].forEach.call(sb.querySelectorAll('[data-ko]'), function (b) { b.onclick = function () {
       var n = +b.getAttribute('data-ko'); kitobYop(function () { if (n !== KT) { KT = n; LS(KK, String(KT)); } xarita(true); }); }; });
     [].forEach.call(sb.querySelectorAll('[data-kv]'), function (b) { b.onclick = function () {
-      var r = b.getAttribute('data-kv') === 'r'; kitobYop(function () { if (r !== RY) { RY = r; LS(KY + '-kor', RY ? 'r' : null); xarita(true); } }); }; });
+      var r = b.getAttribute('data-kv') === 'r'; kitobYop(function () { if (r !== RY) { RY = r; LS(KY + '-kor', RY ? 'r' : 'x'); xarita(true); } }); }; });
   }
   function kitobYop(keyin) {
     var tez = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;

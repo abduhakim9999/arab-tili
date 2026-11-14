@@ -57,6 +57,7 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
 /* o'chirilgan natijalarni qaytarish qatori; tozalashni tasdiqlash oynasi (so'zni yozib) */
 .s-qt{display:flex;align-items:center;gap:12px;margin-top:10px;padding:10px 10px 10px 16px;border-radius:16px;background:var(--tint);font-size:14px;line-height:1.4}
 .s-qt[hidden]{display:none}
+.s-r[hidden],.s-del[hidden]{display:none}
 .s-qt span{flex:1;min-width:0}
 .s-qt button{flex-shrink:0;height:44px;padding:0 16px;border-radius:12px;border:0;background:var(--ac);color:#fff;font-size:15px;font-weight:700}
 .s-dg{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.5);display:flex;align-items:flex-start;justify-content:center;padding:14vh 16px 16px;box-sizing:border-box}
@@ -112,9 +113,10 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
   <h2 id="bz-h2">НАТИЖАЛАРНИ САҚЛАШ</h2>
   <div class="s-c" id="bz">
     <div class="s-r"><span class="t">Серверда сақлаш<small id="bz-h">…</small></span><button class="s-mb" id="bz-s">Ҳозир сақлаш</button></div>
-    <div class="s-r col"><span class="t">Кўчириш коди<small>Бошқа телефонда шу кодни киритсангиз, натижаларингиз ўша ерга ўтади. Кодни бошқаларга берманг.</small></span>
+    <button class="s-r" id="bz-e" hidden><span class="t">Кўчириш коди (эски усул)<small>Энди натижалар Telegram орқали кирганда тикланади</small></span></button>
+    <div class="s-r col bz-k"><span class="t">Кўчириш коди<small>Бошқа телефонда шу кодни киритсангиз, натижаларингиз ўша ерга ўтади. Кодни бошқаларга берманг.</small></span>
       <div class="s-kd"><code id="bz-k">—</code><button class="s-mb" id="bz-n">Нусхалаш</button></div></div>
-    <div class="s-r col"><span class="t">Бошқа телефондан кўчириш<small>Эски телефондаги кодни киритинг — натижалар бирлашади.</small></span>
+    <div class="s-r col bz-k"><span class="t">Бошқа телефондан кўчириш<small>Эски телефондаги кодни киритинг — натижалар бирлашади.</small></span>
       <div class="s-kd"><input id="bz-i" type="text" placeholder="Кодни киритинг" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Кўчириш коди"><button class="s-mb" id="bz-q">Кўчириш</button></div></div>
   </div>
 
@@ -126,11 +128,12 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
 
   <button class="s-del" id="del">Натижаларни тозалаш</button>
   <div class="s-qt" id="qt" hidden><span id="qt-t"></span><button id="qt-b">Қайтариш</button></div>
+  <button class="s-del" id="hdel" hidden>Ҳисобни ўчириш</button>
 </div>
 <div class="s-dg" id="md" hidden>
   <div class="s-dk" role="dialog" aria-modal="true" aria-labelledby="md-h">
     <h2 id="md-h">Натижаларни тозалаш</h2>
-    <p>Йўл, сўз базаси ва машқ жавоблари ўчади. 30 кун ичида қайтариш мумкин.</p>
+    <p id="md-p">Йўл, сўз базаси ва машқ жавоблари ўчади. 30 кун ичида қайтариш мумкин.</p>
     <label for="md-i">Тасдиқлаш учун <b>ЎЧИРИШ</b> деб ёзинг</label>
     <input id="md-i" type="text" autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false" placeholder="ЎЧИРИШ">
     <small>Лотинча ҳам бўлади: OCHIRISH</small>
@@ -213,6 +216,13 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
       bn.disabled = !k;
       h.textContent = !k ? 'Ҳали сақланадиган натижа йўқ' : B.kutmoqda() ? 'Сақланмаган ўзгаришлар бор' : d ? 'Сақланган: ' + ik(d.getDate()) + '.' + ik(d.getMonth() + 1) + ', ' + ik(d.getHours()) + ':' + ik(d.getMinutes()) : 'Ҳали сақланмаган';
     }
+    /* SINOV (14.11.2026; docs/texnik.md 17): kod ko'rinmaydi — natijalar Telegram orqali kirganda tiklanadi; eski usul bir oy yashirin turadi */
+    if (L('kirish-sinov') === '1') {
+      var kr = quti.querySelectorAll('.bz-k'), be = document.getElementById('bz-e');
+      [].forEach.call(kr, function (x) { x.hidden = true; });
+      be.hidden = false;
+      be.onclick = function () { be.hidden = true; [].forEach.call(kr, function (x) { x.hidden = false; }); };
+    }
     chiz(); B.tinglash(chiz);
     bs.onclick = function () { bs.disabled = true; B.sinx(function (ok) { bs.disabled = false; chiz(); xabar(ok ? 'Сақланди' : B.kod() ? 'Сақлаб бўлмади. Интернетни текширинг.' : 'Ҳали сақланадиган натижа йўқ'); }); };
     bn.onclick = function () {
@@ -284,14 +294,34 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
   if (!arxOl() && window.Baza && Baza.kod() && !G('soz') && !G('takror-j')) Baza.eskiOl(function (d) { if (d && Date.now() - d.ar <= KUN30 && !arxOl()) { LS(KE, JSON.stringify(d)); qtChiz(); } });
   $('qt-b').onclick = function () { if (confirm('Ўчирилган натижалар қайтарилсинми? Ҳозиргилари ўрнига ёзилади.')) qaytar(); };
 
-  /* tasdiqlash oynasi */
-  var md = $('md'), mi = $('md-i'), mok = $('md-ok');
+  /* «Ҳисобни ўчириш» (14.11.2026; do'konlar talabi, docs/texnik.md 17): natijalar bu telefonda va serverda o'chadi, 30 kunlik nusxa ham —
+     qaytarib bo'lmaydi. Tasdiq — o'sha qat'iy oyna (ЎЧИРИШ). SINOV: faqat «kirish-sinov» = 1 bo'lsa ko'rinadi. */
+  function hisobOchir() {
+    var hz = String(Date.now());
+    LS(p, '{"v":1,"d":{},"e":{}}'); LS(p + '-t', hz);
+    KAL.slice(2).concat(['takror-sinov-kun']).forEach(function (k) { LS(k, null); });
+    try { sessionStorage.removeItem('takror-mashgulot'); } catch (e) {}
+    darsKalit(function (k) {
+      try { var S = JSON.parse(G(k) || 'null'); if (S && (S.q || S.qr)) { delete S.q; delete S.qr; localStorage.setItem(k, JSON.stringify(S)); localStorage.setItem(k + '-t', hz); } } catch (e) {}
+    });
+    LS(KE, null); qtChiz();
+    if (window.Baza && Baza.ochir) Baza.ochir(function (ok) { xabar(ok ? 'Ҳисоб ўчирилди' : 'Серверда ўчмади. Интернетни текшириб, қайта уриниб кўринг.'); });
+    else xabar('Ҳисоб ўчирилди');
+  }
+  if (!SN && L('kirish-sinov') === '1') $('hdel').hidden = false;
+
+  /* tasdiqlash oynasi (rejim: t — natijalarni tozalash, h — hisobni o'chirish) */
+  var md = $('md'), mi = $('md-i'), mok = $('md-ok'), rej = 't';
+  var MATN = { t: ['Натижаларни тозалаш', 'Йўл, сўз базаси ва машқ жавоблари ўчади. 30 кун ичида қайтариш мумкин.'],
+               h: ['Ҳисобни ўчириш', 'Ҳисобингиздаги барча натижалар бу телефонда ҳам, серверда ҳам ўчади. Қайтариб бўлмайди.'] };
+  function mdOch(r) { rej = r; $('md-h').textContent = MATN[r][0]; $('md-p').textContent = MATN[r][1]; md.hidden = false; mi.value = ''; mok.disabled = true; setTimeout(function () { mi.focus(); }, 50); }
   function togri() { return ['ЎЧИРИШ', 'УЧИРИШ', 'OCHIRISH', 'UCHIRISH'].indexOf(mi.value.toUpperCase().replace(/[^A-ZА-ЯЁЎҚҒҲ]/g, '')) > -1; }
-  function mdYop() { md.hidden = true; mi.value = ''; mok.disabled = true; $('del').focus(); }
-  $('del').onclick = function () { md.hidden = false; mi.value = ''; mok.disabled = true; setTimeout(function () { mi.focus(); }, 50); };
+  function mdYop() { md.hidden = true; mi.value = ''; mok.disabled = true; $(rej === 'h' ? 'hdel' : 'del').focus(); }
+  $('del').onclick = function () { mdOch('t'); };
+  $('hdel').onclick = function () { mdOch('h'); };
   mi.oninput = function () { mok.disabled = !togri(); };
   mi.onkeydown = function (e) { if (e.key === 'Enter' && togri()) mok.click(); };
-  mok.onclick = function () { if (!togri()) return; mdYop(); tozala(); };
+  mok.onclick = function () { if (!togri()) return; mdYop(); if (rej === 'h') hisobOchir(); else tozala(); };
   $('md-x').onclick = mdYop;
   md.onclick = function (e) { if (e.target === md) mdYop(); };
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !md.hidden) mdYop(); });

@@ -15,6 +15,7 @@
   var set0 = Storage.prototype.setItem, rem0 = Storage.prototype.removeItem;      /* tg.js o'ragan bo'lishi mumkin — zanjir saqlanadi */
   var KEYS = { 'soz': 1, 'takror-j': 1, 'yol': 1, 'yol-xato': 1 }, KODRE = /^[a-z0-9]{20,64}$/;
   var ichki = false, band = false, tm = null, tingl = [];
+  var JIM = !!window.BAZA_JIM;                          /* dars sahifasidagi kirish oynasi (tg.js) yuklaganda: o'zi sinxronlamaydi, faqat kirish */
 
   function L(k) { try { return LSs.getItem(k); } catch (e) { return null; } }
   function S(k, v) { ichki = true; try { v == null ? rem0.call(LSs, k) : set0.call(LSs, k, v); } catch (e) {} ichki = false; }
@@ -27,7 +28,7 @@
   function xabar(h) { tingl.forEach(function (f) { try { f(h); } catch (e) {} }); }
 
   /* mahalliy o'zgarishni payqash: 15 s dan keyin serverga yuboriladi */
-  try {
+  if (!JIM) try {
     Storage.prototype.setItem = function (k, v) { set0.call(this, k, v); if (!ichki && this === LSs && KEYS[k]) iflos(); };
     Storage.prototype.removeItem = function (k) { rem0.call(this, k); if (!ichki && this === LSs && KEYS[k]) iflos(); };
   } catch (e) {}
@@ -206,6 +207,23 @@
       }).catch(function () { cb(false, false); });
     },
     tgUlangan: function () { return !!L('baza-tg'); },
+    /* «Ҳисобни ўчириш» (14.11.2026; do'konlar talabi, docs/texnik.md 17): serverdagi natijalar va 30 kunlik nusxa o'chadi
+       (bo'sh hujjat + yangi r — boshqa qurilmalardagi nusxa ham tozalanadi). Mahalliy kalitlarni sahifa o'zi tozalaydi.
+       Telegramdan tashqarida qurilma hisobdan ham chiqadi (kod va «baza-tg» o'chadi); Telegram ichida kod qoladi — hisob Telegramning o'zi. */
+    ochir: function (cb) {
+      clearTimeout(tm);
+      var k = L('baza-kod'), r = Date.now();
+      S('baza-r', String(r)); S('baza-rk', null);
+      var tamom = function () {
+        S('baza-oz', null); S('baza-t', null); S('baza-ulash', null);
+        if (!tgIchi()) ['baza-kod', 'baza-tg', 'baza-r', 'baza-rk'].forEach(function (x) { S(x, null); });
+        if (cb) cb(true);
+      };
+      if (!k || !KODRE.test(k)) { tamom(); return; }
+      so(k, 'yoz', { v: 1, r: r, j: [], soz: null, yol: null, yolT: 0, xato: [] })
+        .then(function () { return so(k + 'eski', 'yoz', { v: 1, ar: 0 }); })
+        .then(tamom, function () { if (cb) cb(false); });
+    },
     eskiOl: function (cb) {
       var k = L('baza-kod');
       if (!k || !KODRE.test(k)) { cb(null); return; }
@@ -213,6 +231,7 @@
     }
   };
 
+  if (JIM) return;
   setTimeout(ulashSorov, 700);
   /* sahifa ochilganda; yashirilganda (chiqishdan oldin) — o'zgarish bo'lsa */
   setTimeout(function () {

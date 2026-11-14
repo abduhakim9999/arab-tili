@@ -77,6 +77,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
   /* hisob: Telegram ichida — foydalanuvchi nomi (natija Telegram hisobiga bog'langan kod bilan saqlanadi, baza.js);
      saytda — «Telegram орқали кириш»: Telegram ilovasi ochiladi, u yerda tasdiqlangach sayt o'sha hisob kodiga ulanadi (docs/texnik.md 18).
      Kirish majburiy emas — ilova kirmasdan ham ishlaydi. */
+  var KS = false; try { KS = localStorage.getItem('kirish-sinov') === '1'; } catch (e) {}     /* SINOV: majburiy kirish (docs/texnik.md 17) */
   function hisob() {
     var u = null, B = window.Baza;
     try { u = window.Telegram.WebApp.initDataUnsafe.user || null; } catch (e) {}
@@ -96,7 +97,8 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
     } else {
       $('av').innerHTML = ODAM;
       $('hn').textContent = 'Ҳисоб';
-      $('hs').textContent = saq || 'Натижаларни сақлаш ва бошқа телефонда давом эттириш учун киринг';
+      $('hs').textContent = KS ? '2-дарсдан бошлаб кириш керак. Натижалар Telegram ҳисобингизда сақланади ва телефон алмашса ҳам тикланади.'
+        : saq || 'Натижаларни сақлаш ва бошқа телефонда давом эттириш учун киринг';
       $('tgk').hidden = false;
     }
   }

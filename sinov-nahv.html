@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Наҳв: эъроб аломатлари</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0f766e">
+<link rel="icon" href="icon-192.png">
+<link rel="stylesheet" href="shell.css">
+<script>/* Til (14.11.2026): ruscha rejimda — ruscha qatlam (qobiq.js dagi kabi; docs/texnik.md 12) */
+(function(){try{if(localStorage.getItem("til")==="ru"&&!window.RU_DICT){var SN=/\/sinov-[^\/]*$/.test(location.pathname)?"sinov-":"";window.TIL="ru";document.documentElement.lang="ru";document.write('<script src="'+SN+'ru-index.js"><\/script><script src="'+SN+'ru.js"><\/script>')}}catch(e){}})()</script>
+<script src="tg.js" data-key="nahv" data-home="./"></script>
+<style>
+@font-face{font-family:"DarsNaskh";src:url(naskh.woff)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+.w{max-width:560px;margin:0 auto;padding:12px 16px 48px}
+.top{display:flex;align-items:center;gap:12px;margin:4px 0 12px}
+.top a{width:44px;height:44px;border-radius:12px;background:var(--cd);border:1px solid var(--bd);color:var(--tx);text-decoration:none;font-size:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.top small{display:block;font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--ac)}
+.top h1{font-size:22px;line-height:1.25;margin:0}
+.ar{font-family:"DarsNaskh","Noto Naskh Arabic",serif;direction:rtl;font-weight:400}
+/* ранглар қатори: ҳолат — Таркибдаги қайси бўлак ранги */
+.nv-lg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13.5px;margin:0 0 12px}
+.nv-lg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;background:var(--k)}
+.nv-lg b{font-weight:700}
+.nv-lg em{font-style:normal;color:var(--mu)}
+.nv-tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;background:var(--cd);border:1px solid var(--bd);border-radius:14px;margin:0 0 14px;position:sticky;top:6px;z-index:5;box-shadow:var(--sh)}
+.nv-tabs button{height:44px;border:0;border-radius:10px;background:transparent;color:var(--mu);font-family:inherit;font-size:15px;font-weight:600;cursor:pointer}
+.nv-tabs button.on{background:var(--tint);color:var(--ac);font-weight:700}
+.nv-g{font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--mu);margin:18px 2px 8px;text-transform:uppercase}
+.nv-c{background:var(--cd);border:1px solid var(--bd);border-radius:18px;padding:12px 14px 14px;margin:0 0 12px;box-shadow:var(--sh)}
+/* 1-ёрлиқ: сўз турига кўра */
+.nv-h{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:0 10px;margin:0 0 8px}
+.nv-h h2{font-size:16px;margin:0;line-height:1.7}
+.nv-h .ar{font-size:19px;color:var(--mu);line-height:1.6}
+.nv-r{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.nv-k{position:relative;border-radius:12px;padding:9px 2px 10px;display:flex;flex-direction:column;align-items:center;gap:1px;text-align:center;overflow:hidden}
+.nv-k::before,.nv-gl::before{content:"";position:absolute;inset:0;background:var(--k);opacity:.1}
+.nv-k>*{position:relative}
+.nv-k .l{font-size:11.5px;line-height:16px;font-weight:700;letter-spacing:.06em;color:var(--k);text-transform:uppercase}
+.nv-k .p{font-size:17px;line-height:22px;height:22px;color:var(--mu)}
+.nv-k .a{font-size:24px;line-height:42px;white-space:nowrap}
+.nv-k .a b,.nv-i .ar b{font-weight:400;color:var(--k)}
+.nv-k .s{font-size:13px;line-height:17px;font-weight:600}
+.nv-n{font-size:13px;color:var(--mu);margin:10px 0 0;line-height:1.6}
+.nv-n .ar{font-size:18px;color:var(--tx);display:inline-block}
+/* 2-ёрлиқ: ҳолат бўйича */
+.nv-ch{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 8px}
+.nv-ch h2{font-size:20px;line-height:1.3;margin:0;color:var(--k);display:flex;align-items:center;gap:8px}
+.nv-ch h2 i{width:10px;height:10px;border-radius:50%;background:var(--k)}
+.nv-ch small{display:block;font-size:13px;color:var(--mu)}
+.nv-ch .ar{font-size:26px;color:var(--k);line-height:1.5}
+.nv-s{border-top:1px solid var(--bd);padding:10px 0 4px;border-radius:2px}
+.nv-s.on{outline:2px solid var(--k);outline-offset:3px;border-radius:12px;border-top-color:transparent}
+.nv-sh{display:flex;align-items:center;gap:12px;min-height:44px}
+.nv-gl{position:relative;flex:none;width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px;color:var(--k);overflow:hidden}
+.nv-gl.hr{font-size:40px;line-height:44px}
+.nv-sn{flex:1;min-width:0}
+.nv-sn b{display:block;font-size:17px;line-height:22px}
+.nv-sn small{display:block;font-size:12.5px;line-height:16px;color:var(--mu)}
+.nv-asl{flex:none;padding:5px 10px;border-radius:999px;background:var(--k);color:var(--cd);font-size:12px;line-height:14px;font-weight:700}
+.nv-i{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:44px;padding-left:56px}
+.nv-i>span:first-child{font-size:14px;line-height:18px}
+.nv-i>span:first-child small{display:block;font-size:12px;line-height:16px;color:var(--mu)}
+.nv-i .ar{font-size:23px;line-height:44px;white-space:nowrap}
+.nv-i .ar i{font-style:normal;font-size:.78em;color:var(--mu)}
+.nv-c.hit{animation:nvhit 2.2s ease}
+@keyframes nvhit{0%,55%{box-shadow:0 0 0 3px var(--k)}100%{box-shadow:0 0 0 3px transparent}}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="w">
+<div class="top"><a href="./" id="bk" aria-label="Орқага">‹</a><div><small>НАҲВ</small><h1>Эъроб аломатлари</h1></div></div>
+<div class="nv-lg" id="lg"></div>
+<div class="nv-tabs"><button type="button" id="tA" class="on" aria-pressed="true">Сўз турига кўра</button><button type="button" id="tB" aria-pressed="false">Ҳолат бўйича</button></div>
+<div id="pA"></div>
+<div id="pB" hidden></div>
+<a href="takror.html#harflar" style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin:16px 0 0;padding:14px 16px;border-radius:16px;border:1px solid var(--bd);background:var(--cd);color:var(--tx);text-decoration:none;font-weight:600">Ҳарфлар машқи<span style="font-weight:400;font-size:13.5px;color:var(--mu)">маъноси ва тури ›</span></a>
+</div>
+<script>
+/* Эъроб аломатлари жадвали (11.11.2026). Маълумот битта жойда (W) — иккала ёрлиқ шундан чизилади.
+   Ҳолат ранглари Таркиб палитрасидан (shell.css): раф = --co (фоил), насб = --cb (мафъул), жар = --cj (мажрур), жазм = --cf (феъл).
+   Ҳавола: nahv.html#R | #N | #J | #Z (ихтиёрий :zamma, :vov …) — «Ҳолат бўйича» ёрлиғи очилиб, ўша қатор белгиланади. */
+var K={R:['Раф','фоил ранги','اَلرَّفْعُ','var(--co)','исмда ва музорий феълда'],
+       N:['Насб','мафъул ранги','اَلنَّصْبُ','var(--cb)','исмда ва музорий феълда'],
+       J:['Жар','мажрур ранги','اَلْجَرُّ','var(--cj)','фақат исмда'],
+       Z:['Жазм','феъл ранги','اَلْجَزْمُ','var(--cf)','фақат музорий феълда']};
+/* аломат: [номи, белгиси, тури] */
+var S={zamma:['замма','ـُ','ҳаракат'],fatha:['фатҳа','ـَ','ҳаракат'],kasra:['касра','ـِ','ҳаракат'],sukun:['сукун','ـْ','ҳаракат йўқ'],
+       vov:['вов','و','ҳарф'],alif:['алиф','ا','ҳарф'],yo:['йо','ي','ҳарф'],nun:['нун','ن','ҳарф · охиридаги нун сақланади'],
+       hazf:['ҳазф','∅','ҳарф ёки нун тушади']};
+var ASL={R:'zamma',N:'fatha',J:'kasra',Z:'sukun'};
+var ORD={R:['zamma','vov','alif','nun'],N:['fatha','alif','kasra','yo','hazf'],J:['kasra','yo','fatha'],Z:['sukun','hazf']};
+/* сўз турлари. c: [ҳолат, аломат, катакдаги ёзув, олд ҳарф, мисол ([..] — аломат ҳарфи), «Ҳолат бўйича»да кўрсатилмасин] */
+var W=[
+ {g:'Ҳаракат билан эъробланади'},
+ {uz:'Муфрад исм',ar:'الْمُفْرَدُ',c:[['R','zamma','замма','','الْمُعَلِّ[مُ]'],['N','fatha','фатҳа','','الْمُعَلِّ[مَ]'],['J','kasra','касра','','الْمُعَلِّ[مِ]']]},
+ {uz:'Жам таксир',ar:'جَمْعُ التَّكْسِيرِ',c:[['R','zamma','замма','','الرِّجَا[لُ]'],['N','fatha','фатҳа','','الرِّجَا[لَ]'],['J','kasra','касра','','الرِّجَا[لِ]']]},
+ {uz:'Жам муаннас солим',ar:'جَمْعُ الْمُؤَنَّثِ السَّالِمُ',c:[['R','zamma','замма','','الْمُسْلِمَا[تُ]'],['N','kasra','касра','','الْمُسْلِمَا[تِ]'],['J','kasra','касра','','الْمُسْلِمَا[تِ]']]},
+ {uz:'Ғайри мунсариф исм',ar:'الْمَمْنُوعُ مِنَ الصَّرْفِ',c:[['R','zamma','замма','','أَحْمَ[دُ]',1],['N','fatha','фатҳа','','أَحْمَ[دَ]',1],['J','fatha','фатҳа','','أَحْمَ[دَ]']],
+  n:'Танвин олмайди. <span class="ar">ال</span> билан келса ёки музоф бўлса, жарда касра олади: <span class="ar">فِي الْمَسَاجِدِ</span>.'},
+ {uz:'Музорий феъл · охири соғлом',ar:'الْمُضَارِعُ الصَّحِيحُ الْآخِرِ',c:[['R','zamma','замма','','يَكْتُ[بُ]'],['N','fatha','фатҳа','لَنْ','يَكْتُ[بَ]'],['Z','sukun','сукун','لَمْ','يَكْتُ[بْ]']],
+  n:'Охирига ҳеч нарса уланмаган музорий феъл.'},
+ {uz:'Музорий феъл · охири иллатли',ar:'الْمُضَارِعُ الْمُعْتَلُّ الْآخِرِ',c:[['R','zamma','тақдирий замма','','يَدْعُو',1],['N','fatha','фатҳа','لَنْ','يَدْعُ[وَ]',1],['Z','hazf','ҳарф тушади','لَمْ','يَدْعُ']],
+  n:'Жазмда иллат ҳарфи тушади: <span class="ar">لَمْ يَرْمِ، لَمْ يَسْعَ</span>. Охири алиф бўлса, насбда ҳам фатҳа тақдирий: <span class="ar">لَنْ يَسْعَى</span>.'},
+ {g:'Ҳарф билан эъробланади'},
+ {uz:'Тасния',ar:'الْمُثَنَّى',c:[['R','alif','алиф','','الْمُسْلِمَ[ا]نِ'],['N','yo','йо','','الْمُسْلِمَ[يْ]نِ'],['J','yo','йо','','الْمُسْلِمَ[يْ]نِ']]},
+ {uz:'Жам музаккар солим',ar:'جَمْعُ الْمُذَكَّرِ السَّالِمُ',c:[['R','vov','вов','','الْمُسْلِمُ[و]نَ'],['N','yo','йо','','الْمُسْلِمِ[ي]نَ'],['J','yo','йо','','الْمُسْلِمِ[ي]نَ']]},
+ {uz:'Беш исм',ar:'الْأَسْمَاءُ الْخَمْسَةُ',c:[['R','vov','вов','','أَبُ[و]كَ'],['N','alif','алиф','','أَبَ[ا]كَ'],['J','yo','йо','','أَبِ[ي]كَ']],
+  n:'<span class="ar">أَبٌ، أَخٌ، حَمٌ، فُو، ذُو</span> — музоф бўлганда.'},
+ {uz:'Афъоли хамса',ar:'الْأَفْعَالُ الْخَمْسَةُ',c:[['R','nun','нун сақланади','','يَكْتُبُو[نَ]'],['N','hazf','нун тушади','لَنْ','يَكْتُبُوا'],['Z','hazf','нун тушади','لَمْ','يَكْتُبُوا']],
+  n:'<span class="ar">يَفْعَلَانِ، تَفْعَلَانِ، يَفْعَلُونَ، تَفْعَلُونَ، تَفْعَلِينَ</span>'}
+];
+function wd(t){return t.replace(/\[([^\]]+)\]/g,'<b>$1</b>')}
+function lo(t){return t.charAt(0).toLowerCase()+t.slice(1)}
+function drawLg(){
+  var h='';['R','N','J','Z'].forEach(function(c){h+='<span style="--k:'+K[c][3]+'"><i></i><b>'+lo(K[c][0])+'</b></span>'});
+  document.getElementById('lg').innerHTML=h;
+}
+function drawA(){
+  var h='';
+  W.forEach(function(w){
+    if(w.g){h+='<div class="nv-g">'+w.g+'</div>';return}
+    var vp=w.c.some(function(x){return x[3]});
+    h+='<section class="nv-c"><div class="nv-h"><h2>'+w.uz+'</h2><span class="ar" lang="ar">'+w.ar+'</span></div><div class="nv-r">';
+    w.c.forEach(function(x){
+      h+='<div class="nv-k" style="--k:'+K[x[0]][3]+'"><span class="l">'+K[x[0]][0]+'</span>'+(vp?'<span class="p ar" lang="ar">'+(x[3]||'')+'</span>':'')+
+        '<span class="a ar" lang="ar">'+wd(x[4])+'</span><span class="s">'+x[2]+'</span></div>';
+    });
+    h+='</div>'+(w.n?'<p class="nv-n">'+w.n+'</p>':'')+'</section>';
+  });
+  document.getElementById('pA').innerHTML=h;
+}
+function drawB(){
+  var h='';
+  ['R','N','J','Z'].forEach(function(c){
+    h+='<section class="nv-c" id="'+c+'" style="--k:'+K[c][3]+'"><div class="nv-ch"><div><h2><i></i>'+K[c][0]+'</h2><small>'+K[c][4]+'</small></div><span class="ar" lang="ar">'+K[c][2]+'</span></div>';
+    ORD[c].forEach(function(s){
+      var asl=ASL[c]===s,it='';
+      W.forEach(function(w){if(w.g)return;w.c.forEach(function(x){
+        if(x[0]!==c||x[1]!==s||x[5])return;
+        it+='<div class="nv-i"><span>'+lo(w.uz)+(x[2]!==S[s][0]?'<small>'+x[2]+'</small>':'')+'</span><span class="ar" lang="ar">'+(x[3]?'<i>'+x[3]+'</i> ':'')+wd(x[4])+'</span></div>';
+      })});
+      h+='<div class="nv-s" id="'+c+'-'+s+'"><div class="nv-sh"><span class="nv-gl'+(s==='hazf'?'':' ar')+(S[s][2].indexOf('ҳаракат')===0?' hr':'')+'" aria-hidden="true">'+S[s][1]+'</span><span class="nv-sn"><b>'+S[s][0]+'</b><small>'+S[s][2]+(asl?'':' · '+S[ASL[c]][0]+' ўрнида')+'</small></span>'+
+        (asl?'<span class="nv-asl">асл аломат</span>':'')+'</div>'+it+'</div>';
+    });
+    h+='</section>';
+  });
+  document.getElementById('pB').innerHTML=h;
+}
+function tab(n,keep){
+  var a=n==='A';
+  document.getElementById('pA').hidden=!a;document.getElementById('pB').hidden=a;
+  var tA=document.getElementById('tA'),tB=document.getElementById('tB');
+  tA.className=a?'on':'';tB.className=a?'':'on';tA.setAttribute('aria-pressed',a);tB.setAttribute('aria-pressed',!a);
+  if(!keep){try{sessionStorage.setItem('nahv-tab',n)}catch(e){}window.scrollTo(0,0)}
+}
+function go(){
+  var m=location.hash.match(/^#([RNJZ])(?::([a-z]+))?$/);
+  [].forEach.call(document.querySelectorAll('.nv-s.on,.nv-c.hit'),function(e){e.classList.remove('on','hit')});
+  if(!m){var t=null;try{t=sessionStorage.getItem('nahv-tab')}catch(e){}tab(t==='B'?'B':'A',1);return}
+  tab('B',1);
+  var card=document.getElementById(m[1]),row=m[2]?document.getElementById(m[1]+'-'+m[2]):null;
+  if(row)row.classList.add('on');
+  if(card){card.classList.add('hit');setTimeout(function(){var y=(row||card).getBoundingClientRect().top+window.pageYOffset-76;window.scrollTo(0,Math.max(0,y))},60)}
+}
+drawLg();drawA();drawB();go();
+document.getElementById('tA').onclick=function(){tab('A')};
+document.getElementById('tB').onclick=function(){tab('B')};
+window.addEventListener('hashchange',go);
+/* «Орқага»: дарсдан келинган бўлса — ўша дарсга (жойи сақланади), акс ҳолда бош саҳифага */
+document.getElementById('bk').addEventListener('click',function(e){
+  var r=document.referrer,same=false;try{same=r&&new URL(r).origin===location.origin}catch(x){}
+  if(same&&history.length>1){e.preventDefault();history.back()}
+});
+if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(function(){});
+</script>
+</body>
+</html>

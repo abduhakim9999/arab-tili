@@ -339,11 +339,17 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
 .y-kwh .pr{flex-shrink:0;font-size:24px;font-weight:800;color:var(--kt)}
 .y-kwb{display:flex;height:12px;margin:12px 0 8px;border-radius:99px;overflow:hidden;background:color-mix(in srgb,var(--mu) 18%,transparent)}
 .y-kwb i{display:block;height:100%}
-.y-kwb .m,.y-kwl .m{background:#3a73cc}.y-kwb .g,.y-kwl .g{background:#2fa36f}.y-kwb .o,.y-kwl .o{background:#d9a23a}.y-kwb .b,.y-kwl .b{background:#d0473e}
+.y-kwb .m,.y-kwl i.m{background:#3a73cc}.y-kwb .g,.y-kwl i.g{background:#2fa36f}.y-kwb .o,.y-kwl i.o{background:#d9a23a}.y-kwb .b,.y-kwl i.b{background:#d0473e}
 .y-kwl{display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;font-size:13.5px;color:var(--mu)}
 .y-kwl span{display:flex;align-items:center;gap:6px}
 .y-kwl i{flex-shrink:0;width:9px;height:9px;border-radius:50%}
 .y-kwl b{margin-left:auto;color:var(--tx);font-weight:700}
+.y-kwb .n,.y-kwl .n i{background:color-mix(in srgb,var(--mu) 45%,transparent)}
+.y-kwl span.n{grid-column:1/-1}
+.y-kws{margin:6px 0 0;font-size:13px;color:var(--mu)}
+.y-sh0{margin:-6px 0 10px}
+.y-li .t .m.sr{display:inline-flex;align-items:center;gap:3px;color:var(--y-ok)}
+.y-li .t .m.sr svg{width:14px;height:14px}
 .y-kk .y-b{margin:12px 0 0;min-height:54px;gap:8px;box-shadow:inset 0 -3px 0 var(--bd),0 4px 14px rgba(0,0,0,.22)}
 .y-kk .y-b svg{width:20px;height:20px}
 .y-kk .y-kk1{border:0;background:#E0B95A;color:#2B1D00;box-shadow:inset 0 -4px 0 rgba(0,0,0,.2),0 6px 18px rgba(0,0,0,.3)}
@@ -681,15 +687,16 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
      1) «N-КИТОБ СЎЗЛАРИ» kartasi — biladigan / kitobdagi jami so'z, foiz, 4 daraja chizig'i (Луғат bilan bir xil hisob — sozDaraja),
         asosiy tugma «Сўзларни такрорлаш» (kunlik takror: «билмайман» so'zlar birinchi), ixtiyoriy «Китоб имтиҳони» (hech narsani qulflamaydi);
      2) keyingi kitob — muqovasi kodda chizilgan karta, doim ochiq. Xaritada ham, ro'yxatda ham. */
-  var HT4 = ['m', 'g', 'o', 'b'], HN = { m: 'мустаҳкам', g: 'биламан', o: 'ўрганяпман', b: 'билмайман' };
+  var HT4 = ['m', 'g', 'o', 'b', 'n'], HN = { m: 'мустаҳкам', g: 'биламан', o: 'ўрганяпман', b: 'билмайман', n: 'сараланмаган' };   /* n — darsi hali saralanmagan (14.11) */
   function kitobKarta(k, H) {
-    var s = H.sz[k.n] || { j: 0, m: 0, g: 0, o: 0, b: 0 }, bil = s.m + s.g, pr = s.j ? Math.floor(bil * 100 / s.j) : 0, c = KR[k.n] || KR[1], hk = H.k[k.n];
+    var s = H.sz[k.n] || { j: 0, m: 0, g: 0, o: 0, b: 0, n: 0, sd: 0 }, bil = s.m + s.g, pr = s.j ? Math.floor(bil * 100 / s.j) : 0, c = KR[k.n] || KR[1], hk = H.k[k.n];
     var h = '<div class="y-kk"><div class="y-kw" style="--kr:' + c.r + ';--kh:' + c.hd + '">' +
       '<div class="y-kwh"><span class="kb">' + IC.kitob + k.n + '</span><div class="t"><small>' + k.n + '-КИТОБ СЎЗЛАРИ</small>' +
       '<b><em>' + bil + '</em> / ' + s.j + ' сўз</b></div><span class="pr">' + pr + '%</span></div>' +
       '<div class="y-kwb" role="img" aria-label="' + HT4.map(function (x) { return HN[x] + ' ' + s[x]; }).join(', ') + '">' +
         HT4.map(function (x) { return s[x] ? '<i class="' + x + '" style="width:' + (s[x] * 100 / s.j).toFixed(2) + '%"></i>' : ''; }).join('') + '</div>' +
-      '<div class="y-kwl">' + HT4.map(function (x) { return '<span><i class="' + x + '"></i>' + HN[x] + '<b>' + s[x] + '</b></span>'; }).join('') + '</div>' +
+      '<div class="y-kwl">' + HT4.map(function (x) { return x === 'n' && !s.n ? '' : '<span class="' + x + '"><i class="' + x + '"></i>' + HN[x] + '<b>' + s[x] + '</b></span>'; }).join('') + '</div>' +
+      (s.sd ? '<p class="y-kws">Яна ' + s.sd + ' та дарс сўзлари сараланмаган</p>' : '') +
       '<a class="y-b y-kk1" href="' + SN + 'takror.html">' + IC.soz + '<span>Сўзларни такрорлаш</span></a>' +
       '<button class="y-kx' + (H.hz === 'k' + k.n ? ' hz' : '') + '" data-i="k' + k.n + '">' + IC.kubok + '<span class="t"><b>Китоб имтиҳони</b><small>' +
         (hk.tez ? 'тез орада' : savolSoni('k', String(k.n)) + ' савол · ўзингизни синанг') + '</small></span>' +
@@ -706,7 +713,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
   }
   /* so'z darajalari kitob bo'yicha — takror.html sozlar() bilan bir xil qoida (o'zgarsa ikkalasi birga):
      BILDI kun ketma-ket to'g'ri — биламан (MUST kundan keyin ham to'g'ri — мустаҳкам); «билмайман» belgisi — билмайман (to'g'ri topa boshlasa — ўрганяпман);
-     «биламан» / «аниқ биламан» belgisi — биламан; qolgani — ўрганяпман. So'zlar — LG (atoqli ot va harfsiz, Луғатdagi kabi) */
+     «биламан» / «аниқ биламан» belgisi — биламан; darsi saralanmagan va javobsiz — сараланмаган (faqat shu kartada); qolgani — ўрганяпман. So'zlar — LG (atoqli ot va harfsiz, Луғатdagi kabi) */
   var BILDI = 3, MUST = 30;
   function sozDaraja() {
     var tz = new Date().getTimezoneOffset(), K = {}, S = {};
@@ -719,12 +726,13 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
       if (ora >= MUST * 864e5) x.s = true;
     });
     TUZ.forEach(function (k) {
-      var o = S[k.n] = { j: 0, m: 0, g: 0, o: 0, b: 0 };
-      k.b.forEach(function (b) { b.d.forEach(function (d) { (LG[d.n] || []).forEach(function (r) {
+      var o = S[k.n] = { j: 0, m: 0, g: 0, o: 0, b: 0, n: 0, sd: 0 };
+      k.b.forEach(function (b) { b.d.forEach(function (d) { if ((LG[d.n] || []).length && !W.s[d.n]) o.sd++; (LG[d.n] || []).forEach(function (r) {
         var x = K[r.id] || { d: 0 }, st;
         if (x.d >= BILDI) st = x.s ? 'm' : 'g';
         else if (W.b[r.id]) st = x.d ? 'o' : 'b';
         else if (W.a[r.id] || W.k[r.id]) st = 'g';
+        else if (!K[r.id] && !W.s[d.n]) st = 'n';     /* darsi saralanmagan, hali javob ham yo'q — «сараланмаган» (Луғат uni «mening so'zlarim»ga qo'shmaydi) */
         else st = 'o';
         o.j++; o[st]++;
       }); }); });
@@ -814,7 +822,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
       var u = H.d[d.n], qf = !u.ot && !u.op, ik = IK[d.n], r = u.r, lq = u.ls && u.mo && !u.lo;
       h += '<button class="y-li' + (H.hz === 'd' + d.n ? ' hz' : '') + (qf ? ' qf' : '') + (u.tez ? ' tz' : '') + '" data-i="d' + d.n + '" aria-label="' + d.n + '-дарс: ' + esc(d.uz) + (u.ot ? ', ўтилган' : u.tez ? ', тез орада' : qf ? ', навбати келмаган' : '') + '">' +
         (ik ? '<span class="ic" style="background:' + ik.l + '"><svg viewBox="0 0 64 64" aria-hidden="true">' + ik.s + '</svg></span>' : '<span class="ic">' + d.n + '</span>') +
-        '<span class="t"><b>' + d.n + '. ' + esc(d.uz) + '</b><span class="ar" lang="ar">' + esc(d.ar) + '</span>' + (lq ? '<span class="m">сўзларни саралаш қолди</span>' : '') + '</span>' +
+        '<span class="t"><b>' + d.n + '. ' + esc(d.uz) + '</b><span class="ar" lang="ar">' + esc(d.ar) + '</span>' + (lq ? '<span class="m">сўзларни саралаш қолди</span>' : u.ls && u.sr ? '<span class="m sr">сўзлар сараланди' + IC.ok + '</span>' : '') + '</span>' +
         (u.ot ? '<em class="ok">' + (r && !u.imt ? r.b + '%' : '') + IC.ok + '</em>' : u.tez ? '<em class="tz">тез орада</em>' : qf ? '' : r ? '<em>' + r.s + '%</em>' : '<em>' + IC.ong + '</em>') + '</button>';
     });
     var imt = function (t, i, x) {
@@ -955,6 +963,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
     ws.forEach(function (x) { if (W.b[x.id]) bel[x.id] = 1; });
     document.body.classList.add('y-ses');
     app.innerHTML = '<div class="y-in"><div class="y-top"><button id="yq" aria-label="Йўлга қайтиш">‹</button><div><small>' + n + '-дарс · ' + ws.length + ' сўз</small><h1>Сўзларни саралаш</h1></div></div>' +
+      (W.s[n] ? '<p class="y-sh0">' + yorliq('ok', IC.ok + 'Сараланди') + '</p>' : '<p class="y-sh0">' + yorliq('qf', 'Ҳали сараланмаган') + '</p>') +   /* 14.11: holati ko'rinsin */
       '<p class="y-sp">Билмаган сўзларингизни белгиланг — улар «Луғат»га тушади.</p><div class="y-sl">' +
       ws.map(function (x) { return '<button class="y-sr" data-id="' + x.id + '" aria-pressed="' + (bel[x.id] ? 'true' : 'false') + '"><b class="ar" lang="ar">' + esc(x.ar) + '</b><span>' + esc(mano(x)) + (shakllar(x) ? '<small>' + shakllar(x) + '</small>' : '') + '</span><i aria-hidden="true">' + IC.x + '</i></button>'; }).join('') +
       '</div></div>';

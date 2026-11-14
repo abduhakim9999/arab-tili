@@ -43,15 +43,12 @@ a:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
   }
   var QT = '<path d="M26 44h18M26 49h18M26 54h11" stroke="#F3D58C" stroke-width="2" stroke-linecap="round" opacity=".75"/>';
   var CH = '<svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>';
-  var FNS = 10;                                        /* «Феъллар» qismlari soni (bosh sahifadagi bilan bir xil) */
 
-  var sr = (J('sarf-holat') || {}).b1, fb = J('fl200_best') || {}, fn = Math.min(Object.keys(fb).length, FNS);
+  var sr = (J('sarf-holat') || {}).b1;
   var K = [
     { h: 'sarf.html', n: 'Сарф', a: 'الصَّرْفُ', l: '#E6EEF8', s: cov('ص', '#2E5E9A', '#1F4673', QT),
       t: sr && sr.best != null ? '1-боб · машқ ' + sr.best + '%' : 'Боблар · тусланиш · машқ', p: sr && sr.best != null ? sr.best : null },
-    { h: 'feellar.html', n: 'Феъллар', a: 'الْأَفْعَالُ', l: '#F8E4E8',
-      s: cov('ف', '#9B2C3F', '#6E1C2B', '<path d="M29 46l4 4 8-8" stroke="#F3D58C" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'),
-      t: fn ? 'Қисмлар: ' + fn + ' / ' + FNS : '200 феъл · ' + FNS + ' қисм', p: fn ? Math.round(fn * 100 / FNS) : null },
+    /* «Феъллар» (200 fe'l) — 14.11.2026 ilovadan olib tashlandi (foydalanuvchi qarori); fe'llar va ovozlari saqlangan: fq/ (docs/texnik.md 7) */
     { h: 'nahv.html', n: 'Наҳв', a: 'النَّحْوُ', l: '#E3F2EA', s: cov('ن', '#0F7A4F', '#0A5236', QT), t: 'Эъроб аломатлари жадвали', p: null },
     { h: 'tinglash.html', n: 'Эшитиш', a: 'الِاسْتِمَاعُ', l: '#EEE8F7',
       s: cov('س', '#6B4FA0', '#4C3577', '<path d="M27 51v-3a7 7 0 0 1 14 0v3" stroke="#F3D58C" stroke-width="2.2" fill="none" stroke-linecap="round"/><rect x="25" y="48" width="4" height="6" rx="1.5" fill="#F3D58C"/><rect x="39" y="48" width="4" height="6" rx="1.5" fill="#F3D58C"/>'),

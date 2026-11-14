@@ -15,9 +15,20 @@
   var seen = new WeakSet(), setAttr = new WeakMap();
   var V = {};   /* ruscha qiymatlar: kod ruscha matnni qayta qo'ysa (nusxa) — o'zgarmaydi, «topilmadi» ham emas */
   if (!D['«»']) D['«»'] = '«»';
+  /* Son kelishigi (14.11.2026): lug'at qiymatida {слово|слова|слов} — 1 / 2–4 / 5+ shakl. Son — shu satrda undan oldingi
+     raqam, bo'lmasa — matndan oldingi qo'shni element oxiridagi raqam (CTX; masalan «<b>6</b><span>сўзни биламан</span>»). */
+  var reP = /\{([^{}|]*)\|([^{}|]*)\|([^{}|]*)\}/g, CTX = null;
+  function pl(x, a, b, c) { var d = x % 10, h = x % 100; return d === 1 && h !== 11 ? a : d >= 2 && d <= 4 && (h < 12 || h > 14) ? b : c; }
+  function sonOl(v) {
+    return v.replace(reP, function (m, a, b, c, o, all) { var x = all.slice(0, o).match(/(\d+)\D*$/); x = x ? +x[1] : CTX; return x == null ? c : pl(x, a, b, c); });
+  }
+  function ctxSon(x) {
+    var p = x.previousSibling || (x.parentNode && x.parentNode.previousSibling), m = p && (p.textContent || '').match(/(\d+)\s*$/);
+    return m ? +m[1] : null;
+  }
   Object.keys(D).forEach(function (k) {
     var v = D[k].replace(/\d+(?:[.,]\d+)?/g, '#').replace(/\{\d+\}/g, '◌');
-    V[v.charAt(0).toLowerCase() + v.slice(1)] = 1;
+    [1, 2, 5].forEach(function (x) { var w = v.replace(reP, function (m, a, b, c) { return pl(x, a, b, c); }); V[w.charAt(0).toLowerCase() + w.slice(1)] = 1; });
   });
 
   /* Ma'lumot fayllari (data/*.json) ruscha rejimda (14.11.2026; docs/texnik.md 12): «Йўл», «Луғат» va imtihonlar
@@ -85,6 +96,7 @@
         return '«' + (r == null ? Q[c.charCodeAt(0) - 0xF800] : r) + '»';
       });
     if (bad) return null;
+    v = sonOl(v);
     return up ? cap(v) : v;
   }
   function look(s, G, Q) {
@@ -145,7 +157,8 @@
     });
     var G = [], Q = [];
     S = S.replace(reGrp, function (m) { G.push(m); return String.fromCharCode(0xF000 + G.length - 1); });
-    var R = trStr(S, G, Q);
+    CTX = ctxSon(U[0]);
+    var R = trStr(S, G, Q); CTX = null;
     if (R == null || R === S) return;
     R = R.replace(/[\uF000-\uF7FF]/g, function (c) { return G[c.charCodeAt(0) - 0xF000]; });
     var hasEl = A.some(function (a) { return typeof a !== 'string'; });

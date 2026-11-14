@@ -324,7 +324,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
 .y-cta small{font-size:14.5px;font-weight:600;color:inherit;opacity:.78;white-space:nowrap}
 @media (max-width:380px){.y-bb b{font-size:15px}}
 /* китоб охири (14.11, фойдаланувчи): битта карта — китоб сўзлари (нечтаси билинади, %, 4 даража) + «Сўзларни такрорлаш»;
-   китоб имтиҳони — шу картадаги ихтиёрий тугма; кейинги китоб — муқоваси кўринадиган алоҳида карта */
+   китоб имтиҳони — шу картадаги ихтиёрий тугма; кейинги китоб — муқоваси билан шу картанинг охирги қатори */
 .y-kk{position:relative;z-index:3;padding:14px 16px 0;max-width:528px;margin:0 auto}
 .y-kw,.y-kn{--kt:color-mix(in srgb,var(--kh) 72%,var(--tx))}
 .y-lsb .y-kk{padding:14px 0 0}
@@ -365,17 +365,19 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
 .y-kx em.ok{color:#2fa36f}
 .y-kx em svg,.y-kx>svg:last-child{width:18px;height:18px}
 .y-kx>svg:last-child{color:var(--mu)}
-.y-kn{display:flex;align-items:center;gap:14px;width:100%;margin-top:12px;padding:12px 14px 12px 12px;box-sizing:border-box;border-radius:20px;border:1.5px solid var(--bd);background:var(--cd);color:var(--tx);font:inherit;text-align:left;cursor:pointer;box-shadow:inset 0 -4px 0 var(--bd),0 4px 14px rgba(0,0,0,.18)}
+/* 14.11 (foydalanuvchi): keyingi kitob — alohida karta emas, «N-КИТОБ СЎЗЛАРИ» kartasining oxirgi qatori (kitob oxiri — bitta karta) */
+.y-kn{display:flex;align-items:center;gap:12px;width:100%;margin-top:10px;padding:9px 12px 9px 10px;box-sizing:border-box;border-radius:14px;border:1.5px solid color-mix(in srgb,var(--kr) 50%,transparent);background:color-mix(in srgb,var(--kr) 8%,transparent);color:var(--tx);font:inherit;text-align:left;cursor:pointer}
 .y-kn:active{transform:translateY(2px)}
 /* муқова: орқаси (корешок), тилла ҳошия, арабча ном, катта рақам, саккиз қиррали нақш */
-.y-kv{position:relative;flex-shrink:0;width:78px;height:104px;border-radius:4px 10px 10px 4px;overflow:hidden;background:linear-gradient(140deg,var(--kr),var(--kh));color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;box-shadow:inset 7px 0 0 rgba(0,0,0,.2),inset 9px 0 0 rgba(255,255,255,.12),0 5px 12px rgba(0,0,0,.28)}
-.y-kv::before{content:'';position:absolute;inset:6px 6px 6px 13px;border:1.5px solid rgba(246,220,148,.85);border-radius:5px}
-.y-kv .ar{position:relative;font-size:11px;line-height:1.5;color:#f6dc94;padding-left:7px}
-.y-kv b{position:relative;font-size:34px;font-weight:800;line-height:1;padding-left:7px}
-.y-kv .nq{position:absolute;right:-18px;bottom:-20px;width:70px;height:70px;opacity:.2}
+.y-kv{position:relative;flex-shrink:0;width:54px;height:72px;border-radius:4px 10px 10px 4px;overflow:hidden;background:linear-gradient(140deg,var(--kr),var(--kh));color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;box-shadow:inset 7px 0 0 rgba(0,0,0,.2),inset 9px 0 0 rgba(255,255,255,.12),0 5px 12px rgba(0,0,0,.28)}
+.y-kv::before{content:'';position:absolute;inset:4px 4px 4px 10px;border:1.5px solid rgba(246,220,148,.85);border-radius:5px}
+.y-kv .ar{position:relative;font-size:8px;line-height:1.4;color:#f6dc94;padding-left:6px}
+.y-kv b{position:relative;font-size:24px;font-weight:800;line-height:1;padding-left:7px}
+.y-kv .nq{position:absolute;right:-14px;bottom:-16px;width:50px;height:50px;opacity:.2}
 .y-kn .t{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
 .y-kn .t small{font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--kt)}
-.y-kn .t b{font-size:19px}
+.y-kn .t b{font-size:17px}
+.y-kn .t b::first-letter{text-transform:uppercase}
 .y-kn .t .m{font-size:13.5px;color:var(--mu)}
 .y-kn .go{flex-shrink:0;display:flex;align-items:center;gap:2px;font-weight:700;color:var(--kt)}
 .y-kn .go svg{width:18px;height:18px}
@@ -687,7 +689,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
   /* kitob oxiri (14.11.2026, foydalanuvchi: «Китоб имтиҳони» va «КИТОБ ОХИРИ» bitta bo'lsin; muhimi — so'zlarni bilish va nechtasini bilgani):
      1) «N-КИТОБ СЎЗЛАРИ» kartasi — biladigan / kitobdagi jami so'z, foiz, 4 daraja chizig'i (Луғат bilan bir xil hisob — sozDaraja),
         asosiy tugma «Сўзларни такрорлаш» (kunlik takror: «билмайман» so'zlar birinchi), ixtiyoriy «Китоб имтиҳони» (hech narsani qulflamaydi);
-     2) keyingi kitob — muqovasi kodda chizilgan karta, doim ochiq. Xaritada ham, ro'yxatda ham. */
+     2) keyingi kitob — muqovasi kodda chizilgan, doim ochiq; 14.11 dan shu kartaning oxirgi qatori (alohida karta emas). Xaritada ham, ro'yxatda ham. */
   var HT4 = ['m', 'g', 'o', 'b', 'n'], HN = { m: 'мустаҳкам', g: 'биламан', o: 'ўрганяпман', b: 'билмайман', n: 'сараланмаган' };   /* n — darsi hali saralanmagan (14.11) */
   function kitobKarta(k, H) {
     /* 14.11 (foydalanuvchi): 2-kitob oxirida — 1 va 2-kitob qo'shib («1–2-КИТОБ СЎЗЛАРИ»), ostida har kitob alohida */
@@ -705,7 +707,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
       '<a class="y-b y-kk1" href="' + SN + 'takror.html">' + IC.soz + '<span>Сўзларни такрорлаш</span></a>' +
       '<button class="y-kx' + (H.hz === 'k' + k.n ? ' hz' : '') + '" data-i="k' + k.n + '">' + IC.kubok + '<span class="t"><b>Китоб имтиҳони</b><small>' +
         (hk.tez ? 'тез орада' : savolSoni('k', String(k.n)) + ' савол · ўзингизни синанг') + '</small></span>' +
-        (hk.r ? '<em' + (hk.ot ? ' class="ok"' : '') + '>' + hk.r.b + '%' + (hk.ot ? IC.ok : '') + '</em>' : IC.ong) + '</button></div>';
+        (hk.r ? '<em' + (hk.ot ? ' class="ok"' : '') + '>' + hk.r.b + '%' + (hk.ot ? IC.ok : '') + '</em>' : IC.ong) + '</button>';
     var kn = TUZ[TUZ.indexOf(k) + 1];
     if (kn) {
       var c2 = KR[kn.n] || KR[1], s2 = H.sz[kn.n] || { j: 0, m: 0, g: 0 };
@@ -714,7 +716,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
         '<span class="t"><small>КЕЙИНГИ КИТОБ</small><b>' + kn.n + '-китоб</b><span class="m">' + (s2.m + s2.g) + ' / ' + s2.j + ' сўз</span></span>' +
         '<span class="go">Очиш' + IC.ong + '</span></button>';
     }
-    return h + '</div>';
+    return h + '</div></div>';   /* .y-kw (keyingi kitob ham ichida) va .y-kk */
   }
   /* so'z darajalari kitob bo'yicha — takror.html sozlar() bilan bir xil qoida (o'zgarsa ikkalasi birga):
      BILDI kun ketma-ket to'g'ri — биламан (MUST kundan keyin ham to'g'ri — мустаҳкам); «билмайман» belgisi — билмайман (to'g'ri topa boshlasa — ўрганяпман);

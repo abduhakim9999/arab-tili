@@ -91,7 +91,7 @@
       d = document.createElement('div');
       d.id = 'kr-d'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'kr-h');
       d.innerHTML = '<div class="kr-k"><div class="kr-ib">' + TG + '</div><h2 id="kr-h">Давом этиш учун киринг</h2>' +
-        '<p>Натижаларингиз сақланиши учун бир марта Telegram орқали киринг — телефон алмашса ҳам ҳаммаси тикланади. Киришсиз фақат 1-дарсни ўқиш ва тинглаш мумкин.</p>' +
+        /* 14.11.2026 (foydalanuvchi): ortiqcha gap yo'q — sarlavha va tugma */
         '<button class="kr-tg" id="kr-b">' + TG + 'Telegram орқали кириш</button><p class="kr-x" id="kr-x" role="status"></p>' +
         (yopsa ? '<button class="kr-uy" id="kr-y" style="border:0;background:none;font:inherit;cursor:pointer">Ёпиш</button>' : '<a class="kr-uy" href="' + (HOME || 'yol.html') + '">Бош саҳифага қайтиш</a>') + '</div>';
       document.body.appendChild(d);

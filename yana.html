@@ -20,6 +20,11 @@ button{font-family:inherit;cursor:pointer}
 a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
 .ar{font-family:"DarsNaskh","Noto Naskh Arabic",serif;direction:rtl;unicode-bidi:isolate;font-weight:400}
 /* hisob kartasi */
+.n-til{cursor:default}.n-til .t{flex:1;min-width:0}
+.n-sg{display:flex;padding:3px;gap:2px;border-radius:14px;background:var(--tint);flex-shrink:0}
+.n-sg button{min-width:44px;height:44px;padding:0 11px;border-radius:11px;border:0;background:none;color:var(--mu);font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.n-sg button[aria-pressed="true"]{background:var(--cd);box-shadow:0 1px 3px rgba(20,30,25,.2);color:var(--ac);font-weight:700}
+@media (max-width:350px){.n-sg button{padding:0 8px;font-size:13px}}
 .n-h{background:var(--cd);border:1.5px solid var(--bd);border-radius:20px;box-shadow:var(--sh);padding:16px;margin:0 0 18px}
 .n-hr{display:flex;align-items:center;gap:14px}
 .n-av{width:56px;height:56px;border-radius:50%;background:var(--tint);color:var(--ac);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:24px;font-weight:700}
@@ -45,8 +50,10 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
 <body>
 <header class="q-hd"><div class="q-hr"><div><h1>Яна</h1></div></div></header>
 <main class="q-w">
+  <!-- Тил (14.11.2026, foydalanuvchi: sozlamadan chiqib, eng tepada). «Ўзбекча&#x2063;» — ru.js o'girmaydi, tugma doim o'z tilida -->
+  <div class="q-rw n-til"><span class="q-ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span><span class="t">Тил</span><div class="n-sg" role="group" aria-label="Тил"><button data-v="uz">Ўзбекча&#x2063;</button><button data-v="ru" lang="ru">Русский</button></div></div>
   <a class="q-rw" id="soz" href="sozlamalar.html"><span class="q-ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 13.5a7.6 7.6 0 0 0 0-3l2-1.5-2-3.4-2.3.9a7.6 7.6 0 0 0-2.6-1.5L14.1 2.5H9.9L9.5 5a7.6 7.6 0 0 0-2.6 1.5l-2.3-.9-2 3.4 2 1.5a7.6 7.6 0 0 0 0 3l-2 1.5 2 3.4 2.3-.9a7.6 7.6 0 0 0 2.6 1.5l.4 2.5h4.2l.4-2.5a7.6 7.6 0 0 0 2.6-1.5l2.3.9 2-3.4z"/></svg></span>
-    <span class="t">Созламалар<small>Тил, кўриниш, ёзув, овоз, такрор</small></span><svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></a>
+    <span class="t">Созламалар<small>Кўриниш, ёзув, овоз, такрор</small></span><svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></a>
   <section class="n-h" aria-label="Ҳисоб">
     <div class="n-hr"><span class="n-av" id="av"></span><div><b id="hn">Ҳисоб</b><small id="hs"></small></div></div>
     <button class="n-tg" id="tgk" hidden><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-1 .4-1 1.1-.2 1.4l4.7 1.5 1.8 5.6c.2.6.4.8.9.8s.6-.2.9-.5l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.9-1.4-1.8zM9.8 14.3l8.2-5.2c.4-.2.7-.1.4.2l-6.9 6.3-.3 3.2z"/></svg>Telegram орқали кириш</button>
@@ -73,6 +80,20 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
   var $ = function (i) { return document.getElementById(i); };
   var ODAM = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg>';
   $('soz').href = SN + 'sozlamalar.html'; $('yor').href = SN + 'yoriqnoma.html';
+  /* Тил (14.11.2026): «Созламалар»dan bu yerga; localStorage «til» (uz|ru), sahifa qayta yuklanadi — til qatlami ochilganda ulanadi */
+  (function () {
+    var g = document.querySelector('.n-sg'), cur = 'uz';
+    try { cur = localStorage.getItem('til') === 'ru' ? 'ru' : 'uz'; } catch (e) {}
+    [].forEach.call(g.querySelectorAll('button'), function (b) {
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-v') === cur));
+      b.onclick = function () {
+        var v = b.getAttribute('data-v'); if (v === cur) return;
+        try { localStorage.setItem('til', v); } catch (e) {}
+        [].forEach.call(g.querySelectorAll('button'), function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        setTimeout(function () { location.reload(); }, 250);
+      };
+    });
+  })();
   if (window.Qobiq && Qobiq.ru) Qobiq.tez($('yor'));     /* yo'riqnomaning ruschasi hali yo'q */
 
   /* hisob: Telegram ichida — foydalanuvchi nomi (natija Telegram hisobiga bog'langan kod bilan saqlanadi, baza.js);

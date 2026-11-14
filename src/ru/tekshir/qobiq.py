@@ -44,6 +44,7 @@ SEED = {
     'soz': json.dumps({'v': 1, 'b': {str(i): 1 for i in ids1[:8]}, 'k': {str(i): 1 for i in ids1[8:14]}, 's': {str(n): now for n in (1, 2, 3, 4)}, 'a': {}, 't': now}),
     'yol': json.dumps({'v': 1, 'd': {'1': {'b': 90, 's': 90, 'j': 10, 't': now}, '2': {'b': 60, 's': 60, 'j': 10, 't': now}}, 'e': {}}),
     'yol-kor': 'r',
+    'baza-tg': '1',                    # 14.11.2026: kirgan o'quvchi — Луғат va imtihonlar kirishsiz yopiq (tg.js Kirish)
     'baza-eski': json.dumps({'v': 1, 'ar': now, 'ls': {'x': '1'}}),   # «Ўчирилган: … · яна N кун сақланади» qatori ham ko'rinsin
 }
 INIT = """(()=>{try{if(!sessionStorage.__seed){const S=%s;for(const k in S)localStorage.setItem(k,S[k]);sessionStorage.__seed=1}}catch(e){}})()""" % json.dumps(SEED)

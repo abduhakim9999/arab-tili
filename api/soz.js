@@ -16,7 +16,7 @@
 const crypto = require('crypto');
 const TOK = process.env.BLOB_READ_WRITE_TOKEN || '';
 const STORE = TOK.split('_')[3] || '';
-const MAX = 600 * 1024;                                  // bitta o'quvchi hujjati chegarasi
+const MAX = 1536 * 1024;                                 // bitta o'quvchi hujjati chegarasi (14.11.2026: 600 KB → 1,5 MB — dars holati va sozlamalar ham qo'shildi; takror tarixini ixchamlash — docs/rejalar.md 0)
 const RUXSAT = ['https://nurut-tolib.vercel.app', 'https://abduhakim9999.github.io'];
 
 const ULASH_MS = 10 * 60 * 1000;                         // ulash belgisi shuncha vaqt amal qiladi

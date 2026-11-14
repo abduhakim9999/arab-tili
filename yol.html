@@ -881,6 +881,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
 
   /* ---- so'zlarni saralash: dars so'zlari ro'yxati, bilmaganlar belgilanadi → baza (W) ---- */
   function sarala(n) {
+    if (window.Kirish && Kirish.kerak()) { Kirish.oyna(true); return; }   /* 14.11.2026: natija — Telegram orqali kirgach (tg.js) */
     var ws = LG[n] || [], bel = {};
     ws.forEach(function (x) { if (W.b[x.id]) bel[x.id] = 1; });
     document.body.classList.add('y-ses');
@@ -1016,6 +1017,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
   /* ---- imtihon ---- */
   var IM = null, tmq = null;
   function imtihon(id) {
+    if (window.Kirish && Kirish.kerak()) { Kirish.oyna(true); return; }   /* 14.11.2026: natija — Telegram orqali kirgach (tg.js) */
     var t = id[0], kalit = id.slice(1);
     if (((t === 'b' ? P.b : P.k)[kalit] || {}).tez) return;   /* ruscha rejim: «Тез орада» */
     IM = { id: id, t: t, kalit: kalit, s: aralash(savollar(t, kalit)), i: 0, n: 0, tog: 0, xato: [], t0: 0 };   /* n, tog — birinchi urinishlar; qayta so'ralgan so'z hisobga kirmaydi */

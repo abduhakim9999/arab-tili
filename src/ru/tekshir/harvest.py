@@ -14,6 +14,7 @@ errs=[]
 with sync_playwright() as p:
     b=p.chromium.launch(executable_path='/usr/bin/google-chrome',args=['--no-sandbox'])
     cx=b.new_context(viewport={'width':390,'height':844},device_scale_factor=2,service_workers='block',has_touch=True,is_mobile=True,locale='ru-RU')
+    cx.add_init_script("try{localStorage.setItem('baza-tg','1')}catch(e){}")   # 14.11.2026: kirgan o'quvchi — 1-dars Луғат/Машқ kirishsiz yopiq (tg.js Kirish)
     pg=cx.new_page()
     pg.on('console',lambda m: errs.append(m.text) if m.type=='error' else None)
     pg.on('pageerror',lambda e: errs.append('PAGEERROR '+str(e)))

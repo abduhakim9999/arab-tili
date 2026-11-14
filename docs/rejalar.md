@@ -3,7 +3,7 @@
 Foydalanuvchi aytganda qilinadi. Qilingani shu yerdan o'chirilib, tegishli joyga (texnik.md / CLAUDE.md) yoziladi.
 Manba: 11.11.2026 tadqiqoti (Claude Docs: «Arab Tili loyihasi: yo'lga qo'yilganlik tadqiqoti»).
 
-## 0. Navbatdagi ish — hamma narsa akkaunt orqali (14.11.2026, foydalanuvchi qarori; **boshlanmagan, «qil» kutilyapti — yangi chatda**)
+## 0. Hamma narsa akkaunt orqali (14.11.2026, foydalanuvchi qarori; **qilindi 14.11.2026 — `tayyor-kitob-oxiri`, joylash kutilmoqda; takror tarixini ixchamlash — qoldi, `docs/texnik.md` 17**)
 Foydalanuvchi: «kerakli hamma narsa akkaunt orqali saqlanib qolsin, boshqa telefonda ishlatsa ham ochilsin»; «Луғат» va «Машқ» kirishsiz ochilmasin (natija yo'qolishi mumkin) — «hamma shunday», 1-dars «Машқ»i ham.
 - **Kirishsiz** faqat 1-darsni o'qish va eshitish. Natija yaratadigan hammasi — 1-dars «Машқ»i, so'zlarni saralash, «Луғат»/takror, Сарф/Феъллар mashqlari, bob/kitob imtihonlari — Telegram orqali kirgandan keyin (`tg.js` dagi «Давом этиш учун киринг» oynasi; Telegram ichida so'ralmaydi). Ko'rish/sinov sahifasida server yo'q.
 - **Serverga qo'shiladi** (`baza.js` `KEYS`/`lokal`/`birlash`/`qoy`, `api/soz.js` — hujjat 600 KB chegarasi): darslar holati `darsN-holat` (Машқ javoblari, qayerda to'xtagan; hozir faqat Telegram bulutiga — `tg.js`), Сарф `sarf-holat`, Феъллар `fel_done`/`fl200_*`, sozlamalar (`sozlama`, `sozlama-q`, `til`, `dars-uz`, `dars-tezlik`, `tinglash-*`, `fe-pref`), oxirgi dars `oxirgi-dars`. Birlashtirish qoidasi har biriga (yangisi ustun / eng yaxshi natija); «Натижаларни тозалаш» va «Аккаунтни ўчириш» ularga ham tegishi kerakmi — kelishiladi.

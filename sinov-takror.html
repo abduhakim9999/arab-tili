@@ -174,6 +174,12 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 /* 3 ҳолат (14.11): катта сонлар — босилса рўйхат шу ҳолат бўйича */
 .lg-3{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 0}
 .lg-bn{display:flex;align-items:baseline;gap:10px;margin:2px 0 0}
+.lg-kt{display:flex;flex-direction:column;gap:6px;margin:10px 0 2px}
+.lg-kr{display:flex;align-items:center;gap:10px;font-size:13.5px}
+.lg-kr span{flex-shrink:0;font-weight:700;color:var(--kr)}
+.lg-kr i{flex:1;height:10px;border-radius:5px;background:color-mix(in srgb,var(--kr) 16%,var(--tint));overflow:hidden}
+.lg-kr u{display:block;height:100%;min-width:4px;border-radius:5px;background:var(--kr)}
+.lg-kr b{flex-shrink:0;font-weight:600;color:var(--mu);font-variant-numeric:tabular-nums}
 .lg-bn b{font-size:46px;line-height:1.05;font-weight:800;color:#1f8f5c;font-variant-numeric:tabular-nums}
 .lg-bn span{font-size:16px;line-height:1.35;color:var(--mu)}
 .lg-bn em{font-style:normal;font-weight:700;color:#2c63b8}
@@ -371,6 +377,15 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
     var S = sozlar(), H = menHisob(S), M = H.men, lv = {}, nom = {};
     var MT_ = LT ? M.filter(function (x) { return turi(x.r) === LT; }) : M, c = { m: 0, g: 0, o: 0, b: 0 };   /* sonlar — tanlangan tur ichida */
     MT_.forEach(function (x) { c[x.st]++; });
+    /* kitob bo'yicha (14.11.2026, foydalanuvchi): «1-китоб: biladigan / kitobdagi jami so'z» — boshlangan kitoblar (hech biri bo'lmasa — 1-kitob).
+       Jami — saytdagi darslar bo'yicha (yangi dars qo'shilsa o'sadi); rang — kitob muqovasi (yol.html KR bilan bir xil) */
+    var KB = {}, kn = {}, KRG = { 1: '#E07A1F', 2: '#5FA332' };
+    D.d.forEach(function (d) { kn[d.n] = d.kitob; });
+    S.forEach(function (x) { var k = kn[x.r.d]; if (!k) return; var o = KB[k] = KB[k] || { j: 0, b: 0, f: 0 }; o.j++; if (x.st === 'g' || x.st === 'm') o.b++; });
+    M.forEach(function (x) { var k = kn[x.r.d]; if (KB[k]) KB[k].f = 1; });
+    var kq = Object.keys(KB).filter(function (k) { return KB[k].f; }); if (!kq.length && KB[1]) kq = ['1'];
+    var kitobQ = '<div class="lg-kt">' + kq.map(function (k) { var o = KB[k];
+      return '<div class="lg-kr" style="--kr:' + (KRG[k] || '#1f8f5c') + '"><span>' + k + '-китоб</span><i><u style="width:' + Math.round(o.b * 100 / o.j) + '%"></u></i><b>' + o.b + ' / ' + o.j + ' сўз</b></div>'; }).join('') + '</div>';
     var TN = { i: 0, f: 0, h: 0 }; M.forEach(function (x) { TN[turi(x.r)]++; });
     var t = hozir(), bg = E.bugun(t), dt = new Date(t);
     if (LF !== 'h' && !c[LF]) LF = 'h';
@@ -379,7 +394,7 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
       (SINOV ? '<div class="tq-sn"><span>🧪 Синов · бугун ' + ('0' + dt.getDate()).slice(-2) + '.' + ('0' + (dt.getMonth() + 1)).slice(-2) + '</span><button id="s1">+1 кун</button><button id="s0">Тозалаш</button></div>' : '') +
       '<section class="tq-c"><div class="tq-h">Сўзларим' + (LT ? ' · ' + NOM[LT] : '') + '<button class="tq-ib" id="bi" aria-expanded="false" aria-controls="biz" aria-label="Қандай ҳисобланади">' + INF + '</button></div>' +
       '<div class="lg-bn"><b>' + (c.g + c.m) + '</b><span>сўзни биламан' + (c.m ? ', шундан <em>' + c.m + ' таси мустаҳкам</em>' : '') + '</span></div>' +
-      '<div class="lg-3" role="group" aria-label="Ҳолат бўйича">' + HT4.map(function (k) {
+      kitobQ + '<div class="lg-3" role="group" aria-label="Ҳолат бўйича">' + HT4.map(function (k) {
         return '<button class="lg-hb ' + k + '" data-h="' + k + '" aria-pressed="' + (LF === k) + '"><b>' + c[k] + '</b><span><i></i>' + HN[k][0].toUpperCase() + HN[k].slice(1) + '</span></button>'; }).join('') + '</div>' +
       '<div class="tq-iz" id="biz" hidden>Сўзни турли кунларда <b>' + BILDI + ' марта кетма-кет</b> тўғри топсангиз — «биламан» бўлади ва «Билмаганларим»дан чиқади. <b>' + MUST + ' кун</b> ва ундан кўп вақт ўтиб сўралганда ҳам тўғри топсангиз — «мустаҳкам». Хато қилсангиз — яна «билмайман». Рақамни боссангиз — фақат шу сўзлар кўринади. <a href="' + SN + 'yoriqnoma.html#takror">Батафсил</a></div>' +
       (bg.jami ? '<button class="tq-b tq-b1 lg-go" id="go">Такрорлаш · ' + (bg.soz ? bg.soz + ' сўз' : '') + (bg.soz && bg.savol ? ' · ' : '') + (bg.savol ? bg.savol + ' савол' : '') + '</button>' : '<div class="lg-tm">Бугунга тамом<small>эртага ' + E.ertaga(t) + ' та</small></div>') +

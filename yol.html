@@ -323,8 +323,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
 .y-cta svg{width:18px;height:18px;flex-shrink:0;color:inherit}
 .y-cta small{font-size:14.5px;font-weight:600;color:inherit;opacity:.78;white-space:nowrap}
 @media (max-width:380px){.y-bb b{font-size:15px}}
-/* китоб охири (14.11, фойдаланувчи): битта карта — китоб сўзлари (нечтаси билинади, %, 4 даража) + «Сўзларни такрорлаш»;
-   китоб имтиҳони — шу картадаги ихтиёрий тугма; кейинги китоб — муқоваси билан шу картанинг охирги қатори */
+/* китоб охири (14.11, фойдаланувчи): битта карта — «N-КИТОБ ОХИРИ» + китоб имтиҳони + кейинги китоб (муқоваси билан); статистика — «Луғат»да */
 .y-kk{position:relative;z-index:3;padding:14px 16px 0;max-width:528px;margin:0 auto}
 .y-kw,.y-kn{--kt:color-mix(in srgb,var(--kh) 72%,var(--tx))}
 .y-lsb .y-kk{padding:14px 0 0}
@@ -334,27 +333,10 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
 .y-kwh .kb svg{width:20px;height:20px;margin-bottom:2px}
 .y-kwh .t{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
 .y-kwh small{font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--kt)}
-.y-kwh b{font-size:17px;line-height:1.25;color:var(--mu);font-weight:600}
-.y-kwh b em{font-style:normal;font-size:26px;font-weight:800;color:var(--tx)}
-.y-kwh .pr{flex-shrink:0;font-size:24px;font-weight:800;color:var(--kt)}
-.y-kwb{display:flex;height:12px;margin:12px 0 8px;border-radius:99px;overflow:hidden;background:color-mix(in srgb,var(--mu) 18%,transparent)}
-.y-kwb i{display:block;height:100%}
-.y-kwb .m,.y-kwl i.m{background:#3a73cc}.y-kwb .g,.y-kwl i.g{background:#2fa36f}.y-kwb .o,.y-kwl i.o{background:#d9a23a}.y-kwb .b,.y-kwl i.b{background:#d0473e}
-.y-kwl{display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;font-size:13.5px;color:var(--mu)}
-.y-kwl span{display:flex;align-items:center;gap:6px}
-.y-kwl i{flex-shrink:0;width:9px;height:9px;border-radius:50%}
-.y-kwl b{margin-left:auto;color:var(--tx);font-weight:700}
-.y-kwb .n,.y-kwl .n i{background:color-mix(in srgb,var(--mu) 45%,transparent)}
-.y-kwl span.n{grid-column:1/-1}
-.y-kws{margin:6px 0 0;font-size:13px;color:var(--mu)}
-.y-kwk{margin:8px 0 -4px;font-size:13px;font-weight:600;color:var(--mu)}
+.y-kwh b{font-size:21px;line-height:1.5;font-weight:400;color:var(--tx)}
 .y-sh0{margin:-6px 0 10px}
 .y-li .t .m.sr{display:inline-flex;align-items:center;gap:3px;color:var(--y-ok)}
 .y-li .t .m.sr svg{width:14px;height:14px}
-.y-kk .y-b{margin:12px 0 0;min-height:54px;gap:8px;box-shadow:inset 0 -3px 0 var(--bd),0 4px 14px rgba(0,0,0,.22)}
-.y-kk .y-b svg{width:20px;height:20px}
-.y-kk .y-kk1{border:0;background:#E0B95A;color:#2B1D00;box-shadow:inset 0 -4px 0 rgba(0,0,0,.2),0 6px 18px rgba(0,0,0,.3)}
-.y-kk .y-kk1 svg{color:inherit}
 .y-kx{display:flex;align-items:center;gap:10px;width:100%;margin-top:10px;padding:9px 12px;box-sizing:border-box;border-radius:14px;border:1.5px dashed var(--bd);background:none;color:var(--tx);font:inherit;text-align:left;cursor:pointer}
 .y-kx.hz{border-style:solid;border-color:#E0B95A}
 .y-kx>svg{flex-shrink:0;width:22px;height:22px;color:var(--kt)}
@@ -600,7 +582,6 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
       if (!H.hz && kxOchiq && !kOt && !ktz) { H.hz = 'k' + k.n; H.hzk = k.n; }
       oldKitobOtdi = kOt;
     });
-    H.sz = sozDaraja();                                /* kitob oxiri kartasi uchun (14.11) */
     if (SZ.erkin) {                                    /* sozlamalar → «Эркин режим»: hamma dars qulfsiz */
       var x; for (x in H.d) H.d[x].op = !H.d[x].tez; for (x in H.b) H.b[x].op = !H.b[x].tez; for (x in H.k) { H.k[x].op = !H.k[x].tez; H.k[x].och = true; }
     }
@@ -686,67 +667,27 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
     });
     return h + '</div>' + (k.b[k.b.length - 1] === b ? kitobKarta(k, H) : '') + '</section>';
   }
-  /* kitob oxiri (14.11.2026, foydalanuvchi: «Китоб имтиҳони» va «КИТОБ ОХИРИ» bitta bo'lsin; muhimi — so'zlarni bilish va nechtasini bilgani):
-     1) «N-КИТОБ СЎЗЛАРИ» kartasi — biladigan / kitobdagi jami so'z, foiz, 4 daraja chizig'i (Луғат bilan bir xil hisob — sozDaraja),
-        asosiy tugma «Сўзларни такрорлаш» (kunlik takror: «билмайман» so'zlar birinchi), ixtiyoriy «Китоб имтиҳони» (hech narsani qulflamaydi);
-     2) keyingi kitob — muqovasi kodda chizilgan, doim ochiq; 14.11 dan shu kartaning oxirgi qatori (alohida karta emas). Xaritada ham, ro'yxatda ham. */
-  var HT4 = ['m', 'g', 'o', 'b', 'n'], HN = { m: 'мустаҳкам', g: 'биламан', o: 'ўрганяпман', b: 'билмайман', n: 'сараланмаган' };   /* n — darsi hali saralanmagan (14.11) */
+  /* kitob oxiri — bitta karta (14.11.2026, foydalanuvchi): «N-КИТОБ ОХИРИ» (kitob nomi arabcha), ixtiyoriy «Китоб имтиҳони»
+     (hech narsani qulflamaydi), keyingi kitob — muqovasi bilan, doim ochiq. Statistika (so'z soni, foiz, darajalar, «сараланмаган»)
+     bu yerda yo'q — u «Луғат»da (foydalanuvchi: bu kitob, ichida boblar va darslar; statistika — lug'at bo'limida). Xaritada ham, ro'yxatda ham. */
   function kitobKarta(k, H) {
-    /* 14.11 (foydalanuvchi): 2-kitob oxirida — 1 va 2-kitob qo'shib («1–2-КИТОБ СЎЗЛАРИ»), ostida har kitob alohida */
-    var kk = TUZ.slice(0, TUZ.indexOf(k) + 1), s = { j: 0, m: 0, g: 0, o: 0, b: 0, n: 0, sd: 0 }, f;
-    kk.forEach(function (x) { var z = H.sz[x.n]; if (z) for (f in s) s[f] += z[f] || 0; });
-    var bil = s.m + s.g, pr = s.j ? Math.floor(bil * 100 / s.j) : 0, c = KR[k.n] || KR[1], hk = H.k[k.n];
+    var c = KR[k.n] || KR[1], hk = H.k[k.n];
     var h = '<div class="y-kk"><div class="y-kw" style="--kr:' + c.r + ';--kh:' + c.hd + '">' +
-      '<div class="y-kwh"><span class="kb">' + IC.kitob + k.n + '</span><div class="t"><small>' + (kk.length > 1 ? kk[0].n + '–' + k.n : k.n) + '-КИТОБ СЎЗЛАРИ</small>' +
-      '<b><em>' + bil + '</em> / ' + s.j + ' сўз</b></div><span class="pr">' + pr + '%</span></div>' +
-      (kk.length > 1 ? '<p class="y-kwk">' + kk.map(function (x) { var z = H.sz[x.n]; return x.n + '-китоб: ' + (z.m + z.g) + ' / ' + z.j; }).join(' · ') + '</p>' : '') +
-      '<div class="y-kwb" role="img" aria-label="' + HT4.map(function (x) { return HN[x] + ' ' + s[x]; }).join(', ') + '">' +
-        HT4.map(function (x) { return s[x] ? '<i class="' + x + '" style="width:' + (s[x] * 100 / s.j).toFixed(2) + '%"></i>' : ''; }).join('') + '</div>' +
-      '<div class="y-kwl">' + HT4.map(function (x) { return x === 'n' && !s.n ? '' : '<span class="' + x + '"><i class="' + x + '"></i>' + HN[x] + '<b>' + s[x] + '</b></span>'; }).join('') + '</div>' +
-      (s.sd ? '<p class="y-kws">Яна ' + s.sd + ' та дарс сўзлари сараланмаган</p>' : '') +
-      '<a class="y-b y-kk1" href="' + SN + 'takror.html">' + IC.soz + '<span>Сўзларни такрорлаш</span></a>' +
+      '<div class="y-kwh"><span class="kb">' + IC.kitob + k.n + '</span><div class="t"><small>' + k.n + '-КИТОБ ОХИРИ</small>' +
+        (KNOM[k.n] ? '<b lang="ar">' + KNOM[k.n] + '</b>' : '') + '</div></div>' +
       '<button class="y-kx' + (H.hz === 'k' + k.n ? ' hz' : '') + '" data-i="k' + k.n + '">' + IC.kubok + '<span class="t"><b>Китоб имтиҳони</b><small>' +
         (hk.tez ? 'тез орада' : savolSoni('k', String(k.n)) + ' савол · ўзингизни синанг') + '</small></span>' +
         (hk.r ? '<em' + (hk.ot ? ' class="ok"' : '') + '>' + hk.r.b + '%' + (hk.ot ? IC.ok : '') + '</em>' : IC.ong) + '</button>';
     var kn = TUZ[TUZ.indexOf(k) + 1];
     if (kn) {
-      var c2 = KR[kn.n] || KR[1], s2 = H.sz[kn.n] || { j: 0, m: 0, g: 0 };
+      var c2 = KR[kn.n] || KR[1];
       h += '<button class="y-kn" data-kk="' + kn.n + '" style="--kr:' + c2.r + ';--kh:' + c2.hd + '">' +
         '<span class="y-kv" aria-hidden="true"><span class="ar" lang="ar">' + (KNOM[kn.n] || '') + '</span><b>' + kn.n + '</b>' + NAQSH + '</span>' +
-        '<span class="t"><small>КЕЙИНГИ КИТОБ</small><b>' + kn.n + '-китоб</b><span class="m">' + (s2.m + s2.g) + ' / ' + s2.j + ' сўз</span></span>' +
+        '<span class="t"><small>КЕЙИНГИ КИТОБ</small><b>' + kn.n + '-китоб</b></span>' +
         '<span class="go">Очиш' + IC.ong + '</span></button>';
     }
     return h + '</div></div>';   /* .y-kw (keyingi kitob ham ichida) va .y-kk */
   }
-  /* so'z darajalari kitob bo'yicha — takror.html sozlar() bilan bir xil qoida (o'zgarsa ikkalasi birga):
-     BILDI kun ketma-ket to'g'ri — биламан (MUST kundan keyin ham to'g'ri — мустаҳкам); «билмайман» belgisi — билмайман (to'g'ri topa boshlasa — ўрганяпман);
-     «биламан» / «аниқ биламан» belgisi — биламан; darsi saralanmagan va javobsiz — сараланмаган (faqat shu kartada); qolgani — ўрганяпман. So'zlar — LG (atoqli ot va harfsiz, Луғатdagi kabi) */
-  var BILDI = 3, MUST = 30;
-  function sozDaraja() {
-    var tz = new Date().getTimezoneOffset(), K = {}, S = {};
-    jurnalOl().slice().sort(function (a, b) { return a[1] - b[1]; }).forEach(function (e) {
-      var m = /^w(\d+)[auos]$/.exec(e[0]); if (!m) return;
-      var x = K[m[1]] = K[m[1]] || { d: 0, k: null, s: false, t: 0 }, ora = x.t ? e[1] - x.t : 0;
-      x.t = e[1];
-      if (e[2] === 1) { x.d = 0; x.k = null; x.s = false; return; }
-      var kn = Math.floor((e[1] - tz * 60000) / 864e5); if (kn !== x.k) { x.k = kn; x.d++; }
-      if (ora >= MUST * 864e5) x.s = true;
-    });
-    TUZ.forEach(function (k) {
-      var o = S[k.n] = { j: 0, m: 0, g: 0, o: 0, b: 0, n: 0, sd: 0 };
-      k.b.forEach(function (b) { b.d.forEach(function (d) { if ((LG[d.n] || []).length && !W.s[d.n]) o.sd++; (LG[d.n] || []).forEach(function (r) {
-        var x = K[r.id] || { d: 0 }, st;
-        if (x.d >= BILDI) st = x.s ? 'm' : 'g';
-        else if (W.b[r.id]) st = x.d ? 'o' : 'b';
-        else if (W.a[r.id] || W.k[r.id]) st = 'g';
-        else if (!K[r.id] && !W.s[d.n]) st = 'n';     /* darsi saralanmagan, hali javob ham yo'q — «сараланмаган» (Луғат uni «mening so'zlarim»ga qo'shmaydi) */
-        else st = 'o';
-        o.j++; o[st]++;
-      }); }); });
-    });
-    return S;
-  }
-
   /* pastki tugmalar — umumiy qobiq (qobiq.js): Йўл · Луғат · Қоидалар · Яна */
   function navChiz() {
     if (!window.Qobiq) return;

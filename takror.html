@@ -175,6 +175,9 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .lg-3{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 0}
 .lg-bn{display:flex;align-items:baseline;gap:10px;margin:2px 0 0}
 .lg-kt{display:flex;flex-direction:column;gap:6px;margin:10px 0 2px}
+.lg-kr span::first-letter{text-transform:uppercase}
+.lg-sm{display:flex;align-items:center;gap:7px;margin:8px 0 0;font-size:13.5px;line-height:1.35;color:var(--mu)}
+.lg-sm i{flex-shrink:0;width:9px;height:9px;border-radius:50%;background:color-mix(in srgb,var(--mu) 45%,transparent)}
 .lg-kr{display:flex;align-items:center;gap:10px;font-size:13.5px}
 .lg-kr span{flex-shrink:0;font-weight:700;color:var(--kr)}
 .lg-kr i{flex:1;height:10px;border-radius:5px;background:color-mix(in srgb,var(--kr) 16%,var(--tint));overflow:hidden}
@@ -413,13 +416,18 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
     MT_.forEach(function (x) { c[x.st]++; });
     /* kitob bo'yicha (14.11.2026, foydalanuvchi): «1-китоб: biladigan / kitobdagi jami so'z» — boshlangan kitoblar (hech biri bo'lmasa — 1-kitob).
        Jami — saytdagi darslar bo'yicha (yangi dars qo'shilsa o'sadi); rang — kitob muqovasi (yol.html KR bilan bir xil) */
-    var KB = {}, kn = {}, KRG = { 1: '#E07A1F', 2: '#5FA332' };
-    D.d.forEach(function (d) { kn[d.n] = d.kitob; });
-    S.forEach(function (x) { var k = kn[x.r.d]; if (!k) return; var o = KB[k] = KB[k] || { j: 0, b: 0, f: 0 }; o.j++; if (x.st === 'g' || x.st === 'm') o.b++; });
+    /* «сараланмаган» (14.11.2026, foydalanuvchi: kitob kartasidan bu yerga — statistika Луғатda): darsi saralanmagan, belgisiz va javobsiz so'z;
+       ruschasi yo'q («тез орада») dars hisobga kirmaydi — uni saralab bo'lmaydi */
+    var KB = {}, kn = {}, tez = {}, KRG = { 1: '#E07A1F', 2: '#5FA332' };
+    D.d.forEach(function (d) { kn[d.n] = d.kitob; if (d.tez) tez[d.n] = 1; });
+    S.forEach(function (x) { var k = kn[x.r.d]; if (!k) return; var o = KB[k] = KB[k] || { j: 0, b: 0, f: 0, n: 0, sd: {} }; o.j++; if (x.st === 'g' || x.st === 'm') o.b++;
+      if (x.st === 'o' && !(x.ok + x.no) && !(W.s || {})[x.r.d] && !tez[x.r.d]) { o.n++; o.sd[x.r.d] = 1; } });
     M.forEach(function (x) { var k = kn[x.r.d]; if (KB[k]) KB[k].f = 1; });
     var kq = Object.keys(KB).filter(function (k) { return KB[k].f; }); if (!kq.length && KB[1]) kq = ['1'];
     var kitobQ = '<div class="lg-kt">' + kq.map(function (k) { var o = KB[k];
       return '<div class="lg-kr" style="--kr:' + (KRG[k] || '#1f8f5c') + '"><span>' + k + '-китоб</span><i><u style="width:' + Math.round(o.b * 100 / o.j) + '%"></u></i><b>' + o.b + ' / ' + o.j + ' сўз</b></div>'; }).join('') + '</div>';
+    var sn = 0, sdn = 0; kq.forEach(function (k) { sn += KB[k].n; sdn += Object.keys(KB[k].sd).length; });
+    if (sdn) kitobQ += '<p class="lg-sm"><i></i>Яна ' + sdn + ' та дарс сўзлари сараланмаган · ' + sn + ' сўз</p>';
     var TN = { i: 0, f: 0, h: 0 }; M.forEach(function (x) { TN[turi(x.r)]++; });
     var t = hozir(), bg = E.bugun(t), dt = new Date(t);
     if (LF !== 'h' && !c[LF]) LF = 'h';

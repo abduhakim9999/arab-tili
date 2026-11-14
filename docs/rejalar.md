@@ -17,7 +17,7 @@ Qilingan qismi — `docs/texnik.md` 14 (ma'lumot fayllari, «Такрорлаш�
 - **So'z bazasi va «Луғат» (13.11.2026, foydalanuvchi qarori; sinovda):** qilindi — dars oxirida so'zlarni saralash (bilmaganlar belgilanadi), bob imtihonida bilmaganlarning hammasi + tekshiruv, xato so'z qayta so'raladi, «Такрорлаш» ichida «Луғат» yorlig'i (holat, daraja, statistika, qidiruv), harf va olmoshlar bazada, dars ichida «билмайман» belgisi (hamma darslar, `shell.js`), ko'plik va muannas ko'rsatiladi, «Машқ» yorlig'i — Сўзлар / Феъллар / Ҳарфлар mashqlari (`docs/texnik.md` 15). **Navbatda:** fe'l shakllari va ko'pliklarni ham takror jadvaliga (FSRS) kiritish; harf turi izohi yo'q harflarga tur qo'shish (dars hujjati/konspekt bo'yicha); matndagi so'zni lug'at yozuviga bog'lash (so'z oynasidan belgilash uchun);
 
 ## 2. Repo va joylash tartibi
-- Ish belgisi (`lock.sh`), sinov (`sinov.sh`) va align fayllarini `main` dan alohida tarmoqqa chiqarish: Vercel'da 21 yig'ishdan 4 tasi reliz edi (10–11.11). Sinov havolasi o'zgaradi — avval kelishiladi.
+- ~~Ish belgisi (`lock.sh`)~~ (14.11.2026 — `ish-belgi` tarmog'ida), sinov (`sinov.sh`) va align fayllarini `main` dan alohida tarmoqqa chiqarish: Vercel'da 21 yig'ishdan 4 tasi reliz edi (10–11.11). Sinov havolasi o'zgaradi — avval kelishiladi.
 - Push paytida yengil avtomat tekshiruv (GitHub Actions): sahifa ochiladimi, `sw.js` FILES dagi fayllar bormi.
 - Yig'ishni tiklanadigan qilish: skriptlardagi eski sessiya yo'li (`d13da55d…`, 23 fayl) o'rniga bitta o'zgaruvchi; `shell.js`, `shell.css`, `tg.js` uchun bitta manba (ildiz va `src/build` farq qiladi).
 - Audio'ni git tarixidan tashqarida saqlash (masalan Cloudflare R2 — mobil ilova rejasida): tarixda 2530 mp3, 374 MB; oyiga ~340 MB o'sish.

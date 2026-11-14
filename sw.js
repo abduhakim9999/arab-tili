@@ -170,8 +170,8 @@ self.addEventListener('fetch', function (e) {
   if (r.method !== 'GET') return;
   var same = new URL(r.url).origin === location.origin;
   if (!same && r.url !== TG) return;
-  /* 06.11.2026: sinov sahifalari va ularning fayllari telefonda saqlanmaydi — doim internetdan (eski nusxa chiqmasin) */
-  if (same && /\/(sinov-[^/]*|shell-s\.(js|css))$/.test(new URL(r.url).pathname)) { e.respondWith(fetch(r, { cache: 'no-store' })); return; }
+  /* 06.11.2026: sinov sahifalari va ularning fayllari telefonda saqlanmaydi — doim internetdan (eski nusxa chiqmasin); 14.11: github.io /tayyor/ ham */
+  if (same && /\/(sinov-[^/]*|shell-s\.(js|css))$|\/tayyor\//.test(new URL(r.url).pathname)) { e.respondWith(fetch(r, { cache: 'no-store' })); return; }
   var isRange = r.headers.has('range');
   if (same && isMp3(r.url)) {
     var url = r.url.split('#')[0].split('?')[0];

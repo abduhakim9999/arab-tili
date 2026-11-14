@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head><script>/* github.io ko'rish manzili (tayyor/saralashsiz/; src/build/korish.sh har sahifa boshiga qo'yadi, 14.11.2026; docs/texnik.md 1).
+   Asosiy github.io natijalariga tegmaydi: localStorage va keshlar «korish:saralashsiz:» oldi bilan alohida;
+   server (window.Baza, /api, statistika) va service worker o'chiq — sinov sahifasi kabi («Синов саҳифасида уланмайди»). */
+(function () {
+  var P = 'korish:saralashsiz:', api = /\/api\/|vercel\.app/;
+  window.KORISH = 1;                                    /* ko'rish sahifasi: kirish talab qilinmaydi (tg.js Kirish) — server baribir o'chiq */
+  try {
+    var L = window.localStorage;
+    var ks = function () { var r = [], i, k; for (i = 0; i < L.length; i++) { k = L.key(i); if (k && k.indexOf(P) === 0) r.push(k.slice(P.length)); } return r; };
+    var S = {
+      getItem: function (k) { return L.getItem(P + k); },
+      setItem: function (k, v) { L.setItem(P + k, String(v)); },
+      removeItem: function (k) { L.removeItem(P + k); },
+      clear: function () { ks().forEach(function (k) { L.removeItem(P + k); }); },
+      key: function (i) { var a = ks(); return i < a.length ? a[i] : null; }
+    };
+    Object.defineProperty(S, 'length', { configurable: true, get: function () { return ks().length; } });
+    var X = new Proxy(S, {
+      get: function (t, k) { if (k in t) return t[k]; if (typeof k !== 'string') return undefined; var v = L.getItem(P + k); return v === null ? undefined : v; },
+      set: function (t, k, v) { if (!(k in t)) t.setItem(k, v); return true; },
+      deleteProperty: function (t, k) { t.removeItem(k); return true; },
+      has: function (t, k) { return k in t || L.getItem(P + k) !== null; },
+      ownKeys: function () { return ks(); },
+      getOwnPropertyDescriptor: function (t, k) { var v = L.getItem(P + k); return v === null ? undefined : { value: v, writable: true, enumerable: true, configurable: true }; }
+    });
+    Object.defineProperty(window, 'localStorage', { configurable: true, get: function () { return X; } });
+  } catch (e) {}
+  try {
+    if (window.caches) {
+      var C = window.caches, co = C.open.bind(C), ch = C.has.bind(C), cd = C['delete'].bind(C), ck = C.keys.bind(C);
+      C.open = function (n) { return co(P + n); };
+      C.has = function (n) { return ch(P + n); };
+      C['delete'] = function (n) { return cd(P + n); };
+      C.keys = function () { return ck().then(function (a) { return a.filter(function (n) { return n.indexOf(P) === 0; }).map(function (n) { return n.slice(P.length); }); }); };
+    }
+  } catch (e) {}
+  try { Object.defineProperty(window, 'Baza', { configurable: false, get: function () { return undefined; }, set: function () {} }); } catch (e) {}
+  try { if (navigator.serviceWorker) navigator.serviceWorker.register = function () { return Promise.reject(new Error('korish')); }; } catch (e) {}
+  try {
+    var of = window.fetch;
+    window.fetch = function (u) { var s = typeof u === 'string' ? u : (u && u.url) || String(u); return api.test(s) ? Promise.reject(new TypeError('korish: server yopiq')) : of.apply(this, arguments); };
+  } catch (e) {}
+  try { if (navigator.sendBeacon) { var sb = navigator.sendBeacon.bind(navigator); navigator.sendBeacon = function (u, d) { return api.test(String(u)) ? false : sb(u, d); }; } } catch (e) {}
+  try { var xo = XMLHttpRequest.prototype.open; XMLHttpRequest.prototype.open = function (m, u) { if (api.test(String(u))) arguments[1] = 'data:,'; return xo.apply(this, arguments); }; } catch (e) {}
+})();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Рейтинг</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0c5e3f">
+<link rel="icon" href="icon-192.png">
+<link rel="stylesheet" href="shell.css">
+<script>
+/* «Рейтинг» (14.11.2026, foydalanuvchi qarori; dizayn — 2-variant, shohsupasiz: bitta ro'yxat; docs/texnik.md 19) — qobiqning beshinchi bo'limi.
+   Ikki ro'yxat: «Ҳафта» — shu hafta bali (dushanba 00:00, Toshkent vaqti, 0 dan; takror.js Takror.ball) va «Сўзлар» — jami biladigan so'z
+   (Машқ dagi «N сўзни биламан», takror-xulosa.bilgan). Ism — o'quvchi o'zi yozgani («Яна» → Аккаунт, localStorage «ism»).
+   Boshqalar ro'yxati — server (/api/reyting, keyingi bosqich). Server javob bermasa: ko'rish/sinov manzilida — namuna ro'yxat (belgisi bilan),
+   asosiy saytda — faqat o'quvchining o'zi va «тез орада» yozuvi. */
+var SN = /\/sinov-[^\/]*$/.test(location.pathname) ? 'sinov-' : '';
+document.write('<script src="tg.js" data-key="" data-home="' + SN + 'yol.html"><\/script>' + (SN ? '' : '<script src="baza.js"><\/script>') +
+  '<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js"><\/script><script src="' + SN + 'qobiq.js"><\/script>');
+</script>
+<style>
+body{margin:0;background-color:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-tap-highlight-color:transparent}
+button{font-family:inherit;cursor:pointer}
+a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.r-hd{background:var(--em2,#0c5e3f);color:#fff;padding:calc(8px + env(safe-area-inset-top,0px)) 16px 18px;border-radius:0 0 26px 26px}
+.r-in{max-width:528px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.r-tt{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;min-height:48px}
+.r-tt small{display:block;font-size:12px;font-weight:700;letter-spacing:.08em;color:#f6dc94;text-transform:uppercase}
+.r-tt h1{margin:0;font-size:24px;line-height:1.15;font-weight:700}
+.r-tt span{padding-bottom:3px;font-size:12.5px;color:#cfe3d8;text-align:right}
+.r-sg{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border-radius:14px;background:rgba(0,0,0,.18)}
+.r-sg button{height:40px;border:0;border-radius:11px;background:none;color:#e3efe8;font-size:15px;font-weight:600}
+.r-sg button[aria-pressed="true"]{background:#f6dc94;color:#0c3d29;font-weight:800}
+.r-w{max-width:560px;margin:0 auto;padding:14px 16px calc(176px + env(safe-area-inset-bottom,0px));box-sizing:border-box}
+.r-nm{margin:0 8px 10px;font-size:12.5px;line-height:1.45;color:var(--mu);text-align:center}
+.r-ls{background:var(--cd);border:1px solid var(--bd);border-radius:18px;box-shadow:var(--sh);overflow:hidden}
+.r-r{display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 16px 8px 12px;border-top:1px solid color-mix(in srgb,var(--bd) 70%,transparent)}
+.r-r:first-child{border-top:0}
+.r-r .o,.r-me .o{width:30px;height:30px;flex-shrink:0;border-radius:50%;background:color-mix(in srgb,var(--mu) 13%,transparent);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--mu);font-variant-numeric:tabular-nums}
+.r-r .av{width:40px;height:40px;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800}
+/* avatar rangi — ismdan (har kishiga o'z rangi; ElevenLabs namunasidagidek pastel) */
+.a0{background:#c9efd7;color:#1d7a4a}.a1{background:#cfe3fb;color:#2457a6}.a2{background:#fbe6b0;color:#8a5a00}.a3{background:#e6d6fb;color:#6a3fb0}.a4{background:#f6cdbf;color:#a34322}.a5{background:#c6ecea;color:#0f6e6a}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .a0{background:rgba(122,217,168,.18);color:#7ad9a8}:root:not([data-theme="light"]) .a1{background:rgba(138,184,245,.18);color:#8ab8f5}:root:not([data-theme="light"]) .a2{background:rgba(232,192,106,.18);color:#e8c06a}:root:not([data-theme="light"]) .a3{background:rgba(224,163,222,.18);color:#e0a3de}:root:not([data-theme="light"]) .a4{background:rgba(242,165,127,.18);color:#f2a57f}:root:not([data-theme="light"]) .a5{background:rgba(127,211,220,.18);color:#7fd3dc}}
+:root[data-theme="dark"] .a0{background:rgba(122,217,168,.18);color:#7ad9a8}:root[data-theme="dark"] .a1{background:rgba(138,184,245,.18);color:#8ab8f5}:root[data-theme="dark"] .a2{background:rgba(232,192,106,.18);color:#e8c06a}:root[data-theme="dark"] .a3{background:rgba(224,163,222,.18);color:#e0a3de}:root[data-theme="dark"] .a4{background:rgba(242,165,127,.18);color:#f2a57f}:root[data-theme="dark"] .a5{background:rgba(127,211,220,.18);color:#7fd3dc}
+.r-r .n i{flex-shrink:0;display:flex;color:#d4a437}
+.r-r .n{flex:1;min-width:0;display:flex;align-items:center;gap:6px;font-size:16px;font-weight:650}.r-r .n span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.r-r .s{flex-shrink:0;font-size:16px;font-weight:700;font-variant-numeric:tabular-nums}
+.r-r .s small,.r-me .s small{font-size:12.5px;font-weight:500;color:var(--mu)}
+.r-r .o.t{font-weight:800;color:#fff;text-shadow:0 1px 1px rgba(0,0,0,.25);box-shadow:inset 0 -2px 0 rgba(0,0,0,.14),0 1px 3px rgba(0,0,0,.15)}
+.r-r.p1{margin:6px;padding-left:6px;padding-right:10px;border-radius:14px;background:color-mix(in srgb,#f6dc94 26%,transparent)}.r-r.p1+.r-r{border-top:0}
+.r-r .t1{background:linear-gradient(145deg,#f8dc7c,#d9a83a 62%,#b9862a)}.r-r .t2{background:linear-gradient(145deg,#eef1f3,#b9c1c8 62%,#9aa3ab)}.r-r .t3{background:linear-gradient(145deg,#f0b48a,#c27a48 62%,#a2602f)}
+.r-r.men{background:color-mix(in srgb,var(--ac) 9%,transparent)}
+.r-bs{padding:22px 16px;text-align:center;color:var(--mu);font-size:14.5px}
+.r-me{position:fixed;z-index:19;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));width:calc(100% - 24px);max-width:536px;box-sizing:border-box;display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:18px;background:color-mix(in srgb,var(--ac) 8%,var(--cd));border:2px solid var(--ac);box-shadow:0 6px 20px rgba(10,30,20,.16)}
+.r-me .av{width:40px;height:40px;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700}
+.r-me .t{flex:1;min-width:0;display:flex;flex-direction:column}
+.r-me .t b{font-size:16px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.r-me .t small{font-size:12.5px;line-height:1.3;color:var(--mu)}
+.r-me .s{flex-shrink:0;font-size:16px;font-weight:800;color:var(--ac);font-variant-numeric:tabular-nums}
+.r-me a{color:var(--ac);font-weight:700}
+</style>
+</head>
+<body>
+<header class="r-hd"><div class="r-in">
+  <div class="r-tt"><div><small id="sub">Бу ҳафта</small><h1>Рейтинг</h1></div><span id="vq"></span></div>
+  <div class="r-sg" role="group" aria-label="Рўйхат"><button data-t="h" aria-pressed="true">Ҳафта</button><button data-t="s" aria-pressed="false">Сўзлар</button></div>
+</div></header>
+<main class="r-w"><div id="nm"></div><div class="r-ls" id="ls"></div></main>
+<div class="r-me" id="me"></div>
+<script>
+(function () {
+  var $ = function (i) { return document.getElementById(i); };
+  function J(k, d) { try { return JSON.parse(localStorage.getItem(k) || 'null') || d; } catch (e) { return d; } }
+  function L(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function rang(n) { var h = 0; for (var i = 0; i < (n || '').length; i++) h = (h * 31 + n.charCodeAt(i)) % 997; return 'a' + (h % 6); }
+  var TOJ = '<i aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3 18 2 7l5.5 4L12 4l4.5 7L22 7l-1 11z"/></svg></i>';
+  function bosh(n) { var m = /[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳ؀-ۿ]/.exec(n || ''); return m ? m[0].toUpperCase() + '\u2063' : '•'; }   /* \u2063 — tarjima qilinmaydi (ru.js) */
+  /* ko'rish (github.io), sinov va kompyuterdagi nusxa — server yo'q: namuna ro'yxat bilan ko'rsatiladi */
+  var NAMUNA = !!SN || window.KORISH || /github\.io$|^(localhost|127\.)/.test(location.hostname);
+  var NR = {
+    h: [['Муҳаммадали', 412], ['Зайнаб', 388], ['Абдуллоҳ', 351], ['Мадина', 297], ['Ҳасан', 276], ['Ўғилой', 241], ['Беҳруз', 228], ['Солиҳа', 205], ['Жавоҳир', 190], ['Нигора', 182]],
+    s: [['Зайнаб', 318], ['Абдуллоҳ', 301], ['Муҳаммадали', 287], ['Ҳасан', 254], ['Солиҳа', 233], ['Мадина', 219], ['Нигора', 196], ['Беҳруз', 181], ['Ўғилой', 170], ['Жавоҳир', 162]]
+  };
+  var T = 'h'; try { T = sessionStorage.getItem('reyting-t') === 's' ? 's' : 'h'; } catch (e) {}
+  var SERV = {};                                       /* serverdan kelgan ro'yxat (keyingi bosqich) */
+  var kirgan = !!(L('baza-tg') || (window.Telegram && Telegram.WebApp && Telegram.WebApp.initData));
+
+  /* o'quvchining o'z natijasi — telefondagi ma'lumotdan (server ham aynan shu qoida bilan hisoblaydi) */
+  function men() {
+    var j = (J(SN ? 'takror-sinov-j' : 'takror-j', {}) || {}).j || [], x = J(SN ? 'takror-sinov-xulosa' : 'takror-xulosa', null);
+    var hb = window.Takror && Takror.haftaBoshi ? Takror.haftaBoshi(Date.now()) : 0;
+    var ism = (J('ism', null) || {}).n || '';
+    return { n: ism, h: window.Takror && Takror.ball ? Takror.ball(j, hb) : 0, s: (x && x.bilgan) || 0, hb: hb };
+  }
+  function vaqt(hb) {                                  /* «Янгиланишига N кун» — keyingi dushanba 00:00 gacha */
+    var q = hb + 7 * 864e5 - Date.now(); if (q <= 0) return '';
+    return q >= 864e5 ? 'Янгиланишига ' + Math.ceil(q / 864e5) + ' кун' : 'Янгиланишига ' + Math.max(1, Math.ceil(q / 36e5)) + ' соат';
+  }
+  function chiz() {
+    var m = men(), bir = T === 'h' ? 'балл' : 'сўз', rows, nm = '';
+    $('sub').textContent = T === 'h' ? 'Бу ҳафта' : 'Жами сўзлар';
+    $('vq').textContent = T === 'h' ? vaqt(m.hb) : 'Ким нечта сўз билади';
+    [].forEach.call(document.querySelectorAll('.r-sg button'), function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-t') === T)); });
+    var me = { n: m.n || 'Сиз', b: m[T], men: true };
+    if (SERV[T]) rows = SERV[T];                       /* server: [{n, b, men?}] — tartiblangan */
+    else if (NAMUNA) {
+      rows = NR[T].map(function (r) { return { n: r[0], b: r[1] }; });
+      if (kirgan || SN || window.KORISH) rows.push(me);
+      rows.sort(function (a, b) { return b.b - a.b; });
+      nm = 'Намуна: бошқа ўқувчилар исмлари ва баллари мисол учун. Рейтинг сервери улангач, ҳақиқий рўйхат чиқади.';
+    } else {
+      rows = kirgan ? [me] : [];
+      nm = 'Бошқа ўқувчилар натижаси тез орада кўринади.';
+    }
+    var oz = -1; rows.forEach(function (r, i) { if (r.men) oz = i; });
+    $('nm').innerHTML = nm ? '<p class="r-nm">' + esc(nm) + '</p>' : '';
+    /* 14.11.2026 (foydalanuvchi): shohsupa emas — bitta ro'yxat, har kishi bir qatorda; birinchi uchtasi rangli belgi bilan */
+    var h = rows.slice(0, 50).map(function (r, k) {
+      return '<div class="r-r' + (r.men ? ' men' : '') + (k === 0 ? ' p1' : '') + '"><span class="o' + (k < 3 ? ' t t' + (k + 1) : '') + '">' + (k + 1) + '</span><span class="av ' + (r.men ? 'a0' : rang(r.n)) + '" aria-hidden="true">' + esc(bosh(r.n)) + '</span>' +
+        '<span class="n"><span>' + esc(r.n) + '⁣</span>' + (k === 0 ? TOJ : '') + '</span><span class="s">' + r.b + ' <small>' + bir + '</small></span></div>';
+    }).join('');
+    $('ls').innerHTML = h || '<div class="r-bs">' + (rows.length ? 'Ҳозирча шулар' : 'Ҳали ҳеч ким йўқ') + '</div>';
+    /* o'z qatori — pastda doim ko'rinadi */
+    var izoh;
+    if (!kirgan && !SN && !window.KORISH) izoh = '<a href="' + SN + 'yana.html">Telegram орқали киринг</a> — рейтингга қўшиласиз';
+    else if (oz > 0) { var ol = rows[oz - 1]; izoh = (oz) + '-ўринга ' + (ol.b - me.b + 1) + ' ' + bir + ' қолди'; }
+    else if (oz === 0) izoh = 'Биринчи ўриндасиз!';
+    else izoh = T === 'h' ? 'Тўғри жавоб — балл' : 'Билган сўзларингиз';
+    $('me').innerHTML = '<span class="o">' + (oz > -1 ? oz + 1 : '–') + '</span><span class="av a0" aria-hidden="true">' + esc(bosh(me.n)) + '</span>' +
+      '<span class="t"><b>' + (m.n ? esc(m.n) + '⁣' : 'Сиз') + '</b><small>' + izoh + '</small></span><span class="s">' + me.b + ' <small>' + bir + '</small></span>';
+  }
+  [].forEach.call(document.querySelectorAll('.r-sg button'), function (b) {
+    b.onclick = function () { T = b.getAttribute('data-t'); try { sessionStorage.setItem('reyting-t', T); } catch (e) {} chiz(); };
+  });
+  chiz();
+  if (window.Qobiq) Qobiq.nav('reyting');
+})();
+</script>
+</body>
+</html>

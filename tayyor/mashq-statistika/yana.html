@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head><script>/* github.io ko'rish manzili (tayyor/mashq-statistika/; src/build/korish.sh har sahifa boshiga qo'yadi, 14.11.2026; docs/texnik.md 1).
+   Asosiy github.io natijalariga tegmaydi: localStorage va keshlar «korish:mashq-statistika:» oldi bilan alohida;
+   server (window.Baza, /api, statistika) va service worker o'chiq — sinov sahifasi kabi («Синов саҳифасида уланмайди»). */
+(function () {
+  var P = 'korish:mashq-statistika:', api = /\/api\/|vercel\.app/;
+  window.KORISH = 1;                                    /* ko'rish sahifasi: kirish talab qilinmaydi (tg.js Kirish) — server baribir o'chiq */
+  try {
+    var L = window.localStorage;
+    var ks = function () { var r = [], i, k; for (i = 0; i < L.length; i++) { k = L.key(i); if (k && k.indexOf(P) === 0) r.push(k.slice(P.length)); } return r; };
+    var S = {
+      getItem: function (k) { return L.getItem(P + k); },
+      setItem: function (k, v) { L.setItem(P + k, String(v)); },
+      removeItem: function (k) { L.removeItem(P + k); },
+      clear: function () { ks().forEach(function (k) { L.removeItem(P + k); }); },
+      key: function (i) { var a = ks(); return i < a.length ? a[i] : null; }
+    };
+    Object.defineProperty(S, 'length', { configurable: true, get: function () { return ks().length; } });
+    var X = new Proxy(S, {
+      get: function (t, k) { if (k in t) return t[k]; if (typeof k !== 'string') return undefined; var v = L.getItem(P + k); return v === null ? undefined : v; },
+      set: function (t, k, v) { if (!(k in t)) t.setItem(k, v); return true; },
+      deleteProperty: function (t, k) { t.removeItem(k); return true; },
+      has: function (t, k) { return k in t || L.getItem(P + k) !== null; },
+      ownKeys: function () { return ks(); },
+      getOwnPropertyDescriptor: function (t, k) { var v = L.getItem(P + k); return v === null ? undefined : { value: v, writable: true, enumerable: true, configurable: true }; }
+    });
+    Object.defineProperty(window, 'localStorage', { configurable: true, get: function () { return X; } });
+  } catch (e) {}
+  try {
+    if (window.caches) {
+      var C = window.caches, co = C.open.bind(C), ch = C.has.bind(C), cd = C['delete'].bind(C), ck = C.keys.bind(C);
+      C.open = function (n) { return co(P + n); };
+      C.has = function (n) { return ch(P + n); };
+      C['delete'] = function (n) { return cd(P + n); };
+      C.keys = function () { return ck().then(function (a) { return a.filter(function (n) { return n.indexOf(P) === 0; }).map(function (n) { return n.slice(P.length); }); }); };
+    }
+  } catch (e) {}
+  try { Object.defineProperty(window, 'Baza', { configurable: false, get: function () { return undefined; }, set: function () {} }); } catch (e) {}
+  try { if (navigator.serviceWorker) navigator.serviceWorker.register = function () { return Promise.reject(new Error('korish')); }; } catch (e) {}
+  try {
+    var of = window.fetch;
+    window.fetch = function (u) { var s = typeof u === 'string' ? u : (u && u.url) || String(u); return api.test(s) ? Promise.reject(new TypeError('korish: server yopiq')) : of.apply(this, arguments); };
+  } catch (e) {}
+  try { if (navigator.sendBeacon) { var sb = navigator.sendBeacon.bind(navigator); navigator.sendBeacon = function (u, d) { return api.test(String(u)) ? false : sb(u, d); }; } } catch (e) {}
+  try { var xo = XMLHttpRequest.prototype.open; XMLHttpRequest.prototype.open = function (m, u) { if (api.test(String(u))) arguments[1] = 'data:,'; return xo.apply(this, arguments); }; } catch (e) {}
+})();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Яна</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0c5e3f">
+<link rel="icon" href="icon-192.png">
+<link rel="stylesheet" href="shell.css">
+<script>
+/* «Яна» (13.11.2026; docs/texnik.md 18) — qobiqning to'rtinchi bo'limi: hisob, sozlamalar, yo'riqnoma, fikr, ilova haqida. */
+var SN = /\/sinov-[^\/]*$/.test(location.pathname) ? 'sinov-' : '';
+document.write('<script src="tg.js" data-key="" data-home="' + SN + 'yol.html"><\/script>' + (SN ? '' : '<script src="baza.js"><\/script>') + '<script src="' + SN + 'qobiq.js"><\/script>');
+</script>
+<style>
+@font-face{font-family:"DarsNaskh";src:url(naskh.woff)}
+body{margin:0;background-color:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-tap-highlight-color:transparent}
+button{font-family:inherit;cursor:pointer}
+a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.ar{font-family:"DarsNaskh","Noto Naskh Arabic",serif;direction:rtl;unicode-bidi:isolate;font-weight:400}
+/* hisob kartasi */
+.n-til{cursor:default}.n-til .t{flex:1;min-width:0}
+.n-sg{display:flex;padding:3px;gap:2px;border-radius:14px;background:var(--tint);flex-shrink:0}
+.n-sg button{min-width:44px;height:44px;padding:0 11px;border-radius:11px;border:0;background:none;color:var(--mu);font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.n-sg button[aria-pressed="true"]{background:var(--cd);box-shadow:0 1px 3px rgba(20,30,25,.2);color:var(--ac);font-weight:700}
+@media (max-width:350px){.n-sg button{padding:0 8px;font-size:13px}}
+.n-ak{cursor:default}.n-ak:active{transform:none;box-shadow:inset 0 -3px 0 var(--bd)}
+.n-av{border-radius:50%;font-size:20px;font-weight:800}.n-av svg{width:24px;height:24px}
+.n-tgr{cursor:pointer;text-align:left}.n-tgr .q-ib{background:#229ED9;color:#fff}.n-tgr .q-ib svg{width:22px;height:22px}
+.n-nm{display:flex;align-items:center;gap:10px;flex:1;min-width:0;padding:0;border:0;background:none;color:var(--tx);font:inherit;text-align:left;cursor:pointer}
+.n-nm b{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.n-nm b.bo{color:var(--mu);font-weight:600}
+.n-ed{flex-shrink:0;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:var(--tint);color:var(--ac)}
+.n-ed svg{width:18px;height:18px}
+.n-if{flex:1;min-width:0;display:flex;gap:8px;margin:0}
+.n-nm[hidden],.n-if[hidden]{display:none}
+.n-if input{flex:1;min-width:0;height:44px;padding:0 12px;box-sizing:border-box;border-radius:12px;border:1.5px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit;font-size:16px}
+.n-ok{flex-shrink:0;height:44px;padding:0 16px;border-radius:12px;border:0;background:var(--ac);color:#fff;font:inherit;font-weight:700;cursor:pointer}
+.n-tg[hidden]{display:none}
+.n-tip{margin:-2px 4px 10px;font-size:13.5px;line-height:1.45;color:var(--mu)}
+.n-xb{margin:-2px 0 10px;padding:10px 12px;border-radius:12px;background:var(--tint);font-size:14px;line-height:1.45}
+/* ilova haqida */
+.n-inf{background:var(--cd);border:1.5px solid var(--bd);border-radius:18px;overflow:hidden}
+.n-inf div{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;padding:6px 16px;border-top:1px solid var(--bd);font-size:15.5px}
+.n-inf div:first-child{border-top:0}
+.n-inf span{color:var(--mu)}
+.n-inf b{font-weight:600;text-align:right}
+.n-inf b.ar{font-size:23px;line-height:1.4;font-weight:400}
+.n-inf em{font-style:normal;color:var(--mu);font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+<header class="q-hd"><div class="q-hr"><div><h1>Яна</h1></div></div></header>
+<main class="q-w">
+  <!-- Аккаунт (14.11.2026, foydalanuvchi): kichik qator (katta karta emas), eng birinchi, keyin Тил, keyin Созламалар; «Ҳисоб» emas «Аккаунт»; ortiqcha so'z yo'q — faqat o'zi yozadigan ism (telefon + server, keyin reytingda ko'rinadi) -->
+  <h2 class="q-h">АККАУНТ</h2>
+  <div class="q-rw n-ak" id="hr" hidden><span class="q-ib n-av" id="av"></span><button class="n-nm" id="hb" aria-label="Исмни ўзгартириш"><b id="hn">Исмингизни ёзинг</b><span class="n-ed" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13.5 6.5l4 4"/></svg></span></button>
+    <form class="n-if" id="hf" hidden><input id="hi" type="text" maxlength="30" autocomplete="nickname" enterkeyhint="done" placeholder="Исмингиз — бошқаларга кўринади" aria-label="Исмингиз"><button class="n-ok" type="submit">Сақлаш</button></form>
+  </div>
+  <button class="q-rw n-tgr" id="tgk" hidden><span class="q-ib"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-1 .4-1 1.1-.2 1.4l4.7 1.5 1.8 5.6c.2.6.4.8.9.8s.6-.2.9-.5l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.9-1.4-1.8zM9.8 14.3l8.2-5.2c.4-.2.7-.1.4.2l-6.9 6.3-.3 3.2z"/></svg></span><span class="t">Telegram орқали кириш</span><svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+  <p class="n-xb" id="xb" hidden></p>
+  <!-- Тил (14.11.2026, foydalanuvchi: sozlamadan chiqib, akkauntdan keyin). «Ўзбекча&#x2063;» — ru.js o'girmaydi, tugma doim o'z tilida -->
+  <div class="q-rw n-til"><span class="q-ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span><span class="t">Тил</span><div class="n-sg" role="group" aria-label="Тил"><button data-v="uz">Ўзбекча&#x2063;</button><button data-v="ru" lang="ru">Русский</button></div></div>
+  <a class="q-rw" id="soz" href="sozlamalar.html"><span class="q-ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 13.5a7.6 7.6 0 0 0 0-3l2-1.5-2-3.4-2.3.9a7.6 7.6 0 0 0-2.6-1.5L14.1 2.5H9.9L9.5 5a7.6 7.6 0 0 0-2.6 1.5l-2.3-.9-2 3.4 2 1.5a7.6 7.6 0 0 0 0 3l-2 1.5 2 3.4 2.3-.9a7.6 7.6 0 0 0 2.6 1.5l.4 2.5h4.2l.4-2.5a7.6 7.6 0 0 0 2.6-1.5l2.3.9 2-3.4z"/></svg></span>
+    <span class="t">Созламалар<small>Кўриниш, ёзув, овоз, такрор</small></span><svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></a>
+
+  <a class="q-rw" id="yor" href="yoriqnoma.html"><span class="q-ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-2-1.5-4.5-2-8-2v14c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2V4c-3.5 0-6 .5-8 2zM12 6v14"/></svg></span>
+    <span class="t">Йўриқнома<small>Иловадан фойдаланиш</small></span><svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></a>
+  <a class="q-rw" href="https://t.me/Arabtilihivar_bot" target="_blank" rel="noopener"><span class="q-ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 4H4a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h3v3.5L11.5 17H20a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1z"/><path d="M8 9h8M8 12.5h5"/></svg></span>
+    <span class="t">Фикр юбориш<small>Хато ёки таклиф — Telegram орқали</small></span><svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></a>
+
+  <button class="q-rw" id="add" hidden><span class="q-ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M12 8.5v6M9 11.5h6"/></svg></span>
+    <span class="t">Бош экранга қўшиш<small>Илова каби очилади</small></span></button>
+  <p class="n-tip" id="tip" hidden>iPhone'да: пастдаги «Улашиш» тугмаси → «На экран Домой / Add to Home Screen»</p>
+
+  <h2 class="q-h">ИЛОВА ҲАҚИДА</h2>
+  <div class="n-inf">
+    <div><span>Китоб</span><b class="ar" lang="ar">نُورُ الطَّالِبِ</b></div>
+    <div><span>Версия</span><em id="ver">—</em></div>
+  </div>
+</main>
+<script>
+(function () {
+  var $ = function (i) { return document.getElementById(i); };
+  var ODAM = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg>';
+  $('soz').href = SN + 'sozlamalar.html'; $('yor').href = SN + 'yoriqnoma.html';
+  /* Тил (14.11.2026): «Созламалар»dan bu yerga; localStorage «til» (uz|ru), sahifa qayta yuklanadi — til qatlami ochilganda ulanadi */
+  (function () {
+    var g = document.querySelector('.n-sg'), cur = 'uz';
+    try { cur = localStorage.getItem('til') === 'ru' ? 'ru' : 'uz'; } catch (e) {}
+    [].forEach.call(g.querySelectorAll('button'), function (b) {
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-v') === cur));
+      b.onclick = function () {
+        var v = b.getAttribute('data-v'); if (v === cur) return;
+        try { localStorage.setItem('til', v); } catch (e) {}
+        [].forEach.call(g.querySelectorAll('button'), function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        setTimeout(function () { location.reload(); }, 250);
+      };
+    });
+  })();
+  if (window.Qobiq && Qobiq.ru) Qobiq.tez($('yor'));     /* yo'riqnomaning ruschasi hali yo'q */
+
+  /* Аккаунт (14.11.2026, foydalanuvchi): avval Telegram orqali kirish — ma'lumot saqlanishi uchun; kirmaganda kartada faqat «Telegram орқали
+     кириш» (2-darsdan majburiy, tg.js; docs/texnik.md 17, 18). Kirgach — ism: Telegramdagi ismi o'zi yoziladi (baza.js ham Telegram ichida
+     yozadi, t:1 — o'zi yozgani doim ustun), ✏️ bilan o'zgartiradi (localStorage «ism» {n, t}; serverda ham — keyin reytingda ko'rinadi). */
+  function ismOl() { try { var o = JSON.parse(localStorage.getItem('ism') || 'null'); return o && typeof o.n === 'string' ? o : null; } catch (e) { return null; } }
+  function ismYoz(n, t) { try { localStorage.setItem('ism', JSON.stringify({ n: n, t: t })); } catch (e) {} }
+  function hisob() {
+    var u = null, B = window.Baza;
+    try { u = window.Telegram.WebApp.initDataUnsafe.user || null; } catch (e) {}
+    var kirgan = !!(u || (B && B.tgUlangan && B.tgUlangan()));
+    $('hr').hidden = !kirgan; $('tgk').hidden = kirgan;
+    if (!kirgan) { $('hf').hidden = true; return; }
+    var i = ismOl();
+    if (!i && u) { var tn = [u.first_name, u.last_name].filter(Boolean).join(' ').replace(/\s+/g, ' ').trim().slice(0, 30); if (tn) { ismYoz(tn, 1); i = ismOl(); } }
+    var nom = i && i.n ? i.n : '';
+    $('hn').textContent = nom ? nom + '\u2063' : 'Исмингизни ёзинг';   /* \u2063 — ism tarjima qilinmaydi (ru.js) */
+    $('hn').classList.toggle('bo', !nom);
+    if (nom) $('av').textContent = nom.charAt(0).toUpperCase() + '\u2063'; else $('av').innerHTML = ODAM;
+  }
+  $('hb').onclick = function () { var i = ismOl(); $('hi').value = i ? i.n : ''; $('hb').hidden = true; $('hf').hidden = false; $('hi').focus(); };
+  $('hf').onsubmit = function (e) {
+    e.preventDefault();
+    ismYoz($('hi').value.replace(/\s+/g, ' ').trim().slice(0, 30), Date.now());
+    $('hf').hidden = true; $('hb').hidden = false; hisob();
+  };
+  hisob();
+  document.addEventListener('tgready', hisob);
+  if (window.Baza && Baza.tinglash) Baza.tinglash(hisob);
+  var kt = null, BZ = window.Baza;
+  function xb(t) { var x = $('xb'); x.textContent = t; x.hidden = !t; }
+  function tek() {
+    if (document.hidden) return;
+    BZ.ulashTekshir(function (ok, tugadi) {
+      if (ok) { clearInterval(kt); xb('Уланди — натижалар Telegram аккаунтингиз билан бирлашди.'); hisob(); }
+      else if (tugadi) { clearInterval(kt); xb('Вақт тугади. Қайта уриниб кўринг.'); }
+    });
+  }
+  function kut() { clearInterval(kt); kt = setInterval(tek, 3000); }
+  $('tgk').onclick = function () {
+    if (!BZ || !BZ.ulashBoshla) { xb('Синов саҳифасида уланмайди — асосий сайтда ишлайди.'); return; }
+    var tok = BZ.ulashBoshla();
+    try { window.open('https://t.me/Arabtilihivar_bot/darslar?startapp=kir_' + tok, '_blank'); } catch (e) {}
+    xb('Telegram очилди. У ерда тасдиқланг ва шу саҳифага қайтинг.');
+    kut();
+  };
+  if (BZ && BZ.ulashKutmoqda && BZ.ulashKutmoqda()) { xb('Telegram\'да тасдиқлашингиз кутилмоқда…'); kut(); }
+  document.addEventListener('visibilitychange', function () { if (!document.hidden && BZ && BZ.ulashKutmoqda && BZ.ulashKutmoqda()) tek(); });
+
+  /* «Бош экранга қўшиш» (oldin bosh sahifada edi): Telegram ichida — Telegram o'zi qo'shadi; Android Chrome — o'rnatish taklifi; iPhone — yo'l-yo'riq */
+  var add = $('add'), dp = null;
+  function tgAdd() {
+    try {
+      var w = Telegram.WebApp;
+      if (!(w.isVersionAtLeast('8.0') && w.addToHomeScreen)) return;
+      var kor = function () { add.hidden = false; add.onclick = function () { w.addToHomeScreen(); }; };
+      if (w.checkHomeScreenStatus) w.checkHomeScreenStatus(function (s) { if (s !== 'added' && s !== 'unsupported') kor(); }); else kor();
+      if (w.onEvent) w.onEvent('homeScreenAdded', function () { add.hidden = true; });
+    } catch (e) {}
+  }
+  if (document.documentElement.classList.contains('in-tg')) tgAdd(); else document.addEventListener('tgready', tgAdd);
+  window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); dp = e; add.hidden = false; add.onclick = function () { dp.prompt(); dp.userChoice.then(function () { add.hidden = true; }); }; });
+  var ios = /iphone|ipad|ipod/i.test(navigator.userAgent), yakka = window.navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
+  setTimeout(function () { if (ios && !yakka && !document.documentElement.classList.contains('in-tg')) $('tip').hidden = false; }, 800);
+
+  /* versiya — sw.js dagi «var C» */
+  fetch('sw.js', { cache: 'no-store' }).then(function (r) { return r.text(); }).then(function (t) {
+    var m = t.match(/var\s+C\s*=\s*['"]([^'"]+)['"]/); if (m) $('ver').textContent = (m[1].match(/v\d+/) || [m[1]])[0];
+  }).catch(function () {});
+
+  if (window.Qobiq) Qobiq.nav('yana');
+})();
+</script>
+</body>
+</html>

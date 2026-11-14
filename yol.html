@@ -347,6 +347,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
 .y-kwb .n,.y-kwl .n i{background:color-mix(in srgb,var(--mu) 45%,transparent)}
 .y-kwl span.n{grid-column:1/-1}
 .y-kws{margin:6px 0 0;font-size:13px;color:var(--mu)}
+.y-kwk{margin:8px 0 -4px;font-size:13px;font-weight:600;color:var(--mu)}
 .y-sh0{margin:-6px 0 10px}
 .y-li .t .m.sr{display:inline-flex;align-items:center;gap:3px;color:var(--y-ok)}
 .y-li .t .m.sr svg{width:14px;height:14px}
@@ -689,10 +690,14 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
      2) keyingi kitob — muqovasi kodda chizilgan karta, doim ochiq. Xaritada ham, ro'yxatda ham. */
   var HT4 = ['m', 'g', 'o', 'b', 'n'], HN = { m: 'мустаҳкам', g: 'биламан', o: 'ўрганяпман', b: 'билмайман', n: 'сараланмаган' };   /* n — darsi hali saralanmagan (14.11) */
   function kitobKarta(k, H) {
-    var s = H.sz[k.n] || { j: 0, m: 0, g: 0, o: 0, b: 0, n: 0, sd: 0 }, bil = s.m + s.g, pr = s.j ? Math.floor(bil * 100 / s.j) : 0, c = KR[k.n] || KR[1], hk = H.k[k.n];
+    /* 14.11 (foydalanuvchi): 2-kitob oxirida — 1 va 2-kitob qo'shib («1–2-КИТОБ СЎЗЛАРИ»), ostida har kitob alohida */
+    var kk = TUZ.slice(0, TUZ.indexOf(k) + 1), s = { j: 0, m: 0, g: 0, o: 0, b: 0, n: 0, sd: 0 }, f;
+    kk.forEach(function (x) { var z = H.sz[x.n]; if (z) for (f in s) s[f] += z[f] || 0; });
+    var bil = s.m + s.g, pr = s.j ? Math.floor(bil * 100 / s.j) : 0, c = KR[k.n] || KR[1], hk = H.k[k.n];
     var h = '<div class="y-kk"><div class="y-kw" style="--kr:' + c.r + ';--kh:' + c.hd + '">' +
-      '<div class="y-kwh"><span class="kb">' + IC.kitob + k.n + '</span><div class="t"><small>' + k.n + '-КИТОБ СЎЗЛАРИ</small>' +
+      '<div class="y-kwh"><span class="kb">' + IC.kitob + k.n + '</span><div class="t"><small>' + (kk.length > 1 ? kk[0].n + '–' + k.n : k.n) + '-КИТОБ СЎЗЛАРИ</small>' +
       '<b><em>' + bil + '</em> / ' + s.j + ' сўз</b></div><span class="pr">' + pr + '%</span></div>' +
+      (kk.length > 1 ? '<p class="y-kwk">' + kk.map(function (x) { var z = H.sz[x.n]; return x.n + '-китоб: ' + (z.m + z.g) + ' / ' + z.j; }).join(' · ') + '</p>' : '') +
       '<div class="y-kwb" role="img" aria-label="' + HT4.map(function (x) { return HN[x] + ' ' + s[x]; }).join(', ') + '">' +
         HT4.map(function (x) { return s[x] ? '<i class="' + x + '" style="width:' + (s[x] * 100 / s.j).toFixed(2) + '%"></i>' : ''; }).join('') + '</div>' +
       '<div class="y-kwl">' + HT4.map(function (x) { return x === 'n' && !s.n ? '' : '<span class="' + x + '"><i class="' + x + '"></i>' + HN[x] + '<b>' + s[x] + '</b></span>'; }).join('') + '</div>' +

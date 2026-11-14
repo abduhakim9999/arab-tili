@@ -488,10 +488,9 @@ function home(){
     <a class="back nav" href="index.html" aria-label="Дарслар">←</a>
     <div class="hd"><div class="lg ar">ف</div><div><h1>Феъллар</h1><p>${TOTAL} феъл · ${NSETS} қисм</p></div></div>
     <div class="sets">${parts}</div>
-    <button class="btn" id="bKt">📅 Кунлик тест · 5 тадан</button>
     <div class="row2"><button class="btn" id="bDc">📖 Луғат</button><button class="btn" id="bLb">🏆 Рейтинг</button></div>
     ${mist.length ? `<button class="btn" id="bMs">↻ Хатолар · ${mist.length}</button>` : ''}`;
-  bDc.onclick = lugat; bLb.onclick = leaderboard; bKt.onclick = kunlar;
+  bDc.onclick = lugat; bLb.onclick = leaderboard;
   if (window.bMs) bMs.onclick = mistakes;
   $app.querySelectorAll('[data-p]').forEach(el => el.onclick = () => {
     const p = +el.dataset.p;
@@ -502,20 +501,7 @@ function home(){
   });
   window.scrollTo(0, 0);
 }
-/* ---------- KUNLIK TEST (fel.html: kuniga 5 ta, guruhdagi test bilan bir xil) ---------- */
-const KN = 5, NKUN = Math.ceil(TOTAL / KN);
-function kunlar(){
-  SCREEN = 'sub';
-  let done = {}; try{ done = JSON.parse(localStorage.getItem('fel_done') || '{}') || {}; }catch(e){}
-  let cur = 1; while (cur < NKUN && done[cur] != null) cur++;
-  let h = '';
-  for (let k = 1; k <= NKUN; k++){
-    h += `<button class="day ${done[k] != null ? 'done' : ''} ${k === cur ? 'cur' : ''}" data-k="${k}"><b>${k}</b><span>кун</span></button>`; }
-  $app.innerHTML = `${backBtn()}<h2>📅 Кунлик тест</h2><p class="note">Ҳар куни 5 та феъл: эшитиб, маъносини топинг. Яшил — ишланган кунлар.</p><div class="days">${h}</div>`;
-  wireBack();
-  $app.querySelectorAll('[data-k]').forEach(el => el.onclick = () => { location.href = 'fel.html?k=' + el.dataset.k; });
-  const c = $app.querySelector('.day.cur'); if (c) c.scrollIntoView({ block: 'center' }); else window.scrollTo(0, 0);
-}
+/* KUNLIK TEST (fel.html) — guruh/bot ishi, ilovadan olib tashlandi (14.11.2026, foydalanuvchi qarori; docs/texnik.md 8). */
 function begin(p){
   store.set('test', { part: p, qs: makeTestQs(p), pos: 0, ans: [], start: Date.now() });
   runQ('test');

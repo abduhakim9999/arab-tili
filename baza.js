@@ -20,7 +20,7 @@
   if (!LSs || !window.fetch) return;
   var set0 = Storage.prototype.setItem, rem0 = Storage.prototype.removeItem;      /* tg.js o'ragan bo'lishi mumkin — zanjir saqlanadi */
   var KEYS = { 'soz': 1, 'takror-j': 1, 'yol': 1, 'yol-xato': 1, 'ism': 1 }, KODRE = /^[a-z0-9]{20,64}$/;
-  var GEN = /^(dars\d+-holat|sarf-holat|fel_done|fl200_(best|mist|t)|sozlama|sozlama-q|til|dars-uz|dars-tezlik|izoh-til|tinglash-(opt|mode|dars)|fe-pref|oxirgi-dars)$/;   /* tg.js bilan bir xil */
+  var GEN = /^(dars\d+-holat|sarf-holat|fl200_(best|mist|t)|sozlama|sozlama-q|til|dars-uz|dars-tezlik|izoh-til|tinglash-(opt|mode|dars)|fe-pref|oxirgi-dars)$/;   /* tg.js bilan bir xil */
   var YOZ = 3 * 60000, OQ = 10 * 60000;                 /* yozish va o'qish oralig'i (Vercel Blob bepul: oyiga 2 000 yozish, 10 000 o'qish) */
   var ichki = false, band = false, tm = null, tingl = [];
   var JIM = !!window.BAZA_JIM;                          /* dars sahifasidagi kirish oynasi (tg.js) yuklaganda: o'zi sinxronlamaydi, faqat kirish */

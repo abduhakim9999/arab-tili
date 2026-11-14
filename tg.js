@@ -9,7 +9,7 @@
      kalitlarining o'zgargan vaqti (baza.js birlashtirishda yangisini tanlaydi; ro'yxat — baza.js GEN bilan bir xil) va «baza-oz» (yuborilmagan
      o'zgarish bor). Hamma sahifada — baza.js yo'q sahifada (dars, Сарф, Феъллар) ham. baza.js serverdan yozganda (BAZA_ICHKI) belgilanmaydi. */
   try {
-    var GEN = /^(dars\d+-holat|sarf-holat|fel_done|fl200_(best|mist|t)|sozlama|sozlama-q|til|dars-uz|dars-tezlik|izoh-til|tinglash-(opt|mode|dars)|fe-pref|oxirgi-dars)$/;
+    var GEN = /^(dars\d+-holat|sarf-holat|fl200_(best|mist|t)|sozlama|sozlama-q|til|dars-uz|dars-tezlik|izoh-til|tinglash-(opt|mode|dars)|fe-pref|oxirgi-dars)$/;
     var s0 = Storage.prototype.setItem, r0 = Storage.prototype.removeItem;
     var belgi = function (st, k) {
       if (window.BAZA_ICHKI || !GEN.test(k)) return;
@@ -58,7 +58,7 @@
   /* KIRISH (14.11.2026, foydalanuvchi qarori; docs/texnik.md 17). Kech (foydalanuvchi: «kerakli hamma narsa akkaunt orqali saqlansin, boshqa
      telefonda ham ochilsin»): Telegramdan tashqarida **kirishsiz faqat 1-darsni o'qish va eshitish**; natija yaratadigan hammasi — Telegram orqali
      kirgandan keyin. Telegram ichida, sinov va ko'rish (github.io /tayyor/) sahifalarida so'ralmaydi. Kirish — baza.js (ulashBoshla / ulashTekshir).
-       N-dars (N≠1), takror.html (Луғат), sarf.html, feellar.html, fel.html, tinglash.html (1-darsdan boshqa) — sahifa ochilganda;
+       N-dars (N≠1), takror.html (Луғат), sarf.html, feellar.html, tinglash.html (1-darsdan boshqa) — sahifa ochilganda;
        1-dars — «Луғат» / «Машқ» yorlig'i bosilganda (oynani yopsa bo'ladi); yol.html — so'z saralash va imtihon boshlanganda (Kirish.oyna). */
   var Kirish = window.Kirish = (function () {
     function G(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
@@ -117,7 +117,7 @@
   (function () {
     if (!Kirish.kerak()) return;
     var m = /^dars(\d+)-holat$/.exec(KEY), dars1 = !!m && +m[1] === 1, nom = (location.pathname.match(/([a-z]+)\.html$/) || [])[1] || '';
-    var avto = (m && !dars1) || /^(takror|sarf|feellar|fel)$/.test(nom) || (nom === 'tinglash' && !/[?&]d=0*1(&|$)/.test(location.search));
+    var avto = (m && !dars1) || /^(takror|sarf|feellar)$/.test(nom) || (nom === 'tinglash' && !/[?&]d=0*1(&|$)/.test(location.search));
     function boshla() {
       if (avto) { Kirish.oyna(false); return; }
       if (dars1 && typeof window.tab === 'function') {      /* 1-dars: Матн ochiq, «Луғат» (t2) va «Машқ» (t3) — kirgach */

@@ -4,7 +4,7 @@ import tarkib
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.environ.get('OUT') or '/mnt/user-data/outputs/arab-tili'
-VER = '295'
+VER = '296'
 
 LESSONS = [
     # (raqam, manba, sarlavha, arabcha sarlavha, kalit, savollar soni)
@@ -212,6 +212,7 @@ for f in ('icon-192.png', 'icon-512.png', 'icon-maskable-512.png'):
     shutil.copy(os.path.join(HERE, f), OUT)
 
 shutil.copytree(os.path.join(HERE, '..', 'fq'), OUT + '/fq')  # fe'l testi audiolari (bot uchun)
+# fel.html — guruhdagi kunlik fe'l testi (bot ishi): saytga ko'chiriladi, lekin ilova fayllari (sw FILES) ro'yxatida yo'q (14.11.2026; docs/texnik.md 8)
 for f in ('tg.js', 'shell.js', 'shell.css', 'hdr.js', 'sarflink.js', 'fel.html', 'tarkib.js', 'tarkib2.js'):
     shutil.copy(os.path.join(HERE, f), OUT)
 idx = open(os.path.join(HERE, 'index.tpl.html'), encoding='utf-8').read()
@@ -247,7 +248,7 @@ for n in LISTEN:
 tp = open(os.path.join(HERE, 'tinglash.tpl.html'), encoding='utf-8').read().replace('__LIST__', json.dumps(LST, ensure_ascii=False))
 open(OUT + '/tinglash.html', 'w', encoding='utf-8').write(tp)
 
-files = ['./', 'index.html', 'tinglash.html', 'yoriqnoma.html', 'nahv.html', 'takror.html', 'takror.js', 'fsrs.js', 'baza.js', 'yol.html', 'sozlamalar.html', 'qobiq.js', 'qoidalar.html', 'yana.html', 'data/lugat.json', 'data/mashq.json', 'data/darslar.json', 'data/ikonka.json', 'fel.html', 'tg.js', 'shell.js', 'shell.css', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png'] + \
+files = ['./', 'index.html', 'tinglash.html', 'yoriqnoma.html', 'nahv.html', 'takror.html', 'takror.js', 'fsrs.js', 'baza.js', 'yol.html', 'sozlamalar.html', 'qobiq.js', 'qoidalar.html', 'reyting.html', 'yana.html', 'data/lugat.json', 'data/mashq.json', 'data/darslar.json', 'data/ikonka.json', 'tg.js', 'shell.js', 'shell.css', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png'] + \
         ['%s.html' % l[0] for l in LESSONS] + ['feellar.html', 'sarf.html', 'sarf-idx.json', 'sarflink.js', 'tarkib.js', 'tarkib2.js', 'hdr.js', 'naskh.woff'] + \
         [f for f in ['fiqh.html', 'fkitob.html'] + sorted(os.path.basename(x) for x in __import__('glob').glob(OUT + '/f[0-9]*.html')) if os.path.exists(os.path.join(OUT, f))] + \
         [f for f in ['ru.js', 'ru-index.js'] + sorted(os.path.basename(x) for x in __import__('glob').glob(OUT + '/ru[0-9]*.html')) if os.path.exists(os.path.join(OUT, f))]  # ruscha (src/ru); audio (AUD) versiyaga kirmaydi — sw.js o'zi keshlaydi

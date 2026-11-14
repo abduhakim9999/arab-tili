@@ -358,6 +358,9 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
 .y-li em{font-style:normal;font-size:14px;font-weight:700;color:var(--mu);display:flex;align-items:center;gap:4px;flex-shrink:0;font-variant-numeric:tabular-nums}
 .y-li em svg{width:18px;height:18px}
 .y-li em.ok{color:var(--y-ok)}
+/* ruscha rejim: tarjimasi hali yo'q dars / imtihon — «Тез орада» (14.11.2026) */
+.y-n.tz{filter:grayscale(.75);opacity:.55}.y-lb.tz,.y-li.tz{opacity:.6}.y-md.tz{filter:grayscale(.75);opacity:.6}
+.y-li em.tz{font-size:12px;color:var(--ac);white-space:nowrap}
 .y-li.hz{border-color:#E0B95A;box-shadow:inset 0 -3px 0 #E0B95A}
 </style>
 </head>
@@ -523,13 +526,16 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
       var kx = R.e['k' + k.n], kOt = !!(kx && kx.b >= OTISH), kj = 0, ko = 0;
       for (var z = ki + 1; z < TUZ.length; z++) { var e2 = R.e['k' + TUZ[z].n]; if (e2 && e2.b >= OTISH) kOt = true; }   /* keyingi kitob imtihoni o'tilgan */
       var kOchiq = ki === 0 || oldKitobOtdi || kOt;
-      var oldBob = true, bobHammasi = true, oxBob = -1;
+      var oldBob = true, bobHammasi = true, oxBob = -1, ktz = false;
       k.b.forEach(function (b, bi) { var e = R.e['b' + b.k]; if (e && e.b >= OTISH) oxBob = bi; });               /* bob imtihoni o'tilgan eng oxirgi bob */
       k.b.forEach(function (b, bi) {
         var bx = R.e['b' + b.k], bOt = kOt || bi <= oxBob;
         var bOchiq = kOchiq && (bi === 0 ? true : oldBob) || bOt;
-        var oldDars = true, hammasi = true;
+        var oldDars = true, hammasi = true, tzb = false;
         b.d.forEach(function (d, di) {
+          /* ruscha rejim (14.11.2026): tarjimasi hali yo'q dars — «Тез орада» (ru.js darslar.json ga tez:1 qo'yadi). Ochilmaydi, hisobga kirmaydi;
+             shunday darsi bor bob/kitob imtihoni ham «Тез орада» (imtihon o'sha dars so'zlarini ham so'raydi) */
+          if (d.tez) { H.d[d.n] = { tez: 1, ot: false, op: false, r: null, ls: 0, sr: false, mo: false, lo: true, imt: false }; tzb = true; hammasi = false; return; }
           /* dars o'tishi: «Машқ» OTISH% dan (mo) va — lug'ati bor darsda — so'zlar saralangan (lo; bilmaganlar belgilangan) */
           var r = R.d[d.n], ls = (LG[d.n] || []).length, sr = !!W.s[d.n], mo = !!(r && r.b >= OTISH), lo = !ls || sr, dOt = bOt || (mo && lo);
           var dOchiq = dOt || (bOchiq && (di === 0 || oldDars));
@@ -540,17 +546,18 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
           oldDars = dOt; if (!dOt) hammasi = false;
         });
         var exOchiq = bOt || (bOchiq && hammasi);
-        H.b[b.k] = { ot: bOt, op: exOchiq, r: bx || null, d: b.d.filter(function (d) { return H.d[d.n].ot; }).length };
+        H.b[b.k] = { ot: bOt, op: exOchiq, r: bx || null, d: b.d.filter(function (d) { return H.d[d.n].ot; }).length, tez: tzb && !bOt };
+        if (tzb && !bOt) ktz = true;
         if (!H.hz && exOchiq && !bOt) { H.hz = 'b' + b.k; H.hzk = k.n; }
         oldBob = bOt; if (!bOt) bobHammasi = false;
       });
       var kxOchiq = kOt || (kOchiq && bobHammasi);
-      H.k[k.n] = { ot: kOt, op: kxOchiq, r: kx || null, och: kOchiq, j: kj, o: ko };
-      if (!H.hz && kxOchiq && !kOt) { H.hz = 'k' + k.n; H.hzk = k.n; }
+      H.k[k.n] = { ot: kOt, op: kxOchiq && !ktz, r: kx || null, och: kOchiq, j: kj, o: ko, tez: ktz && !kOt };
+      if (!H.hz && kxOchiq && !kOt && !ktz) { H.hz = 'k' + k.n; H.hzk = k.n; }
       oldKitobOtdi = kOt;
     });
     if (SZ.erkin) {                                    /* sozlamalar → «Эркин режим»: hamma dars qulfsiz */
-      var x; for (x in H.d) H.d[x].op = true; for (x in H.b) H.b[x].op = true; for (x in H.k) { H.k[x].op = true; H.k[x].och = true; }
+      var x; for (x in H.d) H.d[x].op = !H.d[x].tez; for (x in H.b) H.b[x].op = !H.b[x].tez; for (x in H.k) { H.k[x].op = !H.k[x].tez; H.k[x].och = true; }
     }
     return H;
   }
@@ -617,20 +624,20 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
       var st = 'left:' + x + '%;top:' + y + 'px', lst = 'top:' + y + 'px';
       if (u.t === 'd') {
         var d = u.d, qf = !u.h.ot && !u.h.op, ik = IK[d.n], r = u.h.r, lq = u.h.ls && u.h.mo && !u.h.lo;   /* lq — машқ ўтилган, сўзлар ҳали сараланмаган */
-        h += '<button class="y-n' + (u.h.ot ? ' ot' : '') + (hz ? ' hz' : '') + (qf ? ' qf' : '') + '" data-i="' + u.i + '" style="' + st + '" aria-label="' + d.n + '-дарс: ' + esc(d.uz) + (u.h.ot ? ', ўтилган' : qf ? ', навбати келмаган' : '') + '">' +
+        h += '<button class="y-n' + (u.h.ot ? ' ot' : '') + (hz ? ' hz' : '') + (qf ? ' qf' : '') + (u.h.tez ? ' tz' : '') + '" data-i="' + u.i + '" style="' + st + '" aria-label="' + d.n + '-дарс: ' + esc(d.uz) + (u.h.ot ? ', ўтилган' : u.h.tez ? ', тез орада' : qf ? ', навбати келмаган' : '') + '">' +
           (ik ? '<span class="ic" style="background:' + ik.l + '"><svg viewBox="0 0 64 64" aria-hidden="true">' + ik.s + '</svg></span>' : d.n) +
           '<i class="nr">' + d.n + '</i>' + (u.h.ot ? '<i class="ok">' + IC.ok + '</i>' : '') + '</button>';
         if (hz) h += '<button class="y-lb kt ' + yon + '" data-i="' + u.i + '" style="' + lst + '"><small class="hk">ҲОЗИРГИ ДАРС</small><b>' + esc(d.uz) + '</b><span class="ar" lang="ar">' + esc(d.ar) + '</span>' +
           (!r && !u.h.sr ? '' : u.h.ls ? '<span class="m">машқ ' + (r ? r.s + '%' : '—') + ' · сўзлар ' + (u.h.sr ? '✓' : '—') + '</span>' : '<span class="m">охирги ' + r.s + '%</span>') + '</button>';
-        else h += '<button class="y-lb ' + yon + (qf ? ' qf' : '') + '" data-i="' + u.i + '" style="' + lst + '"><b>' + esc(d.uz) + '</b>' +
-          (u.h.ot && !u.h.imt ? '<span class="s"><span>' + r.b + '%</span>' + yulduz(r.b) + '</span>' : u.h.imt ? '<span class="m">имтиҳон орқали</span>' : lq ? '<span class="m">сўзларни саралаш қолди</span>' : r ? '<span class="m">машқ ' + r.s + '%</span>' : '') + '</button>';
+        else h += '<button class="y-lb ' + yon + (qf ? ' qf' : '') + (u.h.tez ? ' tz' : '') + '" data-i="' + u.i + '" style="' + lst + '"><b>' + esc(d.uz) + '</b>' +
+          (u.h.tez ? '<span class="m">тез орада</span>' : u.h.ot && !u.h.imt ? '<span class="s"><span>' + r.b + '%</span>' + yulduz(r.b) + '</span>' : u.h.imt ? '<span class="m">имтиҳон орқали</span>' : lq ? '<span class="m">сўзларни саралаш қолди</span>' : r ? '<span class="m">машқ ' + r.s + '%</span>' : '') + '</button>';
       } else {
         var bob = u.t === 'b', nom = bob ? 'Боб имтиҳони' : 'Китоб имтиҳони', rr = u.h.r, son = savolSoni(u.t, u.i.slice(1));
-        h += '<button class="y-n ' + (bob ? 'ex' : 'kx') + (u.h.ot ? ' ot' : '') + (hz ? ' hz' : '') + '" data-i="' + u.i + '" style="' + st + '" aria-label="' + nom + (u.h.ot ? ', ўтилган' : '') + '">' +
+        h += '<button class="y-n ' + (bob ? 'ex' : 'kx') + (u.h.ot ? ' ot' : '') + (hz ? ' hz' : '') + (u.h.tez ? ' tz' : '') + '" data-i="' + u.i + '" style="' + st + '" aria-label="' + nom + (u.h.tez ? ', тез орада' : '') + (u.h.ot ? ', ўтилган' : '') + '">' +
           (bob ? IC.qalqon : IC.kubok) + (u.h.ot ? '<i class="ok">' + IC.ok + '</i>' : '') + '</button>';
         if (hz) h += '<button class="y-lb kt ' + yon + '" data-i="' + u.i + '" style="' + lst + '"><b>' + nom + '</b><span class="m">' + son + ' савол · ' + OTISH + '% — ўтиш</span></button>';
-        else h += '<button class="y-lb ' + yon + '" data-i="' + u.i + '" style="' + lst + '"><b>' + nom + '</b>' +
-          (rr ? '<span class="s"><span>' + rr.b + '%</span>' + (u.h.ot ? yulduz(rr.b) : '') + '</span>' : '<span class="m">' + son + ' савол</span>') + '</button>';
+        else h += '<button class="y-lb ' + yon + (u.h.tez ? ' tz' : '') + '" data-i="' + u.i + '" style="' + lst + '"><b>' + nom + '</b>' +
+          (u.h.tez ? '<span class="m">тез орада</span>' : rr ? '<span class="s"><span>' + rr.b + '%</span>' + (u.h.ot ? yulduz(rr.b) : '') + '</span>' : '<span class="m">' + son + ' савол</span>') + '</button>';
       }
     });
     return h + '</div>' + (k.b[k.b.length - 1] === b ? kitobTugma(k, H) : '') + '</section>';
@@ -726,14 +733,14 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
       (m.kr ? '<img class="y-bki" src="' + rasm(m.kr) + '" alt="" loading="lazy" decoding="async">' : '') + '</div>';
     b.d.forEach(function (d) {
       var u = H.d[d.n], qf = !u.ot && !u.op, ik = IK[d.n], r = u.r, lq = u.ls && u.mo && !u.lo;
-      h += '<button class="y-li' + (H.hz === 'd' + d.n ? ' hz' : '') + (qf ? ' qf' : '') + '" data-i="d' + d.n + '" aria-label="' + d.n + '-дарс: ' + esc(d.uz) + (u.ot ? ', ўтилган' : qf ? ', навбати келмаган' : '') + '">' +
+      h += '<button class="y-li' + (H.hz === 'd' + d.n ? ' hz' : '') + (qf ? ' qf' : '') + (u.tez ? ' tz' : '') + '" data-i="d' + d.n + '" aria-label="' + d.n + '-дарс: ' + esc(d.uz) + (u.ot ? ', ўтилган' : u.tez ? ', тез орада' : qf ? ', навбати келмаган' : '') + '">' +
         (ik ? '<span class="ic" style="background:' + ik.l + '"><svg viewBox="0 0 64 64" aria-hidden="true">' + ik.s + '</svg></span>' : '<span class="ic">' + d.n + '</span>') +
         '<span class="t"><b>' + d.n + '. ' + esc(d.uz) + '</b><span class="ar" lang="ar">' + esc(d.ar) + '</span>' + (lq ? '<span class="m">сўзларни саралаш қолди</span>' : '') + '</span>' +
-        (u.ot ? '<em class="ok">' + (r && !u.imt ? r.b + '%' : '') + IC.ok + '</em>' : qf ? '' : r ? '<em>' + r.s + '%</em>' : '<em>' + IC.ong + '</em>') + '</button>';
+        (u.ot ? '<em class="ok">' + (r && !u.imt ? r.b + '%' : '') + IC.ok + '</em>' : u.tez ? '<em class="tz">тез орада</em>' : qf ? '' : r ? '<em>' + r.s + '%</em>' : '<em>' + IC.ong + '</em>') + '</button>';
     });
     var imt = function (t, i, x) {
-      return '<button class="y-li' + (H.hz === i ? ' hz' : '') + (!x.ot && !x.op ? ' qf' : '') + '" data-i="' + i + '"><span class="ic q">' + (t === 'b' ? IC.qalqon : IC.kubok) + '</span>' +
-        '<span class="t"><b>' + (t === 'b' ? 'Боб имтиҳони' : 'Китоб имтиҳони') + '</b><span class="m">' + savolSoni(t, i.slice(1)) + ' савол · ' + OTISH + '% — ўтиш</span></span>' +
+      return '<button class="y-li' + (H.hz === i ? ' hz' : '') + (!x.ot && !x.op ? ' qf' : '') + (x.tez ? ' tz' : '') + '" data-i="' + i + '"><span class="ic q">' + (t === 'b' ? IC.qalqon : IC.kubok) + '</span>' +
+        '<span class="t"><b>' + (t === 'b' ? 'Боб имтиҳони' : 'Китоб имтиҳони') + '</b><span class="m">' + (x.tez ? 'тез орада' : savolSoni(t, i.slice(1)) + ' савол · ' + OTISH + '% — ўтиш') + '</span></span>' +
         (x.ot ? '<em class="ok">' + (x.r ? x.r.b + '%' : '') + IC.ok + '</em>' : x.r ? '<em>' + x.r.b + '%</em>' : '<em>' + IC.ong + '</em>') + '</button>';
     };
     h += imt('b', 'b' + b.k, hb);
@@ -802,11 +809,22 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
   function yorliq(cls, matn, iz) {
     return iz ? '<button class="y-hl y-hb' + (cls ? ' ' + cls : '') + '" aria-expanded="false" aria-controls="yid">' + matn + IC.info + '</button>' : '<span class="y-hl' + (cls ? ' ' + cls : '') + '">' + matn + '</span>';
   }
+  /* ruscha rejim: tarjimasi hali yo'q dars yoki shunday darsi bor imtihon (14.11.2026; foydalanuvchi: «скоро» bo'lib tursin) */
+  function tezVaraq(id) {
+    var t = id[0], kl = id.slice(1), n = +kl, d = t === 'd' ? D.filter(function (x) { return x.n === n; })[0] : null, ik = d ? IK[n] : null;
+    var iz = d ? 'Бу дарснинг русча таржимаси тайёрланмоқда.' : 'Имтиҳон ичидаги дарсларнинг ҳаммаси русчада тайёр бўлгач очилади.';
+    var md = d ? '<span class="y-md tz">' + (ik ? '<span class="ic" style="background:' + ik.l + '"><svg viewBox="0 0 64 64" aria-hidden="true">' + ik.s + '</svg></span>' : n) + '</span>'
+      : '<span class="y-md tz ' + (t === 'b' ? 'ex">' + IC.qalqon : 'kx">' + IC.kubok) + '</span>';
+    var nom = d ? esc(d.uz) : t === 'b' ? bobTop(kl).raq + '-боб имтиҳони' : kl + '-китоб имтиҳони';
+    ochVaraq(varaqBosh(md, (d ? n + '-ДАРС' : 'ИМТИҲОН') + yorliq('qf', 'Тез орада'), nom, d ? esc(d.ar) : t === 'b' ? esc(bobTop(kl).nom) : (KNOM[kl] || ''), '') + '<p>' + iz + '</p>');
+  }
   function varaqNatija(r) {
     return '<div class="y-ns"><div><b>' + r.b + '%</b><span>энг яхши</span><div class="st">' + yulduz(r.b) + '</div></div><div><b>' + r.s + '%</b><span>охирги</span><div class="st">' + yulduz(r.s) + '</div></div></div>';
   }
   function varaq(id) {
     var t = id[0], h = '';
+    var tz = t === 'd' ? P.d[+id.slice(1)] : (t === 'b' ? P.b : P.k)[id.slice(1)];
+    if (tz && tz.tez) { tezVaraq(id); return; }
     if (t === 'd') {
       var n = +id.slice(1), d = D.filter(function (x) { return x.n === n; })[0], s = P.d[n], r = s.r, qf = !s.ot && !s.op, ik = IK[n];
       /* qs — oynadagi qisqa qator, iz — ⓘ ichidagi batafsil. «Навбати келмаган» — yo'lda navbati yetmagan dars (o'qish va eshitish ochiq). */
@@ -989,6 +1007,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
   var IM = null, tmq = null;
   function imtihon(id) {
     var t = id[0], kalit = id.slice(1);
+    if (((t === 'b' ? P.b : P.k)[kalit] || {}).tez) return;   /* ruscha rejim: «Тез орада» */
     IM = { id: id, t: t, kalit: kalit, s: aralash(savollar(t, kalit)), i: 0, n: 0, tog: 0, xato: [], t0: 0 };   /* n, tog — birinchi urinishlar; qayta so'ralgan so'z hisobga kirmaydi */
     document.body.classList.add('y-ses');
     savol();

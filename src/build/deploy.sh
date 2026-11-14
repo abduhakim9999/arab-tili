@@ -26,6 +26,25 @@ for TRY in 1 2 3; do
   if [ -f src/build/tekshir_data.py ] && [ -d data ]; then python3 src/build/tekshir_data.py || { echo "TO'XTA: data/ eskirgan yoki buzilgan"; exit 5; }; fi
   # «Йўл» tugunlaridagi dars ikonkalari bosh sahifadagi ICO dan (docs/texnik.md 15) — har joylashda yangilanadi
   if [ -f src/build/ikonka.py ]; then python3 src/build/ikonka.py >/dev/null || { echo "TO'XTA: ikonka.py ishlamadi"; exit 6; }; fi
+  # Ruscha versiya (docs/texnik.md 12): kod bitta — o'zbekcha dars yoki umumiy kod o'zgarsa, ruschasi ham o'zgaradi.
+  # ruN.html va ru-index.js har joylashda qayta yasaladi; ruscha matni yo'q joy bo'lsa (Playwright bo'lsa tekshiriladi) — to'xtaydi.
+  if [ -f src/ru/build.py ] && ls ru[0-9]*.html >/dev/null 2>&1; then
+    python3 src/ru/build.py --hammasi --index --out . >/dev/null || { echo "TO'XTA: ruscha qayta yasalmadi (src/ru/build.py)"; exit 7; }
+    CH=$( { git diff --name-only origin/main; git ls-files --others --exclude-standard; } | sort -u)
+    if printf '%s\n' "$CH" | grep -qE '^((yol|takror|qoidalar|yana|sozlamalar|nahv|[0-9]+)\.html|(qobiq|takror|tg|baza|shell|tarkib2|ru|ru-index)\.js|data/.*|src/ru/.*)$'; then
+      if [ -x /usr/bin/google-chrome ] && python3 -c 'import playwright' 2>/dev/null; then
+        RT=$(python3 src/ru/tekshir/qobiq.py . 2>&1 || true)
+        printf '%s\n' "$RT" | grep -q '^MISS (0)' && printf '%s\n' "$RT" | grep -q '^XATO (0)' || {
+          printf '%s\n' "$RT" | sed -n '/^MISS/,/^UZ LEFT/p;/^XATO/,$p' | head -40
+          echo "TO'XTA: ruscha rejimda tarjimasi yo'q matn yoki xato bor — src/ru/lugat-qobiq.txt ga qo'shing (docs/texnik.md 12)"; exit 8; }
+        for f in $(printf '%s\n' "$CH" | grep -E '^[0-9]+\.html$'); do
+          n=${f%.html}; [ -f "ru$n.html" ] || continue
+          RT=$(python3 src/ru/tekshir/harvest.py . "ru$n.html" "$(mktemp -d)" 2>&1 || true)
+          printf '%s\n' "$RT" | grep -q 'MISS (0)' || { printf '%s\n' "$RT" | grep -A15 'MISS (' | head -20; echo "TO'XTA: ru$n.html da tarjimasi yo'q matn — src/ru/d$(printf %02d "$n").txt yoki lugat-umumiy.txt ga qo'shing"; exit 8; }
+        done
+      else echo "ESLATMA: Playwright/Chrome yo'q — ruscha matn tekshiruvi (src/ru/tekshir/qobiq.py, harvest.py) o'tkazilmadi"; fi
+    fi
+  fi
   sh src/build/bump.sh
   git rm -q --ignore-unmatch 'sinov-*' >/dev/null 2>&1 || true  # sinov fayllari (sahifa, js, json) asosiy joylashda o'chadi
   git add --sparse -A ${@:-.}

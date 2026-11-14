@@ -506,7 +506,7 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
   var NOM = { i: 'Исм', f: 'Феъл', h: 'Ҳарф' };
   function turi(r) { return r.tur === 'fel' ? 'f' : r.tur === 'harf' ? 'h' : 'i'; }
   var HT = ['насб ва масдар ҳарфи', 'жар ҳарфи', 'атф ҳарфи', 'истифҳом ҳарфи', 'жавоб ҳарфи', 'нидо ҳарфи', 'жазм ҳарфи', 'таъкид ҳарфи', 'масдар ҳарфи'];   /* lug'at izohidagi nomlar; boshqasi so'ralmaydi */
-  function harfTuri(r) { if (r.tur !== 'harf') return ''; var u = r.uz.join(' '); for (var i = 0; i < HT.length; i++) if (u.indexOf(HT[i]) > -1) return HT[i]; return ''; }
+  function harfTuri(r) { if (r.tur !== 'harf') return ''; var u = (r.uzA || r.uz).join(' ');   /* uzA — ruscha rejimda asl o'zbekcha ma'no (ru.js): tur nomi o'shandan */ for (var i = 0; i < HT.length; i++) if (u.indexOf(HT[i]) > -1) return HT[i]; return ''; }
   function shaklTuri(r) { return r.tur === 'fel' ? (r.fel && r.fel.length > 1 ? 'k' : '') : r.tur === 'harf' ? (harfTuri(r) ? 't' : '') : (r.jam && r.jam.length ? 'j' : ''); }
   /* 14.11.2026 (foydalanuvchi: fe'l mashqi tushunarsiz): fe'l shakllari nomi bilan; harf turi ham «Билдим / Билмадим» bilan (4 variant o'rniga) */
   var FN = ['Ўтган замон · мозий', 'Ҳозирги замон · музореъ', 'Буйруқ · амр', 'Масдар'];
@@ -529,7 +529,7 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
     return p.join(' · ');
   }
   function mano1(r) { var u = r.uz[0] || ''; return (u.match(/(^|[\s;,])\d+\./g) || []).length > 1 ? u : u.replace(/^\d+\.\s*/, ''); }
-  function manoT(r) { return mano1(r).replace(/\s*\([^()]*ҳарфи[^()]*\)/g, '').replace(/\s*-\s*[^()]*ҳарфи.*$/, ''); }   /* harf ma'nosi — turi yozilmagan holda */
+  function manoT(r) { return mano1(r).replace(/\s*\([^()]*(?:ҳарфи|частица)[^()]*\)/g, '').replace(/\s*-\s*[^()]*(?:ҳарфи|частица).*$/, ''); }   /* harf ma'nosi — turi yozilmagan holda (ruschada «(частица джарр)») */
   function yalang(x) { return plain(x).replace(/[.\sـ؟?]/g, ''); }
   function sof(x) { return x.replace(/\((мз|мн)\)/g, '').replace(/\s+/g, ' ').trim().toLowerCase(); }
   function oxshash(a, b) { return a.id === b.id || yalang(a.ar) === yalang(b.ar) || (a.asl || a.id) === (b.asl || b.id) || (a.mn && a.mn === b.ar) || (b.mn && b.mn === a.ar) || sof(mano1(a)) === sof(mano1(b)); }

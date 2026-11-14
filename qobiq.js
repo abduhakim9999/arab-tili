@@ -4,6 +4,14 @@
    Mashg'ulot va imtihon paytida (body.y-ses, body.tq-ses) tugmalar yashirinadi. Dars sahifalarida qobiq yo'q — ular to'liq ekranda o'qiladi. */
 (function () {
   var SN = /\/sinov-[^\/]*$/.test(location.pathname) ? 'sinov-' : '';
+  /* Til (14.11.2026; docs/texnik.md 12): ruscha rejimda kod o'sha — ruscha qatlam ulanadi (ru-index.js lug'at va ma'lumot,
+     ru.js ekrandagi matnni o'giradi). Funksiya bitta: o'zbekcha sahifa o'zgarsa, ruschasi ham o'zgaradi. */
+  try {
+    if (localStorage.getItem('til') === 'ru' && !window.RU_DICT) {
+      window.TIL = 'ru'; document.documentElement.lang = 'ru';
+      document.write('<script src="' + SN + 'ru-index.js"><\/script><script src="' + SN + 'ru.js"><\/script>');
+    }
+  } catch (e) {}
   var UY = SN + 'yol.html';                            /* asosiy ekran — xarita */
   function sv(d) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>'; }
   var B = [
@@ -44,7 +52,10 @@
     '.q-nav .on .i{background:var(--tint)}' +
     '.q-nav .i b{position:absolute;right:2px;top:-3px;min-width:18px;height:18px;box-sizing:border-box;padding:0 5px;border-radius:9px;background:#c99434;color:#2B1D00;font-size:11px;font-weight:700;line-height:18px;text-align:center}' +
     '.q-nav a:focus-visible{outline:2px solid var(--ac);outline-offset:-4px;border-radius:18px}' +
-    'body.y-ses .q-nav,body.tq-ses .q-nav{display:none}';
+    'body.y-ses .q-nav,body.tq-ses .q-nav{display:none}' +
+    /* «Тез орада» (ruscha rejimda tarjimasi hali yo'q bo'lim — Qobiq.tez) */
+    '.q-rw.q-tz{opacity:.62;cursor:default}.q-rw.q-tz:active{transform:none}' +
+    '.q-tzb{flex-shrink:0;padding:3px 9px;border-radius:9px;background:var(--tint,#e8f3ee);color:var(--ac,#0f7a4f);font-size:12px;font-weight:700;white-space:nowrap}';
   try { var st = document.createElement('style'); st.textContent = css; (document.head || document.documentElement).appendChild(st); } catch (e) {}
 
   /* sw.js: oldin bosh sahifa ro'yxatdan o'tkazardi; endi u xaritaga o'tkazib yuboradi — shuning uchun qobiq sahifalari o'zi ro'yxatdan o'tkazadi */
@@ -63,7 +74,15 @@
   function birXil(a, b) { return a.split('#')[0] === b.split('#')[0]; }
 
   var Q = window.Qobiq = {
-    SN: SN, UY: UY, ustiga: null,
+    SN: SN, UY: UY, ustiga: null, ru: window.TIL === 'ru',
+    /* ruscha rejimda tarjimasi hali yo'q bo'lim (14.11.2026, foydalanuvchi: «скоро» bo'lib tursin): qator ochilmaydi, «›» o'rnida yorliq */
+    tez: function (a) {
+      if (!a) return;
+      a.removeAttribute('href'); a.classList.add('q-tz'); a.setAttribute('aria-disabled', 'true');
+      a.onclick = function (e) { e.preventDefault(); };
+      var ch = a.querySelector('.ch'), b = document.createElement('span'); b.className = 'q-tzb'; b.textContent = 'Тез орада';
+      if (ch) ch.parentNode.replaceChild(b, ch); else a.appendChild(b);
+    },
     /* faol — qaysi tugma yonadi. Tarix: asosiy ekrandan bo'limga — oddiy o'tish; bo'limdan bo'limga — almashtirish
        (telefonning «orqaga» tugmasi doim asosiy ekranga qaytaradi, bo'limlar tarixda yig'ilmaydi). */
     nav: function (faol) {

@@ -2,7 +2,8 @@
 """Ruscha dars sahifasini yasash (o'zbekcha sahifaga tegilmaydi).
 
     python3 src/ru/build.py 1 [--out DIR]     ->  DIR/ru1.html  (repo ildizidan ishga tushiriladi)
-    python3 src/ru/build.py --index --out .   ->  ru-index.js, ru.js (bosh sahifaning ruscha rejimi)
+    python3 src/ru/build.py --index --out .   ->  ru-index.js, ru.js (darsdan boshqa hamma sahifaning ruscha rejimi)
+    python3 src/ru/build.py --hammasi --index --out .   ->  hamma ruN.html + ru-index.js (deploy.sh shuni chaqiradi)
 
 Ikki qatlam:
  1) Ma'lumotda almashtiriladi (dNN.json): sarlavha, gap tarjimasi (TR), so'z ma'nosi (D ning 4-maydoni),
@@ -18,7 +19,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 MARK = '\u2063'
 AR = '[\u0600-\u06FF\uFB50-\uFDFF\uFE70-\uFEFF]'
 RUN = re.compile(AR + '+(?:[\\s\u060C\u2026]+' + AR + '+)*')
-PARTS = re.compile(r'^([^\u0400-\u04FF\u25CC0-9«(]*)(.*?)([\s.,:;!?\u2026]*)$', re.S)
+PARTS = re.compile(r'^([^\u0400-\u04FFA-Za-z\u25CC0-9«(]*)(.*?)([\s.,:;!?\u2026]*)$', re.S)   # lotin harf ham matn boshi (14.11.2026: «Telegram орқали кириш»)
 
 
 def W(s):
@@ -213,7 +214,7 @@ def build(n, out):
     s = re.sub(r'<script>\(function\(\)\{var d=document\.querySelector\("\.dh"\)[^<]*?className="lq"[\s\S]*?</script>', '', s, count=1)
 
     # --- ruscha qatlam: lug'at + ru.js (sahifa boshida, boshqa skriptlardan oldin)
-    D = make_dict([os.path.join(HERE, f) for f in ('lugat-umumiy.txt', 'lugat-qoida.txt', 'd%02d.txt' % n)])
+    D = make_dict([os.path.join(HERE, f) for f in ('lugat-umumiy.txt', 'lugat-qoida.txt', 'lugat-qobiq.txt', 'd%02d.txt' % n)])   # qobiq — umumiy kod matni (tg.js oynalari ham)
     js = open(os.path.join(HERE, 'ru.js'), encoding='utf-8').read()
     css = open(os.path.join(HERE, 'ru.css'), encoding='utf-8').read() if os.path.exists(os.path.join(HERE, 'ru.css')) else ''
     inj = '<script>window.RU_DICT=' + J(D).replace('</', '<\\/') + '</script>\n<script>' + js + '</script>\n'
@@ -230,16 +231,42 @@ def build(n, out):
         print('  ! ' + w)
 
 
-def build_index(out):
-    """Bosh sahifa uchun: ru-index.js (lug'at + ruschasi tayyor darslar) va ru.js nusxasi."""
+def ru_data(ready):
+    """RU_W: so'z id -> [ma'nolar, misollar tarjimasi]; RU_Q: mashq id -> gap tarjimasi.
+    Manba: data/lugat.json, data/mashq.json (ajrat.py) + dNN.json (voc, tr). Repo ildizidan ishga tushiriladi."""
+    W, Q = {}, {}
+    L = json.load(open('data/lugat.json', encoding='utf-8'))['s']
+    M = json.load(open('data/mashq.json', encoding='utf-8'))['s']
+    for n in ready:
+        d = json.load(open(os.path.join(HERE, 'd%02d.json' % n), encoding='utf-8'))
+        voc, tr = d.get('voc', {}), d.get('tr', [])
+        for r in L:
+            v = voc.get(str(r.get('kn'))) if r['d'] == n else None
+            if v:
+                W[r['id']] = [v.get('m') or [], [x[0] for x in v.get('x', [])]]
+        for q in M:
+            i = int(str(q.get('k', '-')).split('-')[0] or -1) if q['d'] == n else -1
+            if 0 <= i < len(tr):
+                Q[q['id']] = ' '.join(c[0] for c in tr[i]).replace(' ,', ',')
+    return W, Q
+
+
+def build_index(out, extra=()):
+    """Dars bo'lmagan hamma sahifa uchun (bosh sahifa, «Йўл», «Луғат», «Қоидалар», «Яна», «Созламалар», «Наҳв»):
+    ru-index.js (lug'at + ruschasi tayyor darslar + so'z/mashq ma'lumoti) va ru.js nusxasi.
+    Tayyor dars = dNN.json bor VA ruN.html yasalgan (OUT da bor yoki shu buyruqda yasaldi) — chala tarjima chiqib ketmaydi."""
     import glob
-    ready = sorted(int(re.match(r'd(\d+)\.json$', os.path.basename(f)).group(1)) for f in glob.glob(os.path.join(HERE, 'd[0-9]*.json')))
-    D = make_dict([os.path.join(HERE, f) for f in ('lugat-umumiy.txt', 'lugat-bosh.txt')])
-    js = '/* src/ru/build.py --index yasaydi — qo\'lda o\'zgartirilmaydi */\nwindow.RU_LESSONS=' + J(ready) + ';\nwindow.RU_DICT=' + J(D) + ';\n'
+    has = sorted(int(re.match(r'd(\d+)\.json$', os.path.basename(f)).group(1)) for f in glob.glob(os.path.join(HERE, 'd[0-9]*.json')))
+    ready = [n for n in has if n in extra or os.path.exists(os.path.join(out, 'ru%d.html' % n))]
+    files = ['lugat-umumiy.txt', 'lugat-qoida.txt', 'lugat-bosh.txt', 'lugat-qobiq.txt'] + ['d%02d.txt' % n for n in ready]
+    D = make_dict([os.path.join(HERE, f) for f in files])
+    W, Q = ru_data(ready)
+    js = ('/* src/ru/build.py --index yasaydi — qo\'lda o\'zgartirilmaydi */\nwindow.RU_LESSONS=' + J(ready) + ';\nwindow.RU_DICT=' + J(D) +
+          ';\nwindow.RU_W=' + J(W) + ';\nwindow.RU_Q=' + J(Q) + ';\n')
     os.makedirs(out, exist_ok=True)
     open(os.path.join(out, 'ru-index.js'), 'w', encoding='utf-8').write(js)
     open(os.path.join(out, 'ru.js'), 'w', encoding='utf-8').write(open(os.path.join(HERE, 'ru.js'), encoding='utf-8').read())
-    print('ru-index.js, ru.js -> %s (darslar %s, lug`at %d ta)' % (out, ready, len(D)))
+    print('ru-index.js, ru.js -> %s (darslar %s, lug`at %d ta, so`z %d, mashq %d)' % (out, ready, len(D), len(W), len(Q)))
 
 
 if __name__ == '__main__':
@@ -249,10 +276,15 @@ if __name__ == '__main__':
         i = a.index('--out')
         out = a[i + 1]
         del a[i:i + 2]
-    if '--index' in a:
+    idx = '--index' in a
+    if idx:
         a.remove('--index')
-        build_index(out)
-    elif not a:
+    if '--hammasi' in a:          # OUT dagi hamma ruN.html qayta yasaladi (deploy.sh: o'zbekcha dars o'zgarsa ruschasi ham)
+        a.remove('--hammasi')
+        a += [re.match(r'ru(\d+)\.html$', f).group(1) for f in sorted(os.listdir(out)) if re.match(r'ru\d+\.html$', f)]
+    if not idx and not a:
         sys.exit(__doc__)
     for x in a:
         build(int(x), out)
+    if idx:
+        build_index(out, {int(x) for x in a})

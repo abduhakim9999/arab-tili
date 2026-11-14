@@ -152,6 +152,7 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
   function xabar(t) { okEl.textContent = t; okEl.hidden = false; clearTimeout(okT); okT = setTimeout(function () { okEl.hidden = true; }, 1800); }
   document.getElementById('orqa').href = SN + 'yana.html';
   if (window.Qobiq) Qobiq.nav('yana');                   /* pastki tugmalar — umumiy qobiq */
+  if (window.TIL === 'ru') { var uzs = document.querySelector('[data-k="uz"]'); if (uzs) uzs.style.display = 'none'; }   /* ruscha darslarda «ЎЗ» yo'q */
 
   /* qiymatni o'qish / yozish: sozlama ichidagilar va darslar ishlatadigan alohida kalitlar */
   function ol(k) {
@@ -169,7 +170,7 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
   function yoz(k, v) {
     if (k === 'tezlik') LS('dars-tezlik', v);
     else if (k === 'uz') LS('dars-uz', v ? '1' : '0');
-    else if (k === 'til') LS('til', v);
+    else if (k === 'til') { if (L('til') !== v) { LS('til', v); setTimeout(function () { location.reload(); }, 250); } }   /* til qatlami sahifa ochilganda ulanadi */
     else if (k === 'tarjima') { var p = pref(); p.t = v ? 1 : 0; LS('fe-pref', JSON.stringify(p)); }
     else {
       SZ[k] = k === 'yangi' ? +v : v;

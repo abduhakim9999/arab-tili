@@ -62,6 +62,8 @@ a:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
       '<span class="t"><span class="n">' + k.n + '<span class="ar" lang="ar">' + k.a + '</span></span><small>' + k.t + '</small>' +
       (k.p != null ? '<span class="k-br" aria-hidden="true"><i style="width:' + k.p + '%"></i></span>' : '') + '</span>' + CH + '</a>';
   }).join('');
+  /* ruscha rejimda tarjimasi hali yo'q bo'limlar — «Тез орада» (Наҳв ruschada bor) */
+  if (window.Qobiq && Qobiq.ru) [].forEach.call(document.querySelectorAll('#app .k-c'), function (a) { if (!/nahv\.html$/.test(a.getAttribute('href'))) Qobiq.tez(a); });
   if (window.Qobiq) Qobiq.nav('qoida');
 })();
 </script>

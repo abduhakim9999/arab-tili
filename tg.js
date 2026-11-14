@@ -9,9 +9,9 @@
   var HOME = me.getAttribute('data-home') || '';
   /* ҚОБИҚ (13.11.2026): bosh sahifaga qaytadigan sahifalar (darslar, Сарф, Наҳв, йўриқнома…) oxirgi ochilgan bo'limga qaytadi —
      qobiq.js uni sessionStorage «qobiq-uy» ga yozadi (yol.html / takror.html / qoidalar.html / yana.html). Yozuv bo'lmasa — bosh sahifa
-     (u xaritaga o'tkazadi). Ruscha rejimda — eski bosh sahifa. */
+     (u xaritaga o'tkazadi). Ikkala tilda bir xil (14.11.2026). */
   var UY = '';
-  try { if (localStorage.getItem('til') !== 'ru') UY = sessionStorage.getItem('qobiq-uy') || ''; } catch (e) {}
+  try { UY = sessionStorage.getItem('qobiq-uy') || ''; } catch (e) {}
   if (!/^[a-z-]+\.html$/.test(UY)) UY = '';
   function uyMi(p) { return /\/(index\.html)?$/.test(p); }   /* sayt ildizi (bosh sahifa) */
   if (UY && uyMi(new URL(HOME || 'x', location.href).pathname)) HOME = UY;

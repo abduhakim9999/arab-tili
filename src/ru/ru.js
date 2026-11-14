@@ -20,6 +20,46 @@
     V[v.charAt(0).toLowerCase() + v.slice(1)] = 1;
   });
 
+  /* Ma'lumot fayllari (data/*.json) ruscha rejimda (14.11.2026; docs/texnik.md 12): «Йўл», «Луғат» va imtihonlar
+     sahifaning o'zbekcha kodi bilan ishlaydi — faqat ma'lumot ruschaga almashadi (ru-index.js: RU_W — so'z ma'nosi va
+     misollar, RU_Q — mashq gapi tarjimasi). Ruschasi yo'q dars: tez:1 («скоро»), sahifa ochilmaydi. Ruscha satrlar
+     V ga qo'shiladi — o'zbekcha matn bilan bitta qatorda kelsa ham (masalan «Маъноси: урок») bo'laklab o'giriladi. */
+  if (window.RU_W && window.fetch) {
+    var RW = window.RU_W, RQ = window.RU_Q || {}, RL = window.RU_LESSONS || [], of = window.fetch;
+    var bil = function (s) {
+      if (typeof s !== 'string' || !reCy.test(s)) return;
+      var t = s.replace(reRun, '\u25CC').replace(/\d+(?:[.,]\d+)?/g, '#').replace(/\s+/g, ' ').trim();
+      t.split(reSplit).concat([t]).forEach(function (p) {
+        var m = p.match(/^[^\u0400-\u04FFA-Za-z0-9#«(]*([\s\S]*?)[\s.,:;!?\u2026]*$/); p = m ? m[1] : '';
+        if (p) V[p.charAt(0).toLowerCase() + p.slice(1)] = 1;
+      });
+    };
+    Object.keys(RW).forEach(function (i) { RW[i][0].forEach(bil); RW[i][1].forEach(bil); });
+    Object.keys(RQ).forEach(function (i) { bil(RQ[i]); });
+    var FIX = {
+      darslar: function (j) { (j.s || []).forEach(function (d) { if (RL.indexOf(d.n) >= 0) d.sahifa = 'ru' + d.n + '.html'; else d.tez = 1; d.eshitish = 0; }); },
+      lugat: function (j) {
+        (j.s || []).forEach(function (r) {
+          var w = RW[r.id]; if (!w) return;
+          if (w[0].length) { r.uzA = r.uz; r.uz = w[0].slice(); }   /* uzA — asl o'zbekcha (harf turi shundan aniqlanadi) */
+          if (r.x) r.x.forEach(function (x, i) { if (w[1][i] != null) x[1] = w[1][i]; });
+        });
+      },
+      mashq: function (j) { (j.s || []).forEach(function (q) { if (RQ[q.id] != null) q.tr = RQ[q.id]; }); }
+    };
+    window.fetch = function (u) {
+      var m = typeof u === 'string' && /(?:^|\/)data\/(darslar|lugat|mashq)\.json(?:[?#]|$)/.exec(u);
+      if (!m) return of.apply(this, arguments);
+      return of.apply(this, arguments).then(function (r) {
+        if (!r.ok) return r;
+        return r.json().then(function (j) {
+          FIX[m[1]](j);
+          return new Response(JSON.stringify(j), { status: 200, headers: { 'Content-Type': 'application/json' } });
+        });
+      });
+    };
+  }
+
   function cap(s) { return s.replace(/[\u0400-\u04FFa-z]/i, function (c) { return c.toUpperCase(); }); }
   function isUp(c) { return c && c !== c.toLowerCase() && c === c.toUpperCase(); }
 
@@ -31,7 +71,10 @@
       .replace(/\d+(?:[.,]\d+)?/g, function (c) { n.push(c); return '#'; })
       .replace(/\u200B/g, '').replace(/\s+/g, ' ');
     var up = isUp(k.charAt(0)), key = up ? k.charAt(0).toLowerCase() + k.slice(1) : k;
-    if (!Object.prototype.hasOwnProperty.call(D, key)) return V[key] === 1 ? body : null;
+    if (!Object.prototype.hasOwnProperty.call(D, key)) {   /* allaqachon ruscha (oldida/ortida arabcha bo'lsa ham — misol: «◌Мир вам!») */
+      var kv = key.replace(/^\u25CC\s*|\s*\u25CC$/g, '');
+      return V[key] === 1 || (kv && V[kv.charAt(0).toLowerCase() + kv.slice(1)] === 1) ? body : null;
+    }
     var v = D[key], gi = 0, ni = 0, qi = 0, bad = false;
     v = v.replace(/\{(\d+)\}/g, function (m, d) { return g[+d - 1] || ''; })
       .replace(/\u25CC/g, function () { return g[gi++] || ''; })
@@ -45,7 +88,7 @@
     return up ? cap(v) : v;
   }
   function look(s, G, Q) {
-    var m = s.match(/^([^\u0400-\u04FF\uF000-\uF8FF0-9«(]*)([\s\S]*?)([\s.,:;!?\u2026]*)$/);
+    var m = s.match(/^([^\u0400-\u04FFA-Za-z\uF000-\uF8FF0-9«(]*)([\s\S]*?)([\s.,:;!?\u2026]*)$/);   /* lotin harf ham matn boshi (build.py PARTS bilan bir xil) */
     if (!m[2]) return null;
     var r = null;   /* avval qo'shtirnoq ichi bilan birga (aniq kalit), keyin «» qolipi */
     if (/[\uF800-\uF8FF]/.test(m[2])) r = find(m[2].replace(/[\uF800-\uF8FF]/g, function (c) { return '\u00AB' + Q[c.charCodeAt(0) - 0xF800] + '\u00BB'; }), G, Q);
@@ -153,7 +196,10 @@
     obs.takeRecords();   /* o'zimiz qilgan o'zgarishlar qayta ko'rilmaydi */
   });
   obs.observe(document.documentElement, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ATTR });
-  function all() { if (document.body) { scan(document.body); obs.takeRecords(); } }
+  function all() {
+    if (document.body) { scan(document.body); obs.takeRecords(); }
+    var t = document.title; if (t && reCy.test(t) && t.indexOf(MARK) < 0) { var r = plain(t); if (r !== t) document.title = r; }   /* brauzer yorlig'idagi nom */
+  }
   document.addEventListener('DOMContentLoaded', all);
   window.addEventListener('load', all);
   window.RU_SCAN = all;
@@ -168,6 +214,11 @@
       .replace(/[\uE000-\uEFFF]/g, function (c) { return A[c.charCodeAt(0) - 0xE000]; });
   }
   window.RU_TR = plain;
+  /* so'rov oynalari (confirm / alert / prompt) — DOM emas, shuning uchun alohida (14.11.2026) */
+  ['confirm', 'alert', 'prompt'].forEach(function (f) {
+    var o = window[f]; if (!o) return;
+    window[f] = function (m) { var a = [].slice.call(arguments); if (typeof m === 'string') a[0] = plain(m).split(MARK).join(''); return o.apply(window, a); };
+  });
   if (window.MediaMetadata) {
     var MM = window.MediaMetadata;
     window.MediaMetadata = function (o) {

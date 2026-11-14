@@ -30,7 +30,9 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
 .s-c>.s-r:first-child{border-top:0}
 .s-r .t{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;font-weight:600}
 .s-r small{font-size:13px;font-weight:400;line-height:1.35;color:var(--mu)}
-.s-r.sg{padding-right:10px}
+.s-r.sg{padding-right:10px;flex-wrap:wrap;row-gap:8px}
+/* yorliq so'zi uzun bo'lsa (ruscha «Скорость чтения», katta shrift) tugmalar ustiga chiqmaydi — pastki qatorga tushadi (14.11.2026) */
+.s-r.sg .t{min-width:auto}.s-r.sg .s-sg{margin-left:auto}
 .s-r.col{flex-direction:column;align-items:stretch;gap:10px;padding:14px 16px 16px}
 .s-r em{font-style:normal;font-size:14px;color:var(--mu);font-variant-numeric:tabular-nums}
 .s-r .ch{width:18px;height:18px;flex-shrink:0;color:var(--mu)}
@@ -152,6 +154,7 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
   function xabar(t) { okEl.textContent = t; okEl.hidden = false; clearTimeout(okT); okT = setTimeout(function () { okEl.hidden = true; }, 1800); }
   document.getElementById('orqa').href = SN + 'yana.html';
   if (window.Qobiq) Qobiq.nav('yana');                   /* pastki tugmalar — umumiy qobiq */
+  if (window.TIL === 'ru') { var uzs = document.querySelector('[data-k="uz"]'); if (uzs) uzs.style.display = 'none'; }   /* ruscha darslarda «ЎЗ» yo'q */
 
   /* qiymatni o'qish / yozish: sozlama ichidagilar va darslar ishlatadigan alohida kalitlar */
   function ol(k) {
@@ -169,7 +172,7 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
   function yoz(k, v) {
     if (k === 'tezlik') LS('dars-tezlik', v);
     else if (k === 'uz') LS('dars-uz', v ? '1' : '0');
-    else if (k === 'til') LS('til', v);
+    else if (k === 'til') { if (L('til') !== v) { LS('til', v); setTimeout(function () { location.reload(); }, 250); } }   /* til qatlami sahifa ochilganda ulanadi */
     else if (k === 'tarjima') { var p = pref(); p.t = v ? 1 : 0; LS('fe-pref', JSON.stringify(p)); }
     else {
       SZ[k] = k === 'yangi' ? +v : v;

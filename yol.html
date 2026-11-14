@@ -323,20 +323,55 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
 .y-cta svg{width:18px;height:18px;flex-shrink:0;color:inherit}
 .y-cta small{font-size:14.5px;font-weight:600;color:inherit;opacity:.78;white-space:nowrap}
 @media (max-width:380px){.y-bb b{font-size:15px}}
-/* китоб охири — кейинги китобга ўтиш картаси (13.11): нима бўлгани ва кейинги қадам аниқ ёзилади */
+/* китоб охири (14.11, фойдаланувчи): битта карта — китоб сўзлари (нечтаси билинади, %, 4 даража) + «Сўзларни такрорлаш»;
+   китоб имтиҳони — шу картадаги ихтиёрий тугма; кейинги китоб — муқоваси кўринадиган алоҳида карта */
 .y-kk{position:relative;z-index:3;padding:14px 16px 0;max-width:528px;margin:0 auto}
+.y-kw,.y-kn{--kt:color-mix(in srgb,var(--kh) 72%,var(--tx))}
 .y-lsb .y-kk{padding:14px 0 0}
-.y-kd{display:flex;align-items:center;gap:14px;padding:14px 14px 16px;border-radius:20px;background:var(--cd);color:var(--tx);border:1.5px solid rgba(224,185,90,.9);box-shadow:0 8px 22px rgba(0,0,0,.25)}
-.y-kd .kb{flex-shrink:0;width:58px;height:58px;border-radius:16px;background:#0C5E3F;color:#f6dc94;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:22px;font-weight:800;line-height:1}
-.y-kd .kb svg{width:24px;height:24px;margin-bottom:2px}
-.y-kd .t{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
-.y-kd small{font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--ac)}
-.y-kd b{font-size:17px;line-height:1.3}
-.y-kd .iz{font-size:13.5px;line-height:1.4;color:var(--mu)}
-.y-kk .y-b{margin:10px 0 0;min-height:54px;gap:6px;box-shadow:inset 0 -3px 0 var(--bd),0 4px 14px rgba(0,0,0,.22)}
-.y-kk .y-b svg{width:18px;height:18px}
+.y-kw{padding:14px 14px 12px;border-radius:20px;background:var(--cd);color:var(--tx);border:1.5px solid color-mix(in srgb,var(--kr) 55%,transparent);box-shadow:0 8px 22px rgba(0,0,0,.2)}
+.y-kwh{display:flex;align-items:center;gap:12px}
+.y-kwh .kb{flex-shrink:0;width:50px;height:50px;border-radius:14px;background:linear-gradient(135deg,var(--kr),var(--kh));color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:18px;font-weight:800;line-height:1}
+.y-kwh .kb svg{width:20px;height:20px;margin-bottom:2px}
+.y-kwh .t{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.y-kwh small{font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--kt)}
+.y-kwh b{font-size:17px;line-height:1.25;color:var(--mu);font-weight:600}
+.y-kwh b em{font-style:normal;font-size:26px;font-weight:800;color:var(--tx)}
+.y-kwh .pr{flex-shrink:0;font-size:24px;font-weight:800;color:var(--kt)}
+.y-kwb{display:flex;height:12px;margin:12px 0 8px;border-radius:99px;overflow:hidden;background:color-mix(in srgb,var(--mu) 18%,transparent)}
+.y-kwb i{display:block;height:100%}
+.y-kwb .m,.y-kwl .m{background:#3a73cc}.y-kwb .g,.y-kwl .g{background:#2fa36f}.y-kwb .o,.y-kwl .o{background:#d9a23a}.y-kwb .b,.y-kwl .b{background:#d0473e}
+.y-kwl{display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;font-size:13.5px;color:var(--mu)}
+.y-kwl span{display:flex;align-items:center;gap:6px}
+.y-kwl i{flex-shrink:0;width:9px;height:9px;border-radius:50%}
+.y-kwl b{margin-left:auto;color:var(--tx);font-weight:700}
+.y-kk .y-b{margin:12px 0 0;min-height:54px;gap:8px;box-shadow:inset 0 -3px 0 var(--bd),0 4px 14px rgba(0,0,0,.22)}
+.y-kk .y-b svg{width:20px;height:20px}
 .y-kk .y-kk1{border:0;background:#E0B95A;color:#2B1D00;box-shadow:inset 0 -4px 0 rgba(0,0,0,.2),0 6px 18px rgba(0,0,0,.3)}
 .y-kk .y-kk1 svg{color:inherit}
+.y-kx{display:flex;align-items:center;gap:10px;width:100%;margin-top:10px;padding:9px 12px;box-sizing:border-box;border-radius:14px;border:1.5px dashed var(--bd);background:none;color:var(--tx);font:inherit;text-align:left;cursor:pointer}
+.y-kx.hz{border-style:solid;border-color:#E0B95A}
+.y-kx>svg{flex-shrink:0;width:22px;height:22px;color:var(--kt)}
+.y-kx .t{flex:1;min-width:0;display:flex;flex-direction:column}
+.y-kx .t b{font-size:15px}
+.y-kx .t small{font-size:12.5px;color:var(--mu)}
+.y-kx em{display:flex;align-items:center;gap:3px;font-style:normal;font-weight:700;color:var(--mu)}
+.y-kx em.ok{color:#2fa36f}
+.y-kx em svg,.y-kx>svg:last-child{width:18px;height:18px}
+.y-kx>svg:last-child{color:var(--mu)}
+.y-kn{display:flex;align-items:center;gap:14px;width:100%;margin-top:12px;padding:12px 14px 12px 12px;box-sizing:border-box;border-radius:20px;border:1.5px solid var(--bd);background:var(--cd);color:var(--tx);font:inherit;text-align:left;cursor:pointer;box-shadow:inset 0 -4px 0 var(--bd),0 4px 14px rgba(0,0,0,.18)}
+.y-kn:active{transform:translateY(2px)}
+/* муқова: орқаси (корешок), тилла ҳошия, арабча ном, катта рақам, саккиз қиррали нақш */
+.y-kv{position:relative;flex-shrink:0;width:78px;height:104px;border-radius:4px 10px 10px 4px;overflow:hidden;background:linear-gradient(140deg,var(--kr),var(--kh));color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;box-shadow:inset 7px 0 0 rgba(0,0,0,.2),inset 9px 0 0 rgba(255,255,255,.12),0 5px 12px rgba(0,0,0,.28)}
+.y-kv::before{content:'';position:absolute;inset:6px 6px 6px 13px;border:1.5px solid rgba(246,220,148,.85);border-radius:5px}
+.y-kv .ar{position:relative;font-size:11px;line-height:1.5;color:#f6dc94;padding-left:7px}
+.y-kv b{position:relative;font-size:34px;font-weight:800;line-height:1;padding-left:7px}
+.y-kv .nq{position:absolute;right:-18px;bottom:-20px;width:70px;height:70px;opacity:.2}
+.y-kn .t{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.y-kn .t small{font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--kt)}
+.y-kn .t b{font-size:19px}
+.y-kn .t .m{font-size:13.5px;color:var(--mu)}
+.y-kn .go{flex-shrink:0;display:flex;align-items:center;gap:2px;font-weight:700;color:var(--kt)}
+.y-kn .go svg{width:18px;height:18px}
 .y-lsb{padding:0 16px 6px}
 .y-lsb .y-bk{margin:16px 0 12px;box-shadow:0 4px 14px rgba(0,0,0,.12)}
 .y-lsb:last-child{padding-bottom:calc(200px + env(safe-area-inset-bottom,0px))}
@@ -556,6 +591,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
       if (!H.hz && kxOchiq && !kOt && !ktz) { H.hz = 'k' + k.n; H.hzk = k.n; }
       oldKitobOtdi = kOt;
     });
+    H.sz = sozDaraja();                                /* kitob oxiri kartasi uchun (14.11) */
     if (SZ.erkin) {                                    /* sozlamalar → «Эркин режим»: hamma dars qulfsiz */
       var x; for (x in H.d) H.d[x].op = !H.d[x].tez; for (x in H.b) H.b[x].op = !H.b[x].tez; for (x in H.k) { H.k[x].op = !H.k[x].tez; H.k[x].och = true; }
     }
@@ -594,7 +630,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
       if (confirm('Синов натижалари ўчирилсинми? (Йўл, хатолар ва сўз белгилари)')) { LS(KY, null); LS(KX, null); LS(KB, null); LS(KK, null); R = null; ol(); kitobTanla(); xarita(true); }
     };
     if (birinchi) {
-      var hz = app.querySelector('.y-n.hz,.y-li.hz');
+      var hz = app.querySelector('.y-n.hz,.y-li.hz,.y-kx.hz');
       setTimeout(function () { var y = hz ? window.pageYOffset + hz.getBoundingClientRect().top - window.innerHeight * 0.42 : 0; window.scrollTo(0, y < 150 ? 0 : y); }, 30);   /* boshiga yaqin bo'lsa — eng tepadan (hisob qatori ko'rinsin) */
     }
   }
@@ -603,8 +639,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
   function bobHtml(b, k, H, W) {
     var m = MV[b.k] || {}, hb = H.b[b.k], tug = [], h = '', j;
     b.d.forEach(function (d) { tug.push({ t: 'd', i: 'd' + d.n, d: d, h: H.d[d.n] }); });
-    tug.push({ t: 'b', i: 'b' + b.k, h: hb });
-    if (k.b[k.b.length - 1] === b) tug.push({ t: 'k', i: 'k' + k.n, h: H.k[k.n] });
+    tug.push({ t: 'b', i: 'b' + b.k, h: hb });   /* kitob imtihoni (14.11) — yo'lda tugun emas, kitob oxiridagi kartada (kitobKarta) */
     var bal = Y0 + (tug.length - 1) * QAD + 70, jami = 76 + bal + 120, fon = '', seg = '', kr = '';
     if (m.f) for (j = 0; j < (m.ak ? Math.max(1, Math.ceil(jami / (2 * W))) : 1); j++) fon += '<img' + (m.ak ? '' : ' class="so"') + ' src="' + rasm(m.f) + '" alt="" loading="lazy" decoding="async">';
     b.d.forEach(function (d) { seg += '<i class="' + (H.d[d.n].ot ? 'o' : H.hz === 'd' + d.n ? 'h' : '') + '"></i>'; });
@@ -640,17 +675,61 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
           (u.h.tez ? '<span class="m">тез орада</span>' : rr ? '<span class="s"><span>' + rr.b + '%</span>' + (u.h.ot ? yulduz(rr.b) : '') + '</span>' : '<span class="m">' + son + ' савол</span>') + '</button>';
       }
     });
-    return h + '</div>' + (k.b[k.b.length - 1] === b ? kitobTugma(k, H) : '') + '</section>';
+    return h + '</div>' + (k.b[k.b.length - 1] === b ? kitobKarta(k, H) : '') + '</section>';
   }
-  /* kitobning oxirida (oxirgi bob ostida): keyingi kitobga o'tish tugmasi. Kitobning oxirgi darsi o'tilgan bo'lsa — asosiy (oltin) tugma */
-  function kitobTugma(k, H) {
-    var i = TUZ.indexOf(k), kn = TUZ[i + 1];
-    if (!kn) return '';
-    var ot = H.k[k.n].ot, och = H.k[kn.n].och;
-    return '<div class="y-kk"><div class="y-kd"><span class="kb" style="background:' + (KR[kn.n] || KR[1]).hd + '">' + IC.kitob + kn.n + '</span><div class="t"><small>' + k.n + '-КИТОБ ОХИРИ</small>' +
-      '<b>' + (ot ? 'Табриклаймиз! ' + kn.n + '-китоб очилди' : 'Кейинги қадам — ' + kn.n + '-китоб') + '</b>' +
-      '<span class="iz">' + (ot || och ? kn.n + '-китоб дарслари сизни кутмоқда.' : 'Китоб имтиҳонини топширсангиз, ' + k.n + '-китоб тўлиқ ўтилган ҳисобланади.') + '</span></div></div>' +
-      '<button class="y-b' + (ot || och ? ' y-kk1' : '') + '" data-kk="' + kn.n + '">' + kn.n + '-китобга ўтиш' + IC.ong + '</button></div>';
+  /* kitob oxiri (14.11.2026, foydalanuvchi: «Китоб имтиҳони» va «КИТОБ ОХИРИ» bitta bo'lsin; muhimi — so'zlarni bilish va nechtasini bilgani):
+     1) «N-КИТОБ СЎЗЛАРИ» kartasi — biladigan / kitobdagi jami so'z, foiz, 4 daraja chizig'i (Луғат bilan bir xil hisob — sozDaraja),
+        asosiy tugma «Сўзларни такрорлаш» (kunlik takror: «билмайман» so'zlar birinchi), ixtiyoriy «Китоб имтиҳони» (hech narsani qulflamaydi);
+     2) keyingi kitob — muqovasi kodda chizilgan karta, doim ochiq. Xaritada ham, ro'yxatda ham. */
+  var HT4 = ['m', 'g', 'o', 'b'], HN = { m: 'мустаҳкам', g: 'биламан', o: 'ўрганяпман', b: 'билмайман' };
+  function kitobKarta(k, H) {
+    var s = H.sz[k.n] || { j: 0, m: 0, g: 0, o: 0, b: 0 }, bil = s.m + s.g, pr = s.j ? Math.floor(bil * 100 / s.j) : 0, c = KR[k.n] || KR[1], hk = H.k[k.n];
+    var h = '<div class="y-kk"><div class="y-kw" style="--kr:' + c.r + ';--kh:' + c.hd + '">' +
+      '<div class="y-kwh"><span class="kb">' + IC.kitob + k.n + '</span><div class="t"><small>' + k.n + '-КИТОБ СЎЗЛАРИ</small>' +
+      '<b><em>' + bil + '</em> / ' + s.j + ' сўз</b></div><span class="pr">' + pr + '%</span></div>' +
+      '<div class="y-kwb" role="img" aria-label="' + HT4.map(function (x) { return HN[x] + ' ' + s[x]; }).join(', ') + '">' +
+        HT4.map(function (x) { return s[x] ? '<i class="' + x + '" style="width:' + (s[x] * 100 / s.j).toFixed(2) + '%"></i>' : ''; }).join('') + '</div>' +
+      '<div class="y-kwl">' + HT4.map(function (x) { return '<span><i class="' + x + '"></i>' + HN[x] + '<b>' + s[x] + '</b></span>'; }).join('') + '</div>' +
+      '<a class="y-b y-kk1" href="' + SN + 'takror.html">' + IC.soz + '<span>Сўзларни такрорлаш</span></a>' +
+      '<button class="y-kx' + (H.hz === 'k' + k.n ? ' hz' : '') + '" data-i="k' + k.n + '">' + IC.kubok + '<span class="t"><b>Китоб имтиҳони</b><small>' +
+        (hk.tez ? 'тез орада' : savolSoni('k', String(k.n)) + ' савол · ўзингизни синанг') + '</small></span>' +
+        (hk.r ? '<em' + (hk.ot ? ' class="ok"' : '') + '>' + hk.r.b + '%' + (hk.ot ? IC.ok : '') + '</em>' : IC.ong) + '</button></div>';
+    var kn = TUZ[TUZ.indexOf(k) + 1];
+    if (kn) {
+      var c2 = KR[kn.n] || KR[1], s2 = H.sz[kn.n] || { j: 0, m: 0, g: 0 };
+      h += '<button class="y-kn" data-kk="' + kn.n + '" style="--kr:' + c2.r + ';--kh:' + c2.hd + '">' +
+        '<span class="y-kv" aria-hidden="true"><span class="ar" lang="ar">' + (KNOM[kn.n] || '') + '</span><b>' + kn.n + '</b>' + NAQSH + '</span>' +
+        '<span class="t"><small>КЕЙИНГИ КИТОБ</small><b>' + kn.n + '-китоб</b><span class="m">' + (s2.m + s2.g) + ' / ' + s2.j + ' сўз</span></span>' +
+        '<span class="go">Очиш' + IC.ong + '</span></button>';
+    }
+    return h + '</div>';
+  }
+  /* so'z darajalari kitob bo'yicha — takror.html sozlar() bilan bir xil qoida (o'zgarsa ikkalasi birga):
+     BILDI kun ketma-ket to'g'ri — биламан (MUST kundan keyin ham to'g'ri — мустаҳкам); «билмайман» belgisi — билмайман (to'g'ri topa boshlasa — ўрганяпман);
+     «биламан» / «аниқ биламан» belgisi — биламан; qolgani — ўрганяпман. So'zlar — LG (atoqli ot va harfsiz, Луғатdagi kabi) */
+  var BILDI = 3, MUST = 30;
+  function sozDaraja() {
+    var tz = new Date().getTimezoneOffset(), K = {}, S = {};
+    jurnalOl().slice().sort(function (a, b) { return a[1] - b[1]; }).forEach(function (e) {
+      var m = /^w(\d+)[auos]$/.exec(e[0]); if (!m) return;
+      var x = K[m[1]] = K[m[1]] || { d: 0, k: null, s: false, t: 0 }, ora = x.t ? e[1] - x.t : 0;
+      x.t = e[1];
+      if (e[2] === 1) { x.d = 0; x.k = null; x.s = false; return; }
+      var kn = Math.floor((e[1] - tz * 60000) / 864e5); if (kn !== x.k) { x.k = kn; x.d++; }
+      if (ora >= MUST * 864e5) x.s = true;
+    });
+    TUZ.forEach(function (k) {
+      var o = S[k.n] = { j: 0, m: 0, g: 0, o: 0, b: 0 };
+      k.b.forEach(function (b) { b.d.forEach(function (d) { (LG[d.n] || []).forEach(function (r) {
+        var x = K[r.id] || { d: 0 }, st;
+        if (x.d >= BILDI) st = x.s ? 'm' : 'g';
+        else if (W.b[r.id]) st = x.d ? 'o' : 'b';
+        else if (W.a[r.id] || W.k[r.id]) st = 'g';
+        else st = 'o';
+        o.j++; o[st]++;
+      }); }); });
+    });
+    return S;
   }
 
   /* pastki tugmalar — umumiy qobiq (qobiq.js): Йўл · Луғат · Қоидалар · Яна */
@@ -744,7 +823,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
         (x.ot ? '<em class="ok">' + (x.r ? x.r.b + '%' : '') + IC.ok + '</em>' : x.r ? '<em>' + x.r.b + '%</em>' : '<em>' + IC.ong + '</em>') + '</button>';
     };
     h += imt('b', 'b' + b.k, hb);
-    if (k.b[k.b.length - 1] === b) h += imt('k', 'k' + k.n, H.k[k.n]) + kitobTugma(k, H);
+    if (k.b[k.b.length - 1] === b) h += kitobKarta(k, H);
     return h + '</section>';
   }
 

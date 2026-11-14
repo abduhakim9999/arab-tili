@@ -173,8 +173,34 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .mq-h em{font-style:normal;font-size:14px;color:#f6dc94}
 .mq-go{flex-shrink:0;height:52px;padding:0 22px;border:0;border-radius:14px;background:#f6dc94;color:#0c3d29;font-size:17px;font-weight:800;box-shadow:inset 0 -4px 0 rgba(0,0,0,.18);transition:transform .06s,box-shadow .06s}
 .mq-go:active{transform:translateY(2px);box-shadow:inset 0 -2px 0 rgba(0,0,0,.18)}
-.mq-br{display:flex;gap:2px;height:12px;border-radius:6px;overflow:hidden;margin:12px 0 0;background:var(--tint)}
-.mq-br i{min-width:4px}.mq-br .m{background:#3a73cc}.mq-br .g{background:#2fa36f}.mq-br .o{background:#d9a23a}.mq-br .b{background:var(--tq-no)}
+.mq-dt{display:flex;align-items:center;gap:16px;margin:8px 0 14px}
+.mq-dz{position:relative;width:146px;height:146px;flex-shrink:0}
+.mq-dz svg{width:100%;height:100%;transform:rotate(-90deg)}
+.mq-dz circle{fill:none;stroke-width:16}
+.mq-dz .m{stroke:#3a73cc}.mq-dz .g{stroke:#2fa36f}.mq-dz .o{stroke:#d9a23a}.mq-dz .b{stroke:var(--tq-no)}.mq-dz .n{stroke:color-mix(in srgb,var(--mu) 20%,transparent)}
+.mq-dz>div{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.mq-dz>div b{font-size:30px;line-height:1.05;font-weight:800;color:#1f8f5c}
+.mq-dz>div span{font-size:12.5px;color:var(--mu);font-variant-numeric:tabular-nums}
+.mq-dy{display:flex;flex-direction:column;gap:3px;min-width:0}
+.mq-dy .lg-bn{margin:0;flex-wrap:wrap;gap:4px 8px}.mq-dy .lg-bn b{font-size:32px}.mq-dy .lg-bn span{font-size:16.5px;font-weight:700;color:var(--tx)}
+.mq-dy em{font-style:normal;font-size:13.5px;font-weight:600;color:#2c63b8}
+.mq-dy small{font-size:13px;line-height:1.35;color:var(--mu)}
+.mq-5{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mq-c{display:flex;align-items:center;gap:10px;min-width:0;padding:9px 12px;border-radius:14px;border:0;background:var(--tint);text-align:left;color:var(--tx)}
+.mq-c.n{grid-column:1/-1;background:color-mix(in srgb,var(--mu) 9%,transparent)}
+.mq-c i{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.mq-c span{display:flex;flex-direction:column;font-size:12.5px;font-weight:600;color:var(--mu)}
+.mq-c b{font-size:21px;line-height:1.15;font-weight:800;font-variant-numeric:tabular-nums}
+.mq-c.m i{background:#3a73cc}.mq-c.m b{color:#2c63b8}.mq-c.g i{background:#2fa36f}.mq-c.g b{color:#1f8f5c}
+.mq-c.o i{background:#d9a23a}.mq-c.o b{color:#c98a1c}.mq-c.b i{background:var(--tq-no)}.mq-c.b b{color:var(--tq-no)}
+.mq-c.n i{border-radius:3px;background:color-mix(in srgb,var(--mu) 30%,transparent)}.mq-c.n b{color:var(--mu)}
+.mq-hl{height:1px;background:var(--bd);margin:14px 0 12px}
+.mq-kb{display:flex;flex-direction:column;gap:6px;margin:0 0 12px}
+.mq-kb>div{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.mq-kb b{font-size:15px;color:var(--kr)}
+.mq-kb span{font-size:13px;color:var(--mu);text-align:right;font-variant-numeric:tabular-nums}
+.mq-kb i{display:flex;gap:2px;height:10px;border-radius:5px;overflow:hidden;background:color-mix(in srgb,var(--mu) 20%,transparent)}
+.mq-kb u{display:block;height:100%}.mq-kb .m{background:#3a73cc}.mq-kb .g{background:#2fa36f}.mq-kb .o{background:#d9a23a}.mq-kb .b{background:var(--tq-no)}
 .mq-tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0 0}
 .mq-tr button{display:flex;flex-direction:column;align-items:center;padding:8px 6px;border-radius:12px;border:1.5px solid var(--bd);background:var(--cd)}
 .mq-tr b{font-size:20px;line-height:1.2;font-weight:800;font-variant-numeric:tabular-nums}
@@ -387,6 +413,15 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
       (bg.jami ? '<div class="mq-h"><div><span>Бугунги такрор</span><b>' + n + ' та</b><em>' + qism + '</em></div><button class="mq-go" id="go">Бошлаш</button></div>'
         : '<div class="mq-h"><div><span>Бугунги такрор</span><b>Бугунга тамом</b><em>эртага ' + E.ertaga(t) + ' та</em></div></div>') + '</div>';
   }
+  var HN5 = { m: 'Мустаҳкам', g: 'Биламан', o: 'Ўрганяпман', b: 'Билмайман', n: 'Ҳали ўтилмаган' };
+  function doira(c, jami) {                            /* SVG halqa: m, g, o, b qismlari; qolgani (n) — kulrang asos */
+    var L = 2 * Math.PI * 50, of = 0, q = '';
+    ['m', 'g', 'o', 'b'].forEach(function (k) {
+      if (!c[k] || !jami) return; var l = L * c[k] / jami;
+      q += '<circle class="' + k + '" cx="60" cy="60" r="50" stroke-dasharray="' + Math.max(l - 1.5, 0.6).toFixed(2) + ' ' + L.toFixed(2) + '" stroke-dashoffset="' + (-of).toFixed(2) + '"/>'; of += l;
+    });
+    return '<svg viewBox="0 0 120 120" aria-hidden="true"><circle class="n" cx="60" cy="60" r="50"/>' + q + '</svg>';
+  }
   function lugKor() { return /^#(lugat|harflar)/.test(location.hash); }
 
   /* ---- «Луғат»: so'z bazasi (14.11.2026, foydalanuvchi: sodda bo'lsin — faqat 3 holat) ----
@@ -477,17 +512,36 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
       var ca = { m: 0, g: 0, o: 0, b: 0 }, KT = { i: 0, f: 0, h: 0 };
       M.forEach(function (x) { ca[x.st]++; if (x.st === 'g' || x.st === 'm') KT[turi(x.r)]++; });
       var bal = Takror.ball ? Takror.ball(E.jurnal, Takror.haftaBoshi(t)) : 0;
+      /* 14.11.2026 (foydalanuvchi, dizayn C): statistika BUTUN kitob so'zlari bo'yicha — oldin faqat «mening so'zlarim» (saralangan darslar)
+         sanalardi va chiziq to'lib, «hammasini bilaman»dek ko'rinardi. «ҳали ўтилмаган» (n) — mening so'zlarimga hali kirmagan so'z.
+         Katta doira — 5 qism (мустаҳкам, биламан, ўрганяпман, билмайман, ҳали ўтилмаган); har kitobga chiziq; ruschasi yo'q dars («тез орада») kirmaydi. */
+      var MEN = {}, JA = { m: 0, g: 0, o: 0, b: 0, n: 0 }, KT5 = {}, kt5 = [], kn5 = {}, JJ = 0;
+      M.forEach(function (x) { MEN[x.r.id] = 1; });
+      D.d.forEach(function (d) { if (!d.tez) kn5[d.n] = d.kitob; });
+      S.forEach(function (x) {
+        var k = kn5[x.r.d]; if (!k) return;
+        var st = MEN[x.r.id] ? x.st : 'n', o = KT5[k];
+        if (!o) { o = KT5[k] = { m: 0, g: 0, o: 0, b: 0, n: 0, j: 0 }; kt5.push(k); }
+        JA[st]++; JJ++; o[st]++; o.j++;
+      });
+      kt5.sort(function (a, b) { return a - b; });
       app.innerHTML = tepa(S, false, bg, t) + sinovQ + yoriq(saralangan, YOQ) +
         '<a class="q-rw mq-lg" href="#lugat"><span class="q-ib">' + KITOB + '</span><span class="t">Луғат<small>Исм · Феъл · Ҳарф · қидирув' + (ca.b ? ' · Билмаганларим ' + ca.b : '') + '</small></span>' + CHV + '</a>' +
-        '<section class="tq-c"><div class="tq-h">Статистика<button class="tq-ib" id="bi" aria-expanded="' + YOQ + '" aria-controls="yo" aria-label="Қандай ҳисобланади">' + INF + '</button></div>' +
-        '<div class="lg-bn"><b>' + (ca.g + ca.m) + '</b><span>сўзни биламан' + (ca.m ? ', шундан <em>' + ca.m + ' таси мустаҳкам</em>' : '') + '</span></div>' +
-        '<div class="mq-br" aria-hidden="true">' + HT4.map(function (k) { return ca[k] ? '<i class="' + k + '" style="flex:' + ca[k] + '"></i>' : ''; }).join('') + '</div>' +
-        lv3(ca) +
+        '<section class="tq-c"><div class="tq-h">Статистика · жами ' + JJ + ' сўз<button class="tq-ib" id="bi" aria-expanded="' + YOQ + '" aria-controls="yo" aria-label="Қандай ҳисобланади">' + INF + '</button></div>' +
+        '<div class="mq-dt"><div class="mq-dz">' + doira(JA, JJ) + '<div><b>' + Math.round((JA.m + JA.g) * 100 / (JJ || 1)) + '%</b><span>' + (JA.m + JA.g) + ' / ' + JJ + ' сўз</span></div></div>' +
+          '<div class="mq-dy"><div class="lg-bn"><b>' + (ca.g + ca.m) + '</b><span>сўзни биламан</span></div>' + (ca.m ? '<em>шундан ' + ca.m + ' таси мустаҳкам</em>' : '') +
+          (JA.n ? '<small>' + JA.n + ' таси ҳали ўтилмаган</small>' : '') + '</div></div>' +
+        '<div class="mq-5" role="group" aria-label="Ҳолат бўйича">' + ['m', 'g', 'o', 'b', 'n'].map(function (k) {
+          var t = k === 'n' ? 'div' : 'button';
+          return '<' + t + ' class="mq-c ' + k + '"' + (k === 'n' ? '' : ' data-h="' + k + '"') + '><i></i><span><b>' + JA[k] + '</b>' + HN5[k] + '</span></' + t + '>'; }).join('') + '</div>' +
+        '<div class="mq-hl"></div>' + kt5.map(function (k) { var o = KT5[k];
+          return '<div class="mq-kb" style="--kr:' + (KRG[k] || '#1f8f5c') + '"><div><b>' + k + '-китоб</b><span>' + (o.m + o.g) + ' / ' + o.j + ' сўз' + (o.n ? ' · ' + o.n + ' таси қолди' : '') + '</span></div><i>' +
+            ['m', 'g', 'o', 'b'].map(function (h) { return o[h] ? '<u class="' + h + '" style="width:' + (o[h] * 100 / o.j).toFixed(1) + '%"></u>' : ''; }).join('') + '</i></div>'; }).join('') +
         '<div class="mq-tr" role="group" aria-label="Турлар бўйича билган сўзлар">' + [['i', 'Исмлар'], ['f', 'Феъллар'], ['h', 'Ҳарфлар']].map(function (f) {
           return '<button data-lt="' + f[0] + '"><b>' + KT[f[0]] + '</b><span>' + f[1] + '</span></button>'; }).join('') + '</div>' +
-        kitobQ + '</section>' +
+        '</section>' +
         '<a class="q-rw mq-ry" href="' + SN + 'reyting.html"><span class="q-ib mq-ib2">' + KUBOK + '</span><span class="t">Рейтинг<small>Бу ҳафта ' + bal + ' балл · ' + (ca.g + ca.m) + ' сўз</small></span>' + CHV + '</a>';
-      [].forEach.call(app.querySelectorAll('.lg-hb'), function (b) {   /* daraja bosilsa — Луғат shu daraja bilan */
+      [].forEach.call(app.querySelectorAll('.mq-c[data-h]'), function (b) {   /* daraja bosilsa — Луғат shu daraja bilan */
         b.onclick = function () { LF = b.getAttribute('data-h'); LT = ''; location.hash = 'lugat'; };
       });
       [].forEach.call(app.querySelectorAll('.mq-tr button'), function (b) {

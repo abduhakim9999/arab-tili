@@ -166,12 +166,22 @@
     post({ amal: 'tg', kod: kod, init: w.initData }).then(function () { S('baza-tgi', iz); }).catch(function () {});
   }
 
+  /* ism Telegramdan (14.11.2026, foydalanuvchi: ism Telegram bo'yicha o'zi yozilgan bo'ladi, xohlasa o'zgartiradi): Telegram ichida ism hali yo'q
+     bo'lsa — Telegram ismi, t:1 (o'zi yozgan yoki serverdagi ism doim ustun). Saytda Telegram orqali kirgach serverdan keladi. */
+  function tgIsm() {
+    var w = tgW(), u = null; if (!w || J('ism', null)) return;
+    try { u = w.initDataUnsafe && w.initDataUnsafe.user; } catch (e) {}
+    var n = u ? [u.first_name, u.last_name].filter(Boolean).join(' ').replace(/\s+/g, ' ').trim().slice(0, 30) : '';
+    if (n) S('ism', JSON.stringify({ n: n, t: 1 }));
+  }
+
   /* sinxronlash: serverdagini olish → birlashtirish → telefonga yozish → farq bo'lsa serverga yozish */
   function sinx(cb) {
     if (band) { if (cb) cb(false); return; }
     band = true; clearTimeout(tm);
     var tugat = function (ok, ozg) { band = false; if (ok) { S('baza-t', String(Date.now())); S('baza-oz', null); } xabar({ ok: ok, ozgardi: !!ozg }); if (cb) cb(ok, !!ozg); };
     kodOl(function (kod) {
+      tgIsm();
       var lo = lokal();
       if (!kod) {
         if (!bormi(lo)) { band = false; if (cb) cb(false); return; }              /* saqlaydigan narsa yo'q — kod ham, fayl ham yaratilmaydi */

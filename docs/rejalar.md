@@ -3,6 +3,12 @@
 Foydalanuvchi aytganda qilinadi. Qilingani shu yerdan o'chirilib, tegishli joyga (texnik.md / CLAUDE.md) yoziladi.
 Manba: 11.11.2026 tadqiqoti (Claude Docs: «Arab Tili loyihasi: yo'lga qo'yilganlik tadqiqoti»).
 
+## 0. Navbatdagi ish — hamma narsa akkaunt orqali (14.11.2026, foydalanuvchi qarori; **boshlanmagan, «qil» kutilyapti — yangi chatda**)
+Foydalanuvchi: «kerakli hamma narsa akkaunt orqali saqlanib qolsin, boshqa telefonda ishlatsa ham ochilsin»; «Луғат» va «Машқ» kirishsiz ochilmasin (natija yo'qolishi mumkin) — «hamma shunday», 1-dars «Машқ»i ham.
+- **Kirishsiz** faqat 1-darsni o'qish va eshitish. Natija yaratadigan hammasi — 1-dars «Машқ»i, so'zlarni saralash, «Луғат»/takror, Сарф/Феъллар mashqlari, bob/kitob imtihonlari — Telegram orqali kirgandan keyin (`tg.js` dagi «Давом этиш учун киринг» oynasi; Telegram ichida so'ralmaydi). Ko'rish/sinov sahifasida server yo'q.
+- **Serverga qo'shiladi** (`baza.js` `KEYS`/`lokal`/`birlash`/`qoy`, `api/soz.js` — hujjat 600 KB chegarasi): darslar holati `darsN-holat` (Машқ javoblari, qayerda to'xtagan; hozir faqat Telegram bulutiga — `tg.js`), Сарф `sarf-holat`, Феъллар `fel_done`/`fl200_*`, sozlamalar (`sozlama`, `sozlama-q`, `til`, `dars-uz`, `dars-tezlik`, `tinglash-*`, `fe-pref`), oxirgi dars `oxirgi-dars`. Birlashtirish qoidasi har biriga (yangisi ustun / eng yaxshi natija); «Натижаларни тозалаш» va «Аккаунтни ўчириш» ularga ham tegishi kerakmi — kelishiladi.
+- Fiqh (`fq-*`) — alohida programma, kirmaydi (foydalanuvchi so'rasa — alohida).
+
 ## 1. O'quvchi taraqqiyoti: takror, reyting, ilova (foydalanuvchi qarorlari, 12.11.2026)
 Qilingan qismi — `docs/texnik.md` 14 (ma'lumot fayllari, «Такрорлаш» sinovi).
 - **Qarorlar:** sayt, Telegram Mini App va kelajakdagi app — bitta server, bitta hisob, bitta kod. Hisob ichki raqam bilan; kirish hozir Telegram, keyin Google va Apple. Natijalar avval qurilmada (oflayn), keyin serverga sinxronlanadi. Taxallusni o'quvchi o'zi yozadi (takrorlanmasin, nojo'ya so'z o'tmasin). So'z, mashq savoli va qoida belgilari — o'zgarmas raqamli `data/` fayllarida. Takror va ball hisobi alohida modul (`takror.js`); reyting serverda hisoblanadi (aldab bo'lmasin). Hozirgi «Машқ» qoidalari o'zgarmaydi; takror — alohida bo'lim. Xavfsizlik va o'quvchi ma'lumotlari maxfiyligiga e'tibor.

@@ -7,7 +7,11 @@
 //          POST /api/soz   {"amal": "ulashOl", "tok": "..."}              → {"ok": true, "kod": "..." | null}   (sayt; bir marta beriladi, 10 daqiqa amal qiladi)
 // «tok» — sayt yasagan tasodifiy belgi (26 belgi); fayl nomi uning xeshi. O'qilgach fayl bo'shatiladi.
 // «kod» — o'quvchining maxfiy ko'chirish kodi (baza.js yasaydi, 26 belgi); fayl nomi uning xeshi — kodsiz hech kim o'qiy olmaydi.
-// Ismlar, telefon va boshqa shaxsiy ma'lumot saqlanmaydi: faqat so'z belgilari, takror jurnali va yo'l natijalari.
+// Hujjatda: so'z belgilari, takror jurnali, yo'l natijalari va o'quvchi o'zi yozgan ism «ism» {n, t} (14.11.2026 dan; ilovadagi boshqa
+// o'quvchilarga — keyin reytingda — ko'rinadi). Telegram akkaunti (14.11.2026, foydalanuvchi qarori) — alohida fayl tg/<xesh>.json:
+//          POST /api/soz   {"kod": "...", "amal": "tg", "init": Telegram.WebApp.initData}  → {"ok": true}   (bot tokeni bilan tekshiriladi)
+//          POST /api/soz   {"kod": "...", "amal": "tgOchir"}                                 → {"ok": true}   («Аккаунтни ўчириш»)
+// Telefon raqami so'ralmaydi va saqlanmaydi.
 // Blob bilan to'g'ridan-to'g'ri HTTP orqali ishlaydi (loyihada package.json yo'q): so'rov qolipi @vercel/blob SDK manbasidan (api v13).
 const crypto = require('crypto');
 const TOK = process.env.BLOB_READ_WRITE_TOKEN || '';
@@ -17,8 +21,22 @@ const RUXSAT = ['https://nurut-tolib.vercel.app', 'https://abduhakim9999.github.
 
 const ULASH_MS = 10 * 60 * 1000;                         // ulash belgisi shuncha vaqt amal qiladi
 const KODRE = /^[a-z0-9]{20,64}$/;
+const BOT = process.env.BOT_TOKEN || '';                // api/tg.js bilan bir xil bot (Mini App initData shu bilan imzolanadi)
 
 function fayl(kod) { return 'baza/' + crypto.createHash('sha256').update('baza:' + kod).digest('hex') + '.json'; }
+function faylT(kod) { return 'tg/' + crypto.createHash('sha256').update('tg:' + kod).digest('hex') + '.json'; }
+// Mini App initData tekshiruvi (core.telegram.org/bots/webapps — «Validating data received via the Mini App»): soxta ma'lumot o'tmaydi
+function tgTekshir(init) {
+  if (!BOT || typeof init !== 'string' || !init || init.length > 4096) return null;
+  const p = new URLSearchParams(init), h = p.get('hash');
+  if (!h) return null;
+  p.delete('hash');
+  const dcs = [...p.entries()].sort((a, b) => (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0)).map(([k, v]) => k + '=' + v).join('\n');
+  const key = crypto.createHmac('sha256', 'WebAppData').update(BOT).digest();
+  const x = crypto.createHmac('sha256', key).update(dcs).digest('hex');
+  if (x.length !== h.length || !crypto.timingSafeEqual(Buffer.from(x), Buffer.from(h))) return null;
+  try { const u = JSON.parse(p.get('user') || 'null'); return u && u.id ? u : null; } catch (e) { return null; }
+}
 function faylU(tok) { return 'ulash/' + crypto.createHash('sha256').update('ulash:' + tok).digest('hex') + '.json'; }
 
 async function ol(yol) {
@@ -66,8 +84,18 @@ module.exports = async (req, res) => {
     }
     if (typeof b.kod !== 'string' || !KODRE.test(b.kod)) return res.status(400).json({ ok: false, xato: 'kod' });
     if (b.amal === 'ol') return res.status(200).json({ ok: true, d: await ol(fayl(b.kod)) });
+    if (b.amal === 'tg') {
+      const u = tgTekshir(b.init);
+      if (!u) return res.status(400).json({ ok: false, xato: 'tg' });
+      await yoz(faylT(b.kod), JSON.stringify({ id: u.id, username: String(u.username || '').slice(0, 64),
+        ism: [u.first_name, u.last_name].filter(Boolean).join(' ').slice(0, 128), til: String(u.language_code || '').slice(0, 8), t: Date.now() }));
+      return res.status(200).json({ ok: true });
+    }
+    if (b.amal === 'tgOchir') { await yoz(faylT(b.kod), '{}'); return res.status(200).json({ ok: true }); }
     if (b.amal === 'yoz') {
       if (!b.d || typeof b.d !== 'object' || Array.isArray(b.d) || b.d.v !== 1) return res.status(400).json({ ok: false, xato: 'd' });
+      if (b.d.ism != null) b.d.ism = b.d.ism && typeof b.d.ism === 'object' && typeof b.d.ism.n === 'string'   // ism — 40 belgigacha
+        ? { n: b.d.ism.n.replace(/[\u0000-\u001f]/g, '').slice(0, 40), t: +b.d.ism.t || 0 } : null;
       const matn = JSON.stringify(b.d);
       if (matn.length > MAX) return res.status(413).json({ ok: false, xato: 'katta' });
       await yoz(fayl(b.kod), matn);

@@ -131,7 +131,7 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
 
   <button class="s-del" id="del">Натижаларни тозалаш</button>
   <div class="s-qt" id="qt" hidden><span id="qt-t"></span><button id="qt-b">Қайтариш</button></div>
-  <button class="s-del" id="hdel" hidden>Ҳисобни ўчириш</button>
+  <button class="s-del" id="hdel" hidden>Аккаунтни ўчириш</button>
 </div>
 <div class="s-dg" id="md" hidden>
   <div class="s-dk" role="dialog" aria-modal="true" aria-labelledby="md-h">
@@ -298,7 +298,7 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
   if (!arxOl() && window.Baza && Baza.kod() && !G('soz') && !G('takror-j')) Baza.eskiOl(function (d) { if (d && Date.now() - d.ar <= KUN30 && !arxOl()) { LS(KE, JSON.stringify(d)); qtChiz(); } });
   $('qt-b').onclick = function () { if (confirm('Ўчирилган натижалар қайтарилсинми? Ҳозиргилари ўрнига ёзилади.')) qaytar(); };
 
-  /* «Ҳисобни ўчириш» (14.11.2026; do'konlar talabi, docs/texnik.md 17): natijalar bu telefonda va serverda o'chadi, 30 kunlik nusxa ham —
+  /* «Аккаунтни ўчириш» (14.11.2026; do'konlar talabi, docs/texnik.md 17): natijalar bu telefonda va serverda o'chadi, 30 kunlik nusxa ham —
      qaytarib bo'lmaydi. Tasdiq — o'sha qat'iy oyna (ЎЧИРИШ). */
   function hisobOchir() {
     var hz = String(Date.now());
@@ -308,16 +308,16 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
     darsKalit(function (k) {
       try { var S = JSON.parse(G(k) || 'null'); if (S && (S.q || S.qr)) { delete S.q; delete S.qr; localStorage.setItem(k, JSON.stringify(S)); localStorage.setItem(k + '-t', hz); } } catch (e) {}
     });
-    LS(KE, null); qtChiz();
-    if (window.Baza && Baza.ochir) Baza.ochir(function (ok) { xabar(ok ? 'Ҳисоб ўчирилди' : 'Серверда ўчмади. Интернетни текшириб, қайта уриниб кўринг.'); });
-    else xabar('Ҳисоб ўчирилди');
+    LS(KE, null); LS('ism', null); qtChiz();
+    if (window.Baza && Baza.ochir) Baza.ochir(function (ok) { xabar(ok ? 'Аккаунт ўчирилди' : 'Серверда ўчмади. Интернетни текшириб, қайта уриниб кўринг.'); });
+    else xabar('Аккаунт ўчирилди');
   }
   if (!SN) $('hdel').hidden = false;
 
   /* tasdiqlash oynasi (rejim: t — natijalarni tozalash, h — hisobni o'chirish) */
   var md = $('md'), mi = $('md-i'), mok = $('md-ok'), rej = 't';
   var MATN = { t: ['Натижаларни тозалаш', 'Йўл, сўз базаси ва машқ жавоблари ўчади. 30 кун ичида қайтариш мумкин.'],
-               h: ['Ҳисобни ўчириш', 'Ҳисобингиздаги барча натижалар бу телефонда ҳам, серверда ҳам ўчади. Қайтариб бўлмайди.'] };
+               h: ['Аккаунтни ўчириш', 'Аккаунтингиздаги барча натижалар ва исмингиз бу телефонда ҳам, серверда ҳам ўчади. Қайтариб бўлмайди.'] };
   function mdOch(r) { rej = r; $('md-h').textContent = MATN[r][0]; $('md-p').textContent = MATN[r][1]; md.hidden = false; mi.value = ''; mok.disabled = true; setTimeout(function () { mi.focus(); }, 50); }
   function togri() { return ['ЎЧИРИШ', 'УЧИРИШ', 'OCHIRISH', 'UCHIRISH'].indexOf(mi.value.toUpperCase().replace(/[^A-ZА-ЯЁЎҚҒҲ]/g, '')) > -1; }
   function mdYop() { md.hidden = true; mi.value = ''; mok.disabled = true; $(rej === 'h' ? 'hdel' : 'del').focus(); }

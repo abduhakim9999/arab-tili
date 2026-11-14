@@ -5,6 +5,19 @@
   try { var _k = JSON.parse(localStorage.getItem('sozlama') || '{}').kor; if (_k === 'yorug' || _k === 'tungi') document.documentElement.setAttribute('data-theme', _k === 'tungi' ? 'dark' : 'light'); } catch (e) {}
   /* «Офлайн сақлаш» o'chirilgan bo'lsa — saqlangan dars ovozlari (sw.js keshi) har sahifa ochilganda tozalanadi: telefonda yig'ilib qolmaydi */
   try { if (JSON.parse(localStorage.getItem('sozlama') || '{}').oflayn === false && window.caches) caches.delete('arab-tili-audio'); } catch (e) {}
+  /* «baza-vt» (14.11.2026, foydalanuvchi: kerakli hamma narsa akkaunt orqali saqlansin): serverga ham ketadigan sozlama va dars holati
+     kalitlarining o'zgargan vaqti (baza.js birlashtirishda yangisini tanlaydi; ro'yxat — baza.js GEN bilan bir xil) va «baza-oz» (yuborilmagan
+     o'zgarish bor). Hamma sahifada — baza.js yo'q sahifada (dars, Сарф, Феъллар) ham. baza.js serverdan yozganda (BAZA_ICHKI) belgilanmaydi. */
+  try {
+    var GEN = /^(dars\d+-holat|sarf-holat|fel_done|fl200_(best|mist|t)|sozlama|sozlama-q|til|dars-uz|dars-tezlik|izoh-til|tinglash-(opt|mode|dars)|fe-pref|oxirgi-dars)$/;
+    var s0 = Storage.prototype.setItem, r0 = Storage.prototype.removeItem;
+    var belgi = function (st, k) {
+      if (window.BAZA_ICHKI || !GEN.test(k)) return;
+      try { var m = JSON.parse(st.getItem('baza-vt') || '{}'), t = Date.now(); m[k] = t; s0.call(st, 'baza-vt', JSON.stringify(m)); if (!st.getItem('baza-oz')) s0.call(st, 'baza-oz', String(t)); } catch (e) {}
+    };
+    Storage.prototype.setItem = function (k, v) { if (this !== window.localStorage) return s0.call(this, k, v); var o = this.getItem(k); s0.call(this, k, v); if (o !== String(v)) belgi(this, k); };
+    Storage.prototype.removeItem = function (k) { if (this !== window.localStorage) return r0.call(this, k); var o = this.getItem(k); r0.call(this, k); if (o !== null) belgi(this, k); };
+  } catch (e) {}
   var KEY = me.getAttribute('data-key') || '';
   var HOME = me.getAttribute('data-home') || '';
   /* ҚОБИҚ (13.11.2026): bosh sahifaga qaytadigan sahifalar (darslar, Сарф, Наҳв, йўриқнома…) oxirgi ochilgan bo'limga qaytadi —
@@ -42,28 +55,30 @@
       return !!(p && (p.tgWebAppData || p.tgWebAppVersion));
     } catch (e) { return false; }
   }
-  /* KIRISH (14.11.2026, foydalanuvchi qarori; docs/texnik.md 17): Telegramdan tashqarida (brauzer, ilova) 1-dars ochiq,
-     keyingi darslar Telegram orqali kirgandan keyin ochiladi — natijalar Telegram hisobiga bog'lanadi, telefon almashsa ham tiklanadi.
-     Telegram ichida hech narsa so'ralmaydi. Kirish — baza.js (ulashBoshla / ulashTekshir); baza.js shu yerda «jim» yuklanadi. */
-  (function () {
-    var m = /^dars(\d+)-holat$/.exec(KEY);
-    if (!m || +m[1] === 1) return;
+  /* KIRISH (14.11.2026, foydalanuvchi qarori; docs/texnik.md 17). Kech (foydalanuvchi: «kerakli hamma narsa akkaunt orqali saqlansin, boshqa
+     telefonda ham ochilsin»): Telegramdan tashqarida **kirishsiz faqat 1-darsni o'qish va eshitish**; natija yaratadigan hammasi — Telegram orqali
+     kirgandan keyin. Telegram ichida, sinov va ko'rish (github.io /tayyor/) sahifalarida so'ralmaydi. Kirish — baza.js (ulashBoshla / ulashTekshir).
+       N-dars (N≠1), takror.html (Луғат), sarf.html, feellar.html, fel.html, tinglash.html (1-darsdan boshqa) — sahifa ochilganda;
+       1-dars — «Луғат» / «Машқ» yorlig'i bosilganda (oynani yopsa bo'ladi); yol.html — so'z saralash va imtihon boshlanganda (Kirish.oyna). */
+  var Kirish = window.Kirish = (function () {
     function G(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
-    if (inTg() || G('baza-tg')) return;
+    function kerak() { return !(inTg() || G('baza-tg') || window.KORISH || /\/sinov-[^\/]*$/.test(location.pathname)); }
     var TG = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-1 .4-1 1.1-.2 1.4l4.7 1.5 1.8 5.6c.2.6.4.8.9.8s.6-.2.9-.5l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.9-1.4-1.8zM9.8 14.3l8.2-5.2c.4-.2.7-.1.4.2l-6.9 6.3-.3 3.2z"/></svg>';
-    var d, xbEl, kt = null;
+    var d = null, xbEl, kt = null;
     function xb(t) { if (xbEl) xbEl.textContent = t; }
-    function yop() { clearInterval(kt); if (d && d.parentNode) d.parentNode.removeChild(d); document.documentElement.style.overflow = ''; }
+    function yop() { clearInterval(kt); if (d && d.parentNode) d.parentNode.removeChild(d); d = null; document.documentElement.style.overflow = ''; }
     function tek() {
-      if (document.hidden || !window.Baza || !Baza.ulashKutmoqda()) return;
+      if (document.hidden || !d || !window.Baza || !Baza.ulashKutmoqda()) return;
       Baza.ulashTekshir(function (ok, tugadi) {
         if (ok) { clearInterval(kt); xb('Уланди ✓'); setTimeout(yop, 800); }
         else if (tugadi) { clearInterval(kt); xb('Вақт тугади. Қайта босинг.'); }
       });
     }
     function kut() { clearInterval(kt); kt = setInterval(tek, 3000); }
-    function qur() {
-      var st = document.createElement('style');
+    var css = false;
+    function oyna(yopsa) {           /* yopsa — «Ёпиш» tugmasi (1-dars yorliqlari, xarita); aks holda — «Бош саҳифага қайтиш» */
+      if (d || !document.body) return;
+      if (!css) { css = true; var st = document.createElement('style');
       st.textContent = '#kr-d{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;background:rgba(8,20,14,.62);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}' +
         '.kr-k{width:100%;max-width:400px;box-sizing:border-box;padding:26px 20px 14px;border-radius:24px;background:#fff;color:#1b1f1d;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.35);font-family:inherit}' +
         '.kr-ib{width:64px;height:64px;margin:0 auto;border-radius:50%;background:#e3f4fd;color:#2AABEE;display:flex;align-items:center;justify-content:center}.kr-ib svg{width:34px;height:34px}' +
@@ -72,16 +87,17 @@
         '.kr-x{margin:10px 0 0;min-height:1.4em;font-size:14px;line-height:1.4;color:#0f7a4f}.kr-uy{display:inline-block;margin-top:4px;padding:10px;color:#5a635f;font-size:15px}' +
         '@media (prefers-color-scheme:dark){html:not([data-theme="light"]) .kr-k{background:#1e2522;color:#e8ecea}html:not([data-theme="light"]) .kr-k p,html:not([data-theme="light"]) .kr-uy{color:#a9b3ae}html:not([data-theme="light"]) .kr-ib{background:#16384a}html:not([data-theme="light"]) .kr-x{color:#6fd3a3}}' +
         'html[data-theme="dark"] .kr-k{background:#1e2522;color:#e8ecea}html[data-theme="dark"] .kr-k p,html[data-theme="dark"] .kr-uy{color:#a9b3ae}html[data-theme="dark"] .kr-ib{background:#16384a}html[data-theme="dark"] .kr-x{color:#6fd3a3}';
-      document.head.appendChild(st);
+      document.head.appendChild(st); }
       d = document.createElement('div');
       d.id = 'kr-d'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'kr-h');
       d.innerHTML = '<div class="kr-k"><div class="kr-ib">' + TG + '</div><h2 id="kr-h">Давом этиш учун киринг</h2>' +
-        '<p>1-дарс ҳамма учун очиқ. Кейинги дарслар учун бир марта Telegram орқали киринг — натижаларингиз сақланади ва телефон алмашса ҳам тикланади.</p>' +
+        /* 14.11.2026 (foydalanuvchi): ortiqcha gap yo'q — sarlavha va tugma */
         '<button class="kr-tg" id="kr-b">' + TG + 'Telegram орқали кириш</button><p class="kr-x" id="kr-x" role="status"></p>' +
-        '<a class="kr-uy" href="' + (HOME || 'yol.html') + '">Бош саҳифага қайтиш</a></div>';
+        (yopsa ? '<button class="kr-uy" id="kr-y" style="border:0;background:none;font:inherit;cursor:pointer">Ёпиш</button>' : '<a class="kr-uy" href="' + (HOME || 'yol.html') + '">Бош саҳифага қайтиш</a>') + '</div>';
       document.body.appendChild(d);
       document.documentElement.style.overflow = 'hidden';
       xbEl = d.querySelector('#kr-x');
+      if (yopsa) d.querySelector('#kr-y').onclick = yop;
       d.querySelector('#kr-b').onclick = function () {
         var B = window.Baza;
         if (!B || !B.ulashBoshla) { xb('Бир оз кутиб, қайта босинг…'); return; }
@@ -90,13 +106,27 @@
         xb('Telegram очилди. У ерда тасдиқланг ва шу саҳифага қайтинг.');
         kut();
       };
-      /* baza.js «jim»: o'zi sinxronlamaydi, faqat kirish uchun (dars sahifasining ishi o'zgarmaydi) */
+      /* baza.js yo'q sahifada «jim» yuklanadi: o'zi sinxronlamaydi, faqat kirish uchun */
       var yuk = function () { if (window.Baza && Baza.ulashKutmoqda()) { xb('Telegram\'да тасдиқлашингиз кутилмоқда…'); kut(); } };
       if (window.Baza) yuk();
-      else { window.BAZA_JIM = 1; var s = document.createElement('script'); s.src = 'baza.js'; s.onload = yuk; s.onerror = function () { xb('Интернетни текширинг.'); }; document.head.appendChild(s); }
-      document.addEventListener('visibilitychange', tek);
+      else { window.BAZA_JIM = 1; var sc = document.createElement('script'); sc.src = 'baza.js'; sc.onload = yuk; sc.onerror = function () { xb('Интернетни текширинг.'); }; document.head.appendChild(sc); }
     }
-    if (document.body) qur(); else document.addEventListener('DOMContentLoaded', qur);
+    document.addEventListener('visibilitychange', tek);
+    return { kerak: kerak, oyna: oyna };
+  })();
+  (function () {
+    if (!Kirish.kerak()) return;
+    var m = /^dars(\d+)-holat$/.exec(KEY), dars1 = !!m && +m[1] === 1, nom = (location.pathname.match(/([a-z]+)\.html$/) || [])[1] || '';
+    var avto = (m && !dars1) || /^(takror|sarf|feellar|fel)$/.test(nom) || (nom === 'tinglash' && !/[?&]d=0*1(&|$)/.test(location.search));
+    function boshla() {
+      if (avto) { Kirish.oyna(false); return; }
+      if (dars1 && typeof window.tab === 'function') {      /* 1-dars: Матн ochiq, «Луғат» (t2) va «Машқ» (t3) — kirgach */
+        var t0 = window.tab;
+        window.tab = function (n) { if ((n === 2 || n === 3) && Kirish.kerak()) { Kirish.oyna(true); return; } return t0.apply(this, arguments); };
+        if (document.querySelector('#t2.on,#t3.on')) t0(1);
+      }
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boshla); else boshla();
   })();
   /* sahifalar orasida o'tish: Telegramda tarix yig'ilmasin */
   document.addEventListener('click', function (ev) {

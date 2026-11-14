@@ -44,15 +44,19 @@ SEED = {
     'soz': json.dumps({'v': 1, 'b': {str(i): 1 for i in ids1[:8]}, 'k': {str(i): 1 for i in ids1[8:14]}, 's': {str(n): now for n in (1, 2, 3, 4)}, 'a': {}, 't': now}),
     'yol': json.dumps({'v': 1, 'd': {'1': {'b': 90, 's': 90, 'j': 10, 't': now}, '2': {'b': 60, 's': 60, 'j': 10, 't': now}}, 'e': {}}),
     'yol-kor': 'r',
+    'baza-tg': '1',                    # 14.11.2026: kirgan o'quvchi — Луғат va imtihonlar kirishsiz yopiq (tg.js Kirish)
+    'baza-eski': json.dumps({'v': 1, 'ar': now, 'ls': {'x': '1'}}),   # «Ўчирилган: … · яна N кун сақланади» qatori ham ko'rinsin
 }
 INIT = """(()=>{try{if(!sessionStorage.__seed){const S=%s;for(const k in S)localStorage.setItem(k,S[k]);sessionStorage.__seed=1}}catch(e){}})()""" % json.dumps(SEED)
 
 UZ = '[ўқғҳЎҚҒҲ]'
 SCAN = """()=>{const out=[];const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;
  while(n=w.nextNode()){const p=n.parentNode;if(!p||/^(SCRIPT|STYLE)$/.test(p.nodeName))continue;
-   if(p.closest&&p.closest('[hidden]'))continue;if(/%s/.test(n.data))out.push(n.data.trim().slice(0,140))}
+   if(p.closest&&p.closest('[hidden]'))continue;if(n.data.indexOf('\\u2063')>=0)continue;if(/%s/.test(n.data))out.push(n.data.trim().slice(0,140))}
  document.querySelectorAll('[aria-label],[placeholder],[title]').forEach(e=>{['aria-label','placeholder','title'].forEach(a=>{const v=e.getAttribute(a);if(v&&/%s/.test(v))out.push('@'+a+': '+v)})});
- return {left:[...new Set(out)],miss:Object.keys(window.RU_MISS||{})}}""" % (UZ, UZ)
+ const dup=[];document.querySelectorAll('[role=group],.s-sg,.tabs').forEach(g=>{const t=[...g.querySelectorAll('button')].map(b=>b.textContent.replace(/\\u2063/g,'').trim()).filter(Boolean);
+   if(new Set(t).size<t.length)dup.push(t.join(' | '))});
+ return {left:[...new Set(out)],miss:Object.keys(window.RU_MISS||{}),dup:dup}}""" % (UZ, UZ)
 
 # ruschasi yo'q darslarning o'z matni (ma'no, misol, mashq gapi va izohi) — qobiq lug'atiga kirmaydi
 DARS_MATN = set()
@@ -107,6 +111,10 @@ with sync_playwright() as p:
                 MISS.setdefault(k, set()).add(sahifa[0])
         for k in r['left']:
             LEFT.setdefault(k, set()).add(sahifa[0])
+        for k in r['dup']:   # 14.11.2026: til tugmasida ikkala tomon «Русский» bo'lib qolgan edi — bitta guruhda bir xil yozuvli tugma xato
+            e = '%s: bir xil tugmalar: %s' % (sahifa[0], k)
+            if e not in ERR:
+                ERR.append(e)
         if RASM:
             pg.screenshot(path=os.path.join(RASM, nom + '.png'))
 

@@ -1,0 +1,25 @@
+name: korish
+# github.io ko'rish manzili (14.11.2026, foydalanuvchi qarori; docs/texnik.md 1): ildizda main, tayyor-<nom> → /tayyor/<nom>/.
+# GitHub Pages manbasi — gh-pages tarmog'i. Vercel'ga tegmaydi.
+on:
+  push:
+    branches: [main, 'tayyor-*']
+  delete:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: korish
+  cancel-in-progress: true
+jobs:
+  run:
+    if: github.event_name != 'delete' || startsWith(github.event.ref, 'tayyor-')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          bash src/build/korish.sh --push

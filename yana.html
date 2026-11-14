@@ -20,18 +20,26 @@ button{font-family:inherit;cursor:pointer}
 a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
 .ar{font-family:"DarsNaskh","Noto Naskh Arabic",serif;direction:rtl;unicode-bidi:isolate;font-weight:400}
 /* hisob kartasi */
-.n-h{background:var(--cd);border:1.5px solid var(--bd);border-radius:20px;box-shadow:var(--sh);padding:16px;margin:0 0 18px}
-.n-hr{display:flex;align-items:center;gap:14px}
-.n-av{width:56px;height:56px;border-radius:50%;background:var(--tint);color:var(--ac);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:24px;font-weight:700}
-.n-av svg{width:28px;height:28px}
-.n-hr b{display:block;font-size:18px;line-height:1.3}
-.n-hr small{display:block;font-size:13.5px;line-height:1.4;color:var(--mu)}
-.n-tg{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:54px;box-sizing:border-box;margin-top:14px;padding:6px 16px 10px;border:0;border-radius:16px;background:#229ED9;color:#fff;box-shadow:inset 0 -4px 0 rgba(0,0,0,.2);font-size:16.5px;font-weight:700;transition:transform .06s,box-shadow .06s}
-.n-tg:active{transform:translateY(2px);box-shadow:inset 0 -2px 0 rgba(0,0,0,.2)}
-.n-tg svg{width:22px;height:22px;flex-shrink:0}
+.n-til{cursor:default}.n-til .t{flex:1;min-width:0}
+.n-sg{display:flex;padding:3px;gap:2px;border-radius:14px;background:var(--tint);flex-shrink:0}
+.n-sg button{min-width:44px;height:44px;padding:0 11px;border-radius:11px;border:0;background:none;color:var(--mu);font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.n-sg button[aria-pressed="true"]{background:var(--cd);box-shadow:0 1px 3px rgba(20,30,25,.2);color:var(--ac);font-weight:700}
+@media (max-width:350px){.n-sg button{padding:0 8px;font-size:13px}}
+.n-ak{cursor:default}.n-ak:active{transform:none;box-shadow:inset 0 -3px 0 var(--bd)}
+.n-av{border-radius:50%;font-size:20px;font-weight:800}.n-av svg{width:24px;height:24px}
+.n-tgr{cursor:pointer;text-align:left}.n-tgr .q-ib{background:#229ED9;color:#fff}.n-tgr .q-ib svg{width:22px;height:22px}
+.n-nm{display:flex;align-items:center;gap:10px;flex:1;min-width:0;padding:0;border:0;background:none;color:var(--tx);font:inherit;text-align:left;cursor:pointer}
+.n-nm b{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.n-nm b.bo{color:var(--mu);font-weight:600}
+.n-ed{flex-shrink:0;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:var(--tint);color:var(--ac)}
+.n-ed svg{width:18px;height:18px}
+.n-if{flex:1;min-width:0;display:flex;gap:8px;margin:0}
+.n-nm[hidden],.n-if[hidden]{display:none}
+.n-if input{flex:1;min-width:0;height:44px;padding:0 12px;box-sizing:border-box;border-radius:12px;border:1.5px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit;font-size:16px}
+.n-ok{flex-shrink:0;height:44px;padding:0 16px;border-radius:12px;border:0;background:var(--ac);color:#fff;font:inherit;font-weight:700;cursor:pointer}
 .n-tg[hidden]{display:none}
 .n-tip{margin:-2px 4px 10px;font-size:13.5px;line-height:1.45;color:var(--mu)}
-.n-xb{margin:10px 0 0;padding:10px 12px;border-radius:12px;background:var(--tint);font-size:14px;line-height:1.45}
+.n-xb{margin:-2px 0 10px;padding:10px 12px;border-radius:12px;background:var(--tint);font-size:14px;line-height:1.45}
 /* ilova haqida */
 .n-inf{background:var(--cd);border:1.5px solid var(--bd);border-radius:18px;overflow:hidden}
 .n-inf div{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;padding:6px 16px;border-top:1px solid var(--bd);font-size:15.5px}
@@ -45,14 +53,18 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
 <body>
 <header class="q-hd"><div class="q-hr"><div><h1>Яна</h1></div></div></header>
 <main class="q-w">
-  <section class="n-h" aria-label="Ҳисоб">
-    <div class="n-hr"><span class="n-av" id="av"></span><div><b id="hn">Ҳисоб</b><small id="hs"></small></div></div>
-    <button class="n-tg" id="tgk" hidden><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-1 .4-1 1.1-.2 1.4l4.7 1.5 1.8 5.6c.2.6.4.8.9.8s.6-.2.9-.5l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.9-1.4-1.8zM9.8 14.3l8.2-5.2c.4-.2.7-.1.4.2l-6.9 6.3-.3 3.2z"/></svg>Telegram орқали кириш</button>
-    <p class="n-xb" id="xb" hidden></p>
-  </section>
-
+  <!-- Аккаунт (14.11.2026, foydalanuvchi): kichik qator (katta karta emas), eng birinchi, keyin Тил, keyin Созламалар; «Ҳисоб» emas «Аккаунт»; ortiqcha so'z yo'q — faqat o'zi yozadigan ism (telefon + server, keyin reytingda ko'rinadi) -->
+  <h2 class="q-h">АККАУНТ</h2>
+  <div class="q-rw n-ak" id="hr" hidden><span class="q-ib n-av" id="av"></span><button class="n-nm" id="hb" aria-label="Исмни ўзгартириш"><b id="hn">Исмингизни ёзинг</b><span class="n-ed" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13.5 6.5l4 4"/></svg></span></button>
+    <form class="n-if" id="hf" hidden><input id="hi" type="text" maxlength="30" autocomplete="nickname" enterkeyhint="done" placeholder="Исмингиз — бошқаларга кўринади" aria-label="Исмингиз"><button class="n-ok" type="submit">Сақлаш</button></form>
+  </div>
+  <button class="q-rw n-tgr" id="tgk" hidden><span class="q-ib"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-1 .4-1 1.1-.2 1.4l4.7 1.5 1.8 5.6c.2.6.4.8.9.8s.6-.2.9-.5l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.9-1.4-1.8zM9.8 14.3l8.2-5.2c.4-.2.7-.1.4.2l-6.9 6.3-.3 3.2z"/></svg></span><span class="t">Telegram орқали кириш</span><svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+  <p class="n-xb" id="xb" hidden></p>
+  <!-- Тил (14.11.2026, foydalanuvchi: sozlamadan chiqib, akkauntdan keyin). «Ўзбекча&#x2063;» — ru.js o'girmaydi, tugma doim o'z tilida -->
+  <div class="q-rw n-til"><span class="q-ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span><span class="t">Тил</span><div class="n-sg" role="group" aria-label="Тил"><button data-v="uz">Ўзбекча&#x2063;</button><button data-v="ru" lang="ru">Русский</button></div></div>
   <a class="q-rw" id="soz" href="sozlamalar.html"><span class="q-ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 13.5a7.6 7.6 0 0 0 0-3l2-1.5-2-3.4-2.3.9a7.6 7.6 0 0 0-2.6-1.5L14.1 2.5H9.9L9.5 5a7.6 7.6 0 0 0-2.6 1.5l-2.3-.9-2 3.4 2 1.5a7.6 7.6 0 0 0 0 3l-2 1.5 2 3.4 2.3-.9a7.6 7.6 0 0 0 2.6 1.5l.4 2.5h4.2l.4-2.5a7.6 7.6 0 0 0 2.6-1.5l2.3.9 2-3.4z"/></svg></span>
-    <span class="t">Созламалар<small>Ёзув, овоз, такрор, кўриниш</small></span><svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></a>
+    <span class="t">Созламалар<small>Кўриниш, ёзув, овоз, такрор</small></span><svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></a>
+
   <a class="q-rw" id="yor" href="yoriqnoma.html"><span class="q-ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-2-1.5-4.5-2-8-2v14c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2V4c-3.5 0-6 .5-8 2zM12 6v14"/></svg></span>
     <span class="t">Йўриқнома<small>Иловадан фойдаланиш</small></span><svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></a>
   <a class="q-rw" href="https://t.me/Arabtilihivar_bot" target="_blank" rel="noopener"><span class="q-ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 4H4a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h3v3.5L11.5 17H20a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1z"/><path d="M8 9h8M8 12.5h5"/></svg></span>
@@ -73,34 +85,46 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
   var $ = function (i) { return document.getElementById(i); };
   var ODAM = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg>';
   $('soz').href = SN + 'sozlamalar.html'; $('yor').href = SN + 'yoriqnoma.html';
+  /* Тил (14.11.2026): «Созламалар»dan bu yerga; localStorage «til» (uz|ru), sahifa qayta yuklanadi — til qatlami ochilganda ulanadi */
+  (function () {
+    var g = document.querySelector('.n-sg'), cur = 'uz';
+    try { cur = localStorage.getItem('til') === 'ru' ? 'ru' : 'uz'; } catch (e) {}
+    [].forEach.call(g.querySelectorAll('button'), function (b) {
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-v') === cur));
+      b.onclick = function () {
+        var v = b.getAttribute('data-v'); if (v === cur) return;
+        try { localStorage.setItem('til', v); } catch (e) {}
+        [].forEach.call(g.querySelectorAll('button'), function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        setTimeout(function () { location.reload(); }, 250);
+      };
+    });
+  })();
   if (window.Qobiq && Qobiq.ru) Qobiq.tez($('yor'));     /* yo'riqnomaning ruschasi hali yo'q */
 
-  /* hisob: Telegram ichida — foydalanuvchi nomi (natija Telegram hisobiga bog'langan kod bilan saqlanadi, baza.js);
-     saytda — «Telegram орқали кириш»: Telegram ilovasi ochiladi, u yerda tasdiqlangach sayt o'sha hisob kodiga ulanadi (docs/texnik.md 18).
-     14.11.2026 dan: Telegramdan tashqarida 2-darsdan boshlab kirish majburiy (tg.js; docs/texnik.md 17). */
+  /* Аккаунт (14.11.2026, foydalanuvchi): avval Telegram orqali kirish — ma'lumot saqlanishi uchun; kirmaganda kartada faqat «Telegram орқали
+     кириш» (2-darsdan majburiy, tg.js; docs/texnik.md 17, 18). Kirgach — ism: Telegramdagi ismi o'zi yoziladi (baza.js ham Telegram ichida
+     yozadi, t:1 — o'zi yozgani doim ustun), ✏️ bilan o'zgartiradi (localStorage «ism» {n, t}; serverda ham — keyin reytingda ko'rinadi). */
+  function ismOl() { try { var o = JSON.parse(localStorage.getItem('ism') || 'null'); return o && typeof o.n === 'string' ? o : null; } catch (e) { return null; } }
+  function ismYoz(n, t) { try { localStorage.setItem('ism', JSON.stringify({ n: n, t: t })); } catch (e) {} }
   function hisob() {
     var u = null, B = window.Baza;
     try { u = window.Telegram.WebApp.initDataUnsafe.user || null; } catch (e) {}
-    var t = B && B.vaqt ? B.vaqt() : 0, d = t ? new Date(t) : null, ik = function (n) { return ('0' + n).slice(-2); };
-    var saq = d ? 'Сақланган: ' + ik(d.getDate()) + '.' + ik(d.getMonth() + 1) + ', ' + ik(d.getHours()) + ':' + ik(d.getMinutes()) : '';
-    if (u) {
-      var nom = [u.first_name, u.last_name].filter(Boolean).join(' ') || 'Telegram ҳисоби';
-      $('av').textContent = nom.charAt(0).toUpperCase();
-      $('hn').textContent = nom;
-      $('hs').textContent = 'Натижалар Telegram ҳисобингизда сақланади' + (saq ? ' · ' + saq.toLowerCase() : '');
-      $('tgk').hidden = true;
-    } else if (B && B.tgUlangan && B.tgUlangan()) {
-      $('av').innerHTML = ODAM;
-      $('hn').textContent = 'Ҳисоб';
-      $('hs').textContent = 'Telegram ҳисобига уланган' + (saq ? ' · ' + saq.toLowerCase() : '');
-      $('tgk').hidden = true;
-    } else {
-      $('av').innerHTML = ODAM;
-      $('hn').textContent = 'Ҳисоб';
-      $('hs').textContent = '2-дарсдан бошлаб кириш керак. Натижалар Telegram ҳисобингизда сақланади ва телефон алмашса ҳам тикланади.';
-      $('tgk').hidden = false;
-    }
+    var kirgan = !!(u || (B && B.tgUlangan && B.tgUlangan()));
+    $('hr').hidden = !kirgan; $('tgk').hidden = kirgan;
+    if (!kirgan) { $('hf').hidden = true; return; }
+    var i = ismOl();
+    if (!i && u) { var tn = [u.first_name, u.last_name].filter(Boolean).join(' ').replace(/\s+/g, ' ').trim().slice(0, 30); if (tn) { ismYoz(tn, 1); i = ismOl(); } }
+    var nom = i && i.n ? i.n : '';
+    $('hn').textContent = nom ? nom + '\u2063' : 'Исмингизни ёзинг';   /* \u2063 — ism tarjima qilinmaydi (ru.js) */
+    $('hn').classList.toggle('bo', !nom);
+    if (nom) $('av').textContent = nom.charAt(0).toUpperCase() + '\u2063'; else $('av').innerHTML = ODAM;
   }
+  $('hb').onclick = function () { var i = ismOl(); $('hi').value = i ? i.n : ''; $('hb').hidden = true; $('hf').hidden = false; $('hi').focus(); };
+  $('hf').onsubmit = function (e) {
+    e.preventDefault();
+    ismYoz($('hi').value.replace(/\s+/g, ' ').trim().slice(0, 30), Date.now());
+    $('hf').hidden = true; $('hb').hidden = false; hisob();
+  };
   hisob();
   document.addEventListener('tgready', hisob);
   if (window.Baza && Baza.tinglash) Baza.tinglash(hisob);
@@ -109,7 +133,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
   function tek() {
     if (document.hidden) return;
     BZ.ulashTekshir(function (ok, tugadi) {
-      if (ok) { clearInterval(kt); xb('Уланди — натижалар Telegram ҳисобингиз билан бирлашди.'); hisob(); }
+      if (ok) { clearInterval(kt); xb('Уланди — натижалар Telegram аккаунтингиз билан бирлашди.'); hisob(); }
       else if (tugadi) { clearInterval(kt); xb('Вақт тугади. Қайта уриниб кўринг.'); }
     });
   }

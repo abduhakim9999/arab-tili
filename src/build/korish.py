@@ -3,7 +3,7 @@
 
     korish.py shim NOM      < sahifa.html  > sahifa.html   — sahifa boshiga korish-shim.js (NOM bilan) qo'yadi
     korish.py sw            < sw.js        > sw.js         — ildizdagi sw.js: /tayyor/ doim internetdan (main da bo'lmasa)
-    korish.py royxat NOM:XABAR:SANA ...    > index.html    — tayyor/ ro'yxati
+    korish.py royxat 'NOM<TAB>SANA<TAB>XABAR' ...    > index.html    — tayyor/ ro'yxati
 """
 import sys, re, os, html
 
@@ -32,7 +32,7 @@ def sw():
 def royxat(args):
     li = []
     for a in args:
-        nom, xabar, sana = (a.split(':', 2) + ['', ''])[:3]
+        nom, sana, xabar = (a.split('\t', 2) + ['', ''])[:3]
         li.append('<li><a href="%s/yol.html"><b>%s</b><small>%s · %s</small></a></li>' % (
             html.escape(nom), html.escape(nom), html.escape(sana), html.escape(xabar[:120])))
     sys.stdout.write('''<!DOCTYPE html><html lang="uz"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">

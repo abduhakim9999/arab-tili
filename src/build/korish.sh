@@ -29,12 +29,12 @@ for r in $(git for-each-ref --format='%(refname:strip=3)' 'refs/remotes/origin/t
   for f in $(git ls-files -- "$p" | grep '\.html$'); do
     qoy "$(git show "origin/$r:${f#$p}" | python3 $H/korish.py shim "$n" | git hash-object -w --stdin)" "$f"
   done
-  ROY+=("$n:$(git log -1 --format=%s "origin/$r"):$(TZ=Asia/Tashkent git log -1 --format=%cd --date=format:'%d.%m %H:%M' "origin/$r")")
+  ROY+=("$n"$'\t'"$(TZ=Asia/Tashkent git log -1 --format=%cd --date=format:'%d.%m %H:%M' "origin/$r")"$'\t'"$(git log -1 --format=%s "origin/$r")")   # TAB bilan: xabarda «:» bo'ladi
 done
 qoy "$(python3 $H/korish.py royxat "${ROY[@]}" | git hash-object -w --stdin)" tayyor/index.html
 
 T=$(git write-tree)
-echo "korish: main $(git rev-parse --short origin/main) + ${#ROY[@]} ta tayyor: ${ROY[*]%%:*}"
+echo "korish: main $(git rev-parse --short origin/main) + ${#ROY[@]} ta tayyor: ${ROY[*]%%$'\t'*}"
 if [ -n "${KORISH_CHIQ:-}" ]; then mkdir -p "$KORISH_CHIQ"; git archive "$T" | tar -x -C "$KORISH_CHIQ"; echo "fayllar: $KORISH_CHIQ"; fi
 if [ "${1:-}" = --push ]; then
   if git fetch -q --depth=1 origin gh-pages 2>/dev/null && [ "$(git rev-parse FETCH_HEAD^{tree})" = "$T" ]; then echo "o'zgarish yo'q"; exit 0; fi

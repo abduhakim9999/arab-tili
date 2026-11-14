@@ -168,5 +168,31 @@
     };
   }
 
-  return { yarat: yarat, SOZ: SOZ, VER: 1 };
+  /* REYTING BALLI (14.11.2026, foydalanuvchi qarori; docs/texnik.md 19). Ekransiz — keyin server ham aynan shu funksiya bilan hisoblaydi.
+     To'g'ri javob — 1 ball (bitta karta kuniga bir marta); so'z «биламан»ga yetsa (turli kunlarda ketma-ket BILDI marta to'g'ri, takror.html
+     kunlar() bilan bir xil) — +5 (har so'zga bir marta); kuniga ko'pi bilan KUN_MAX; juda tez javob (< TEZ ms) ball bermaydi; xato — minus yo'q.
+     Kun va hafta — Toshkent vaqti (UTC+5) hamma uchun bir xil; hafta dushanba 00:00 dan. */
+  var REY = { TZ: 5 * 3600000, KUN_MAX: 200, TEZ: 700, BILDI: 3, YANGI: 5 };
+  function tkun(t) { return Math.floor((t + REY.TZ) / 86400000); }
+  function haftaBoshi(t) { var d = tkun(t); return (d - ((d + 3) % 7)) * 86400000 - REY.TZ; }   /* 01.01.1970 — payshanba */
+  function ball(jurnal, dan, gacha) {
+    var j = (jurnal || []).slice().sort(function (a, b) { return a[1] - b[1]; }), kb = {}, kn = {}, W = {}, jami = 0;
+    gacha = gacha || Infinity;
+    j.forEach(function (e) {
+      var d = tkun(e[1]), ichida = e[1] >= dan && e[1] < gacha, b = 0, m = /^w(\d+)[auos]$/.exec(e[0]);
+      if (m) {                                             /* so'z hisobi — ichida bo'lmasa ham yuritiladi (ketma-ketlik oldindan boshlangan bo'lishi mumkin) */
+        var x = W[m[1]] = W[m[1]] || { d: 0, k: null, bor: false };
+        if (e[2] === 1) { x.d = 0; x.k = null; }
+        else { if (d !== x.k) { x.k = d; x.d++; } if (x.d >= REY.BILDI && !x.bor) { x.bor = true; if (ichida) b += REY.YANGI; } }
+      }
+      if (!ichida) return;
+      if (e[2] === 3 && !(e[3] != null && e[3] > 0 && e[3] < REY.TEZ) && !kb[e[0] + '|' + d]) { kb[e[0] + '|' + d] = 1; b += 1; }
+      if (!b) return;
+      var q = Math.min(b, REY.KUN_MAX - (kn[d] || 0)); if (q <= 0) return;
+      kn[d] = (kn[d] || 0) + q; jami += q;
+    });
+    return jami;
+  }
+
+  return { yarat: yarat, SOZ: SOZ, VER: 1, ball: ball, haftaBoshi: haftaBoshi, REY: REY };
 });

@@ -160,12 +160,14 @@ with sync_playwright() as p:
                 scan('yol-imt-%02d' % k)
             scan('yol-imt-oxiri')
     # ---- Луғат ----
+    # 14.11.2026: takror.html — «Машқ» (bosh ko'rinish) va «Луғат» (#lugat, ro'yxat)
     och('takror.html'); scan('takror')
+    bos('#bi'); scan('takror-yoriq'); bos('#bi')
+    och('takror.html#lugat'); scan('takror-lugat')
     for sel in ('[data-t]', '[data-h]'):
         n = pg.evaluate("s=>document.querySelectorAll(s).length", sel)
         for k in range(n):
             bos(sel, k); scan('takror-%s%d' % (sel[6], k))
-    bos('#bi'); scan('takror-yoriq'); bos('#bi')
     bos('#lr [data-id], #lr button, #lr li', 0); scan('takror-soz'); pg.keyboard.press('Escape')
     och('takror.html')
     if bos('#go'):
@@ -180,6 +182,8 @@ with sync_playwright() as p:
             bos('#kn')
         scan('takror-oxiri')
     # ---- Қоидалар, Яна, Созламалар, Наҳв ----
+    och('reyting.html'); scan('reyting')
+    bos('.r-sg button', 1); scan('reyting-s')
     och('qoidalar.html'); scan('qoidalar')
     och('yana.html'); scan('yana')
     och('sozlamalar.html'); scan('sozlamalar')

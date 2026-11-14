@@ -790,6 +790,55 @@ document.addEventListener('click', function (e) {
   document.addEventListener('visibilitychange', function () { if (!document.hidden) chiz(); });
 })();
 
+/* --- Dars «Луғат» yorlig'ining ko'rinishi — A variant (14.11.2026, foydalanuvchi tanlovi; dizayn: https://claude.ai/artifact/HptYYYpetUFM84qJyrHYa1, «LgA»):
+   har qatorda chap chetda «Билмайман» belgisi (bazaga kirmaydigan so'zda — bo'sh joy), ma'no chapda, arabcha o'ngda; «мؤ.» va «ج» shakllari
+   arabcha ostida kichik yorliqlarda; misollar ostida och fonda (ma'no chapda, arabcha o'ngda). Dars sahifalariga tegilmaydi — gl() chizgandan keyin qayta tuziladi. */
+(function () {
+  var p2 = document.getElementById('p2');
+  if (!p2 || typeof VOC === 'undefined') return;
+  var RU = document.documentElement.lang === 'ru' || window.TIL === 'ru';
+  var NOM = { 'مؤ.': RU ? 'жен.' : 'муаннас', 'ج': RU ? 'мн.ч.' : 'кўплиги' };
+  var css = document.createElement('style');
+  css.textContent =
+    '#p2 .g.la{display:flex;flex-direction:column;align-items:stretch;gap:8px;padding:10px 4px 12px 0}' +
+    '#p2 .g.la .hd,#p2 .g.la .hd.lg{display:flex;flex-direction:row;direction:ltr;align-items:flex-start;gap:8px}' +
+    '#p2 .g.la .bm,#p2 .g.la .la-sp{order:0;width:44px;height:44px;flex:none;margin:-4px -4px 0 -8px}' +
+    '#p2 .g.la .mn{order:1;flex:1;min-width:34%;text-align:left;padding-top:6px;font-size:15.5px;line-height:1.5}' +
+    '#p2 .g.la .vno{display:inline;margin-right:5px;font-size:12px}#p2 .g.la .vno+div{display:inline}' +
+    '#p2 .g.la .la-w{order:2;display:flex;flex-direction:column;align-items:flex-end;gap:6px;min-width:0;max-width:62%}' +
+    '#p2 .g.la .la-w .vw{display:block;max-width:100%;white-space:normal;text-align:right;font-size:27px;line-height:1.55;overflow:visible}' +
+    '#p2 .g.la .la-f{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px}' +
+    '#p2 .g.la .la-c{display:inline-flex;align-items:center;gap:6px;padding:2px 10px;border-radius:10px;background:color-mix(in srgb,var(--mu) 11%,transparent);font-size:12.5px;color:var(--mu)}' +
+    '#p2 .g.la .la-c bdi{font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:19px;line-height:1.5;color:var(--tx)}' +
+    '#p2 .g.la .exs{margin-left:40px}' +
+    '#p2 .g.la .eb{display:flex;flex-direction:row-reverse;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:2px 12px;padding:7px 12px;border-radius:12px;background:color-mix(in srgb,var(--mu) 8%,transparent)}' +
+    '#p2 .g.la .eb .ar2{font-size:21px;line-height:1.6}#p2 .g.la .eb .ex{margin:0;font-size:14px}' +
+    '#p2 .g.la:has(.bm[aria-pressed="true"]){background:rgba(179,38,30,.045);border-radius:14px}';
+  document.head.appendChild(css);
+  function tuz() {
+    [].forEach.call(p2.querySelectorAll('.g:not(.la)'), function (g) {
+      var hd = g.querySelector('.hd'), ar = hd && hd.querySelector('.ar.vw'), mn = hd && hd.querySelector('.mn');
+      if (!ar || !mn) return;
+      var qs = ar.innerHTML.split(/\s+(مؤ\.|ج)\s+/), w = document.createElement('div'), f = '';
+      w.className = 'la-w';
+      for (var i = 1; i + 1 < qs.length; i += 2) f += '<span class="la-c">' + NOM[qs[i]] + ' <bdi lang="ar" dir="rtl">' + qs[i + 1] + '</bdi></span>';
+      ar.innerHTML = qs[0];
+      hd.insertBefore(w, ar); w.appendChild(ar);
+      if (f) w.insertAdjacentHTML('beforeend', '<div class="la-f">' + f + '</div>');
+      if (!hd.querySelector('.bm')) { var sp = document.createElement('span'); sp.className = 'la-sp'; hd.insertBefore(sp, hd.firstChild); }
+      g.classList.add('la');
+    });
+    [].forEach.call(p2.querySelectorAll('.g.la .hd .bm'), function (b) {   /* belgi (keyin qo'shilgan) — bo'sh joy o'rniga, chap chetga */
+      var hd = b.parentNode, sp = hd.querySelector('.la-sp'); if (sp) hd.removeChild(sp);
+      if (hd.firstChild !== b) hd.insertBefore(b, hd.firstChild);
+    });
+  }
+  var gl1 = window.gl;
+  if (typeof gl1 === 'function') window.gl = function () { gl1.apply(this, arguments); tuz(); };
+  new MutationObserver(function () { if (p2.querySelector('.g:not(.la)') || p2.querySelector('.hd > .bm:not(:first-child)')) tuz(); }).observe(p2, { childList: true, subtree: true });
+  tuz();
+})();
+
 /* --- «Билмайман» belgisi so'z oynasida (14.11.2026, foydalanuvchi: «Сўзларни саралаш» o'rniga — matndagi so'z bosilganda yoki Луғатda belgilansin) ---
    Matndagi so'z lug'at yozuviga harakatsiz yozuvi bo'yicha bog'lanadi (ar, qavsdagi, ko'plik, muannas, fe'l shakllari; «ال» va «وَ/فَ/بِ/لِ/كَ» oldi qo'shimchasiz).
    Topilsa — oyna tepasida «Билмайман» tugmasi (so'z bazasi «soz»: b ↔ k, darsning Луғат belgisi bilan bir xil). Topilmasa — tugma yo'q (to'qilmaydi). */

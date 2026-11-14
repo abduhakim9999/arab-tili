@@ -44,13 +44,12 @@
   }
   /* KIRISH (14.11.2026, foydalanuvchi qarori; docs/texnik.md 17): Telegramdan tashqarida (brauzer, ilova) 1-dars ochiq,
      keyingi darslar Telegram orqali kirgandan keyin ochiladi — natijalar Telegram hisobiga bog'lanadi, telefon almashsa ham tiklanadi.
-     Telegram ichida hech narsa so'ralmaydi. Kirish — baza.js (ulashBoshla / ulashTekshir); baza.js shu yerda «jim» yuklanadi.
-     SINOV: hozircha faqat localStorage «kirish-sinov» = 1 bo'lsa (sinov-kirish.html yoqadi). */
+     Telegram ichida hech narsa so'ralmaydi. Kirish — baza.js (ulashBoshla / ulashTekshir); baza.js shu yerda «jim» yuklanadi. */
   (function () {
     var m = /^dars(\d+)-holat$/.exec(KEY);
     if (!m || +m[1] === 1) return;
     function G(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
-    if (G('kirish-sinov') !== '1' || inTg() || G('baza-tg')) return;
+    if (inTg() || G('baza-tg')) return;
     var TG = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-1 .4-1 1.1-.2 1.4l4.7 1.5 1.8 5.6c.2.6.4.8.9.8s.6-.2.9-.5l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.9-1.4-1.8zM9.8 14.3l8.2-5.2c.4-.2.7-.1.4.2l-6.9 6.3-.3 3.2z"/></svg>';
     var d, xbEl, kt = null;
     function xb(t) { if (xbEl) xbEl.textContent = t; }

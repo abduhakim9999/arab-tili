@@ -196,7 +196,10 @@
     obs.takeRecords();   /* o'zimiz qilgan o'zgarishlar qayta ko'rilmaydi */
   });
   obs.observe(document.documentElement, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ATTR });
-  function all() { if (document.body) { scan(document.body); obs.takeRecords(); } }
+  function all() {
+    if (document.body) { scan(document.body); obs.takeRecords(); }
+    var t = document.title; if (t && reCy.test(t) && t.indexOf(MARK) < 0) { var r = plain(t); if (r !== t) document.title = r; }   /* brauzer yorlig'idagi nom */
+  }
   document.addEventListener('DOMContentLoaded', all);
   window.addEventListener('load', all);
   window.RU_SCAN = all;

@@ -30,7 +30,9 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
 .s-c>.s-r:first-child{border-top:0}
 .s-r .t{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;font-weight:600}
 .s-r small{font-size:13px;font-weight:400;line-height:1.35;color:var(--mu)}
-.s-r.sg{padding-right:10px}
+.s-r.sg{padding-right:10px;flex-wrap:wrap;row-gap:8px}
+/* yorliq so'zi uzun bo'lsa (ruscha «Скорость чтения», katta shrift) tugmalar ustiga chiqmaydi — pastki qatorga tushadi (14.11.2026) */
+.s-r.sg .t{min-width:auto}.s-r.sg .s-sg{margin-left:auto}
 .s-r.col{flex-direction:column;align-items:stretch;gap:10px;padding:14px 16px 16px}
 .s-r em{font-style:normal;font-size:14px;color:var(--mu);font-variant-numeric:tabular-nums}
 .s-r .ch{width:18px;height:18px;flex-shrink:0;color:var(--mu)}
@@ -217,8 +219,8 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
       bn.disabled = !k;
       h.textContent = !k ? 'Ҳали сақланадиган натижа йўқ' : B.kutmoqda() ? 'Сақланмаган ўзгаришлар бор' : d ? 'Сақланган: ' + ik(d.getDate()) + '.' + ik(d.getMonth() + 1) + ', ' + ik(d.getHours()) + ':' + ik(d.getMinutes()) : 'Ҳали сақланмаган';
     }
-    /* 14.11.2026 (docs/texnik.md 17): kod ko'rinmaydi — natijalar Telegram orqali kirganda tiklanadi; eski usul ~14.12.2026 gacha yashirin turadi */
-    {
+    /* SINOV (14.11.2026; docs/texnik.md 17): kod ko'rinmaydi — natijalar Telegram orqali kirganda tiklanadi; eski usul bir oy yashirin turadi */
+    if (L('kirish-sinov') === '1') {
       var kr = quti.querySelectorAll('.bz-k'), be = document.getElementById('bz-e');
       [].forEach.call(kr, function (x) { x.hidden = true; });
       be.hidden = false;
@@ -296,7 +298,7 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
   $('qt-b').onclick = function () { if (confirm('Ўчирилган натижалар қайтарилсинми? Ҳозиргилари ўрнига ёзилади.')) qaytar(); };
 
   /* «Ҳисобни ўчириш» (14.11.2026; do'konlar talabi, docs/texnik.md 17): natijalar bu telefonda va serverda o'chadi, 30 kunlik nusxa ham —
-     qaytarib bo'lmaydi. Tasdiq — o'sha qat'iy oyna (ЎЧИРИШ). */
+     qaytarib bo'lmaydi. Tasdiq — o'sha qat'iy oyna (ЎЧИРИШ). SINOV: faqat «kirish-sinov» = 1 bo'lsa ko'rinadi. */
   function hisobOchir() {
     var hz = String(Date.now());
     LS(p, '{"v":1,"d":{},"e":{}}'); LS(p + '-t', hz);
@@ -309,7 +311,7 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
     if (window.Baza && Baza.ochir) Baza.ochir(function (ok) { xabar(ok ? 'Ҳисоб ўчирилди' : 'Серверда ўчмади. Интернетни текшириб, қайта уриниб кўринг.'); });
     else xabar('Ҳисоб ўчирилди');
   }
-  if (!SN) $('hdel').hidden = false;
+  if (!SN && L('kirish-sinov') === '1') $('hdel').hidden = false;
 
   /* tasdiqlash oynasi (rejim: t — natijalarni tozalash, h — hisobni o'chirish) */
   var md = $('md'), mi = $('md-i'), mok = $('md-ok'), rej = 't';

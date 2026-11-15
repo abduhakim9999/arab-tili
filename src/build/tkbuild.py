@@ -60,7 +60,11 @@ def waqf(t):
 def clean(t):
     return re.sub(r'[\s.:،,؛;؟?!…«»ـ]+', ' ', t).strip()
 
+# Matndagi raqam qanday o'qiladi (dars -> {raqam: o'qilishi}); ekranda raqamning o'zi qoladi
+SON = {'97': {'200': 'مِئَتَيْ'}}
+
 def speak(t):
+    for _a, _b in SON.get(N, {}).items(): t = re.sub(r'(?<!\d)' + _a + r'(?!\d)', _b, t)
     t = t.replace('بِـ«', 'بِ').replace('«', '').replace('»', '').replace('…', '').replace('ـ', '')
     t = re.sub(r' \((ا[^)]*)\)', r' أَوِ \1', t); t = re.sub(r' \(([^)]*)\)', r' أَوْ \1', t)
     t = t.replace('ﷺ', 'صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ')

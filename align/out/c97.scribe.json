@@ -1,0 +1,1090 @@
+{
+"words": [
+{
+"text": "العربية",
+"type": "word",
+"start": 0.28,
+"end": 1.08
+},
+{
+"text": "لغة",
+"type": "word",
+"start": 1.1,
+"end": 1.52
+},
+{
+"text": "عالمية.",
+"type": "word",
+"start": 1.76,
+"end": 2.5
+},
+{
+"text": "كانت",
+"type": "word",
+"start": 4.16,
+"end": 4.48
+},
+{
+"text": "اللغة",
+"type": "word",
+"start": 4.5,
+"end": 4.9
+},
+{
+"text": "العربية",
+"type": "word",
+"start": 4.9,
+"end": 5.74
+},
+{
+"text": "لغة",
+"type": "word",
+"start": 5.78,
+"end": 6.14
+},
+{
+"text": "عالمية",
+"type": "word",
+"start": 6.32,
+"end": 7.18
+},
+{
+"text": "في",
+"type": "word",
+"start": 7.24,
+"end": 7.32
+},
+{
+"text": "العصر",
+"type": "word",
+"start": 7.34,
+"end": 7.7
+},
+{
+"text": "العباسي",
+"type": "word",
+"start": 7.72,
+"end": 8.54
+},
+{
+"text": "الذي",
+"type": "word",
+"start": 9.16,
+"end": 9.46
+},
+{
+"text": "ازدهرت",
+"type": "word",
+"start": 9.46,
+"end": 9.98
+},
+{
+"text": "فيه",
+"type": "word",
+"start": 10.0,
+"end": 10.24
+},
+{
+"text": "الحضارة",
+"type": "word",
+"start": 10.26,
+"end": 10.92
+},
+{
+"text": "الإسلامية.",
+"type": "word",
+"start": 10.92,
+"end": 11.78
+},
+{
+"text": "وكانت",
+"type": "word",
+"start": 12.64,
+"end": 13.2
+},
+{
+"text": "العربية",
+"type": "word",
+"start": 13.22,
+"end": 14.06
+},
+{
+"text": "لغة",
+"type": "word",
+"start": 14.12,
+"end": 14.5
+},
+{
+"text": "تلك",
+"type": "word",
+"start": 14.58,
+"end": 14.88
+},
+{
+"text": "الحضارة",
+"type": "word",
+"start": 14.9,
+"end": 15.62
+},
+{
+"text": "التي",
+"type": "word",
+"start": 15.62,
+"end": 16.02
+},
+{
+"text": "ترجمت",
+"type": "word",
+"start": 16.079,
+"end": 16.62
+},
+{
+"text": "إليها",
+"type": "word",
+"start": 16.68,
+"end": 17.06
+},
+{
+"text": "الكتب",
+"type": "word",
+"start": 17.1,
+"end": 17.56
+},
+{
+"text": "من",
+"type": "word",
+"start": 18.2,
+"end": 18.34
+},
+{
+"text": "اليونانية",
+"type": "word",
+"start": 18.38,
+"end": 19.44
+},
+{
+"text": "والفارسية،",
+"type": "word",
+"start": 19.48,
+"end": 20.4
+},
+{
+"text": "وألف",
+"type": "word",
+"start": 21.06,
+"end": 21.56
+},
+{
+"text": "بها",
+"type": "word",
+"start": 21.62,
+"end": 21.82
+},
+{
+"text": "العلماء",
+"type": "word",
+"start": 21.84,
+"end": 22.6
+},
+{
+"text": "في",
+"type": "word",
+"start": 22.66,
+"end": 22.74
+},
+{
+"text": "الطب",
+"type": "word",
+"start": 22.78,
+"end": 23.66
+},
+{
+"text": "والهندسة",
+"type": "word",
+"start": 23.74,
+"end": 25.08
+},
+{
+"text": "والرياضيات",
+"type": "word",
+"start": 25.16,
+"end": 26.26
+},
+{
+"text": "والعلوم",
+"type": "word",
+"start": 26.32,
+"end": 27.06
+},
+{
+"text": "وغير",
+"type": "word",
+"start": 27.12,
+"end": 27.64
+},
+{
+"text": "ذلك.",
+"type": "word",
+"start": 27.68,
+"end": 28.14
+},
+{
+"text": "وحملت",
+"type": "word",
+"start": 29.28,
+"end": 29.84
+},
+{
+"text": "اللغة",
+"type": "word",
+"start": 29.86,
+"end": 30.26
+},
+{
+"text": "العربية",
+"type": "word",
+"start": 30.28,
+"end": 31.06
+},
+{
+"text": "تلك",
+"type": "word",
+"start": 31.12,
+"end": 31.42
+},
+{
+"text": "العلوم",
+"type": "word",
+"start": 31.44,
+"end": 32.02
+},
+{
+"text": "إلى",
+"type": "word",
+"start": 32.119,
+"end": 32.36
+},
+{
+"text": "أوروبا،",
+"type": "word",
+"start": 32.439,
+"end": 33.06
+},
+{
+"text": "فكانت",
+"type": "word",
+"start": 33.68,
+"end": 34.14
+},
+{
+"text": "أساس",
+"type": "word",
+"start": 34.22,
+"end": 34.58
+},
+{
+"text": "الحضارة",
+"type": "word",
+"start": 34.6,
+"end": 35.22
+},
+{
+"text": "الغربية",
+"type": "word",
+"start": 35.26,
+"end": 36.0
+},
+{
+"text": "الحديثة.",
+"type": "word",
+"start": 36.02,
+"end": 36.8
+},
+{
+"text": "مرت",
+"type": "word",
+"start": 37.86,
+"end": 38.22
+},
+{
+"text": "بالعرب",
+"type": "word",
+"start": 38.28,
+"end": 38.96
+},
+{
+"text": "بعد",
+"type": "word",
+"start": 39.02,
+"end": 39.38
+},
+{
+"text": "ذلك",
+"type": "word",
+"start": 39.44,
+"end": 40.2
+},
+{
+"text": "عصور",
+"type": "word",
+"start": 40.36,
+"end": 40.98
+},
+{
+"text": "من",
+"type": "word",
+"start": 41.04,
+"end": 41.16
+},
+{
+"text": "الضعف",
+"type": "word",
+"start": 41.22,
+"end": 41.92
+},
+{
+"text": "ابتعدوا",
+"type": "word",
+"start": 42.5,
+"end": 43.06
+},
+{
+"text": "فيها",
+"type": "word",
+"start": 43.14,
+"end": 43.5
+},
+{
+"text": "عن",
+"type": "word",
+"start": 43.56,
+"end": 43.68
+},
+{
+"text": "دينهم",
+"type": "word",
+"start": 43.74,
+"end": 44.44
+},
+{
+"text": "وهجروا",
+"type": "word",
+"start": 45.08,
+"end": 45.58
+},
+{
+"text": "اللغة",
+"type": "word",
+"start": 45.62,
+"end": 46.04
+},
+{
+"text": "العربية",
+"type": "word",
+"start": 46.06,
+"end": 46.92
+},
+{
+"text": "الفصيحة",
+"type": "word",
+"start": 46.96,
+"end": 48.18
+},
+{
+"text": "واستعملوا",
+"type": "word",
+"start": 48.26,
+"end": 48.98
+},
+{
+"text": "اللهجات.",
+"type": "word",
+"start": 49.0,
+"end": 49.9
+},
+{
+"text": "ثم",
+"type": "word",
+"start": 50.64,
+"end": 50.86
+},
+{
+"text": "جاء",
+"type": "word",
+"start": 50.92,
+"end": 51.16
+},
+{
+"text": "الاستعمار",
+"type": "word",
+"start": 51.16,
+"end": 51.86
+},
+{
+"text": "فحارب",
+"type": "word",
+"start": 52.02,
+"end": 52.68
+},
+{
+"text": "الثقافة",
+"type": "word",
+"start": 52.7,
+"end": 53.36
+},
+{
+"text": "الإسلامية",
+"type": "word",
+"start": 53.4,
+"end": 54.66
+},
+{
+"text": "واللغة",
+"type": "word",
+"start": 54.74,
+"end": 55.4
+},
+{
+"text": "العربية",
+"type": "word",
+"start": 55.44,
+"end": 56.28
+},
+{
+"text": "الفصيحة",
+"type": "word",
+"start": 56.32,
+"end": 57.42
+},
+{
+"text": "وشجع",
+"type": "word",
+"start": 57.5,
+"end": 58.18
+},
+{
+"text": "اللهجات،",
+"type": "word",
+"start": 58.2,
+"end": 59.02
+},
+{
+"text": "فكانت",
+"type": "word",
+"start": 60.26,
+"end": 60.68
+},
+{
+"text": "هناك",
+"type": "word",
+"start": 60.74,
+"end": 61.04
+},
+{
+"text": "لهجة",
+"type": "word",
+"start": 61.1,
+"end": 61.52
+},
+{
+"text": "مصرية",
+"type": "word",
+"start": 61.66,
+"end": 62.28
+},
+{
+"text": "وأخرى",
+"type": "word",
+"start": 62.62,
+"end": 63.18
+},
+{
+"text": "مغربية",
+"type": "word",
+"start": 63.26,
+"end": 64.08
+},
+{
+"text": "وثالثة",
+"type": "word",
+"start": 64.319,
+"end": 65.14
+},
+{
+"text": "سورية",
+"type": "word",
+"start": 65.379,
+"end": 66.08
+},
+{
+"text": "وهكذا.",
+"type": "word",
+"start": 66.34,
+"end": 67.46
+},
+{
+"text": "وقد",
+"type": "word",
+"start": 68.48,
+"end": 68.78
+},
+{
+"text": "أدى",
+"type": "word",
+"start": 68.84,
+"end": 69.06
+},
+{
+"text": "هذا",
+"type": "word",
+"start": 69.12,
+"end": 69.48
+},
+{
+"text": "إلى",
+"type": "word",
+"start": 69.56,
+"end": 69.76
+},
+{
+"text": "تفرق",
+"type": "word",
+"start": 69.82,
+"end": 70.34
+},
+{
+"text": "العرب",
+"type": "word",
+"start": 70.36,
+"end": 71.0
+},
+{
+"text": "وبعد",
+"type": "word",
+"start": 71.94,
+"end": 72.34
+},
+{
+"text": "بعضهم",
+"type": "word",
+"start": 72.4,
+"end": 72.98
+},
+{
+"text": "عن",
+"type": "word",
+"start": 73.04,
+"end": 73.22
+},
+{
+"text": "بعض،",
+"type": "word",
+"start": 73.3,
+"end": 73.78
+},
+{
+"text": "بحيث",
+"type": "word",
+"start": 74.64,
+"end": 75.12
+},
+{
+"text": "إذا",
+"type": "word",
+"start": 75.22,
+"end": 75.44
+},
+{
+"text": "سافر",
+"type": "word",
+"start": 75.5,
+"end": 75.88
+},
+{
+"text": "العربي",
+"type": "word",
+"start": 75.92,
+"end": 76.58
+},
+{
+"text": "من",
+"type": "word",
+"start": 76.64,
+"end": 76.78
+},
+{
+"text": "بلده",
+"type": "word",
+"start": 76.84,
+"end": 77.44
+},
+{
+"text": "إلى",
+"type": "word",
+"start": 77.54,
+"end": 77.78
+},
+{
+"text": "بلد",
+"type": "word",
+"start": 77.84,
+"end": 78.32
+},
+{
+"text": "عربي",
+"type": "word",
+"start": 78.38,
+"end": 79.24
+},
+{
+"text": "آخر",
+"type": "word",
+"start": 79.44,
+"end": 79.8
+},
+{
+"text": "وجد",
+"type": "word",
+"start": 80.74,
+"end": 81.14
+},
+{
+"text": "بعض",
+"type": "word",
+"start": 81.2,
+"end": 81.4
+},
+{
+"text": "الصعوبة",
+"type": "word",
+"start": 81.52,
+"end": 82.16
+},
+{
+"text": "في",
+"type": "word",
+"start": 82.2,
+"end": 82.26
+},
+{
+"text": "الاتصال",
+"type": "word",
+"start": 82.28,
+"end": 82.92
+},
+{
+"text": "بأهل",
+"type": "word",
+"start": 82.98,
+"end": 83.42
+},
+{
+"text": "ذلك",
+"type": "word",
+"start": 83.46,
+"end": 83.84
+},
+{
+"text": "البلد",
+"type": "word",
+"start": 83.86,
+"end": 84.46
+},
+{
+"text": "إذا",
+"type": "word",
+"start": 85.04,
+"end": 85.28
+},
+{
+"text": "تحدثوا",
+"type": "word",
+"start": 85.36,
+"end": 86.06
+},
+{
+"text": "بلهجاتهم،",
+"type": "word",
+"start": 86.12,
+"end": 87.32
+},
+{
+"text": "ولا",
+"type": "word",
+"start": 88.48,
+"end": 88.62
+},
+{
+"text": "يتحقق",
+"type": "word",
+"start": 88.68,
+"end": 89.26
+},
+{
+"text": "الاتصال",
+"type": "word",
+"start": 89.34,
+"end": 89.9
+},
+{
+"text": "التام",
+"type": "word",
+"start": 89.96,
+"end": 90.42
+},
+{
+"text": "بينه",
+"type": "word",
+"start": 90.46,
+"end": 90.86
+},
+{
+"text": "وبينهم",
+"type": "word",
+"start": 90.92,
+"end": 91.52
+},
+{
+"text": "إلا",
+"type": "word",
+"start": 92.36,
+"end": 92.74
+},
+{
+"text": "إذا",
+"type": "word",
+"start": 92.84,
+"end": 93.1
+},
+{
+"text": "كان",
+"type": "word",
+"start": 93.18,
+"end": 93.42
+},
+{
+"text": "الحديث",
+"type": "word",
+"start": 93.44,
+"end": 94.04
+},
+{
+"text": "باللغة",
+"type": "word",
+"start": 94.08,
+"end": 94.6
+},
+{
+"text": "العربية",
+"type": "word",
+"start": 94.62,
+"end": 95.42
+},
+{
+"text": "الفصيحة.",
+"type": "word",
+"start": 95.46,
+"end": 96.26
+},
+{
+"text": "اختلف",
+"type": "word",
+"start": 98.14,
+"end": 98.66
+},
+{
+"text": "الأمر",
+"type": "word",
+"start": 98.68,
+"end": 99.1
+},
+{
+"text": "اليوم",
+"type": "word",
+"start": 99.12,
+"end": 99.8
+},
+{
+"text": "فضعفت",
+"type": "word",
+"start": 100.46,
+"end": 101.12
+},
+{
+"text": "اللهجات",
+"type": "word",
+"start": 101.16,
+"end": 102.02
+},
+{
+"text": "وقويت",
+"type": "word",
+"start": 102.58,
+"end": 103.24
+},
+{
+"text": "اللغة",
+"type": "word",
+"start": 103.26,
+"end": 103.7
+},
+{
+"text": "العربية",
+"type": "word",
+"start": 103.72,
+"end": 104.52
+},
+{
+"text": "الفصيحة",
+"type": "word",
+"start": 104.56,
+"end": 105.28
+},
+{
+"text": "بسبب",
+"type": "word",
+"start": 105.98,
+"end": 106.38
+},
+{
+"text": "التعليم",
+"type": "word",
+"start": 106.44,
+"end": 107.38
+},
+{
+"text": "ووسائل",
+"type": "word",
+"start": 107.46,
+"end": 108.26
+},
+{
+"text": "الاتصال",
+"type": "word",
+"start": 108.28,
+"end": 108.9
+},
+{
+"text": "الحديثة،",
+"type": "word",
+"start": 108.98,
+"end": 109.64
+},
+{
+"text": "وأصبحت",
+"type": "word",
+"start": 110.48,
+"end": 111.12
+},
+{
+"text": "العربية",
+"type": "word",
+"start": 111.14,
+"end": 111.92
+},
+{
+"text": "لغة",
+"type": "word",
+"start": 111.98,
+"end": 112.34
+},
+{
+"text": "عالمية",
+"type": "word",
+"start": 112.54,
+"end": 113.4
+},
+{
+"text": "مرة",
+"type": "word",
+"start": 113.48,
+"end": 114.04
+},
+{
+"text": "ثانية",
+"type": "word",
+"start": 114.14,
+"end": 114.72
+},
+{
+"text": "كالإنجليزية",
+"type": "word",
+"start": 115.42,
+"end": 116.76
+},
+{
+"text": "والفرنسية",
+"type": "word",
+"start": 116.82,
+"end": 118.02
+},
+{
+"text": "والإسبانية.",
+"type": "word",
+"start": 118.08,
+"end": 119.16
+},
+{
+"text": "فهي",
+"type": "word",
+"start": 120.02,
+"end": 120.34
+},
+{
+"text": "إحدى",
+"type": "word",
+"start": 120.42,
+"end": 120.7
+},
+{
+"text": "اللغات",
+"type": "word",
+"start": 120.72,
+"end": 121.22
+},
+{
+"text": "الرسمية",
+"type": "word",
+"start": 121.24,
+"end": 121.96
+},
+{
+"text": "في",
+"type": "word",
+"start": 122.02,
+"end": 122.16
+},
+{
+"text": "هيئة",
+"type": "word",
+"start": 122.22,
+"end": 122.62
+},
+{
+"text": "الأمم",
+"type": "word",
+"start": 122.66,
+"end": 123.14
+},
+{
+"text": "المتحدة،",
+"type": "word",
+"start": 123.16,
+"end": 123.9
+},
+{
+"text": "وهي",
+"type": "word",
+"start": 124.86,
+"end": 125.04
+},
+{
+"text": "اللغة",
+"type": "word",
+"start": 125.1,
+"end": 125.58
+},
+{
+"text": "السادسة",
+"type": "word",
+"start": 125.62,
+"end": 126.38
+},
+{
+"text": "في",
+"type": "word",
+"start": 126.42,
+"end": 126.5
+},
+{
+"text": "العالم.",
+"type": "word",
+"start": 126.52,
+"end": 127.28
+},
+{
+"text": "يتحدث",
+"type": "word",
+"start": 127.94,
+"end": 128.62
+},
+{
+"text": "بها",
+"type": "word",
+"start": 128.66,
+"end": 128.94
+},
+{
+"text": "أكثر",
+"type": "word",
+"start": 129.52,
+"end": 129.96
+},
+{
+"text": "من",
+"type": "word",
+"start": 130.02,
+"end": 130.16
+},
+{
+"text": "مائتي",
+"type": "word",
+"start": 130.22,
+"end": 130.8
+},
+{
+"text": "مليون",
+"type": "word",
+"start": 130.86,
+"end": 131.38
+},
+{
+"text": "عربي،",
+"type": "word",
+"start": 131.44,
+"end": 131.98
+},
+{
+"text": "ويؤدي",
+"type": "word",
+"start": 132.96,
+"end": 133.58
+},
+{
+"text": "العبادات",
+"type": "word",
+"start": 133.6,
+"end": 134.4
+},
+{
+"text": "بها",
+"type": "word",
+"start": 134.46,
+"end": 134.82
+},
+{
+"text": "أكثر",
+"type": "word",
+"start": 135.46,
+"end": 135.84
+},
+{
+"text": "من",
+"type": "word",
+"start": 136.34,
+"end": 136.54
+},
+{
+"text": "مليار",
+"type": "word",
+"start": 136.62,
+"end": 137.2
+},
+{
+"text": "مسلم.",
+"type": "word",
+"start": 137.34,
+"end": 138.04
+}
+]
+}

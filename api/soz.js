@@ -14,6 +14,7 @@
 // Telefon raqami so'ralmaydi va saqlanmaydi.
 // Blob bilan to'g'ridan-to'g'ri HTTP orqali ishlaydi (loyihada package.json yo'q): so'rov qolipi @vercel/blob SDK manbasidan (api v13).
 const crypto = require('crypto');
+const Rey = require('./_rey.js');                       // reyting (15.11.2026; docs/texnik.md 19)
 const TOK = process.env.BLOB_READ_WRITE_TOKEN || '';
 const STORE = TOK.split('_')[3] || '';
 const MAX = 1536 * 1024;                                 // bitta o'quvchi hujjati chegarasi (14.11.2026: 600 KB → 1,5 MB — dars holati va sozlamalar ham qo'shildi; takror tarixini ixchamlash — docs/rejalar.md 0)
@@ -99,6 +100,8 @@ module.exports = async (req, res) => {
       const matn = JSON.stringify(b.d);
       if (matn.length > MAX) return res.status(413).json({ ok: false, xato: 'katta' });
       await yoz(fayl(b.kod), matn);
+      // reyting: ball va bilgan so'zlar shu hujjatdan qayta hisoblanadi; zaxira nusxa («kod + eski», ichida «ar») kirmaydi; xato saqlashni buzmaydi
+      if (b.d.ar === undefined && !(b.kod.length > 26 && /eski$/.test(b.kod))) { try { await Rey.yangila(b.kod, b.d); } catch (e) {} }
       return res.status(200).json({ ok: true });
     }
     return res.status(400).json({ ok: false, xato: 'amal' });

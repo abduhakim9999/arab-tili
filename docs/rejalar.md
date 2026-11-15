@@ -14,7 +14,7 @@ Foydalanuvchi: «kerakli hamma narsa akkaunt orqali saqlanib qolsin, boshqa tele
   3. Keyin: o'quvchilar ko'payganda yoki pullik versiyada — Vercel Pro (bepul tarif faqat notijorat foydalanish uchun; Pro'da yozish $5 / 1M).
 
 ## 1. O'quvchi taraqqiyoti: takror, reyting, ilova (foydalanuvchi qarorlari, 12.11.2026)
-- **Yangi reja (14.11.2026, foydalanuvchi qarori):** A) bot guruh ishlari ilovadan ajratildi — qilindi (`docs/texnik.md` 8); pastki tugmalar Бош саҳифа · Машқ · Рейтинг · Қоидалар · Яна, «Машқ» va «Рейтинг» ekranlari (2-variant) — qilindi va saytda (14.11.2026; `docs/texnik.md` 19). B) «Феъллар» — **bekor** (14.11.2026, foydalanuvchi): bo'lim ilovadan olib tashlandi, 200 fe'l va ovozlari `fq/` da saqlanadi — darslarda shu fe'llar kelganda ishlatiladi (`docs/texnik.md` 7); Сарф «Қоидалар»da qoladi. **Navbatda:** C1) reyting serveri: Upstash Redis (foydalanuvchi Vercel Marketplace'da bir marta ulaydi), `api/reyting`, ball serverda `Takror.ball` bilan, «Ҳафта» va «Сўзлар», bitta ro'yxat; «Рейтингда кўринмаслик»; ism tekshiruvi (takrorlanmasin, nojo'ya so'z); eski Google Sheets reytingi o'chadi; takror tarixini ixchamlash. C2) o'quvchilar ko'paysa — 30 kishilik ligalar, 🔥 streak. Blob bepul yozish chegarasi (oyiga 2 000) — C1 da hisoblab ko'riladi.
+- **Yangi reja (14.11.2026, foydalanuvchi qarori):** A) bot guruh ishlari ilovadan ajratildi — qilindi (`docs/texnik.md` 8); pastki tugmalar Бош саҳифа · Машқ · Рейтинг · Қоидалар · Яна, «Машқ» va «Рейтинг» ekranlari (2-variant) — qilindi va saytda (14.11.2026; `docs/texnik.md` 19). B) «Феъллар» — **bekor** (14.11.2026, foydalanuvchi): bo'lim ilovadan olib tashlandi, 200 fe'l va ovozlari `fq/` da saqlanadi — darslarda shu fe'llar kelganda ishlatiladi (`docs/texnik.md` 7); Сарф «Қоидалар»da qoladi. **C1) reyting serveri — qilindi** (15.11.2026, `docs/texnik.md` 19; Upstash Redis ulanishi kerak). **Navbatda:** «Рейтингда кўринмаслик»; ism tekshiruvi (takrorlanmasin, nojo'ya so'z); eski Google Sheets reytingi o'chadi; takror tarixini ixchamlash. C2) o'quvchilar ko'paysa — 30 kishilik ligalar, 🔥 streak. Blob bepul yozish chegarasi (oyiga 2 000) — C1 da hisoblab ko'riladi.
 Qilingan qismi — `docs/texnik.md` 14 (ma'lumot fayllari, «Такрорлаш» sinovi).
 - **Qarorlar:** sayt, Telegram Mini App va kelajakdagi app — bitta server, bitta hisob, bitta kod. Hisob ichki raqam bilan; kirish hozir Telegram, keyin Google va Apple. Natijalar avval qurilmada (oflayn), keyin serverga sinxronlanadi. Taxallusni o'quvchi o'zi yozadi (takrorlanmasin, nojo'ya so'z o'tmasin). So'z, mashq savoli va qoida belgilari — o'zgarmas raqamli `data/` fayllarida. Takror va ball hisobi alohida modul (`takror.js`); reyting serverda hisoblanadi (aldab bo'lmasin). Hozirgi «Машқ» qoidalari o'zgarmaydi; takror — alohida bo'lim. Xavfsizlik va o'quvchi ma'lumotlari maxfiyligiga e'tibor.
 - **Qamrov:** takror va reyting 1-kitob boshidan; yangi dars qo'shilsa o'zi kiradi. 2-kitob darslari hozircha kirmaydi. Atoqli otlar va harflar takrorga kirmaydi.
@@ -43,7 +43,7 @@ Qilingan qismi — `docs/texnik.md` 14 (ma'lumot fayllari, «Такрорлаш�
 - `quran-align` (cpfair): qorilar ovozida har so'z vaqti — oyat misolida so'z yonishi uchun.
 
 ## 5. Tarmoqlar
-- `main` ichidagi 11 tarmoqni o'chirish (foydalanuvchi GitHub'da o'zi o'chiradi yoki Claude): gap-turi, legenda-yopiq, mahzuf-feil, mahzuf-korinishi, menyu-tepada, tarkib-eshitish, tarkib-tarjima, tinglash-93, uzbek-ovoz-v161, versiya-yozuvi, xabar-izohi.
+- Qilindi (15.11.2026): eski tarmoqlar tekshirilib, kerakli fayllar `main`ga olindi; foydalanuvchi hammasini o'chirdi — faqat `main`, `ish-belgi`, `gh-pages` qoldi. Bundan keyin: har ish `tayyor-<nomi>` tarmog'ida, «joyla»dan keyin foydalanuvchi uni o'chiradi (`docs/texnik.md` 1).
 
 ## 6. Bepul ovoz — VoiceStudio / OmniVoice (sinaldi 11.11.2026)
 - Model `k2-fsa/OmniVoice` (pip `omnivoice`, 3.3 GB, HuggingFace'dan yuklanadi) Claude bulut kompyuterida videokartasiz ishladi: yuklash 22 s, so'z ~18 s, gap ~23 s. ElevenLabs krediti ketmaydi.
@@ -55,6 +55,9 @@ Qilingan qismi — `docs/texnik.md` 14 (ma'lumot fayllari, «Такрорлаш�
 ## 7. Yo'riqnoma ko'rsatmalari — qolgan mavzular (14.11.2026; o'ynatkich — `docs/texnik.md` 20)
 - Saytda (15.11.2026): «Сўзлар ва поғоналар», «Такрорлаш», «Луғат». Foydalanuvchi «qil» desa, shu uslubda: darsni o'qish va eshitish; dars «Машқ»i; «Бош саҳифа» (ro'yxat / xarita, bob va kitob tanlash); «Рейтинг»; «Созламалар». Har biri: `src/build/qollanma.py` ssenariysiga ekranlar + `MAVZU` ga qadamlar, o'sha bo'limga ⓘ (`data-qol`), `yoriqnoma.html` «Кўрсатмалар»ga qator.
 - Ruschasi — qilindi (15.11.2026; yangi mavzu qo'shilganda `r` izohi ham yoziladi, `qollanma.py` ikkala tilni yasaydi). Ixtiyoriy: shu ekranlardan Telegram kanal uchun mp4 (foydalanuvchi so'rasa).
+
+## 8. Tekshirish kerak (15.11.2026, Claude ko'rdi; foydalanuvchi hali javob bermadi)
+- «Машқ» — «Сўз охири?» savolida gapning qolgan so'zlari harakatsiz va boshqa shriftda ko'rinadi (ma'lumotda harakat to'liq). Foydalanuvchi «qil» desa — sababini topib tuzatish.
 
 ## Kerak emas deb topilgan (Claude yaxshiroq)
 - Harakat qo'yish (Mishkal, libtashkeel, Sadeed), tahlil (CAMeL Tools, I3rab), bepul ovoz (Habibi, ArTST).

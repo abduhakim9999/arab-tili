@@ -1,0 +1,1137 @@
+[
+{
+"text": "Arab",
+"start": 0.0,
+"end": 0.12
+},
+{
+"text": "tili,",
+"start": 0.12,
+"end": 0.5
+},
+{
+"text": "Jahan",
+"start": 0.6,
+"end": 1.28
+},
+{
+"text": "tili",
+"start": 1.28,
+"end": 1.54
+},
+{
+"text": "Abbasiler",
+"start": 1.54,
+"end": 2.98
+},
+{
+"text": "davrda",
+"start": 2.98,
+"end": 3.46
+},
+{
+"text": "Arab",
+"start": 3.46,
+"end": 3.78
+},
+{
+"text": "tili",
+"start": 3.78,
+"end": 4.2
+},
+{
+"text": "Jahan",
+"start": 4.2,
+"end": 4.6
+},
+{
+"text": "tili",
+"start": 4.6,
+"end": 4.8
+},
+{
+"text": "bolgan",
+"start": 4.8,
+"end": 5.1
+},
+{
+"text": "bolub,",
+"start": 5.1,
+"end": 5.54
+},
+{
+"text": "ose",
+"start": 5.54,
+"end": 5.92
+},
+{
+"text": "davrda",
+"start": 5.92,
+"end": 6.36
+},
+{
+"text": "Islam",
+"start": 6.36,
+"end": 6.74
+},
+{
+"text": "tanaddoni",
+"start": 6.74,
+"end": 7.5
+},
+{
+"text": "gullab",
+"start": 7.5,
+"end": 7.96
+},
+{
+"text": "yashnagan",
+"start": 7.96,
+"end": 8.36
+},
+{
+"text": "edi.",
+"start": 8.36,
+"end": 8.64
+},
+{
+"text": "Arab",
+"start": 9.32,
+"end": 9.72
+},
+{
+"text": "tili",
+"start": 9.72,
+"end": 10.12
+},
+{
+"text": "ose",
+"start": 10.12,
+"end": 10.34
+},
+{
+"text": "tanaddonin",
+"start": 10.34,
+"end": 11.06
+},
+{
+"text": "tili",
+"start": 11.06,
+"end": 11.32
+},
+{
+"text": "bolgan",
+"start": 11.32,
+"end": 11.62
+},
+{
+"text": "bolub,",
+"start": 11.62,
+"end": 12.1
+},
+{
+"text": "kitablar",
+"start": 12.12,
+"end": 12.74
+},
+{
+"text": "Yunan",
+"start": 12.74,
+"end": 13.44
+},
+{
+"text": "va",
+"start": 13.44,
+"end": 13.6
+},
+{
+"text": "Fars",
+"start": 13.6,
+"end": 14.06
+},
+{
+"text": "tili",
+"start": 14.06,
+"end": 14.34
+},
+{
+"text": "dan",
+"start": 14.34,
+"end": 14.44
+},
+{
+"text": "unge",
+"start": 14.44,
+"end": 14.72
+},
+{
+"text": "tarjime",
+"start": 14.72,
+"end": 15.2
+},
+{
+"text": "qalingan.",
+"start": 15.2,
+"end": 15.64
+},
+{
+"text": "Alimlar",
+"start": 16.24,
+"end": 17.04
+},
+{
+"text": "tibbiat,",
+"start": 17.04,
+"end": 17.74
+},
+{
+"text": "mukhandislik,",
+"start": 17.9,
+"end": 18.86
+},
+{
+"text": "matematike,",
+"start": 18.92,
+"end": 19.72
+},
+{
+"text": "tabi",
+"start": 19.84,
+"end": 20.3
+},
+{
+"text": "fanlar",
+"start": 20.3,
+"end": 20.74
+},
+{
+"text": "va",
+"start": 20.74,
+"end": 20.96
+},
+{
+"text": "bashqa",
+"start": 20.96,
+"end": 21.44
+},
+{
+"text": "fanlarda",
+"start": 21.44,
+"end": 21.9
+},
+{
+"text": "shu",
+"start": 21.9,
+"end": 22.36
+},
+{
+"text": "tilda",
+"start": 22.36,
+"end": 22.66
+},
+{
+"text": "asarlar",
+"start": 22.66,
+"end": 23.08
+},
+{
+"text": "yazganlar.",
+"start": 23.08,
+"end": 23.72
+},
+{
+"text": "Arab",
+"start": 24.38,
+"end": 24.78
+},
+{
+"text": "tili",
+"start": 24.78,
+"end": 25.16
+},
+{
+"text": "ushbu",
+"start": 25.16,
+"end": 25.46
+},
+{
+"text": "fanlarna",
+"start": 25.46,
+"end": 26.08
+},
+{
+"text": "Evropa",
+"start": 26.08,
+"end": 26.8
+},
+{
+"text": "ge",
+"start": 26.8,
+"end": 26.88
+},
+{
+"text": "alib",
+"start": 26.88,
+"end": 27.14
+},
+{
+"text": "bargan.",
+"start": 27.14,
+"end": 27.48
+},
+{
+"text": "Neticada",
+"start": 27.48,
+"end": 28.8
+},
+{
+"text": "u",
+"start": 28.8,
+"end": 29.06
+},
+{
+"text": "zamanavi",
+"start": 29.06,
+"end": 29.88
+},
+{
+"text": "gharb",
+"start": 29.88,
+"end": 30.28
+},
+{
+"text": "tanaddoninin",
+"start": 30.28,
+"end": 30.92
+},
+{
+"text": "asasigi",
+"start": 30.92,
+"end": 31.52
+},
+{
+"text": "aylangan.",
+"start": 31.52,
+"end": 31.94
+},
+{
+"text": "Shundan",
+"start": 32.72,
+"end": 33.32
+},
+{
+"text": "keyin",
+"start": 33.32,
+"end": 33.68
+},
+{
+"text": "Araplar",
+"start": 33.68,
+"end": 34.34
+},
+{
+"text": "zaiflik",
+"start": 34.34,
+"end": 34.86
+},
+{
+"text": "davrlarini",
+"start": 34.86,
+"end": 35.48
+},
+{
+"text": "bashtan",
+"start": 35.48,
+"end": 35.96
+},
+{
+"text": "kecirdilar.",
+"start": 35.96,
+"end": 36.56
+},
+{
+"text": "Bu",
+"start": 37.04,
+"end": 37.64
+},
+{
+"text": "davrda",
+"start": 37.64,
+"end": 38.06
+},
+{
+"text": "ular",
+"start": 38.06,
+"end": 38.52
+},
+{
+"text": "dinlaridan",
+"start": 38.52,
+"end": 39.16
+},
+{
+"text": "uzaqlashdilar.",
+"start": 39.16,
+"end": 39.98
+},
+{
+"text": "Adabi",
+"start": 40.56,
+"end": 41.16
+},
+{
+"text": "Arab",
+"start": 41.16,
+"end": 41.54
+},
+{
+"text": "tilini",
+"start": 41.54,
+"end": 42.02
+},
+{
+"text": "tarqeddilar.",
+"start": 42.02,
+"end": 42.86
+},
+{
+"text": "Va",
+"start": 43.24,
+"end": 43.84
+},
+{
+"text": "shevalardan",
+"start": 43.84,
+"end": 44.52
+},
+{
+"text": "faydalana",
+"start": 44.52,
+"end": 45.18
+},
+{
+"text": "basladilar.",
+"start": 45.18,
+"end": 45.78
+},
+{
+"text": "Keyin",
+"start": 46.44,
+"end": 47.04
+},
+{
+"text": "ese",
+"start": 47.04,
+"end": 47.2
+},
+{
+"text": "mustamlakachilik",
+"start": 47.2,
+"end": 48.34
+},
+{
+"text": "gelib.",
+"start": 48.34,
+"end": 48.74
+},
+{
+"text": "Islam",
+"start": 49.32,
+"end": 49.92
+},
+{
+"text": "marifat",
+"start": 49.92,
+"end": 50.58
+},
+{
+"text": "madaniyatige",
+"start": 50.58,
+"end": 51.2
+},
+{
+"text": "va",
+"start": 51.2,
+"end": 51.58
+},
+{
+"text": "adabi",
+"start": 51.58,
+"end": 52.2
+},
+{
+"text": "Arab",
+"start": 52.2,
+"end": 52.62
+},
+{
+"text": "tilige",
+"start": 52.62,
+"end": 53.06
+},
+{
+"text": "karshkurashdi.",
+"start": 53.06,
+"end": 53.86
+},
+{
+"text": "Lahcalarini",
+"start": 54.24,
+"end": 55.44
+},
+{
+"text": "ese",
+"start": 55.44,
+"end": 55.68
+},
+{
+"text": "kollab",
+"start": 55.68,
+"end": 56.34
+},
+{
+"text": "quvatladi.",
+"start": 56.34,
+"end": 56.9
+},
+{
+"text": "Neticada",
+"start": 57.48,
+"end": 58.28
+},
+{
+"text": "Misir",
+"start": 58.28,
+"end": 58.92
+},
+{
+"text": "lahcasi.",
+"start": 58.92,
+"end": 59.3
+},
+{
+"text": "Keyingisi",
+"start": 59.5,
+"end": 60.18
+},
+{
+"text": "Maghrib",
+"start": 60.18,
+"end": 60.82
+},
+{
+"text": "lahcasi,",
+"start": 60.82,
+"end": 61.24
+},
+{
+"text": "hamda",
+"start": 61.4,
+"end": 61.8
+},
+{
+"text": "uchinchisi",
+"start": 61.8,
+"end": 62.48
+},
+{
+"text": "Suriya",
+"start": 62.48,
+"end": 63.32
+},
+{
+"text": "lahcasi",
+"start": 63.32,
+"end": 63.74
+},
+{
+"text": "va",
+"start": 63.74,
+"end": 64.12
+},
+{
+"text": "hakezalar",
+"start": 64.12,
+"end": 64.7
+},
+{
+"text": "fayda",
+"start": 64.7,
+"end": 65.1
+},
+{
+"text": "boldi.",
+"start": 65.1,
+"end": 65.54
+},
+{
+"text": "Bu",
+"start": 66.1,
+"end": 66.52
+},
+{
+"text": "ese",
+"start": 66.52,
+"end": 66.72
+},
+{
+"text": "Araplarinin",
+"start": 66.72,
+"end": 67.5
+},
+{
+"text": "tarqaqlashishige",
+"start": 67.5,
+"end": 68.44
+},
+{
+"text": "va",
+"start": 68.44,
+"end": 68.9
+},
+{
+"text": "bir",
+"start": 68.9,
+"end": 69.2
+},
+{
+"text": "-birlaridan",
+"start": 69.2,
+"end": 69.74
+},
+{
+"text": "uzaqlashishige",
+"start": 69.74,
+"end": 70.62
+},
+{
+"text": "alib",
+"start": 70.62,
+"end": 70.9
+},
+{
+"text": "geldi.",
+"start": 70.9,
+"end": 71.26
+},
+{
+"text": "Shunday",
+"start": 72.02,
+"end": 72.44
+},
+{
+"text": "boldi",
+"start": 72.44,
+"end": 72.8
+},
+{
+"text": "ki,",
+"start": 72.8,
+"end": 72.94
+},
+{
+"text": "bir",
+"start": 73.0,
+"end": 73.42
+},
+{
+"text": "Arab",
+"start": 73.42,
+"end": 73.76
+},
+{
+"text": "oz",
+"start": 73.76,
+"end": 74.14
+},
+{
+"text": "mamlakatidan",
+"start": 74.14,
+"end": 74.74
+},
+{
+"text": "bashqa",
+"start": 74.74,
+"end": 75.3
+},
+{
+"text": "Arab",
+"start": 75.3,
+"end": 75.54
+},
+{
+"text": "mamlakatige",
+"start": 75.54,
+"end": 76.2
+},
+{
+"text": "sefar",
+"start": 76.2,
+"end": 76.54
+},
+{
+"text": "qilganida,",
+"start": 76.54,
+"end": 77.06
+},
+{
+"text": "agar",
+"start": 77.96,
+"end": 78.38
+},
+{
+"text": "u",
+"start": 78.38,
+"end": 78.52
+},
+{
+"text": "yerning",
+"start": 78.52,
+"end": 79.06
+},
+{
+"text": "ahalisi",
+"start": 79.06,
+"end": 79.6
+},
+{
+"text": "oz",
+"start": 79.6,
+"end": 79.96
+},
+{
+"text": "lahcalarida",
+"start": 79.96,
+"end": 80.6
+},
+{
+"text": "geplashsa,",
+"start": 80.6,
+"end": 81.18
+},
+{
+"text": "ular",
+"start": 81.28,
+"end": 81.72
+},
+{
+"text": "bilan",
+"start": 81.72,
+"end": 82.04
+},
+{
+"text": "mulaqat",
+"start": 82.04,
+"end": 82.46
+},
+{
+"text": "qilishte",
+"start": 82.46,
+"end": 82.8
+},
+{
+"text": "muayyan",
+"start": 82.8,
+"end": 83.42
+},
+{
+"text": "qiyinchiliklargi",
+"start": 83.42,
+"end": 84.2
+},
+{
+"text": "duc",
+"start": 84.2,
+"end": 84.42
+},
+{
+"text": "gelardi.",
+"start": 84.42,
+"end": 84.84
+},
+{
+"text": "Ular",
+"start": 85.08,
+"end": 85.92
+},
+{
+"text": "ortasidagi",
+"start": 85.92,
+"end": 86.54
+},
+{
+"text": "toluq",
+"start": 86.54,
+"end": 86.98
+},
+{
+"text": "alaqa,",
+"start": 86.98,
+"end": 87.4
+},
+{
+"text": "faqat",
+"start": 87.48,
+"end": 88.06
+},
+{
+"text": "adabi",
+"start": 88.06,
+"end": 88.48
+},
+{
+"text": "Arab",
+"start": 88.48,
+"end": 88.78
+},
+{
+"text": "tili",
+"start": 88.78,
+"end": 89.12
+},
+{
+"text": "de",
+"start": 89.12,
+"end": 89.24
+},
+{
+"text": "suqbatlashish",
+"start": 89.24,
+"end": 89.92
+},
+{
+"text": "arqali",
+"start": 89.92,
+"end": 90.3
+},
+{
+"text": "amalga",
+"start": 90.3,
+"end": 90.7
+},
+{
+"text": "oshardi.",
+"start": 90.7,
+"end": 91.08
+},
+{
+"text": "Bugungi",
+"start": 91.68,
+"end": 92.48
+},
+{
+"text": "kundi",
+"start": 92.48,
+"end": 92.74
+},
+{
+"text": "ese,",
+"start": 92.74,
+"end": 92.9
+},
+{
+"text": "vaziyat",
+"start": 93.08,
+"end": 93.74
+},
+{
+"text": "ozgerdi.",
+"start": 93.74,
+"end": 94.3
+},
+{
+"text": "Yani,",
+"start": 95.04,
+"end": 95.44
+},
+{
+"text": "talim",
+"start": 95.48,
+"end": 96.1
+},
+{
+"text": "va",
+"start": 96.1,
+"end": 96.22
+},
+{
+"text": "zamanavi",
+"start": 96.22,
+"end": 96.82
+},
+{
+"text": "alaqa",
+"start": 96.82,
+"end": 97.28
+},
+{
+"text": "vasitalari",
+"start": 97.28,
+"end": 97.94
+},
+{
+"text": "sababli",
+"start": 97.94,
+"end": 98.44
+},
+{
+"text": "lahcalar",
+"start": 98.44,
+"end": 99.14
+},
+{
+"text": "zaiflashdi.",
+"start": 99.14,
+"end": 99.8
+},
+{
+"text": "Adabi",
+"start": 99.94,
+"end": 100.54
+},
+{
+"text": "Arab",
+"start": 100.54,
+"end": 100.86
+},
+{
+"text": "tili",
+"start": 100.86,
+"end": 101.12
+},
+{
+"text": "ese,",
+"start": 101.12,
+"end": 101.38
+},
+{
+"text": "kuchaydi.",
+"start": 101.44,
+"end": 101.98
+},
+{
+"text": "Shubois,",
+"start": 102.6,
+"end": 103.4
+},
+{
+"text": "Arab",
+"start": 103.64,
+"end": 104.04
+},
+{
+"text": "tili",
+"start": 104.04,
+"end": 104.4
+},
+{
+"text": "yana",
+"start": 104.4,
+"end": 104.6
+},
+{
+"text": "bir",
+"start": 104.6,
+"end": 104.78
+},
+{
+"text": "-bar",
+"start": 104.78,
+"end": 105.02
+},
+{
+"text": "ingiliz,",
+"start": 105.02,
+"end": 105.5
+},
+{
+"text": "fransuz",
+"start": 105.76,
+"end": 106.46
+},
+{
+"text": "va",
+"start": 106.46,
+"end": 106.68
+},
+{
+"text": "ispan",
+"start": 106.68,
+"end": 107.16
+},
+{
+"text": "tilleri",
+"start": 107.16,
+"end": 107.66
+},
+{
+"text": "kabi",
+"start": 107.66,
+"end": 107.86
+},
+{
+"text": "jahan",
+"start": 107.86,
+"end": 108.4
+},
+{
+"text": "tili",
+"start": 108.4,
+"end": 108.68
+},
+{
+"text": "geylandi.",
+"start": 108.68,
+"end": 109.2
+},
+{
+"text": "U",
+"start": 109.84,
+"end": 110.24
+},
+{
+"text": "endi,",
+"start": 110.24,
+"end": 110.74
+},
+{
+"text": "Birleshkan",
+"start": 110.74,
+"end": 111.26
+},
+{
+"text": "Milletlar",
+"start": 111.26,
+"end": 111.82
+},
+{
+"text": "Tashkilatinin",
+"start": 111.82,
+"end": 112.52
+},
+{
+"text": "rasmi",
+"start": 112.52,
+"end": 113.02
+},
+{
+"text": "tilleridan",
+"start": 113.02,
+"end": 113.7
+},
+{
+"text": "baridir.",
+"start": 113.7,
+"end": 114.1
+},
+{
+"text": "Shuningdik,",
+"start": 114.76,
+"end": 115.56
+},
+{
+"text": "u,",
+"start": 115.66,
+"end": 115.9
+},
+{
+"text": "duniyadagi",
+"start": 115.9,
+"end": 116.6
+},
+{
+"text": "altanchi",
+"start": 116.6,
+"end": 117.38
+},
+{
+"text": "tili",
+"start": 117.38,
+"end": 117.6
+},
+{
+"text": "bolib.",
+"start": 117.6,
+"end": 117.92
+},
+{
+"text": "Ikiyuz",
+"start": 118.42,
+"end": 119.22
+},
+{
+"text": "milyondan",
+"start": 119.22,
+"end": 119.76
+},
+{
+"text": "koproq",
+"start": 119.76,
+"end": 120.18
+},
+{
+"text": "Arab,",
+"start": 120.18,
+"end": 120.42
+},
+{
+"text": "shu",
+"start": 120.62,
+"end": 121.0
+},
+{
+"text": "tilde",
+"start": 121.0,
+"end": 121.22
+},
+{
+"text": "geplashadi.",
+"start": 121.22,
+"end": 121.78
+},
+{
+"text": "Bir",
+"start": 122.46,
+"end": 122.86
+},
+{
+"text": "milyarddan",
+"start": 122.86,
+"end": 123.44
+},
+{
+"text": "koproq",
+"start": 123.44,
+"end": 123.9
+},
+{
+"text": "Musulmallar,",
+"start": 123.9,
+"end": 124.7
+},
+{
+"text": "ibadatlarini",
+"start": 124.7,
+"end": 125.58
+},
+{
+"text": "shu",
+"start": 125.58,
+"end": 125.96
+},
+{
+"text": "tilde",
+"start": 125.96,
+"end": 126.2
+},
+{
+"text": "ada",
+"start": 126.2,
+"end": 126.46
+},
+{
+"text": "edadilar.",
+"start": 126.46,
+"end": 126.98
+}
+]

@@ -12,7 +12,7 @@ for TRY in 1 2 3; do
   if [ -n "$BASE" ]; then
     MINE=$( { git diff --name-only HEAD; git diff --name-only --cached; git ls-files --others --exclude-standard; git diff --name-only "$BASE" HEAD; } | sort -u)
     THEIRS=$(git diff --name-only "$BASE" origin/main | sort -u)
-    CLASH=$(printf '%s\n' "$MINE" | grep -Fxf - <(printf '%s\n' "$THEIRS") 2>/dev/null | grep -v -E '^(sw\.js|index\.html|src/build/scratchpad/site/(build\.py|index\.tpl\.html)|align/out/.*)$' || true)
+    CLASH=$(printf '%s\n' "$MINE" | grep -Fxf - <(printf '%s\n' "$THEIRS") 2>/dev/null | grep -v -E '^(sw\.js|index\.html|src/build/scratchpad/site/(build\.py|index\.tpl\.html)|src/build/joylangan\.txt|align/out/.*)$' || true)
     if [ -n "$CLASH" ]; then
       echo "TO'XTA: bu fayllarni ish davomida boshqa chat ham o'zgartirgan:"; echo "$CLASH"
       echo "Yechim: o'sha fayllarni origin/main dagi yangi nusxasidan olib, faqat o'z o'zgarishingni qayta kirit."; exit 2
@@ -45,10 +45,19 @@ for TRY in 1 2 3; do
       else echo "ESLATMA: Playwright/Chrome yo'q — ruscha matn tekshiruvi (src/ru/tekshir/qobiq.py, harvest.py) o'tkazilmadi"; fi
     fi
   fi
+  # saytga chiqayotgan tayyor tarmoqlar (15.11.2026; korish.sh ularni /tayyor/ ro'yxatida ko'rsatmaydi): «joyla»da birlashtirilgan,
+  # ya'ni biror mahalliy tarmoqda (birlash, o'z ishi) bor origin/tayyor-* — «nom commit» src/build/joylangan.txt ga
+  for R in $(git for-each-ref --format='%(refname:strip=3)=%(objectname)' 'refs/remotes/origin/tayyor-*'); do
+    N=${R%%=*}; S=${R#*=}
+    [ -n "$(git branch --contains "$S" 2>/dev/null)" ] || continue
+    touch src/build/joylangan.txt; { grep -v "^$N " src/build/joylangan.txt || true; echo "$N $S"; } | sort > src/build/joylangan.tmp
+    mv src/build/joylangan.tmp src/build/joylangan.txt
+  done
   sh src/build/bump.sh
   git rm -q --ignore-unmatch 'sinov-*' >/dev/null 2>&1 || true  # sinov fayllari (sahifa, js, json) asosiy joylashda o'chadi
   git add --sparse -A ${@:-.}
   git add --sparse sw.js index.html src/build/scratchpad/site/build.py src/build/scratchpad/site/index.tpl.html
+  [ -f src/build/joylangan.txt ] && git add --sparse src/build/joylangan.txt
   git commit -q -m "$MSG" -m "${CLAUDE_IMZO:-Co-Authored-By: Claude <noreply@anthropic.com>}" || true
   if git push -q origin HEAD:main; then
     git rev-parse HEAD > .git/claude-base; echo "Joylandi: $(grep "^var C" sw.js)"; exit 0

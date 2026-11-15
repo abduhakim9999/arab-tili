@@ -23,6 +23,12 @@ birlashgan() {
   [ "$a" = 0 ]
 }
 
+# saytga chiqqan tayyor tarmoq (15.11.2026, foydalanuvchi: ro'yxat tartibli tursin): deploy.sh «joyla»da main'dagi
+#   src/build/joylangan.txt ga «nom commit» yozadi — tarmoq o'sha commitda tursa ro'yxatga chiqmaydi (yangi ish qo'shilsa — yana chiqadi).
+#   Joylash main'ga squash bilan bo'lgani uchun birlashgan() (ahead_by = 0) bunday tarmoqni topa olmaydi
+JOYLANGAN=$(git show origin/main:src/build/joylangan.txt 2>/dev/null || true)
+joylangan() { grep -qx "$1 $(git rev-parse "origin/$1")" <<< "$JOYLANGAN"; }
+
 git read-tree origin/main
 olib ''
 qoy "$(git show origin/main:sw.js | python3 $H/korish.py sw | git hash-object -w --stdin)" sw.js
@@ -31,6 +37,7 @@ qoy "$(printf '' | git hash-object -w --stdin)" .nojekyll
 ROY=()
 for r in $(git for-each-ref --format='%(refname:strip=3)' 'refs/remotes/origin/tayyor-*'); do
   if birlashgan "$r"; then echo "$r — main'ga qo'shilgan, ko'rsatilmaydi"; continue; fi
+  if joylangan "$r"; then echo "$r — saytga chiqqan (joylangan.txt), ko'rsatilmaydi"; continue; fi
   n=${r#tayyor-}; p="tayyor/$n/"
   git read-tree --prefix="$p" "origin/$r"
   olib "$p"

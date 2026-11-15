@@ -83,7 +83,10 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
     s: [['Зайнаб', 318], ['Абдуллоҳ', 301], ['Муҳаммадали', 287], ['Ҳасан', 254], ['Солиҳа', 233], ['Мадина', 219], ['Нигора', 196], ['Беҳруз', 181], ['Ўғилой', 170], ['Жавоҳир', 162]]
   };
   var T = 'h'; try { T = sessionStorage.getItem('reyting-t') === 's' ? 's' : 'h'; } catch (e) {}
-  var SERV = {};                                       /* serverdan kelgan ro'yxat (keyingi bosqich) */
+  /* server ro'yxati (15.11.2026; api/reyting.js, docs/texnik.md 19): {hb, h: {top, o, b, ol}, s: {...}}; oxirgisi telefonda ham turadi —
+     sahifa darhol ochilsin, internet yo'q bo'lsa ham ko'rinsin */
+  var SERV = null, KK = 'reyting-kesh';
+  try { var kx = JSON.parse(L(KK) || 'null'); if (kx && kx.d && kx.d.hb) SERV = kx.d; } catch (e) {}
   var kirgan = !!(L('baza-tg') || (window.Telegram && Telegram.WebApp && Telegram.WebApp.initData));
 
   /* o'quvchining o'z natijasi — telefondagi ma'lumotdan (server ham aynan shu qoida bilan hisoblaydi) */
@@ -103,8 +106,19 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
     $('vq').textContent = T === 'h' ? vaqt(m.hb) : 'Ким нечта сўз билади';
     [].forEach.call(document.querySelectorAll('.r-sg button'), function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-t') === T)); });
     var me = { n: m.n || 'Сиз', b: m[T], men: true };
-    if (SERV[T]) rows = SERV[T];                       /* server: [{n, b, men?}] — tartiblangan */
-    else if (NAMUNA) {
+    var sv = SERV && SERV.hb === m.hb ? SERV : (SERV && T === 's' ? SERV : null);   /* o'tgan haftaniki «Ҳафта»da ko'rsatilmaydi */
+    var so = null;                                     /* serverdagi o'z o'rni (ro'yxatdan tashqarida bo'lsa) */
+    if (sv && !NAMUNA) {
+      /* boshqalar — serverdan; o'zi — telefondagi (eng yangi) natija bilan */
+      rows = sv[T].top.map(function (r) { return { n: r.n || (L('til') === 'ru' ? 'Ученик' : 'Ўқувчи'), b: r.b, men: r.men }; });
+      rows = rows.filter(function (r) { return !r.men; });
+      if (kirgan && (me.b > 0 || sv[T].o)) rows.push(me);
+      rows.sort(function (a, b) { return b.b - a.b || (a.men ? -1 : b.men ? 1 : 0); });
+      if (rows.length > 50 && !rows.slice(0, 50).some(function (r) { return r.men; })) {
+        rows = rows.filter(function (r) { return !r.men; });
+        so = { o: Math.max(sv[T].o || 0, 51), ol: sv[T].ol };
+      }
+    } else if (NAMUNA) {
       rows = NR[T].map(function (r) { return { n: r[0], b: r[1] }; });
       if (kirgan || SN || window.KORISH) rows.push(me);
       rows.sort(function (a, b) { return b.b - a.b; });
@@ -125,9 +139,10 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
     var izoh;
     if (!kirgan && !SN && !window.KORISH) izoh = '<a href="' + SN + 'yana.html">Telegram орқали киринг</a> — рейтингга қўшиласиз';
     else if (oz > 0) { var ol = rows[oz - 1]; izoh = (oz) + '-ўринга ' + (ol.b - me.b + 1) + ' ' + bir + ' қолди'; }
+    else if (so && so.ol != null) izoh = (so.o - 1) + '-ўринга ' + Math.max(1, so.ol - me.b + 1) + ' ' + bir + ' қолди';
     else if (oz === 0) izoh = 'Биринчи ўриндасиз!';
     else izoh = T === 'h' ? 'Тўғри жавоб — балл' : 'Билган сўзларингиз';
-    $('me').innerHTML = '<span class="o">' + (oz > -1 ? oz + 1 : '–') + '</span><span class="av a0" aria-hidden="true">' + esc(bosh(me.n)) + '</span>' +
+    $('me').innerHTML = '<span class="o">' + (oz > -1 ? oz + 1 : so ? so.o : '–') + '</span><span class="av a0" aria-hidden="true">' + esc(bosh(me.n)) + '</span>' +
       '<span class="t"><b>' + (m.n ? esc(m.n) + '⁣' : 'Сиз') + '</b><small>' + izoh + '</small></span><span class="s">' + me.b + ' <small>' + bir + '</small></span>';
   }
   [].forEach.call(document.querySelectorAll('.r-sg button'), function (b) {
@@ -135,6 +150,23 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
   });
   chiz();
   if (window.Qobiq) Qobiq.nav('reyting');
+  /* serverdan yangi ro'yxat: sahifa ochilganda va ilovaga qaytganda (kamida 30 s oraliq) */
+  var API = /(^|\.)vercel\.app$/.test(location.hostname) ? '/api/reyting' : 'https://nurut-tolib.vercel.app/api/reyting', olT = 0;
+  function ol() {
+    if (NAMUNA || !window.fetch || Date.now() - olT < 30000) return;
+    olT = Date.now();
+    var kod = kirgan ? L('baza-kod') || '' : '';
+    fetch(API, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(kod ? { kod: kod } : {}) })
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (!j || !j.ok || !j.h || !j.s) return;
+        SERV = { hb: j.hb, h: j.h, s: j.s };
+        try { localStorage.setItem(KK, JSON.stringify({ t: Date.now(), d: SERV })); } catch (e) {}
+        chiz();
+      }).catch(function () {});
+  }
+  ol();
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) ol(); });
 })();
 </script>
 </body>

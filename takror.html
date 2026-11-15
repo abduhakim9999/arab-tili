@@ -173,6 +173,13 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .mq-h em{font-style:normal;font-size:14px;color:#f6dc94}
 .mq-go{flex-shrink:0;height:52px;padding:0 22px;border:0;border-radius:14px;background:#f6dc94;color:#0c3d29;font-size:17px;font-weight:800;box-shadow:inset 0 -4px 0 rgba(0,0,0,.18);transition:transform .06s,box-shadow .06s}
 .mq-go:active{transform:translateY(2px);box-shadow:inset 0 -2px 0 rgba(0,0,0,.18)}
+/* ⓘ — йўриқнома ўйнаткичи (qollanma.js): яшил тасмада ва «Луғат» сарлавҳасида; .mq-yn — янги ўқувчига бир қаторли эслатма */
+.mq-h span{display:flex;align-items:center;gap:8px}
+.mq-i{position:relative;flex-shrink:0;width:28px;height:28px;margin:-6px 0;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;display:inline-flex;align-items:center;justify-content:center}
+.mq-i::after{content:"";position:absolute;inset:-8px}
+.mq-i svg{width:18px;height:18px}
+.mq-i2{width:40px;height:40px;margin:0 0 0 auto}.mq-i2 svg{width:22px;height:22px}
+.lg-yn.mq-yn{margin:0 0 12px}
 .mq-dt{display:flex;align-items:center;gap:16px;margin:8px 0 14px}
 .mq-dz{position:relative;width:146px;height:146px;flex-shrink:0}
 .mq-dz svg{width:100%;height:100%;transform:rotate(-90deg)}
@@ -405,13 +412,15 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
   }
   /* 14.11.2026 (foydalanuvchi qarori, dizayn — 2-variant): pastki tugma «Луғат» → «Машқ». Bosh ko'rinish — «Машқ»: bugungi takror yashil
      tasma ichida («Бошлаш»), «Луғат» qatori, statistika, reyting. «Луғат» (so'zlar ro'yxati) — shu sahifaning ichki ko'rinishi (#lugat). */
+  /* ⓘ: йўриқнома ўйнаткичини очади ([data-qol] — пастда qolOch); русча режимда йўқ (экран расмлари ўзбекча — docs/texnik.md 20) */
+  function qi(k, c) { return window.TIL === 'ru' ? '' : '<button class="mq-i' + c + '" data-qol="' + k + '" aria-label="Қандай ишлатилади — кўрсатма">' + INF + '</button>'; }
   function tepa(S, lv, bg, t) {
     xul(S); if (window.Qobiq) Qobiq.nav('takror');     /* pastki tugmalar: ustidagi son — bugungi savollar (xulosadan) */
-    if (lv) return '<div class="top"><a href="#" id="lgq" aria-label="Машқ">‹</a><div><small>' + dnom() + '</small><h1>Луғат</h1></div></div>';
+    if (lv) return '<div class="top"><a href="#" id="lgq" aria-label="Машқ">‹</a><div><small>' + dnom() + '</small><h1>Луғат</h1></div>' + qi('lugat', ' mq-i2') + '</div>';
     var n = bg.soz + bg.savol, qism = (bg.soz ? bg.soz + ' сўз' : '') + (bg.soz && bg.savol ? ' · ' : '') + (bg.savol ? bg.savol + ' савол' : '');
     return '<div class="top mq-top"><div><small>' + dnom() + '</small><h1>Машқ</h1></div>' +
-      (bg.jami ? '<div class="mq-h"><div><span>Бугунги такрор</span><b>' + n + ' та</b><em>' + qism + '</em></div><button class="mq-go" id="go">Бошлаш</button></div>'
-        : '<div class="mq-h"><div><span>Бугунги такрор</span><b>Бугунга тамом</b><em>эртага ' + E.ertaga(t) + ' та</em></div></div>') + '</div>';
+      (bg.jami ? '<div class="mq-h"><div><span>Бугунги такрор' + qi('takror', '') + '</span><b>' + n + ' та</b><em>' + qism + '</em></div><button class="mq-go" id="go">Бошлаш</button></div>'
+        : '<div class="mq-h"><div><span>Бугунги такрор' + qi('takror', '') + '</span><b>Бугунга тамом</b><em>эртага ' + E.ertaga(t) + ' та</em></div></div>') + '</div>';
   }
   var HN5 = { m: 'Мустаҳкам', g: 'Биламан', o: 'Ўрганяпман', b: 'Билмайман', n: 'Ҳали ўтилмаган' };
   function doira(c, jami) {                            /* SVG halqa: m, g, o, b qismlari; qolgani (n) — kulrang asos */
@@ -462,6 +471,16 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
     men.forEach(function (x) { c[x.st]++; if (x.qy) qy++; });
     return { men: men, c: c, qy: qy };
   }
+  /* Йўриқнома ўйнаткичи (qollanma.js; docs/texnik.md 20): [data-qol] босилса — скрипт биринчи марта юкланади, кейин мавзу очилади */
+  function qolOch(k) {
+    var o = { bildi: BILDI, must: MUST };
+    if (window.Qollanma) { Qollanma.och(k, o); return; }
+    var s = document.createElement('script'); s.src = 'qollanma.js'; s.onload = function () { Qollanma.och(k, o); }; document.head.appendChild(s);
+  }
+  document.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[data-qol]'); if (b) { e.preventDefault(); qolOch(b.getAttribute('data-qol')); } });
+  /* 14.11.2026 kech (foydalanuvchi: matnli karta chalkash): o'zbekchada «Сўзлар бу ерга қандай тушади?» kartasi o'rnida ko'rsatma («soz» mavzusi; Статистика ⓘ ham shuni ochadi);
+     ruschada (ko'rsatma hali yo'q) karta eskicha qoladi. KQO — ko'rsatma bir marta ko'rsatilgani */
+  var RU = window.TIL === 'ru', KQO = SINOV ? 'takror-sinov-qol' : 'takror-qol';
   var KYO = SINOV ? 'takror-sinov-yoriq' : 'takror-yoriq', YOCH = false;   /* yo'riqnoma kartasi: yopilgani; ⓘ bilan ochilgani */
   function yoriq(sar, och) {
     var ch = function (k) { return '<i class="lg-ch2 ' + k + '">' + HN[k] + '</i>'; };
@@ -524,9 +543,9 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
         JA[st]++; JJ++; o[st]++; o.j++;
       });
       kt5.sort(function (a, b) { return a - b; });
-      app.innerHTML = tepa(S, false, bg, t) + sinovQ + yoriq(saralangan, YOQ) +
+      app.innerHTML = tepa(S, false, bg, t) + sinovQ + (RU ? yoriq(saralangan, YOQ) : saralangan ? '' : '<p class="lg-yn mq-yn">Ҳозирча 1-дарс сўзлари кўрсатиляпти. Дарс «Машқ»ини тугатсангиз, унинг сўзлари ўзи қўшилади.</p>') +
         '<a class="q-rw mq-lg" href="#lugat"><span class="q-ib">' + KITOB + '</span><span class="t">Луғат<small>Исм · Феъл · Ҳарф · қидирув' + (ca.b ? ' · Билмаганларим ' + ca.b : '') + '</small></span>' + CHV + '</a>' +
-        '<section class="tq-c"><div class="tq-h">Статистика · жами ' + JJ + ' сўз<button class="tq-ib" id="bi" aria-expanded="' + YOQ + '" aria-controls="yo" aria-label="Қандай ҳисобланади">' + INF + '</button></div>' +
+        '<section class="tq-c"><div class="tq-h">Статистика · жами ' + JJ + ' сўз' + (RU ? '<button class="tq-ib" id="bi" aria-expanded="' + YOQ + '" aria-controls="yo" aria-label="Қандай ҳисобланади">' : '<button class="tq-ib" id="bi" data-qol="soz" aria-label="Сўзлар ва поғоналар — кўрсатма">') + INF + '</button></div>' +
         '<div class="mq-dt"><div class="mq-dz">' + doira(JA, JJ) + '<div><b>' + Math.round((JA.m + JA.g) * 100 / (JJ || 1)) + '%</b><span>' + (JA.m + JA.g) + ' / ' + JJ + ' сўз</span></div></div>' +
           '<div class="mq-dy"><div class="lg-bn"><b>' + (ca.g + ca.m) + '</b><span>сўзни биламан</span></div>' + (ca.m ? '<em>шундан ' + ca.m + ' таси мустаҳкам</em>' : '') +
           (JA.n ? '<small>' + JA.n + ' таси ҳали ўтилмаган</small>' : '') + '</div></div>' +
@@ -547,9 +566,15 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
         b.onclick = function () { LT = b.getAttribute('data-lt'); LF = 'h'; location.hash = 'lugat'; };
       });
       var bi = document.getElementById('bi');
-      bi.onclick = function () { var z = document.getElementById('yo'), och = z.hidden; YOCH = och; z.hidden = !och; bi.setAttribute('aria-expanded', String(och)); if (och) z.scrollIntoView({ block: 'start', behavior: 'smooth' }); };
+      if (RU) bi.onclick = function () { var z = document.getElementById('yo'), och = z.hidden; YOCH = och; z.hidden = !och; bi.setAttribute('aria-expanded', String(och)); if (och) z.scrollIntoView({ block: 'start', behavior: 'smooth' }); };
       var yok = document.getElementById('yok');
       if (yok) yok.onclick = function () { LS(KYO, '1'); YOCH = false; var z = document.getElementById('yo'); z.hidden = true; bi.setAttribute('aria-expanded', 'false'); window.scrollTo(0, 0); };
+      /* 14.11.2026 (foydalanuvchi): «Сўзлар ва поғоналар» ko'rsatmasi boshida bir marta o'zi chiqadi, keyin faqat ⓘ bilan
+         (avtomat brauzerda — tekshiruv va rasm olishda — hamda kirish oynasi ustida chiqmaydi) */
+      if (!RU && !L(KQO) && !navigator.webdriver) setTimeout(function () {
+        if (L(KQO) || document.getElementById('kr-d') || document.querySelector('.qs') || document.body.classList.contains('tq-ses') || location.hash === '#lugat') return;
+        LS(KQO, '1'); qolOch('soz');
+      }, 700);
       var go = document.getElementById('go'); if (go) go.onclick = function () { mash(1); document.body.classList.add('tq-ses'); keyingi(); };
       if (SINOV) {
         document.getElementById('s1').onclick = function () { LS(KS, String(siljish() + 1)); bosh(); };

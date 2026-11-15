@@ -43,11 +43,21 @@ body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-app
 .cs div{border:1px solid var(--bd);border-radius:10px;padding:0 10px 4px;text-align:center;font-size:13px;min-width:62px}
 .cs .ar{font-size:24px;display:block;line-height:1.6}
 .n{font-size:13.5px;color:var(--mu);margin:6px 0 0}
+/* кўрсатмалар (qollanma.js ўйнаткичи) */
+.qv{display:flex;align-items:center;gap:12px;width:100%;padding:9px 0;border:0;border-top:1px dashed var(--bd);background:none;color:var(--tx);font:inherit;text-align:left;cursor:pointer}
+.qv i{flex:none;width:40px;height:40px;border-radius:50%;background:var(--ac);color:var(--bg);font-style:normal;font-size:14px;display:flex;align-items:center;justify-content:center;padding-left:3px}
+.qv b{display:block;font-size:15.5px}.qv small{font-size:13px;color:var(--mu)}
 </style>
 </head>
 <body>
 <div class="w">
 <div class="top"><a href="./" id="orqa" aria-label="Орқага">‹</a><h1>Йўриқнома</h1></div>
+<div class="c" id="korsatma"><h2>▶️ Кўрсатмалар</h2>
+<p class="t" style="margin:0 0 6px">Қаерни босиш кераклиги экраннинг ўзида кўрсатилади.</p>
+<button class="qv" data-qol="soz"><i>▶</i><span><b>Сўзлар ва поғоналар</b><small>Сўз қаердан келади, қандай кўтарилади · 30 сония</small></span></button>
+<button class="qv" data-qol="takror"><i>▶</i><span><b>Такрорлаш</b><small>Сўзларни ҳар куни такрорлаш · 40 сония</small></span></button>
+<button class="qv" data-qol="lugat"><i>▶</i><span><b>Луғат</b><small>Поғоналар ва белгилар · 15 сония</small></span></button>
+</div>
 <div class="toc"><a href="#dars">Матн билан</a><a href="#tarkib">Таркиб ва ранглар</a><a href="#harakat">Ҳаракат ранглари</a><a href="#mashq">Машқ</a><a href="#eshitish">Эшитиш</a><a href="#takror">Луғат</a></div>
 
 <div class="c" id="dars"><h2>📖 Матн билан</h2><ul>
@@ -125,6 +135,9 @@ body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-app
 <script>
 /* sinov nusxasida orqaga — sinovdagi «Яна» sahifasiga */
 if (/\/sinov-[^\/]*$/.test(location.pathname)) document.getElementById('orqa').href = 'sinov-yana.html';
+/* кўрсатмалар: [data-qol] — йўриқнома ўйнаткичи (qollanma.js; docs/texnik.md 20) */
+document.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[data-qol]'); if (b && window.Qollanma) Qollanma.och(b.getAttribute('data-qol')); });
 </script>
+<script src="qollanma.js" defer></script>
 </body>
 </html>

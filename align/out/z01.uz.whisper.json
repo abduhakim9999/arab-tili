@@ -1,0 +1,582 @@
+[
+{
+"text": "Birinchi",
+"start": 0.0,
+"end": 0.34
+},
+{
+"text": "bab,",
+"start": 0.34,
+"end": 0.54
+},
+{
+"text": "salamlashish",
+"start": 0.72,
+"end": 1.7
+},
+{
+"text": "və",
+"start": 1.7,
+"end": 2.14
+},
+{
+"text": "tanishish.",
+"start": 2.14,
+"end": 2.8
+},
+{
+"text": "Birinchi",
+"start": 5.62,
+"end": 6.42
+},
+{
+"text": "dars.",
+"start": 6.42,
+"end": 6.74
+},
+{
+"text": "Sizge",
+"start": 9.92,
+"end": 10.32
+},
+{
+"text": "amanlik",
+"start": 10.32,
+"end": 10.96
+},
+{
+"text": "borsin.",
+"start": 10.96,
+"end": 11.36
+},
+{
+"text": "Sizge",
+"start": 14.14,
+"end": 14.94
+},
+{
+"text": "xam",
+"start": 14.94,
+"end": 15.2
+},
+{
+"text": "amanlik",
+"start": 15.2,
+"end": 15.76
+},
+{
+"text": "borsin.",
+"start": 15.76,
+"end": 16.16
+},
+{
+"text": "Menin",
+"start": 19.28,
+"end": 19.68
+},
+{
+"text": "ismim",
+"start": 19.68,
+"end": 20.04
+},
+{
+"text": "Khalid.",
+"start": 20.04,
+"end": 20.64
+},
+{
+"text": "Senin",
+"start": 20.68,
+"end": 21.12
+},
+{
+"text": "ismin,",
+"start": 21.12,
+"end": 21.56
+},
+{
+"text": "ya",
+"start": 21.66,
+"end": 21.96
+},
+{
+"text": "ki",
+"start": 21.96,
+"end": 22.1
+},
+{
+"text": "siznin",
+"start": 22.1,
+"end": 22.68
+},
+{
+"text": "ismingiz,",
+"start": 22.68,
+"end": 23.32
+},
+{
+"text": "dima?",
+"start": 23.38,
+"end": 23.66
+},
+{
+"text": "Menin",
+"start": 26.52,
+"end": 27.32
+},
+{
+"text": "ismim",
+"start": 27.32,
+"end": 27.68
+},
+{
+"text": "Khalil.",
+"start": 27.68,
+"end": 28.36
+},
+{
+"text": "Akhvalin,",
+"start": 31.5,
+"end": 32.18
+},
+{
+"text": "ya",
+"start": 32.22,
+"end": 32.56
+},
+{
+"text": "ki",
+"start": 32.56,
+"end": 32.74
+},
+{
+"text": "akhvalingiz,",
+"start": 32.74,
+"end": 33.78
+},
+{
+"text": "kanday?",
+"start": 33.96,
+"end": 34.48
+},
+{
+"text": "Yakshi,",
+"start": 37.42,
+"end": 38.1
+},
+{
+"text": "Allah",
+"start": 38.28,
+"end": 38.78
+},
+{
+"text": "ke",
+"start": 38.78,
+"end": 39.0
+},
+{
+"text": "shukur.",
+"start": 39.0,
+"end": 39.34
+},
+{
+"text": "Uzingnin",
+"start": 39.46,
+"end": 40.14
+},
+{
+"text": "akhvalin",
+"start": 40.14,
+"end": 40.6
+},
+{
+"text": "chi,",
+"start": 40.6,
+"end": 40.74
+},
+{
+"text": "ya",
+"start": 40.86,
+"end": 41.24
+},
+{
+"text": "ki",
+"start": 41.24,
+"end": 41.36
+},
+{
+"text": "uzingiznin",
+"start": 41.36,
+"end": 42.18
+},
+{
+"text": "akhvalingiz",
+"start": 42.18,
+"end": 42.76
+},
+{
+"text": "chi,",
+"start": 42.76,
+"end": 42.92
+},
+{
+"text": "kanday?",
+"start": 43.02,
+"end": 43.54
+},
+{
+"text": "Yakshi,",
+"start": 46.5,
+"end": 47.18
+},
+{
+"text": "Allah",
+"start": 47.34,
+"end": 47.92
+},
+{
+"text": "ke",
+"start": 47.92,
+"end": 48.22
+},
+{
+"text": "shukur.",
+"start": 48.22,
+"end": 48.58
+},
+{
+"text": "Bir,",
+"start": 51.74,
+"end": 52.08
+},
+{
+"text": "bitti.",
+"start": 52.22,
+"end": 52.84
+},
+{
+"text": "Birinchi.",
+"start": 56.04,
+"end": 56.72
+},
+{
+"text": "Dars,",
+"start": 60.0,
+"end": 60.48
+},
+{
+"text": "cem,",
+"start": 60.62,
+"end": 61.34
+},
+{
+"text": "darslar.",
+"start": 61.48,
+"end": 62.3
+},
+{
+"text": "Amanlik.",
+"start": 65.38,
+"end": 66.2
+},
+{
+"text": "Ustide,",
+"start": 69.55,
+"end": 69.96
+},
+{
+"text": "ge,",
+"start": 70.12,
+"end": 70.6
+},
+{
+"text": "ger",
+"start": 70.84,
+"end": 71.44
+},
+{
+"text": "harfi.",
+"start": 71.44,
+"end": 71.92
+},
+{
+"text": "Sizge.",
+"start": 74.88,
+"end": 75.7
+},
+{
+"text": "Sizge",
+"start": 78.42,
+"end": 79.24
+},
+{
+"text": "xam",
+"start": 79.24,
+"end": 79.5
+},
+{
+"text": "amanlik",
+"start": 79.5,
+"end": 79.98
+},
+{
+"text": "borsin.",
+"start": 79.98,
+"end": 80.36
+},
+{
+"text": "Isim,",
+"start": 83.26,
+"end": 84.08
+},
+{
+"text": "nam,",
+"start": 84.12,
+"end": 84.56
+},
+{
+"text": "cem,",
+"start": 84.78,
+"end": 85.56
+},
+{
+"text": "isimler,",
+"start": 85.6,
+"end": 86.5
+},
+{
+"text": "namler.",
+"start": 86.52,
+"end": 87.12
+},
+{
+"text": "Menin",
+"start": 90.0,
+"end": 90.78
+},
+{
+"text": "ismim",
+"start": 90.78,
+"end": 91.22
+},
+{
+"text": "Khalid,",
+"start": 91.22,
+"end": 95.04
+},
+{
+"text": "erkek",
+"start": 95.08,
+"end": 95.66
+},
+{
+"text": "ismi.",
+"start": 95.66,
+"end": 96.14
+},
+{
+"text": "Senin",
+"start": 98.6,
+"end": 99.56
+},
+{
+"text": "ismin,",
+"start": 99.56,
+"end": 100.02
+},
+{
+"text": "dima?",
+"start": 100.14,
+"end": 103.52
+},
+{
+"text": "Khalil,",
+"start": 106.46,
+"end": 107.42
+},
+{
+"text": "erkek",
+"start": 107.46,
+"end": 108.02
+},
+{
+"text": "ismi.",
+"start": 108.02,
+"end": 108.4
+},
+{
+"text": "Hol,",
+"start": 111.02,
+"end": 111.98
+},
+{
+"text": "akhval,",
+"start": 112.16,
+"end": 112.68
+},
+{
+"text": "cem,",
+"start": 112.96,
+"end": 113.62
+},
+{
+"text": "akhvollar.",
+"start": 113.78,
+"end": 114.76
+},
+{
+"text": "Qanday,",
+"start": 117.48,
+"end": 118.44
+},
+{
+"text": "qalay.",
+"start": 118.56,
+"end": 119.2
+},
+{
+"text": "Yaxshi.",
+"start": 122.3,
+"end": 123.1
+},
+{
+"text": "Yaxshilik.",
+"start": 126.12,
+"end": 126.92
+},
+{
+"text": "Hamd,",
+"start": 130.1,
+"end": 130.9
+},
+{
+"text": "maqtaw.",
+"start": 130.9,
+"end": 131.66
+},
+{
+"text": "Allah,",
+"start": 135.04,
+"end": 135.84
+},
+{
+"text": "beqiyas",
+"start": 135.84,
+"end": 136.64
+},
+{
+"text": "ilah.",
+"start": 136.64,
+"end": 136.9
+},
+{
+"text": "Allah",
+"start": 140.18,
+"end": 140.58
+},
+{
+"text": "ke",
+"start": 140.58,
+"end": 140.78
+},
+{
+"text": "tegishli.",
+"start": 140.78,
+"end": 141.28
+},
+{
+"text": "Allah",
+"start": 141.36,
+"end": 142.14
+},
+{
+"text": "ke.",
+"start": 142.14,
+"end": 142.5
+},
+{
+"text": "Allah",
+"start": 145.28,
+"end": 146.08
+},
+{
+"text": "ke",
+"start": 146.08,
+"end": 146.36
+},
+{
+"text": "shukur.",
+"start": 146.36,
+"end": 146.76
+},
+{
+"text": "Sen,",
+"start": 150.0,
+"end": 150.44
+},
+{
+"text": "uzing.",
+"start": 150.6,
+"end": 151.3
+},
+{
+"text": "Uzingnin",
+"start": 154.59,
+"end": 155.04
+},
+{
+"text": "akhvaling",
+"start": 155.04,
+"end": 155.64
+},
+{
+"text": "chi,",
+"start": 155.64,
+"end": 155.8
+},
+{
+"text": "qalay?",
+"start": 155.88,
+"end": 156.34
+},
+{
+"text": "Yangi",
+"start": 159.18,
+"end": 160.08
+},
+{
+"text": "sozlar.",
+"start": 160.08,
+"end": 160.38
+},
+{
+"text": "Sukhbat,",
+"start": 163.32,
+"end": 164.22
+},
+{
+"text": "diyalog.",
+"start": 164.38,
+"end": 165.14
+},
+{
+"text": "Aytmaq,",
+"start": 168.2,
+"end": 169.1
+},
+{
+"text": "demaq.",
+"start": 169.12,
+"end": 169.96
+},
+{
+"text": "Aytmaq,",
+"start": 172.24,
+"end": 173.14
+},
+{
+"text": "demaq.",
+"start": 173.14,
+"end": 173.14
+}
+]

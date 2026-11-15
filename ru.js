@@ -145,6 +145,7 @@
     if (seen.has(t)) return; var p = t.parentNode; if (!p) return;
     var d = t.data; if (!reCy.test(d)) return;
     if (/^(SCRIPT|STYLE|TEXTAREA|TITLE)$/.test(p.nodeName)) return;
+    if (p.closest && p.closest('[data-ru-yoq]')) { seen.add(t); return; }   /* o'z ruschasi bor qism (yo'riqnoma o'ynatkichi, 15.11.2026) */
     if (d.indexOf(MARK) >= 0) { seen.add(t); return; }
     var U = [t], n = t.previousSibling;
     while (n && ((n.nodeType === 3 && n.data.indexOf(MARK) < 0) || isAtom(n))) { U.unshift(n); n = n.previousSibling; }
@@ -177,6 +178,7 @@
   }
   var ATTR = ['aria-label', 'placeholder', 'title'];
   function doAttr(e) {
+    if (e.closest && e.closest('[data-ru-yoq]')) return;
     for (var i = 0; i < ATTR.length; i++) {
       var v = e.getAttribute(ATTR[i]); if (!v || !reCy.test(v) || v.indexOf(MARK) >= 0) continue;
       var m = setAttr.get(e) || {}; if (m[ATTR[i]] === v) continue;

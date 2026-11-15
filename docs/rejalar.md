@@ -54,7 +54,7 @@ Qilingan qismi — `docs/texnik.md` 14 (ma'lumot fayllari, «Такрорлаш�
 
 ## 7. Yo'riqnoma ko'rsatmalari — qolgan mavzular (14.11.2026; o'ynatkich — `docs/texnik.md` 20)
 - Saytda (15.11.2026): «Сўзлар ва поғоналар», «Такрорлаш», «Луғат». Foydalanuvchi «qil» desa, shu uslubda: darsni o'qish va eshitish; dars «Машқ»i; «Бош саҳифа» (ro'yxat / xarita, bob va kitob tanlash); «Рейтинг»; «Созламалар». Har biri: `src/build/qollanma.py` ssenariysiga ekranlar + `MAVZU` ga qadamlar, o'sha bo'limga ⓘ (`data-qol`), `yoriqnoma.html` «Кўрсатмалар»ga qator.
-- Keyin: ruschasi (rasmlar `til=ru` bilan). Ixtiyoriy: shu ekranlardan Telegram kanal uchun mp4 (foydalanuvchi so'rasa).
+- Ruschasi — qilindi (15.11.2026; yangi mavzu qo'shilganda `r` izohi ham yoziladi, `qollanma.py` ikkala tilni yasaydi). Ixtiyoriy: shu ekranlardan Telegram kanal uchun mp4 (foydalanuvchi so'rasa).
 
 ## Kerak emas deb topilgan (Claude yaxshiroq)
 - Harakat qo'yish (Mishkal, libtashkeel, Sadeed), tahlil (CAMeL Tools, I3rab), bepul ovoz (Habibi, ArTST).

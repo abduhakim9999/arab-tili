@@ -4,7 +4,8 @@
    Қадам: s — экран; t — нишон (ёки рўйхат); a — 'tap' | 'look'; f — камера қарайдиган жой (бўлмаса t); go — босилгандан кейинги экран;
           n — 'ok' | 'no' (поғона картаси); c — изоҳ («…» ичи ажратиб кўрсатилади, {B} — «биламан» учун кунлар сони, {M} — «мустаҳкам» учун).
    Чизма қадами (экран расмисиз): ch — 'tush' (дарс сўзлари «ўрганяпман»га тушади) | 'bildi' ({B} кун → «биламан») | 'must' ({M} кун → «мустаҳкам») | 'xato' (→ «билмайман»).
-   Очиш: Qollanma.och(калит, { bildi: 3 }) — мавзулар (qol/mavzu.js) ва расмлар (qol/<тема>-<экран>.webp) биринчи очилганда юкланади.
+   Очиш: Qollanma.och(калит, { bildi: 3, must: 30 }) — мавзулар ва расмлар биринчи очилганда юкланади: ўзбекча — qol/mavzu.js, qol/<тема>-<экран>.webp;
+   русча (window.TIL === 'ru', 15.11.2026) — qol/mavzu-ru.js, qol/ru-<тема>-<экран>.webp; ўйнаткич ёзувлари — TX жадвалида (ru.js уларга тегмайди: data-ru-yoq).
    Телефоннинг «орқага» тугмаси ўйнаткични ёпади (history.pushState). Батафсил — docs/texnik.md 20. */
 (function () {
   'use strict';
@@ -117,18 +118,32 @@
     if (document.getElementById('qs-css')) return;
     var s = document.createElement('style'); s.id = 'qs-css'; s.textContent = CSS; document.head.appendChild(s);
   }
+  /* ўйнаткич ёзувлари (15.11.2026: русчаси ҳам) */
+  var TX = {
+    uz: { yuk: 'Юкланяпти…', xato: 'Расмлар юкланмади. Интернетни текшириб, қайта очинг.', tamom: 'Тамом ✓', key: 'Кейингиси: ', tush: 'Тушунарли', qayta: '↻ Қайта кўриш',
+          yop: 'Ёпиш', old: 'Олдинги', keyi: 'Кейинги', tox: 'Тўхтатиш', dav: 'Давом этиш', tema: 'Кундузги / тунги', ok: '✓ Билдим', no: '✕ Билмадим',
+          lv: ['билмайман', 'ўрганяпман', 'биламан', 'мустаҳкам'], nok: function (k) { return k + ' кетма-кет тўғри топсангиз — <b>биламан</b>'; }, nno: 'Сўз <b>билмайман</b>га тушади',
+          dars: '📖 1-дарс', mashq: 'Машқ', kun: function (i) { return i + '-кун'; }, otdi: '📅 <b>0</b> кун ўтди', soz: ['дарс', 'исм', 'бир'],
+          kunlar: function (n) { return n + ' кун'; } },
+    ru: { yuk: 'Загрузка…', xato: 'Картинки не загрузились. Проверьте интернет и откройте снова.', tamom: 'Готово ✓', key: 'Дальше: ', tush: 'Понятно', qayta: '↻ Посмотреть снова',
+          yop: 'Закрыть', old: 'Назад', keyi: 'Далее', tox: 'Пауза', dav: 'Продолжить', tema: 'Светлая / тёмная', ok: '✓ Помню', no: '✕ Не помню',
+          lv: ['не знаю', 'учу', 'знаю', 'прочно'], nok: function (k) { return k + ' подряд правильно — <b>знаю</b>'; }, nno: 'Слово переходит в <b>не знаю</b>',
+          dars: '📖 Урок 1', mashq: 'Упражнение', kun: function (i) { return 'День ' + i; }, otdi: '📅 прошло дней: <b>0</b>', soz: ['урок', 'имя', 'один'],
+          kunlar: function (n) { var d = n % 10, h = n % 100; return n + ' ' + (d === 1 && h !== 11 ? 'день' : d >= 2 && d <= 4 && (h < 12 || h > 14) ? 'дня' : 'дней'); } }
+  };
   function tema() {
     var d = document.documentElement.getAttribute('data-theme');
     return d === 'dark' || (!d && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
   }
 
   function och(kalit, o) {
+    var RU = window.TIL === 'ru', X = TX[RU ? 'ru' : 'uz'];
     var M = MV[kalit];
     if (!M) {                                          /* мавзулар ҳали юкланмаган: qol/mavzu.js бир марта юкланади */
       if (yukl === 2) return null;
       kut = [kalit, o];
       if (!yukl) {
-        yukl = 1; var sc = document.createElement('script'); sc.src = (o && o.papka || PAPKA) + 'mavzu.js';
+        yukl = 1; var sc = document.createElement('script'); sc.src = (o && o.papka || PAPKA) + (RU ? 'mavzu-ru.js' : 'mavzu.js');
         sc.onload = function () { yukl = 2; var k = kut; kut = null; if (k) och(k[0], k[1]); };
         sc.onerror = function () { yukl = 0; kut = null; };
         document.head.appendChild(sc);
@@ -137,26 +152,26 @@
     }
     o = o || {}; if (joriy) joriy.yop(true); uslub();
     var T = o.tema || tema(), P = o.papka || PAPKA, B = o.bildi || 3, MU = o.must || 30, ND = Math.min(B, 5), Q = M.qadam, n = Q.length, i, seg = '', kun = '';
-    var SOZ = [['دَرْسٌ', 'дарс'], ['اِسْمٌ', 'исм'], ['وَاحِدٌ', 'бир']];        /* чизмадаги намуна сўзлар (1-дарс луғатидан) */
-    for (i = 1; i <= ND; i++) kun += '<span>' + i + '-кун</span>';
+    var SOZ = [['دَرْسٌ', X.soz[0]], ['اِسْمٌ', X.soz[1]], ['وَاحِدٌ', X.soz[2]]];        /* чизмадаги намуна сўзлар (1-дарс луғатидан) */
+    for (i = 1; i <= ND; i++) kun += '<span>' + X.kun(i) + '</span>';
     var KN = M.keyingi && MV[M.keyingi] ? MV[M.keyingi].nom : '';
     var el = document.createElement('div');
-    el.className = 'qs'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-label', M.nom);
+    el.className = 'qs'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-label', M.nom); el.setAttribute('data-ru-yoq', '');
     for (i = 0; i < n; i++) seg += '<i><b></b></i>';
     el.innerHTML = '<div class="qs-in"><div class="qs-pr">' + seg + '</div>' +
-      '<div class="qs-hd"><b>' + M.nom + '</b><span></span>' + (o.temaTugma ? '<button class="qs-hb" data-q="tema" aria-label="Кундузги / тунги">◐</button>' : '') +
-      '<button class="qs-hb" data-q="yop" aria-label="Ёпиш">✕</button></div>' +
+      '<div class="qs-hd"><b>' + M.nom + '</b><span></span>' + (o.temaTugma ? '<button class="qs-hb" data-q="tema" aria-label="' + X.tema + '">◐</button>' : '') +
+      '<button class="qs-hb" data-q="yop" aria-label="' + X.yop + '">✕</button></div>' +
       '<div class="qs-st"><div class="qs-cam"><div class="qs-scr"><img class="qs-i" alt=""><img class="qs-i" alt=""><div class="qs-r"></div><div class="qs-rp"></div></div></div>' +
-      '<div class="qs-dz"><div class="qs-dl"><b>📖 1-дарс</b><u><i></i></u><span>Машқ</span></div><div class="qs-dk">' + kun + '</div>' +
-      '<div class="qs-dm">📅 <b>0</b> кун ўтди</div><div class="qs-dp"><div>билмайман</div><div>ўрганяпман</div><div>биламан</div><div>мустаҳкам</div></div>' +
+      '<div class="qs-dz"><div class="qs-dl"><b>' + X.dars + '</b><u><i></i></u><span>' + X.mashq + '</span></div><div class="qs-dk">' + kun + '</div>' +
+      '<div class="qs-dm">' + X.otdi + '</div><div class="qs-dp">' + X.lv.map(function (t) { return '<div>' + t + '</div>'; }).join('') + '</div>' +
       SOZ.map(function (w) { return '<div class="qs-dw"><div><span class="ar" lang="ar" dir="rtl">' + w[0] + '</span><small>' + w[1] + '</small><em></em></div></div>'; }).join('') + '</div>' +
-      '<div class="qs-hand">' + QOL + '</div><div class="qs-ts"></div><div class="qs-yk">Юкланяпти…</div>' +
-      '<div class="qs-en"><h4>Тамом ✓</h4>' +
-      (KN ? '<button class="qs-eb a" data-q="key">Кейингиси: ' + KN + ' ›</button>' : '<button class="qs-eb a" data-q="yop">Тушунарли</button>') +
-      '<button class="qs-eb b" data-q="qayta">↻ Қайта кўриш</button>' + (KN ? '<button class="qs-eb b" data-q="yop">Ёпиш</button>' : '') + '</div></div>' +
+      '<div class="qs-hand">' + QOL + '</div><div class="qs-ts"></div><div class="qs-yk">' + X.yuk + '</div>' +
+      '<div class="qs-en"><h4>' + X.tamom + '</h4>' +
+      (KN ? '<button class="qs-eb a" data-q="key">' + X.key + KN + ' ›</button>' : '<button class="qs-eb a" data-q="yop">' + X.tush + '</button>') +
+      '<button class="qs-eb b" data-q="qayta">' + X.qayta + '</button>' + (KN ? '<button class="qs-eb b" data-q="yop">' + X.yop + '</button>' : '') + '</div></div>' +
       '<div class="qs-cp"><p></p></div>' +
-      '<div class="qs-ct"><button class="qs-cb" data-q="-1" aria-label="Олдинги">‹</button><button class="qs-cb pp" data-q="pp" aria-label="Тўхтатиш"></button>' +
-      '<button class="qs-cb" data-q="1" aria-label="Кейинги">›</button></div></div>';
+      '<div class="qs-ct"><button class="qs-cb" data-q="-1" aria-label="' + X.old + '">‹</button><button class="qs-cb pp" data-q="pp" aria-label="' + X.tox + '"></button>' +
+      '<button class="qs-cb" data-q="1" aria-label="' + X.keyi + '">›</button></div></div>';
     document.body.appendChild(el);
     var oldOv = document.documentElement.style.overflow; document.documentElement.style.overflow = 'hidden';
     var tarix = false;                                 /* «орқага» тугмаси ўйнаткични ёпсин: тарихга битта ҳолат қўшилади */
@@ -200,7 +215,7 @@
       if (ekr === nom) return false;
       ekr = nom; ol = 1 - ol; clearTimeout(xt);
       var a = im[ol], b = im[1 - ol];
-      a.src = P + T + '-' + nom + '.webp';
+      a.src = P + (RU ? 'ru-' : '') + T + '-' + nom + '.webp';
       a.classList.add('ust', 'on'); b.classList.remove('ust');
       xt = setTimeout(function () { b.classList.remove('on'); }, 470);
       return true;
@@ -220,10 +235,10 @@
       joy(ring, a, 3); ring.className = 'qs-r'; qayta(ring, 'fl');
     }
     function natija(tur) {
-      var L = ['билмайман', 'ўрганяпман', 'биламан', 'мустаҳкам'];
-      ts.innerHTML = '<div class="qs-nh ' + tur + '">' + (tur === 'ok' ? '✓ Билдим' : '✕ Билмадим') + '</div><div class="qs-lv">' +
+      var L = X.lv;
+      ts.innerHTML = '<div class="qs-nh ' + tur + '">' + (tur === 'ok' ? X.ok : X.no) + '</div><div class="qs-lv">' +
         L.map(function (t, j) { return '<span class="l' + j + (j === 1 ? ' on' : '') + '">' + t + (j === 1 ? '<em><i></i><i></i><i></i></em>' : '') + '</span>'; }).join('') +
-        '</div><div class="qs-nt">' + (tur === 'ok' ? B + ' кун кетма-кет тўғри топсангиз — <b>биламан</b>' : 'Сўз <b>билмайман</b>га тушади') + '</div>';
+        '</div><div class="qs-nt">' + (tur === 'ok' ? X.nok(X.kunlar(B)) : X.nno) + '</div>';
       ts.classList.add('on');
       at(RM ? 0 : 560, function () {
         var lv = ts.querySelector('.qs-lv');
@@ -231,7 +246,7 @@
         else { lv.children[1].classList.remove('on'); lv.children[0].classList.add('on'); }
       });
     }
-    function matn(c) { return c.replace('{B}', B).replace('{M}', MU).replace(/«[^»]+»/g, function (m) { return '<b>' + m + '</b>'; }); }
+    function matn(c) { return c.replace('{Bk}', X.kunlar(B)).replace('{Mk}', X.kunlar(MU)).replace('{B}', B).replace('{M}', MU).replace(/«[^»]+»/g, function (m) { return '<b>' + m + '</b>'; }); }
     /* ---- чизма: сўз карточкаси (j) жойи: 'ls' — дарс картаси ортида (яширин), 0..3 — поғона устида (q — устма-уст тартиб), null — йўқ */
     function dJoy(j, x, q) {
       var w = dw[j], b = w.firstChild;
@@ -243,7 +258,7 @@
       b.style.setProperty('--k', typeof x === 'number' ? KR[x] : '#d9d3c4');
     }
     function dHolat(h) {                               /* ls — дарс картаси, pr — «Машқ» чизиғи %, dn — тугади, dy — ✓ кунлар (-1 — йўқ), mo — ўтган кун (-1 — йўқ), on — ёниқ поғона */
-      dl.classList.toggle('x', !h.ls); dl.classList.toggle('dn', !!h.dn); dls.textContent = h.dn ? 'Машқ ✓' : 'Машқ'; dpb.style.width = (h.pr || 0) + '%';
+      dl.classList.toggle('x', !h.ls); dl.classList.toggle('dn', !!h.dn); dls.textContent = h.dn ? X.mashq + ' ✓' : X.mashq; dpb.style.width = (h.pr || 0) + '%';
       dk.classList.toggle('qs-dx', !(h.dy >= 0)); for (var j = 0; j < ND; j++) dk.children[j].classList.toggle('ok', j < h.dy);
       dm.classList.toggle('qs-dx', !(h.mo >= 0)); if (h.mo >= 0) dmb.textContent = h.mo;
       for (j = 0; j < 4; j++) dp[j].classList.toggle('on', j === h.on);
@@ -286,7 +301,7 @@
       for (var j = 0; j < n; j++) pr[j].className = j < k || (j === k && !ish) ? 'd' : '';
       if (ish) { var b = pr[k].firstChild; b.style.animationDuration = dur + 'ms'; void b.offsetWidth; pr[k].className = 'on'; }
     }
-    function ppIcon() { pp.innerHTML = ish ? PAUSE : PLAY; pp.setAttribute('aria-label', ish ? 'Тўхтатиш' : 'Давом этиш'); }
+    function ppIcon() { pp.innerHTML = ish ? PAUSE : PLAY; pp.setAttribute('aria-label', ish ? X.tox : X.dav); }
 
     function bor(k) {
       toz(); en.classList.remove('on');
@@ -380,11 +395,11 @@
     function boshla() {
       if (bosh || !ochiq || !vaqt || yuk < nom.length) return;
       bosh = true;
-      if (xato) { yk.textContent = 'Расмлар юкланмади. Интернетни текшириб, қайта очинг.'; return; }
+      if (xato) { yk.textContent = X.xato; return; }
       tayyor = true; if (yk.parentNode) yk.parentNode.removeChild(yk);
       olcham(); kam(butun(), true); ppIcon(); bor(0);
     }
-    nom.forEach(function (k) { var I = new Image(); I.onload = function () { yuk++; boshla(); }; I.onerror = function () { xato++; yuk++; boshla(); }; I.src = P + T + '-' + k + '.webp'; });
+    nom.forEach(function (k) { var I = new Image(); I.onload = function () { yuk++; boshla(); }; I.onerror = function () { xato++; yuk++; boshla(); }; I.src = P + (RU ? 'ru-' : '') + T + '-' + k + '.webp'; });
     setTimeout(function () { vaqt = true; boshla(); }, RM ? 0 : 380);
     requestAnimationFrame(function () { requestAnimationFrame(function () { el.classList.add('on'); }); });
 

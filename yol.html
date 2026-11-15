@@ -584,8 +584,9 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
     bar.hidden = true; bar.innerHTML = ''; document.body.classList.remove('y-ses');
     if (bd && !bd.hidden) { clearTimeout(bdT); bd.classList.remove('on'); bd.hidden = true; bdp.innerHTML = ''; document.body.style.overflow = ''; }   /* boblar ro'yxati ochiq qolmasin */
     var H = P = hisobla(), W = Math.min(window.innerWidth || 390, 560), html = '';
+    /* .ot — o'tilgan darslar (15.11.2026; takror.html «Машқ» statistikasi «N та дарс ўтилмаган»ni shundan oladi) */
     try { var hzd = H.hz && H.hz[0] === 'd' ? D.filter(function (x) { return 'd' + x.n === H.hz; })[0] : null;      /* bosh sahifadagi «Йўл» kartasi uchun qisqa hisob */
-      LS(KY + '-xulosa', JSON.stringify({ v: 1, o: H.otdi, j: H.jami, hz: hzd ? hzd.n + '-дарс' : H.hz ? (H.hz[0] === 'b' ? 'боб имтиҳони' : 'китоб имтиҳони') : '' })); } catch (e) {}
+      LS(KY + '-xulosa', JSON.stringify({ v: 1, o: H.otdi, j: H.jami, ot: Object.keys(H.d).filter(function (n) { return H.d[n].ot; }).map(Number), hz: hzd ? hzd.n + '-дарс' : H.hz ? (H.hz[0] === 'b' ? 'боб имтиҳони' : 'китоб имтиҳони') : '' })); } catch (e) {}
     var k = TUZ.filter(function (x) { return x.n === KT; })[0] || TUZ[0];
     /* tepa tasma yo'q (14.11, foydalanuvchi): kitob tanlash — pastdagi «Бош саҳифа» tugmasi (kitobOyna), xarita ↔ ro'yxat ham o'sha oynada */
     document.documentElement.style.setProperty('--y-hd', (KR[k.n] || KR[1]).hd);

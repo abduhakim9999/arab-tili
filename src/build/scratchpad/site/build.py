@@ -5,6 +5,7 @@ import tarkib
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.environ.get('OUT') or '/mnt/user-data/outputs/arab-tili'
 VER = '302'
+ZO = json.load(open(os.path.join(HERE, 'zo_patch.json'), encoding='utf-8'))
 
 LESSONS = [
     # (raqam, manba, sarlavha, arabcha sarlavha, kalit, savollar soni)
@@ -114,6 +115,12 @@ for num, src, uz, ar, key, nq in LESSONS:
     assert doc.count('hl(+q[0],[+q[1]]);pw(+q[0],+q[1])') == 1, num
     doc = doc.replace('hl(+q[0],[+q[1]]);pw(+q[0],+q[1])', 'hl(+q[0],[+q[1]])')
     doc = doc.replace('👆 Босинг — эшитасиз<br>', '')
+    # 15.11.2026: so'z oynasi (zo*, 12.11.2026) va Машқда «🔊 Тинглаш»siz #qb (11.11.2026) — tayyor sahifalarga qo'lda o'tkazilgan edi,
+    # andoza va genNN natijasida yo'q; endi shu yerda qo'yiladi (zo_patch.json: [eski, yangi] juftlari, 96.html dan olingan).
+    # Eski bo'lak topilmasa (eski andozali dars) — tegilmaydi; 97 dan boshlab yangi darsda bo'lishi shart.
+    for _o, _n in ZO:
+        if _o in doc: assert doc.count(_o) == 1, num; doc = doc.replace(_o, _n)
+    if num >= 97: assert 'function zoX(' in doc and '🔊 Тинглаш' not in doc and 'function pw(' not in doc, num
     am = re.search(r'src="data:audio/mpeg;base64,([A-Za-z0-9+/=]+)"', doc)
     assert am and doc.count('data:audio/mpeg;base64,') == 1, num
     ab = base64.b64decode(am.group(1))

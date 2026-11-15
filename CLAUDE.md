@@ -28,23 +28,23 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
 
 ## Darslar holati
 - Sayt: https://nurut-tolib.vercel.app/ (fiqh: https://nurut-tolib-fiqh.vercel.app/; eski github.io ham ishlaydi; joylanmagan `tayyor-*` ishlar — https://abduhakim9999.github.io/arab-tili/tayyor/ , `docs/texnik.md` 1) · Mini App `t.me/Arabtilihivar_bot/darslar` · versiya `sw.js` dagi `var C`.
-- Darslar: 1-kitob **1–9**; 2-kitob **70–74, 91–96**.
+- Darslar: 1-kitob **1–9**; 2-kitob **70–74, 91–96**; **97** — tayyor, joylanmagan (tarmoq `tayyor-97-dars`).
 - Fiqh (parol bilan yopiq, `docs/texnik.md` 10): birinchi kitob — «Мухтасарул виқоя», al-Qori sharhi «فتح باب العناية» bilan (tarjima + grammatik tahlil + sharh; keyin boshqa kitoblar). 1-dars: «Матн · Атамалар · Шарҳ · Хулоса · Машқ». Fiqh va arab tili — alohida programmalar (bir-biriga havola yo'q). Sharh matni: `src/manba/` (shifrlangan).
-- Eshitish: **1, 6, 7, 8, 9, 74, 93, 94, 95, 96**. Ochiq ish: 2–5, 70–73, 91–92 ni qo'shish.
-- Ruscha versiya (11.11.2026): til «Яна» → Тил (sukut — o'zbekcha, boshida so'ralmaydi); ruschasi bor darslar: **1–9** (`ruN.html`). Manba `src/ru/` (`build.py`, `ru.js`, lug'atlar; `docs/texnik.md` 12). **Kod bitta — ikkala tilga** (14.11.2026, foydalanuvchi qarori): funksiya o'zbekcha sahifada qilinadi, ruschasi o'sha koddan ishlaydi; yangi matn — shu ishning o'zida ruscha lug'atga ham (`src/ru/lugat-qobiq.txt`); ruschasi yo'q narsa — «Тез орада». Qolgani: 11 dars (70–74, 91–96; **70-dars qoralamasi bor** — `src/ru/d70.*`: gap tarjimasi va lug'at, izohlar lug'ati hali yo'q, 156 ta; `ru70.html` yasalmagan, shuning uchun saytda ko'rinmaydi), ovoz, Sarf/Fe'llar/Eshitish/Yo'riqnoma.
+- Eshitish: **1, 6, 7, 8, 9, 74, 93, 94, 95, 96** (+ **97** — tayyor, joylanmagan). Ochiq ish: 2–5, 70–73, 91–92 ni qo'shish.
+- Ruscha versiya (11.11.2026): til «Яна» → Тил (sukut — o'zbekcha, boshida so'ralmaydi); ruschasi bor darslar: **1–9** (`ruN.html`). Manba `src/ru/` (`build.py`, `ru.js`, lug'atlar; `docs/texnik.md` 12). **Kod bitta — ikkala tilga** (14.11.2026, foydalanuvchi qarori): funksiya o'zbekcha sahifada qilinadi, ruschasi o'sha koddan ishlaydi; yangi matn — shu ishning o'zida ruscha lug'atga ham (`src/ru/lugat-qobiq.txt`); ruschasi yo'q narsa — «Тез орада». Qolgani: 12 dars (70–74, 91–97; **70-dars qoralamasi bor** — `src/ru/d70.*`: gap tarjimasi va lug'at, izohlar lug'ati hali yo'q, 156 ta; `ru70.html` yasalmagan, shuning uchun saytda ko'rinmaydi), ovoz, Sarf/Fe'llar/Eshitish/Yo'riqnoma.
 - «Наҳв» bo'limi (11.11.2026): `nahv.html` — эъроб аломатлари жадвали (2 yorliq); «Қоидалар» bo'limida (`qoidalar.html`), so'z oynasidagi holat yorlig'idan o'tiladi (`docs/texnik.md` 13). Navbatda: 55 qoida kartasi ro'yxati.
 - **Qilinmay qolganlar** (bir darsda qilingan yangilik → qolgan darslarga o'tkazish; foydalanuvchi so'raganda qilinadi; har yangilikdan keyin shu yerga qator qo'shiladi, o'tkazilgani yangilanadi):
   | Yangilik | Bor | Qolgan |
   |---|---|---|
-  | Eshitish (Матн/Луғат/Таркиб) | 1, 6, 7, 8, 9, 74, 93, 94, 95, 96 | 2–5, 70–73, 91–92 |
-  | ЎЗ rejimida sarlavha (bob/dars) yonishi (`UZT.h`) | 1, 8, 9, 96 | 95 + «ЎЗ» qo'shiladigan darslar |
-  | Pleyer «ЎЗ» tarjima + 🎧 (`UZT`) | 1, 8, 9, 95, 96 | 6, 7, 74, 93, 94 (+ yangi Eshitishlar) |
-  | Eshitish bosh qismi bo'laklab (bob / dars alohida, ekranda yozuv) | 1, 8, 9 | 6, 7, 74, 93, 94, 95 |
-  | O'zbekcha ovozda qavsli variantdan bittasi | 1 | 6, 7, 74, 93, 94, 95 — tekshirish |
-  | Ovoz: har so'z/gap alohida generatsiya (bitta audiodan qirqilmagan) | 1, 8, 9 | 6, 7 Луғат — tekshirish |
-  | Eshitish Таркибда o'zbekcha qator | 1, 6 | 7, 74, 93 (94, 95 — tekshirish) |
-  | Eshitish Матнида mavzu (sarlavha) aytiladi | 1 | 6, 7, 74, 93, 94, 95 — tekshirish |
-  | ЎЗ: o'zbekcha o'qilganda arabcha so'z yonadi (`UZT.w`, bepul moslash) | 1, 8, 9, 96 | 95 + «ЎЗ» qo'shiladigan darslar |
+  | Eshitish (Матн/Луғат/Таркиб) | 1, 6, 7, 8, 9, 74, 93, 94, 95, 96, 97 | 2–5, 70–73, 91–92 |
+  | ЎЗ rejimida sarlavha (bob/dars) yonishi (`UZT.h`) | 1, 8, 9, 96, 97 | 95 + «ЎЗ» qo'shiladigan darslar |
+  | Pleyer «ЎЗ» tarjima + 🎧 (`UZT`) | 1, 8, 9, 95, 96, 97 | 6, 7, 74, 93, 94 (+ yangi Eshitishlar) |
+  | Eshitish bosh qismi bo'laklab (bob / dars alohida, ekranda yozuv) | 1, 8, 9, 97 | 6, 7, 74, 93, 94, 95 |
+  | O'zbekcha ovozda qavsli variantdan bittasi | 1, 97 | 6, 7, 74, 93, 94, 95 — tekshirish |
+  | Ovoz: har so'z/gap alohida generatsiya (bitta audiodan qirqilmagan) | 1, 8, 9, 97 | 6, 7 Луғат — tekshirish |
+  | Eshitish Таркибда o'zbekcha qator | 1, 6, 97 | 7, 74, 93 (94, 95 — tekshirish) |
+  | Eshitish Матнида mavzu (sarlavha) aytiladi | 1, 97 | 6, 7, 74, 93, 94, 95 — tekshirish |
+  | ЎЗ: o'zbekcha o'qilganda arabcha so'z yonadi (`UZT.w`, bepul moslash) | 1, 8, 9, 96, 97 | 95 + «ЎЗ» qo'shiladigan darslar |
   | Луғат tinglash qoidasi: harflar o'qilmaydi, har shakl alohida + sukut, fe'l 4 shakl, o'zbekchada muannas yo'q (`lugat2.py`) | 7, 8, 9 | 1, 6 |
   | Луғат arabchasi vaqfsiz: Hijozi ovozi + IPA (`ipa.py`), avtomat fonema tekshiruvi (`phcheck.py`) | 7, 8, 9 | 1, 6 (+ yangi darslar shu usulda) |
   | Луғат o'zbekchasida «jam» aytilmaydi (faqat ma'no; `ovoz.py voc_uz`) | yangi darslardan | 7, 8, 9 da «jam» qolgan — qayta yasalmaydi |
@@ -53,6 +53,7 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
   | So'z oynasi: ‹ ›, Таркиб Ўзбекча/Арабча, qo'shimchalar tugma (`zoX`, `.zo-*`) | hamma darslar, fiqh 1 | — |
   | Луғат yorlig'ida «билмайман» belgisi → so'z bazasi (`shell.js`; `docs/texnik.md` 15) | hamma darslar | — |
 - Oxirgi qilinganlar (10–15.11.2026):
+  - **97-dars «الْعَرَبِيَّةُ لُغَةٌ عَالَمِيَّةٌ»** (Араб тили жаҳон тили; k2b7; 15.11.2026; **tayyor, joylanmagan** — tarmoq `tayyor-97-dars`): audio — foydalanuvchi yozuvi (sarlavhadan, kesilmagan); lug'at yo'q, mashq 15; Eshitish Матн (Davronbek) + Таркиб (Hamed, GitHub tts orqali); «ЎЗ» + so'z yonishi; matndagi «200» raqam bo'lib qoladi, o'qilishi مِئَتَيْ; ruschasi yo'q («Тез орада»). Grammatika qarorlari — konspekt 7. Shu ish bilan: `lock.sh` tuzatildi (bitta tarmoqli klonda yolg'on «BO'SH»), `site/build.py` so'z oynasi va «Тинглаш»siz Машқni endi o'zi qo'yadi (`zo_patch.json`), `mk97.py` — Scribe so'z oxirini sukutgacha qisqartirish (`docs/texnik.md` 4, 5, 9а).
   - **Eski tarmoqlar tekshirildi** (15.11.2026; **saytda** — 15.11.2026, «joyla»): 40 ta eski tarmoqdan 38 tasining ishi to'liq `main`da; qolgan ikkitasidan kerakli fayllar `main`ga olindi — 70-dars ruscha qoralamasi (`src/ru/d70.*`, `ru-darslar-5-9` dan) va 1-dars Eshitish xom audiolari (`align/in/m01al.*`, `x01ar.mp3`, `y01ar.mp3`, `z01.uz.mp3` + `align/out` dagi json'lari, `dars1-eshitish` dan). Endi `main`, `ish-belgi`, `gh-pages` dan boshqa hamma tarmoqni o'chirsa bo'ladi (foydalanuvchi GitHub'da o'chiradi).
   - **Ko'rish ro'yxati tartibli** (15.11.2026; **saytda** — 15.11.2026, «joyla»): github.io `/tayyor/` da faqat hali saytga chiqmagan ishlar; saytga chiqqani (`src/build/joylangan.txt`, deploy.sh yozadi) ko'rinmaydi. Tarmoqlarni sessiya o'chira olmaydi — foydalanuvchi GitHub'da o'chiradi (shart emas). «Joyla» tartibi — `docs/texnik.md` 1.
   - **«Машқ»: o'tilmagan darslar + ko'rsatmalar ruschasi** (15.11.2026; **saytda** — 15.11.2026, «joyla»): statistikada qolgani so'z emas, **dars** bilan — «N та дарс ўтилмаган», har kitob qatorida «N та дарс ўтилмаган», har dars bitta bo'lak, «9 дарсдан 3 таси ўтилди · b / j сўз» (Claude Design A variant; o'tilgan dars — bosh sahifa hisobi `yol-xulosa`.`ot`); ishlatilmay qolgan «сараланмаган» kodi olib tashlandi. Yo'riqnoma ko'rsatmalari ruschada ham (ruscha ekran rasmlari `qol/ru-*`, `qol/mavzu-ru.js`; matnli karta ruschada ham olib tashlandi). Ikkala tilda bir xil. Batafsil `docs/texnik.md` 19, 20.

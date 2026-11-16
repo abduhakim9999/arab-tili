@@ -50,7 +50,7 @@ Rangli fon (tutash / nuqtali / uzuq, ichma-ich, «ulab») — matn og'ir, foydal
 - `#tx.fqn` — yangi ko'rinish. Tugma `#fvk` «Эски / Янги»; `localStorage["fiqh-vk"]` (0/1, sukut 1).
 - So'z rangi: eski `c-*` yonida yangi `n-*` (`cm cx cf co cb cn cz`). `nk()` eskisidan o'giradi (`cj` → qora, `ch` → `cn`); farq bo'lsa `NC={"seg-so'z":"klass"}`. `cn`, `cz` matnda qora, `.foc` bo'lganda o'z rangida.
 - `GR=[[seg, birinchi, oxirgi, tur, rang]]` — iboralar chegarasi; ko'rinmaydi, bosganda mutaalliq bo'lagini butunicha olish uchun (`.fg.gm`). Eski izofa yoylari (`IZ`, `.fiz`) yangi ko'rinishda yashirin.
-- 2-qavat: `ykRel(kalit, nishonlar, tur, xira)` — chiziq `.fyk` (SVG, `#pM` ichida), yorliq `.fykc` (chetdan chiqmaydi), xiralashish `.fqfoc` / `.foc`; so'z bosilganda va audio `timeupdate` da. Bog'lanishi yo'q och yashil / pushti so'z bosilsa — faqat o'z rangiga kiradi.
+- 2-qavat: `ykRel(kalit, nishonlar, tur, xira)` — chiziq `.fyk` (SVG, `#pM` ichida), yorliq `.fykc` (chetdan chiqmaydi), xiralashish `.fqfoc` / `.foc`; so'z bosilganda va audio `timeupdate` da. Bog'lanishi yo'q och yashil / pushti so'z bosilsa — faqat o'z rangiga kiradi. Chiziq uchlari `ykR()` bilan o'lchanadi (so'zning bir qatordagi hamma bo'laklari birga; bosh so'zda asosiy qismi `.fst` — «va-» ga emas). Yangi ko'rinishda audio paytidagi eski uzuq ramka (`.fw.lnk`) ko'rsatilmaydi — o'rniga chiziq.
 - Belgilar qatori `.flgn` — 5 rangdan faqat darsda uchraganlari; izoh `.flgc` («Белгилар»).
 - **Hali kodda yo'q:** yashirin foil yozuvi (2-darsda fe'l yo'q); o'qilayotgan so'z eski usulda yonadi.
 

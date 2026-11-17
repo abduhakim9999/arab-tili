@@ -49,10 +49,18 @@ Qaror: 16–17.11.2026, foydalanuvchi bilan chatda, rasm-namunalar asosida. Hola
 - **Hazf:** tushib qolgan so'z xira ko'rinadi (taklif, kodda yo'q).
 - Bog'lanishlar ustoz audiosidagi tushuntirishdan olinadi (`TL` → `REL`).
 
-## 6. Ko'rib chiqilib rad etilganlar
+## 6. Gap ostidagi quti (yangi ko'rinishda)
+Quti — **qoidalar** uchun; matnda ko'rinib turgan narsa qutida takrorlanmaydi (17.11.2026, foydalanuvchi).
+- Tepada jumla turi («исмийя»).
+- **«Қоидалар»:** shu gapda ishlatilgan qoidalar, har biri bitta qisqa qator; o'ngida tegishli so'zlar matndagi rangida. Bosilsa — matnda o'sha so'zlar ramkada (har bo'lak alohida, o'z rangida), gapning qolgani xiralashadi, qator tagida qisqa karta (umumiy qoida + shu gapga qo'shimcha). Yana bosilsa — yopiladi. Qoida ochiq turganda ustoz audiosi uni yopmaydi.
+- **«Ҳазф»:** tushib qolgan so'z uzuq chiziqli ramkada + bir qator izoh. **«⚖️ Бошқа фикр»:** boshqa o'qish, so'zi o'sha holat rangida.
+- **Yo'q:** mubtado/xabar qatorlari, «мутааллиқ → …», «атф → …» qatorlari (ranglar va bosgandagi chiziq ko'rsatadi), ustoz gapini yozgan izoh (ustoz aytayotganda so'z o'zi yonadi), audio paytida pastdagi bog'lanish yozuvi (ramka va chiziq ko'rsatadi; tepada qolib ketgan gap yozuvi qoladi).
+- «Эски» ko'rinishda eski quti o'zgarmagan.
+
+## 7. Ko'rib chiqilib rad etilganlar
 Rangli fon (tutash / nuqtali / uzuq, ichma-ich, «ulab»); doimiy chiziq yoki yoy; doimiy strelka; holat rangi butun so'zga (raf/nasb/jar/jazm bo'yicha); matnda o'zbekcha yorliq; nosix ramkada yoki feruza; muzofun ilayh alohida rangda (apelsin); matnda faqat 5 rang (majrur va mansublar qora — 16.11 kech varianti).
 
-## 7. Kodda (fiqh `fN.html`)
+## 8. Kodda (fiqh `fN.html`)
 - `#tx.fqn` — yangi ko'rinish. Tugma `#fvk` «Эски / Янги»; `localStorage["fiqh-vk"]` (0/1, sukut 1).
 - So'z rangi: eski `c-*` yonida yangi `n-*` (`cm cx cf co cb cn cj jh cd cz`). `nk()` eskisidan o'giradi (`cj` → feruza, `ch` → `cn`); farq bo'lsa `NC={"seg-so'z":"klass"}`.
 - `ZC={"seg-so'z":"klass"}` — qo'shilgan zamir (`.fz`) rangi; `JH={"seg-so'z":"بِ"}` — so'z oldidagi jar harfi (`.fpre` ichida `.n-jh`).
@@ -60,12 +68,13 @@ Rangli fon (tutash / nuqtali / uzuq, ichma-ich, «ulab»); doimiy chiziq yoki yo
 - 2-qavat: `ykRel(kalit, nishonlar, tur, xira)` — SVG `.fyk` (`#pM` ichida): ramka `rect`, chiziq `path` (`linearGradient`), nuqta; yorliq `.fykc`; xiralashish `.fqfoc` / `.foc`. Ramkadagi so'zda eski `.sel` / `.now` qutisi ko'rsatilmaydi.
 - Belgilar qatori `.flgn` — faqat darsda uchragan ranglar; izoh `.flgc` («Белгилар»).
 - Ranglar kunduzgi va tungi rejimda (`--nj --nh --nd` tungi qiymatlari bor).
-- **Hali kodda yo'q:** yashirin zamir yozuvi, hazf ko'rinishi (2-darsda fe'l yo'q); uzun bo'lak qatordan qatorga o'tsa ramka faqat birinchi qatorda.
+- Quti (6-bo'lim): `QC={kalit:"karta"}` — umumiy qoida kartalari (`mx jar atf izf tsn mm`); `QD[gap]={r:[[matn,[[so'z raqamlari]…],karta,qo'shimcha]], z:[[izoh,arabcha]], b:[[izoh,arabcha,klass]]}`. `nqb()` qutini yasaydi (`.fbx.nqb`; eskisi `.fbx.fbo`), chiplardagi so'z — `nqw()` (matndagi ranglar bilan, `.fw` emas). Bosilganda `nqOn()` — `ykRel` SVG'siga ramka (`ykI()` ochadi), `.foc`/`.fqfoc`. Oyna faqat eni o'zgarsa tozalanadi (telefonda manzil qatori yashirinsa — yo'q).
+- **Hali kodda yo'q:** yashirin zamir yozuvi, matn ichida hazf ko'rinishi (2-darsda fe'l yo'q); uzun bo'lak qatordan qatorga o'tsa ramka faqat birinchi qatorda.
 
-## 8. Namunalar
+## 9. Namunalar
 `docs/tarkib-korinishi/oila-*.png` — joriy tartib, 52 misol, 7 guruh (gap asosi, nosixlar, mansublar, majrur va tobe'lar, fe'l nasbi va jazmi, ichki jumlalar, boshqalar). Qolgan rasmlar (`yakun-*`, `asosiy-ranglar`, `yechim-uch-qavat`, `oraga-soz-tushganda`) — rad etilgan oldingi variantlar.
 
-## 9. Navbatda
+## 10. Navbatda
 1. Fe'lli matnda (arab tili darsi) sinash: yashirin zamir, fe'l harflari, ramkalar.
 2. Rang ajratishi sust odamlar uchun tekshiruv; feruza/ko'k va to'q jigarrang/jigarrang farqi.
 3. Sinovdan keyin «Эски / Янги» tugmasini olib tashlab, bitta ko'rinish qoldirish.

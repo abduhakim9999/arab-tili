@@ -61,7 +61,7 @@ Quti — **qoidalar** uchun; matnda ko'rinib turgan narsa qutida takrorlanmaydi 
 ## 6а. So'z oynasi (bosib turganda, yangi ko'rinishda)
 17.11.2026, foydalanuvchi: «arabcha tarkiblardek to'liq, katta kitoblardagi ketma-ketlikda».
 - **Tartib — konspekt 2-bo'lim** (arab e'rob kitoblaridagi bilan bir xil): oldidagi harf(lar) → so'zning o'zi → zamir → birikma (mutaalliq / ma'tuf / hazf / xabari) → ↳ izohlar.
-- Har bo'lak sarlavhasi: arabchasi matndagi rangida + «ОЛДИДАГИ ҲАРФ / СЎЗНИНГ ЎЗИ / ЗАМИР» (bo'lak bitta bo'lsa sarlavha yo'q).
+- Har bo'lak sarlavhasi: arabchasi matndagi rangida + bo'lakning o'z nomi (1-qadam qiymati: «атф ҳарфи», «жар ҳарфи», «музоф бўлиб мубтадо», «муттасил замир»); qadamlar o'zgarmaydi (bo'lak bitta bo'lsa sarlavha yo'q).
 - Har bo'lak — raqamlangan qadamlar, kitob atamalari bilan:
   - mu'rab: ① Вазифаси ② Ҳукми («раф / насб / жар қилинган», ««بِ» сабаб жар қилинган») ③ Аломати;
   - harf: ① Тури ② Бино ③ Ўрни («эъробдан унга ўрин йўқ»);

@@ -71,6 +71,15 @@ Quti — **qoidalar** uchun; matnda ko'rinib turgan narsa qutida takrorlanmaydi 
 - **↳ izohlarda faqat arab tili qoidalari** (17.11.2026, foydalanuvchi): ustoz gaplari yozilmaydi (audioda o'zi aytadi), ma'no/fiqh izohlari ham yo'q; qoida bo'lgan izohda «(устоз)» belgisi qo'yilmaydi.
 - «Эски» ko'rinishda — eski oyna (yaxlit matn).
 
+## 6б. Belgilar va ko'rsatma (yangi ko'rinishda)
+18.11.2026, foydalanuvchi: «mubtado bilan xabar birga — ular raf'niki», «tushunarli joylashtirilsin».
+- **Belgilar — holat bo'yicha guruh** (sticky, matn tepasida): РАФ (Мубтадо, Хабар, Фоил) · НАСБ (Мафъулун биҳ, Мансуб) · ЖАР (Мажрур, Жар ҳарфи) · ФЕЪЛ (Феъл, Насб/жазм ҳарфи). Faqat darsda bor ranglar; bo'sh guruh yashirin; har guruh — alohida katak, nomi ustida.
+- **Rang bosilsa:** matnda shu rangdagi qism yonadi (so'zning faqat o'sha bo'lagi, masalan zamir), qolgani xiralashadi; tagida bir qator izoh (vazifa + hukm + alomat). Yana bosilsa yoki boshqa joy bosilsa — o'chadi.
+- **ⓘ** — pastdan varaq: butun tizim guruhlar bilan (alomati bilan: замма / фатҳа / касра), har rangda shu darsdan misol; darsda yo'qlari xira, «бу дарсда йўқ»; Рамка, Узуқ чизиқ; ishlatish (bir bosish, bosib turish, qoida qatori, Ҳозирги жой); «▶ Кўрсатмани қайта кўриш».
+- **Ko'rsatma** — Таркиб yangi ko'rinishda birinchi ochilganda bir marta (`localStorage` `fiqh-tur`), 5 qadam, haqiqiy joy yoritiladi, o'quvchi o'zi bajaradi: 1) so'zni bir bosish (darsdagi birinchi gap ichidagi mutaalliq so'z) → 2) natija + bosib turish → 3) so'z oynasi («Кейинги») → 4) gap ostidagi qoida → 5) belgilar («Тушунарли»). Har qadamda «Ўтказиб юбориш».
+- «Эски» ko'rinishda — eski belgilar (`.flgx`) o'zgarmagan.
+- Kod: `.flgn` ichida `.lg-g` guruhlar, `lgOn/lgOff`, `lgSheet()`, `tuGo()/tuEnd()` (f2).
+
 ## 7. Ko'rib chiqilib rad etilganlar
 Rangli fon (tutash / nuqtali / uzuq, ichma-ich, «ulab»); doimiy chiziq yoki yoy; doimiy strelka; holat rangi butun so'zga (raf/nasb/jar/jazm bo'yicha); matnda o'zbekcha yorliq; nosix ramkada yoki feruza; muzofun ilayh alohida rangda (apelsin); matnda faqat 5 rang (majrur va mansublar qora — 16.11 kech varianti).
 
@@ -95,5 +104,5 @@ Rangli fon (tutash / nuqtali / uzuq, ichma-ich, «ulab»); doimiy chiziq yoki yo
 1. Fe'lli matnda (arab tili darsi) sinash: yashirin zamir, fe'l harflari, ramkalar.
 2. Rang ajratishi sust odamlar uchun tekshiruv; feruza/ko'k va to'q jigarrang/jigarrang farqi.
 3. Sinovdan keyin «Эски / Янги» tugmasini olib tashlab, bitta ko'rinish qoldirish.
-4. Yo'riqnomaga mavzu; fiqh 1 va arab tili darslari (foydalanuvchi ma'qullagach).
+4. Fiqh 1 va arab tili darslariga o'tkazish (foydalanuvchi ma'qullagach); ko'rsatma va belgilar ham.
 5. So'z oynasi (6а) boshqa darslarga: arab tili darslarida `IRB` dan ZT ni avtomat yasash (qo'lda emas).

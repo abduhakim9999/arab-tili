@@ -54,7 +54,8 @@ Quti — **qoidalar** uchun; matnda ko'rinib turgan narsa qutida takrorlanmaydi 
 - Tepada jumla turi («исмийя»).
 - **«Қоидалар»:** shu gapda ishlatilgan qoidalar, har biri bitta qisqa qator; o'ngida tegishli so'zlar matndagi rangida. Bosilsa — matnda o'sha so'zlar ramkada (har bo'lak alohida, o'z rangida), gapning qolgani xiralashadi, qator tagida qisqa karta (umumiy qoida + shu gapga qo'shimcha). Yana bosilsa — yopiladi. Qoida ochiq turganda ustoz audiosi uni yopmaydi.
 - **«Ҳазф»:** tushib qolgan so'z uzuq chiziqli ramkada + bir qator izoh. **«⚖️ Бошқа фикр»:** boshqa o'qish, so'zi o'sha holat rangida.
-- **Yo'q:** mubtado/xabar qatorlari, «мутааллиқ → …», «атф → …» qatorlari (ranglar va bosgandagi chiziq ko'rsatadi), ustoz gapini yozgan izoh (ustoz aytayotganda so'z o'zi yonadi), audio paytida pastdagi bog'lanish yozuvi (ramka va chiziq ko'rsatadi; tepada qolib ketgan gap yozuvi qoladi).
+- **Yo'q:** mubtado/xabar qatorlari, «мутааллиқ → …», «атф → …» qatorlari (ranglar va bosgandagi chiziq ko'rsatadi), ustoz gapini yozgan izoh (ustoz aytayotganda so'z o'zi yonadi), audio paytida pastdagi yozuv oynasi — bog'lanish ham, «↑ Юқоридаги гап» ham (ramka/chiziq ko'rsatadi, ekran o'zi siljiydi).
+- **«↑ / ↓ Ҳозирги жой»** tugmasi (`#fnow`): o'qilayotgan so'zlar ekranda yo'q bo'lsa (o'quvchi o'zi surib ketsa) pleyer tepasida chiqadi, bosilsa o'sha gapga qaytaradi (17.11.2026, foydalanuvchi).
 - «Эски» ko'rinishda eski quti o'zgarmagan.
 
 ## 7. Ko'rib chiqilib rad etilganlar
@@ -68,7 +69,7 @@ Rangli fon (tutash / nuqtali / uzuq, ichma-ich, «ulab»); doimiy chiziq yoki yo
 - 2-qavat: `ykRel(kalit, nishonlar, tur, xira)` — SVG `.fyk` (`#pM` ichida): ramka `rect`, chiziq `path` (`linearGradient`), nuqta; yorliq `.fykc`; xiralashish `.fqfoc` / `.foc`. Ramkadagi so'zda eski `.sel` / `.now` qutisi ko'rsatilmaydi.
 - Belgilar qatori `.flgn` — faqat darsda uchragan ranglar; izoh `.flgc` («Белгилар»).
 - Ranglar kunduzgi va tungi rejimda (`--nj --nh --nd` tungi qiymatlari bor).
-- Quti (6-bo'lim): `QC={kalit:"karta"}` — umumiy qoida kartalari (`mx jar atf izf tsn mm`); `QD[gap]={r:[[matn,[[so'z raqamlari]…],karta,qo'shimcha]], z:[[izoh,arabcha]], b:[[izoh,arabcha,klass]]}`. `nqb()` qutini yasaydi (`.fbx.nqb`; eskisi `.fbx.fbo`), chiplardagi so'z — `nqw()` (matndagi ranglar bilan, `.fw` emas). Bosilganda `nqOn()` — `ykRel` SVG'siga ramka (`ykI()` ochadi), `.foc`/`.fqfoc`. Oyna faqat eni o'zgarsa tozalanadi (telefonda manzil qatori yashirinsa — yo'q).
+- Quti (6-bo'lim): `QC={kalit:"karta"}` — umumiy qoida kartalari (`mx jar atf izf tsn mm`); `QD[gap]={r:[[matn,[[so'z raqamlari]…],karta,qo'shimcha]], z:[[izoh,arabcha]], b:[[izoh,arabcha,klass]]}`. `nqb()` qutini yasaydi (`.fbx.nqb`; eskisi `.fbx.fbo`), chiplardagi so'z — `nqw()` (matndagi ranglar bilan, `.fw` emas; «Ҳаракат» o'chsa — harakatsiz, matn kabi). Bosilganda `nqOn()` — `ykRel` SVG'siga ramka (`ykI()` ochadi), `.foc`/`.fqfoc`. Oyna faqat eni o'zgarsa tozalanadi (telefonda manzil qatori yashirinsa — yo'q).
 - **Hali kodda yo'q:** yashirin zamir yozuvi, matn ichida hazf ko'rinishi (2-darsda fe'l yo'q); uzun bo'lak qatordan qatorga o'tsa ramka faqat birinchi qatorda.
 
 ## 9. Namunalar

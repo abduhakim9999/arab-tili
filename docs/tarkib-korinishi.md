@@ -1,65 +1,72 @@
 # Tarkib ko'rinishi — yangi tizim (sinov)
 
-Qaror: 16.11.2026, foydalanuvchi bilan chatda, rasm-namunalar asosida (oxirgi tanlov — «matnda faqat 5 asosiy rang, qolgani bosganda»). Holat: **fiqh 2-darsda sinov** (`tayyor-fiqh-2`), Таркиб rejimida «Эски / Янги»; boshqa darslarda eski ko'rinish. Bu fayl — yagona manba (grammatika qoidalari — konspektda, bu yerda faqat *qanday ko'rsatilishi*).
+Qaror: 16–17.11.2026, foydalanuvchi bilan chatda, rasm-namunalar asosida. Holat: **fiqh 2-darsda sinov** (`tayyor-fiqh-2`), Таркиб rejimida «Эски / Янги»; boshqa darslarda eski ko'rinish. Bu fayl — yagona manba (grammatika qoidalari — konspektda, bu yerda faqat *qanday ko'rsatilishi*).
 
 ## 1. Tamoyil
-- Matnda faqat **tarjima uchun eng kerakli narsa** — gapning skeleti (kim/nima — nima qildi/qanday — nimani). Qolgani o'quvchi qiynalgan joyda, so'z bosilganda.
-- O'qiyotganda vazifa muhim, holat (raf/nasb/jar/jazm) ikkinchi darajali.
-- Asos: belgi kam bo'lsa ishlaydi, ortiqchasi o'rganishga xalaqit beradi (Mayer: signaling, coherence); kam kerak bo'ladigani ikkinchi qavatga (Nielsen: progressive disclosure); toifa ranglari 6 tadan oshsa qiyinlashadi.
+- **Rang — so'zning vazifasi yoki holati oilasi; to'q rang — uni o'zgartirgan harf; ramka — asosiy bo'lak o'rnida kelgan bo'lak.**
+- O'qiyotganda vazifa muhim: gapning asosiy bo'laklari o'z rangida. Raf alohida ko'rsatilmaydi — har bir marfu' ism asosiy bo'lak (mubtado, xabar, foil, noibi foil), rangi bor.
+- Qolgani so'z bosilganda (2-qavat) yoki bosib turganda (3-qavat, so'z oynasi).
 
 ## 2. Uch qavat
 | Qavat | Qachon | Nima |
 |---|---|---|
-| 1 | doim | faqat 5 asosiy rang (3-bo'lim); boshqa hech qanday belgi yo'q |
-| 2 | so'z bosilganda; ustoz audiosi bog'lanishni tushuntirayotganda (xiralashtirmasdan) | bog'langan so'zga pastdan chiziq, turi yorlig'i, so'zning o'z rangi (och yashil, pushti), yashirin foil; bosilganda gapning qolgani xiralashadi |
+| 1 | doim | ranglar (3-bo'lim) va asosiy bo'lak ramkasi (4-bo'lim) |
+| 2 | so'z bosilganda; ustoz audiosi bog'lanishni tushuntirayotganda (xiralashtirmasdan) | bo'lak o'z rangidagi ramkada, bosh so'zdan chiziq (yarmidan ramka rangiga o'tadi), ostida nomi; kana/inna — pushti; yashirin zamir; bosilganda gapning qolgani xiralashadi |
 | 3 | bosib turganda | so'z oynasi: to'liq e'rob (holat, alomat, izoh, hazf, sharh) |
 
-## 3. Ranglar
-**Matnda (doim) — 5 ta:**
+## 3. Ranglar (matnda doim)
 | Rang | Nima | O'zgaruvchi |
 |---|---|---|
 | ko'k | mubtado; kananing/innaning ismi | `--cm` |
 | qizil | xabar; kananing/innaning xabari | `--cx` |
 | jigarrang | fe'l | `--cf` |
 | binafsha | foil, noibi foil | `--co` |
-| to'q yashil | maf'ulun bih (ikki maf'ul bo'lsa — ikkalasi) | `--nb` |
-
-**Faqat bosganda — 2 ta** (matnda qora):
-| Rang | Nima | O'zgaruvchi |
-|---|---|---|
+| to'q yashil | maf'ulun bih (ikki-uch maf'ul ham) | `--nb` |
 | och yashil | boshqa mansublar: maf'ulun mutlaq, lahu, zarf, ma'ahu, hol, tamyiz, mustasno, munodo | `--nn` |
-| pushti | kana, inna va sheriklarining o'zi (kana, laysa, kada…; inna, anna, layta…; jinsni inkor qiluvchi «lo») | `--nz` |
+| feruza | majrur: harf jardan keyingi so'z va muzofun ilayh | `--nj` |
+| to'q feruza | jar harfi | `--nh` |
+| to'q jigarrang | fe'lni nasb yoki jazm qiluvchi harf: an, lan, kay, lam, nahy «lo», shart «in» | `--nd` |
 
-- Qolgan hamma so'z qora: harflar, majrur, muzofun ilayh, tobe'lar.
-- Zanna — oddiy fe'l rangida, ikki maf'uli to'q yashil.
-- Qo'shilgan zamir o'z vazifasi rangida (bir so'z bo'laklab bo'yaladi); muzofun ilayh bo'lgan zamir qora.
-- Ma'tuf — o'zi ergashgan so'z rangida. Jar-majrur xabar o'rnida — ikkala so'z qizil. Ismi foil fe'ldek amal qilsa — maf'uli yashil.
+**Faqat bosganda:** pushti — kana, inna va sheriklarining o'zi (`--nz`); matnda qora.
 
-## 4. Bog'lanish chizig'i (2-qavat)
-- Bog'langan bo'lakdan bosh so'zga **pastdan ingichka chiziq**, bosh so'z tomonda nuqta. Tutash — ibora (izofa, atf, sifat…), uzuq — mutaalliq (jar-majrur, zarf).
-- Rangi — bosh so'zniki; bosh so'z qora bo'lsa — kulrang.
-- Boshqa qatordagi so'zga — egri chiziq; boshqa gapdagi (tarkib qutisi orqasidagi) so'zga chiziq chizilmaydi, faqat yorliq.
-- Yorliq — turi: мутааллиқ, маътуф, музофун илайҳ, хабари, баён, қайтади.
-- **Yashirin foil:** fe'l tagida kichik arabcha zamir (هُوَ، أَنْتَ، نَحْنُ، أَنَا), binafsha; kananing yashirin ismi — ko'k. Ism fe'l/kanadan oldin kelsa — u mubtado, foil/ism — yashirin zamir. Qo'shilgan zamirga yozuv qo'yilmaydi.
-- Bog'lanishlar ustoz audiosidagi tushuntirishdan olinadi (`TL` → `REL`); audioda yo'q bog'lanish uchun chiziq yo'q.
+- Qo'shilgan zamir **o'z vazifasi rangida**: foil — binafsha, maf'ul — to'q yashil, muzofun ilayh — feruza, innaning ismi — ko'k.
+- Tobe'lar (sifat, ma'tuf, ta'kid, badal) — ergashgan so'z rangida.
+- Zanna — oddiy fe'l rangida, maf'ullari to'q yashil. Ismi foil fe'ldek amal qilsa — maf'uli to'q yashil.
+- Fe'lning o'z holati (marfu', mansub, majzum) — oynada. Harflar (atf, so'roq…) qora.
 
-## 5. Ko'rib chiqilib rad etilganlar
-Rangli fon (tutash / nuqtali / uzuq, ichma-ich, «ulab») — matn og'ir, foydalanuvchiga yoqmadi; doimiy chiziq yoki yoy (pastdan ham, tepadan ham); ramka («oyna»); doimiy strelka; holat rangi (raf/nasb/jar/jazm bo'yicha); matnda o'zbekcha yorliq; nosix ramkada yoki feruza; doimiy yashirin zamir yozuvi; matnda 7 rang (och yashil va pushti doim).
+## 4. Ramka (matnda doim)
+- Bo'lakning so'zlari rangi uning gapdagi o'rnini ko'rsatmasa, u o'sha o'rin rangidagi ramkaga olinadi:
+  - jar-majrur yoki zarf xabar bo'lsa — qizil; noibi foil bo'lsa — binafsha;
+  - jumla xabar bo'lsa — qizil (ism fe'l/kanadan oldin kelsa ham);
+  - jumla maf'ul o'rnida (aytilgan gap, «an» + fe'l, «anna» + jumla) — to'q yashil.
+- Ramka qo'yilmaydi: mavsul (o'zi vazifasi rangida), izofa, sifat, hol jumlasi, sila, shart — ular bosganda ko'rsatiladi.
 
-## 6. Kodda (fiqh `fN.html`)
+## 5. Bosganda (2-qavat)
+- Bo'lak o'z rangidagi ramkada (jar-majrur — feruza, mansub — och yashil, tobe' — ergashgan so'z rangi, nosix — pushti; rangsiz bo'lsa — kulrang).
+- Bosh so'zdan chiziq: bosh so'z rangida boshlanadi, yarmidan ramka rangiga o'tadi; bosh so'zda nuqta. Ostida nomi (мутааллиқ, маътуф, музофун илайҳ…), ramka rangida.
+- Bog'lanish boshqa gapda (tarkib qutisi orqasida) bo'lsa — chiziq yo'q, faqat ramka va nomi.
+- **Yashirin foil:** fe'l tagida kichik arabcha zamir (هُوَ، أَنْتَ، نَحْنُ، أَنَا), binafsha; kananing yashirin ismi — ko'k.
+- **Hazf:** tushib qolgan so'z xira ko'rinadi (taklif, kodda yo'q).
+- Bog'lanishlar ustoz audiosidagi tushuntirishdan olinadi (`TL` → `REL`).
+
+## 6. Ko'rib chiqilib rad etilganlar
+Rangli fon (tutash / nuqtali / uzuq, ichma-ich, «ulab»); doimiy chiziq yoki yoy; doimiy strelka; holat rangi butun so'zga (raf/nasb/jar/jazm bo'yicha); matnda o'zbekcha yorliq; nosix ramkada yoki feruza; muzofun ilayh alohida rangda (apelsin); matnda faqat 5 rang (majrur va mansublar qora — 16.11 kech varianti).
+
+## 7. Kodda (fiqh `fN.html`)
 - `#tx.fqn` — yangi ko'rinish. Tugma `#fvk` «Эски / Янги»; `localStorage["fiqh-vk"]` (0/1, sukut 1).
-- So'z rangi: eski `c-*` yonida yangi `n-*` (`cm cx cf co cb cn cz`). `nk()` eskisidan o'giradi (`cj` → qora, `ch` → `cn`); farq bo'lsa `NC={"seg-so'z":"klass"}`. `cn`, `cz` matnda qora, `.foc` bo'lganda o'z rangida.
-- `GR=[[seg, birinchi, oxirgi, tur, rang]]` — iboralar chegarasi; ko'rinmaydi, bosganda mutaalliq bo'lagini butunicha olish uchun (`.fg.gm`). Eski izofa yoylari (`IZ`, `.fiz`) yangi ko'rinishda yashirin.
-- 2-qavat: `ykRel(kalit, nishonlar, tur, xira)` — chiziq `.fyk` (SVG, `#pM` ichida), yorliq `.fykc` (chetdan chiqmaydi), xiralashish `.fqfoc` / `.foc`; so'z bosilganda va audio `timeupdate` da. Bog'lanishi yo'q och yashil / pushti so'z bosilsa — faqat o'z rangiga kiradi. Chiziq uchlari `ykR()` bilan o'lchanadi (so'zning bir qatordagi hamma bo'laklari birga; bosh so'zda asosiy qismi `.fst` — «va-» ga emas). Yangi ko'rinishda audio paytidagi eski uzuq ramka (`.fw.lnk`) ko'rsatilmaydi — o'rniga chiziq.
-- Belgilar qatori `.flgn` — 5 rangdan faqat darsda uchraganlari; izoh `.flgc` («Белгилар»).
-- **Hali kodda yo'q:** yashirin foil yozuvi (2-darsda fe'l yo'q); o'qilayotgan so'z eski usulda yonadi.
+- So'z rangi: eski `c-*` yonida yangi `n-*` (`cm cx cf co cb cn cj jh cd cz`). `nk()` eskisidan o'giradi (`cj` → feruza, `ch` → `cn`); farq bo'lsa `NC={"seg-so'z":"klass"}`.
+- `ZC={"seg-so'z":"klass"}` — qo'shilgan zamir (`.fz`) rangi; `JH={"seg-so'z":"بِ"}` — so'z oldidagi jar harfi (`.fpre` ichida `.n-jh`).
+- `GR=[[seg, birinchi, oxirgi, tur, rang]]` — tur `m` (mutaalliq bo'lagi, bosganda butunicha olinadi), `i` (ibora), `r` (asosiy bo'lak ramkasi, matnda ko'rinadi: `.fg.gr.t*`); rang `m x f o b n g`.
+- 2-qavat: `ykRel(kalit, nishonlar, tur, xira)` — SVG `.fyk` (`#pM` ichida): ramka `rect`, chiziq `path` (`linearGradient`), nuqta; yorliq `.fykc`; xiralashish `.fqfoc` / `.foc`. Ramkadagi so'zda eski `.sel` / `.now` qutisi ko'rsatilmaydi.
+- Belgilar qatori `.flgn` — faqat darsda uchragan ranglar; izoh `.flgc` («Белгилар»).
+- Ranglar kunduzgi va tungi rejimda (`--nj --nh --nd` tungi qiymatlari bor).
+- **Hali kodda yo'q:** yashirin zamir yozuvi, hazf ko'rinishi (2-darsda fe'l yo'q); uzun bo'lak qatordan qatorga o'tsa ramka faqat birinchi qatorda.
 
-## 7. Namunalar
-`docs/tarkib-korinishi/asosiy-ranglar.png` — yakuniy ko'rinish (fiqh 2-dars matni + so'z bosilganda). Oldingi (rad etilgan, fonli) variantlar: `yakun-1…8.png` (61 holat), `oraga-soz-tushganda.png`, `yechim-uch-qavat.png`; generator `gen/yakun.py` (Playwright + Chrome).
+## 8. Namunalar
+`docs/tarkib-korinishi/oila-*.png` — joriy tartib, 52 misol, 7 guruh (gap asosi, nosixlar, mansublar, majrur va tobe'lar, fe'l nasbi va jazmi, ichki jumlalar, boshqalar). Qolgan rasmlar (`yakun-*`, `asosiy-ranglar`, `yechim-uch-qavat`, `oraga-soz-tushganda`) — rad etilgan oldingi variantlar.
 
-## 8. Navbatda
-1. Sinovdan keyin «Эски / Янги» tugmasini olib tashlab, bitta ko'rinish qoldirish.
-2. Fe'lli matnda (arab tili darsi) sinash: yashirin foil yozuvi, och yashil / pushti bosganda.
-3. Rang ajratishi sust odamlar uchun tekshiruv (qizil/yashil/jigarrang): och-to'qligi bilan ham farq qilsin.
-4. O'qilayotgan so'z yonishini yangi ko'rinishga moslash.
-5. Yo'riqnomaga mavzu; fiqh 1 va arab tili darslari (foydalanuvchi sinovni ma'qullagach).
+## 9. Navbatda
+1. Fe'lli matnda (arab tili darsi) sinash: yashirin zamir, fe'l harflari, ramkalar.
+2. Rang ajratishi sust odamlar uchun tekshiruv; feruza/ko'k va to'q jigarrang/jigarrang farqi.
+3. Sinovdan keyin «Эски / Янги» tugmasini olib tashlab, bitta ko'rinish qoldirish.
+4. Yo'riqnomaga mavzu; fiqh 1 va arab tili darslari (foydalanuvchi ma'qullagach).

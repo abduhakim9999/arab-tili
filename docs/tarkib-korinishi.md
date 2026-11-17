@@ -68,6 +68,7 @@ Quti — **qoidalar** uchun; matnda ko'rinib turgan narsa qutida takrorlanmaydi 
   - mabniy ism / zamir: ① Тури ② Вазифаси ③ Бино ④ Ўрни (+ «Қайтади»).
 - Har qadam ostida o'sha qismning arabcha e'robi (kichik, kulrang) — tolib arabcha e'robga o'rganadi. «Арабча» tugmasi — butun arabcha e'rob jumlasi.
 - Tepada 2 yorliq: vazifa («Музоф бўлиб музофун илайҳ» — ikki vazifa bitta qilib) va hukm («● жар қилинган»).
+- **↳ izohlarda faqat arab tili qoidalari** (17.11.2026, foydalanuvchi): ustoz gaplari yozilmaydi (audioda o'zi aytadi), ma'no/fiqh izohlari ham yo'q; qoida bo'lgan izohda «(устоз)» belgisi qo'yilmaydi.
 - «Эски» ko'rinishda — eski oyna (yaxlit matn).
 
 ## 7. Ko'rib chiqilib rad etilganlar

@@ -12,7 +12,7 @@ Qaror: 16–17.11.2026, foydalanuvchi bilan chatda, rasm-namunalar asosida. Hola
 |---|---|---|
 | 1 | doim | ranglar (3-bo'lim) va asosiy bo'lak ramkasi (4-bo'lim) |
 | 2 | so'z bosilganda; ustoz audiosi bog'lanishni tushuntirayotganda (xiralashtirmasdan) | bo'lak o'z rangidagi ramkada, bosh so'zdan chiziq (yarmidan ramka rangiga o'tadi), ostida nomi; kana/inna — pushti; yashirin zamir; bosilganda gapning qolgani xiralashadi |
-| 3 | bosib turganda | so'z oynasi: to'liq e'rob (holat, alomat, izoh, hazf, sharh) |
+| 3 | bosib turganda | so'z oynasi: to'liq e'rob, kitob tartibida (6а), + hazf, sharh, boshqa fikr |
 
 ## 3. Ranglar (matnda doim)
 | Rang | Nima | O'zgaruvchi |
@@ -58,6 +58,18 @@ Quti — **qoidalar** uchun; matnda ko'rinib turgan narsa qutida takrorlanmaydi 
 - **«↑ / ↓ Ҳозирги жой»** tugmasi (`#fnow`): o'qilayotgan so'zlar ekranda yo'q bo'lsa (o'quvchi o'zi surib ketsa) pleyer tepasida chiqadi, bosilsa o'sha gapga qaytaradi (17.11.2026, foydalanuvchi).
 - «Эски» ko'rinishda eski quti o'zgarmagan.
 
+## 6а. So'z oynasi (bosib turganda, yangi ko'rinishda)
+17.11.2026, foydalanuvchi: «arabcha tarkiblardek to'liq, katta kitoblardagi ketma-ketlikda».
+- **Tartib — konspekt 2-bo'lim** (arab e'rob kitoblaridagi bilan bir xil): oldidagi harf(lar) → so'zning o'zi → zamir → birikma (mutaalliq / ma'tuf / hazf / xabari) → ↳ izohlar.
+- Har bo'lak sarlavhasi: arabchasi matndagi rangida + «ОЛДИДАГИ ҲАРФ / СЎЗНИНГ ЎЗИ / ЗАМИР» (bo'lak bitta bo'lsa sarlavha yo'q).
+- Har bo'lak — raqamlangan qadamlar, kitob atamalari bilan:
+  - mu'rab: ① Вазифаси ② Ҳукми («раф / насб / жар қилинган», ««بِ» сабаб жар қилинган») ③ Аломати;
+  - harf: ① Тури ② Бино ③ Ўрни («эъробдан унга ўрин йўқ»);
+  - mabniy ism / zamir: ① Тури ② Вазифаси ③ Бино ④ Ўрни (+ «Қайтади»).
+- Har qadam ostida o'sha qismning arabcha e'robi (kichik, kulrang) — tolib arabcha e'robga o'rganadi. «Арабча» tugmasi — butun arabcha e'rob jumlasi.
+- Tepada 2 yorliq: vazifa («Музоф бўлиб музофун илайҳ» — ikki vazifa bitta qilib) va hukm («● жар қилинган»).
+- «Эски» ko'rinishda — eski oyna (yaxlit matn).
+
 ## 7. Ko'rib chiqilib rad etilganlar
 Rangli fon (tutash / nuqtali / uzuq, ichma-ich, «ulab»); doimiy chiziq yoki yoy; doimiy strelka; holat rangi butun so'zga (raf/nasb/jar/jazm bo'yicha); matnda o'zbekcha yorliq; nosix ramkada yoki feruza; muzofun ilayh alohida rangda (apelsin); matnda faqat 5 rang (majrur va mansublar qora — 16.11 kech varianti).
 
@@ -72,6 +84,7 @@ Rangli fon (tutash / nuqtali / uzuq, ichma-ich, «ulab»); doimiy chiziq yoki yo
 - Quti (6-bo'lim): `QC={kalit:"karta"}` — umumiy qoida kartalari (`mx jar atf izf tsn mm`); `QN={kalit:"nom"}`; `QD[gap]={r:[[kalit,[[so'z raqamlari]…],qo'shimcha]], z:[[izoh,arabcha]], b:[[izoh,arabcha,klass]]}`. `nqb()` qutini yasaydi (`.fbx.nqb`; eskisi `.fbx.fbo`), chiplardagi so'z — `nqw()` (matndagi ranglar bilan, `.fw` emas; «Ҳаракат» o'chsa — harakatsiz, matn kabi). Bosilganda `nqOn()` — `ykRel` SVG'siga ramka (`ykI()` ochadi), `.foc`/`.fqfoc`. Oyna faqat eni o'zgarsa tozalanadi (telefonda manzil qatori yashirinsa — yo'q).
 - Mahzuf: `HZ={"gap-so'z":[so'z,"a"|"i"]}` — `a` so'zdan keyin, `i` so'z ichida oldi qo'shimchadan keyin; `.fhid[data-k]` (f1 dagi usul). Qoida qatorida guruh a'zosi satr bo'lsa (`"2-0"`) — o'sha `.fhid`.
 - Sarlavhada (`.hd`) eski «rangsiz — qora» qoidasi yangi rangni bosmaydi (`.fqk.fqn .hd .fw.n-cj`).
+- So'z oynasi (6а): `ZT[kalit]={c:[vazifa,"R|N|J|M",hukm], p:[{a:arabcha, r:"a|j|s|z", s:[[nomi,o'zbekcha,arabcha]…]}…], b:[[nomi,o'zbekcha,arabcha]], n:[izoh…]}` (r: a — oldidagi harf, j — oldidagi jar harfi, s — so'z, z — zamir; rang matndagi bo'lakdan olinadi); `ztH()` yasaydi. ZT — `S[..].w[..][2]/[3]` izohlarining bo'laklangani: izoh o'zgarsa ZT ham o'zgartiriladi.
 - **Hali kodda yo'q:** yashirin zamir yozuvi (2-darsda fe'l yo'q); uzun bo'lak qatordan qatorga o'tsa ramka faqat birinchi qatorda.
 
 ## 9. Namunalar
@@ -82,3 +95,4 @@ Rangli fon (tutash / nuqtali / uzuq, ichma-ich, «ulab»); doimiy chiziq yoki yo
 2. Rang ajratishi sust odamlar uchun tekshiruv; feruza/ko'k va to'q jigarrang/jigarrang farqi.
 3. Sinovdan keyin «Эски / Янги» tugmasini olib tashlab, bitta ko'rinish qoldirish.
 4. Yo'riqnomaga mavzu; fiqh 1 va arab tili darslari (foydalanuvchi ma'qullagach).
+5. So'z oynasi (6а) boshqa darslarga: arab tili darslarida `IRB` dan ZT ni avtomat yasash (qo'lda emas).

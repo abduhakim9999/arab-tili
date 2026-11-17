@@ -53,7 +53,7 @@ Qaror: 16–17.11.2026, foydalanuvchi bilan chatda, rasm-namunalar asosida. Hola
 Quti — **qoidalar** uchun; matnda ko'rinib turgan narsa qutida takrorlanmaydi (17.11.2026, foydalanuvchi).
 - Tepada jumla turi («исмийя»).
 - **«Қоидалар»:** matnda kelgan holatlarning faqat nomi («Мубтадо ва хабар», «Жар ҳарфи», «Атф», «Изофа», «Тасния», «Мафъулун мутлақ»…), har biri bitta qator, yonida tegishli so'zlar matndagi rangida. Marfu'/mansub yozilmaydi — rang, harakat va so'z oynasi ko'rsatadi (17.11.2026, foydalanuvchi). Bosilsa — matnda o'sha so'zlar ramkada (har bo'lak alohida, o'z rangida), gapning qolgani xiralashadi, qator tagida qisqa karta (umumiy qoida + shu gapga qo'shimcha). Yana bosilsa — yopiladi. Qoida ochiq turganda ustoz audiosi uni yopmaydi.
-- **«Ҳазф»:** tushib qolgan so'z uzuq chiziqli ramkada + bir qator izoh. **«⚖️ Бошқа фикр»:** boshqa o'qish, so'zi o'sha holat rangida.
+- **Mahzuf so'z — matnda, o'z o'rnida** (17.11.2026, foydalanuvchi): Таркибda uzuq chiziqli kulrang ramkada, kichik («وَ» li so'zda — «وَ» dan keyin). Qutida «Ҳазф» — oddiy qoida qatori: bosilsa ramkali so'z yonadi + karta. **«⚖️ Бошқа фикр»:** faqat qutida (asosiy tahlil emas — matnga qo'yilmaydi), so'zi o'sha holat rangida.
 - **Yo'q:** mubtado/xabar qatorlari, «мутааллиқ → …», «атф → …» qatorlari (ranglar va bosgandagi chiziq ko'rsatadi), ustoz gapini yozgan izoh (ustoz aytayotganda so'z o'zi yonadi), audio paytida pastdagi yozuv oynasi — bog'lanish ham, «↑ Юқоридаги гап» ham (ramka/chiziq ko'rsatadi, ekran o'zi siljiydi).
 - **«↑ / ↓ Ҳозирги жой»** tugmasi (`#fnow`): o'qilayotgan so'zlar ekranda yo'q bo'lsa (o'quvchi o'zi surib ketsa) pleyer tepasida chiqadi, bosilsa o'sha gapga qaytaradi (17.11.2026, foydalanuvchi).
 - «Эски» ko'rinishda eski quti o'zgarmagan.
@@ -70,7 +70,9 @@ Rangli fon (tutash / nuqtali / uzuq, ichma-ich, «ulab»); doimiy chiziq yoki yo
 - Belgilar qatori `.flgn` — faqat darsda uchragan ranglar; izoh `.flgc` («Белгилар»).
 - Ranglar kunduzgi va tungi rejimda (`--nj --nh --nd` tungi qiymatlari bor).
 - Quti (6-bo'lim): `QC={kalit:"karta"}` — umumiy qoida kartalari (`mx jar atf izf tsn mm`); `QN={kalit:"nom"}`; `QD[gap]={r:[[kalit,[[so'z raqamlari]…],qo'shimcha]], z:[[izoh,arabcha]], b:[[izoh,arabcha,klass]]}`. `nqb()` qutini yasaydi (`.fbx.nqb`; eskisi `.fbx.fbo`), chiplardagi so'z — `nqw()` (matndagi ranglar bilan, `.fw` emas; «Ҳаракат» o'chsa — harakatsiz, matn kabi). Bosilganda `nqOn()` — `ykRel` SVG'siga ramka (`ykI()` ochadi), `.foc`/`.fqfoc`. Oyna faqat eni o'zgarsa tozalanadi (telefonda manzil qatori yashirinsa — yo'q).
-- **Hali kodda yo'q:** yashirin zamir yozuvi, matn ichida hazf ko'rinishi (2-darsda fe'l yo'q); uzun bo'lak qatordan qatorga o'tsa ramka faqat birinchi qatorda.
+- Mahzuf: `HZ={"gap-so'z":[so'z,"a"|"i"]}` — `a` so'zdan keyin, `i` so'z ichida oldi qo'shimchadan keyin; `.fhid[data-k]` (f1 dagi usul). Qoida qatorida guruh a'zosi satr bo'lsa (`"2-0"`) — o'sha `.fhid`.
+- Sarlavhada (`.hd`) eski «rangsiz — qora» qoidasi yangi rangni bosmaydi (`.fqk.fqn .hd .fw.n-cj`).
+- **Hali kodda yo'q:** yashirin zamir yozuvi (2-darsda fe'l yo'q); uzun bo'lak qatordan qatorga o'tsa ramka faqat birinchi qatorda.
 
 ## 9. Namunalar
 `docs/tarkib-korinishi/oila-*.png` — joriy tartib, 52 misol, 7 guruh (gap asosi, nosixlar, mansublar, majrur va tobe'lar, fe'l nasbi va jazmi, ichki jumlalar, boshqalar). Qolgan rasmlar (`yakun-*`, `asosiy-ranglar`, `yechim-uch-qavat`, `oraga-soz-tushganda`) — rad etilgan oldingi variantlar.

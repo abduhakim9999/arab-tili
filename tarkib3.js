@@ -465,7 +465,8 @@
     return { left: l, right: r, top: t, bottom: b, width: r - l };
   }
   var TXC = '', MU = '';
-  function colOf(e) { if (e.classList && e.classList.contains('t3r')) return getComputedStyle(e).borderTopColor; var q = (e.querySelector && e.querySelector('.q3m')) || e, c = getComputedStyle(q).color; if (c == TXC) c = MU; return c }
+  function frC(e) { return getComputedStyle(e).borderTopColor }
+  function colOf(e) { var q = (e.querySelector && e.querySelector('.q3m')) || e, c = getComputedStyle(q).color; if (c == TXC) c = MU; return c }
   function rows(ws) {
     var L = [];
     ws.forEach(function (x) {
@@ -476,8 +477,8 @@
     return L;
   }
   /* bir necha qatorga bo'lingan bo'lak: bo'linish joyida ramka ochiq — keyingi qatorda davom etadi */
-  function pieces(L, c, col) {
-    if (L.length < 2) return L.length ? rect(L[0], c, col) : '';
+  function pieces(L, c, col, ins) {
+    if (L.length < 2) return L.length ? rect(L[0], c, col, false, ins) : '';
     var o = '', E = 12, R = 10;
     L.forEach(function (z, i) {
       var x0 = z.l - c.left - 3, x1 = z.r - c.left + 3, y0 = z.t - c.top + 3, y1 = z.b - c.top - 3, oL = i < L.length - 1, oR = i > 0, d;
@@ -501,7 +502,8 @@
     }
     return d;
   }
-  function rect(z, c, col, dash) { return '<rect x="' + (z.l - c.left - 3) + '" y="' + (z.t - c.top + 3) + '" width="' + (z.r - z.l + 6) + '" height="' + (z.b - z.t - 6) + '" rx="10" fill="none" stroke="' + col + '" stroke-width="2"' + (dash ? ' stroke-dasharray="6 4"' : '') + '/>' }
+  /* ins — doimiy ramka ichidagi so'zga ichkariroq (kichikroq) ramka, ikki chiziq ustma-ust tushmasin */
+  function rect(z, c, col, dash, ins) { var o = ins ? -2 : 3, v = ins ? 6 : 3; return '<rect x="' + (z.l - c.left - o) + '" y="' + (z.t - c.top + v) + '" width="' + (z.r - z.l + 2 * o) + '" height="' + (z.b - z.t - 2 * v) + '" rx="' + (ins ? 8 : 10) + '" fill="none" stroke="' + col + '" stroke-width="2"' + (dash ? ' stroke-dasharray="6 4"' : '') + '/>' }
   function show(rel, again) {
     clr(again); if (!tartib() || !rel) return;
     ykI();
@@ -516,18 +518,20 @@
     /* bo'lak bir necha qatorda bo'lsa — chiziq va yorliq bog'langan so'zga eng yaqin qatordagi bo'lagiga */
     var t0 = (rel.tg || []).filter(function (te) { return te && te.closest('.ln') === ln })[0] || (rel.tg || []).filter(Boolean)[0], pk = LL[LL.length - 1];
     if (t0 && LL.length > 1) { var q0 = ykR(t0), m0 = (q0.top + q0.bottom) / 2; pk = LL.reduce(function (p, z) { return Math.abs((z.t + z.b) / 2 - m0) < Math.abs((p.t + p.b) / 2 - m0) ? z : p }) }
-    var sf = src.every(function (x) { return x.classList.contains('t3r') || x.classList.contains('t3h') }) ? 0 : 3;
-    var fx = (pk.l + pk.r) / 2 - c.left, fb = pk.b - c.top - sf, ft = pk.t - c.top + sf, ly = fb + 6, h = '';
     var inFr = src.every(function (x) { return x.classList.contains('t3r') }) && src.length > 1 && rel.grp;
     var RS = src.filter(function (x) { return !x.classList.contains('t3h') }); /* mahzufning o'z uzuq ramkasi bor */
-    if (!inFr && RS.length) h += pieces(rows(RS), c, fc);
+    var ins = !inFr && RS.length > 0 && RS.every(function (x) { return x.classList.contains('t3r') });
+    if (inFr) fc = frC(src[0]); /* butun bo'lak doimiy ramkada — uning rangi */
+    var sf = inFr || !RS.length ? 0 : ins ? 6 : 3, so = inFr || !RS.length ? 0 : ins ? -2 : 3;
+    var fx = (pk.l + pk.r) / 2 - c.left, fb = pk.b - c.top - sf, ft = pk.t - c.top + sf, ly = fb + 6, h = '';
+    if (!inFr && RS.length) h += pieces(rows(RS), c, fc, ins);
     var XT = null, XB = null, LS = [];
     (rel.tg || []).forEach(function (te, ti) {
       if (!te) return; te.classList.add('t3f'); YF.push(te);
-      var cc = colOf(te), inS = src.some(function (x) { return x !== te && x.contains && x.contains(te) });
+      var tr = te.classList.contains('t3r'), cc = tr && rel.tl ? frC(te) : colOf(te), inS = src.some(function (x) { return x !== te && x.contains && x.contains(te) });
       if (te.closest('.ln') === ln) {
         var tq = ykR(te);
-        if (!inS && !te.classList.contains('t3r') && !te.classList.contains('t3h')) h += rect({ l: tq.left, r: tq.right, t: tq.top, b: tq.bottom }, c, cc);
+        if (!inS && !te.classList.contains('t3h') && !(tr && rel.tl)) h += rect({ l: tq.left, r: tq.right, t: tq.top, b: tq.bottom }, c, cc, false, tr);
         if (rel.tl && rel.tl[ti]) LS.push([rel.tl[ti], (tq.left + tq.right) / 2 - c.left, tq.bottom - c.top + 4, cc]);
         if (inS) return;
       }
@@ -549,7 +553,7 @@
         return;
       }
       /* gap ichidagi nishon: sim bo'lak ramkasining o'rtasidan chiqib, nishon ramkasining chetiga ulanadi (so'z ichiga kirmaydi) — boshqa gapga simdek, yumaloq burchakli (18.11.2026, foydalanuvchi) */
-      var b = ykR(te), tf = te.classList.contains('t3r') || te.classList.contains('t3h') ? 0 : 3, tx2 = (b.left + b.right) / 2 - c.left,
+      var b = ykR(te), tf = te.classList.contains('t3h') || (tr && rel.tl) ? 0 : tr ? 6 : 3, to = te.classList.contains('t3h') || (tr && rel.tl) ? 0 : tr ? -2 : 3, tx2 = (b.left + b.right) / 2 - c.left,
         tb = b.bottom - c.top - tf, tt = b.top - c.top + tf, id = 't3g' + (YN++), P, y0, y9;
       var same = Math.abs((pk.t + pk.b) - (b.top + b.bottom)) < 40;
       if (same) { var yb = Math.max(fb, tb) + 9; P = [[fx, fb], [fx, yb], [tx2, yb], [tx2, tb]]; y0 = fb; y9 = tb; ly = Math.max(ly, yb + 4) }

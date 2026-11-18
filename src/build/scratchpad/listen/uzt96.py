@@ -4,7 +4,7 @@ import os, sys, json, re, subprocess
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 from build_t import *
 from lat import lat
-N = int(sys.argv[1]); R = '/home/user/arab-tili'; S = os.path.dirname(HERE)
+N = int(sys.argv[1]); R = os.environ.get('R', '/home/user/arab-tili'); S = os.path.dirname(HERE)
 J = json.load(open(HERE + '/l%d.json' % N))
 LF = [f for f in os.listdir(R) if re.match(r'l%d-[0-9a-f]{8}\.mp3$' % N, f)][0]
 UZ = {m[0]: (m[2], m[3]) for m in J['m'] if m[1] == 'uz'}
@@ -33,7 +33,8 @@ e = subprocess.run(['ffmpeg', '-hide_banner', '-i', AUD, '-af', 'silencedetect=n
 SIL = list(zip([float(x) for x in re.findall(r'silence_start: (-?[\d.]+)', e)], [float(x) for x in re.findall(r'silence_end: ([\d.]+)', e)]))
 CUT = line_bounds(seg, SIL)
 AR = {m[0]: m[2] for m in J['m'] if m[1] == 'ar'}
-o = {str(li): round(AR[li] - CUT[li][0], 3) for li in AR}
+T0 = min((x[2] for x in TM if x[0] == 0), default=None)   # 10-dars: mavzu (0-qator) sahifa audiosida ham bor
+o = {str(li): round(AR[li] - (CUT[li][0] if li in CUT else T0), 3) for li in AR}
 H = [m for m in J['m'] if m[1] == 'h']
 CF = json.load(open(S + '/hdr/hcfg.json')).get(str(N)); HN0 = 3.2 + 0.3  # mk96: hb(3.2) + 0.3 s sukut
 h = [[H[1][2], H[1][3]], [H[2][2], H[2][3]]] if len(H) >= 3 else [[H[1][2], H[1][3]]] if len(H) == 2 else [[HN0, H[0][3]]]  # 96: bosh qism bitta bo'lak — dars qatori = raqam (ar) + o'zbekchasi

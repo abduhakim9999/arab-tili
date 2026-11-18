@@ -243,7 +243,7 @@ def ru_data(ready):
         for r in L:
             v = voc.get(str(r.get('kn'))) if r['d'] == n else None
             if v:
-                W[r['id']] = [v.get('m') or [], [x[0] for x in v.get('x', [])]]
+                W[r['id']] = [v.get('m') or [], [x[0] for x in v.get('x', [])]] + ([v['mz']] if v.get('mz') else [])   # 3-chi: fe'l testdagi o'tgan zamon ma'nosi (mz)
         for q in M:
             i = int(str(q.get('k', '-')).split('-')[0] or -1) if q['d'] == n else -1
             if 0 <= i < len(tr):

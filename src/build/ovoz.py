@@ -124,6 +124,8 @@ def load(nn):
     for f in ('../d93/h93.py',):
         if nn >= 90 and os.path.exists(f):
             exec(open(f, encoding='utf-8').read(), g)
+    if nn < 70 and os.path.exists('../d08/h89.py'):  # 8–10-darslar yordamchilari (hiwar, muzil, …)
+        exec(open('../d08/h89.py', encoding='utf-8').read(), g)
     exec(open([f for f in os.listdir('.') if f.startswith('data')][0], encoding='utf-8').read(), g)
     vf = [f for f in os.listdir('.') if f.startswith('voc') and f.endswith('.py')]
     if vf:

@@ -431,7 +431,7 @@
         var r1 = RELS[mb.k];
         if (r1 && r1.tl && r1.src[0] === mb.e) { r1.tg = r1.tg.concat([ws[0].e]); r1.tl = r1.tl.map(function (t) { return t == 'хабар' ? '1-хабар' : t }).concat(['2-хабар']) }
         else RELS[mb.k] = { src: [mb.e], tg: [ws[0].e], tl: ['2-хабар'], tgf: true, lab: 'мубтадо' };
-        RELS[ws[0].k] = { src: els(ws), tg: [mb.e], tl: ['мубтадо'], lab: '2-хабар', grp: true };
+        RELS[ws[0].k] = { src: els(ws), tg: [mb.e], tl: ['мубтадо'], lab: '2-хабар', grp: true, tgf: true };
       });
       /* qolganlari — o'z ramkasi va nomi */
       row.forEach(function (w) {
@@ -488,6 +488,19 @@
     });
     return o;
   }
+  /* nuqtalar orqali sim, burchaklari yumaloq */
+  function rpath(P, R) {
+    P = P.filter(function (p, k) { return k == 0 || Math.abs(p[0] - P[k - 1][0]) > .5 || Math.abs(p[1] - P[k - 1][1]) > .5 });
+    var d = 'M' + P[0][0] + ' ' + P[0][1];
+    for (var k = 1; k < P.length; k++) {
+      var p = P[k], q = P[k - 1], n = P[k + 1];
+      if (!n) { d += ' L' + p[0] + ' ' + p[1]; break }
+      var l1 = Math.hypot(p[0] - q[0], p[1] - q[1]), l2 = Math.hypot(n[0] - p[0], n[1] - p[1]), r = Math.min(R, l1 / 2, l2 / 2);
+      var a = [p[0] - (p[0] - q[0]) / l1 * r, p[1] - (p[1] - q[1]) / l1 * r], b = [p[0] + (n[0] - p[0]) / l2 * r, p[1] + (n[1] - p[1]) / l2 * r];
+      d += ' L' + a[0] + ' ' + a[1] + ' Q' + p[0] + ' ' + p[1] + ' ' + b[0] + ' ' + b[1];
+    }
+    return d;
+  }
   function rect(z, c, col, dash) { return '<rect x="' + (z.l - c.left - 3) + '" y="' + (z.t - c.top + 3) + '" width="' + (z.r - z.l + 6) + '" height="' + (z.b - z.t - 6) + '" rx="10" fill="none" stroke="' + col + '" stroke-width="2"' + (dash ? ' stroke-dasharray="6 4"' : '') + '/>' }
   function show(rel, again) {
     clr(again); if (!tartib() || !rel) return;
@@ -501,7 +514,7 @@
     src.forEach(function (x) { var y = x.querySelector && x.querySelector('.t3y'); if (!y || !y.offsetParent) return; var q = y.getBoundingClientRect(); LL.forEach(function (z) { if (q.left < z.r && q.right > z.l && q.top < z.b + 30) z.b = Math.max(z.b, q.bottom + 4) }) });
     var a = { left: Math.min.apply(null, LL.map(function (z) { return z.l })), right: Math.max.apply(null, LL.map(function (z) { return z.r })), top: Math.min.apply(null, LL.map(function (z) { return z.t })), bottom: Math.max.apply(null, LL.map(function (z) { return z.b })) };
     /* bo'lak bir necha qatorda bo'lsa — chiziq va yorliq bog'langan so'zga eng yaqin qatordagi bo'lagiga */
-    var t0 = (rel.tg || []).filter(function (te) { return te && te.closest('.ln') === ln })[0], pk = LL[LL.length - 1];
+    var t0 = (rel.tg || []).filter(function (te) { return te && te.closest('.ln') === ln })[0] || (rel.tg || []).filter(Boolean)[0], pk = LL[LL.length - 1];
     if (t0 && LL.length > 1) { var q0 = ykR(t0), m0 = (q0.top + q0.bottom) / 2; pk = LL.reduce(function (p, z) { return Math.abs((z.t + z.b) / 2 - m0) < Math.abs((p.t + p.b) / 2 - m0) ? z : p }) }
     var fx = (pk.l + pk.r) / 2 - c.left, fb = pk.b - c.top - 3, ft = pk.t - c.top + 3, ly = fb + 6, h = '';
     var inFr = src.every(function (x) { return x.classList.contains('t3r') }) && src.length > 1 && rel.grp;
@@ -518,15 +531,19 @@
         if (inS) return;
       }
       if (te.closest('.ln') !== ln) {
-        var bb = ykR(te);
-        if (!te.classList.contains('t3r')) h += rect({ l: bb.left, r: bb.right, t: bb.top, b: bb.bottom }, c, cc, true);
-        var up = bb.top < a.top, S = up ? -1 : 1, r = 10, sx = a.right - c.left + 4, sy = (a.top + a.bottom) / 2 - c.top, xr = Math.min(Math.max(a.right, bb.right) - c.left + 14, c.width - 6),
-          tx1 = (bb.left + bb.right) / 2 - c.left, ey = up ? bb.bottom - c.top + 12 : bb.top - c.top - 12, end = up ? bb.bottom - c.top + 1 : bb.top - c.top - 1, gid = 't3m' + (YN++);
-        h += '<defs><linearGradient id="' + gid + 'g" gradientUnits="userSpaceOnUse" x1="0" y1="' + sy + '" x2="0" y2="' + ey + '"><stop offset="0" stop-color="' + fc + '"/><stop offset=".45" stop-color="' + fc + '"/><stop offset=".55" stop-color="' + cc + '"/><stop offset="1" stop-color="' + cc + '"/></linearGradient>' +
-          '<marker id="' + gid + 'a" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto"><path d="M1 1 L9 5 L1 9 z" fill="' + cc + '"/></marker></defs>' +
-          '<path d="M' + sx + ' ' + sy + ' H' + (xr - r) + ' Q' + xr + ' ' + sy + ' ' + xr + ' ' + (sy + S * r) + ' V' + (ey - S * r) + ' Q' + xr + ' ' + ey + ' ' + (xr - r) + ' ' + ey + ' H' + (tx1 + r) + ' Q' + tx1 + ' ' + ey + ' ' + tx1 + ' ' + (ey + S * r) + ' V' + end + '" fill="none" stroke="url(#' + gid + 'g)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#' + gid + 'a)"/>';
+        /* boshqa gapdagi nishon: sim bo'lakning o'sha chiqish nuqtasidan (ramka osti / usti o'rtasi) chiqib, o'ng chetdan yuradi va nishonga ulanadi — strelkasiz (18.11.2026, foydalanuvchi) */
+        var bb = ykR(te), up = bb.top < a.top;
+        if (!te.classList.contains('t3r')) h += rect({ l: bb.left, r: bb.right, t: bb.top, b: bb.bottom }, c, cc, !rel.tgf);
+        var xr = Math.min(Math.max(a.right, bb.right) - c.left + 14, c.width - 6), tx1 = (bb.left + bb.right) / 2 - c.left,
+          y0 = up ? ft : fb, y1 = up ? ft - 10 : fb + 10, ey = up ? bb.bottom - c.top + 12 : bb.top - c.top - 12, end = up ? bb.bottom - c.top + 1 : bb.top - c.top - 1, gid = 't3m' + (YN++);
+        /* nishon qator boshida (o'ng chetda) bo'lsa — sim uning ramkasiga yondan ulanadi (18.11.2026, foydalanuvchi: «o'sha ramkaga ulanib ketsin») */
+        var wsr = (te.closest('.ws') || te).getBoundingClientRect(), side = Math.abs(bb.right - wsr.right) < 14,
+          my = (bb.top + bb.bottom) / 2 - c.top, sx2 = bb.right - c.left + (te.classList.contains('t3r') ? 1 : 4);
+        h += '<defs><linearGradient id="' + gid + '" gradientUnits="userSpaceOnUse" x1="0" y1="' + y0 + '" x2="0" y2="' + end + '"><stop offset="0" stop-color="' + fc + '"/><stop offset=".45" stop-color="' + fc + '"/><stop offset=".55" stop-color="' + cc + '"/><stop offset="1" stop-color="' + cc + '"/></linearGradient></defs>' +
+          '<path d="' + rpath(side ? [[fx, y0], [fx, y1], [xr, y1], [xr, my], [sx2, my]] : [[fx, y0], [fx, y1], [xr, y1], [xr, ey], [tx1, ey], [tx1, end]], 10) + '" fill="none" stroke="url(#' + gid + ')" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>' +
+          '<circle cx="' + fx + '" cy="' + y0 + '" r="3.3" fill="' + fc + '"/>';
         var xw = wt(te).replace(/[:،.؟!\s–]+$/, '');
-        if (rel.tl && rel.tl[ti]) LS.push([rel.tl[ti] + ' ' + (up ? '↑' : '↓'), fx, ly, cc, te, xw]); /* boshqa gapdagi nishon — bosiladigan yorliq */
+        if (rel.tl && rel.tl[ti]) LS.push(side ? [rel.tl[ti], bb.right - c.left - 16, up ? bb.bottom - c.top + 2 : bb.top - c.top - 24, cc, null, '', 2] : [rel.tl[ti], tx1, ey - 11, cc, null, '', 2]); /* nomi — sim ulangan joy yonida */
         else if (!XT) XT = { e: te, up: up, x: xw };
         return;
       }
@@ -548,8 +565,9 @@
     var placed = YC.hidden ? [] : [YC.getBoundingClientRect()];
     LS.forEach(function (sp) {
       var d = document.createElement('div'); d.className = 't3c'; d.style.background = sp[3]; tx.appendChild(d); YX.push(d);
+      if (sp[6]) d.t3x = 1;
       if (sp[4]) { d.innerHTML = esc(sp[0]) + ' <b class="ar">' + esc(sp[5]) + '</b>'; d.t3 = sp[4]; d.style.pointerEvents = 'auto'; d.style.cursor = 'pointer' } else d.textContent = sp[0];
-      var w = d.offsetWidth / 2, x = Math.min(Math.max(sp[1], w + 4), c.width - w - 4), y = Math.max(sp[2], ly);
+      var w = d.offsetWidth / 2, x = Math.min(Math.max(sp[6] == 2 ? sp[1] - w - 8 : sp[1], w + 4), c.width - w - 4), y = sp[6] ? sp[2] : Math.max(sp[2], ly);
       d.style.left = x + 'px'; d.style.top = y + 'px';
       for (var t = 0; t < 6; t++) {
         var r = d.getBoundingClientRect(), hit = placed.filter(function (p) { return r.left < p.right + 4 && p.left < r.right + 4 && r.top < p.bottom && p.top < r.bottom })[0];
@@ -563,7 +581,7 @@
     /* yorliq arabcha qatordan pastga — tarjima ustiga — tushsa: qator ostiga vaqtincha joy ochib, qayta chiziladi */
     if (!again) {
       var r1 = src[0].closest && src[0].closest('.r1'), lb = 0;
-      [YC].concat(YX).forEach(function (d) { if (d && !d.hidden) lb = Math.max(lb, d.getBoundingClientRect().bottom) });
+      [YC].concat(YX).forEach(function (d) { if (d && !d.hidden && !d.t3x) lb = Math.max(lb, d.getBoundingClientRect().bottom) });
       if (r1 && lb) { var ov = lb - r1.getBoundingClientRect().bottom + 4; if (ov > 0) { r1.style.paddingBottom = Math.ceil(ov) + 'px'; PADS.push(r1); show(rel, true) } }
     }
   }

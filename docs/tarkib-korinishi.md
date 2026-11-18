@@ -1,6 +1,6 @@
 # Tarkib ko'rinishi — yangi tizim (sinov)
 
-Qaror: 16–17.11.2026, foydalanuvchi bilan chatda, rasm-namunalar asosida. Holat: **fiqh 2-darsda sinov** (`tayyor-fiqh-2`), Таркиб rejimida «Эски / Янги»; boshqa darslarda eski ko'rinish. Bu fayl — yagona manba (grammatika qoidalari — konspektda, bu yerda faqat *qanday ko'rsatilishi*).
+Qaror: 16–17.11.2026, foydalanuvchi bilan chatda, rasm-namunalar asosida. Holat: **fiqh 1 va 2-darsda sinov** (2-dars — 16.11, 1-dars — 18.11.2026), Таркиб rejimida «Эски / Янги»; boshqa darslarda eski ko'rinish. Bu fayl — yagona manba (grammatika qoidalari — konspektda, bu yerda faqat *qanday ko'rsatilishi*).
 
 ## 1. Tamoyil
 - **Rang — so'zning vazifasi yoki holati oilasi; to'q rang — uni o'zgartirgan harf; ramka — asosiy bo'lak o'rnida kelgan bo'lak.**
@@ -46,9 +46,10 @@ Qaror: 16–17.11.2026, foydalanuvchi bilan chatda, rasm-namunalar asosida. Hola
 - Bosh so'zdan chiziq: bosh so'z rangida boshlanadi, yarmidan ramka rangiga o'tadi; bosh so'zda nuqta. Ostida nomi (мутааллиқ, маътуф, музофун илайҳ…), ramka rangida.
 - Bog'lanish boshqa gapda (tarkib qutisi orqasida) bo'lsa — chiziq yo'q, faqat ramka va nomi.
 - **Yashirin foil:** fe'l tagida kichik arabcha zamir (هُوَ، أَنْتَ، نَحْنُ، أَنَا), binafsha; kananing yashirin ismi — ko'k.
-- **Hazf:** tushib qolgan so'z xira ko'rinadi (taklif, kodda yo'q).
+- **Hazf:** tushib qolgan so'z matnda o'z o'rnida, kichik va xira (6-bo'lim).
 - Bog'lanishlar ustoz audiosidagi tushuntirishdan olinadi (`TL` → `REL`).
 - **Bog'langan so'z boshqa gapda bo'lsa** (18.11.2026, foydalanuvchi): o'sha so'z uzuq ramkada (o'z rangida); strelka bosilgan so'z ramkasidan chiqib matnning o'ng chetidan yuradi va bog'langan so'zning tagiga (pastda bo'lsa — ustiga) o'q bilan qadaladi, rangi yarmi o'zi, yarmi bog'langan so'z; yozuvda yo'nalish va so'z («маътуф ↑ وَمَسْحُ»), yozuv bosilsa — o'sha so'zga siljiydi.
+- **Mubtado–xabar** (18.11.2026, foydalanuvchi: «bilinib turishi kerak»): bosilganda mubtado ostida «мубтадо», xabar ostida «хабар» (`YL.x`, ikkinchi yorliq `YC2`).
 
 ## 6. Gap ostidagi quti (yangi ko'rinishda)
 Quti — **qoidalar** uchun; matnda ko'rinib turgan narsa qutida takrorlanmaydi (17.11.2026, foydalanuvchi).
@@ -76,11 +77,12 @@ Quti — **qoidalar** uchun; matnda ko'rinib turgan narsa qutida takrorlanmaydi 
 18.11.2026, foydalanuvchi: «mubtado bilan xabar birga — ular raf'niki», «tushunarli joylashtirilsin».
 - **Belgilar — holat bo'yicha guruh** (sticky, matn tepasida): РАФ (Мубтадо, Хабар, Фоил) · НАСБ (Мафъулун биҳ, Мансуб) · ЖАР (Мажрур, Жар ҳарфи) · ФЕЪЛ (Феъл, Насб/жазм ҳарфи). Faqat darsda bor ranglar; bo'sh guruh yashirin; har guruh — alohida katak, nomi ustida.
 - **Rang bosilsa:** matnda shu rangdagi qism yonadi (so'zning faqat o'sha bo'lagi, masalan zamir), qolgani xiralashadi; tagida bir qator izoh (vazifa + hukm + alomat). Yana bosilsa yoki boshqa joy bosilsa — o'chadi.
-- **ⓘ** — pastdan varaq: butun tizim guruhlar bilan (alomati bilan: замма / фатҳа / касра), har rangda shu darsdan misol; darsda yo'qlari xira, «бу дарсда йўқ»; Рамка, Узуқ чизиқ; ishlatish (bir bosish, bosib turish, qoida qatori, Ҳозирги жой); «▶ Кўрсатмани қайта кўриш».
-- **Ko'rsatma** — Таркиб yangi ko'rinishda birinchi ochilganda bir marta (`localStorage` `fiqh-tur`), 5 qadam, haqiqiy joy yoritiladi, o'quvchi o'zi bajaradi: 1) so'zni bir bosish (darsdagi birinchi gap ichidagi mutaalliq so'z) → 2) natija + bosib turish → 3) so'z oynasi («Кейинги») → 4) gap ostidagi qoida → 5) belgilar («Тушунарли»). Har qadamda «Ўтказиб юбориш».
+- **ⓘ** — pastdan varaq: butun tizim guruhlar bilan (alomati bilan: замма / фатҳа / касра), har rangda shu darsdan misol; darsda yo'qlari xira, «бу дарсда йўқ»; Рамка, Узуқ чизиқ; ishlatish (bir bosish, bosib turish, qoida qatori, Ҳозирги жой).
+- **Ko'rsatma** (5 qadamli tur) — **olib tashlandi** (18.11.2026, foydalanuvchi: o'rniga keyinchalik video ko'rsatma, qulayroq). O'zi chiqmaydi, ⓘ da «▶ Кўрсатмани қайта кўриш» yo'q; `tuGo()` kodi f2 da qoldi, chaqirilmaydi.
 - **Yig'ish** (18.11.2026, foydalanuvchi): ⓘ ostidagi ▴ — belgilar ingichka qatorga yig'iladi (guruh nomlari + rang nuqtalari, «Белгилар ▾»), matnga ko'proq joy; qator bosilsa qayta ochiladi; tanlov eslab qolinadi (`fiqh-lgz`); boshida ochiq.
 - «Рамка» izohi: «бир неча сўз бирга битта вазифада: масалан, жар ва мажрур — хабар».
 - **Audio belgilari** (fon, yashil ramka, «Ҳозирги жой») yangi ko'rinishda faqat audio ijro bo'layotganda (`tx.apl`); to'xtasa — o'chadi, play bosilsa o'sha joydan davom etadi.
+- **Bismillah** — matn tepasida: «Эски / Янги» va belgilardan keyin, sarlavhadan oldin (18.11.2026, foydalanuvchi).
 - «Эски» ko'rinishda — eski belgilar (`.flgx`) o'zgarmagan.
 - Kod: `.flgn` ichida `.lg-g` guruhlar, `lgOn/lgOff`, `lgSheet()`, `tuGo()/tuEnd()` (f2).
 
@@ -99,7 +101,9 @@ Rangli fon (tutash / nuqtali / uzuq, ichma-ich, «ulab»); doimiy chiziq yoki yo
 - Mahzuf: `HZ={"gap-so'z":[so'z,"a"|"i"]}` — `a` so'zdan keyin, `i` so'z ichida oldi qo'shimchadan keyin; `.fhid[data-k]` (f1 dagi usul). Qoida qatorida guruh a'zosi satr bo'lsa (`"2-0"`) — o'sha `.fhid`.
 - Sarlavhada (`.hd`) eski «rangsiz — qora» qoidasi yangi rangni bosmaydi (`.fqk.fqn .hd .fw.n-cj`).
 - So'z oynasi (6а): `ZT[kalit]={c:[vazifa,"R|N|J|M",hukm], p:[{a:arabcha, r:"a|j|s|z", s:[[nomi,o'zbekcha,arabcha]…]}…], b:[[nomi,o'zbekcha,arabcha]], n:[izoh…]}` (r: a — oldidagi harf, j — oldidagi jar harfi, s — so'z, z — zamir; rang matndagi bo'lakdan olinadi); `ztH()` yasaydi. ZT — `S[..].w[..][2]/[3]` izohlarining bo'laklangani: izoh o'zgarsa ZT ham o'zgartiriladi.
-- **Hali kodda yo'q:** yashirin zamir yozuvi (2-darsda fe'l yo'q); uzun bo'lak qatordan qatorga o'tsa ramka faqat birinchi qatorda.
+- **Yashirin foil (18.11.2026, f1):** `YZ={"gap-so'z":"هُوَ"}` — fe'l `.fw` ichida `.fyz.n-co` (binafsha, kichik, fe'l tagida, `position:absolute` — qatorlar oralig'i o'zgarmaydi); faqat so'z `.foc` bo'lganda, ustoz aytayotganda (`TL` kaliti `"4-5h"`, `.apl .fyz.now`) va belgilarda «Фоил» bosilganda ko'rinadi. `W1("…h")` yangi ko'rinishda `.fyz` ni qaytaradi — `ykRel` uni manba qiladi (`r2` «қайтади»: ramka zamir atrofida, chiziq mavsuldan). «Эски» ko'rinishda — so'zdan keyin `.fhid.fho`. So'z oynasida bo'lak `r:"h"`.
+- **GR tur `v` (f1):** mavsul+sila yoki bayon bo'lagi — `z` («музофун илайҳ») va `b` («баён») bog'lanishida bosilgan so'zdan butun bo'lak olinadi (`.fg.gv`, ichma-ich bo'lsa eng ichkisi). Eski izofa yoyi (`IZ`) bilan kesishmasin.
+- Uzun bo'lak qatordan qatorga o'tsa — har qatorda alohida ramka (18.11.2026, f1).
 
 ## 9. Namunalar
 `docs/tarkib-korinishi/oila-*.png` — joriy tartib, 52 misol, 7 guruh (gap asosi, nosixlar, mansublar, majrur va tobe'lar, fe'l nasbi va jazmi, ichki jumlalar, boshqalar). Qolgan rasmlar (`yakun-*`, `asosiy-ranglar`, `yechim-uch-qavat`, `oraga-soz-tushganda`) — rad etilgan oldingi variantlar.
@@ -108,5 +112,10 @@ Rangli fon (tutash / nuqtali / uzuq, ichma-ich, «ulab»); doimiy chiziq yoki yo
 1. Fe'lli matnda (arab tili darsi) sinash: yashirin zamir, fe'l harflari, ramkalar.
 2. Rang ajratishi sust odamlar uchun tekshiruv; feruza/ko'k va to'q jigarrang/jigarrang farqi.
 3. Sinovdan keyin «Эски / Янги» tugmasini olib tashlab, bitta ko'rinish qoldirish.
-4. Fiqh 1 va arab tili darslariga o'tkazish (foydalanuvchi ma'qullagach); ko'rsatma va belgilar ham.
+4. **Ma'qullandi (18.11.2026, foydalanuvchi):** avval fiqh (keyingi darslar; fiqh 1 — qilindi, 18.11), keyin «Нур ут-толиб» darslari — shu sinovdagi hamma qoida va yangilik: ranglar va ramka (3–5), «Қоидалар» qutisi, mahzuf, «Ҳозирги жой» (6), so'z oynasi (6а), belgilar + ⓘ + yig'ish (6б); ko'rsatma — keyin video bilan, strelka va «мубтадо/хабар» (5).
 5. So'z oynasi (6а) boshqa darslarga: arab tili darslarida `IRB` dan ZT ni avtomat yasash (qo'lda emas).
+
+## 11. Sinov tarixi (fiqh 2)
+- 16.11: 7 rang → matnda 5 asosiy rang, qolgani bosganda (2–5).
+- 17.11: holat oilasi ranglari (feruza majrur, och yashil mansub), ramka — asosiy bo'lak o'rni; «Қоидалар» qutisi, mahzuf o'z o'rnida, «Ҳозирги жой» (6); so'z oynasi kitob tartibida, izohda faqat qoidalar (6а).
+- 18.11: belgilar holat bo'yicha, ⓘ, 5 qadamli ko'rsatma (o'sha kuni olib tashlandi — keyin video), yig'ish, audio belgilari faqat ijroda (6б); boshqa gapga strelka, «мубтадо/хабар» (5); Bismillah tepada (6б). Saytga chiqdi — v304.

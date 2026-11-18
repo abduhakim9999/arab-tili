@@ -1,4 +1,5 @@
 tayyor-97-dars eaf4ad0c0c8e64e1af57b261f5c26495ea4d4ea8
+tayyor-fiqh-1 99bf54368875c441d16295968e4aad9c41541787
 tayyor-fiqh-2 3194f435ae9e12841abb3d97712b0709a3817f50
 tayyor-hujjat fc72900906e773e4c92f74752e0fffbc12ddabe6
 tayyor-ish-belgi 071ae477c852fcdc2bad55f0c71c323abf79e4b1
@@ -12,4 +13,5 @@ tayyor-reyting 82f5e69ae0d73a9158429b1735432f2b08209f42
 tayyor-ruscha 4db6c71635efebf009c7abf10f31cc0d6e72b33c
 tayyor-saqlash 73d9bdfae2c7efb424dbf49b06140fade959c8e3
 tayyor-saralashsiz c5e943f84ad52f45efa5621b87a23b046658f3eb
+tayyor-tarkib-hujjat c1cb0b30babca9845a3ec64a60f064cb2d5db8f0
 tayyor-yoriqnoma d36923579e00c385741f200722996be6ae2d491d

@@ -36,7 +36,8 @@
     '#tx.tartib.nv .ws span.t3r.t3s{border-right:1.8px solid var(--rc);border-top-right-radius:10px;border-bottom-right-radius:10px}' +
     '#tx.tartib.nv .ws span.t3r.t3e{border-left:1.8px solid var(--rc);border-top-left-radius:10px;border-bottom-left-radius:10px}' +
     '#tx.tartib.nv .ws span.t3r:not(.t3e){margin-left:-4px;padding-left:6px}' +
-    '.t3rc-cx{--rc:var(--cx)}.t3rc-cb{--rc:var(--nb)}.t3rc-co{--rc:var(--co)}.t3rc-cm{--rc:var(--cm)}' +
+    /* ramka doim ko'rinmaydi — faqat bosilganda (t3fo); joyi saqlanadi, matn siljimaydi (18.11.2026, foydalanuvchi: 3-yo'l) */
+    '.t3r{--rc:transparent}.t3fo.t3rc-cx{--rc:var(--cx)}.t3fo.t3rc-cb{--rc:var(--nb)}.t3fo.t3rc-co{--rc:var(--co)}.t3fo.t3rc-cm{--rc:var(--cm)}' +
     /* mahzuf so'z — o'z o'rnida, kichik va xira (faqat Таркибда) */
     '#tx .ws span.t3h{display:none}' +
     '#tx.tartib.nv .ws span.t3h{display:inline-block;align-self:center;font-size:calc(var(--fs,22px)*.62);line-height:1.3;padding:0 5px;border:1px dashed var(--mu);border-radius:8px;color:var(--mu);opacity:.6;cursor:pointer}' +
@@ -477,8 +478,13 @@
   function clr(keep) {
     if (!keep) unpad();
     if (YS) YS.innerHTML = ''; if (YC) YC.hidden = true; YX.forEach(function (d) { d.remove() }); YX = [];
-    YF.forEach(function (e) { e.classList.remove('t3f') }); YF = [];
+    YF.forEach(function (e) { e.classList.remove('t3f', 't3fo') }); YF = [];
     [].forEach.call(tx.querySelectorAll('.t3dim,.nq-r.on'), function (e) { e.classList.remove('t3dim', 'on') });
+  }
+  /* tanlovga tegishli doimiy ramkalar — ko'rinadi va butunicha yonadi */
+  function frOn(els) {
+    var seen = [];
+    els.forEach(function (e) { var f = e && e.t3fr; if (!f || seen.indexOf(f) >= 0) return; seen.push(f); frEls(f).forEach(function (x) { x.classList.add('t3fo', 't3f'); YF.push(x) }) });
   }
   function ykR(el) {
     var R = el.getClientRects(), f = R[0]; if (!f) return el.getBoundingClientRect();
@@ -531,6 +537,7 @@
     ykI();
     TXC = getComputedStyle(tx).color; MU = getComputedStyle(document.documentElement).getPropertyValue('--mu').trim() || '#8a8f8a';
     var src = rel.src.filter(Boolean); if (!src.length) return;
+    frOn(src.concat(rel.tg || []));
     src.concat((rel.tg || []).filter(Boolean)).forEach(function (x) { x.classList.add('t3f'); YF.push(x) });
     var ln = src[0].closest('.ln'), c = tx.getBoundingClientRect();
     var last = src[src.length - 1], fc = colOf(last), LL = rows(src);
@@ -696,6 +703,7 @@
     if (r.dataset.hz) GH.filter(function (g) { return g.L == L }).forEach(function (g) { G2.push([g.e]) });
     else if (r.dataset.q) [].forEach.call(r.querySelectorAll('.nq-c>span[data-w]'), function (s) { G2.push(s.getAttribute('data-w').split(',').map(function (i) { return row[+i] && row[+i].e }).concat((s.getAttribute('data-h') || '').split(',').map(function (h) { return h !== '' && GH[+h] && GH[+h].e })).filter(Boolean)) });
     else if (r.dataset.w) G2.push([row[+r.dataset.w].e]);
+    G2.forEach(function (ws) { frOn(ws) });
     G2.forEach(function (ws) {
       if (!ws.length) return; var fc = colOf(ws[ws.length - 1]);
       ws.forEach(function (x) { x.classList.add('t3f'); YF.push(x) });
@@ -742,7 +750,7 @@
       '<h4>Насб қилинганлар <em>— аломати фатҳа</em></h4>' + R('cb', 'Мафъулун биҳ', 'иш нимага тушди') + R('cn', 'Мансуб', 'мафъулун мутлақ, ҳол, зарф…') +
       '<h4>Жар қилинганлар <em>— аломати касра</em></h4>' + R('cj', 'Мажрур', 'жар ҳарфидан кейин, музофун илайҳ') + R('jh', 'Жар ҳарфи', 'ўзидан кейинги исмни жар қилади') +
       '<h4>Феъл</h4>' + R('cf', 'Феъл', 'иш-ҳаракат') + R('cd', 'Насб / жазм ҳарфи', 'музориъ феълни ўзгартиради') + R('cz', 'كَانَ, إِنَّ ва синглилари', 'мубтадо ва хабарга киради') +
-      '<h4>Белгилар</h4>' + I('▢', 'Рамка', 'бир неча сўз бирга битта вазифада: масалан, жар ва мажрур — хабар', '<span class="fr">فِي الْبَيْتِ</span>') +
+      '<h4>Белгилар</h4>' + I('▢', 'Рамка', 'бир неча сўз бирга битта вазифада: масалан, жар ва мажрур — хабар; босилганда кўринади', '<span class="fr">فِي الْبَيْتِ</span>') +
       I('┆', 'Узуқ чизиқ', 'тушиб қолган (маҳзуф) сўз', '<span class="hz">كَائِنٌ</span>') +
       '<h4>Қандай ишлатилади</h4>' + I('👆', 'Бир босиш', 'бўлак рамкада, боғланган сўзга чизиқ ва номи') + I('✋', 'Босиб туриш', 'сўзнинг тўлиқ таҳлили') + I('▤', 'Гап остидаги қоида', 'босинг — сўзлар ёнади, қоида очилади') + I('↑', 'Ҳозирги жой', 'аудио ўқиётган жойга қайтиш');
     var cl = function () { o.remove(); w.remove() }; o.onclick = cl; w.querySelector('.x').onclick = cl;

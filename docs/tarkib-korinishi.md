@@ -46,9 +46,10 @@ Qaror: 16–17.11.2026, foydalanuvchi bilan chatda, rasm-namunalar asosida. Hola
 - Bosh so'zdan chiziq: bosh so'z rangida boshlanadi, yarmidan ramka rangiga o'tadi; bosh so'zda nuqta. Ostida nomi (мутааллиқ, маътуф, музофун илайҳ…), ramka rangida.
 - Bog'lanish boshqa gapda (tarkib qutisi orqasida) bo'lsa — chiziq yo'q, faqat ramka va nomi.
 - **Yashirin foil:** fe'l tagida kichik arabcha zamir (هُوَ، أَنْتَ، نَحْنُ، أَنَا), binafsha; kananing yashirin ismi — ko'k.
-- **Hazf:** tushib qolgan so'z xira ko'rinadi (taklif, kodda yo'q).
+- **Hazf:** tushib qolgan so'z matnda o'z o'rnida, kichik va xira (6-bo'lim).
 - Bog'lanishlar ustoz audiosidagi tushuntirishdan olinadi (`TL` → `REL`).
 - **Bog'langan so'z boshqa gapda bo'lsa** (18.11.2026, foydalanuvchi): o'sha so'z uzuq ramkada (o'z rangida); strelka bosilgan so'z ramkasidan chiqib matnning o'ng chetidan yuradi va bog'langan so'zning tagiga (pastda bo'lsa — ustiga) o'q bilan qadaladi, rangi yarmi o'zi, yarmi bog'langan so'z; yozuvda yo'nalish va so'z («маътуф ↑ وَمَسْحُ»), yozuv bosilsa — o'sha so'zga siljiydi.
+- **Mubtado–xabar** (18.11.2026, foydalanuvchi: «bilinib turishi kerak»): bosilganda mubtado ostida «мубтадо», xabar ostida «хабар» (`YL.x`, ikkinchi yorliq `YC2`).
 
 ## 6. Gap ostidagi quti (yangi ko'rinishda)
 Quti — **qoidalar** uchun; matnda ko'rinib turgan narsa qutida takrorlanmaydi (17.11.2026, foydalanuvchi).
@@ -81,6 +82,7 @@ Quti — **qoidalar** uchun; matnda ko'rinib turgan narsa qutida takrorlanmaydi 
 - **Yig'ish** (18.11.2026, foydalanuvchi): ⓘ ostidagi ▴ — belgilar ingichka qatorga yig'iladi (guruh nomlari + rang nuqtalari, «Белгилар ▾»), matnga ko'proq joy; qator bosilsa qayta ochiladi; tanlov eslab qolinadi (`fiqh-lgz`); boshida ochiq.
 - «Рамка» izohi: «бир неча сўз бирга битта вазифада: масалан, жар ва мажрур — хабар».
 - **Audio belgilari** (fon, yashil ramka, «Ҳозирги жой») yangi ko'rinishda faqat audio ijro bo'layotganda (`tx.apl`); to'xtasa — o'chadi, play bosilsa o'sha joydan davom etadi.
+- **Bismillah** — matn tepasida: «Эски / Янги» va belgilardan keyin, sarlavhadan oldin (18.11.2026, foydalanuvchi).
 - «Эски» ko'rinishda — eski belgilar (`.flgx`) o'zgarmagan.
 - Kod: `.flgn` ichida `.lg-g` guruhlar, `lgOn/lgOff`, `lgSheet()`, `tuGo()/tuEnd()` (f2).
 
@@ -108,5 +110,10 @@ Rangli fon (tutash / nuqtali / uzuq, ichma-ich, «ulab»); doimiy chiziq yoki yo
 1. Fe'lli matnda (arab tili darsi) sinash: yashirin zamir, fe'l harflari, ramkalar.
 2. Rang ajratishi sust odamlar uchun tekshiruv; feruza/ko'k va to'q jigarrang/jigarrang farqi.
 3. Sinovdan keyin «Эски / Янги» tugmasini olib tashlab, bitta ko'rinish qoldirish.
-4. Fiqh 1 va arab tili darslariga o'tkazish (foydalanuvchi ma'qullagach); ko'rsatma va belgilar ham.
+4. **Ma'qullandi (18.11.2026, foydalanuvchi):** avval fiqh (keyingi darslar, fiqh 1 ham), keyin «Нур ут-толиб» darslari — shu sinovdagi hamma qoida va yangilik: ranglar va ramka (3–5), «Қоидалар» qutisi, mahzuf, «Ҳозирги жой» (6), so'z oynasi (6а), belgilar + ⓘ + ko'rsatma + yig'ish (6б), strelka va «мубтадо/хабар» (5).
 5. So'z oynasi (6а) boshqa darslarga: arab tili darslarida `IRB` dan ZT ni avtomat yasash (qo'lda emas).
+
+## 11. Sinov tarixi (fiqh 2)
+- 16.11: 7 rang → matnda 5 asosiy rang, qolgani bosganda (2–5).
+- 17.11: holat oilasi ranglari (feruza majrur, och yashil mansub), ramka — asosiy bo'lak o'rni; «Қоидалар» qutisi, mahzuf o'z o'rnida, «Ҳозирги жой» (6); so'z oynasi kitob tartibida, izohda faqat qoidalar (6а).
+- 18.11: belgilar holat bo'yicha, ⓘ, 5 qadamli ko'rsatma, yig'ish, audio belgilari faqat ijroda (6б); boshqa gapga strelka, «мубтадо/хабар» (5); Bismillah tepada (6б). Saytga chiqdi — v304.

@@ -334,7 +334,8 @@
     rowFix();
   }
   /* ramka elementlari tartibda: mahzuf xabar (bo'lsa) + so'zlar */
-  function frEls(f) { var o = f.gh ? [f.gh.e] : []; for (var i = f.a; i <= f.b; i++) if (LW[f.L][i]) o.push(LW[f.L][i].e); return o }
+  /* mahzuf xabar bo'lsa — ramka faqat o'zida: katta kitoblarda xabar — o'sha, zarf / jar-majrur unga mutaalliq (18.11.2026, foydalanuvchi) */
+  function frEls(f) { if (f.gh) return [f.gh.e]; var o = []; for (var i = f.a; i <= f.b; i++) if (LW[f.L][i]) o.push(LW[f.L][i].e); return o }
   /* nishon doimiy ramkada bo'lsa — o'sha qatordagi butun ramka qutisi (sim ramkaning o'rtasiga ulanadi) */
   /* sim nishoni: mahzuf xabar bo'lsa — o'zi (katta kitoblardagidek xabar — o'sha; 18.11.2026, foydalanuvchi), aks holda doimiy ramka butunicha */
   function frT(te, rel) { return te.classList.contains('t3r') && rel.tl && !te.classList.contains('t3h') ? frBox(te) : ykR(te) }
@@ -482,9 +483,9 @@
     [].forEach.call(tx.querySelectorAll('.t3dim,.nq-r.on'), function (e) { e.classList.remove('t3dim', 'on') });
   }
   /* tanlovga tegishli doimiy ramkalar — ko'rinadi va butunicha yonadi */
-  function frOn(els) {
+  function frOn(els, rel) {
     var seen = [];
-    els.forEach(function (e) { var f = e && e.t3fr; if (!f || seen.indexOf(f) >= 0) return; seen.push(f); frEls(f).forEach(function (x) { x.classList.add('t3fo', 't3f'); YF.push(x) }) });
+    els.forEach(function (e) { var f = e && e.t3fr; if (!f || seen.indexOf(f) >= 0) return; if (f.gh && !(rel && rel.tl && (rel.tg || []).indexOf(e) >= 0)) return; seen.push(f); frEls(f).forEach(function (x) { x.classList.add('t3fo', 't3f'); YF.push(x) }) });
   }
   function ykR(el) {
     var R = el.getClientRects(), f = R[0]; if (!f) return el.getBoundingClientRect();
@@ -537,7 +538,7 @@
     ykI();
     TXC = getComputedStyle(tx).color; MU = getComputedStyle(document.documentElement).getPropertyValue('--mu').trim() || '#8a8f8a';
     var src = rel.src.filter(Boolean); if (!src.length) return;
-    frOn(src.concat(rel.tg || []));
+    frOn(src.concat(rel.tg || []), rel);
     src.concat((rel.tg || []).filter(Boolean)).forEach(function (x) { x.classList.add('t3f'); YF.push(x) });
     var ln = src[0].closest('.ln'), c = tx.getBoundingClientRect();
     var last = src[src.length - 1], fc = colOf(last), LL = rows(src);
@@ -643,9 +644,9 @@
         var w = row[i], r = w && w.mc == 'cz' && RELS[w.k]; if (!r || !r.tl) return;
         r.tg.forEach(function (te) {
           if (!te) return; var f = te.t3fr, ix = [];
-          if (f && f.L == L) { for (var j = f.a; j <= f.b; j++) ix.push(j); if (f.gh) KH[f.gh.i] = f.gh }
+          if (f && f.L == L) { if (f.gh) { KH[f.gh.i - .5] = f.gh; ix.push(f.gh.i - .5) } else for (var j = f.a; j <= f.b; j++) ix.push(j) }
           else { var k = te.getAttribute('data-i'), ww = k && WD[k]; if (ww && ww.L == L) ix.push(ww.i) }
-          ix.forEach(function (j) { if (row[j] && K[q].indexOf(j) < 0) K[q].push(j) });
+          ix.forEach(function (j) { if ((row[j] || KH[j]) && K[q].indexOf(j) < 0) K[q].push(j) });
         });
       });
     });
@@ -660,10 +661,10 @@
       o += '<div class="nq-h">Қоидалар</div>';
       ks.forEach(function (q) {
         var ix = K[q].sort(function (a, b) { return a - b }), runs = [], cur = null;
-        ix.forEach(function (i) { if (cur && i == cur[cur.length - 1] + 1) cur.push(i); else { cur = [i]; runs.push(cur) } });
+        ix.forEach(function (i) { if (cur && i - cur[cur.length - 1] <= 1) cur.push(i); else { cur = [i]; runs.push(cur) } });
         var T = QT[q], more = T[1].slice(1);
         o += '<div class="nq-r" data-q="' + q + '"><div class="nq-m"><div class="nq-t">' + arw(NM[q] || T[0]) + '</div><div class="nq-c">' +
-          runs.map(function (r) { var hz = r.filter(function (i) { return KH[i] }).map(function (i) { return GH.indexOf(KH[i]) }); return '<span data-w="' + r.join(',') + '"' + (hz.length ? ' data-h="' + hz.join(',') + '"' : '') + '>' + r.map(function (i) { return (KH[i] ? '<span class="nq-hz">' + esc(KH[i].t) + '</span> ' : '') + chipW(row[i]) }).join(' ') + '</span>' }).join('') +
+          runs.map(function (r) { var hz = r.filter(function (i) { return KH[i] }).map(function (i) { return GH.indexOf(KH[i]) }), wi = r.filter(function (i) { return !KH[i] }); return '<span data-w="' + wi.join(',') + '"' + (hz.length ? ' data-h="' + hz.join(',') + '"' : '') + '>' + r.map(function (i) { return KH[i] ? '<span class="nq-hz">' + esc(KH[i].t) + '</span>' : chipW(row[i]) }).join(' ') + '</span>' }).join('') +
           '</div></div><span class="nq-g"></span><div class="nq-k">' + arw(T[1][0] || '') + (more.length ? '<div><span class="nq-more">Батафсил ▾</span><ul hidden>' + more.map(function (s) { return '<li>' + arw(s) + '</li>' }).join('') + '</ul></div>' : '') + '</div></div>';
       });
     }

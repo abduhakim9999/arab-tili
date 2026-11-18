@@ -45,7 +45,7 @@
         if (p) V[p.charAt(0).toLowerCase() + p.slice(1)] = 1;
       });
     };
-    Object.keys(RW).forEach(function (i) { RW[i][0].forEach(bil); RW[i][1].forEach(bil); });
+    Object.keys(RW).forEach(function (i) { RW[i][0].forEach(bil); RW[i][1].forEach(bil); (RW[i][2] || []).forEach(bil); });
     Object.keys(RQ).forEach(function (i) { bil(RQ[i]); });
     var FIX = {
       darslar: function (j) { (j.s || []).forEach(function (d) { if (RL.indexOf(d.n) >= 0) d.sahifa = 'ru' + d.n + '.html'; else d.tez = 1; d.eshitish = 0; }); },
@@ -53,6 +53,7 @@
         (j.s || []).forEach(function (r) {
           var w = RW[r.id]; if (!w) return;
           if (w[0].length) { r.uzA = r.uz; r.uz = w[0].slice(); }   /* uzA — asl o'zbekcha (harf turi shundan aniqlanadi) */
+          if (w[2] && w[2].length) r.mz = w[2].slice(); else if (w[0].length) delete r.mz;   /* fe'l testdagi o'tgan zamon ma'nosi; ruschasi bo'lmasa — ruscha uz */
           if (r.x) r.x.forEach(function (x, i) { if (w[1][i] != null) x[1] = w[1][i]; });
         });
       },

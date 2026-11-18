@@ -667,7 +667,8 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
     if (r.mn) p.push('муаннас <bdi class="ar" lang="ar">' + esc(r.mn) + '</bdi>');
     return p.join(' · ');
   }
-  function mano1(r) { var u = r.uz[0] || ''; return (u.match(/(^|[\s;,])\d+\./g) || []).length > 1 ? u : u.replace(/^\d+\.\s*/, ''); }
+  function mano1(r) { var u = (r.mz || r.uz)[0] || '';   /* test/karta: fe'l — o'tgan zamon ma'nosi (mz, 18.11.2026); Луғат ro'yxati — «-моқ» (mano) */
+    return (u.match(/(^|[\s;,])\d+\./g) || []).length > 1 ? u : u.replace(/^\d+\.\s*/, ''); }
   function manoT(r) { return mano1(r).replace(/\s*\([^()]*(?:ҳарфи|частица)[^()]*\)/g, '').replace(/\s*-\s*[^()]*(?:ҳарфи|частица).*$/, ''); }   /* harf ma'nosi — turi yozilmagan holda (ruschada «(частица джарр)») */
   function yalang(x) { return plain(x).replace(/[.\sـ؟?]/g, ''); }
   function sof(x) { return x.replace(/\((мз|мн)\)/g, '').replace(/\s+/g, ' ').trim().toLowerCase(); }
@@ -813,7 +814,7 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
 
   function manolar(n) {
     var a = [];
-    n.m.forEach(function (r) { r.uz.forEach(function (u) { u.split(/\s(?=\d\.\s)/).forEach(function (p) { a.push(p); }); }); });
+    n.m.forEach(function (r) { (r.mz || r.uz).forEach(function (u) { u.split(/\s(?=\d\.\s)/).forEach(function (p) { a.push(p); }); }); });
     if (a.length === 1) a[0] = a[0].replace(/^\d+\.\s*/, '');
     return '<div class="tq-m">' + a.map(function (p) { return '<div>' + esc(p.replace(/^(\d+)\.\s*/, '$1. ')) + '</div>'; }).join('') + '</div>';
   }

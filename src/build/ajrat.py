@@ -176,6 +176,7 @@ def main():
     LOCK = json.load(open(lock_p, encoding='utf-8')) if os.path.exists(lock_p) else \
         {'w': {}, 'q': {}, 'wn': 1, 'qn': 1, 'ochgan': {'w': [], 'q': []}}
     TUZ = json.load(open(os.path.join(B, 'lugat-tuzatish.json'), encoding='utf-8'))
+    MZ = json.load(open(os.path.join(B, 'lugat-moziy.json'), encoding='utf-8'))   # fe'lning testdagi o'tgan zamon ma'nosi (18.11.2026)
     GUR = json.load(open(os.path.join(B, 'qoida-guruh.json'), encoding='utf-8'))
 
     nums = [x['n'] for x in LESSONS]
@@ -229,6 +230,10 @@ def main():
                 bosh_id[r['ar']] = wid
             r['tk'] = 1 if (r['tur'] in ('soz', 'fel', 'harf', 'zamir') and 'asl' not in r and t.get('tk', 1)) else 0   # 13.11.2026: harf va olmoshlar ham bazaga kiradi (atoqli ot — yo'q)
             r['uz'] = uz
+            if str(wid) in MZ:
+                r['mz'] = MZ[str(wid)]
+            elif r['tur'] == 'fel':
+                OGOH.append("%d-dars lug'at %s: fe'lning o'tgan zamon ma'nosi yo'q — src/build/lugat-moziy.json ga qo'shing (id %d)" % (n, kn, wid))
             if ex:
                 r['x'] = ex
             vi = len(lug) - voc0                      # Eshitish Луғат yo'lagida tartib = lug'at tartibi

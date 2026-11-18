@@ -31,6 +31,8 @@ wid = set(r['id'] for r in L)
 for r in L:
     if not r.get('ar') or not r.get('uz'):
         X.append("lug'at %s: arabcha yoki ma'no bo'sh" % r['id'])
+    if r.get('tur') == 'fel' and len(r.get('mz') or []) != len(r['uz'] or []):
+        X.append("lug'at %s: fe'lning o'tgan zamon ma'nosi (mz) yo'q yoki uz bilan mos emas — src/build/lugat-moziy.json" % r['id'])
     if 'asl' in r and r['asl'] not in wid:
         X.append("lug'at %s: asl=%s yo'q" % (r['id'], r['asl']))
     if 'au' in r and not (r['au'][0] < r['au'][1]):

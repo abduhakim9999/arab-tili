@@ -951,6 +951,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
   }
 
   /* ---- lug'at savoli: 'a' arabcha → ma'no, 'u' ma'no → arabcha, 'o' ovoz → ma'no (ovozi bor so'zda); 4 variant ---- */
+  function manoM(r) { return mano({ uz: r.mz || r.uz }); }   /* imtihon: fe'l — o'tgan zamon ma'nosi (mz, 18.11.2026) */
   function mano(r) { var u = r.uz[0] || ''; return (u.match(/(^|[\s;,])\d+\./g) || []).length > 1 ? u : u.replace(/^\d+\.\s*/, ''); }   /* bitta ma'noli yozuvda tartib raqami («1.») ko'rsatilmaydi */
   /* ko'pligi va muannasi (faqat lug'atda yozilgani): ro'yxatlarda va javobdan keyin ko'rsatiladi; savolning o'zida va variantlarda — yo'q */
   function shakllar(r) {
@@ -1053,9 +1054,9 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
     var r = q.r, tur = q.tur, bajarildi = false;
     app.innerHTML = '<div class="y-in">' + imBosh() + '<section class="y-c y-k"><div class="y-l"><span>' + imNom() + '</span><em>' + r.d + '-дарс · луғат' + (q.qayta ? ' · қайта' : '') + '</em></div>' +
       (tur === 'a' ? '<div class="y-g ar y-sz" lang="ar">' + esc(r.ar) + '</div><div class="y-tr">Маъносини топинг</div>'
-        : tur === 'u' ? '<div class="y-mn">' + esc(mano(r)) + '</div><div class="y-tr">Арабчасини топинг</div>'
+        : tur === 'u' ? '<div class="y-mn">' + esc(manoM(r)) + '</div><div class="y-tr">Арабчасини топинг</div>'
         : '<button class="y-ov" id="pl" aria-label="Қайта тинглаш">' + IC.ovoz + '</button><div class="y-tr">Эшитинг ва маъносини топинг</div>') +
-      '<div class="y-o">' + q.ops.map(function (o, n) { return '<button data-n="' + n + '">' + (tur === 'u' ? '<b class="ar" lang="ar">' + esc(o.ar) + '</b>' : '<span class="uz">' + esc(mano(o)) + '</span>') + '</button>'; }).join('') +
+      '<div class="y-o">' + q.ops.map(function (o, n) { return '<button data-n="' + n + '">' + (tur === 'u' ? '<b class="ar" lang="ar">' + esc(o.ar) + '</b>' : '<span class="uz">' + esc(manoM(o)) + '</span>') + '</button>'; }).join('') +
       '</div><div class="y-s" id="qs" aria-live="polite"></div></section></div>';
     bar.hidden = true; bar.innerHTML = ''; IM.t0 = Date.now();
     imYop();
@@ -1074,7 +1075,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
           if (q.ops[m].id === r.id) y.classList.add('ok'); else if (m === n) y.classList.add('no');
           y.disabled = true;
         });
-        document.getElementById('qs').innerHTML = '<bdi class="ar y-ai" lang="ar">' + esc(r.ar) + '</bdi> — ' + esc(mano(r)) + (shakllar(r) ? '<small>' + shakllar(r) + '</small>' : '');
+        document.getElementById('qs').innerHTML = '<bdi class="ar y-ai" lang="ar">' + esc(r.ar) + '</bdi> — ' + esc(manoM(r)) + (shakllar(r) ? '<small>' + shakllar(r) + '</small>' : '');
         imJavob(ok, q);
       };
     });
@@ -1137,7 +1138,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
     if (IM.xato.length) {
       h += '<section class="y-c"><div class="y-h">Хато қилинган сўзлар · «Луғат»га қўшилди</div>';
       IM.xato.forEach(function (q) {
-        h += '<div class="y-xt"><span>' + (q.lug ? esc(mano(q.r)) + (shakllar(q.r) ? '<small>' + shakllar(q.r) + '</small>' : '') : mix(q.sabab || '')) + '</span><b class="ar" lang="ar">' + esc(q.lug ? q.r.ar : q.gap[q.w][0]) + '</b></div>';
+        h += '<div class="y-xt"><span>' + (q.lug ? esc(manoM(q.r)) + (shakllar(q.r) ? '<small>' + shakllar(q.r) + '</small>' : '') : mix(q.sabab || '')) + '</span><b class="ar" lang="ar">' + esc(q.lug ? q.r.ar : q.gap[q.w][0]) + '</b></div>';
       });
       h += '</section>';
     }

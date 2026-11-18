@@ -77,8 +77,8 @@ Quti — **qoidalar** uchun; matnda ko'rinib turgan narsa qutida takrorlanmaydi 
 18.11.2026, foydalanuvchi: «mubtado bilan xabar birga — ular raf'niki», «tushunarli joylashtirilsin».
 - **Belgilar — holat bo'yicha guruh** (sticky, matn tepasida): РАФ (Мубтадо, Хабар, Фоил) · НАСБ (Мафъулун биҳ, Мансуб) · ЖАР (Мажрур, Жар ҳарфи) · ФЕЪЛ (Феъл, Насб/жазм ҳарфи). Faqat darsda bor ranglar; bo'sh guruh yashirin; har guruh — alohida katak, nomi ustida.
 - **Rang bosilsa:** matnda shu rangdagi qism yonadi (so'zning faqat o'sha bo'lagi, masalan zamir), qolgani xiralashadi; tagida bir qator izoh (vazifa + hukm + alomat). Yana bosilsa yoki boshqa joy bosilsa — o'chadi.
-- **ⓘ** — pastdan varaq: butun tizim guruhlar bilan (alomati bilan: замма / фатҳа / касра), har rangda shu darsdan misol; darsda yo'qlari xira, «бу дарсда йўқ»; Рамка, Узуқ чизиқ; ishlatish (bir bosish, bosib turish, qoida qatori, Ҳозирги жой); «▶ Кўрсатмани қайта кўриш».
-- **Ko'rsatma** — Таркиб yangi ko'rinishda birinchi ochilganda bir marta (`localStorage` `fiqh-tur`), 5 qadam, haqiqiy joy yoritiladi, o'quvchi o'zi bajaradi: 1) so'zni bir bosish (darsdagi birinchi gap ichidagi mutaalliq so'z) → 2) natija + bosib turish → 3) so'z oynasi («Кейинги») → 4) gap ostidagi qoida → 5) belgilar («Тушунарли»). Har qadamda «Ўтказиб юбориш».
+- **ⓘ** — pastdan varaq: butun tizim guruhlar bilan (alomati bilan: замма / фатҳа / касра), har rangda shu darsdan misol; darsda yo'qlari xira, «бу дарсда йўқ»; Рамка, Узуқ чизиқ; ishlatish (bir bosish, bosib turish, qoida qatori, Ҳозирги жой).
+- **Ko'rsatma** (5 qadamli tur) — **olib tashlandi** (18.11.2026, foydalanuvchi: o'rniga keyinchalik video ko'rsatma, qulayroq). O'zi chiqmaydi, ⓘ da «▶ Кўрсатмани қайта кўриш» yo'q; `tuGo()` kodi f2 da qoldi, chaqirilmaydi.
 - **Yig'ish** (18.11.2026, foydalanuvchi): ⓘ ostidagi ▴ — belgilar ingichka qatorga yig'iladi (guruh nomlari + rang nuqtalari, «Белгилар ▾»), matnga ko'proq joy; qator bosilsa qayta ochiladi; tanlov eslab qolinadi (`fiqh-lgz`); boshida ochiq.
 - «Рамка» izohi: «бир неча сўз бирга битта вазифада: масалан, жар ва мажрур — хабар».
 - **Audio belgilari** (fon, yashil ramka, «Ҳозирги жой») yangi ko'rinishda faqat audio ijro bo'layotganda (`tx.apl`); to'xtasa — o'chadi, play bosilsa o'sha joydan davom etadi.
@@ -110,10 +110,10 @@ Rangli fon (tutash / nuqtali / uzuq, ichma-ich, «ulab»); doimiy chiziq yoki yo
 1. Fe'lli matnda (arab tili darsi) sinash: yashirin zamir, fe'l harflari, ramkalar.
 2. Rang ajratishi sust odamlar uchun tekshiruv; feruza/ko'k va to'q jigarrang/jigarrang farqi.
 3. Sinovdan keyin «Эски / Янги» tugmasini olib tashlab, bitta ko'rinish qoldirish.
-4. **Ma'qullandi (18.11.2026, foydalanuvchi):** avval fiqh (keyingi darslar, fiqh 1 ham), keyin «Нур ут-толиб» darslari — shu sinovdagi hamma qoida va yangilik: ranglar va ramka (3–5), «Қоидалар» qutisi, mahzuf, «Ҳозирги жой» (6), so'z oynasi (6а), belgilar + ⓘ + ko'rsatma + yig'ish (6б), strelka va «мубтадо/хабар» (5).
+4. **Ma'qullandi (18.11.2026, foydalanuvchi):** avval fiqh (keyingi darslar, fiqh 1 ham), keyin «Нур ут-толиб» darslari — shu sinovdagi hamma qoida va yangilik: ranglar va ramka (3–5), «Қоидалар» qutisi, mahzuf, «Ҳозирги жой» (6), so'z oynasi (6а), belgilar + ⓘ + yig'ish (6б); ko'rsatma — keyin video bilan, strelka va «мубтадо/хабар» (5).
 5. So'z oynasi (6а) boshqa darslarga: arab tili darslarida `IRB` dan ZT ni avtomat yasash (qo'lda emas).
 
 ## 11. Sinov tarixi (fiqh 2)
 - 16.11: 7 rang → matnda 5 asosiy rang, qolgani bosganda (2–5).
 - 17.11: holat oilasi ranglari (feruza majrur, och yashil mansub), ramka — asosiy bo'lak o'rni; «Қоидалар» qutisi, mahzuf o'z o'rnida, «Ҳозирги жой» (6); so'z oynasi kitob tartibida, izohda faqat qoidalar (6а).
-- 18.11: belgilar holat bo'yicha, ⓘ, 5 qadamli ko'rsatma, yig'ish, audio belgilari faqat ijroda (6б); boshqa gapga strelka, «мубтадо/хабар» (5); Bismillah tepada (6б). Saytga chiqdi — v304.
+- 18.11: belgilar holat bo'yicha, ⓘ, 5 qadamli ko'rsatma (o'sha kuni olib tashlandi — keyin video), yig'ish, audio belgilari faqat ijroda (6б); boshqa gapga strelka, «мубтадо/хабар» (5); Bismillah tepada (6б). Saytga chiqdi — v304.

@@ -422,6 +422,7 @@ Fe'lga qo'shiladigan harflar (fe'l qatori ichida aytiladi):
 - Uzun gap tarjimasi ma'no buzilmaydigan joylardan bo'laklarga bo'linadi; arabcha so'zga bosilsa tarjimadagi mos so'z bo'yaladi va aksincha; tarjima yashirilganda ma'nolar yonmaydi.
 - Suhbatdosh nomi arabchada, qator boshida (o'ngda), matndagidek ikki nuqta bilan; imlo belgilari asl matndagidek.
 - Ilova sodda: bir joyda ochiladigan narsa ikkinchi joyda takrorlanmaydi.
+- **«Қоидалар» kartasi qolipi** (19.11.2026, foydalanuvchi: «Батафсил»da faqat shu mavzuga oid muhim qoida va nozik joylar, ketma-ketlikda): kartaning o'zida — ta'rif va holati (asosiy qoida to'liq, masalan amrning 3 holati); «Батафсил» — raqamli, nomli bandlar, katta nahv kitoblari tartibida: turlari → sharti → e'robi/alomati → hukmi (mutaalliq, moslik) → tartib → hazf → nozik joylar → boshqa fikr (faqat tarkibni o'zgartirsa). Har band — bitta qoida + bitta misol, kartada 6 tadan ko'p emas. Boshqa mavzuga oid gap o'z kartasiga (yoki so'z oynasiga) o'tadi; sof nazariya (masalan, omil bahsi) va «Бу дарсда: …» ro'yxati yozilmaydi. Namuna — 97-dars (`src/build/qt97-yangi.json`).
 - Kitob asos; yanada tushunarli qilish uchun qo'shimcha yo'l bo'lsa — taklif qilib aytiladi.
 
 ---
@@ -440,3 +441,4 @@ Fe'lga qo'shiladigan harflar (fe'l qatori ichida aytiladi):
 - 2026-11-11: 96-dars; 7-bo'limga ism fo'il/masdarga mutaalliq, إِلَى أَيْنَ, سَوْفَ, badali ba'z, batafsil badal, masdar fo'il, إِسْلَامَ آبَادَ, فِي أَمَانِ اللَّهِ, عَفْوًا.
 - 2026-11-15: 97-dars; 7-bo'limga ism mavsul sifat, بِحَيْثُ, uch xil إِذَا, وَهَكَذَا, كَانَتْ هُنَاكَ, أَصْبَحَ, raqam bilan yozilgan son, ism tafzil, alif bilan tugagan ismlar, ibtido وَ va natija فَـ.
 - 2026-11-16: 2-bo'limga so'z ichidagi tarkib tartibi — o'ngdan chapga (harf → so'z → zamir → bog'lanish → ↳ izoh); Nur ut-tolib IRB tekshirildi (xato yo'q), fiqh 1–2 to'g'rilandi.
+- 2026-11-19: 8-bo'limga «Қоидалар» kartasi qolipi (karta — ta'rif va holat; «Батафсил» — raqamli bandlar kitoblar tartibida); namuna — 97-dars.

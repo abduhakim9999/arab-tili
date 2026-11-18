@@ -108,7 +108,7 @@
     '.nqb .nq-r.on .nq-k{display:block}' +
     '.nqb .nq-k b{font-weight:800}' +
     '.nqb .nq-k .ar{display:inline;font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:18px;font-weight:400}' +
-    '.nqb .nq-k ul{margin:6px 0 0;padding-left:18px}.nqb .nq-k li{margin:3px 0}' +
+    '.nqb .nq-k ul{margin:6px 0 0;padding:0;list-style:none}.nqb .nq-k li{margin:0;padding:6px 0;border-top:1px dashed var(--bd)}' +
     '.nqb .nq-k .nq-more{display:inline-block;margin-top:6px;font-weight:700;color:var(--ac);cursor:pointer}' +
     '.nqb .nq-hz{border:1.5px dashed var(--mu);border-radius:8px;padding:0 7px;color:var(--mu)}' +
     /* so'z oynasi (kitob tartibida) */
@@ -634,6 +634,8 @@
     [].forEach.call(w.e.querySelectorAll('span.q3'), function (q) { h += '<span class="' + q.className.replace(/\bq3m?\b/g, '').trim() + '">' + esc(q.textContent.replace(/[:،.؟!]+$/, '')) + '</span>' });
     return h || esc(w.e.textContent);
   }
+  /* qoida matni: **…** — qalin (band nomi), \n — yangi qator (19.11.2026) */
+  function qf(s) { return arw(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br>') }
   var OPN = {}; /* ochiq qutilar (gap raqami) — faqat shu ochilishda; dars qayta ochilsa hammasi yopiq */
   function box(L) {
     var row = LW[L]; if (!row || !row.length) return '';
@@ -669,7 +671,7 @@
         var T = QT[q], more = T[1].slice(1);
         o += '<div class="nq-r" data-q="' + q + '"><div class="nq-m"><div class="nq-t">' + arw(NM[q] || T[0]) + '</div><div class="nq-c">' +
           runs.map(function (r) { var hz = r.filter(function (i) { return KH[i] }).map(function (i) { return GH.indexOf(KH[i]) }), wi = r.filter(function (i) { return !KH[i] }); return '<span data-w="' + wi.join(',') + '"' + (hz.length ? ' data-h="' + hz.join(',') + '"' : '') + '>' + r.map(function (i) { return KH[i] ? '<span class="nq-hz">' + esc(KH[i].t) + '</span>' : chipW(row[i]) }).join(' ') + '</span>' }).join('') +
-          '</div></div><span class="nq-g"></span><div class="nq-k">' + arw(T[1][0] || '') + (more.length ? '<div><span class="nq-more">Батафсил ▾</span><ul hidden>' + more.map(function (s) { return '<li>' + arw(s) + '</li>' }).join('') + '</ul></div>' : '') + '</div></div>';
+          '</div></div><span class="nq-g"></span><div class="nq-k">' + qf(T[1][0] || '') + (more.length ? '<div><span class="nq-more">Батафсил ▾</span><ul hidden>' + more.map(function (s) { return '<li>' + qf(s) + '</li>' }).join('') + '</ul></div>' : '') + '</div></div>';
       });
     }
     if (gh.length) {

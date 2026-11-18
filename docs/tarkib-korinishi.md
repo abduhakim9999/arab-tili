@@ -1,6 +1,6 @@
 # Tarkib ko'rinishi — yangi tizim (sinov)
 
-Qaror: 16–17.11.2026, foydalanuvchi bilan chatda, rasm-namunalar asosida. Holat: **fiqh 1 va 2-darsda sinov** (2-dars — 16.11, 1-dars — 18.11.2026), faqat yangi ko'rinish («Эски / Янги» tugmasi 18.11.2026 da olib tashlandi, foydalanuvchi; eski kod qoldi, `V=1`); belgilarda 4 guruh bo'lsa — 2 qator (`.lg-gs.lg4`); boshqa darslarda eski ko'rinish. Bu fayl — yagona manba (grammatika qoidalari — konspektda, bu yerda faqat *qanday ko'rsatilishi*).
+Qaror: 16–17.11.2026, foydalanuvchi bilan chatda, rasm-namunalar asosida. Holat: **fiqh 1 va 2-darsda sinov**; **«Нур ут-толиб» 97-darsida sinov** (18.11.2026, `tarkib3.js`, 12-bo'lim) (2-dars — 16.11, 1-dars — 18.11.2026), faqat yangi ko'rinish («Эски / Янги» tugmasi 18.11.2026 da olib tashlandi, foydalanuvchi; eski kod qoldi, `V=1`); belgilarda 4 guruh bo'lsa — 2 qator (`.lg-gs.lg4`); boshqa darslarda eski ko'rinish. Bu fayl — yagona manba (grammatika qoidalari — konspektda, bu yerda faqat *qanday ko'rsatilishi*).
 
 ## 1. Tamoyil
 - **Rang — so'zning vazifasi yoki holati oilasi; to'q rang — uni o'zgartirgan harf; ramka — asosiy bo'lak o'rnida kelgan bo'lak.**
@@ -112,10 +112,25 @@ Rangli fon (tutash / nuqtali / uzuq, ichma-ich, «ulab»); doimiy chiziq yoki yo
 1. Fe'lli matnda (arab tili darsi) sinash: yashirin zamir, fe'l harflari, ramkalar.
 2. Rang ajratishi sust odamlar uchun tekshiruv; feruza/ko'k va to'q jigarrang/jigarrang farqi.
 3. Sinovdan keyin «Эски / Янги» tugmasini olib tashlab, bitta ko'rinish qoldirish.
-4. **Ma'qullandi (18.11.2026, foydalanuvchi):** avval fiqh (keyingi darslar; fiqh 1 — qilindi, 18.11), keyin «Нур ут-толиб» darslari — shu sinovdagi hamma qoida va yangilik: ranglar va ramka (3–5), «Қоидалар» qutisi, mahzuf, «Ҳозирги жой» (6), so'z oynasi (6а), belgilar + ⓘ + yig'ish (6б); ko'rsatma — keyin video bilan, strelka va «мубтадо/хабар» (5).
+4. **Boshlandi (18.11.2026): 97-darsda sinov — 12-bo'lim.** **Ma'qullandi (18.11.2026, foydalanuvchi):** avval fiqh (keyingi darslar; fiqh 1 — qilindi, 18.11), keyin «Нур ут-толиб» darslari — shu sinovdagi hamma qoida va yangilik: ranglar va ramka (3–5), «Қоидалар» qutisi, mahzuf, «Ҳозирги жой» (6), so'z oynasi (6а), belgilar + ⓘ + yig'ish (6б); ko'rsatma — keyin video bilan, strelka va «мубтадо/хабар» (5).
 5. So'z oynasi (6а) boshqa darslarga: arab tili darslarida `IRB` dan ZT ni avtomat yasash (qo'lda emas).
 
 ## 11. Sinov tarixi (fiqh 2)
 - 16.11: 7 rang → matnda 5 asosiy rang, qolgani bosganda (2–5).
 - 17.11: holat oilasi ranglari (feruza majrur, och yashil mansub), ramka — asosiy bo'lak o'rni; «Қоидалар» qutisi, mahzuf o'z o'rnida, «Ҳозирги жой» (6); so'z oynasi kitob tartibida, izohda faqat qoidalar (6а).
 - 18.11: belgilar holat bo'yicha, ⓘ, 5 qadamli ko'rsatma (o'sha kuni olib tashlandi — keyin video), yig'ish, audio belgilari faqat ijroda (6б); boshqa gapga strelka, «мубтадо/хабар» (5); Bismillah tepada (6б). Saytga chiqdi — v304.
+
+## 12. «Нур ут-толиб» darslarida — `tarkib3.js` (18.11.2026, sinov: 97-dars)
+Foydalanuvchi: «97 — eski kerakmas, yangi takomillashgan bo'ladi; ruschasi keyin». Fiqhdan farqi — ma'lumot **qo'lda yozilmaydi**, darsdagi bor ma'lumotdan avtomat olinadi (21 darsga bir kod).
+- Ulash: `<script>window.TK3=1</script><script src="tarkib3.js"></script>` — `shell.js` dan keyin; `site/build.py` `TK3 = {97}` (yangi darsni qo'shish — shu to'plamga). `tarkib2.js` ishlayveradi (eski quti `.tkx` va `#lg` legendasi yashiriladi). «Эски / Янги» tugmasi yo'q.
+- **Rang** (`analyse/paint`): `IRB[k].k` qatorlari — har bo'lak (oldidagi harf, asos, zamir) alohida `span.q3.n-*` (harflar soni bo'yicha bo'lish, `split`). Asosiy qator — birinchi harf bo'lmagan qator. Vazifa matndan (`roleC`): mubtado / kana-inna ismi → ko'k, xabar → qizil, foil/noibi foil → binafsha, maf'ulun bih → to'q yashil, muzofun ilayh va majrur → feruza, zarf/hol/maf'ul mutlaq/tamyiz/munodo → och yashil; tobe' (sifat, «… га маътуф», badal, ta'kid) — ergashgan so'z rangida (orqaga — bir xil holatdagi birinchi ism; «X га маътуф» — X); aniqlanmasa — `CATOV`, keyin holat (`j`). Harflar: jar → to'q feruza; насб/жазм → to'q jigarrang; inna sheriklari, zotni inkor «لا», noqis fe'llar (kana, asbaha…) → `cz` (matnda qora, bosganda pushti). Fe'lga qo'shilgan ت/ا/ن — fe'l rangida.
+- **Yashirin zamir:** fe'l qatoridagi «… ҳолдаги X мустатир замир …» → fe'l tagida `span.t3y` (foil — binafsha; kananing ismi — ko'k).
+- **Mahzuf** (`t3h`, faqat Таркибда): `TKG` «бўлмиш X» / «маҳзуф мубтадо X» — shibhi jumladan oldin; `IRB` izoh qatori «мубтадоси маҳзуф: (X)» — so'zdan oldin.
+- **Ramka** (doim, Таркибда): `TKG` `s` — «…хабар…» (sifat emas) → qizil; `j` — xabar → qizil, maf'ul/maqul qavl → to'q yashil, noibi foil → binafsha. So'zlarga chegara (`t3r`), qator almashsa har qatorda yopiladi (`rowFix`).
+- **Bosganda** (`relations` → `show`): tobe' → ergashgan so'zga; muzofun ilayh → muzofga; shibhi jumla → mutaalliqqa (yoki mahzuf كَائِنٌ ga); sila / muzofun ilayh jumla → mavsul / zarfga; zarf — IRB «… га мутааллиқ»; mubtado–xabar (kana bo'lsa «исми / хабари», kana pushti); foil → fe'l («фоил / феъл»), maf'ul → fe'l; fe'l → foil yoki yashirin zamir; qolgani — o'z ramkasi va vazifa nomi. Gap chegarasi — `TKT`.
+- **«Қоидалар»** (`.nqb`): gapdagi so'zlarning `QMP` kalitlari → qator, nomi `QT` (Жар ва мажрур, Атф…), karta — `QT` 1-xatboshi + «Батафсил»; «Ҳазф», «⚖️ Бошқа фикр» (`IRB.o`); tepada jumla turi (`TKT`). Quti bosilishi o'zida to'xtaydi — `shell.js` «abzas bosilsa o'qiydi» ishlamaydi.
+- **So'z oynasi** (`op` ustiga, `zt/ztH`): har `IRB.k` bo'lagi + `IRB.a` arabchasi qadamlarga bo'linadi (Тури/Вазифаси · Ҳукми · Аломати · Бино · Ўрни; arabchada مرفوع… / وعلامة / مبني / في محل…), yashirin zamir — alohida bo'lak, mutaalliq / hazf / jumla — quti, qolgan izohlar — «↳». `.hk` da vazifa yorlig'i.
+- Belgilar qatori (6б, A variant) `#lg` ichida; «Ҳозирги жой» (`.t3now`) — audio o'qiyotgan so'z ekranda bo'lmasa; audio belgilari faqat ijroda (`#tx.apl`).
+- Tekshirish: `window.T3` (WD, RELS, GH, FR, zt) — konsolda.
+- Navbatda: foydalanuvchi ko'rib chiqqach — qolgan darslar (`TK3` ga qo'shish, har darsda tekshirish), ruscha (`ru*.html`), Eshitish Таркиби tartibi.
+

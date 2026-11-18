@@ -1,6 +1,6 @@
 # Tarkib ko'rinishi — yangi tizim (sinov)
 
-Qaror: 16–17.11.2026, foydalanuvchi bilan chatda, rasm-namunalar asosida. Holat: **fiqh 1 va 2-darsda sinov** (2-dars — 16.11, 1-dars — 18.11.2026), Таркиб rejimida «Эски / Янги»; boshqa darslarda eski ko'rinish. Bu fayl — yagona manba (grammatika qoidalari — konspektda, bu yerda faqat *qanday ko'rsatilishi*).
+Qaror: 16–17.11.2026, foydalanuvchi bilan chatda, rasm-namunalar asosida. Holat: **fiqh 1 va 2-darsda sinov** (2-dars — 16.11, 1-dars — 18.11.2026), faqat yangi ko'rinish («Эски / Янги» tugmasi 18.11.2026 da olib tashlandi, foydalanuvchi; eski kod qoldi, `V=1`); belgilarda 4 guruh bo'lsa — 2 qator (`.lg-gs.lg4`); boshqa darslarda eski ko'rinish. Bu fayl — yagona manba (grammatika qoidalari — konspektda, bu yerda faqat *qanday ko'rsatilishi*).
 
 ## 1. Tamoyil
 - **Rang — so'zning vazifasi yoki holati oilasi; to'q rang — uni o'zgartirgan harf; ramka — asosiy bo'lak o'rnida kelgan bo'lak.**

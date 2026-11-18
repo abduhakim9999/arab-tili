@@ -1,6 +1,6 @@
 # Tarkib ko'rinishi — yangi tizim (sinov)
 
-Qaror: 16–17.11.2026, foydalanuvchi bilan chatda, rasm-namunalar asosida. Holat: **fiqh 2-darsda sinov** (`tayyor-fiqh-2`), Таркиб rejimida «Эски / Янги»; boshqa darslarda eski ko'rinish. Bu fayl — yagona manba (grammatika qoidalari — konspektda, bu yerda faqat *qanday ko'rsatilishi*).
+Qaror: 16–17.11.2026, foydalanuvchi bilan chatda, rasm-namunalar asosida. Holat: **fiqh 1 va 2-darsda sinov** (2-dars — 16.11, 1-dars — 18.11.2026), Таркиб rejimida «Эски / Янги»; boshqa darslarda eski ko'rinish. Bu fayl — yagona manba (grammatika qoidalari — konspektda, bu yerda faqat *qanday ko'rsatilishi*).
 
 ## 1. Tamoyil
 - **Rang — so'zning vazifasi yoki holati oilasi; to'q rang — uni o'zgartirgan harf; ramka — asosiy bo'lak o'rnida kelgan bo'lak.**
@@ -101,7 +101,9 @@ Rangli fon (tutash / nuqtali / uzuq, ichma-ich, «ulab»); doimiy chiziq yoki yo
 - Mahzuf: `HZ={"gap-so'z":[so'z,"a"|"i"]}` — `a` so'zdan keyin, `i` so'z ichida oldi qo'shimchadan keyin; `.fhid[data-k]` (f1 dagi usul). Qoida qatorida guruh a'zosi satr bo'lsa (`"2-0"`) — o'sha `.fhid`.
 - Sarlavhada (`.hd`) eski «rangsiz — qora» qoidasi yangi rangni bosmaydi (`.fqk.fqn .hd .fw.n-cj`).
 - So'z oynasi (6а): `ZT[kalit]={c:[vazifa,"R|N|J|M",hukm], p:[{a:arabcha, r:"a|j|s|z", s:[[nomi,o'zbekcha,arabcha]…]}…], b:[[nomi,o'zbekcha,arabcha]], n:[izoh…]}` (r: a — oldidagi harf, j — oldidagi jar harfi, s — so'z, z — zamir; rang matndagi bo'lakdan olinadi); `ztH()` yasaydi. ZT — `S[..].w[..][2]/[3]` izohlarining bo'laklangani: izoh o'zgarsa ZT ham o'zgartiriladi.
-- **Hali kodda yo'q:** yashirin zamir yozuvi (2-darsda fe'l yo'q); uzun bo'lak qatordan qatorga o'tsa ramka faqat birinchi qatorda.
+- **Yashirin foil (18.11.2026, f1):** `YZ={"gap-so'z":"هُوَ"}` — fe'l `.fw` ichida `.fyz.n-co` (binafsha, kichik, fe'l tagida, `position:absolute` — qatorlar oralig'i o'zgarmaydi); faqat so'z `.foc` bo'lganda, ustoz aytayotganda (`TL` kaliti `"4-5h"`, `.apl .fyz.now`) va belgilarda «Фоил» bosilganda ko'rinadi. `W1("…h")` yangi ko'rinishda `.fyz` ni qaytaradi — `ykRel` uni manba qiladi (`r2` «қайтади»: ramka zamir atrofida, chiziq mavsuldan). «Эски» ko'rinishda — so'zdan keyin `.fhid.fho`. So'z oynasida bo'lak `r:"h"`.
+- **GR tur `v` (f1):** mavsul+sila yoki bayon bo'lagi — `z` («музофун илайҳ») va `b` («баён») bog'lanishida bosilgan so'zdan butun bo'lak olinadi (`.fg.gv`, ichma-ich bo'lsa eng ichkisi). Eski izofa yoyi (`IZ`) bilan kesishmasin.
+- Uzun bo'lak qatordan qatorga o'tsa — har qatorda alohida ramka (18.11.2026, f1).
 
 ## 9. Namunalar
 `docs/tarkib-korinishi/oila-*.png` — joriy tartib, 52 misol, 7 guruh (gap asosi, nosixlar, mansublar, majrur va tobe'lar, fe'l nasbi va jazmi, ichki jumlalar, boshqalar). Qolgan rasmlar (`yakun-*`, `asosiy-ranglar`, `yechim-uch-qavat`, `oraga-soz-tushganda`) — rad etilgan oldingi variantlar.
@@ -110,7 +112,7 @@ Rangli fon (tutash / nuqtali / uzuq, ichma-ich, «ulab»); doimiy chiziq yoki yo
 1. Fe'lli matnda (arab tili darsi) sinash: yashirin zamir, fe'l harflari, ramkalar.
 2. Rang ajratishi sust odamlar uchun tekshiruv; feruza/ko'k va to'q jigarrang/jigarrang farqi.
 3. Sinovdan keyin «Эски / Янги» tugmasini olib tashlab, bitta ko'rinish qoldirish.
-4. **Ma'qullandi (18.11.2026, foydalanuvchi):** avval fiqh (keyingi darslar, fiqh 1 ham), keyin «Нур ут-толиб» darslari — shu sinovdagi hamma qoida va yangilik: ranglar va ramka (3–5), «Қоидалар» qutisi, mahzuf, «Ҳозирги жой» (6), so'z oynasi (6а), belgilar + ⓘ + yig'ish (6б); ko'rsatma — keyin video bilan, strelka va «мубтадо/хабар» (5).
+4. **Ma'qullandi (18.11.2026, foydalanuvchi):** avval fiqh (keyingi darslar; fiqh 1 — qilindi, 18.11), keyin «Нур ут-толиб» darslari — shu sinovdagi hamma qoida va yangilik: ranglar va ramka (3–5), «Қоидалар» qutisi, mahzuf, «Ҳозирги жой» (6), so'z oynasi (6а), belgilar + ⓘ + yig'ish (6б); ko'rsatma — keyin video bilan, strelka va «мубтадо/хабар» (5).
 5. So'z oynasi (6а) boshqa darslarga: arab tili darslarida `IRB` dan ZT ni avtomat yasash (qo'lda emas).
 
 ## 11. Sinov tarixi (fiqh 2)

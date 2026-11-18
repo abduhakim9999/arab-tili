@@ -27,7 +27,7 @@ Qaror: 16–17.11.2026, foydalanuvchi bilan chatda, rasm-namunalar asosida. Hola
 | to'q feruza | jar harfi | `--nh` |
 | to'q jigarrang | fe'lni nasb yoki jazm qiluvchi harf: an, lan, kay, lam, nahy «lo», shart «in» | `--nd` |
 
-**Faqat bosganda:** pushti — kana, inna va sheriklarining o'zi (`--nz`); matnda qora.
+**Pushti** — kana, inna va sheriklarining o'zi (`--nz`): **matnda doim** (18.11.2026, foydalanuvchi, 97-darsni ko'rib: «kana rangi ko'rinmagan» → «A»; oldin faqat bosganda edi; fiqhda hali bunday so'z yo'q). Belgilarda «Феъл» guruhida.
 
 - Qo'shilgan zamir **o'z vazifasi rangida**: foil — binafsha, maf'ul — to'q yashil, muzofun ilayh — feruza, innaning ismi — ko'k.
 - Tobe'lar (sifat, ma'tuf, ta'kid, badal) — ergashgan so'z rangida.
@@ -131,6 +131,7 @@ Foydalanuvchi: «97 — eski kerakmas, yangi takomillashgan bo'ladi; ruschasi ke
 - **«Қоидалар»** (`.nqb`): gapdagi so'zlarning `QMP` kalitlari → qator, nomi `QT` (Жар ва мажрур, Атф…), karta — `QT` 1-xatboshi + «Батафсил»; «Ҳазф», «⚖️ Бошқа фикр» (`IRB.o`); tepada jumla turi (`TKT`). Quti bosilishi o'zida to'xtaydi — `shell.js` «abzas bosilsa o'qiydi» ishlamaydi.
 - **So'z oynasi** (`op` ustiga, `zt/ztH`): har `IRB.k` bo'lagi + `IRB.a` arabchasi qadamlarga bo'linadi (Тури/Вазифаси · Ҳукми · Аломати · Бино · Ўрни; arabchada مرفوع… / وعلامة / مبني / في محل…), yashirin zamir — alohida bo'lak, mutaalliq / hazf / jumla — quti, qolgan izohlar — «↳». `.hk` da vazifa yorlig'i.
 - Belgilar qatori (6б, A variant) `#lg` ichida; «Ҳозирги жой» (`.t3now`) — audio o'qiyotgan so'z ekranda bo'lmasa; audio belgilari faqat ijroda (`#tx.apl`).
+- **Chiziq va yorliq** (18.11.2026, foydalanuvchi telefonda ko'rib): bo'lak ikki qatorga bo'linsa — chiziq bog'langan so'zga eng yaqin qatordagi bo'lagiga, qator ostidan past yoy bo'lib (so'zlarni kesmaydi), yorliq ham o'sha bo'lak ostida; yonma-yon juftlikda (mubtado–xabar, ismi–xabari) chiziq yo'q — ikki yorliq; ikki yorliq ustma-ust tushsa — ikkinchisi yonga (sig'masa — pastga); mahzuf so'zga ikkinchi ramka chizilmaydi — uzuq ramkasi rangga kiradi (mahzuf mubtado — ko'k).
 - Tekshirish: `window.T3` (WD, RELS, GH, FR, zt) — konsolda.
 - Navbatda: foydalanuvchi ko'rib chiqqach — qolgan darslar (`TK3` ga qo'shish, har darsda tekshirish), ruscha (`ru*.html`), Eshitish Таркиби tartibi.
 

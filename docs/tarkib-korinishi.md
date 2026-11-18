@@ -77,6 +77,9 @@ Quti — **qoidalar** uchun; matnda ko'rinib turgan narsa qutida takrorlanmaydi 
 - **Rang bosilsa:** matnda shu rangdagi qism yonadi (so'zning faqat o'sha bo'lagi, masalan zamir), qolgani xiralashadi; tagida bir qator izoh (vazifa + hukm + alomat). Yana bosilsa yoki boshqa joy bosilsa — o'chadi.
 - **ⓘ** — pastdan varaq: butun tizim guruhlar bilan (alomati bilan: замма / фатҳа / касра), har rangda shu darsdan misol; darsda yo'qlari xira, «бу дарсда йўқ»; Рамка, Узуқ чизиқ; ishlatish (bir bosish, bosib turish, qoida qatori, Ҳозирги жой); «▶ Кўрсатмани қайта кўриш».
 - **Ko'rsatma** — Таркиб yangi ko'rinishda birinchi ochilganda bir marta (`localStorage` `fiqh-tur`), 5 qadam, haqiqiy joy yoritiladi, o'quvchi o'zi bajaradi: 1) so'zni bir bosish (darsdagi birinchi gap ichidagi mutaalliq so'z) → 2) natija + bosib turish → 3) so'z oynasi («Кейинги») → 4) gap ostidagi qoida → 5) belgilar («Тушунарли»). Har qadamda «Ўтказиб юбориш».
+- **Yig'ish** (18.11.2026, foydalanuvchi): ⓘ ostidagi ▴ — belgilar ingichka qatorga yig'iladi (guruh nomlari + rang nuqtalari, «Белгилар ▾»), matnga ko'proq joy; qator bosilsa qayta ochiladi; tanlov eslab qolinadi (`fiqh-lgz`); boshida ochiq.
+- «Рамка» izohi: «бир неча сўз бирга битта вазифада: масалан, жар ва мажрур — хабар».
+- **Audio belgilari** (fon, yashil ramka, «Ҳозирги жой») yangi ko'rinishda faqat audio ijro bo'layotganda (`tx.apl`); to'xtasa — o'chadi, play bosilsa o'sha joydan davom etadi.
 - «Эски» ko'rinishda — eski belgilar (`.flgx`) o'zgarmagan.
 - Kod: `.flgn` ichida `.lg-g` guruhlar, `lgOn/lgOff`, `lgSheet()`, `tuGo()/tuEnd()` (f2).
 

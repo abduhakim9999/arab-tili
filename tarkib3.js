@@ -516,7 +516,8 @@
     /* bo'lak bir necha qatorda bo'lsa — chiziq va yorliq bog'langan so'zga eng yaqin qatordagi bo'lagiga */
     var t0 = (rel.tg || []).filter(function (te) { return te && te.closest('.ln') === ln })[0] || (rel.tg || []).filter(Boolean)[0], pk = LL[LL.length - 1];
     if (t0 && LL.length > 1) { var q0 = ykR(t0), m0 = (q0.top + q0.bottom) / 2; pk = LL.reduce(function (p, z) { return Math.abs((z.t + z.b) / 2 - m0) < Math.abs((p.t + p.b) / 2 - m0) ? z : p }) }
-    var fx = (pk.l + pk.r) / 2 - c.left, fb = pk.b - c.top - 3, ft = pk.t - c.top + 3, ly = fb + 6, h = '';
+    var sf = src.every(function (x) { return x.classList.contains('t3r') || x.classList.contains('t3h') }) ? 0 : 3;
+    var fx = (pk.l + pk.r) / 2 - c.left, fb = pk.b - c.top - sf, ft = pk.t - c.top + sf, ly = fb + 6, h = '';
     var inFr = src.every(function (x) { return x.classList.contains('t3r') }) && src.length > 1 && rel.grp;
     var RS = src.filter(function (x) { return !x.classList.contains('t3h') }); /* mahzufning o'z uzuq ramkasi bor */
     if (!inFr && RS.length) h += pieces(rows(RS), c, fc);
@@ -526,7 +527,7 @@
       var cc = colOf(te), inS = src.some(function (x) { return x !== te && x.contains && x.contains(te) });
       if (te.closest('.ln') === ln) {
         var tq = ykR(te);
-        if (rel.tgf && !inS && !te.classList.contains('t3r') && !te.classList.contains('t3h')) h += rect({ l: tq.left, r: tq.right, t: tq.top, b: tq.bottom }, c, cc);
+        if (!inS && !te.classList.contains('t3r') && !te.classList.contains('t3h')) h += rect({ l: tq.left, r: tq.right, t: tq.top, b: tq.bottom }, c, cc);
         if (rel.tl && rel.tl[ti]) LS.push([rel.tl[ti], (tq.left + tq.right) / 2 - c.left, tq.bottom - c.top + 4, cc]);
         if (inS) return;
       }
@@ -547,13 +548,15 @@
         else if (!XT) XT = { e: te, up: up, x: xw };
         return;
       }
-      var b = ykR(te.querySelector && te.querySelector('.q3m') || te), x1 = b.left + b.width / 2 - c.left, d, y1, y2, dep = 5 + Math.min(7, Math.abs(x1 - fx) / 30), id = 't3g' + (YN++);
-      var same = Math.abs((pk.t + pk.b) - (b.top + b.bottom)) < 40, gap = Math.max(b.left - pk.r, pk.l - b.right);
-      if (same) { y1 = b.bottom - c.top - 8; y2 = fb; var yb = Math.max(y1, y2) + dep; d = 'M' + x1 + ' ' + y1 + ' C' + x1 + ' ' + yb + ',' + fx + ' ' + yb + ',' + fx + ' ' + y2; ly = Math.max(ly, yb + 2) }
-      else if (b.top < pk.t) { y1 = b.bottom - c.top - 8; y2 = ft; d = 'M' + x1 + ' ' + y1 + ' C' + x1 + ' ' + (y1 + 24) + ',' + fx + ' ' + (y2 - 24) + ',' + fx + ' ' + y2 }
-      else { y1 = b.top - c.top + 8; y2 = fb; d = 'M' + x1 + ' ' + y1 + ' C' + x1 + ' ' + (y1 - 24) + ',' + fx + ' ' + (y2 + 24) + ',' + fx + ' ' + y2 }
-      h += '<defs><linearGradient id="' + id + '" gradientUnits="userSpaceOnUse" x1="' + x1 + '" y1="' + y1 + '" x2="' + fx + '" y2="' + y2 + '"><stop offset="0" stop-color="' + cc + '"/><stop offset=".45" stop-color="' + cc + '"/><stop offset=".55" stop-color="' + fc + '"/><stop offset="1" stop-color="' + fc + '"/></linearGradient></defs>' +
-        '<path d="' + d + '" fill="none" stroke="url(#' + id + ')" stroke-width="2" stroke-linecap="round"/><circle cx="' + x1 + '" cy="' + y1 + '" r="3.3" fill="' + cc + '"/>';
+      /* gap ichidagi nishon: sim bo'lak ramkasining o'rtasidan chiqib, nishon ramkasining chetiga ulanadi (so'z ichiga kirmaydi) — boshqa gapga simdek, yumaloq burchakli (18.11.2026, foydalanuvchi) */
+      var b = ykR(te), tf = te.classList.contains('t3r') || te.classList.contains('t3h') ? 0 : 3, tx2 = (b.left + b.right) / 2 - c.left,
+        tb = b.bottom - c.top - tf, tt = b.top - c.top + tf, id = 't3g' + (YN++), P, y0, y9;
+      var same = Math.abs((pk.t + pk.b) - (b.top + b.bottom)) < 40;
+      if (same) { var yb = Math.max(fb, tb) + 9; P = [[fx, fb], [fx, yb], [tx2, yb], [tx2, tb]]; y0 = fb; y9 = tb; ly = Math.max(ly, yb + 4) }
+      else if (b.top < pk.t) { var ym = (ft + tb) / 2; P = [[fx, ft], [fx, ym], [tx2, ym], [tx2, tb]]; y0 = ft; y9 = tb }
+      else { var ym2 = (fb + tt) / 2; P = [[fx, fb], [fx, ym2], [tx2, ym2], [tx2, tt]]; y0 = fb; y9 = tt }
+      h += '<defs><linearGradient id="' + id + '" gradientUnits="userSpaceOnUse" x1="' + fx + '" y1="' + y0 + '" x2="' + tx2 + '" y2="' + y9 + '"><stop offset="0" stop-color="' + fc + '"/><stop offset=".45" stop-color="' + fc + '"/><stop offset=".55" stop-color="' + cc + '"/><stop offset="1" stop-color="' + cc + '"/></linearGradient></defs>' +
+        '<path d="' + rpath(P, 8) + '" fill="none" stroke="url(#' + id + ')" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="' + fx + '" cy="' + y0 + '" r="3.3" fill="' + fc + '"/>';
     });
     YS.insertAdjacentHTML('beforeend', h);
     if (rel.lab) {

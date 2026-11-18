@@ -62,23 +62,23 @@
     '#lg.t3lg .lg-t[hidden]{display:none}' +
     '#tx.tartib.nv .ws span.lgd{opacity:.25}' +
     '#tx.tartib.nv .lgh{background:color-mix(in srgb,var(--ac) 14%,transparent)!important;border-radius:6px}' +
-    '.t3s-o{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:60}' +
-    '.t3s{position:fixed;left:0;right:0;bottom:0;max-height:88%;overflow:auto;background:var(--bg);border-radius:22px 22px 0 0;z-index:61;padding:10px 18px calc(22px + env(safe-area-inset-bottom,0px));font-family:system-ui,sans-serif;color:var(--tx);box-shadow:0 -6px 24px rgba(0,0,0,.2);max-width:560px;margin:0 auto}' +
-    '.t3s .hb{width:40px;height:5px;border-radius:3px;background:var(--bd);margin:0 auto 8px}' +
-    '.t3s .hd{display:flex;justify-content:space-between;align-items:center}' +
-    '.t3s h3{margin:0;font-size:18px}' +
-    '.t3s .x{border:0;background:var(--cd);width:32px;height:32px;border-radius:50%;font-size:16px;color:var(--mu);cursor:pointer}' +
-    '.t3s h4{margin:14px 0 4px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mu)}' +
-    '.t3s h4 em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:600;opacity:.8}' +
-    '.t3s .r{display:grid;grid-template-columns:26px 1fr auto;gap:2px 10px;align-items:center;padding:6px 0;border-top:1px solid var(--bd)}' +
-    '.t3s .r[data-c]:not(.off){cursor:pointer}' +
-    '.t3s .r i{width:14px;height:14px;border-radius:4px;justify-self:center}' +
-    '.t3s .r.off{opacity:.42}.t3s .r.off small::after{content:" · бу дарсда йўқ";font-style:italic}' +
-    '.t3s .r .t{font-size:14.5px;line-height:1.35}.t3s .r .t small{display:block;color:var(--mu);font-size:12.5px}' +
-    '.t3s .r .a{font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:21px;direction:rtl}' +
-    '.t3s .ic{font-size:18px;justify-self:center;font-style:normal}' +
-    '.t3s .fr{border:2px solid var(--cx);border-radius:8px;padding:0 6px;color:var(--cx)}' +
-    '.t3s .hz{border:1.5px dashed var(--mu);border-radius:8px;padding:0 6px;color:var(--mu);font-size:17px}' +
+    '.t3sh-o{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:60}' +
+    '.t3sh{position:fixed;left:0;right:0;bottom:0;max-height:88%;overflow:auto;background:var(--bg);border-radius:22px 22px 0 0;z-index:61;padding:10px 18px calc(22px + env(safe-area-inset-bottom,0px));font-family:system-ui,sans-serif;color:var(--tx);box-shadow:0 -6px 24px rgba(0,0,0,.2);max-width:560px;margin:0 auto}' +
+    '.t3sh .hb{width:40px;height:5px;border-radius:3px;background:var(--bd);margin:0 auto 8px}' +
+    '.t3sh .hd{display:flex;justify-content:space-between;align-items:center}' +
+    '.t3sh h3{margin:0;font-size:18px}' +
+    '.t3sh .x{border:0;background:var(--cd);width:32px;height:32px;border-radius:50%;font-size:16px;color:var(--mu);cursor:pointer}' +
+    '.t3sh h4{margin:14px 0 4px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mu)}' +
+    '.t3sh h4 em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:600;opacity:.8}' +
+    '.t3sh .r{display:grid;grid-template-columns:26px 1fr auto;gap:2px 10px;align-items:center;padding:6px 0;border-top:1px solid var(--bd)}' +
+    '.t3sh .r[data-c]:not(.off){cursor:pointer}' +
+    '.t3sh .r i{width:14px;height:14px;border-radius:4px;justify-self:center}' +
+    '.t3sh .r.off{opacity:.42}.t3sh .r.off small::after{content:" · бу дарсда йўқ";font-style:italic}' +
+    '.t3sh .r .t{font-size:14.5px;line-height:1.35}.t3sh .r .t small{display:block;color:var(--mu);font-size:12.5px}' +
+    '.t3sh .r .a{font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:21px;direction:rtl}' +
+    '.t3sh .ic{font-size:18px;justify-self:center;font-style:normal}' +
+    '.t3sh .fr{border:2px solid var(--cx);border-radius:8px;padding:0 6px;color:var(--cx)}' +
+    '.t3sh .hz{border:1.5px dashed var(--mu);border-radius:8px;padding:0 6px;color:var(--mu);font-size:17px}' +
     /* «Қоидалар» qutisi */
     '#tx .nqb{display:none}' +
     '#tx.tartib.nv .nqb{display:block;margin:8px 0 2px;padding:8px 12px 6px;border-radius:12px;background:var(--bg);border:1px solid var(--bd);direction:ltr;text-align:left}' +
@@ -395,22 +395,19 @@
           if (xb) (xb.fr ? grpWords(L, xb.fr.a, xb.fr.b) : [xb]).forEach(function (w) { set(w.k, kr) });
         }
         else if (ms.length && xs.length) {
-          var nos = [], l1 = 'мубтадо', l2 = 'хабар';
-          var pr = { src: ms, tg: xs.concat(nos), lab: l1, lab2: l2, t2: xs[0], pair: true };
+          var pr = { src: ms, tg: xs, tl: ['хабар'], tgf: true, lab: 'мубтадо' };
           if (mb) set(mb.k, pr); if (gm) gm.rel = pr;
-          var px = { src: ms, tg: xs.concat(nos), lab: l1, lab2: l2, t2: xs[0], pair: true };
-          (xb.fr ? grpWords(L, xb.fr.a, xb.fr.b) : [xb]).forEach(function (w) { set(w.k, px) });
-          if (kn) set(kn.k, px);
+          (xb.fr ? grpWords(L, xb.fr.a, xb.fr.b) : [xb]).forEach(function (w) { set(w.k, pr) });
         }
         /* fe'l — foil — maf'ul */
         W.forEach(function (w) {
-          if (w.mc == 'co' && !w.tob) { var f = prevF(row, w.i, sg[0]); if (f) set(w.k, { src: [w.e], tg: [f.e], lab: /ноиби/.test(w.role) ? 'ноиби фоил' : 'фоил', lab2: 'феъл', t2: f.e }) }
-          if (w.mc == 'cb' && !w.tob) { var f2 = prevF(row, w.i, 0); if (f2) set(w.k, { src: [w.e], tg: [f2.e], lab: 'мафъулун биҳ', lab2: 'феъл', t2: f2.e }) }
+          if (w.mc == 'co' && !w.tob) { var f = prevF(row, w.i, sg[0]); if (f) set(w.k, { src: [w.e], tg: [f.e], lab: /ноиби/.test(w.role) ? 'ноиби фоил' : 'фоил', tl: ['феъл'], tgf: true }) }
+          if (w.mc == 'cb' && !w.tob) { var f2 = prevF(row, w.i, 0); if (f2) set(w.k, { src: [w.e], tg: [f2.e], lab: 'мафъулун биҳ', tl: ['феъл'], tgf: true }) }
         });
         W.forEach(function (w) {
           if (!w.isF || w.mc == 'cz') return;
           var fo = W.filter(function (o) { return o.mc == 'co' && !o.tob && o.i > w.i && prevF(row, o.i, sg[0]) === w })[0];
-          set(w.k, fo ? { src: [w.e], tg: [fo.e], lab: 'феъл', lab2: 'фоил', t2: fo.e } : { src: [w.e], tg: [], lab: 'феъл' });
+          set(w.k, fo ? { src: [w.e], tg: [fo.e], lab: 'феъл', tl: ['фоил'], tgf: true } : { src: [w.e], tg: [], lab: 'феъл' });
         });
       });
       /* qolganlari — o'z ramkasi va nomi */
@@ -430,7 +427,10 @@
     YS = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); YS.setAttribute('class', 't3k'); tx.appendChild(YS);
     YC = document.createElement('div'); YC.className = 't3c'; YC.hidden = true; tx.appendChild(YC);
   }
-  function clr() {
+  var PADS = [];
+  function unpad() { PADS.forEach(function (e) { e.style.paddingBottom = '' }); PADS = [] }
+  function clr(keep) {
+    if (!keep) unpad();
     if (YS) YS.innerHTML = ''; if (YC) YC.hidden = true; YX.forEach(function (d) { d.remove() }); YX = [];
     YF.forEach(function (e) { e.classList.remove('t3f') }); YF = [];
     [].forEach.call(tx.querySelectorAll('.t3dim,.nq-r.on'), function (e) { e.classList.remove('t3dim', 'on') });
@@ -466,8 +466,8 @@
     return o;
   }
   function rect(z, c, col, dash) { return '<rect x="' + (z.l - c.left - 3) + '" y="' + (z.t - c.top + 3) + '" width="' + (z.r - z.l + 6) + '" height="' + (z.b - z.t - 6) + '" rx="10" fill="none" stroke="' + col + '" stroke-width="2"' + (dash ? ' stroke-dasharray="6 4"' : '') + '/>' }
-  function show(rel) {
-    clr(); if (!tartib() || !rel) return;
+  function show(rel, again) {
+    clr(again); if (!tartib() || !rel) return;
     ykI();
     TXC = getComputedStyle(tx).color; MU = getComputedStyle(document.documentElement).getPropertyValue('--mu').trim() || '#8a8f8a';
     var src = rel.src.filter(Boolean); if (!src.length) return;
@@ -505,10 +505,8 @@
         if (!XT) XT = { e: te, up: up, x: wt(te).replace(/[:،.؟!\s–]+$/, '') };
         return;
       }
-      if (rel.t2 === te && rel.lab2) { var q = ykR(te); LS.push([rel.lab2, (q.left + q.right) / 2 - c.left, q.bottom - c.top + 4, cc]) }
       var b = ykR(te.querySelector && te.querySelector('.q3m') || te), x1 = b.left + b.width / 2 - c.left, d, y1, y2, dep = 5 + Math.min(7, Math.abs(x1 - fx) / 30), id = 't3g' + (YN++);
       var same = Math.abs((pk.t + pk.b) - (b.top + b.bottom)) < 40, gap = Math.max(b.left - pk.r, pk.l - b.right);
-      if (same && rel.lab2 && gap < 30) return; /* yonma-yon juftlik — chiziqsiz, ikki yorliq yetadi */
       if (same) { y1 = b.bottom - c.top - 8; y2 = fb; var yb = Math.max(y1, y2) + dep; d = 'M' + x1 + ' ' + y1 + ' C' + x1 + ' ' + yb + ',' + fx + ' ' + yb + ',' + fx + ' ' + y2; ly = Math.max(ly, yb + 2) }
       else if (b.top < pk.t) { y1 = b.bottom - c.top - 8; y2 = ft; d = 'M' + x1 + ' ' + y1 + ' C' + x1 + ' ' + (y1 + 24) + ',' + fx + ' ' + (y2 - 24) + ',' + fx + ' ' + y2 }
       else { y1 = b.top - c.top + 8; y2 = fb; d = 'M' + x1 + ' ' + y1 + ' C' + x1 + ' ' + (y1 - 24) + ',' + fx + ' ' + (y2 + 24) + ',' + fx + ' ' + y2 }
@@ -536,6 +534,12 @@
       placed.push(d.getBoundingClientRect());
     });
     if (ln) ln.classList.add('t3dim');
+    /* yorliq arabcha qatordan pastga — tarjima ustiga — tushsa: qator ostiga vaqtincha joy ochib, qayta chiziladi */
+    if (!again) {
+      var r1 = src[0].closest && src[0].closest('.r1'), lb = 0;
+      [YC].concat(YX).forEach(function (d) { if (d && !d.hidden) lb = Math.max(lb, d.getBoundingClientRect().bottom) });
+      if (r1 && lb) { var ov = lb - r1.getBoundingClientRect().bottom + 4; if (ov > 0) { r1.style.paddingBottom = Math.ceil(ov) + 'px'; PADS.push(r1); show(rel, true) } }
+    }
   }
 
   /* ===================== «Қоидалар» qutisi ===================== */
@@ -644,7 +648,7 @@
   function sheet() {
     var R = function (c, t, sm) { var on = has(c); return '<div class="r' + (on ? '' : ' off') + '" data-c="' + c + '"><i style="background:var(' + LGV[c] + ')"></i><div class="t">' + t + '<small>' + sm + '</small></div><span class="a" style="color:var(' + LGV[c] + ')">' + (on ? lgEx(c) : LEX[c]) + '</span></div>' },
       I = function (ic, t, sm, a) { return '<div class="r"><i class="ic" style="width:auto;height:auto;background:none">' + ic + '</i><div class="t">' + t + '<small>' + sm + '</small></div><span class="a">' + (a || '') + '</span></div>' };
-    var o = document.createElement('div'); o.className = 't3s-o'; var w = document.createElement('div'); w.className = 't3s';
+    var o = document.createElement('div'); o.className = 't3sh-o'; var w = document.createElement('div'); w.className = 't3sh';
     w.innerHTML = '<div class="hb"></div><div class="hd"><h3>Белгилар</h3><button class="x" type="button" aria-label="Ёпиш">✕</button></div>' +
       '<h4>Раф қилинганлар <em>— аломати замма</em></h4>' + R('cm', 'Мубтадо', 'гап нима ҳақида; كَانَ ва إِنَّ нинг исми') + R('cx', 'Хабар', 'мубтадо ҳақида нима дейилади') + R('co', 'Фоил, ноиби фоил', 'ишни ким қилди') +
       '<h4>Насб қилинганлар <em>— аломати фатҳа</em></h4>' + R('cb', 'Мафъулун биҳ', 'иш нимага тушди') + R('cn', 'Мансуб', 'мафъулун мутлақ, ҳол, зарф…') +
@@ -782,7 +786,7 @@
   });
   document.addEventListener('click', function (ev) {
     if (ev.target.closest('#lg .lg-z')) { clr(); lgOff(); sheet(); return }
-    if (!ev.target.closest('#lg .lg-t') && !ev.target.closest('.t3s')) lgOff();
+    if (!ev.target.closest('#lg .lg-t') && !ev.target.closest('.t3sh')) lgOff();
     if (!ev.target.closest('#tx')) clr();
   });
 

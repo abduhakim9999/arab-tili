@@ -600,7 +600,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
     [].forEach.call(app.querySelectorAll('[data-kk]'), function (b) { b.onclick = function () { KT = +b.getAttribute('data-kk'); LS(KK, String(KT)); xarita(true); }; });
     document.getElementById('bb').onclick = bobRoyxat;
     [].forEach.call(app.querySelectorAll('.y-bk'), function (c) { c.onclick = bobRoyxat; });   /* rasmli bob kartasi ham boblar ro'yxatini ochadi */
-    [].forEach.call(app.querySelectorAll('[data-i]'), function (n) { n.onclick = function (e) { if (e.target.closest && e.target.closest('.y-bsh')) return; varaq(n.getAttribute('data-i')); }; });
+    [].forEach.call(app.querySelectorAll('[data-i]'), function (n) { n.onclick = function (e) { if (e.target.closest && e.target.closest('.y-bsh')) return; var i = n.getAttribute('data-i'); if (!darsga(i)) varaq(i); }; });
     [].forEach.call(app.querySelectorAll('[data-ex]'), function (n) { n.onclick = function (e) { e.stopPropagation(); imtihon(n.getAttribute('data-ex')); }; });
     [].forEach.call(app.querySelectorAll('[data-sr]'), function (n) { n.onclick = function (e) { e.stopPropagation(); sarala(+n.getAttribute('data-sr')); }; });
     if (SINOV) document.getElementById('s0').onclick = function () {
@@ -679,7 +679,7 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
     var hz = H.hz, h = '';
     if (hz && hz[0] === 'd') {
       var d = D.filter(function (x) { return 'd' + x.n === hz; })[0], u = H.d[d.n], lq = u.ls && u.mo && !u.lo;
-      h = '<a class="y-b" href=""' + sahifa(d) + '">' + IC.oyin + '<span>' + (H.otdi > 0 || u.r ? 'Давом этиш' : 'Бошлаш') + '</span><small>· ' + d.n + '-дарс</small></a>';
+      h = '<a class="y-b" href="' + sahifa(d) + '">' + IC.oyin + '<span>' + (H.otdi > 0 || u.r ? 'Давом этиш' : 'Бошлаш') + '</span><small>· ' + d.n + '-дарс</small></a>';
     } else if (hz) h = '<button class="y-b" id="ct">' + IC.oyin + '<span>' + (hz[0] === 'b' ? 'Боб имтиҳони' : 'Китоб имтиҳони') + '</span></button>';
     cta.innerHTML = h; cta.hidden = !h;
     var c = document.getElementById('ct');
@@ -833,6 +833,16 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
   }
   function varaqNatija(r) {
     return '<div class="y-ns"><div><b>' + r.b + '%</b><span>энг яхши</span><div class="st">' + yulduz(r.b) + '</div></div><div><b>' + r.s + '%</b><span>охирги</span><div class="st">' + yulduz(r.s) + '</div></div></div>';
+  }
+  /* 18.11.2026 (foydalanuvchi): dars ro'yxatda ham, xaritada ham bir bosishda ochiladi — oraliq oyna faqat imtihon va «Тез орада» uchun.
+     Havola bosilgandek o'tadi (tg.js: Telegramda tarix yig'ilmaydi, yashil chiziq). */
+  function darsga(id) {
+    if (id[0] !== 'd') return false;
+    var n = +id.slice(1), s = P.d[n], d = D.filter(function (x) { return x.n === n; })[0];
+    if (!d || !s || s.tez) return false;
+    var a = document.createElement('a'); a.href = sahifa(d); a.hidden = true;
+    document.body.appendChild(a); a.click(); a.remove();
+    return true;
   }
   function varaq(id) {
     var t = id[0], h = '';

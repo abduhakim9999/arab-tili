@@ -385,8 +385,17 @@
         var xs = xb ? (xb.fr ? [LW[L][xb.fr.a].e] : [xb.e]) : [];
         var ky = kn && kn.yz && kn.yzc == 'cm' ? kn.e.querySelector('.t3y') : null;
         var ms = mb ? [mb.e] : gm ? [gm.e] : ky ? [ky] : [];
-        if (ms.length && xs.length) {
-          var nos = kn ? [kn.e] : [], l1 = kn ? 'исми' : 'мубтадо', l2 = kn ? 'хабари' : 'хабар';
+        if (kn && (ms.length || xs.length)) {
+          /* kana / inna va sheriklari: undan ikki ip — ismiga va xabariga (18.11.2026, foydalanuvchi) */
+          var kt = [], kl = [];
+          if (ms.length) { kt.push(ms[0]); kl.push('исми') }
+          if (xs.length) { kt.push(xs[0]); kl.push('хабари') }
+          var kr = { src: [kn.e], tg: kt, tl: kl, tgf: true, lab: '' };
+          set(kn.k, kr); if (mb) set(mb.k, kr); if (gm) gm.rel = kr;
+          if (xb) (xb.fr ? grpWords(L, xb.fr.a, xb.fr.b) : [xb]).forEach(function (w) { set(w.k, kr) });
+        }
+        else if (ms.length && xs.length) {
+          var nos = [], l1 = 'мубтадо', l2 = 'хабар';
           var pr = { src: ms, tg: xs.concat(nos), lab: l1, lab2: l2, t2: xs[0], pair: true };
           if (mb) set(mb.k, pr); if (gm) gm.rel = pr;
           var px = { src: ms, tg: xs.concat(nos), lab: l1, lab2: l2, t2: xs[0], pair: true };
@@ -415,15 +424,14 @@
   function prevF(row, i, a) { for (var j = i - 1; j >= a; j--) { var w = row[j]; if (w && w.isF && w.mc != 'cz') return w } return null }
 
   /* ===================== 2-qavat: chizish ===================== */
-  var YS = null, YC = null, YC2 = null, YF = [], YN = 0;
+  var YS = null, YC = null, YX = [], YF = [], YN = 0;
   function ykI() {
     if (YS && YS.parentNode === tx) return;
     YS = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); YS.setAttribute('class', 't3k'); tx.appendChild(YS);
     YC = document.createElement('div'); YC.className = 't3c'; YC.hidden = true; tx.appendChild(YC);
-    YC2 = document.createElement('div'); YC2.className = 't3c'; YC2.hidden = true; tx.appendChild(YC2);
   }
   function clr() {
-    if (YS) YS.innerHTML = ''; if (YC) YC.hidden = true; if (YC2) YC2.hidden = true;
+    if (YS) YS.innerHTML = ''; if (YC) YC.hidden = true; YX.forEach(function (d) { d.remove() }); YX = [];
     YF.forEach(function (e) { e.classList.remove('t3f') }); YF = [];
     [].forEach.call(tx.querySelectorAll('.t3dim,.nq-r.on'), function (e) { e.classList.remove('t3dim', 'on') });
   }
@@ -476,10 +484,16 @@
     var inFr = src.every(function (x) { return x.classList.contains('t3r') }) && src.length > 1 && rel.grp;
     var RS = src.filter(function (x) { return !x.classList.contains('t3h') }); /* mahzufning o'z uzuq ramkasi bor */
     if (!inFr && RS.length) h += pieces(rows(RS), c, fc);
-    var XT = null, XB = null;
-    (rel.tg || []).forEach(function (te) {
+    var XT = null, XB = null, LS = [];
+    (rel.tg || []).forEach(function (te, ti) {
       if (!te) return; te.classList.add('t3f'); YF.push(te);
-      var cc = colOf(te);
+      var cc = colOf(te), inS = src.some(function (x) { return x !== te && x.contains && x.contains(te) });
+      if (te.closest('.ln') === ln) {
+        var tq = ykR(te);
+        if (rel.tgf && !inS && !te.classList.contains('t3r') && !te.classList.contains('t3h')) h += rect({ l: tq.left, r: tq.right, t: tq.top, b: tq.bottom }, c, cc);
+        if (rel.tl && rel.tl[ti]) LS.push([rel.tl[ti], (tq.left + tq.right) / 2 - c.left, tq.bottom - c.top + 4, cc]);
+        if (inS) return;
+      }
       if (te.closest('.ln') !== ln) {
         var bb = ykR(te);
         h += rect({ l: bb.left, r: bb.right, t: bb.top, b: bb.bottom }, c, cc, true);
@@ -491,7 +505,7 @@
         if (!XT) XT = { e: te, up: up, x: wt(te).replace(/[:،.؟!\s–]+$/, '') };
         return;
       }
-      if (rel.t2 === te && rel.lab2) { var q = ykR(te); XB = { x: (q.left + q.right) / 2 - c.left, y: q.bottom - c.top + 4, col: cc } }
+      if (rel.t2 === te && rel.lab2) { var q = ykR(te); LS.push([rel.lab2, (q.left + q.right) / 2 - c.left, q.bottom - c.top + 4, cc]) }
       var b = ykR(te.querySelector && te.querySelector('.q3m') || te), x1 = b.left + b.width / 2 - c.left, d, y1, y2, dep = 5 + Math.min(7, Math.abs(x1 - fx) / 30), id = 't3g' + (YN++);
       var same = Math.abs((pk.t + pk.b) - (b.top + b.bottom)) < 40, gap = Math.max(b.left - pk.r, pk.l - b.right);
       if (same && rel.lab2 && gap < 30) return; /* yonma-yon juftlik — chiziqsiz, ikki yorliq yetadi */
@@ -507,15 +521,20 @@
       else { YC.textContent = rel.lab; YC.t3 = null; YC.style.pointerEvents = 'none' }
       YC.style.background = fc; YC.hidden = false; var lw = YC.offsetWidth / 2; YC.style.left = Math.min(Math.max(fx, lw + 4), c.width - lw - 4) + 'px'; YC.style.top = ly + 'px';
     }
-    if (XB && rel.lab2) { YC2.textContent = rel.lab2; YC2.style.background = XB.col; YC2.hidden = false; var w2 = YC2.offsetWidth / 2; YC2.style.left = Math.min(Math.max(XB.x, w2 + 4), c.width - w2 - 4) + 'px'; YC2.style.top = XB.y + 'px' }
-    /* ikki yorliq ustma-ust tushsa — ikkinchisi yonga (sig'masa — pastga) */
-    if (!YC.hidden && !YC2.hidden) {
-      var r1 = YC.getBoundingClientRect(), r2 = YC2.getBoundingClientRect();
-      if (r1.left < r2.right + 4 && r2.left < r1.right + 4 && r1.top < r2.bottom && r2.top < r1.bottom) {
-        var h2 = r2.width / 2, x2 = (r2.left + r2.right) / 2 < (r1.left + r1.right) / 2 ? r1.left - c.left - 6 - h2 : r1.right - c.left + 6 + h2;
-        if (x2 - h2 < 4 || x2 + h2 > c.width - 4) YC2.style.top = (parseFloat(YC.style.top) + r1.height + 4) + 'px'; else YC2.style.left = x2 + 'px';
+    /* nishon yorliqlari: chiziqlar ostida; bir-biriga tegsa — yonga (sig'masa — pastga) */
+    var placed = YC.hidden ? [] : [YC.getBoundingClientRect()];
+    LS.forEach(function (sp) {
+      var d = document.createElement('div'); d.className = 't3c'; d.textContent = sp[0]; d.style.background = sp[3]; tx.appendChild(d); YX.push(d);
+      var w = d.offsetWidth / 2, x = Math.min(Math.max(sp[1], w + 4), c.width - w - 4), y = Math.max(sp[2], ly);
+      d.style.left = x + 'px'; d.style.top = y + 'px';
+      for (var t = 0; t < 6; t++) {
+        var r = d.getBoundingClientRect(), hit = placed.filter(function (p) { return r.left < p.right + 4 && p.left < r.right + 4 && r.top < p.bottom && p.top < r.bottom })[0];
+        if (!hit) break;
+        var nx = (r.left + r.right) / 2 < (hit.left + hit.right) / 2 ? hit.left - c.left - 6 - w : hit.right - c.left + 6 + w;
+        if (nx - w < 4 || nx + w > c.width - 4) { y = hit.bottom - c.top + 4; d.style.top = y + 'px' } else { x = nx; d.style.left = x + 'px' }
       }
-    }
+      placed.push(d.getBoundingClientRect());
+    });
     if (ln) ln.classList.add('t3dim');
   }
 

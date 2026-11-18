@@ -1,6 +1,6 @@
 # Tarkib ko'rinishi — yangi tizim (sinov)
 
-Qaror: 16–17.11.2026, foydalanuvchi bilan chatda, rasm-namunalar asosida. Holat: **fiqh 1 va 2-darsda sinov** (2-dars — 16.11, 1-dars — 18.11.2026), Таркиб rejimida «Эски / Янги»; boshqa darslarda eski ko'rinish. Bu fayl — yagona manba (grammatika qoidalari — konspektda, bu yerda faqat *qanday ko'rsatilishi*).
+Qaror: 16–17.11.2026, foydalanuvchi bilan chatda, rasm-namunalar asosida. Holat: **fiqh 1 va 2-darsda sinov** (2-dars — 16.11, 1-dars — 18.11.2026), faqat yangi ko'rinish («Эски / Янги» tugmasi 18.11.2026 da olib tashlandi, foydalanuvchi; eski kod qoldi, `V=1`); belgilarda 4 guruh bo'lsa — 2 qator (`.lg-gs.lg4`); boshqa darslarda eski ko'rinish. Bu fayl — yagona manba (grammatika qoidalari — konspektda, bu yerda faqat *qanday ko'rsatilishi*).
 
 ## 1. Tamoyil
 - **Rang — so'zning vazifasi yoki holati oilasi; to'q rang — uni o'zgartirgan harf; ramka — asosiy bo'lak o'rnida kelgan bo'lak.**
@@ -79,7 +79,7 @@ Quti — **qoidalar** uchun; matnda ko'rinib turgan narsa qutida takrorlanmaydi 
 - **Rang bosilsa:** matnda shu rangdagi qism yonadi (so'zning faqat o'sha bo'lagi, masalan zamir), qolgani xiralashadi; tagida bir qator izoh (vazifa + hukm + alomat). Yana bosilsa yoki boshqa joy bosilsa — o'chadi.
 - **ⓘ** — pastdan varaq: butun tizim guruhlar bilan (alomati bilan: замма / фатҳа / касра), har rangda shu darsdan misol; darsda yo'qlari xira, «бу дарсда йўқ»; Рамка, Узуқ чизиқ; ishlatish (bir bosish, bosib turish, qoida qatori, Ҳозирги жой).
 - **Ko'rsatma** (5 qadamli tur) — **olib tashlandi** (18.11.2026, foydalanuvchi: o'rniga keyinchalik video ko'rsatma, qulayroq). O'zi chiqmaydi, ⓘ da «▶ Кўрсатмани қайта кўриш» yo'q; `tuGo()` kodi f2 da qoldi, chaqirilmaydi.
-- **Yig'ish** (18.11.2026, foydalanuvchi): ⓘ ostidagi ▴ — belgilar ingichka qatorga yig'iladi (guruh nomlari + rang nuqtalari, «Белгилар ▾»), matnga ko'proq joy; qator bosilsa qayta ochiladi; tanlov eslab qolinadi (`fiqh-lgz`); boshida ochiq.
+- **Ingichka qator — doim** (18.11.2026 kech, foydalanuvchi: belgilar ekranda ko'p joy olardi; variant A tanlandi): tepada faqat bitta qator — guruh nomlari + rang nuqtalari, oxirida ⓘ (`tx.lgz` doim; guruh bo'linmaydi — `.lg-z span{white-space:nowrap}`, 360px ekranga sig'adi; katta kartalar `.lg-w` ko'rinmaydi, kodi qoldi). Qator bosilsa — pastdan to'liq ro'yxat (`lgSheet`); ro'yxatda rang bosilsa — oyna yopiladi, matnda o'sha rangdagi so'zlar yonadi va qator ostida izohi (`.lg-t`); bo'sh joy bosilsa — o'chadi.
 - «Рамка» izohi: «бир неча сўз бирга битта вазифада: масалан, жар ва мажрур — хабар».
 - **Audio belgilari** (fon, yashil ramka, «Ҳозирги жой») yangi ko'rinishda faqat audio ijro bo'layotganda (`tx.apl`); to'xtasa — o'chadi, play bosilsa o'sha joydan davom etadi.
 - **Bismillah** — matn tepasida: «Эски / Янги» va belgilardan keyin, sarlavhadan oldin (18.11.2026, foydalanuvchi).

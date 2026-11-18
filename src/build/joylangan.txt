@@ -1,6 +1,7 @@
 tayyor-97-dars eaf4ad0c0c8e64e1af57b261f5c26495ea4d4ea8
 tayyor-fiqh-1 99bf54368875c441d16295968e4aad9c41541787
 tayyor-fiqh-2 3194f435ae9e12841abb3d97712b0709a3817f50
+tayyor-fiqh-legenda 09de4790dc9202f6e3c9dd2e83d663f7702f7d8b
 tayyor-hujjat fc72900906e773e4c92f74752e0fffbc12ddabe6
 tayyor-ish-belgi 071ae477c852fcdc2bad55f0c71c323abf79e4b1
 tayyor-kitob-oxiri e3ad5e422288993b14584790cfa5758726e63bac

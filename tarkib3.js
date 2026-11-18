@@ -90,9 +90,11 @@
     /* «Қоидалар» qutisi */
     '#tx .nqb{display:none}' +
     '#tx.tartib.nv .nqb{display:block;margin:8px 0 2px;padding:8px 12px 6px;border-radius:12px;background:var(--bg);border:1px solid var(--bd);direction:ltr;text-align:left}' +
-    '.nqb .fgh{display:flex;justify-content:flex-end;margin:0 0 2px}' +
-    '.nqb .fgt{font:700 12px/1 system-ui,-apple-system,sans-serif;color:var(--ac);background:var(--tint,rgba(15,122,79,.1));border-radius:999px;padding:5px 10px}' +
-    '.nqb .nq-h{font:800 11px/1 system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--mu);margin:2px 0}' +
+    /* yopiq turadi, sarlavha bosilsa ochiladi (19.11.2026, foydalanuvchi) */
+    '#tx.tartib.nv .nqb:not(.op){padding:4px 12px}.nqb:not(.op) .nq-r{display:none}' +
+    '.nqb .fgt{margin-left:auto;font:700 12px/1 system-ui,-apple-system,sans-serif;letter-spacing:0;text-transform:none;color:var(--ac);background:var(--tint,rgba(15,122,79,.1));border-radius:999px;padding:5px 10px}' +
+    '.nqb .nq-h{display:flex;align-items:center;gap:6px;min-height:32px;cursor:pointer;-webkit-tap-highlight-color:transparent;font:800 11px/1 system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--mu);margin:0}' +
+    '.nqb .nq-v{font:400 15px/1 system-ui,sans-serif}.nqb .nq-v::after{content:"▾"}.nqb.op .nq-v::after{content:"▴"}.nqb.op .nq-h{color:var(--tx)}' +
     '.nqb .nq-r{display:flex;flex-wrap:wrap;align-items:center;gap:0 6px;padding:6px;border-top:1px dashed var(--bd);border-radius:8px;cursor:pointer;-webkit-tap-highlight-color:transparent}' +
     '.nqb .nq-h+.nq-r{border-top:0}' +
     '.nqb .nq-m{flex:1 1 0;min-width:0;display:flex;flex-wrap:wrap;align-items:center;gap:2px 10px}' +
@@ -632,6 +634,7 @@
     [].forEach.call(w.e.querySelectorAll('span.q3'), function (q) { h += '<span class="' + q.className.replace(/\bq3m?\b/g, '').trim() + '">' + esc(q.textContent.replace(/[:،.؟!]+$/, '')) + '</span>' });
     return h || esc(w.e.textContent);
   }
+  var OPN = {}; /* ochiq qutilar (gap raqami) — faqat shu ochilishda; dars qayta ochilsa hammasi yopiq */
   function box(L) {
     var row = LW[L]; if (!row || !row.length) return '';
     var K = {}, ks = [];
@@ -656,9 +659,10 @@
     if (!ks.length && !gh.length && !bf.length) return '';
     var ty = [];
     (TT[L] || []).forEach(function (t) { var m = String(t[1]).match(/Жумлатун (исмийя|феълийя|таажжуб)/), v = t.st || (m && m[1]); if (v && ty.indexOf(v) < 0) ty.push(v) });
-    var o = '<div class="nqb" data-l="' + L + '">' + (ty.length ? '<div class="fgh"><span class="fgt">' + ty.join(' · ') + '</span></div>' : '');
+    var n = ks.length + (gh.length ? 1 : 0) + bf.length;
+    var o = '<div class="nqb' + (OPN[L] ? ' op' : '') + '" data-l="' + L + '"><div class="nq-h" role="button" aria-expanded="' + !!OPN[L] + '"><span>Қоидалар (' + n + ')</span><span class="nq-v"></span>' +
+      (ty.length ? '<span class="fgt">' + ty.join(' · ') + '</span>' : '') + '</div>';
     if (ks.length) {
-      o += '<div class="nq-h">Қоидалар</div>';
       ks.forEach(function (q) {
         var ix = K[q].sort(function (a, b) { return a - b }), runs = [], cur = null;
         ix.forEach(function (i) { if (cur && i - cur[cur.length - 1] <= 1) cur.push(i); else { cur = [i]; runs.push(cur) } });
@@ -691,6 +695,10 @@
         ev.stopPropagation();
         var mo = ev.target.closest('.nq-more'); if (mo) { var ul = mo.nextElementSibling; if (ul) { ul.hidden = !ul.hidden; mo.textContent = ul.hidden ? 'Батафсил ▾' : 'Йиғиш ▴' } return }
         if (ev.target.closest('.nq-k')) return;
+        if (ev.target.closest('.nq-h')) {
+          var op = !b.classList.contains('op'); clr(); b.classList.toggle('op', op);
+          OPN[b.getAttribute('data-l')] = op; b.firstChild.setAttribute('aria-expanded', op); return;
+        }
         var r = ev.target.closest('.nq-r'); if (r) nqOn(r); else clr();
       });
     });

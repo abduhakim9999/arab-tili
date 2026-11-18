@@ -42,6 +42,13 @@
     '#tx.tartib.nv .ws span.t3h{display:inline-block;align-self:center;font-size:calc(var(--fs,22px)*.62);line-height:1.3;padding:0 5px;border:1px dashed var(--mu);border-radius:8px;color:var(--mu);opacity:.6;cursor:pointer}' +
     '#tx.tartib.nv .ws span.t3h.t3f{opacity:1}#tx .ws span.t3h{transition:none!important}' +
     '#tx.tartib.nv .ws span.t3h.t3hm.t3f{border-color:var(--cm);color:var(--cm)}' +
+    /* kananing (mubtadoning) mahzuf xabari — zarf bilan bitta ramkada; ichida uzuq «pilla» (18.11.2026, foydalanuvchi) */
+    '#tx.tartib.nv .ws span.t3h.t3r{border:0;border-top:1.8px solid var(--rc);border-bottom:1.8px solid var(--rc);border-radius:0;opacity:1;align-self:stretch;display:inline-flex;align-items:center;position:relative;padding:0 9px}' +
+    '#tx.tartib.nv .ws span.t3h.t3r.t3s{border-right:1.8px solid var(--rc);border-top-right-radius:10px;border-bottom-right-radius:10px}' +
+    '#tx.tartib.nv .ws span.t3h.t3r.t3e{border-left:1.8px solid var(--rc);border-top-left-radius:10px;border-bottom-left-radius:10px}' +
+    '#tx.tartib.nv .ws span.t3h.t3r:not(.t3e){margin-left:-4px;padding-left:11px}' +
+    '#tx.tartib.nv .ws span.t3h.t3r::after{content:"";position:absolute;inset:6px 3px 6px 5px;border:1px dashed var(--mu);border-radius:8px;opacity:.7;pointer-events:none}' +
+    '#tx.tartib.nv .ln.t3dim .ws span.t3h.t3r:not(.t3f){opacity:.32}' +
     /* yashirin foil — fe'l tagida, faqat bosganda / belgilar «Фоил» */
     '#tx .ws span[data-i]{position:relative}' +
     '#tx .ws span[data-i] span.t3y{display:none}' +
@@ -131,7 +138,8 @@
   function bare(s) { return String(s).replace(/[ً-ْٰـ]/g, '').replace(/[أإآٱ]/g, 'ا').replace(/[^ء-ي]/g, '') }
   function lc(s) { return String(s).replace(/[^ء-يٱ]/g, '').length }
   function esc(t) { return String(t).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c] }) }
-  function arw(s) { return esc(s).replace(/[؀-ۿ][؀-ۿً-ْٰ\s،؛…]*[؀-ۿً-ْٰ]|[؀-ۿ]/g, function (m) { return '<bdi class="ar">' + m + '</bdi>' }) }
+  /* arabcha bo'lak — qavslari bilan bitta o'ngdan-chapga bo'lak (vaqf: «وَ(الْأَمْرُ) هَكَذَا» chalkashmasin) */
+  function arw(s) { return esc(s).replace(/\(?[؀-ۿ](?:[؀-ۿً-ْٰ\s،؛…()]*[؀-ۿً-ْٰ)])?/g, function (m) { return '<bdi class="ar">' + m + '</bdi>' }) }
   function cap(s) { s = String(s || ''); return s.charAt(0).toUpperCase() + s.slice(1) }
   function tartib() { return tx.classList.contains('tartib') }
   function lines() { return tx.querySelectorAll('.ln') }
@@ -310,7 +318,7 @@
         var d = g[2], c = '';
         if (g[3] == 's') { if (/хабар/.test(d) && !/сифат/.test(d)) c = 'cx'; else if (/ноиби фоил/.test(d)) c = 'co'; }
         else if (g[3] == 'j') { if (/хабар/.test(d)) c = 'cx'; else if (/мафъул|мақули қавл/.test(d)) c = 'cb'; else if (/ноиби фоил|фоил ўрнида/.test(d)) c = 'co'; }
-        if (c) FR.push({ L: +L, a: g[0], b: g[1], c: c, g: g });
+        if (c) FR.push({ L: +L, a: g[0], b: g[1], c: c, g: g, gh: g[3] == 's' && c == 'cx' && g.gh && /маҳзуф хабар/.test(d) ? g.gh : null });
       });
     });
     /* bir so'zda ikki ramka bo'lsa — kattasi */
@@ -318,20 +326,32 @@
     var used = {};
     FR = FR.filter(function (f) { for (var i = f.a; i <= f.b; i++) if (used[f.L + '-' + i]) return false; for (var j = f.a; j <= f.b; j++) used[f.L + '-' + j] = 1; return true });
     FR.forEach(function (f) {
-      for (var i = f.a; i <= f.b; i++) { var w = LW[f.L][i]; if (!w) continue; w.e.classList.add('t3r', 't3rc-' + f.c); w.fr = f; if (i == f.a) w.e.classList.add('t3s'); if (i == f.b) w.e.classList.add('t3e'); }
+      var E = frEls(f);
+      E.forEach(function (e, n) { e.classList.add('t3r', 't3rc-' + f.c); e.t3fr = f; if (n == 0) e.classList.add('t3s'); if (n == E.length - 1) e.classList.add('t3e') });
+      for (var i = f.a; i <= f.b; i++) { var w = LW[f.L][i]; if (w) w.fr = f }
     });
     rowFix();
+  }
+  /* ramka elementlari tartibda: mahzuf xabar (bo'lsa) + so'zlar */
+  function frEls(f) { var o = f.gh ? [f.gh.e] : []; for (var i = f.a; i <= f.b; i++) if (LW[f.L][i]) o.push(LW[f.L][i].e); return o }
+  /* nishon doimiy ramkada bo'lsa — o'sha qatordagi butun ramka qutisi (sim ramkaning o'rtasiga ulanadi) */
+  /* sim nishoni: mahzuf xabar bo'lsa — o'zi (katta kitoblardagidek xabar — o'sha; 18.11.2026, foydalanuvchi), aks holda doimiy ramka butunicha */
+  function frT(te, rel) { return te.classList.contains('t3r') && rel.tl && !te.classList.contains('t3h') ? frBox(te) : ykR(te) }
+  function frBox(te) {
+    var q = ykR(te), f = te.t3fr; if (!f) return q;
+    var m = (q.top + q.bottom) / 2, z = { left: q.left, right: q.right, top: q.top, bottom: q.bottom };
+    frEls(f).forEach(function (x) { var r = ykR(x); if (Math.abs((r.top + r.bottom) / 2 - m) < 14) { z.left = Math.min(z.left, r.left); z.right = Math.max(z.right, r.right); z.top = Math.min(z.top, r.top); z.bottom = Math.max(z.bottom, r.bottom) } });
+    z.width = z.right - z.left; return z;
   }
   /* ramka qatordan qatorga o'tsa — bo'linish joyida ochiq qoladi (t3o) */
   function rowFix() {
     FR.forEach(function (f) {
-      var prev = null;
-      for (var i = f.a; i <= f.b; i++) {
-        var w = LW[f.L][i]; if (!w) continue; var e = w.e;
-        if (i != f.a) e.classList.remove('t3s'); if (i != f.b) e.classList.remove('t3e'); e.classList.remove('t3o');
+      var prev = null, E = frEls(f);
+      E.forEach(function (e, n) {
+        if (n != 0) e.classList.remove('t3s'); if (n != E.length - 1) e.classList.remove('t3e'); e.classList.remove('t3o');
         if (prev && Math.abs(prev.offsetTop - e.offsetTop) > 4) { prev.classList.add('t3o'); }
         prev = e;
-      }
+      });
     });
   }
 
@@ -387,7 +407,7 @@
         var mb = W.filter(function (w) { return w.mc == 'cm' && !w.tob && !w.fr })[0];
         var xb = W.filter(function (w) { return (w.mc == 'cx' && !w.tob) || (w.fr && w.fr.c == 'cx') })[0];
         var gm = GH.filter(function (g) { return g.L == L && g.kind == 'm' && g.i >= sg[0] && g.i <= sg[1] })[0];
-        var xs = xb ? (xb.fr ? [LW[L][xb.fr.a].e] : [xb.e]) : [];
+        var xs = xb ? (xb.fr ? [frEls(xb.fr)[0]] : [xb.e]) : [];
         var ky = kn && kn.yz && kn.yzc == 'cm' ? kn.e.querySelector('.t3y') : null;
         var ms = mb ? [mb.e] : gm ? [gm.e] : ky ? [ky] : [];
         if (kn && (ms.length || xs.length)) {
@@ -398,11 +418,13 @@
           var kr = { src: [kn.e], tg: kt, tl: kl, tgf: true, lab: '' };
           set(kn.k, kr); if (mb) set(mb.k, kr); if (gm) gm.rel = kr;
           if (xb) (xb.fr ? grpWords(L, xb.fr.a, xb.fr.b) : [xb]).forEach(function (w) { set(w.k, kr) });
+          if (xb && xb.fr && xb.fr.gh && !xb.fr.gh.rel) xb.fr.gh.rel = kr;
         }
         else if (ms.length && xs.length) {
           var pr = { src: ms, tg: xs, tl: ['хабар'], tgf: true, lab: 'мубтадо' };
           if (mb) set(mb.k, pr); if (gm) gm.rel = pr;
           (xb.fr ? grpWords(L, xb.fr.a, xb.fr.b) : [xb]).forEach(function (w) { set(w.k, pr) });
+          if (xb.fr && xb.fr.gh && !xb.fr.gh.rel) xb.fr.gh.rel = pr;
         }
         /* fe'l — foil — maf'ul */
         W.forEach(function (w) {
@@ -528,16 +550,17 @@
     var XT = null, XB = null, LS = [];
     (rel.tg || []).forEach(function (te, ti) {
       if (!te) return; te.classList.add('t3f'); YF.push(te);
+      if (te.t3fr && rel.tl) frEls(te.t3fr).forEach(function (x) { x.classList.add('t3f'); YF.push(x) }); /* nishon ramkada — butun ramka yonadi */
       var tr = te.classList.contains('t3r'), cc = tr && rel.tl ? frC(te) : colOf(te), inS = src.some(function (x) { return x !== te && x.contains && x.contains(te) });
       if (te.closest('.ln') === ln) {
-        var tq = ykR(te);
+        var tq = frT(te, rel);
         if (!inS && !te.classList.contains('t3h') && !(tr && rel.tl)) h += rect({ l: tq.left, r: tq.right, t: tq.top, b: tq.bottom }, c, cc, false, tr);
         if (rel.tl && rel.tl[ti]) LS.push([rel.tl[ti], (tq.left + tq.right) / 2 - c.left, tq.bottom - c.top + 4, cc]);
         if (inS) return;
       }
       if (te.closest('.ln') !== ln) {
         /* boshqa gapdagi nishon: sim bo'lakning o'sha chiqish nuqtasidan (ramka osti / usti o'rtasi) chiqib, o'ng chetdan yuradi va nishonga ulanadi — strelkasiz (18.11.2026, foydalanuvchi) */
-        var bb = ykR(te), up = bb.top < a.top;
+        var bb = frT(te, rel), up = bb.top < a.top;
         if (!te.classList.contains('t3r')) h += rect({ l: bb.left, r: bb.right, t: bb.top, b: bb.bottom }, c, cc, !rel.tgf);
         var xr = Math.min(Math.max(a.right, bb.right) - c.left + 14, c.width - 6), tx1 = (bb.left + bb.right) / 2 - c.left,
           y0 = up ? ft : fb, y1 = up ? ft - 10 : fb + 10, ey = up ? bb.bottom - c.top + 12 : bb.top - c.top - 12, end = up ? bb.bottom - c.top + 1 : bb.top - c.top - 1, gid = 't3m' + (YN++);
@@ -553,7 +576,7 @@
         return;
       }
       /* gap ichidagi nishon: sim bo'lak ramkasining o'rtasidan chiqib, nishon ramkasining chetiga ulanadi (so'z ichiga kirmaydi) — boshqa gapga simdek, yumaloq burchakli (18.11.2026, foydalanuvchi) */
-      var b = ykR(te), tf = te.classList.contains('t3h') || (tr && rel.tl) ? 0 : tr ? 6 : 3, to = te.classList.contains('t3h') || (tr && rel.tl) ? 0 : tr ? -2 : 3, tx2 = (b.left + b.right) / 2 - c.left,
+      var gh0 = te.classList.contains('t3h') && !tr, b = frT(te, rel), tf = gh0 || (tr && rel.tl) ? 0 : tr ? 6 : 3, to = gh0 || (tr && rel.tl) ? 0 : tr ? -2 : 3, tx2 = (b.left + b.right) / 2 - c.left,
         tb = b.bottom - c.top - tf, tt = b.top - c.top + tf, id = 't3g' + (YN++), P, y0, y9;
       var same = Math.abs((pk.t + pk.b) - (b.top + b.bottom)) < 40;
       if (same) { var yb = Math.max(fb, tb) + 9; P = [[fx, fb], [fx, yb], [tx2, yb], [tx2, tb]]; y0 = fb; y9 = tb; ly = Math.max(ly, yb + 4) }
@@ -605,6 +628,20 @@
     var row = LW[L]; if (!row || !row.length) return '';
     var K = {}, ks = [];
     row.forEach(function (w) { if (!w) return; (QMP[w.k] || []).forEach(function (q) { if (!QT[q]) return; if (!K[q]) { K[q] = []; ks.push(q) } K[q].push(w.i) }) });
+    /* كَانَ / إِنَّ qatori: kana, ismi va xabari (ramkasi butunicha, mahzufi bilan) — 18.11.2026, foydalanuvchi */
+    var KH = {};
+    ['KANA', 'LAYSA', 'LAKINNA', 'ANNA'].forEach(function (q) {
+      if (!K[q]) return;
+      K[q].slice().forEach(function (i) {
+        var w = row[i], r = w && w.mc == 'cz' && RELS[w.k]; if (!r || !r.tl) return;
+        r.tg.forEach(function (te) {
+          if (!te) return; var f = te.t3fr, ix = [];
+          if (f && f.L == L) { for (var j = f.a; j <= f.b; j++) ix.push(j); if (f.gh) KH[f.gh.i] = f.gh }
+          else { var k = te.getAttribute('data-i'), ww = k && WD[k]; if (ww && ww.L == L) ix.push(ww.i) }
+          ix.forEach(function (j) { if (row[j] && K[q].indexOf(j) < 0) K[q].push(j) });
+        });
+      });
+    });
     ks.sort(function (p, q) { var a = ORD.indexOf(p), b = ORD.indexOf(q); a = a < 0 ? 99 : a; b = b < 0 ? 99 : b; return a - b || K[p][0] - K[q][0] });
     var gh = GH.filter(function (g) { return g.L == L });
     var bf = []; row.forEach(function (w) { if (w && w.E.o) w.E.o.forEach(function (o) { if (/Бошқа фикр/.test(o[0])) bf.push([w, o[1]]) }) });
@@ -619,7 +656,7 @@
         ix.forEach(function (i) { if (cur && i == cur[cur.length - 1] + 1) cur.push(i); else { cur = [i]; runs.push(cur) } });
         var T = QT[q], more = T[1].slice(1);
         o += '<div class="nq-r" data-q="' + q + '"><div class="nq-m"><div class="nq-t">' + arw(NM[q] || T[0]) + '</div><div class="nq-c">' +
-          runs.map(function (r) { return '<span data-w="' + r.join(',') + '">' + r.map(function (i) { return chipW(row[i]) }).join(' ') + '</span>' }).join('') +
+          runs.map(function (r) { var hz = r.filter(function (i) { return KH[i] }).map(function (i) { return GH.indexOf(KH[i]) }); return '<span data-w="' + r.join(',') + '"' + (hz.length ? ' data-h="' + hz.join(',') + '"' : '') + '>' + r.map(function (i) { return (KH[i] ? '<span class="nq-hz">' + esc(KH[i].t) + '</span> ' : '') + chipW(row[i]) }).join(' ') + '</span>' }).join('') +
           '</div></div><span class="nq-g"></span><div class="nq-k">' + arw(T[1][0] || '') + (more.length ? '<div><span class="nq-more">Батафсил ▾</span><ul hidden>' + more.map(function (s) { return '<li>' + arw(s) + '</li>' }).join('') + '</ul></div>' : '') + '</div></div>';
       });
     }
@@ -657,7 +694,7 @@
     TXC = getComputedStyle(tx).color; MU = getComputedStyle(document.documentElement).getPropertyValue('--mu').trim() || '#8a8f8a';
     var c = tx.getBoundingClientRect(), h = '', G2 = [];
     if (r.dataset.hz) GH.filter(function (g) { return g.L == L }).forEach(function (g) { G2.push([g.e]) });
-    else if (r.dataset.q) [].forEach.call(r.querySelectorAll('.nq-c>span[data-w]'), function (s) { G2.push(s.getAttribute('data-w').split(',').map(function (i) { return row[+i] && row[+i].e }).filter(Boolean)) });
+    else if (r.dataset.q) [].forEach.call(r.querySelectorAll('.nq-c>span[data-w]'), function (s) { G2.push(s.getAttribute('data-w').split(',').map(function (i) { return row[+i] && row[+i].e }).concat((s.getAttribute('data-h') || '').split(',').map(function (h) { return h !== '' && GH[+h] && GH[+h].e })).filter(Boolean)) });
     else if (r.dataset.w) G2.push([row[+r.dataset.w].e]);
     G2.forEach(function (ws) {
       if (!ws.length) return; var fc = colOf(ws[ws.length - 1]);

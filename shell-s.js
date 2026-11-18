@@ -521,11 +521,13 @@
     if (q) q.classList.remove('on');
     ov = document.createElement('div');
     ov.className = 'tour';
-    ov.innerHTML = '<div class="tsp"></div><div class="tcd" role="dialog"><div class="tn"></div><b class="th"></b><p class="tp"></p>' +
+    ov.innerHTML = '<div class="tsp"></div><div class="tcd" role="dialog"><button type="button" class="tx" aria-label="Ёпиш">✕</button><div class="tn"></div><b class="th"></b><p class="tp"></p>' +
       '<div class="tb"><button type="button" class="tsk">Ўтказиб юбориш</button><button type="button" class="tnx"></button></div></div>';
     document.body.appendChild(ov);
     sp = $('.tsp', ov); cd = $('.tcd', ov);
     $('.tsk', ov).addEventListener('click', close);
+    $('.tx', ov).addEventListener('click', close);
+    lsSet(TK, '1'); /* бир марта: очилиши биланоқ эслаб қолинади (ёпилмай чиқиб кетса ҳам қайта чиқмайди) */
     $('.tnx', ov).addEventListener('click', function () { go(1); });
     document.addEventListener('keydown', onKey);
     window.addEventListener('resize', place);

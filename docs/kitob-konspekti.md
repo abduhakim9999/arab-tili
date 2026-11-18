@@ -74,6 +74,8 @@ Yozuv eslatmasi: kitobda tanvin fath alifdan oldingi harf ustida yozilgan (ضَ�
 
 **Maҳаллий эъроб** (30): mabniy ism e'rob o'rnida kelsa — «раф ўринда / насб ўринда / жар ўринда» deyiladi.
 
+**So'z ichidagi tartib — o'ngdan chapga** (16.11.2026, foydalanuvchi: «katta nahv kitoblaridek»): so'zda bir nechta qism bo'lsa, tarkib so'zdagi tartibda yoziladi: 1) oldidagi harf(lar) (وَ، فَ، بِ، كَ، لِ — ketma-ket), 2) so'zning o'zi, 3) zamir, 4) birikmaning bog'lanishi («… — жар ва мажрур шибҳи жумла бўлиб, «…» га мутааллиқ / маътуф»), 5) ↳ izohlar (Яъни…, Бунда…, Чунки…). Masalan وَبِغَسْلِ: «وَ» → «بِ» → «غَسْلِ» → «بِغَسْلِ» … га маътуф. Arabcha i'rob ham shu tartibda. Nur ut-tolib darslari (`IRB`) shunday — 676 ta ko'p qismli so'z tekshirildi, xato yo'q; fiqh 1–2-darslar shunga keltirildi (`src/build/fiqh_tartib.js`).
+
 **Gap turi** har tarkibdan keyin yoziladi (7):
 - «Жумлатун хабарийя» — darak gap
 - «Жумлатун истифҳомийя» — so'roq gap
@@ -437,3 +439,4 @@ Fe'lga qo'shiladigan harflar (fe'l qatori ichida aytiladi):
 - 2026-11-10: 8–9-darslar; 7-bo'limga duo jumla, «тақдирий (яъни фаразан)» (муқаддар ўрнига), أَيْنَ, fasl zamiri, ikkinchi xabar, هَيَّا, munodo وَالِدِي.
 - 2026-11-11: 96-dars; 7-bo'limga ism fo'il/masdarga mutaalliq, إِلَى أَيْنَ, سَوْفَ, badali ba'z, batafsil badal, masdar fo'il, إِسْلَامَ آبَادَ, فِي أَمَانِ اللَّهِ, عَفْوًا.
 - 2026-11-15: 97-dars; 7-bo'limga ism mavsul sifat, بِحَيْثُ, uch xil إِذَا, وَهَكَذَا, كَانَتْ هُنَاكَ, أَصْبَحَ, raqam bilan yozilgan son, ism tafzil, alif bilan tugagan ismlar, ibtido وَ va natija فَـ.
+- 2026-11-16: 2-bo'limga so'z ichidagi tarkib tartibi — o'ngdan chapga (harf → so'z → zamir → bog'lanish → ↳ izoh); Nur ut-tolib IRB tekshirildi (xato yo'q), fiqh 1–2 to'g'rilandi.

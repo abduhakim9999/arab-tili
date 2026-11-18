@@ -5,7 +5,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 from build_t import *
 R = '/root/repo'; D93 = R + '/src/build/scratchpad/d93'
 T = HERE + '/tmp'; os.makedirs(T, exist_ok=True)
-AUD = R + '/a93-97fe1435.mp3'; HDR = R + '/src/build/scratchpad/hdr/h93.mp3'
+AUD = R + '/a93-8bdfd945.mp3'; HDR = R + '/src/build/scratchpad/hdr/h93.mp3'
 TGT = -18.0
 # --- matn ma'lumoti (sahifadagi bilan bir xil) ---
 os.chdir(D93)

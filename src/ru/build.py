@@ -9,7 +9,7 @@ Ikki qatlam:
  1) Ma'lumotda almashtiriladi (dNN.json): sarlavha, gap tarjimasi (TR), so'z ma'nosi (D ning 4-maydoni),
     lug'at (VOC), dars boshi yozuvi (HDR). Bu satrlar U+2063 bilan o'raladi — ru.js ularga tegmaydi.
  2) Qolgan hamma o'zbekcha matn (tugmalar, Таркиб, qoida kartalari, mashq izohlari) ekranda ru.js orqali
-    lug'at bo'yicha o'giriladi: lugat-umumiy.txt, lugat-qoida.txt (hamma darsga) + dNN.txt (shu darsga).
+    lug'at bo'yicha o'giriladi: lugat-umumiy.txt, lugat-qoida.txt, lugat-bosh.txt (hamma darsga) + dNN.txt (shu darsga).
     Sabab: sahifa kodi va tarkib2.js o'zbekcha matnga qarab ishlaydi (rang, mashq, Таркиб qutisi) —
     ma'lumotning o'zi tarjima qilinsa, ular buziladi.
 O'zbekcha ovoz (ЎЗ) va Eshitish havolasi ruscha sahifada yo'q (UZT o'chiriladi).
@@ -214,7 +214,7 @@ def build(n, out):
     s = re.sub(r'<script>\(function\(\)\{var d=document\.querySelector\("\.dh"\)[^<]*?className="lq"[\s\S]*?</script>', '', s, count=1)
 
     # --- ruscha qatlam: lug'at + ru.js (sahifa boshida, boshqa skriptlardan oldin)
-    D = make_dict([os.path.join(HERE, f) for f in ('lugat-umumiy.txt', 'lugat-qoida.txt', 'lugat-qobiq.txt', 'd%02d.txt' % n)])   # qobiq — umumiy kod matni (tg.js oynalari ham)
+    D = make_dict([os.path.join(HERE, f) for f in ('lugat-umumiy.txt', 'lugat-qoida.txt', 'lugat-bosh.txt', 'lugat-qobiq.txt', 'd%02d.txt' % n)])   # qobiq — umumiy kod matni (tg.js oynalari ham); bosh — dars nomlari (Eshitish sarlavhasi bo'laklari)
     js = open(os.path.join(HERE, 'ru.js'), encoding='utf-8').read()
     css = open(os.path.join(HERE, 'ru.css'), encoding='utf-8').read() if os.path.exists(os.path.join(HERE, 'ru.css')) else ''
     inj = '<script>window.RU_DICT=' + J(D).replace('</', '<\\/') + '</script>\n<script>' + js + '</script>\n'

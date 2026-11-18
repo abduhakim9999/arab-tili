@@ -6,20 +6,22 @@
   window.KORISH = 1;                                    /* ko'rish sahifasi: kirish talab qilinmaydi (tg.js Kirish) — server baribir o'chiq */
   try {
     var L = window.localStorage;
+    var UM = { 'fe-tour': 1 };                          /* umumiy kalit: dars turi hamma ko'rish sahifasida bir marta chiqadi (15.11.2026) */
+    var pk = function (k) { return UM[k] ? k : P + k; };
     var ks = function () { var r = [], i, k; for (i = 0; i < L.length; i++) { k = L.key(i); if (k && k.indexOf(P) === 0) r.push(k.slice(P.length)); } return r; };
     var S = {
-      getItem: function (k) { return L.getItem(P + k); },
-      setItem: function (k, v) { L.setItem(P + k, String(v)); },
-      removeItem: function (k) { L.removeItem(P + k); },
+      getItem: function (k) { return L.getItem(pk(k)); },
+      setItem: function (k, v) { L.setItem(pk(k), String(v)); },
+      removeItem: function (k) { L.removeItem(pk(k)); },
       clear: function () { ks().forEach(function (k) { L.removeItem(P + k); }); },
       key: function (i) { var a = ks(); return i < a.length ? a[i] : null; }
     };
     Object.defineProperty(S, 'length', { configurable: true, get: function () { return ks().length; } });
     var X = new Proxy(S, {
-      get: function (t, k) { if (k in t) return t[k]; if (typeof k !== 'string') return undefined; var v = L.getItem(P + k); return v === null ? undefined : v; },
+      get: function (t, k) { if (k in t) return t[k]; if (typeof k !== 'string') return undefined; var v = L.getItem(pk(k)); return v === null ? undefined : v; },
       set: function (t, k, v) { if (!(k in t)) t.setItem(k, v); return true; },
       deleteProperty: function (t, k) { t.removeItem(k); return true; },
-      has: function (t, k) { return k in t || L.getItem(P + k) !== null; },
+      has: function (t, k) { return k in t || L.getItem(pk(k)) !== null; },
       ownKeys: function () { return ks(); },
       getOwnPropertyDescriptor: function (t, k) { var v = L.getItem(P + k); return v === null ? undefined : { value: v, writable: true, enumerable: true, configurable: true }; }
     });

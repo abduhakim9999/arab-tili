@@ -29,33 +29,40 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
 
 ## Darslar holati
 - Sayt: https://nurut-tolib.vercel.app/ (fiqh: https://nurut-tolib-fiqh.vercel.app/; eski github.io ham ishlaydi; joylanmagan `tayyor-*` ishlar — https://abduhakim9999.github.io/arab-tili/tayyor/ , `docs/texnik.md` 1) · Mini App `t.me/Arabtilihivar_bot/darslar` · versiya `sw.js` dagi `var C`.
-- Darslar: 1-kitob **1–9**; 2-kitob **70–74, 91–96**; **97**.
+- Darslar: 1-kitob **1–10**; 2-kitob **70–74, 91–96**; **97**.
 - Fiqh (parol bilan yopiq, `docs/texnik.md` 10): birinchi kitob — «Мухтасарул виқоя», al-Qori sharhi «فتح باب العناية» bilan (tarjima + grammatik tahlil + sharh; keyin boshqa kitoblar). 1-dars: «Матн · Атамалар · Шарҳ · Хулоса · Машқ»; **2-dars** «سُنَنُ الْوُضُوءِ» (16.11.2026; saytda — 18.11.2026; sharh 46–48-betlar, 49–57 — qisqa bayon «тайёрланмоқда»). 2-darsda **yangi tarkib ko'rinishi sinovda** (16–17.11.2026; rang — vazifa yoki holat oilasi: 5 asosiy + och yashil mansub + feruza majrur, ramka — asosiy bo'lak o'rni; bosganda — ramka va chiziq; gap ostida «Қоидалар» qutisi; so'z oynasi kitob tartibida; belgilar holat bo'yicha + ⓘ (5 qadamli ko'rsatma 18.11 da olib tashlandi — o'rniga keyin video); «Эски / Янги» tugmasi olib tashlandi (18.11.2026) — faqat yangi ko'rinish; fiqh 1-darsda ham (18.11.2026); `docs/tarkib-korinishi.md`). Fiqh va arab tili — alohida programmalar (bir-biriga havola yo'q). Sharh matni: `src/manba/` (shifrlangan).
-- Eshitish: **1, 6, 7, 8, 9, 74, 93, 94, 95, 96, 97**. Ochiq ish: 2–5, 70–73, 91–92 ni qo'shish.
-- Ruscha versiya (11.11.2026): til «Яна» → Тил (sukut — o'zbekcha, boshida so'ralmaydi); ruschasi bor darslar: **1–9** (`ruN.html`). Manba `src/ru/` (`build.py`, `ru.js`, lug'atlar; `docs/texnik.md` 12). **Kod bitta — ikkala tilga** (14.11.2026, foydalanuvchi qarori): funksiya o'zbekcha sahifada qilinadi, ruschasi o'sha koddan ishlaydi; yangi matn — shu ishning o'zida ruscha lug'atga ham (`src/ru/lugat-qobiq.txt`); ruschasi yo'q narsa — «Тез орада». Qolgani: 12 dars (70–74, 91–97; **70-dars qoralamasi bor** — `src/ru/d70.*`: gap tarjimasi va lug'at, izohlar lug'ati hali yo'q, 156 ta; `ru70.html` yasalmagan, shuning uchun saytda ko'rinmaydi), ovoz, Sarf/Fe'llar/Eshitish/Yo'riqnoma.
+- Eshitish: **1, 6, 7, 8, 9, 10, 74, 93, 94, 95, 96, 97**. Ochiq ish: 2–5, 70–73, 91–92 ni qo'shish.
+- Ruscha versiya (11.11.2026): til «Яна» → Тил (sukut — o'zbekcha, boshida so'ralmaydi); ruschasi bor darslar: **1–10** (`ruN.html`). Manba `src/ru/` (`build.py`, `ru.js`, lug'atlar; `docs/texnik.md` 12). **Kod bitta — ikkala tilga** (14.11.2026, foydalanuvchi qarori): funksiya o'zbekcha sahifada qilinadi, ruschasi o'sha koddan ishlaydi; yangi matn — shu ishning o'zida ruscha lug'atga ham (`src/ru/lugat-qobiq.txt`); ruschasi yo'q narsa — «Тез орада». Qolgani: 12 dars (70–74, 91–97; **70-dars qoralamasi bor** — `src/ru/d70.*`: gap tarjimasi va lug'at, izohlar lug'ati hali yo'q, 156 ta; `ru70.html` yasalmagan, shuning uchun saytda ko'rinmaydi), ovoz, Sarf/Fe'llar/Eshitish/Yo'riqnoma.
 - «Наҳв» bo'limi (11.11.2026): `nahv.html` — эъроб аломатлари жадвали (2 yorliq); «Қоидалар» bo'limida (`qoidalar.html`), so'z oynasidagi holat yorlig'idan o'tiladi (`docs/texnik.md` 13). Navbatda: 55 qoida kartasi ro'yxati.
 - **Qilinmay qolganlar** (bir darsda qilingan yangilik → qolgan darslarga o'tkazish; foydalanuvchi so'raganda qilinadi; har yangilikdan keyin shu yerga qator qo'shiladi, o'tkazilgani yangilanadi):
   | Yangilik | Bor | Qolgan |
   |---|---|---|
-  | Eshitish (Матн/Луғат/Таркиб) | 1, 6, 7, 8, 9, 74, 93, 94, 95, 96, 97 | 2–5, 70–73, 91–92 |
-  | ЎЗ rejimida sarlavha (bob/dars) yonishi (`UZT.h`) | 1, 8, 9, 96, 97 | 95 + «ЎЗ» qo'shiladigan darslar |
-  | Pleyer «ЎЗ» tarjima + 🎧 (`UZT`) | 1, 8, 9, 95, 96, 97 | 6, 7, 74, 93, 94 (+ yangi Eshitishlar) |
-  | Eshitish bosh qismi bo'laklab (bob / dars alohida, ekranda yozuv) | 1, 8, 9, 97 | 6, 7, 74, 93, 94, 95 |
-  | O'zbekcha ovozda qavsli variantdan bittasi | 1, 97 | 6, 7, 74, 93, 94, 95 — tekshirish |
-  | Ovoz: har so'z/gap alohida generatsiya (bitta audiodan qirqilmagan) | 1, 8, 9, 97 | 6, 7 Луғат — tekshirish |
-  | Eshitish Таркибда o'zbekcha qator | 1, 6, 97 | 7, 74, 93 (94, 95 — tekshirish) |
-  | Eshitish Матнида mavzu (sarlavha) aytiladi | 1, 97 | 6, 7, 74, 93, 94, 95 — tekshirish |
-  | ЎЗ: o'zbekcha o'qilganda arabcha so'z yonadi (`UZT.w`, bepul moslash) | 1, 8, 9, 96, 97 | 95 + «ЎЗ» qo'shiladigan darslar |
-  | Луғат tinglash qoidasi: harflar o'qilmaydi, har shakl alohida + sukut, fe'l 4 shakl, o'zbekchada muannas yo'q (`lugat2.py`) | 7, 8, 9 | 1, 6 |
-  | Луғат arabchasi vaqfsiz: Hijozi ovozi + IPA (`ipa.py`), avtomat fonema tekshiruvi (`phcheck.py`) | 7, 8, 9 | 1, 6 (+ yangi darslar shu usulda) |
+  | Eshitish (Матн/Луғат/Таркиб) | 1, 6, 7, 8, 9, 10, 74, 93, 94, 95, 96, 97 | 2–5, 70–73, 91–92 |
+  | ЎЗ rejimida sarlavha (bob/dars) yonishi (`UZT.h`) | 1, 8, 9, 10, 96, 97 | 95 + «ЎЗ» qo'shiladigan darslar |
+  | Pleyer «ЎЗ» tarjima + 🎧 (`UZT`) | 1, 8, 9, 10, 95, 96, 97 | 6, 7, 74, 93, 94 (+ yangi Eshitishlar) |
+  | Eshitish bosh qismi bo'laklab (bob / dars alohida, ekranda yozuv) | 1, 8, 9, 10, 97 | 6, 7, 74, 93, 94, 95 |
+  | O'zbekcha ovozda qavsli variantdan bittasi | 1, 10, 97 | 6, 7, 74, 93, 94, 95 — tekshirish |
+  | Ovoz: har so'z/gap alohida generatsiya (bitta audiodan qirqilmagan) | 1, 8, 9, 10, 97 | 6, 7 Луғат — tekshirish |
+  | Eshitish Таркибда o'zbekcha qator | 1, 6, 10, 97 | 7, 74, 93 (94, 95 — tekshirish) |
+  | Eshitish Матнида mavzu (sarlavha) aytiladi | 1, 10, 97 | 6, 7, 74, 93, 94, 95 — tekshirish |
+  | ЎЗ: o'zbekcha o'qilganda arabcha so'z yonadi (`UZT.w`, bepul moslash) | 1, 8, 9, 10, 96, 97 | 95 + «ЎЗ» qo'shiladigan darslar |
+  | Луғат tinglash qoidasi: harflar o'qilmaydi, har shakl alohida + sukut, fe'l 4 shakl, o'zbekchada muannas yo'q (`lugat2.py`) | 7, 8, 9, 10 | 1, 6 |
+  | Луғат arabchasi vaqfsiz: Hijozi ovozi + IPA (`ipa.py`), avtomat fonema tekshiruvi (`phcheck.py`) | 7, 8, 9, 10 | 1, 6 (+ yangi darslar shu usulda) |
   | Луғат o'zbekchasida «jam» aytilmaydi (faqat ma'no; `ovoz.py voc_uz`) | yangi darslardan | 7, 8, 9 da «jam» qolgan — qayta yasalmaydi |
   | Pleyer ko'rinishi, sahifa siljitgichi (`shell.js`) | hamma darslar | — |
   | Abzas bo'sh joyi bosilsa o'qiydi; Таркибда o'qilayotgan gap legenda ostida qolmaydi (`shell.js`) | hamma darslar | — |
   | Bo'sh joy bosilsa — belgilangan narsa bekor (o'qimaydi); har gap kartasida ▶ (`tarkib3.js`, `docs/tarkib-korinishi.md` 12) | 97 (sinov, saytda — 18.11.2026) | qolgan darslar — yangi tarkib ko'rinishi bilan birga |
   | So'z oynasi: ‹ ›, Таркиб Ўзбекча/Арабча, qo'shimchalar tugma (`zoX`, `.zo-*`) | hamma darslar, fiqh 1 | — |
   | Луғат yorlig'ida «билмайман» belgisi → so'z bazasi (`shell.js`; `docs/texnik.md` 15) | hamma darslar | — |
+  | «Қоидалар» qutisi yopiq + qoida kartalari yangi qolipda (`tarkib3.js` `qf`, `QT`; konspekt 8) | 97 (saytda — 19.11.2026) | qolgan darslar, fiqh |
   | Yangi tarkib ko'rinishi: rang — vazifa/holat oilasi, ramka — asosiy bo'lak o'rni, bosganda — ramka va chiziq (`docs/tarkib-korinishi.md`) | fiqh 1, 2 (sinov, saytda); 97 (`tarkib3.js`, sinov, saytda — 18.11.2026) | qolgan «Нур ут-толиб» darslari, ruscha (`docs/tarkib-korinishi.md` 12) |
-- Oxirgi qilinganlar (14–18.11.2026; eskilari — `docs/tarix.md`):
+- Oxirgi qilinganlar (14–19.11.2026; eskilari — `docs/tarix.md`):
+  - **10-dars «أَحْمَدُ وَحَسَّانُ»** (Аҳмад ва Ҳассон; 1-kitob **3-bob «السَّكَنُ» — Уй-жой**, yangi bob; 19.11.2026; **saytda** — 19.11.2026, «joyla»): audio — foydalanuvchi yozuvi (31 s, kirishsiz, −19 LUFS), Scribe bilan tekshirildi; hujjatda suhbat tarjimasi yo'q — lug'at misollaridan; lug'at 16 (199–214), mashq 5; Eshitish Матн + Луғат + Таркиб, «ЎЗ» + so'z yonishi; ruschasi bor (`ru10.html`); xarita: `yol.html` MV k1b3, `fon/uy.jpg`, `fon/k-uy.jpg` (ElevenLabs rasm). Grammatika — konspekt 7; texnika — `docs/texnik.md` 5, 6, 15.
+  - **Dars bir bosishda ochiladi** (18.11.2026; **saytda** — 19.11.2026, «joyla»): «Бош саҳифа» ro'yxati va xaritasida dars bosilsa — darhol dars sahifasi (`yol.html` `darsga()`); oraliq oyna faqat imtihon va «Тез орада» uchun. «Давом этиш» katta tugmasi havolasi tuzatildi (`href=""` edi). `docs/texnik.md` 15.
+  - **Fiqh: kod bir marta + shaxsiy PIN** (19.11.2026; **saytda** — 19.11.2026, «joyla»): umumiy kod qurilmada faqat birinchi marta so'raladi (har kungi so'rash olib tashlandi); xohlagan odam fiqh ⚙ «Созламалар»da 4 xonali PIN qo'yadi — fiqh yangidan ochilganda va 5 daqiqadan ko'p fonda turilganda so'raladi; «Унутдим» — umumiy kod bilan PIN o'chadi. `fiqh_lock.py` qobig'i + `fiqh.html`; `docs/texnik.md` 10.
+  | 97-darsdagi tarkib tuzatishlari (kana ikki simi, sim ramkadan ramkaga, yorliqlar, ochiq ramka, mahzuf xabar o'zi, ramka faqat bosilganda, bo'sh joy / ▶, qavsli arabcha — ro'yxat `docs/tarkib-korinishi.md` 12 «Fiqhga o'tkaziladi») | 97 (saytda — 18.11.2026) | fiqh 1, 2 (`f2` kodi) |
+  - **«Орқага» avval oynani yopadi** (18.11.2026; **saytda** — 19.11.2026, «joyla»): darsda so'z oynasi, tur, «?» yordami, tezlik menyusi, bosh sahifada dars/imtihon oynasi va boblar ro'yxati ochiq bo'lsa — telefon «orqaga», Telegram «‹» va chap chetdan surish oynani yopadi, sahifadan chiqmaydi (`tg.js` `OYNA`). `docs/texnik.md` 1.
+  - **«Қоидалар» qutisi yopiq** (19.11.2026; **saytda** — 19.11.2026, «joyla»): 97-dars Таркибида gap ostidagi «Қоидалар» faqat sarlavha qatori «ҚОИДАЛАР (N) ▾» bo'lib turadi, bosilsa ochiladi; dars qayta ochilsa yana yopiq (`tarkib3.js`; fiqh hali eski — so'ralsa o'tkaziladi). **Qoida kartalari yangi qolipda:** kartada ta'rif va holat, «Батафсил» — raqamli bandlar kitoblar tartibida (turlari → sharti → e'robi → hukmi → tartib → hazf → nozik joy); boshqa mavzudagi gaplar, omil bahsi, «Бу дарсда» ro'yxati olib tashlandi; 97-darsdagi 18 qoida (`src/build/qt97-yangi.json`, `qt97.js`; qolip — konspekt 8). `docs/tarkib-korinishi.md` 12.
   - **97-dars — yangi tarkib ko'rinishi** (18.11.2026; **saytda** — 18.11.2026, «joyla»): fiqhdagi ko'rinish «Нур ут-толиб»ga — `tarkib3.js` (`window.TK3`, `site/build.py` `TK3 = {97}`); ma'lumot `IRB`/`CATOV`/`TKG`/`TKT`/`QMP` dan avtomat: 5 rang + holat oilasi, ramka, mahzuf, yashirin zamir, bosganda ramka/chiziq/nom, «Қоидалар» qutisi, so'z oynasi kitob tartibida, belgilar qatori + ⓘ, «Ҳозирги жой». Eski ko'rinish 97 da yo'q; boshqa darslar o'zgarmadi. `docs/tarkib-korinishi.md` 12.
   - **Testda fe'l ma'nosi o'tgan zamonda** (18.11.2026; **saytda** — 18.11.2026, «joyla»): Машқ testi, takror kartasi va imtihonlarda fe'l «-ди» bilan («шарт бўлди» → وَجَبَ), lug'at ro'yxati «-моқ»da qoldi (Eshitish ovozi o'zgarmadi). 75 fe'l — `src/build/lugat-moziy.json`; 1–9-darslar ruschasi ham («сказал»). `docs/texnik.md` 14.
   - **Fiqh audiolarida uzun jimliklar qisqartirildi** (18.11.2026; **saytda** — 18.11.2026, «joyla»): 1,5 s dan uzun jimlik (−35 dB) 0,5 s qoldirildi — 1-dars 8:44 → 8:15 (21 joy), 2-dars 17:01 → 16:30 (24 joy); `TL` vaqtlari va davomiylik suriladi. Asl audiolar — `align/in/fiqh-asl/`. `docs/texnik.md` 10.

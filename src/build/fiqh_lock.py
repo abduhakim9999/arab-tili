@@ -6,7 +6,11 @@
 
 src/fiqh/ — ochiq matn, .gitignore da (repo ochiq — commit qilinmaydi).
 Parol repoga yozilmaydi (claude.ai loyihasidagi fiqh-konspekti.md da).
-Brauzerda: PBKDF2-SHA256 (150 000) -> AES-GCM; to'g'ri kalit localStorage «fq-k» da, faqat shu kun (Toshkent vaqti, «fq-d») — har kuni bir marta parol so'raladi.
+Brauzerda: PBKDF2-SHA256 (150 000) -> AES-GCM; to'g'ri kalit localStorage «fq-k» da.
+19.11.2026 (foydalanuvchi qarori): umumiy kod qurilmada faqat birinchi marta so'raladi (har kungi so'rash olib tashlandi).
+Ixtiyoriy shaxsiy PIN (4 raqam) — fiqh.html «Созламалар»da qo'yiladi; «fq-pin» = tuz:SHA-256, faqat shu qurilmada.
+PIN qo'yilgan bo'lsa — fiqh yangidan ochilganda (sessionStorage «fq-u» yo'q) va 5 daqiqadan ko'p fonda turilganda so'raladi;
+5 xatodan keyin 30 s kutish («fq-pf», «fq-pl»); «Унутдим» — umumiy kod kiritilsa PIN o'chadi.
 """
 import base64, glob, hashlib, os, re, sys
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
@@ -24,6 +28,22 @@ SHELL = """<!DOCTYPE html>
 <link rel="icon" href="icon-192.png">
 <script>/* 09.11.2026: fiqh alohida ilova — faqat fiqh domenida (github.io da asosiy sw.js bilan to'qnashmasin) */
 function fqApp(){if(!/fiqh/.test(location.hostname))return;(function(){var h=document.head;[].forEach.call(document.querySelectorAll('link[rel=manifest],link[rel=icon],link[rel=apple-touch-icon],meta[name=theme-color]'),function(x){x.remove()});[['manifest','fiqh.webmanifest'],['icon','fiqh-icon-192.png'],['apple-touch-icon','fiqh-icon-192.png']].forEach(function(x){var l=document.createElement('link');l.rel=x[0];l.href=x[1];h.appendChild(l)});var m=document.createElement('meta');m.name='theme-color';m.content='#5E3C14';h.appendChild(m);if('serviceWorker' in navigator)navigator.serviceWorker.register('fiqh-sw.js').catch(function(){})})()}fqApp();
+/* 19.11.2026: shaxsiy PIN (ixtiyoriy, faqat shu qurilmada) — fiqh.html «Созламалар» shu FQP ni ishlatadi */
+var FQP=(function(){
+  function hx(b){return Array.prototype.map.call(new Uint8Array(b),function(x){return('0'+x.toString(16)).slice(-2)}).join('')}
+  function h(s,p){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(s+':'+p)).then(hx)}
+  function g(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  return{has:function(){return !!g('fq-pin')},
+    check:function(p){var v=(g('fq-pin')||'').split(':');return v.length<2?Promise.resolve(false):h(v[0],p).then(function(x){return x===v[1]})},
+    set:function(p){if(!/^[0-9]{4}$/.test(p))return Promise.reject(new Error('pin'));var s=hx(crypto.getRandomValues(new Uint8Array(8)));
+      return h(s,p).then(function(x){localStorage.setItem('fq-pin',s+':'+x);try{sessionStorage.setItem('fq-u','1')}catch(e){}})},
+    clear:function(){try{['fq-pin','fq-pf','fq-pl'].forEach(function(k){localStorage.removeItem(k)})}catch(e){}}}
+})();
+/* 5 daqiqadan ko'p fonda turilsa — qayta PIN (sahifa qayta yuklanadi, qobiq PIN so'raydi) */
+function fqGuard(){document.addEventListener('visibilitychange',function(){if(!FQP.has())return;try{
+  if(document.hidden){sessionStorage.setItem('fq-h',Date.now());return}
+  var h=+sessionStorage.getItem('fq-h')||0;sessionStorage.removeItem('fq-h');
+  if(h&&Date.now()-h>3e5){sessionStorage.removeItem('fq-u');document.documentElement.style.visibility='hidden';location.reload()}}catch(e){}})}
 </script>
 <link rel="stylesheet" href="shell.css">
 <style>
@@ -36,11 +56,26 @@ body{margin:0;min-height:100vh;display:flex;flex-direction:column;gap:18px;align
 #f button{font:inherit;font-size:20px;width:52px;border:0;border-radius:14px;background:var(--ac);color:var(--cd);cursor:pointer}
 .bk{position:fixed;top:12px;left:16px;width:40px;height:40px;border-radius:12px;background:var(--cd);border:1px solid var(--bd);color:var(--tx);text-decoration:none;font-size:22px;display:flex;align-items:center;justify-content:center}
 .bad{animation:sh .35s}@keyframes sh{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+body.pin{gap:14px}body.pin .cv{width:92px}
+#fh{margin:0;max-width:270px;text-align:center;font-size:14px;color:var(--mu)}
+#pn{display:none;flex-direction:column;align-items:center;gap:16px}
+#pn.on{display:flex}
+#pm{margin:0;min-height:1.4em;text-align:center;font-size:16px;color:var(--mu)}
+#pd{display:flex;gap:18px}
+#pd i{width:14px;height:14px;border-radius:50%;border:2px solid var(--ac);transition:background .12s}
+#pd i.on{background:var(--ac)}
+#pk{display:grid;grid-template-columns:repeat(3,68px);gap:12px 22px}
+#pk button{width:68px;height:68px;border-radius:50%;border:1px solid var(--bd);background:var(--cd);color:var(--tx);font:500 26px system-ui,-apple-system,sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#pk button:active{background:var(--bd)}
+#pk button.lk{border:0;background:none;font-size:14px;color:var(--ac)}
 </style>
 </head>
 <body>
 <a class="bk" href="./">‹</a>
 <svg class="cv" viewBox="0 0 200 280" role="img" aria-label="Мухтасарул виқоя — муқова"><rect x="0" y="0" width="200" height="280" rx="10" fill="#5E3C14"/><rect x="184" y="0" width="16" height="280" rx="6" fill="#43290C"/><rect x="14" y="14" width="160" height="252" rx="6" fill="none" stroke="#D9B46A" stroke-width="2"/><rect x="21" y="21" width="146" height="238" rx="4" fill="none" stroke="#D9B46A" stroke-width=".8" stroke-dasharray="3 3"/><g transform="translate(94 62)" fill="none" stroke="#D9B46A" stroke-width="1.6"><rect x="-15.84" y="-15.84" width="31.68" height="31.68"/><rect x="-15.84" y="-15.84" width="31.68" height="31.68" transform="rotate(45)"/><circle r="7.128"/></g><text x="94" y="126" text-anchor="middle" font-size="25" fill="#F4E6C3" font-family="DarsNaskh,Noto Naskh Arabic,serif">مُخْتَصَرُ</text><text x="94" y="158" text-anchor="middle" font-size="25" fill="#F4E6C3" font-family="DarsNaskh,Noto Naskh Arabic,serif">الْوِقَايَةِ</text><path d="M54 176 H84 M104 176 H134" stroke="#D9B46A" stroke-width="1.2"/><rect x="89" y="171" width="10" height="10" transform="rotate(45 94 176)" fill="#D9B46A"/><text x="94" y="203" text-anchor="middle" font-size="14" fill="#D9B46A" font-family="DarsNaskh,Noto Naskh Arabic,serif">النُّقَايَةُ</text><text x="94" y="228" text-anchor="middle" font-size="11" fill="#F4E6C3" font-family="DarsNaskh,Noto Naskh Arabic,serif">صَدْرُ الشَّرِيعَةِ الْمَحْبُوبِيُّ</text><g transform="translate(94 250)" fill="none" stroke="#D9B46A" stroke-width="1.6"><rect x="-5.04" y="-5.04" width="10.08" height="10.08"/><rect x="-5.04" y="-5.04" width="10.08" height="10.08" transform="rotate(45)"/><circle r="2.2680000000000002"/></g></svg>
+<div id="pn"><p id="pm">PIN-кодни киритинг</p><div id="pd"><i></i><i></i><i></i><i></i></div>
+<div id="pk"><button type="button" data-d="1">1</button><button type="button" data-d="2">2</button><button type="button" data-d="3">3</button><button type="button" data-d="4">4</button><button type="button" data-d="5">5</button><button type="button" data-d="6">6</button><button type="button" data-d="7">7</button><button type="button" data-d="8">8</button><button type="button" data-d="9">9</button><button type="button" class="lk" id="pu">Унутдим</button><button type="button" data-d="0">0</button><button type="button" class="lk" data-d="x" aria-label="Ўчириш">⌫</button></div></div>
+<p id="fh" hidden>Умумий кодни киритинг — PIN ўчирилади</p>
 <form id="f" autocomplete="on"><input id="p" type="password" autocomplete="current-password" aria-label="Парол"><button type="submit" aria-label="Кириш">→</button></form>
 <script>
 var D="@@DATA@@";
@@ -52,12 +87,33 @@ var D="@@DATA@@";
     return crypto.subtle.deriveBits({name:"PBKDF2",salt:S,iterations:@@IT@@,hash:"SHA-256"},b,256)}).then(function(x){return new Uint8Array(x)})}
   function dec(raw){var d=ub(D);return crypto.subtle.importKey("raw",raw,"AES-GCM",false,["decrypt"]).then(function(k){
     return crypto.subtle.decrypt({name:"AES-GCM",iv:d.slice(0,12)},k,d.slice(12))}).then(function(t){return new TextDecoder().decode(t)})}
-  function show(h){function go(){document.open();document.write(h);document.close();try{fqApp()}catch(e){}}if(document.readyState==="complete")setTimeout(go,0);else addEventListener("load",function(){setTimeout(go,0)})}
-  function ask(){f.classList.add("on");setTimeout(function(){p.focus()},50)}
-  var T=new Date(Date.now()+18e6).toISOString().slice(0,10),k=null;try{if(localStorage.getItem("fq-d")===T)k=localStorage.getItem("fq-k");else localStorage.removeItem("fq-k")}catch(e){}
-  if(k)dec(ub(k)).then(show,function(){try{localStorage.removeItem("fq-k")}catch(e){}ask()});else ask();
+  function show(h){function go(){document.open();document.write(h);document.close();try{fqApp()}catch(e){}try{fqGuard()}catch(e){}}if(document.readyState==="complete")setTimeout(go,0);else addEventListener("load",function(){setTimeout(go,0)})}
+  function ls(n,v){try{if(v===undefined)return localStorage.getItem(n);if(v===null)localStorage.removeItem(n);else localStorage.setItem(n,v)}catch(e){return null}}
+  function ss(n,v){try{if(v===undefined)return sessionStorage.getItem(n);if(v===null)sessionStorage.removeItem(n);else sessionStorage.setItem(n,v)}catch(e){return null}}
+  function shake(x){x.classList.remove("bad");void x.offsetWidth;x.classList.add("bad")}
+  var pn=document.getElementById("pn"),pm=document.getElementById("pm"),pd=document.getElementById("pd"),fh=document.getElementById("fh"),fg=false,pv="",busy=false;
+  function ask(){document.body.classList.remove("pin");pn.classList.remove("on");f.classList.add("on");setTimeout(function(){p.focus()},50)}
+  function open(k){dec(ub(k)).then(show,function(){ls("fq-k",null);ask()})}
+  /* PIN kerakmi: qo'yilgan bo'lsa — shu sessiyada ochilmagan yoki 5 daqiqadan ko'p fonda turilgan */
+  function need(){if(!FQP.has())return false;var u=ss("fq-u"),h=+ss("fq-h")||0;ss("fq-h",null);if(h&&Date.now()-h>3e5)u=null;return !u}
+  function wait(){return Math.max(0,(+ls("fq-pl")||0)-Date.now())}
+  function dots(){for(var i=0;i<4;i++)pd.children[i].className=i<pv.length?"on":""}
+  function tick(){var w=wait();if(!w){pm.textContent="PIN-кодни киритинг";return}pm.textContent="Кўп марта хато. "+Math.ceil(w/1000)+" сониядан кейин";setTimeout(tick,1000)}
+  function pin(){document.body.classList.add("pin");pn.classList.add("on");pv="";dots();tick()}
+  function dig(d){if(busy||wait()||!pn.classList.contains("on"))return;
+    if(d==="x"){pv=pv.slice(0,-1);dots();return}
+    if(pv.length>=4)return;pv+=d;dots();if(pv.length<4)return;busy=true;
+    FQP.check(pv).then(function(ok){
+      if(ok){ss("fq-u","1");ls("fq-pf",null);ls("fq-pl",null);open(ls("fq-k"));return}
+      var n=(+ls("fq-pf")||0)+1;if(n>=5){ls("fq-pl",Date.now()+3e4);n=0}ls("fq-pf",n);shake(pd);
+      setTimeout(function(){busy=false;pv="";dots();if(wait())tick();else pm.textContent="Нотўғри PIN"},400)})}
+  pn.addEventListener("click",function(e){var b=e.target.closest("button[data-d]");if(b)dig(b.getAttribute("data-d"))});
+  document.addEventListener("keydown",function(e){if(/^[0-9]$/.test(e.key))dig(e.key);else if(e.key==="Backspace")dig("x")});
+  document.getElementById("pu").onclick=function(){fg=true;fh.hidden=false;ask()};
+  var k=ls("fq-k");ls("fq-d",null);
+  if(!k)ask();else if(need())pin();else open(k);
   f.onsubmit=function(ev){ev.preventDefault();var raw;key(p.value).then(function(r){raw=r;return dec(r)}).then(function(h){
-    try{localStorage.setItem("fq-k",b64(raw));localStorage.setItem("fq-d",T)}catch(e){}show(h)},function(){f.classList.remove("bad");void f.offsetWidth;f.classList.add("bad");p.select()})};
+    ls("fq-k",b64(raw));ss("fq-u","1");if(fg)FQP.clear();show(h)},function(){shake(f);p.select()})};
 })();
 </script>
 </body>

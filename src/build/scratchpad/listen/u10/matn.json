@@ -1,0 +1,98 @@
+{
+ "raqam_uz": "Oʻninchi dars.",
+ "gaplar_uz": {
+  "1": "Assalomu alaykum.",
+  "2": "Va alaykum assalom.",
+  "3": "Qayerda yashaysan, istiqomat qilasan, siz?",
+  "4": "Aeroport rayonida, mahallasida, yashayman. Oʻzing-chi, qayerda yashaysan?",
+  "5": "Universitet rayonida, mahallasida, yashayman.",
+  "6": "Biron, Hovli uyda yashaysanmi?",
+  "7": "Ha, hovli uyda yashayman. Hovli uyda yashaysanmi?",
+  "8": "Yoʻq, kvartirada yashayman.",
+  "9": "Kvartirangning raqami nechchi?",
+  "10": "Besh, 5. Hovli uyingning raqami nechchi?",
+  "11": "Toʻqqiz, 9."
+ },
+ "lugat": [
+  {
+   "i": 0,
+   "ar": "عَشْرُنْ، عَشْرَتُنْ",
+   "uz": "Oʻn, oʻnta."
+  },
+  {
+   "i": 1,
+   "ar": "عَاشِرُنْ، عَاشِرَتُنْ",
+   "uz": "Oʻninchi."
+  },
+  {
+   "i": 2,
+   "ar": "حَسَّانُنْ",
+   "uz": "Hasson."
+  },
+  {
+   "i": 3,
+   "ar": "سَكَنَ، يَسْكُنُ، اُسْكُنْ، سَكَنُنْ، سُكْنَى",
+   "uz": "Yashamoq, istiqomat qilmoq."
+  },
+  {
+   "i": 4,
+   "ar": "حَيُّنْ، أَحْيَاءُنْ",
+   "uz": "Rayon, mahalla."
+  },
+  {
+   "i": 5,
+   "ar": "مَطَارُنْ، مَطَارَاتُنْ",
+   "uz": "Aeroport."
+  },
+  {
+   "i": 6,
+   "ar": "بَيْتُنْ، بُيُوتُنْ",
+   "uz": "Uy."
+  },
+  {
+   "i": 7,
+   "ar": "بَيْتُنْ، بُيُوتُنْ",
+   "uz": "Hovli uy."
+  },
+  {
+   "i": 8,
+   "ar": "جَامِعَتُنْ، جَامِعَاتُنْ",
+   "uz": "Universitet."
+  },
+  {
+   "i": 9,
+   "ar": "لَا",
+   "uz": "Yoʻq."
+  },
+  {
+   "i": 10,
+   "ar": "شَقَّتُنْ، شُقَقُنْ",
+   "uz": "Kvartira."
+  },
+  {
+   "i": 11,
+   "ar": "رَقْمُنْ، أَرْقَامُنْ",
+   "uz": "Raqam."
+  },
+  {
+   "i": 12,
+   "ar": "جُمْهُورِيَّتُنْ، جُمْهُورِيَّاتُنْ",
+   "uz": "Respublika, jumhuriyat."
+  },
+  {
+   "i": 13,
+   "ar": "نَامَانْغَانُ",
+   "uz": "Namangan."
+  },
+  {
+   "i": 14,
+   "ar": "نَامَانْغَانِيُّنْ، نَامَانْغَانِيُّونَ",
+   "uz": "Namanganlik, namangancha."
+  },
+  {
+   "i": 15,
+   "ar": "نَامَانْغَانِيَّتُنْ، نَامَانْغَانِيَّاتُنْ",
+   "uz": "Namanganlik, namangancha."
+  }
+ ]
+}

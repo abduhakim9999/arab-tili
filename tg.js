@@ -139,7 +139,7 @@
     if (inTg()) { ev.preventDefault(); location.replace(href); return; }
     /* ilova/brauzer: kelgan sahifaga («‹») qaytishda — tarixda orqaga (tarix aylanib qolmasin) */
     if (history.length > 1 && document.referrer && href.split('#')[0] === document.referrer.split('#')[0]) {
-      ev.preventDefault(); history.back();
+      ev.preventDefault(); history.go(GU ? -2 : -1);   /* oyna uchun qo'shilgan holat bo'lsa — uni ham o'tib */
     } else if (href !== a.href) { ev.preventDefault(); location.replace(href); }
   });
   window.addEventListener('pageshow', goOff);
@@ -234,6 +234,53 @@
   }
 
 
+  /* «Орқага» avval ochiq oynani yopadi (18.11.2026, foydalanuvchi: oyna ichida «орқага» bosilsa darsdan chiqib ketardi).
+     Telegram «‹» (Androidda telefon tugmasi ham shu) va chap chetdan surish — orqa(); brauzer/ilovada telefon tugmasi — tarix: oyna ochilganda
+     (bosishdan keyin — Chrome bosishsiz qo'shilgan holatni o'tkazib yuboradi) bitta {orqa:1} holat qo'shiladi, oyna yopilsa olib tashlanadi.
+     Yo'riqnoma o'ynatkichi (.qs) tarixni o'zi boshqaradi. Majburiy kirish oynasi ro'yxatda yo'q (yopilsa, kirishsiz o'tib ketardi).
+     Yangi oyna qo'shilsa — shu ro'yxatga (tepadagi oyna birinchi). docs/texnik.md 1. */
+  var ESC = function () { document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); };
+  var OYNA = [
+    ['.qs', function () { if (window.Qollanma) Qollanma.yop(); }, 1],
+    ['.tour', function (e) { var x = e.querySelector('.tx'); if (x) x.click(); else e.remove(); }],   /* dars turi */
+    ['#sh.on', function (e) { e.classList.remove('on'); }],                                              /* dars: so'z / izoh oynasi */
+    ['#yp', ESC],                                                                                         /* yol.html: dars, imtihon, kitob oynasi */
+    ['#bd.on', ESC],                                                                                      /* yol.html: boblar ro'yxati */
+    ['.hpop.on', function (e) { e.classList.remove('on'); var q = document.querySelector('.dh .q'); if (q) q.classList.remove('on'); }],
+    ['.spm.on', function (e) { e.classList.remove('on'); }]                                              /* pleyer tezligi */
+  ];
+  function ochiqOyna(hammasi) {
+    for (var i = 0; i < OYNA.length; i++) {
+      if (OYNA[i][2] && !hammasi) continue;
+      var e = document.querySelector(OYNA[i][0]);
+      if (e && e.getClientRects().length) return { e: e, yop: OYNA[i][1] };
+    }
+    return null;
+  }
+  var GU = false, TASH = 0;                    /* GU — tarixda oyna holati bor; TASH — o'zimiz qilgan history.back() (popstate e'tiborsiz) */
+  function tekshir() {
+    var o = ochiqOyna(false);
+    if (o && !GU) { try { history.pushState({ orqa: 1 }, ''); GU = true; } catch (e) {} }
+    else if (!o && GU && history.state && history.state.orqa) { GU = false; TASH++; history.back(); }
+    if (W && !HOME) try { if (ochiqOyna(true)) W.BackButton.show(); else W.BackButton.hide(); } catch (e) {}   /* bosh sahifada «‹» faqat oyna ochiqda */
+  }
+  ['click', 'pointerup', 'touchend', 'keyup'].forEach(function (t) {
+    document.addEventListener(t, function () { setTimeout(tekshir, 0); setTimeout(tekshir, 450); }, true);
+  });
+  addEventListener('popstate', function () {
+    if (TASH) { TASH--; return; }
+    if (!GU || (history.state && history.state.orqa)) return;   /* ustidagi boshqa holat (yo'riqnoma) olindi — bizniki joyida */
+    GU = false;
+    var o = ochiqOyna(false); if (o) o.yop(o.e);
+    setTimeout(tekshir, 0);
+  });
+  function orqa() {
+    var o = ochiqOyna(true);
+    if (o) { o.yop(o.e); setTimeout(tekshir, 0); return; }
+    if (!HOME) { tekshir(); return; }
+    document.documentElement.classList.add('go'); location.replace(HOME);
+  }
+
   /* iPhone'dagidek: ekranning chap chetidan o'ngga surib bosh sahifaga qaytish */
   if (HOME) (function () {
     var x0 = 0, y0 = 0, t0 = 0, on = false, lock = 0, dx = 0, b, sh;
@@ -262,6 +309,7 @@
       if (lock !== 1) return;
       var v = dx / Math.max(1, Date.now() - t0);
       if (dx > innerWidth * .33 || (v > .5 && dx > 40)) {
+        if (ochiqOyna(true)) { set(0, true); orqa(); return; }   /* oyna ochiq — sahifa joyida, oyna yopiladi */
         set(innerWidth, true);
         document.documentElement.classList.add('go');
         setTimeout(function () { location.replace(HOME); }, 180);
@@ -279,8 +327,8 @@
     try { w.ready(); w.expand(); } catch (e) {}
     if (w.BackButton) {
       try {
-        if (HOME) { w.BackButton.show(); w.BackButton.onClick(function () { document.documentElement.classList.add('go'); location.replace(HOME); }); }
-        else w.BackButton.hide();            /* bosh sahifa: Telegram o'zi yopadi */
+        if (HOME) { w.BackButton.show(); w.BackButton.onClick(orqa); }
+        else { w.BackButton.hide(); w.BackButton.onClick(orqa); }   /* bosh sahifa: Telegram o'zi yopadi; oyna ochiqda «‹» uni yopadi (tekshir) */
       } catch (e) {}
     }
     if (KEY && w.CloudStorage && w.isVersionAtLeast && w.isVersionAtLeast('6.9')) {

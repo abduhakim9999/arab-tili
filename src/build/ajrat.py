@@ -12,6 +12,8 @@ Mashq savollari sahifaning o'z kodi (qpool/qends) bilan olinadi — shuning uchu
 Batafsil: docs/texnik.md 14-bo'lim.
 """
 import sys, os, re, json, hashlib, threading, http.server
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from lugat_gap import gap_tanla
 
 ROOT = os.getcwd()
 B = os.path.join(ROOT, 'src', 'build')
@@ -110,7 +112,10 @@ def turi(bosh, uz, fel):
 # ---------- sahifaning o'z kodi bilan: gaplar va mashq savollari ----------
 JS = """() => {
   var lines = D.map(function(l, i){
-    return {sp: l[0], w: l[1].split('/').map(function(w){var x = info(w); return [x.v, x.pu || '']}),
+    var ws = l[1].split('/');
+    return {sp: l[0], w: ws.map(function(w){var x = info(w); return [x.v, x.pu || '']}),
+            nt: ws.map(function(w){return w.split('|')[2] || ''}), gl: ws.map(function(w){return w.split('|')[3] || ''}),
+            trc: (typeof TR !== 'undefined' && TR[i]) || [],
             tr: ((typeof TR !== 'undefined' && TR[i]) || []).map(function(t){return t[0]}).join(' ')};
   });
   var q = qpool().map(function(p){
@@ -224,10 +229,11 @@ def main():
             r['tur'] = turi(r['ar'], uz, 'fel' in r)
             t = TUZ.get(str(wid)) or {}
             r.update({k: t[k] for k in t if k != 'izoh'})
-            if r['ar'] in bosh_id:
-                r['asl'] = bosh_id[r['ar']]          # shu so'zning keyingi ma'nosi — karta birinchisiniki
+            bk = 'D:' + re.sub(r'[.\u0640\s]', '', r['ar']) if '.' in r['ar'] else r['ar']   # 19.11.2026: «بِ..», «بِ...», «بِـ...» — bitta so'z
+            if bk in bosh_id:
+                r['asl'] = bosh_id[bk]                # shu so'zning keyingi ma'nosi: so'z sanog'ida birinchisi, takrorda — o'z kartasi (takror.js)
             else:
-                bosh_id[r['ar']] = wid
+                bosh_id[bk] = wid
             r['tk'] = 1 if (r['tur'] in ('soz', 'fel', 'harf', 'zamir') and 'asl' not in r and t.get('tk', 1)) else 0   # 13.11.2026: harf va olmoshlar ham bazaga kiradi (atoqli ot — yo'q)
             r['uz'] = uz
             if str(wid) in MZ:
@@ -278,6 +284,12 @@ def main():
                 r['q'] = q['qm']
             msh.append(r)
             nq += 1
+        # --- takror kartasidagi gap (19.11.2026; lugat_gap.py): kitob misoli yoki dars matnidagi gap
+        for r in lug[voc0:]:
+            if r['tur'] != 'atoqli':
+                g = gap_tanla(r, lines)
+                if g:
+                    r['g'] = g
         # --- qoida kartalari
         Q = grab(s, 'QT') or {}
         for k, v in Q.items():

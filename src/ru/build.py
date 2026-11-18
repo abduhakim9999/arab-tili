@@ -244,6 +244,12 @@ def ru_data(ready):
             v = voc.get(str(r.get('kn'))) if r['d'] == n else None
             if v:
                 W[r['id']] = [v.get('m') or [], [x[0] for x in v.get('x', [])]] + ([v['mz']] if v.get('mz') else [])   # 3-chi: fe'l testdagi o'tgan zamon ma'nosi (mz)
+                g = r.get('g') or {}
+                if 'l' in g and 0 <= g['l'] < len(tr):  # 4-chi: takror kartasidagi dars gapining tarjimasi (19.11.2026; lugat_gap.py)
+                    a, b = g['r']
+                    t = ' '.join(c[0] for c in tr[g['l']] if any(a <= x <= b for x in (c[1] if len(c) > 1 else []))).replace(' ,', ',')
+                    if t:
+                        W[r['id']] += [[]] * (3 - len(W[r['id']])) + [t]
         for q in M:
             i = int(str(q.get('k', '-')).split('-')[0] or -1) if q['d'] == n else -1
             if 0 <= i < len(tr):

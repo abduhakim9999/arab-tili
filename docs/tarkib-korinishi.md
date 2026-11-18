@@ -48,6 +48,7 @@ Qaror: 16–17.11.2026, foydalanuvchi bilan chatda, rasm-namunalar asosida. Hola
 - **Yashirin foil:** fe'l tagida kichik arabcha zamir (هُوَ، أَنْتَ، نَحْنُ، أَنَا), binafsha; kananing yashirin ismi — ko'k.
 - **Hazf:** tushib qolgan so'z xira ko'rinadi (taklif, kodda yo'q).
 - Bog'lanishlar ustoz audiosidagi tushuntirishdan olinadi (`TL` → `REL`).
+- **Bog'langan so'z boshqa gapda bo'lsa** (18.11.2026, foydalanuvchi): o'sha so'z uzuq ramkada (o'z rangida); strelka bosilgan so'z ramkasidan chiqib matnning o'ng chetidan yuradi va bog'langan so'zning tagiga (pastda bo'lsa — ustiga) o'q bilan qadaladi, rangi yarmi o'zi, yarmi bog'langan so'z; yozuvda yo'nalish va so'z («маътуф ↑ وَمَسْحُ»), yozuv bosilsa — o'sha so'zga siljiydi.
 
 ## 6. Gap ostidagi quti (yangi ko'rinishda)
 Quti — **qoidalar** uchun; matnda ko'rinib turgan narsa qutida takrorlanmaydi (17.11.2026, foydalanuvchi).

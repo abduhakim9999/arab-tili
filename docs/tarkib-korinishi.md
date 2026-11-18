@@ -137,5 +137,16 @@ Foydalanuvchi: «97 — eski kerakmas, yangi takomillashgan bo'ladi; ruschasi ke
 - Tekshirish: `window.T3` (WD, RELS, GH, FR, zt) — konsolda.
 - **Mahzuf xabar — o'zi xabar** (18.11.2026, foydalanuvchi: «katta kitoblardek, nimaga bo'lsa o'shanga borsin»; avval mahzuf+zarf bitta ramkada edi — olib tashlandi): `TKG` 's' xabar ramkasida «маҳзуф хабар… бўлмиш X» bo'lsa — ramka **faqat mahzuf X da** (`FR.gh`, `frEls` → [mahzuf]; ichida uzuq pilla), zarf / jar-majrur ramkaga kirmaydi (u — mutaalliq, xabar emas). Kana / mubtado bosilsa — X qizil ramkada, sim va «хабари» unga, zarf xira; zarf bosilsa — o'z ramkasi + X ga «мутааллиқ», qizil ramka chiqmaydi (`frOn(els, rel)` — mahzuf ramkasi faqat kana / mubtado nishoni bo'lganda). «Қоидалар»da كَانَ / إِنَّ qatori: kana, ismi, mahzuf xabar (zarfsiz; chip so'zlar orasida, `KH[i-.5]`); mahzufsiz xabar — ramkasi butunicha. Boshqa ramkali nishonda sim butun ramka o'rtasiga (`frT`/`frBox`).
 - **Arabcha bo'lak qavsi bilan** (`arw`): «وَ(الْأَمْرُ) هَكَذَا» kabi qavsli arabcha bitta o'ngdan-chapga bo'lak — so'z oynasi va qutilarda chalkashmaydi.
+- **Fiqhga o'tkaziladi** (18.11.2026, foydalanuvchi: «bu yerda tuzatilgan xatolar fiqhda ham qilinadi»; fiqh 1, 2 — `f2` kodi, `docs/texnik.md` 10). 97-darsda (`tarkib3.js`) topilib tuzatilganlar:
+  1. Kana / inna doim pushti; undan ikki sim — ismiga va xabariga («исми», «хабари»); mubtado–xabar, fe'l–foil, maf'ul ham shunday (ramka + sim + nom).
+  2. Sim ramkadan ramkaga, bitta nuqtadan chiqadi; qo'shni so'zga ham sim (halqa yo'q); boshqa gapdagi nishonga (2-xabar) — o'ng chetdan, strelkasiz, qator boshida bo'lsa ramka yonidan ulanadi, nomi ulangan joy yonida.
+  3. Yorliqlar bir-birini va tarjimani yopmaydi (kerak bo'lsa qator ostiga joy ochiladi).
+  4. Qatorga bo'lingan ramka bo'linish joyida ochiq (A variant); doimiy ramka ichidagi so'z — o'z rangidagi ichki ramka.
+  5. Mahzuf xabar — xabar o'zi: ramka faqat unda, zarf / jar-majrur unga «мутааллиқ» (katta kitoblardek); «Қоидалар»da kana qatori: kana, ismi, xabari.
+  6. Doimiy ramka ko'rinmaydi — faqat bosilganda (joyi saqlanadi, matn siljimaydi).
+  7. Bo'sh joy bosilsa — belgilangan narsa bekor (o'qimaydi); har gap kartasida ▶.
+  8. «Қоидалар» qatori sig'masa — keyingi qatorga o'tadi (toshib chiqmaydi).
+  9. Muzofun ilayh jumla (إِذَا…) bosilganda — jumlasi; so'z oynasida mutaalliq bitta qutida.
+  10. Qavsli arabcha bo'lak («وَ(الْأَمْرُ) هَكَذَا») so'z oynasi va qutilarda to'g'ri (bitta o'ngdan-chapga bo'lak).
 - Navbatda: foydalanuvchi ko'rib chiqqach — qolgan darslar (`TK3` ga qo'shish, har darsda tekshirish), ruscha (`ru*.html`), Eshitish Таркиби tartibi.
 

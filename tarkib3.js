@@ -354,6 +354,13 @@
         if (!w || !/музофун илайҳ/.test(w.role)) return;
         for (var i = w.i - 1; i >= 0; i--) { var p = row[i]; if (!p) continue; if (p.harf) break; set(w.k, { src: [w.e], tg: [p.e], lab: 'музофун илайҳ' }); break }
       });
+      /* jumla guruhlari: sila — mavsulga, muzofun ilayh jumla — zarfga */
+      (G[L] || []).forEach(function (g) {
+        if (g[3] != 'j') return;
+        var ws = grpWords(L, g[0], g[1]), h = row[g[0] - 1]; if (!ws.length || !h) return;
+        if (/сила/.test(g[2])) set(h.k, { src: els(ws), tg: [h.e], lab: 'сила', grp: true });
+        else if (/музофун илайҳ/.test(g[2])) set(h.k, { src: els(ws), tg: [h.e], lab: 'музофун илайҳ', grp: true });
+      });
       /* shibhi jumla — mutaalliq */
       (G[L] || []).forEach(function (g) {
         if (g[3] != 's') return;
@@ -361,15 +368,8 @@
         var d = g[2].replace(/^шибҳи жумла — ?/, ''), tg = [];
         if (g.gh) tg = [g.gh.e];
         else if (!/маҳзуф/.test(d)) { var a = d.match(/^([؀-ۿً-ْٰ]+)/); var t = a && findTxt(L, g[0], a[1]); if (t) tg = [t.e] }
-        var r = { src: els(ws), tg: tg, lab: 'мутааллиқ', grp: true };
+        var r = { src: els(ws), tg: tg, lab: tg.length ? 'мутааллиқ' : (/маҳзуф жавоб/.test(d) ? 'мутааллиқ (жавоби маҳзуф)' : 'мутааллиқ'), grp: true };
         ws.forEach(function (w) { if (!/музофун илайҳ/.test(w.role) && !w.tob) set(w.k, r) });
-      });
-      /* jumla guruhlari: sila — mavsulga, muzofun ilayh jumla — zarfga */
-      (G[L] || []).forEach(function (g) {
-        if (g[3] != 'j') return;
-        var ws = grpWords(L, g[0], g[1]), h = row[g[0] - 1]; if (!ws.length || !h) return;
-        if (/сила/.test(g[2])) set(h.k, { src: els(ws), tg: [h.e], lab: 'сила', grp: true });
-        else if (/музофун илайҳ/.test(g[2])) set(h.k, { src: els(ws), tg: [h.e], lab: 'музофун илайҳ', grp: true });
       });
       /* zarf — IRB qatoridagi «… га мутааллиқ» */
       row.forEach(function (w) {
@@ -755,7 +755,7 @@
           else steps.push([typ ? 'Тури' : 'Вазифаси', s, arOf('v')]);
           return;
         }
-        if (c == 'm') { B.push(['Мутааллиқ', s.replace(/^ўзи\s+/, ''), arOf('m')]); return }
+        if (c == 'm') { var lm = B[B.length - 1], tm = s.replace(/^ўзи\s+/, ''); if (lm && lm[0] == 'Мутааллиқ' && lm.z === z) lm[1] += ', ' + tm; else { var nb = ['Мутааллиқ', tm, arOf('m')]; nb.z = z; B.push(nb) } return }
         if (c == 'y') { var y = (w.yz || ''); if (!yz) yz = { a: y, s: [] }; yz.s.push(s); return }
         if (c && LBL[c]) { steps.push([LBL[c], c == 'a' ? s.replace(/^аломати\s+/, '') : s, arOf(c)]); return }
         if (steps.length) steps[steps.length - 1][1] += ', ' + s; else steps.push(['Изоҳ', s, '']);

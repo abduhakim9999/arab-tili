@@ -118,7 +118,12 @@
     '#sb .hk .t3vz{color:var(--tx)}' +
     /* «Ҳозирги жой» */
     '.t3now{display:none;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--t3nb,230px) + env(safe-area-inset-bottom,0px));z-index:19;background:var(--ac);color:#fff;border:0;border-radius:999px;padding:10px 18px;font:700 14px/1 system-ui,sans-serif;box-shadow:0 2px 12px rgba(0,0,0,.2);cursor:pointer;white-space:nowrap}' +
-    '.t3now.on{display:block}';
+    '.t3now.on{display:block}' +
+    /* har gap kartasida ▶ — chap yuqori burchakda, chegaraga mingashib (matnni yopmaydi) */
+    '#tx.nv .ln{position:relative}' +
+    '#tx.nv .t3pl{position:absolute;top:-11px;left:-5px;z-index:2;width:30px;height:30px;border-radius:50%;border:1px solid var(--bd);background:var(--cd);color:var(--ac);display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.12);-webkit-tap-highlight-color:transparent}' +
+    '#tx.nv .t3pl.on{background:var(--ac);color:var(--cd);border-color:var(--ac)}' +
+    '#tx.nv .t3pl svg{display:block}';
   document.head.appendChild(st);
 
   /* ===================== yordamchilar ===================== */
@@ -410,6 +415,24 @@
           set(w.k, fo ? { src: [w.e], tg: [fo.e], lab: 'феъл', tl: ['фоил'], tgf: true } : { src: [w.e], tg: [], lab: 'феъл' });
         });
       });
+      /* mubtadoning ikkinchi xabari (jumla, ko'pincha keyingi gapda) — mubtadodan unga ham ip (18.11.2026, foydalanuvchi) */
+      (G[L] || []).forEach(function (g) {
+        if (g[3] != 'j' || !/иккинчи хабар/.test(g[2])) return;
+        var ws = grpWords(L, g[0], g[1]); if (!ws.length) return;
+        var hint = (ws.map(function (w) { return w.nrows.join(' ') }).join(' ').match(/мубтадонинг \(([^)]+)\)/) || [])[1], mb = null;
+        for (var L2 = L; L2 >= 0 && L2 >= L - 3 && !mb; L2--) {
+          var r2 = LW[L2] || [];
+          for (var i = (L2 == L ? g[0] - 1 : r2.length - 1); i >= 0; i--) {
+            var w = r2[i]; if (!w) continue;
+            if (hint ? bare(wt(w.e)).replace(/^[وف]/, '') == bare(hint) : (w.mc == 'cm' && !w.tob && /мубтадо/.test(w.role))) { mb = w; break }
+          }
+        }
+        if (!mb) return;
+        var r1 = RELS[mb.k];
+        if (r1 && r1.tl && r1.src[0] === mb.e) { r1.tg = r1.tg.concat([ws[0].e]); r1.tl = r1.tl.map(function (t) { return t == 'хабар' ? '1-хабар' : t }).concat(['2-хабар']) }
+        else RELS[mb.k] = { src: [mb.e], tg: [ws[0].e], tl: ['2-хабар'], tgf: true, lab: 'мубтадо' };
+        RELS[ws[0].k] = { src: els(ws), tg: [mb.e], tl: ['мубтадо'], lab: '2-хабар', grp: true };
+      });
       /* qolganlari — o'z ramkasi va nomi */
       row.forEach(function (w) {
         if (!w || RELS[w.k] || w.mc == '0' || w.mc == '') return;
@@ -496,13 +519,15 @@
       }
       if (te.closest('.ln') !== ln) {
         var bb = ykR(te);
-        h += rect({ l: bb.left, r: bb.right, t: bb.top, b: bb.bottom }, c, cc, true);
+        if (!te.classList.contains('t3r')) h += rect({ l: bb.left, r: bb.right, t: bb.top, b: bb.bottom }, c, cc, true);
         var up = bb.top < a.top, S = up ? -1 : 1, r = 10, sx = a.right - c.left + 4, sy = (a.top + a.bottom) / 2 - c.top, xr = Math.min(Math.max(a.right, bb.right) - c.left + 14, c.width - 6),
           tx1 = (bb.left + bb.right) / 2 - c.left, ey = up ? bb.bottom - c.top + 12 : bb.top - c.top - 12, end = up ? bb.bottom - c.top + 1 : bb.top - c.top - 1, gid = 't3m' + (YN++);
         h += '<defs><linearGradient id="' + gid + 'g" gradientUnits="userSpaceOnUse" x1="0" y1="' + sy + '" x2="0" y2="' + ey + '"><stop offset="0" stop-color="' + fc + '"/><stop offset=".45" stop-color="' + fc + '"/><stop offset=".55" stop-color="' + cc + '"/><stop offset="1" stop-color="' + cc + '"/></linearGradient>' +
           '<marker id="' + gid + 'a" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto"><path d="M1 1 L9 5 L1 9 z" fill="' + cc + '"/></marker></defs>' +
           '<path d="M' + sx + ' ' + sy + ' H' + (xr - r) + ' Q' + xr + ' ' + sy + ' ' + xr + ' ' + (sy + S * r) + ' V' + (ey - S * r) + ' Q' + xr + ' ' + ey + ' ' + (xr - r) + ' ' + ey + ' H' + (tx1 + r) + ' Q' + tx1 + ' ' + ey + ' ' + tx1 + ' ' + (ey + S * r) + ' V' + end + '" fill="none" stroke="url(#' + gid + 'g)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#' + gid + 'a)"/>';
-        if (!XT) XT = { e: te, up: up, x: wt(te).replace(/[:،.؟!\s–]+$/, '') };
+        var xw = wt(te).replace(/[:،.؟!\s–]+$/, '');
+        if (rel.tl && rel.tl[ti]) LS.push([rel.tl[ti] + ' ' + (up ? '↑' : '↓'), fx, ly, cc, te, xw]); /* boshqa gapdagi nishon — bosiladigan yorliq */
+        else if (!XT) XT = { e: te, up: up, x: xw };
         return;
       }
       var b = ykR(te.querySelector && te.querySelector('.q3m') || te), x1 = b.left + b.width / 2 - c.left, d, y1, y2, dep = 5 + Math.min(7, Math.abs(x1 - fx) / 30), id = 't3g' + (YN++);
@@ -522,7 +547,8 @@
     /* nishon yorliqlari: chiziqlar ostida; bir-biriga tegsa — yonga (sig'masa — pastga) */
     var placed = YC.hidden ? [] : [YC.getBoundingClientRect()];
     LS.forEach(function (sp) {
-      var d = document.createElement('div'); d.className = 't3c'; d.textContent = sp[0]; d.style.background = sp[3]; tx.appendChild(d); YX.push(d);
+      var d = document.createElement('div'); d.className = 't3c'; d.style.background = sp[3]; tx.appendChild(d); YX.push(d);
+      if (sp[4]) { d.innerHTML = esc(sp[0]) + ' <b class="ar">' + esc(sp[5]) + '</b>'; d.t3 = sp[4]; d.style.pointerEvents = 'auto'; d.style.cursor = 'pointer' } else d.textContent = sp[0];
       var w = d.offsetWidth / 2, x = Math.min(Math.max(sp[1], w + 4), c.width - w - 4), y = Math.max(sp[2], ly);
       d.style.left = x + 'px'; d.style.top = y + 'px';
       for (var t = 0; t < 6; t++) {
@@ -773,10 +799,54 @@
     setInterval(nowChk, 600);
     addEventListener('scroll', function () { setTimeout(nowChk, 50) }, { passive: true });
   }
+  /* ===================== bo'sh joy — bekor qilish; ▶ — shu gapni o'qish (18.11.2026, sinov) ===================== */
+  /* shell.js da abzasning bo'sh joyi bosilsa gap o'qilardi — bu darsda u o'rniga belgilangan narsa bekor bo'ladi */
+  tx.addEventListener('click', function (ev) {
+    if (ev.target.closest('.ws span,.ts,[data-i],button,a,input,select,textarea,label,.sheet,.zo,.nqb,.t3c')) return;
+    if (!ev.target.closest('.ln')) return;
+    ev.stopPropagation();
+    clr(); lgOff();
+    [].forEach.call(document.querySelectorAll('.ws span.on,.ts.on'), function (x) { x.classList.remove('on') });
+  }, true);
+  function lnStart(L) { var st = null; (window.TM || []).forEach(function (w) { if (w[0] === L && (st === null || w[2] < st)) st = w[2] }); return st }
+  function curL() { var e = tx.querySelector('.ws span.pl'), ln = e && e.closest('.ln'); return ln ? [].indexOf.call(lines(), ln) : -1 }
+  function plBtns() {
+    [].forEach.call(tx.querySelectorAll('.t3pl'), function (b) { b.remove() });
+    [].forEach.call(lines(), function (ln, L) {
+      if (lnStart(L) === null || getComputedStyle(ln).display == 'none') return;
+      var b = document.createElement('button'); b.type = 'button'; b.className = 't3pl'; b.setAttribute('data-l', L); b.setAttribute('aria-label', 'Шу гапни тинглаш');
+      b.innerHTML = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>';
+      ln.appendChild(b);
+    });
+    plState();
+  }
+  function plState() {
+    var L = au && !au.paused ? curL() : -1;
+    [].forEach.call(tx.querySelectorAll('.t3pl'), function (b) {
+      var on = +b.getAttribute('data-l') === L; if (b.classList.contains('on') === on) return;
+      b.classList.toggle('on', on);
+      b.innerHTML = on ? '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor"/></svg>' : '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>';
+    });
+  }
+  tx.addEventListener('click', function (ev) {
+    var b = ev.target.closest('.t3pl'); if (!b || !au) return;
+    ev.stopPropagation();
+    var L = +b.getAttribute('data-l');
+    if (!au.paused && curL() === L) { au.pause(); return }
+    var st = lnStart(L); if (st === null) return;
+    if (typeof window.setLoop === 'function') window.setLoop(-1);
+    if ('stopAt' in window) window.stopAt = null;
+    window.uScr = 0;
+    var go = function () { au.currentTime = Math.max(0, st - 0.05) };
+    if (au.readyState >= 1) go(); else au.addEventListener('loadedmetadata', function f() { au.removeEventListener('loadedmetadata', f); go() });
+    if (au.paused) { var p = au.play(); if (p && p.catch) p.catch(function () { }) }
+  }, true);
+  if (au) ['play', 'pause', 'ended', 'timeupdate'].forEach(function (n) { au.addEventListener(n, plState) });
+
   /* ===================== hodisalar ===================== */
   tx.addEventListener('click', function (ev) {
     var sh = document.getElementById('sh'); if (sh && sh.classList.contains('on')) return;
-    if (ev.target.closest('.t3c')) { var t = YC && YC.t3; if (t) t.scrollIntoView({ block: 'center', behavior: 'smooth' }); return }
+    var lb = ev.target.closest('.t3c'); if (lb) { if (lb.t3) lb.t3.scrollIntoView({ block: 'center', behavior: 'smooth' }); return }
     if (!tartib()) return;
     var g = ev.target.closest('.ws span.t3h');
     if (g) { var o = GH[+g.getAttribute('data-h')]; show(o && o.rel ? o.rel : { src: [g], tg: [], lab: o ? (o.kind == 'm' ? 'маҳзуф мубтадо' : 'маҳзуф') : 'маҳзуф' }); return }
@@ -793,7 +863,7 @@
   /* ===================== yig'ish ===================== */
   function deco3() {
     clr();
-    analyse(); paint(); ghosts(); frames(); relations(); boxes(); legend();
+    analyse(); paint(); ghosts(); frames(); relations(); boxes(); legend(); plBtns();
   }
   function relayout() { clr(); rowFix() }
   function wrap(n, f) { var o = window[n]; if (typeof o != 'function') return; window[n] = function () { var r = o.apply(this, arguments); f(); return r } }

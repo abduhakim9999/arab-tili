@@ -51,6 +51,7 @@ Qoidalar to'qnashsa: grammatikada — konspekt; texnikada — `docs/texnik.md`; 
   | Луғат o'zbekchasida «jam» aytilmaydi (faqat ma'no; `ovoz.py voc_uz`) | yangi darslardan | 7, 8, 9 da «jam» qolgan — qayta yasalmaydi |
   | Pleyer ko'rinishi, sahifa siljitgichi (`shell.js`) | hamma darslar | — |
   | Abzas bo'sh joyi bosilsa o'qiydi; Таркибда o'qilayotgan gap legenda ostida qolmaydi (`shell.js`) | hamma darslar | — |
+  | Bo'sh joy bosilsa — belgilangan narsa bekor (o'qimaydi); har gap kartasida ▶ (`tarkib3.js`, `docs/tarkib-korinishi.md` 12) | 97 (sinov, `tayyor-tarkib97`) | qolgan darslar — yangi tarkib ko'rinishi bilan birga |
   | So'z oynasi: ‹ ›, Таркиб Ўзбекча/Арабча, qo'shimchalar tugma (`zoX`, `.zo-*`) | hamma darslar, fiqh 1 | — |
   | Луғат yorlig'ida «билмайман» belgisi → so'z bazasi (`shell.js`; `docs/texnik.md` 15) | hamma darslar | — |
   | Yangi tarkib ko'rinishi: rang — vazifa/holat oilasi, ramka — asosiy bo'lak o'rni, bosganda — ramka va chiziq (`docs/tarkib-korinishi.md`) | fiqh 1, 2 (sinov, saytda); 97 (`tarkib3.js`, sinov, `tayyor-tarkib97`) | qolgan «Нур ут-толиб» darslari, ruscha (`docs/tarkib-korinishi.md` 12) |

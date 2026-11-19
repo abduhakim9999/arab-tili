@@ -247,8 +247,8 @@ def main():
                 r['mz'] = MZ[str(wid)]
             elif r['tur'] == 'fel':
                 OGOH.append("%d-dars lug'at %s: fe'lning o'tgan zamon ma'nosi yo'q — src/build/lugat-moziy.json ga qo'shing (id %d)" % (n, kn, wid))
-            if ex:
-                r['x'] = ex
+            if ex:                                      # 19.11.2026: misoldagi belgilar ({…} so'z, […] «...» o'rni) — faqat sahifada, ma'lumotga belgisiz
+                r['x'] = [[re.sub(r'[{}\[\]]', '', t) if isinstance(t, str) else t for t in e] for e in ex]
             vi = len(lug) - voc0                      # Eshitish Луғат yo'lagida tartib = lug'at tartibi
             if str(vi) in vl and vi in vseg:
                 if plain(vl[str(vi)][0]).split()[0].strip('.؟،') != plain(asl).split()[0].strip('.؟،'):

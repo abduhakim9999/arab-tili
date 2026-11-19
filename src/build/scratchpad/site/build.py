@@ -48,7 +48,7 @@ U27 = ('الْوَحْدَةُ السَّابِعَةُ: اللُّغَةُ ال
 # Dars boshi: bismillah, keyin dars raqami va mavzu. Ваҳда nomi faqat ваҳданинг 1-darsida (SHOWU) yoziladi.
 SHOWU = {1, 7, 10, 70, 74, 94}
 TKNEW = {l[0] for l in LESSONS}  # Таркиб: yangi ko'rinish (tarkib2.js) — hamma darslarda
-TK3 = {97}  # Таркиб: fiqhdagi yangi ko'rinish (tarkib3.js, docs/tarkib-korinishi.md 12) — sinov, faqat shu darslarda
+TK3 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 70, 71, 72, 73, 74, 91, 92, 93, 94, 95, 96, 97}  # Таркиб: fiqhdagi yangi ko'rinish (tarkib3.js, docs/tarkib-korinishi.md 12) — sinov, faqat shu darslarda
 TOPIC = {1: 'topic_hiwar.mp3', 2: 'topic_hiwar.mp3', 3: 'topic_hiwar.mp3', 4: 'topic_hiwar.mp3', 5: 'topic_hiwar.mp3', 6: 'topic_hiwar.mp3', 7: 'topic_hiwar.mp3', 8: 'topic_hiwar.mp3', 9: 'topic_hiwar.mp3', 10: 'topic_hiwar.mp3'}  # МАВЗУ (حِوَارْ) ovozi — ElevenLabs Mehdi VO, vaqf bilan; sarlavhadan keyin qo'shiladi  # Таркиб'нинг янги кўриниши (tarkib2.js) — синов
 LN = {3: 'اَلدَّرْسُ الثَّالِثُ', 4: 'اَلدَّرْسُ الرَّابِعُ', 5: 'اَلدَّرْسُ الْخَامِسُ', 6: 'اَلدَّرْسُ السَّادِسُ'}  # 3–4-darslar: raqam ElevenLabs (Mehdi) bilan qo'shilgan (hdr/mk_hnum.py); h3/h4 dagi eski «الْحِوَارُ» (cf[2]…) kesiladi, mavzu — matndagi حِوَارٌ
 HDR = {3: (('الْحِوَارُ', 'Суҳбат'), ''), 4: (('الْحِوَارُ', 'Суҳбат'), ''), 5: (('الْحِوَارُ', 'Суҳбат'), ''), 6: (('الْحِوَارُ', 'Суҳбат'), ''), 1: (U1, 'اَلدَّرْسُ الْأَوَّلُ'), 7: (U12, 'اَلدَّرْسُ السَّابِعُ'), 8: (U12, 'اَلدَّرْسُ الثَّامِنُ'), 9: (U12, 'اَلدَّرْسُ التَّاسِعُ'), 10: (U13, 'اَلدَّرْسُ الْعَاشِرُ'), 2: (U1, 'اَلدَّرْسُ الثَّانِي'), 70: (U21, 'اَلدَّرْسُ السَّبْعُونَ'), 71: (U21, 'اَلدَّرْسُ الْحَادِي وَالسَّبْعُونَ'),

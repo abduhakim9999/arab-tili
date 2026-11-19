@@ -132,6 +132,20 @@ def build(n, out):
     L = json.load(open(os.path.join(HERE, 'd%02d.json' % n), encoding='utf-8'))
     warn = []
 
+    # --- yangi tarkib ko'rinishi (tarkib3.js) va yangi qoida kartalari ruschaga hali o'tkazilmagan (19.11.2026,
+    #     foydalanuvchi: «ruscha keyin»): ruscha sahifa eski ko'rinishda — TK3 ulanmaydi, QT — eski matn (qt-eski.json,
+    #     lugat-qoida.txt shunga mos). Ruschasi qilinganda shu ikki qator olib tashlanadi.
+    s = s.replace('<script>window.TK3=1</script><script src="tarkib3.js"></script>\n', '')
+    qe = os.path.join(HERE, 'qt-eski.json')
+    if os.path.exists(qe):
+        i = re.search(r'\bQT\s*=\s*\{', s)
+        if i:
+            j, d = s.index('{', i.start()), 0
+            for k in range(j, len(s)):
+                d += {'{': 1, '}': -1}.get(s[k], 0)
+                if not d: break
+            s = s[:j] + open(qe, encoding='utf-8').read() + s[k + 1:]
+
     # --- sarlavha
     s = s.replace('<html lang="uz">', '<html lang="ru">', 1)
     s, k1 = re.subn(r'<title>.*?</title>', lambda m: '<title>' + L['title'] + '</title>', s, count=1, flags=re.S)

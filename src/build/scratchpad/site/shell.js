@@ -879,7 +879,7 @@ document.addEventListener('click', function (e) {
     '#p2 .g.la .la-y{font-size:13.5px;line-height:1.45;color:var(--mu);margin-top:3px}' +
     '#p2 .g.la .la-q{margin-left:40px;font-size:12px;color:#9a6a12}#p2 .g.la .la-q::before{content:"\\270E  "}' +
     /* 19.11.2026 (foydalanuvchi): ko'plik/muannas «ج»/«مؤ.» dan keyin so'z yonida; uzun so'z ustida, ma'no tagida; tepasi belgisiz; faqat misolda ma'noda yozilgan qism yashil */
-    '#p2 .g.la .la-j{font-size:.75em;white-space:nowrap}#p2 .g.la .la-p{font-size:.62em;color:var(--mu)}' +
+    '#p2 .g.la .la-j{font-size:.75em;white-space:nowrap}#p2 .g.la .la-p{font-size:.75em}' +
     '#p2 .g.la .la-g{color:var(--em1,#13865a);background:color-mix(in srgb,var(--em1,#13865a) 14%,transparent);border-radius:3px}' +
     '#p2 .g.la .la-g{font-size:inherit}' +   /* sahifadagi «.g span:last-child{15px}» ga tushmasin */
     '#p2 .g.la .mn{font-size:17px;font-weight:500}#p2 .g.la .mn .vno,#p2 .g.la .mn .la-y{font-weight:400}#p2 .g.la .mn .la-y{font-size:13.5px}' +

@@ -1,5 +1,6 @@
 #!/bin/sh
-# Bir vaqtda ikki chat ishlamasligi uchun belgi (repo ildizidan).
+# main ga yozadigan ish («joyla», sinov.sh) uchun band-belgi (repo ildizidan). 19.11.2026 dan chatlar parallel ishlaydi:
+# har chat o'z tayyor-<nom> tarmog'ida — bu belgi uni to'xtatmaydi (docs/texnik.md 1).
 #   sh src/build/lock.sh check   — kim ishlayapti? (3 soatdan eski belgi hisobga olinmaydi)
 #   sh src/build/lock.sh on "izoh" — ish boshlandi;   sh src/build/lock.sh off — ish tugadi
 # 14.11.2026: belgi `main` da emas, alohida `ish-belgi` tarmog'ida — main ga har push Vercel'ning kunlik
@@ -13,7 +14,7 @@ case "$1" in
   check) git fetch -q origin "$RS" 2>/dev/null || true
          if git cat-file -e origin/$B:$F 2>/dev/null; then
            T=$(git show origin/$B:$F | sed -n 1p); NOW=$(date +%s)
-           if [ $((NOW - T)) -lt 10800 ]; then echo "BAND: $(git show origin/$B:$F | sed -n 2p) ($(( (NOW - T)/60 )) daqiqa oldin)"; exit 1; fi
+           if [ $((NOW - T)) -lt 10800 ]; then echo "BAND: $(git show origin/$B:$F | sed -n 2p) ($(( (NOW - T)/60 )) daqiqa oldin) — faqat joyla/sinov kutadi; o'z tayyor-* tarmog'ingda ishlayver"; exit 1; fi
          fi; echo "BO'SH" ;;
   on|off) # alohida vaqtinchalik nusxada (worktree) — ishchi papkadagi o'zgarish/commit'lar tushib ketmaydi
        if git fetch -q origin "$RS" 2>/dev/null; then BASE=origin/$B; else git fetch -q origin main; BASE=origin/main; fi

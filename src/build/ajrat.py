@@ -180,6 +180,13 @@ def main():
     lock_p = os.path.join(B, 'idlar.json')
     LOCK = json.load(open(lock_p, encoding='utf-8')) if os.path.exists(lock_p) else \
         {'w': {}, 'q': {}, 'wn': 1, 'qn': 1, 'ochgan': {'w': [], 'q': []}}
+    for t in ('w', 'q'):                          # 19.11.2026: parallel tarmoqlar birlashtirilganda bir raqam ikki kalitga berilgan bo'lishi mumkin
+        egasi = {}
+        for k, v in LOCK[t].items():
+            if v in egasi:
+                sys.exit("TO'XTA: idlar.json — %d raqami ikki kalitda (%s | %s): tarmoqlar birlashtirilganda to'qnashgan — keyingisiga yangi raqam bering, lugat-moziy.json/lugat-tuzatish.json da ham (docs/texnik.md 1)" % (v, egasi[v], k))
+            egasi[v] = k
+        LOCK[t + 'n'] = max([LOCK[t + 'n']] + [v + 1 for v in LOCK[t].values()])
     TUZ = json.load(open(os.path.join(B, 'lugat-tuzatish.json'), encoding='utf-8'))
     MZ = json.load(open(os.path.join(B, 'lugat-moziy.json'), encoding='utf-8'))   # fe'lning testdagi o'tgan zamon ma'nosi (18.11.2026)
     GUR = json.load(open(os.path.join(B, 'qoida-guruh.json'), encoding='utf-8'))

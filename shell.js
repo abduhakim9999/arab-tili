@@ -878,11 +878,15 @@ document.addEventListener('click', function (e) {
     '#p2 .g.la:has(.bm[aria-pressed="true"]){background:rgba(179,38,30,.045);border-radius:14px}' +
     '#p2 .g.la .la-y{font-size:13.5px;line-height:1.45;color:var(--mu);margin-top:3px}' +
     '#p2 .g.la .la-q{margin-left:40px;font-size:12px;color:#9a6a12}#p2 .g.la .la-q::before{content:"\\270E  "}' +
-    /* 19.11.2026 (foydalanuvchi): ko'plik/muannas «ج»/«مؤ.» dan keyin so'z yonida; uzun so'z ustida, ma'no tagida; tepasi belgisiz; faqat misolda so'z yashil, «...» o'rni kulrang nuqtali */
+    /* 19.11.2026 (foydalanuvchi): ko'plik/muannas «ج»/«مؤ.» dan keyin so'z yonida; uzun so'z ustida, ma'no tagida; tepasi belgisiz; faqat misolda ma'noda yozilgan qism yashil */
     '#p2 .g.la .la-j{font-size:.62em;color:var(--mu);white-space:nowrap}#p2 .g.la .la-p{font-size:.62em;color:var(--mu)}' +
     '#p2 .g.la .la-g{color:var(--em1,#13865a);background:color-mix(in srgb,var(--em1,#13865a) 14%,transparent);border-radius:3px}' +
-    '#p2 .g.la .la-d{text-decoration:underline dotted 2px;text-decoration-color:var(--mu);text-underline-offset:.32em}' +
-    '#p2 .g.la .la-g,#p2 .g.la .la-d{font-size:inherit}' +   /* sahifadagi «.g span:last-child{15px}» ga tushmasin */
+    '#p2 .g.la .la-g{font-size:inherit}' +   /* sahifadagi «.g span:last-child{15px}» ga tushmasin */
+    '#p2 .g.la .mn{font-size:17px;font-weight:500}#p2 .g.la .mn .vno,#p2 .g.la .mn .la-y{font-weight:400}#p2 .g.la .mn .la-y{font-size:13.5px}' +
+    '#p2 .g.la .la-n{display:inline-flex;align-items:center;justify-content:center;min-width:19px;height:19px;border-radius:50%;margin-right:7px;vertical-align:2px;' +
+      'font-size:11.5px;font-weight:600;background:var(--em1,#13865a);color:#fff}' +
+    '#p2 .g.la .la-n.o{min-width:17px;height:17px;font-size:10.5px;font-weight:500;background:none;color:var(--mu);box-shadow:inset 0 0 0 1px var(--mu)}' +
+    '#p2 .g.la .la-yi{display:inline-block;margin:3px 12px 0 0}' +   /* asosiy ma'no kattaroq */
     '#p2 .g.la .hd.st{flex-wrap:wrap}#p2 .g.la .hd.st .la-w{flex:1 1 0;max-width:none}#p2 .g.la .hd.st .mn{order:3;flex:1 0 100%;padding:0 0 0 40px}';
   document.head.appendChild(css);
   /* Kitob lug'ati kelmagan darsda Claude qoralamasi (19.11.2026, foydalanuvchi: «B variant»; docs/texnik.md 14): VOC[i][4] —
@@ -894,7 +898,12 @@ document.addEventListener('click', function (e) {
       var hd = g.querySelector('.hd'), ar = hd && hd.querySelector('.ar.vw'), mn = hd && hd.querySelector('.mn');
       if (!ar || !mn) return;
       var e = (VOC[hamma.indexOf(g)] || [])[4];
-      if (e && e.y) mn.insertAdjacentHTML('beforeend', '<div class="la-y">яна: ' + e.y + '</div>');
+      /* ma'nolar raqamli (foydalanuvchi, 19.11.2026): matndagi ma'no(lar) — to'ldirilgan doiracha, katta; boshqa ma'nolar (e.y, «;» bilan) —
+         tagida kichik kulrang, bo'sh doiracha, raqam davom etadi; jami bitta ma'no bo'lsa — raqamsiz */
+      var md = [].filter.call(mn.children, function (d) { return !d.classList.contains('vno'); }),
+        yy = e && e.y ? e.y.split(/;\s*/) : [], k = 0, ko = md.length + yy.length > 1;
+      if (ko) md.forEach(function (d) { d.innerHTML = '<span class="la-n">' + (++k) + '</span>' + d.innerHTML.replace(/^\s*\d+\.\s*/, '').replace(/;\s*$/, ''); });
+      if (yy.length) mn.insertAdjacentHTML('beforeend', '<div class="la-y">' + yy.map(function (x) { return '<span class="la-yi">' + (ko ? '<span class="la-n o">' + (++k) + '</span>' : '') + x + '</span>'; }).join('') + '</div>');
       if (e && e.q && KOR) g.insertAdjacentHTML('beforeend', '<div class="la-q">қоралама</div>');
       var qs = ar.innerHTML.split(/\s+(مؤ\.|ج)\s+/), w = document.createElement('div'), f = '';
       w.className = 'la-w';
@@ -918,7 +927,7 @@ document.addEventListener('click', function (e) {
   function bosh(h) {                                   /* «(إِلَى ..)» — qavs kichik kulrang */
     return h.replace(/\(([^()]*?\.{2,3})\)/g, '<span class="la-p">($1)</span>');   /* 19.11.2026: tepasi kitobdagidek belgisiz (foydalanuvchi) */
   }
-  function belgi(h) { return h.replace(/\{([^{}]*)\}/g, '<span class="la-g">$1</span>').replace(/\[([^\[\]]*)\]/g, '<span class="la-d">$1</span>'); }
+  function belgi(h) { return h.replace(/\{([^{}]*)\}/g, '<span class="la-g">$1</span>').replace(/\[([^\[\]]*)\]/g, '$1'); }   /* […] — eski belgi, endi ko'rsatilmaydi */
   function yl(x) { return String(x || '').replace(/[\u064B-\u065F\u0670\u0640]/g, '').replace(/[\u0623\u0625\u0622\u0671]/g, '\u0627').replace(/\u0629/g, '\u062A').replace(/\u0649/g, '\u064A').replace(/[^\u0621-\u064A]/g, ''); }
   function topib(h, yoz) {                             /* belgisiz (kitob) misolda so'zni o'zi topib yashil qiladi; topilmasa — tegilmaydi */
     var F = yoz.split(/\s+(?:–|ج|مؤ\.)\s+|،|\(|\)/).map(yl).map(function (f) { return f.replace(/^\u0627\u0644(?=..)/, ''); }).filter(function (f) { return f.length > 1; });

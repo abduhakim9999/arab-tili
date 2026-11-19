@@ -883,9 +883,8 @@ document.addEventListener('click', function (e) {
     '#p2 .g.la .la-g{color:var(--em1,#13865a);background:color-mix(in srgb,var(--em1,#13865a) 14%,transparent);border-radius:3px}' +
     '#p2 .g.la .la-g{font-size:inherit}' +   /* sahifadagi «.g span:last-child{15px}» ga tushmasin */
     '#p2 .g.la .mn{font-size:17px;font-weight:500}#p2 .g.la .mn .vno,#p2 .g.la .mn .la-y{font-weight:400}#p2 .g.la .mn .la-y{font-size:13.5px}' +
-    '#p2 .g.la .la-n{display:inline-flex;align-items:center;justify-content:center;min-width:19px;height:19px;border-radius:50%;margin-right:7px;vertical-align:2px;' +
-      'font-size:11.5px;font-weight:600;background:var(--em1,#13865a);color:#fff}' +
-    '#p2 .g.la .la-n.o{min-width:17px;height:17px;font-size:10.5px;font-weight:500;background:none;color:var(--mu);box-shadow:inset 0 0 0 1px var(--mu)}' +
+    '#p2 .g.la .la-n{color:var(--mu);font-weight:400;margin-right:5px}' +   /* ma'no raqami oddiy kulrang (foydalanuvchi: rangli doiracha shart emas) */
+    '#p2 .g.la .mn .vno{display:none}' +                                     /* so'z tartib raqami ko'rsatilmaydi — ma'no raqami bilan aralashmasin */
     '#p2 .g.la .la-yi{display:inline-block;margin:3px 12px 0 0}' +   /* asosiy ma'no kattaroq */
     '#p2 .g.la .hd.st{flex-wrap:wrap}#p2 .g.la .hd.st .la-w{flex:1 1 0;max-width:none}#p2 .g.la .hd.st .mn{order:3;flex:1 0 100%;padding:0 0 0 40px}';
   document.head.appendChild(css);
@@ -898,12 +897,12 @@ document.addEventListener('click', function (e) {
       var hd = g.querySelector('.hd'), ar = hd && hd.querySelector('.ar.vw'), mn = hd && hd.querySelector('.mn');
       if (!ar || !mn) return;
       var e = (VOC[hamma.indexOf(g)] || [])[4];
-      /* ma'nolar raqamli (foydalanuvchi, 19.11.2026): matndagi ma'no(lar) — to'ldirilgan doiracha, katta; boshqa ma'nolar (e.y, «;» bilan) —
-         tagida kichik kulrang, bo'sh doiracha, raqam davom etadi; jami bitta ma'no bo'lsa — raqamsiz */
+      /* ma'nolar raqamli (foydalanuvchi, 19.11.2026): «1.» «2.» oddiy kulrang; matndagi ma'no(lar) katta; boshqa ma'nolar (e.y, «;» bilan) —
+         tagida kichik kulrang, raqam davom etadi; jami bitta ma'no bo'lsa — raqamsiz */
       var md = [].filter.call(mn.children, function (d) { return !d.classList.contains('vno'); }),
         yy = e && e.y ? e.y.split(/;\s*/) : [], k = 0, ko = md.length + yy.length > 1;
-      if (ko) md.forEach(function (d) { d.innerHTML = '<span class="la-n">' + (++k) + '</span>' + d.innerHTML.replace(/^\s*\d+\.\s*/, '').replace(/;\s*$/, ''); });
-      if (yy.length) mn.insertAdjacentHTML('beforeend', '<div class="la-y">' + yy.map(function (x) { return '<span class="la-yi">' + (ko ? '<span class="la-n o">' + (++k) + '</span>' : '') + x + '</span>'; }).join('') + '</div>');
+      if (ko) md.forEach(function (d) { d.innerHTML = '<span class="la-n">' + (++k) + '.</span>' + d.innerHTML.replace(/^\s*\d+\.\s*/, '').replace(/;\s*$/, ''); });
+      if (yy.length) mn.insertAdjacentHTML('beforeend', '<div class="la-y">' + yy.map(function (x) { return '<span class="la-yi">' + (ko ? '<span class="la-n">' + (++k) + '.</span>' : '') + x + '</span>'; }).join('') + '</div>');
       if (e && e.q && KOR) g.insertAdjacentHTML('beforeend', '<div class="la-q">қоралама</div>');
       var qs = ar.innerHTML.split(/\s+(مؤ\.|ج)\s+/), w = document.createElement('div'), f = '';
       w.className = 'la-w';

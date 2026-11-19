@@ -280,3 +280,16 @@ html.til-ar .zo-uz,html:not(.til-ar) .zo-ar{display:none}
 /* So'z oynasi: holat yorlig'i — Наҳв жадвалига ҳавола (11.11.2026; shell.js) */
 #sb .hk span.cR,#sb .hk span.cN,#sb .hk span.cJ,#sb .hk span.cZ{cursor:pointer}
 #sb .hk span.cR::after,#sb .hk span.cN::after,#sb .hk span.cJ::after,#sb .hk span.cZ::after{content:" \203A";font-weight:700;opacity:.7}
+/* «Тайёрлов» savollari yopiq — «Саволлар · N та» (19.11.2026; shell.js SVQ) */
+#tx .svq{margin:0 0 10px}
+#tx .svq-b{display:flex;align-items:center;gap:12px;width:100%;min-height:54px;padding:12px 16px;border:0;border-radius:18px;background:var(--cd);box-shadow:var(--sh);color:var(--ac);font:600 16px/1.2 system-ui,-apple-system,sans-serif;direction:ltr;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .15s}
+#tx .svq-b:active{transform:scale(.985)}
+#tx .svq-q{flex:none;width:30px;height:30px;border-radius:15px;background:var(--tint);display:flex;align-items:center;justify-content:center;font:800 15px/1 system-ui,sans-serif}
+#tx .svq-t{flex:1}
+#tx .svq-b svg{flex:none;color:var(--mu);transition:transform .25s}
+#tx .svq.och .svq-b{margin-bottom:10px}
+#tx .svq.och .svq-b svg{transform:rotate(180deg)}
+#tx .svq-i{display:none}
+#tx .svq.och .svq-i{display:block;animation:svqIn .28s ease-out}
+@keyframes svqIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){#tx .svq.och .svq-i{animation:none}#tx .svq-b,#tx .svq-b svg{transition:none}}

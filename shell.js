@@ -162,7 +162,7 @@
       var d = parseFloat(b.getAttribute('data-d')), t = au.currentTime, st = [];
       /* oldingi / keyingi gap (05.11.2026): gap boshlari TM dan; gap boshidan 1.2 s o'tgan bo'lsa ◀ shu gap boshiga */
       if (typeof TM !== 'undefined' && TM.length) {
-        var seen = {}; TM.forEach(function (w) { if (!(w[0] in seen) || w[2] < seen[w[0]]) seen[w[0]] = w[2]; });
+        var seen = {}; TM.forEach(function (w) { if (window.svqYashirin && svqYashirin(w[0])) return; if (!(w[0] in seen) || w[2] < seen[w[0]]) seen[w[0]] = w[2]; });
         for (var k in seen) st.push(seen[k]); st.sort(function (x, y) { return x - y; });
         var i = -1; st.forEach(function (x, j) { if (x <= t + 0.05) i = j; });
         var to = d > 0 ? st[i + 1] : (i >= 0 && t - st[i] > 1.2 ? st[i] : st[Math.max(0, i - 1)]);
@@ -248,6 +248,72 @@
       if (au.readyState >= 1) go(); else au.addEventListener('loadedmetadata', function f() { au.removeEventListener('loadedmetadata', f); go(); });
       if (au.paused) { var p = au.play(); if (p && p.catch) p.catch(function () {}); }
     });
+  })();
+  /* «Тайёрлов» savollari yopiq (19.11.2026, foydalanuvchi): dars boshidagi raqamli savollar («1-», «2-» …) va
+     ulardan oldingi «…:» bilan tugaydigan qatorlar («تَهْيِئَةٌ:», «فَكِّرْ فِي الْإِجَابَةِ…:») bitta tugmaga yig'iladi —
+     «Саволлар · N та»; bosilsa ochiladi, dars qayta ochilsa yana yopiq. Yopiqda audio ularni o'tkazib yuboradi
+     (91, 93 da savollar ovozda bor; 95, 97 da yo'q), ⏮/⏭ va «N / M гап» ham sanamaydi (window.svqYashirin). */
+  var SVQ = null;
+  (function () {
+    if (typeof D === 'undefined' || !D || !D.length) return;
+    var a = -1, b = -1, n = 0, sor = false;
+    for (var i = 0; i < D.length; i++) {
+      if (/^\s*\d+\s*-\s*$/.test(D[i][0] || '')) {
+        if (a >= 0 && i !== b + 1) break;
+        if (a < 0) a = i; b = i; n++; if (/؟/.test(D[i][1])) sor = true;
+      } else if (a >= 0) break;
+    }
+    if (a < 0 || n < 2 || !sor) return;
+    var oxiri = function (k) { var w = String(D[k][1]).split('/'); return w[w.length - 1].split('|')[0]; };
+    while (a - 1 >= 1 && !D[a - 1][0] && /:\s*$/.test(oxiri(a - 1))) a--;
+    SVQ = { a: a, b: b, n: n, och: false };
+  })();
+  window.svqYashirin = function (l) { return !!SVQ && !SVQ.och && l >= SVQ.a && l <= SVQ.b; };
+  if (SVQ) (function () {
+    var tx = document.getElementById('tx'); if (!tx) return;
+    var w = null, ob = null;
+    function och(v) {
+      if (!w || SVQ.och === v) return;
+      SVQ.och = v; w.classList.toggle('och', v); w.querySelector('.svq-b').setAttribute('aria-expanded', String(v));
+      if (window.T3 && T3.relayout) requestAnimationFrame(T3.relayout);
+    }
+    function qur() {
+      if (tx.querySelector('.svq')) return;
+      var L = tx.querySelectorAll('.ln'); if (L.length <= SVQ.b) return;
+      w = document.createElement('div'); w.className = 'svq' + (SVQ.och ? ' och' : '');
+      w.innerHTML = '<button type="button" class="svq-b" aria-expanded="' + SVQ.och + '"><span class="svq-q" aria-hidden="true">?</span>' +
+        '<span class="svq-t">Саволлар · ' + SVQ.n + ' та</span>' +
+        '<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="svq-i"></div>';
+      tx.insertBefore(w, L[SVQ.a]);
+      var inn = w.querySelector('.svq-i');
+      for (var i = SVQ.a; i <= SVQ.b; i++) inn.appendChild(L[i]);
+      w.querySelector('.svq-b').addEventListener('click', function () { och(!SVQ.och); });
+      /* ‹ › yoki boshqa yo'l bilan yopiq savoldagi so'z tanlansa — o'zi ochiladi */
+      if (window.MutationObserver) {
+        if (ob) ob.disconnect();
+        ob = new MutationObserver(function () { if (!SVQ.och && inn.querySelector('.ws span.on')) och(true); });
+        ob.observe(inn, { subtree: true, attributes: true, attributeFilter: ['class'] });
+      }
+    }
+    qur();
+    /* build() matnni qayta yasaydi (Ҳаракат va h.k.) — blok qaytadan */
+    var ob0 = window.build; if (typeof ob0 === 'function') window.build = function () { var r = ob0.apply(this, arguments); qur(); return r; };
+    /* yopiqda audio savollar ustidan o'tadi: ichiga tushsa — keyingi gap boshiga */
+    if (typeof TM === 'undefined' || !au) return;
+    var raf = 0;
+    function sakra() {
+      if (SVQ.och || !au.duration) return;
+      var s = null, nx = null, t = au.currentTime;
+      TM.forEach(function (x) {
+        if (x[0] >= SVQ.a && x[0] <= SVQ.b) { if (s === null || x[2] < s) s = x[2]; }
+        else if (x[0] > SVQ.b && (nx === null || x[2] < nx)) nx = x[2];
+      });
+      if (s === null || nx === null || nx <= s) return;
+      if (t >= s - 0.05 && t < nx - 0.1) { try { au.currentTime = Math.max(0, nx - 0.05); } catch (e) {} }
+    }
+    function loop() { sakra(); raf = !au.paused && !au.ended ? requestAnimationFrame(loop) : 0; }
+    au.addEventListener('play', function () { if (!raf) raf = requestAnimationFrame(loop); });
+    au.addEventListener('seeked', sakra);
   })();
   /* oxiriga yetganda boshiga qaytadi; oxirida turib ▶ bosilsa boshidan o'qiydi */
   au.addEventListener('ended', function () { setTimeout(function () { try { au.currentTime = 0; } catch (e) {} draw(); label(); }, 60); });
@@ -386,7 +452,8 @@
       if (!N.length) return '';
       var T0 = window.UZT0 || TM, t = window.UZA ? window.UZA() : au.currentTime, l = 0;
       T0.forEach(function (w) { if (w[2] <= t + 0.05) l = w[0]; });
-      var k = N.indexOf(l) + 1; return (k > 0 ? k : 0) + ' / ' + N.length + ' гап';
+      var NN = N.filter(function (x) { return !(window.svqYashirin && svqYashirin(x)); });
+      var k = NN.indexOf(l) + 1; return (k > 0 ? k : 0) + ' / ' + NN.length + ' гап';
     }
     setInterval(function () { var x = cur(); if (x !== last) { last = x; pn.textContent = x; } }, 300);
   })();
@@ -678,7 +745,7 @@
     var sel = pg && pg.id === 'p1' ? '#tx .ln' : pg && pg.id === 'p2' ? '#p2 .g' : null;
     if (sel) {
       var els = d.querySelectorAll(sel), mid = innerHeight * 0.35, k = -1;
-      for (var i = 0; i < els.length; i++) if (els[i].getBoundingClientRect().top <= mid) k = i;
+      for (var i = 0; i < els.length; i++) { var r = els[i].getBoundingClientRect(); if (r.height > 0 && r.top <= mid) k = i; }
       if (k < 0) k = 0;
       sub = pg.id === 'p1' ? (k === 0 ? 'Сарлавҳа' : k + '-гап') : (k + 1) + '-сўз';
     }

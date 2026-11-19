@@ -1001,5 +1001,5 @@
   var lw = 0;
   if (window.ResizeObserver) new ResizeObserver(function () { if (tx.clientWidth != lw) { lw = tx.clientWidth; requestAnimationFrame(relayout) } }).observe(tx);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { requestAnimationFrame(relayout) });
-  window.T3 = { WD: function () { return WD }, RELS: function () { return RELS }, GH: function () { return GH }, FR: function () { return FR }, zt: zt, show: show };
+  window.T3 = { WD: function () { return WD }, RELS: function () { return RELS }, GH: function () { return GH }, FR: function () { return FR }, zt: zt, show: show, relayout: relayout };
 })();

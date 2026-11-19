@@ -943,6 +943,16 @@
     [].forEach.call(document.querySelectorAll('.ws span.on,.ts.on'), function (x) { x.classList.remove('on') });
   }, true);
   function lnStart(L) { var st = null; (window.TM || []).forEach(function (w) { if (w[0] === L && (st === null || w[2] < st)) st = w[2] }); return st }
+  /* gap oxiri: keyingi gap boshigacha; «ЎЗ» yoqilgan bo'lsa o'zbekcha tarjimasi ham o'qiladi */
+  function lnEnd(L, st) {
+    var e = st, nx = null, uz = !!document.querySelector('.pbar .uzb.on');
+    (window.TM || []).forEach(function (w) {
+      if (w[0] === L) e = Math.max(e, w[3]);
+      else if (w[2] > st && w[2] < 1e5 && (nx === null || w[2] < nx)) nx = w[2];
+    });
+    if (uz) return nx !== null ? nx - 0.1 : 1e9;
+    return nx !== null ? Math.min(nx - 0.05, e + 0.4) : e + 0.4;
+  }
   function curL() { var e = tx.querySelector('.ws span.pl'), ln = e && e.closest('.ln'); return ln ? [].indexOf.call(lines(), ln) : -1 }
   function plBtns() {
     [].forEach.call(tx.querySelectorAll('.t3pl'), function (b) { b.remove() });
@@ -971,7 +981,9 @@
     if (typeof window.setLoop === 'function') window.setLoop(-1);
     if ('stopAt' in window) window.stopAt = null;
     window.uScr = 0;
-    var go = function () { au.currentTime = Math.max(0, st - 0.05) };
+    /* 19.11.2026 (foydalanuvchi): karta ▶ — faqat shu kartani o'qib to'xtaydi; davomi — pastdagi ▶ */
+    var en = lnEnd(L, st);
+    var go = function () { window.progSeek = true; au.currentTime = Math.max(0, st - 0.05); if ('stopAt' in window) window.stopAt = en };
     if (au.readyState >= 1) go(); else au.addEventListener('loadedmetadata', function f() { au.removeEventListener('loadedmetadata', f); go() });
     if (au.paused) { var p = au.play(); if (p && p.catch) p.catch(function () { }) }
   }, true);

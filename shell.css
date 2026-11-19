@@ -234,21 +234,21 @@ body.lo2 .w>.tabs:first-child{margin-top:-14px!important}
 /* Ҳаракат (эъроб) ранглари — вазифа ранглари палитрасидан (05.11.2026): раф — фоил, насб — мафъул, жар — мажрур, жазм — феъл */
 html:root:not([data-nc]){--cR:var(--co);--cN:var(--cb);--cJ:var(--cj);--cZ:var(--cf)}
 
-/* 06.11.2026: surgich yo'q — o'rnida gap raqami, ⏮ ⏭ kattaroq */
-.pbar .pqk{display:none}
-.pbar .pq2{gap:0;margin-top:4px}
+/* 19.11.2026: tepada uzun chiziq (o'tgan vaqt · surgich · umumiy vaqt); pastda ЎЗ · ⏮ ▶ ⏭ · 1× (gap raqami va 🎧 yo'q) */
+.pbar{flex-wrap:wrap;row-gap:0;padding-top:4px}
+.pbar .pq0{flex:0 0 100%;display:flex;align-items:center}
+.pbar .pq0 .pqt,.pbar .pq0 .pqd{flex:none;min-width:34px;font-size:12px;font-weight:600;opacity:.85;font-variant-numeric:tabular-nums}
+.pbar .pq0 .pqd{text-align:right}
+.pbar .pq0 .pqk{height:28px;margin:0 8px}
+.pbar .pq1{display:none}
+.pbar .pq2{gap:0;margin-top:0}
 .pbar .pqs{width:46px;height:46px;border-radius:23px}
 .pbar .pqs svg{width:28px;height:28px}
-.pbar .pqn{flex:1;text-align:center;font-size:13px;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
 .pbar .pb{width:58px;height:58px;border-radius:29px}
 .pbar .pb svg{width:24px;height:24px}
-.pbar .uzb,.pbar .sp{height:42px}
-.pbar .esh{width:42px;height:42px}
-.pbar .esh svg{width:24px;height:24px}
-.pbar.mid .pq2{justify-content:center;gap:14px;margin-top:2px}
-.pbar.mid .pq1{justify-content:center;gap:10px}
-.pbar.mid .pq1 .lb{display:none}
-.pbar.mid .pqn{flex:none}
+.pbar .uzb,.pbar .sp{height:42px;min-width:52px}
+.pbar .uzb0{flex:none;width:52px}
+.pbar.mid .pq2{justify-content:center;gap:14px}
 
 /* ЎЗ: ўзбекча ўқилганда мос арабча сўз ёнади (07.11.2026) */
 #tx .ws span.pu,#tx .ts.pu{background:rgba(234,88,12,.25);color:var(--tx)}#tx.hidetr .tr:not(.rev) .ts.pu{background:none}

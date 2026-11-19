@@ -116,17 +116,20 @@
     '<button class="pb" type="button" aria-label="Ўқиш / тўхтатиш"><i class="i1"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4l12 8-12 8z" fill="currentColor"/></svg></i><i class="i2"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"/></svg></i></button>' +
     '<div class="md"><div class="pq1"><div class="lb">Матнни тинглаш</div><span class="pqt">0:00</span></div>' +
     '<div class="pq2"><button class="pqs" type="button" data-d="-1" aria-label="Олдинги гап"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2v14H6zM20 5v14L9 12z" fill="currentColor"/></svg></button>' +
-    '<div class="pqk"><div class="pqr"><i></i></div><b></b></div><span class="pqn"></span>' +
+    '<div class="pqk"><div class="pqr"><i></i></div><b></b></div>' +
     '<button class="pqs" type="button" data-d="1" aria-label="Кейинги гап"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 5h2v14h-2zM4 5v14l11-7z" fill="currentColor"/></svg></button></div></div>' +
-    (window.UZT ? '<button class="uzb" type="button" aria-label="Ўзбекча таржима">ЎЗ</button><button class="esh" type="button" aria-label="Эшитиш бўлимида очиш"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="5" height="7" rx="2"/><rect x="16" y="14" width="5" height="7" rx="2"/></svg></button>' : '') +
+    (window.UZT ? '<button class="uzb" type="button" aria-label="Ўзбекча таржима">ЎЗ</button>' : '<i class="uzb0"></i>') +
     '<button class="sp" type="button" aria-label="Тезлик">1×</button>';
   document.body.appendChild(pb);
-  /* 06.11.2026: ▶ — ⏮ va ⏭ o'rtasida; gap raqami tepada vaqt yonida */
+  /* 19.11.2026: tepada uzun chiziq — o'tgan vaqt · surgich · umumiy vaqt; pastda ЎЗ · ⏮ ▶ ⏭ · 1× (gap raqami va 🎧 olib tashlandi) */
   (function () { var q2 = pb.querySelector('.pq2'), nx = q2.querySelectorAll('.pqs')[1]; q2.insertBefore(pb.querySelector('.pb'), nx);
-    var q1 = pb.querySelector('.pq1'); q1.insertBefore(pb.querySelector('.pqn'), q1.querySelector('.pqt')); pb.classList.add('mid'); })();
+    var q0 = document.createElement('div'); q0.className = 'pq0';
+    q0.appendChild(pb.querySelector('.pqt')); q0.appendChild(pb.querySelector('.pqk'));
+    var pd = document.createElement('span'); pd.className = 'pqd'; pd.textContent = '0:00'; q0.appendChild(pd);
+    pb.insertBefore(q0, pb.firstChild); pb.insertBefore(pb.querySelector('.uzb,.uzb0'), pb.querySelector('.md')); pb.classList.add('mid'); })();
   var lb = $('.lb', pb), bar = $('.pqk i', pb), sp = $('.sp', pb), lastLn = null;
   $('.pb', pb).addEventListener('click', function () { if (typeof ppl === 'function') ppl(); });
-  var tk = $('.pqk', pb), th = $('.pqk b', pb), tm = $('.pqt', pb), drag = false, dragP = 0;
+  var tk = $('.pqk', pb), th = $('.pqk b', pb), tm = $('.pqt', pb), td = $('.pqd', pb), drag = false, dragP = 0;
   function fmt(t) { t = Math.max(0, Math.floor(t || 0)); return Math.floor(t / 60) + ':' + ('0' + t % 60).slice(-2); }
   function setP(p) { p = Math.max(0, Math.min(1, p)) * 100; bar.style.width = p + '%'; th.style.left = p + '%'; }
   function draw() {
@@ -134,7 +137,7 @@
     if (!d || !isFinite(d)) { tm.textContent = fmt(au.currentTime); return; }
     var t = drag ? dragP * d : au.currentTime;
     if (!drag) setP(t / d);
-    tm.textContent = fmt(t) + ' / ' + fmt(d);
+    tm.textContent = fmt(t); td.textContent = fmt(d);
   }
   function pos(e) { var r = tk.getBoundingClientRect(); return (e.clientX - r.left) / r.width; }
   tk.addEventListener('pointerdown', function (e) {
@@ -368,28 +371,6 @@
     window.UZA = function () { return cur === 'l' ? toA(au.currentTime) : au.currentTime; };
   })();
 
-  /* 🎧 — Eshitish bo'limida shu darsni o'qilayotgan gapdan ochish */
-  if (window.UZT) (function () {
-    var hb = $('.esh', pb);
-    hb.addEventListener('click', function () {
-      var t = window.UZA ? window.UZA() : au.currentTime, l = '';
-      (window.UZT0 || TM).forEach(function (w) { if (w[2] <= t + 0.3) l = w[0]; });
-      au.pause();
-      location.href = (/sinov-/.test(location.pathname) ? 'sinov-tinglash.html' : 'tinglash.html') + '?d=' + m[1] + '&t=l' + (l !== '' && t > 0.5 ? '&s=' + l : '');
-    });
-  })();
-  /* surgich o'rniga gap raqami (06.11.2026): «3 / 7 гап» */
-  (function () {
-    var pn = $('.pqn', pb), N = [], last = '';
-    if (typeof TM !== 'undefined') { var seen = {}; TM.forEach(function (w) { if (w[0] > 0 && !seen[w[0]]) { seen[w[0]] = 1; N.push(w[0]); } }); }
-    function cur() {
-      if (!N.length) return '';
-      var T0 = window.UZT0 || TM, t = window.UZA ? window.UZA() : au.currentTime, l = 0;
-      T0.forEach(function (w) { if (w[2] <= t + 0.05) l = w[0]; });
-      var k = N.indexOf(l) + 1; return (k > 0 ? k : 0) + ' / ' + N.length + ' гап';
-    }
-    setInterval(function () { var x = cur(); if (x !== last) { last = x; pn.textContent = x; } }, 300);
-  })();
   showRate(); state(); label();
   setTimeout(showRate, 600);
 

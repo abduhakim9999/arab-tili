@@ -1,0 +1,10 @@
+narr.wav
+out.mp4
+st/
+test/
+chk/
+package/
+naskh.ttf
+*.tgz
+ph.*
+__pycache__/

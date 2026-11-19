@@ -27,6 +27,7 @@ def stages():
 def page_open(pw):
     br = pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox', '--force-color-profile=srgb', '--font-render-hinting=none'])
     pg = br.new_page(viewport={'width': W, 'height': H}, device_scale_factor=1)
+    pg.on('pageerror', lambda e: print('JS XATO:', e, flush=True)); pg.on('console', lambda m: m.type == 'error' and print('KONSOL:', m.text, flush=True))
     pg.goto(f'file://{D}/video.html')
     pg.wait_for_function('window.READY === true', timeout=30000)
     return br, pg
@@ -69,11 +70,16 @@ def join():
     with open(f'{D}/st/list.txt', 'w') as f:
         for i in range(n): f.write(f"file '{D}/st/{i}.mp4'\n")
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', f'{D}/st/list.txt', '-c', 'copy', f'{D}/st/video.mp4'], check=True)
-    # ovoz balandligi: -16 LUFS atrofiga (YouTube), cho'qqi cheklangan
-    r = subprocess.run(['ffmpeg', '-hide_banner', '-nostats', '-i', f'{D}/narr.wav', '-af', 'ebur128', '-f', 'null', '-'], capture_output=True, text=True).stderr
+    # tovush effektlari: sahifadagi window.SFX ro'yxati -> mix.wav (prep.mix); keyin balandlik -16 LUFS atrofiga
+    from playwright.sync_api import sync_playwright
+    import prep
+    with sync_playwright() as pw:
+        br, pg = page_open(pw); ev = pg.evaluate('window.SFX'); br.close()
+    print('effektlar:', prep.mix(ev))
+    r = subprocess.run(['ffmpeg', '-hide_banner', '-nostats', '-i', f'{D}/mix.wav', '-af', 'ebur128', '-f', 'null', '-'], capture_output=True, text=True).stderr
     I = float([l for l in r.splitlines() if l.strip().startswith('I:')][-1].split()[1])
     g = -16.0 - I
-    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', f'{D}/st/video.mp4', '-i', f'{D}/narr.wav', '-map', '0:v', '-map', '1:a', '-c:v', 'copy',
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', f'{D}/st/video.mp4', '-i', f'{D}/mix.wav', '-map', '0:v', '-map', '1:a', '-c:v', 'copy',
                     '-af', f'volume={g:.2f}dB,alimiter=limit=0.89:level=false', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-movflags', '+faststart', f'{D}/out.tmp.mp4'], check=True)
     os.replace(f'{D}/out.tmp.mp4', f'{D}/out.mp4')
     print(f'out.mp4 tayyor (ovoz {I:.1f} LUFS -> {I + g:.1f})')

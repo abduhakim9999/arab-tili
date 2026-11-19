@@ -22,7 +22,13 @@
     mustahkam: 90     // «мустаҳкам»: arabcha → ma'no kartasi shuncha kun + ma'no → arabcha kartasi «bilgan»
   };
 
-  function yarat(o) {
+  /* 19.11.2026 (foydalanuvchi): ma'nosi «маъносиз» harflar (ibtido وَ, zoida بِ) ham yodlanadi — karta «Вазифаси?» (takror.html),
+   «Арабчаси?» kartasi yo'q. Ruschada asl o'zbekcha ma'no `uzA` da (ru.js). */
+function manosiz(n) {
+  return n.m.every(function (r) { return /^\s*(\d+\.\s*)?маъносиз/i.test(((r.uzA || r.uz) || [])[0] || ''); });
+}
+
+function yarat(o) {
     var soz = {}, k;
     for (k in SOZ) soz[k] = SOZ[k];
     for (k in (o.sozlama || {})) soz[k] = o.sozlama[k];
@@ -53,9 +59,9 @@
       var nk = 'w' + r.id;
       var n = { id: r.id, r: r, m: m, q: qm ? 1 : 0, au: !qm && r.au && lv[r.d] ? { f: lv[r.d], s: r.au[0], e: r.au[1] } : null };
       qoy({ id: nk + 'a', tur: 'a', nk: nk, n: n, u: usz[r.id] ? 1 : 0 });
-      qoy({ id: nk + 'u', tur: 'u', nk: nk, n: n, old: nk + 'a' });
+      if (!manosiz(n)) qoy({ id: nk + 'u', tur: 'u', nk: nk, n: n, old: nk + 'a' });   /* «зоида жар ҳарфи → ?» — noaniq */
       if (qm) return;
-      if (n.au) qoy({ id: nk + 'o', tur: 'o', nk: nk, n: n, old: nk + 'u' });
+      if (n.au && !manosiz(n)) qoy({ id: nk + 'o', tur: 'o', nk: nk, n: n, old: nk + 'u' });
       /* shakl kartasi (13.11.2026: «Машқ» takrorga qo'shildi): ko'pligi (ism), muzore'-amr-masdari (fe'l), turi (harf).
          Qaysi so'zda nima so'ralishini sahifa aytadi (o.shakl(r) → 'j' | 'k' | 't' | ''). Ma'no kartasi kamida bir marta kun o'tib
          to'g'ri takrorlangach chiqadi (qo'shimcha kartalar qatorida, kuniga yangiQosh tadan). */
@@ -203,5 +209,5 @@
     return jami;
   }
 
-  return { yarat: yarat, SOZ: SOZ, VER: 1, ball: ball, haftaBoshi: haftaBoshi, REY: REY };
+  return { yarat: yarat, SOZ: SOZ, VER: 1, ball: ball, haftaBoshi: haftaBoshi, REY: REY, manosiz: manosiz };
 });

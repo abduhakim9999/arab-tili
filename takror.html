@@ -860,7 +860,7 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
   }
   function soz(bosh_, x) {
     var n = cur.n, r = n.r, t = cur.tur, old, orqa;
-    var sorov = { a: 'Маъноси?', u: 'Арабчаси?', o: 'Эшитинг' }[t];
+    var sorov = { a: Takror.manosiz(n) ? 'Вазифаси?' : 'Маъноси?', u: 'Арабчаси?', o: 'Эшитинг' }[t];   /* «маъносиз» harf — vazifasi so'raladi (19.11.2026) */
     var soz_ = sozQator(r);
     if (t === 'a') { old = soz_ + gapAr(r); orqa = manolar(n) + gapTr(r) + shakl(r) + misol(n); }   /* gap old tomonda — «Арабчаси?»da javobni ochib qo'ymasin */
     else if (t === 'u') { old = manolar(n); orqa = soz_ + gapAr(r) + gapTr(r) + shakl(r) + misol(n); }

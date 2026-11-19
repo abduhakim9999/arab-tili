@@ -878,10 +878,10 @@ document.addEventListener('click', function (e) {
     '#p2 .g.la:has(.bm[aria-pressed="true"]){background:rgba(179,38,30,.045);border-radius:14px}' +
     '#p2 .g.la .la-y{font-size:13.5px;line-height:1.45;color:var(--mu);margin-top:3px}' +
     '#p2 .g.la .la-q{margin-left:40px;font-size:12px;color:#9a6a12}#p2 .g.la .la-q::before{content:"\\270E  "}' +
-    /* 19.11.2026 (foydalanuvchi): ko'plik/muannas «ج»/«مؤ.» dan keyin so'z yonida; uzun so'z ustida, ma'no tagida; misolda so'z yashil, «...» o'rni nuqtali */
+    /* 19.11.2026 (foydalanuvchi): ko'plik/muannas «ج»/«مؤ.» dan keyin so'z yonida; uzun so'z ustida, ma'no tagida; tepasi belgisiz; faqat misolda so'z yashil, «...» o'rni kulrang nuqtali */
     '#p2 .g.la .la-j{font-size:.62em;color:var(--mu);white-space:nowrap}#p2 .g.la .la-p{font-size:.62em;color:var(--mu)}' +
     '#p2 .g.la .la-g{color:var(--em1,#13865a);background:color-mix(in srgb,var(--em1,#13865a) 14%,transparent);border-radius:3px}' +
-    '#p2 .g.la .la-d{text-decoration:underline dotted 2px;text-decoration-color:var(--em1,#13865a);text-underline-offset:.32em}' +
+    '#p2 .g.la .la-d{text-decoration:underline dotted 2px;text-decoration-color:var(--mu);text-underline-offset:.32em}' +
     '#p2 .g.la .la-g,#p2 .g.la .la-d{font-size:inherit}' +   /* sahifadagi «.g span:last-child{15px}» ga tushmasin */
     '#p2 .g.la .hd.st{flex-wrap:wrap}#p2 .g.la .hd.st .la-w{flex:1 1 0;max-width:none}#p2 .g.la .hd.st .mn{order:3;flex:1 0 100%;padding:0 0 0 40px}';
   document.head.appendChild(css);
@@ -901,7 +901,6 @@ document.addEventListener('click', function (e) {
       for (var i = 1; i + 1 < qs.length; i += 2) f += ' <span class="la-j">' + qs[i] + ' ' + qs[i + 1] + '</span>';
       ar.innerHTML = bosh(qs[0]) + f;
       hd.insertBefore(w, ar); w.appendChild(ar);
-      [].forEach.call(mn.children, function (d) { if (!d.classList.contains('vno') && !d.classList.contains('la-y')) d.innerHTML = nuqta(d.innerHTML); });
       var q = VOC[hamma.indexOf(g)] || [];
       [].forEach.call(g.querySelectorAll('.eb'), function (eb) {
         var bel = false;
@@ -916,12 +915,8 @@ document.addEventListener('click', function (e) {
       if (hd.firstChild !== b) hd.insertBefore(b, hd.firstChild);
     });
   }
-  function bosh(h) {                                   /* «(إِلَى ..)» — ko'makchi yashil, «..» nuqtali, qavs kichik */
-    return h.replace(/\(([^()]*?)\s*(\.{2,3})\)/g, '<span class="la-p">(<span class="la-g">$1</span> <span class="la-d">$2</span>)</span>')
-      .replace(/(^|\s)(\.{2,3})(?=\s|$)/g, '$1<span class="la-d">$2</span>');
-  }
-  function nuqta(h) {                                  /* ma'noda «(...га)»: «...» nuqtali, qo'shimcha yashil */
-    return h.replace(/(\.{2,3})([^\s().,;<]*)/g, function (m, d, q) { return '<span class="la-d">' + d + '</span>' + (q ? '<span class="la-g">' + q + '</span>' : ''); });
+  function bosh(h) {                                   /* «(إِلَى ..)» — qavs kichik kulrang */
+    return h.replace(/\(([^()]*?\.{2,3})\)/g, '<span class="la-p">($1)</span>');   /* 19.11.2026: tepasi kitobdagidek belgisiz (foydalanuvchi) */
   }
   function belgi(h) { return h.replace(/\{([^{}]*)\}/g, '<span class="la-g">$1</span>').replace(/\[([^\[\]]*)\]/g, '<span class="la-d">$1</span>'); }
   function yl(x) { return String(x || '').replace(/[\u064B-\u065F\u0670\u0640]/g, '').replace(/[\u0623\u0625\u0622\u0671]/g, '\u0627').replace(/\u0629/g, '\u062A').replace(/\u0649/g, '\u064A').replace(/[^\u0621-\u064A]/g, ''); }

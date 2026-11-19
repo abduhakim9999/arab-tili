@@ -249,6 +249,13 @@ def main():
                 else:
                     r['au'] = vseg[vi]
             r['yozuv'] = asl
+            if len(v) > 4 and isinstance(v[4], dict):   # 19.11.2026: kitob lug'ati kelmagan darsda Claude qoralamasi (docs/texnik.md 14)
+                e = v[4]
+                for k0, k1 in (('y', 'y'), ('o', 'o'), ('oz', 'oz'), ('w', 'mw')):
+                    if e.get(k0):
+                        r[k1] = e[k0]                   # y — qo'shimcha ma'no, o/oz — o'zak, mw — matndagi o'rinlar («qator-so'z»)
+                if e.get('q'):
+                    r['qr'] = 1                         # qoralama: kitob lug'ati kelsa almashtiriladi
             lug.append(r)
         # --- mashq
         P = sah[n]

@@ -815,12 +815,21 @@ document.addEventListener('click', function (e) {
     '#p2 .g.la .exs{margin-left:40px}' +
     '#p2 .g.la .eb{display:flex;flex-direction:row-reverse;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:2px 12px;padding:7px 12px;border-radius:12px;background:color-mix(in srgb,var(--mu) 8%,transparent)}' +
     '#p2 .g.la .eb .ar2{font-size:21px;line-height:1.6}#p2 .g.la .eb .ex{margin:0;font-size:14px}' +
-    '#p2 .g.la:has(.bm[aria-pressed="true"]){background:rgba(179,38,30,.045);border-radius:14px}';
+    '#p2 .g.la:has(.bm[aria-pressed="true"]){background:rgba(179,38,30,.045);border-radius:14px}' +
+    '#p2 .g.la .la-y{font-size:13.5px;line-height:1.45;color:var(--mu);margin-top:3px}' +
+    '#p2 .g.la .la-q{margin-left:40px;font-size:12px;color:#9a6a12}#p2 .g.la .la-q::before{content:"\\270E  "}';
   document.head.appendChild(css);
+  /* Kitob lug'ati kelmagan darsda Claude qoralamasi (19.11.2026, foydalanuvchi: «B variant»; docs/texnik.md 14): VOC[i][4] —
+     y: muhim boshqa ma'no (kulrang «яна:»), q: qoralama (belgisi faqat ko'rish/sinov sahifasida). */
+  var KOR = !!window.KORISH || /\/sinov-[^\/]*$/.test(location.pathname);
   function tuz() {
+    var hamma = [].slice.call(p2.querySelectorAll('.g'));
     [].forEach.call(p2.querySelectorAll('.g:not(.la)'), function (g) {
       var hd = g.querySelector('.hd'), ar = hd && hd.querySelector('.ar.vw'), mn = hd && hd.querySelector('.mn');
       if (!ar || !mn) return;
+      var e = (VOC[hamma.indexOf(g)] || [])[4];
+      if (e && e.y) mn.insertAdjacentHTML('beforeend', '<div class="la-y">яна: ' + e.y + '</div>');
+      if (e && e.q && KOR) g.insertAdjacentHTML('beforeend', '<div class="la-q">қоралама</div>');
       var qs = ar.innerHTML.split(/\s+(مؤ\.|ج)\s+/), w = document.createElement('div'), f = '';
       w.className = 'la-w';
       for (var i = 1; i + 1 < qs.length; i += 2) f += '<span class="la-c">' + NOM[qs[i]] + ' <bdi lang="ar" dir="rtl">' + qs[i + 1] + '</bdi></span>';
@@ -847,12 +856,16 @@ document.addEventListener('click', function (e) {
 (function () {
   var SN = /\/sinov-[^\/]*$/.test(location.pathname), KB = SN ? 'soz-sinov' : 'soz';
   var sc = document.querySelector('script[data-key]'), DN = sc ? +((sc.getAttribute('data-key') || '').match(/^dars(\d+)-holat$/) || [0, 0])[1] : 0;
-  var sb = document.getElementById('sb'), MAP = null, yuk = false;
+  var sb = document.getElementById('sb'), MAP = null, yuk = false, POS = {}, BYID = {};
   if (!DN || !sb || !window.MutationObserver) return;
   var BM = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h11a1 1 0 0 1 1 1V21l-6.5-4.2L5.5 21V4.5a1 1 0 0 1 1-1z"/></svg>';
   var css = document.createElement('style');
   css.textContent = '.zo-bm{display:flex;align-items:center;gap:8px;margin:10px auto 0;height:40px;padding:0 16px;border-radius:20px;border:1.5px solid var(--bd,#e3ddd0);background:none;color:var(--mu,#6b716c);font:inherit;font-size:15px;font-weight:600;cursor:pointer}' +
-    '.zo-bm svg{width:19px;height:19px}.zo-bm[aria-pressed="true"]{border-color:#b3261e;background:rgba(179,38,30,.08);color:#b3261e}.zo-bm[aria-pressed="true"] svg{fill:currentColor}';
+    '.zo-bm svg{width:19px;height:19px}.zo-bm[aria-pressed="true"]{border-color:#b3261e;background:rgba(179,38,30,.08);color:#b3261e}.zo-bm[aria-pressed="true"] svg{fill:currentColor}' +
+    '.zo-oz{margin:10px 0 0;padding:8px 10px 10px;border-radius:12px;background:color-mix(in srgb,var(--mu,#6b716c) 8%,transparent)}' +
+    '.zo-oz-t{font-size:12.5px;color:var(--mu,#6b716c);margin-bottom:6px}.zo-oz bdi{font-family:"DarsNaskh","Noto Naskh Arabic",serif;color:var(--tx,#1f2421)}' +
+    '.zo-oz-t bdi{font-size:16px}.zo-oz-l{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px}' +
+    '.zo-oz-l span{display:inline-flex;align-items:center;gap:6px;padding:1px 10px;border:1px solid var(--bd,#e3ddd0);border-radius:10px;font-size:13px;color:var(--tx,#1f2421)}.zo-oz-l bdi{font-size:19px;line-height:1.6}';
   document.head.appendChild(css);
   function yal(x) { return String(x || '').replace(/[\u064B-\u065F\u0670\u0640]/g, '').replace(/[\u0623\u0625\u0622\u0671]/g, '\u0627').replace(/[^\u0621-\u064A]/g, ''); }
   function variant(w) {                                /* so'z → qidiriladigan shakllar */
@@ -868,6 +881,10 @@ document.addEventListener('click', function (e) {
   function ol() { var W; try { W = JSON.parse(localStorage.getItem(KB) || '{}') || {}; } catch (e) { W = {}; } W.v = 1; W.b = W.b || {}; W.k = W.k || {}; W.s = W.s || {}; return W; }
   function qur(j) {
     MAP = {};
+    j.s.forEach(function (r) {                         /* 19.11.2026: qoralama yozuvda matndagi o'rinlari (mw) bor — so'z aniq o'z yozuviga */
+      BYID[r.id] = r;
+      if (r.d === DN && r.mw) r.mw.forEach(function (k) { POS[k] = r; });
+    });
     var qosh = function (s, r) {
       String(s || '').split(/[\s\u060C,;:.()\/]+/).concat([s]).forEach(function (p) {
         var k = yal(p); if (k.length < 2) return; k = k.replace(/^\u0627\u0644/, '') || k;
@@ -881,9 +898,19 @@ document.addEventListener('click', function (e) {
   }
   function top(txt) { var a = variant(yal(txt)); for (var i = 0; i < a.length; i++) if (a[i] && MAP[a[i]]) return MAP[a[i]]; return null; }
   function qoy() {
-    var mid = sb.querySelector('.zo-mid'); if (!mid || sb.querySelector('.zo-bm')) return;
+    var mid = sb.querySelector('.zo-mid'); if (!mid) return;
+    var ki = window.OPK && OPK.getAttribute ? OPK.getAttribute('data-i') : '', rp = ki ? POS[ki] : null;
+    if (rp && rp.o && rp.oz && !sb.querySelector('.zo-oz')) {   /* o'zakdosh so'zlar — faqat shu oynada (B variant, 19.11.2026) */
+      var d = document.createElement('div'), at = sb.querySelector('.zo-bm') || sb.querySelector('.hk') || sb.querySelector('.zo-hd');
+      d.className = 'zo-oz';
+      d.innerHTML = '<div class="zo-oz-t">Бир ўзакдан · <bdi lang="ar" dir="rtl">' + rp.o + '</bdi></div><div class="zo-oz-l">' +
+        rp.oz.map(function (x) { return '<span><bdi lang="ar" dir="rtl">' + x[0] + '</bdi>' + x[1] + '</span>'; }).join('') + '</div>';
+      at.insertAdjacentElement('afterend', d);
+    }
+    if (sb.querySelector('.zo-bm')) return;
     var c = mid.cloneNode(true), mn = c.querySelector('.mnl'); if (mn) mn.parentNode.removeChild(mn);
-    var r = top(c.textContent); if (!r) return;
+    var r = rp ? (rp.asl ? BYID[rp.asl] : rp) : top(c.textContent);
+    if (!r || !r.tk) return;
     var W = ol(), b = document.createElement('button');
     b.type = 'button'; b.className = 'zo-bm';
     var yoz = function () { b.setAttribute('aria-pressed', W.b[r.id] ? 'true' : 'false'); b.innerHTML = BM + '<span>Билмайман</span>'; };
@@ -897,6 +924,7 @@ document.addEventListener('click', function (e) {
     yoz();
     var hk = sb.querySelector('.hk'), hd = sb.querySelector('.zo-hd');
     (hk || hd).insertAdjacentElement('afterend', b);
+    var oz = sb.querySelector('.zo-oz'); if (oz) b.insertAdjacentElement('afterend', oz);
   }
   new MutationObserver(function () {
     if (!sb.querySelector('.zo-mid')) return;

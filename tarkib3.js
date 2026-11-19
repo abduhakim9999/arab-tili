@@ -28,8 +28,7 @@
     '#tx.tartib.nv .n-co{color:var(--co)!important}#tx.tartib.nv .n-cb{color:var(--nb)!important}#tx.tartib.nv .n-cn{color:var(--nn)!important}' +
     '#tx.tartib.nv .n-cj{color:var(--nj)!important}#tx.tartib.nv .n-jh{color:var(--nh)!important}#tx.tartib.nv .n-cd{color:var(--nd)!important}' +
     '#tx.tartib.nv .n-0{color:var(--tx)!important}#tx.tartib.nv .n-cz{color:var(--nz)!important}' +
-    /* tegish va audio belgilari: bosilgan so'z foni yo'q (ramka ko'rsatadi), audio belgisi faqat ijroda */
-    '#tx.tartib.nv .ws span.on{background:none!important}' +
+    /* tegish va audio belgilari: bosilgan so'z o'z yashil fonida (tarjimadagi jufti bilan bir xil — 19.11.2026, foydalanuvchi), audio belgisi faqat ijroda */
     '#tx.tartib.nv:not(.apl) .ws span.pl,#tx.tartib.nv:not(.apl) .ts.pl{background:none!important}' +
     /* ramka (doim): asosiy bo'lak o'rnidagi bo'lak */
     '#tx.tartib.nv .ws span.t3r{border-top:1.8px solid var(--rc);border-bottom:1.8px solid var(--rc);border-radius:0}' +
@@ -309,7 +308,7 @@
     Object.keys(WD).forEach(function (k) {
       var w = WD[k];
       w.nrows.forEach(function (u) {
-        var m = u.match(/^мубтадоси маҳзуф:?\s*\(([^)]+)\)/); if (m) add(w.L, w.i, m[1], 'маҳзуф мубтадо', 'm');
+        var m = u.match(/^мубтадоси маҳзуф.*?\(([؀-ۿً-ْٰ ]+)\)/); if (m) add(w.L, w.i, m[1], 'маҳзуф мубтадо', 'm');
       });
     });
   }

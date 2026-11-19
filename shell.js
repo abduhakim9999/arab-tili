@@ -250,9 +250,11 @@
     });
   })();
   /* «Тайёрлов» savollari yopiq (19.11.2026, foydalanuvchi): dars boshidagi raqamli savollar («1-», «2-» …) va
-     ulardan oldingi «…:» bilan tugaydigan qatorlar («تَهْيِئَةٌ:», «فَكِّرْ فِي الْإِجَابَةِ…:») bitta tugmaga yig'iladi —
-     «Саволлар · N та»; bosilsa ochiladi, dars qayta ochilsa yana yopiq. Yopiqda audio ularni o'tkazib yuboradi
-     (91, 93 da savollar ovozda bor; 95, 97 da yo'q), ⏮/⏭ va «N / M гап» ham sanamaydi (window.svqYashirin). */
+     ulardan oldingi «…:» bilan tugaydigan qatorlar («تَهْيِئَةٌ:», «فَكِّرْ فِي الْإِجَابَةِ…:») bitta tugmaga yig'iladi.
+     Tugma — sarlavhaning o'zi (foydalanuvchi tanlovi, 1-variant): arabcha «تَهْيِئَةٌ», tagida «Тайёрлов · N савол»;
+     sarlavha qatori ichida takrorlanmaydi (.svq-h). Sarlavha qatori yo'q bo'lsa — «Саволлар · N та».
+     Bosilsa ochiladi, dars qayta ochilsa yana yopiq. Yopiqda audio ularni o'tkazib yuboradi (91, 93 da savollar
+     ovozda bor; 95, 97 da yo'q), ⏮/⏭ va «N / M гап» ham sanamaydi (window.svqYashirin); ochiqda faqat sarlavha qatori. */
   var SVQ = null;
   (function () {
     if (typeof D === 'undefined' || !D || !D.length) return;
@@ -264,14 +266,18 @@
       } else if (a >= 0) break;
     }
     if (a < 0 || n < 2 || !sor) return;
-    var oxiri = function (k) { var w = String(D[k][1]).split('/'); return w[w.length - 1].split('|')[0]; };
+    var q0 = a, oxiri = function (k) { var w = String(D[k][1]).split('/'); return w[w.length - 1].split('|')[0]; };
     while (a - 1 >= 1 && !D[a - 1][0] && /:\s*$/.test(oxiri(a - 1))) a--;
-    SVQ = { a: a, b: b, n: n, och: false };
+    /* sarlavha: savollardan oldingi birinchi qisqa qator (1–3 so'z) */
+    var h = a < q0 && String(D[a][1]).split('/').length <= 3 ? a : -1;
+    SVQ = { a: a, b: b, h: h, n: n, och: false };
   })();
-  window.svqYashirin = function (l) { return !!SVQ && !SVQ.och && l >= SVQ.a && l <= SVQ.b; };
+  function svqOxir() { return SVQ.och ? SVQ.h : SVQ.b; }
+  window.svqYashirin = function (l) { return !!SVQ && l >= SVQ.a && l <= svqOxir(); };
   if (SVQ) (function () {
     var tx = document.getElementById('tx'); if (!tx) return;
     var w = null, ob = null;
+    var CHV = '<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     function och(v) {
       if (!w || SVQ.och === v) return;
       SVQ.och = v; w.classList.toggle('och', v); w.querySelector('.svq-b').setAttribute('aria-expanded', String(v));
@@ -281,9 +287,16 @@
       if (tx.querySelector('.svq')) return;
       var L = tx.querySelectorAll('.ln'); if (L.length <= SVQ.b) return;
       w = document.createElement('div'); w.className = 'svq' + (SVQ.och ? ' och' : '');
-      w.innerHTML = '<button type="button" class="svq-b" aria-expanded="' + SVQ.och + '"><span class="svq-q" aria-hidden="true">?</span>' +
-        '<span class="svq-t">Саволлар · ' + SVQ.n + ' та</span>' +
-        '<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="svq-i"></div>';
+      var ich = '<span class="svq-t">Саволлар · ' + SVQ.n + ' та</span>';
+      if (SVQ.h >= 0) {
+        var H = L[SVQ.h], ar = [].map.call(H.querySelectorAll('.ws span[data-i]'), function (e) { return e.textContent; }).join(' ').replace(/[\s~:：]+$/, '');
+        var uz = [].map.call(H.querySelectorAll('.tr .ts'), function (e) { return e.textContent; }).join(' ').replace(/[\s:：]+(\u2063?)$/, '$1');
+        H.classList.add('svq-h');
+        ich = '<span class="svq-m"><span class="svq-a" lang="ar" dir="rtl"></span><span class="svq-s">' + (uz ? '<span class="svq-u"></span> · ' : '') + '<span>' + SVQ.n + ' савол</span></span></span>';
+        w.innerHTML = '<button type="button" class="svq-b sar" aria-expanded="' + SVQ.och + '">' + ich + CHV + '</button><div class="svq-i"></div>';
+        w.querySelector('.svq-a').textContent = ar;
+        if (uz) w.querySelector('.svq-u').textContent = uz;
+      } else w.innerHTML = '<button type="button" class="svq-b" aria-expanded="' + SVQ.och + '">' + ich + CHV + '</button><div class="svq-i"></div>';
       tx.insertBefore(w, L[SVQ.a]);
       var inn = w.querySelector('.svq-i');
       for (var i = SVQ.a; i <= SVQ.b; i++) inn.appendChild(L[i]);
@@ -298,18 +311,18 @@
     qur();
     /* build() matnni qayta yasaydi (Ҳаракат va h.k.) — blok qaytadan */
     var ob0 = window.build; if (typeof ob0 === 'function') window.build = function () { var r = ob0.apply(this, arguments); qur(); return r; };
-    /* yopiqda audio savollar ustidan o'tadi: ichiga tushsa — keyingi gap boshiga */
+    /* ko'rinmaydigan qatorlar (yopiqda — hammasi, ochiqda — sarlavha) audiosi o'tkaziladi: ichiga tushsa — keyingi gap boshiga */
     if (typeof TM === 'undefined' || !au) return;
     var raf = 0;
     function sakra() {
-      if (SVQ.och || !au.duration) return;
+      var e = svqOxir(); if (e < SVQ.a || !au.duration) return;
       var s = null, nx = null, t = au.currentTime;
       TM.forEach(function (x) {
-        if (x[0] >= SVQ.a && x[0] <= SVQ.b) { if (s === null || x[2] < s) s = x[2]; }
-        else if (x[0] > SVQ.b && (nx === null || x[2] < nx)) nx = x[2];
+        if (x[0] >= SVQ.a && x[0] <= e) { if (s === null || x[2] < s) s = x[2]; }
+        else if (x[0] > e && (nx === null || x[2] < nx)) nx = x[2];
       });
       if (s === null || nx === null || nx <= s) return;
-      if (t >= s - 0.05 && t < nx - 0.1) { try { au.currentTime = Math.max(0, nx - 0.05); } catch (e) {} }
+      if (t >= s - 0.05 && t < nx - 0.1) { try { au.currentTime = Math.max(0, nx - 0.05); } catch (er) {} }
     }
     function loop() { sakra(); raf = !au.paused && !au.ended ? requestAnimationFrame(loop) : 0; }
     au.addEventListener('play', function () { if (!raf) raf = requestAnimationFrame(loop); });

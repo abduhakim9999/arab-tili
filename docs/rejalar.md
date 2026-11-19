@@ -61,3 +61,6 @@ Qilingan qismi — `docs/texnik.md` 14 (ma'lumot fayllari, «Такрорлаш�
 
 ## Kerak emas deb topilgan (Claude yaxshiroq)
 - Harakat qo'yish (Mishkal, libtashkeel, Sadeed), tahlil (CAMeL Tools, I3rab), bepul ovoz (Habibi, ArTST).
+
+## 9. «Грамматика» bo'limi va «Эшитиш» pleyeri (19.11.2026, foydalanuvchi qarori)
+- To'liq reja — claude.ai loyihasida `claude/grammatika-pleyer-reja.md`. Kitob matni — `src/manba/grammatika/`.

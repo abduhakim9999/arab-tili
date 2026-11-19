@@ -1,6 +1,6 @@
 /* ҚОБИҚ — bitta ilova (13.11.2026; docs/texnik.md 18).
    Asosiy sahifalarning hammasida bir xil: tepa tasma uslubi (.q-hd), qator kartalari (.q-rw) va pastdagi 4 tugma
-   (Бош саҳифа · Машқ · Рейтинг · Қоидалар · Яна). Ishlatish: <script src="qobiq.js"> → Qobiq.nav('yol' | 'takror' | 'reyting' | 'qoida' | 'yana').
+   (Бош саҳифа · Машқ · Рейтинг · Грамматика · Яна). Ishlatish: <script src="qobiq.js"> → Qobiq.nav('yol' | 'takror' | 'reyting' | 'qoida' | 'yana').
    Mashg'ulot va imtihon paytida (body.y-ses, body.tq-ses) tugmalar yashirinadi. Dars sahifalarida qobiq yo'q — ular to'liq ekranda o'qiladi. */
 (function () {
   var SN = /\/sinov-[^\/]*$/.test(location.pathname) ? 'sinov-' : '';
@@ -21,7 +21,7 @@
     /* 14.11.2026 (foydalanuvchi qarori): «Луғат» → «Машқ» (ichida takror, statistika va Луғат); yangi «Рейтинг». Kalit va fayl nomi o'zgarmadi */
     ['takror', 'Машқ', SN + 'takror.html', sv('<path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v5h-5"/>')],
     ['reyting', 'Рейтинг', SN + 'reyting.html', sv('<path d="M8 4h8v5a4 4 0 0 1-8 0V4z"/><path d="M8 6H5a3 3 0 0 0 3 4"/><path d="M16 6h3a3 3 0 0 1-3 4"/><path d="M12 13v4"/><path d="M8 20h8"/>')],
-    ['qoida', 'Қоидалар', SN + 'qoidalar.html', sv('<path d="M12 6c-2-1.5-4.5-2-8-2v14c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2V4c-3.5 0-6 .5-8 2zM12 6v14"/>')],
+    ['qoida', 'Грамматика', SN + 'qoidalar.html', sv('<path d="M12 6c-2-1.5-4.5-2-8-2v14c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2V4c-3.5 0-6 .5-8 2zM12 6v14"/>')],
     ['yana', 'Яна', SN + 'yana.html', sv('<circle cx="5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="19" cy="12" r="1.7"/>')]
   ];
 

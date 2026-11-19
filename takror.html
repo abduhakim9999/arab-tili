@@ -651,10 +651,10 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
   function shaklMatn(r, t) {
     if (t === 'j') return '<div class="tq-fm ar" lang="ar">' + esc(r.jam.join('، ')) + '</div>';
     if (t === 't') return '<div class="tq-ht">' + esc(harfTuri(r)) + '</div>';
-    return '<div class="tq-fl">' + r.fel.map(function (f, i) { return i ? '<div><span>' + FN[i] + '</span><b class="ar" lang="ar">' + esc(f) + '</b></div>' : ''; }).join('') + '</div>';
+    return '<div class="tq-fl">' + r.fel.map(function (f, i) { return i ? '<div><span>' + FN[r.fel.length === 3 && i === 2 ? 3 : i] + '</span><b class="ar" lang="ar">' + esc(f) + '</b></div>' : ''; }).join('') + '</div>';
   }
   function shaklSorov(r, t) {
-    if (t === 'k') return r.fel.length > 2 ? 'Эсланг: ҳозирги замон, буйруқ ва масдари' : 'Эсланг: ҳозирги замони';
+    if (t === 'k') return r.fel.length > 3 ? 'Эсланг: ҳозирги замон, буйруқ ва масдари' : r.fel.length === 3 ? 'Эсланг: ҳозирги замон ва масдари' : 'Эсланг: ҳозирги замони';   /* 3 shakl — moziy, muzore', masdar (lug'at qoralamasi, 19.11.2026) */
     if (t === 't') return 'Эсланг: бу ҳарфнинг тури';
     return 'Эсланг: кўплик шакли';
   }

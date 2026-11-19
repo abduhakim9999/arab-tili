@@ -1,6 +1,7 @@
 # Kitob konspekti va dars qolipi
 
-Manba: «Gramatika» papkasidagi kitob — 1-Китоб (1–35-darslar) va Т1.36–94 (43-dars papkada yo'q).
+Manba: o'zimizning grammatika kitobi. 1–53-darslar — yangi nashr (19.11.2026; matni repoda `src/manba/grammatika/kitob-1-53.md`), 54–94-darslar — eski nashr (`src/manba/grammatika/eski-54-94/`).
+Kitob dars raqamlari yangi nashr bo'yicha. 19.11.2026 da 13–23 qayta raqamlandi: eski 20–23 → 13–16, eski 13–15 → 17–19, eski 16 → 20, eski 17–19 → 21–23; qolganlari o'zgarmagan.
 Kitob — asosiy manba. Bu fayl kitobning ishimizga kerakli qismi: tarkib qoliplari, atamalar va kitobda yo'q mavzular. Kitob PDF'ini qayta o'qish shart emas.
 Kitob formulalari «» ichida, kitobdagi kabi kirillda berilgan; qavs ichidagi raqam — dars raqami.
 Yangi dars yoki yangi qoida chiqqanda shu faylga qo'shib boriladi (oxiridagi «Yangilanishlar» bo'limi).
@@ -70,7 +71,7 @@ Yozuv eslatmasi: kitobda tanvin fath alifdan oldingi harf ustida yozilgan (ضَ�
   - هَذَا — «исм ишора бўлиб хабар, сукунга мабний, раф ўринда»
 
 **Harf:** «[qanday] ҳарфи, [nimaga] мабний, эъробдан унга ўрин йўқ» (10).
-- Bu ibora **faqat harflarga** aytiladi. Mabniy fe'l va mabniy ismga aytilmaydi, chunki ular e'rob o'rinlarida kela oladi (17, 20).
+- Bu ibora **faqat harflarga** aytiladi. Mabniy fe'l va mabniy ismga aytilmaydi, chunki ular e'rob o'rinlarida kela oladi (21, 13).
 
 **Maҳаллий эъроб** (30): mabniy ism e'rob o'rnida kelsa — «раф ўринда / насб ўринда / жар ўринда» deyiladi.
 
@@ -95,8 +96,8 @@ Yozuv eslatmasi: kitobda tanvin fath alifdan oldingi harf ustida yozilgan (ضَ�
 ## 3. Asosiy tushunchalar
 
 - **Калима** 3 tur: исм, феъл, ҳарф (2).
-- **Мабний / мўъроб** (8). Barcha harflar mabniy. Mabniy fe'llar: мозий, амр, муаннаслик нуни боғланган музорий (17–19). Mabniy ismlar: исм ишора, исм замир, исм истифҳом, мабний зарфлар (20); boshqalari ham bor, lekin kitobda o'rganilmagan (12, 20).
-- **Бино аломатлари:** asosiy — сукун, замма, фатҳа, касра; ikkinchi darajali — ن ни ҳазф қилиш (18).
+- **Мабний / мўъроб** (8). Barcha harflar mabniy. Mabniy fe'llar: мозий, амр, муаннаслик нуни боғланган музорий (21–23). Mabniy ismlar: исм ишора, исм замир, исм истифҳом, мабний зарфлар (13–16, 24); boshqalari ham bor, lekin kitobda o'rganilmagan (12, 13).
+- **Бино аломатлари:** asosiy — сукун, замма, фатҳа, касра; ikkinchi darajali — ن ни ҳазф қилиш (22).
 - **Эъроб турлари:** раф, насб, жар, жазм (26). Ism — raf, nasb, jar; muzori fe'l — raf, nasb, jazm.
 - **Эъроб аломатлари:**
   - asosiy: замма, фатҳа, касра, сукун (26)
@@ -120,7 +121,7 @@ Yozuv eslatmasi: kitobda tanvin fath alifdan oldingi harf ustida yozilgan (ضَ�
 | истифҳом ҳарфи | أَ، هَلْ | 10, 29 |
 | жавоб ҳарфи | نَعَمْ، لَا | 10 |
 | нидо ҳарфи | يَا | 10, 70 |
-| нафий ҳарфи | مَا (mozi oldidan), لَا (muzori oldidan) | 13, 14 |
+| нафий ҳарфи | مَا (mozi oldidan), لَا (muzori oldidan) | 17, 18 |
 | жар ҳарфи | مِنْ، إِلَى، عَنْ، عَلَى، فِي، بِـ، لِـ، كَـ | 54–56 |
 | зоида жар ҳарфи | بِـ (أَنَا بِخَيْرٍ) | 54 |
 | зоида ҳарф | ذَا (لِمَاذَا ichida) | 68 |
@@ -154,7 +155,7 @@ Fe'lga qo'shiladigan harflar (fe'l qatori ichida aytiladi):
 
 ### 4.2. Fe'llar
 
-**Mozi (17, 32):**
+**Mozi (21, 32):**
 - ضَرَبَ — «мозий феъли, фатҳага мабний, тагида жоиз ҳолдаги هُوَ мустатир замир бор бўлиб, у фоилдир»
 - ضَرَبَتْ — «мозий феъли, фатҳага мабний, ت муаннаслик ҳарфи, сукунга мабний, эъробдан унга ўрин йўқ, тагида жоиз ҳолдаги هِيَ мустатир замир бор бўлиб, у фоилдир»
 - ضَرَبَا — «мозий феъли, фатҳага мабний, ا бориз муттасил замир бўлиб, у фоил, сукунга мабний, раф ўринда»
@@ -173,13 +174,13 @@ Fe'lga qo'shiladigan harflar (fe'l qatori ichida aytiladi):
 - Nasb: يَضْرِبَ — «музорий феъли, لَنْ сабаб насб қилинган, аломати зоҳирий фатҳа» (74)
 - Nasb, besh fe'l: يَضْرِبَا — «музорий феъли, لَنْ сабаб насб қилинган, аломати нуннинг ҳазф бўлишидир, ا бориз муттасил замир бўлиб фоил, сукунга мабний, раф ўринда» (74)
 - Jazm: يَضْرِبْ — «музорий феъли, لَمْ сабаб жазм қилинган, аломати зоҳирий сукун» (77)
-- Muannaslik nuni bog'langan: يَضْرِبْنَ — «музорий феъли, сукунга мабний, ن бориз муттасил замир бўлиб, у фоил, фатҳага мабний, раф ўринда» (19, 33, 56)
+- Muannaslik nuni bog'langan: يَضْرِبْنَ — «музорий феъли, сукунга мабний, ن бориз муттасил замир бўлиб, у фоил, фатҳага мабний, раф ўринда» (23, 33, 56)
 - أَنْ bilan: «… ва феълдан изоҳланган масдар, яъни мубтадо (мафъулун биҳ / мажрур) бўлиб, раф (насб / жар) ўринда» (75)
 
-**Amr (18, 34, 41):**
+**Amr (22, 34, 41):**
 - اِضْرِبْ — «амр феъли, сукунга мабний, тагида вожиб ҳолдаги أَنْتَ мустатир замир бор бўлиб, у фоил»
 - اِضْرِبُوا — «амр феъли, ن нинг ҳазф бўлишига мабний, و бориз муттасил замир бўлиб, у фоил, сукунга мабний, раф ўринда, ا фарқлаш ҳарфи, сукунга мабний, эъробдан унга ўрин йўқ»
-  - 18–34-darslarda «ن ни ҳазф қилишга мабний»; 41-darsdan «ن нинг ҳазф бўлишига мабний» (sahifalarda shu ishlatiladi).
+  - 22–34-darslarda «ن ни ҳазф қилишга мабний»; 41-darsdan «ن нинг ҳазф бўлишига мабний» (sahifalarda shu ishlatiladi).
 
 **Majhul (42–44):**
 - ضُرِبَ — «мажҳул мозий феъли, фатҳага мабний»
@@ -281,7 +282,7 @@ Fe'lga qo'shiladigan harflar (fe'l qatori ichida aytiladi):
   - يَا طَالِبَانِ — «мунодо, ا га мабний, насб ўринда»
   - يَا غَافِلًا — «мунодо, насб қилинган, аломати зоҳирий фатҳа»
   - عَبْدَ — «музоф бўлиб мунодо, насб қилинган, аломати зоҳирий фатҳа»
-  - 18–41-darslarda faqat «мунодо» deb yozilgan.
+  - 13–16 va 22–41-darslarda faqat «мунодо» deb yozilgan.
   - Sahifada يَا dan oldin yashirin [أَدْعُو] (fe'l rangida) — nido gapi «феълийя» (Sibavayh, Ibn Hishom).
 - **Hol (71):**
   - جَالِسًا — «ҳол, насб қилинган, аломати зоҳирий фатҳа»
@@ -306,10 +307,10 @@ Fe'lga qo'shiladigan harflar (fe'l qatori ichida aytiladi):
 
 ### 4.10. Mabniy ismlar ro'yxati
 
-- **Ism ishora** (20, 21): yaqin — هَذَا، هَذِهِ، هَؤُلَاءِ; uzoq — ذَلِكَ، تِلْكَ، أُولَئِكَ. Tasniyalari mo'rob.
-- **Munfasil zamir** (22): «мунфасил замир бўлиб мубтадо, сукунга (фатҳага) мабний, раф ўринда» (54, 71)
+- **Ism ishora** (13, 14): yaqin — هَذَا، هَذِهِ، هَؤُلَاءِ; uzoq — ذَلِكَ، تِلْكَ، أُولَئِكَ. Tasniyalari mo'rob.
+- **Munfasil zamir** (15): «мунфасил замир бўлиб мубтадо, сукунга (фатҳага) мабний, раф ўринда» (54, 71)
 - **Muttasil zamirlar:** fo'il (32–34), noibi fo'il (44), كَانَ ismi (48–50), إِنَّ ismi (52), majrur (57–59), muzofun ilayh (61), mafʼulun bih (38–41).
-- **Ism istifhom** (23): مَا، مَنْ، مَتَى، أَيْنَ، أَنَّى، كَيْفَ، كَمْ; أَيٌّ — mo'rob.
+- **Ism istifhom** (16): مَا، مَنْ، مَتَى، أَيْنَ، أَنَّى، كَيْفَ، كَمْ; أَيٌّ — mo'rob.
 - **Mabniy zarflar** (24): هُنَا، هُنَاكَ، أَمْسِ، قَبْلُ، قَطُّ، إِذْ، إِذَا («… пайтда; қачонки …са; агар …са»)، لَمَّا، مُنْذُ. Kitobda yo'q, lekin ishlatilgan: الْآنَ — fathaga mabniy zarf zamon (94).
 
 ---
@@ -446,5 +447,6 @@ Fe'lga qo'shiladigan harflar (fe'l qatori ichida aytiladi):
 - 2026-11-11: 96-dars; 7-bo'limga ism fo'il/masdarga mutaalliq, إِلَى أَيْنَ, سَوْفَ, badali ba'z, batafsil badal, masdar fo'il, إِسْلَامَ آبَادَ, فِي أَمَانِ اللَّهِ, عَفْوًا.
 - 2026-11-15: 97-dars; 7-bo'limga ism mavsul sifat, بِحَيْثُ, uch xil إِذَا, وَهَكَذَا, كَانَتْ هُنَاكَ, أَصْبَحَ, raqam bilan yozilgan son, ism tafzil, alif bilan tugagan ismlar, ibtido وَ va natija فَـ.
 - 2026-11-16: 2-bo'limga so'z ichidagi tarkib tartibi — o'ngdan chapga (harf → so'z → zamir → bog'lanish → ↳ izoh); Nur ut-tolib IRB tekshirildi (xato yo'q), fiqh 1–2 to'g'rilandi.
+- 2026-11-19: kitobning yangi nashri (1–53) asos qilindi; 13–23-darslarga havolalar yangi raqamlarga o'tkazildi; kitob matni repoda `src/manba/grammatika/`.
 - 2026-11-19: 10-dars; 7-bo'limga أَيْنَ + fe'l, mustatir zamirga ta'kid, javobda mahzuf mubtado (خَمْسَةٌ), مَا رَقْمُ…؟, «o'n» sonining shakli.
 - 2026-11-19: 8-bo'limga «Қоидалар» kartasi qolipi (karta — ta'rif va holat; «Батафсил» — raqamli bandlar kitoblar tartibida); namuna — 97-dars.

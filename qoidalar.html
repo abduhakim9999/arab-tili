@@ -3,14 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Қоидалар</title>
+<title>Грамматика</title>
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#0c5e3f">
 <link rel="icon" href="icon-192.png">
 <link rel="stylesheet" href="shell.css">
 <script>
-/* «Қоидалар» (13.11.2026; docs/texnik.md 18) — qobiqning uchinchi bo'limi: Сарф, Феъллар, Наҳв, Эшитиш kartalari.
-   Holat faqat o'qiladi: «sarf-holat» (Сарф mashqi), «fl200_best» (Феъллар qismlari). */
+/* «Грамматика» (oldin «Қоидалар»; 19.11.2026, docs/texnik.md 18; reja — claude.ai claude/grammatika-pleyer-reja.md):
+   tepada qidiruv, Сарф va Наҳв kartalari, «Эшитиш» (pleyer qilinguncha), keyin «Видео дарслар» — o'zimizning grammatika kitobi
+   tartibida (src/manba/grammatika/kitob-1-53.md), 9 bob. Videosi yo'q dars — «Тез орада». Holat faqat o'qiladi: «sarf-holat». */
 var SN = /\/sinov-[^\/]*$/.test(location.pathname) ? 'sinov-' : '';
 document.write('<script src="tg.js" data-key="" data-home="' + SN + 'yol.html"><\/script><script src="' + SN + 'qobiq.js"><\/script>');
 </script>
@@ -28,10 +29,39 @@ a:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
 .k-br i{display:block;height:100%;border-radius:3px;background:var(--ac)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .k-cv{background:rgba(255,255,255,.07)!important}}
 :root[data-theme="dark"] .k-cv{background:rgba(255,255,255,.07)!important}
+.g-sr{position:relative;margin:0 0 12px}
+.g-sr input{width:100%;box-sizing:border-box;height:46px;border-radius:14px;border:1.5px solid var(--bd);background:var(--cd);color:var(--tx);font:16px system-ui,-apple-system,"Segoe UI",sans-serif;padding:0 14px 0 42px;outline:none}
+.g-sr input:focus{border-color:var(--ac)}
+.g-sr svg{position:absolute;left:14px;top:13px;width:20px;height:20px;color:var(--mu);pointer-events:none}
+.g-tl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0 0 10px}
+.g-tl .q-rw{margin:0;flex-direction:column;align-items:flex-start;gap:8px;min-height:0;padding:12px 14px 14px}
+.g-tl .k-cv{width:48px;height:52px;border-radius:13px}.g-tl .k-cv svg{width:44px;height:44px}
+.g-tl .n{display:flex;align-items:baseline;justify-content:space-between;gap:6px;width:100%;font-size:17px;font-weight:700}
+.g-tl .n .ar{font-size:19px;color:var(--mu);font-weight:400}
+.g-tl .t{width:100%}
+.g-es{min-height:60px}.g-es .k-cv{width:44px;height:48px;border-radius:12px}.g-es .k-cv svg{width:40px;height:40px}
+.g-es .n{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:17px;font-weight:700}.g-es .n .ar{font-size:19px;color:var(--mu);font-weight:400}
+.g-h{display:flex;justify-content:space-between;align-items:baseline;margin:20px 4px 10px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mu)}
+.g-h span:last-child{letter-spacing:0;text-transform:none;font-weight:600}
+.g-b{border-radius:18px;border:1.5px solid var(--bd);background:var(--cd);margin:0 0 10px;overflow:hidden;box-shadow:inset 0 -3px 0 var(--bd)}
+.g-bh{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px 14px;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.g-bn{flex-shrink:0;width:36px;height:36px;border-radius:12px;background:var(--tint,#e8f3ee);color:var(--ac);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px}
+.g-bh .t{flex:1;min-width:0;text-align:left}.g-bh b{display:block;font-size:17px;line-height:1.3}.g-bh small{font-size:13px;color:var(--mu)}
+.g-bh svg{width:20px;height:20px;color:var(--mu);transition:transform .2s;flex-shrink:0}
+.g-b.on .g-bh svg{transform:rotate(90deg)}
+.g-bd{display:none;border-top:1px solid var(--bd)}.g-b.on .g-bd{display:block}
+.g-r{display:flex;align-items:center;gap:12px;padding:11px 14px;border-top:1px solid var(--bd);color:inherit;text-decoration:none}
+.g-r:first-child{border-top:0}
+.g-r .no{flex-shrink:0;width:28px;text-align:center;font-size:14px;font-weight:700;color:var(--mu)}
+.g-r .nm{flex:1;min-width:0;font-size:15.5px;line-height:1.35}.g-r .nm .ar,.g-bh b .ar{font-size:1.2em}
+.g-r.tz .nm{opacity:.62}
+.g-r .q-tzb{font-size:11.5px;padding:2px 8px}
+.g-r[hidden],.g-b[hidden]{display:none}
+.g-yo{padding:18px 4px;color:var(--mu);text-align:center}
 </style>
 </head>
 <body>
-<header class="q-hd"><div class="q-hr"><div><h1>Қоидалар</h1></div></div></header>
+<header class="q-hd"><div class="q-hr"><div><h1>Грамматика</h1></div></div></header>
 <main class="q-w" id="app"></main>
 <script>
 (function () {
@@ -44,23 +74,83 @@ a:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
   var QT = '<path d="M26 44h18M26 49h18M26 54h11" stroke="#F3D58C" stroke-width="2" stroke-linecap="round" opacity=".75"/>';
   var CH = '<svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>';
 
-  var sr = (J('sarf-holat') || {}).b1;
-  var K = [
-    { h: 'sarf.html', n: 'Сарф', a: 'الصَّرْفُ', l: '#E6EEF8', s: cov('ص', '#2E5E9A', '#1F4673', QT),
-      t: sr && sr.best != null ? '1-боб · машқ ' + sr.best + '%' : 'Боблар · тусланиш · машқ', p: sr && sr.best != null ? sr.best : null },
-    /* «Феъллар» (200 fe'l) — 14.11.2026 ilovadan olib tashlandi (foydalanuvchi qarori); fe'llar va ovozlari saqlangan: fq/ (docs/texnik.md 7) */
-    { h: 'nahv.html', n: 'Наҳв', a: 'النَّحْوُ', l: '#E3F2EA', s: cov('ن', '#0F7A4F', '#0A5236', QT), t: 'Эъроб аломатлари жадвали', p: null },
-    { h: 'tinglash.html', n: 'Эшитиш', a: 'الِاسْتِمَاعُ', l: '#EEE8F7',
+  var sr = (J('sarf-holat') || {}).b1, RU = !!(window.Qobiq && Qobiq.ru);
+  var SARF = { h: 'sarf.html', n: 'Сарф', a: 'الصَّرْفُ', l: '#E6EEF8', s: cov('ص', '#2E5E9A', '#1F4673', QT),
+      t: sr && sr.best != null ? '1-боб · машқ ' + sr.best + '%' : 'Боблар · тусланиш · машқ' };
+  /* «Феъллар» (200 fe'l) — 14.11.2026 ilovadan olib tashlandi (foydalanuvchi qarori); fe'llar va ovozlari saqlangan: fq/ (docs/texnik.md 7) */
+  var NAHV = { h: 'nahv.html', n: 'Наҳв', a: 'النَّحْوُ', l: '#E3F2EA', s: cov('ن', '#0F7A4F', '#0A5236', QT), t: 'Эъроб аломатлари жадвали' };
+  /* «Эшитиш» — musiqa ilovasidek pleyer qilinguncha shu yerda qoladi (reja: pleyer bosqichida olib tashlanadi) */
+  var ESH = { h: 'tinglash.html', n: 'Эшитиш', a: 'الِاسْتِمَاعُ', l: '#EEE8F7',
       s: cov('س', '#6B4FA0', '#4C3577', '<path d="M27 51v-3a7 7 0 0 1 14 0v3" stroke="#F3D58C" stroke-width="2.2" fill="none" stroke-linecap="round"/><rect x="25" y="48" width="4" height="6" rx="1.5" fill="#F3D58C"/><rect x="39" y="48" width="4" height="6" rx="1.5" fill="#F3D58C"/>'),
-      t: 'Дарсларни тинглаб ўрганиш: матн, луғат, таркиб', p: null }
+      t: 'Дарсларни тинглаб ўрганиш: матн, луғат, таркиб' };
+
+  /* Видео дарслар: kitob tartibi (yangi nashr 1–53; 11-dars «Такрор» — videosiz). Boblar — Claude taklifi (kitobda bob yo'q).
+     V — tayyor videolar: { darsRaqami: { yt: 'YouTube ID', t: '2:40' } } — video qo'shilganda shu yerga yoziladi. */
+  var B = [
+    ['Калима', [[1, 'Калималарнинг тузилиши'], [2, 'Сўз туркумлари'], [3, 'Феъл (1)'], [4, 'Музаккар ва муаннас'], [5, 'Муфрад, тасния, жам'], [6, 'Жамнинг турлари']]],
+    ['Калом, мабний ва мўъроб', [[7, 'Калом'], [8, 'Мабний ва мўъроб'], [9, 'Бино турлари'], [10, 'Ҳарфлар'], [12, 'Мабнийларнинг синфлари']]],
+    ['Исм ишора ва замирлар', [[13, 'Исм ишоралар (1)'], [14, 'Исм ишора (2)'], [15, 'Исм замирлар'], [16, 'Муттасил замирлар']]],
+    ['Феъл', [[17, 'Феъл (2)'], [18, 'Феъл (3)'], [19, 'Феъл (4)'], [20, 'Амр феълининг ясалиши'], [21, 'Мабний феъллар (1)'], [22, 'Мабний феъллар (2)'], [23, 'Мабний феъллар (3)'], [24, 'Мабний зарфлар']]],
+    ['Эъроб', [[25, 'Мўъроб исмлар'], [26, 'Эъроб турлари'], [27, 'Зоҳирий ва тақдирий аломат'], [28, 'Исмни раф қилиш ўринлари']]],
+    ['Мубтадо, хабар, фоил', [[29, 'Мубтадо ва хабар (1)'], [30, 'Мубтадо ва хабар (2)'], [31, 'Фоил'], [32, 'Муттасил замирлар (2)'], [33, 'Музорий феълидаги фоил вазифасини бажарувчи муттасил замирлар'], [34, 'Амр феълидаги фоил вазифасини бажарувчи муттасил замирлар']]],
+    ['Мафъулун биҳ', [[35, 'Мафъулун биҳ (1)'], [36, 'Мафъулун биҳ (2)'], [37, 'Мафъулун биҳ (3)'], [38, 'Мафъулун биҳ вазифасини бажарувчи муттасил замирлар (1)'], [39, 'Мафъулун биҳ вазифасини бажарувчи муттасил замирлар (2)'], [40, 'Мафъулун биҳ вазифасини бажарувчи муттасил замирлар (3)'], [41, 'Мафъулун биҳ вазифасини бажарувчи муттасил замирлар (4)']]],
+    ['Ноиби фоил, мутааддий ва лозим', [[42, 'Ноиби фоил'], [43, 'Ноиби фоил вазифасини бажарувчи муттасил замирлар (1)'], [44, 'Ноиби фоил вазифасини бажарувчи муттасил замирлар (2)'], [45, 'Мутааддий ва лозим']]],
+    ['كَانَ ва إِنَّ',  [[46, 'كَانَ нинг исми ва хабари (1)', 'кона'], [47, 'كَانَ нинг исми ва хабари (2)', 'кона'], [48, 'Муттасил замирлар (5)'], [49, 'كَانَ нинг музорийдаги исми вазифасини бажарувчи муттасил замирлар', 'кона'], [50, 'كَانَ нинг амрдаги исми вазифасини бажарувчи муттасил замирлар', 'кона'], [51, 'إِنَّ нинг исми вазифасини бажарувчи муттасил замирлар (1)', 'инна'], [52, 'إِنَّ нинг исми вазифасини бажарувчи муттасил замирлар (2)', 'инна'], [53, 'Исмнинг раф ўринлари ва уларга мисоллар']]]
   ];
-  document.getElementById('app').innerHTML = K.map(function (k) {
-    return '<a class="q-rw k-c" href="' + k.h + '"><span class="k-cv" style="background:' + k.l + '">' + k.s + '</span>' +
-      '<span class="t"><span class="n">' + k.n + '<span class="ar" lang="ar">' + k.a + '</span></span><small>' + k.t + '</small>' +
-      (k.p != null ? '<span class="k-br" aria-hidden="true"><i style="width:' + k.p + '%"></i></span>' : '') + '</span>' + CH + '</a>';
-  }).join('');
+  var V = {};
+  function arb(t) { return t.replace(/[\u0600-\u06FF]+/g, function (w) { return '<span class="ar" lang="ar">' + w + '</span>'; }); }
+  var SR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>';
+
+  function karta(k, c) {
+    return '<a class="q-rw k-c ' + c + '" href="' + k.h + '"><span class="k-cv" style="background:' + k.l + '">' + k.s + '</span>' +
+      '<span class="t"><span class="n">' + k.n + '<span class="ar" lang="ar">' + k.a + '</span></span><small>' + k.t + '</small></span>' + (c === 'g-es' ? CH : '') + '</a>';
+  }
+  var jami = 0; B.forEach(function (b) { jami += b[1].length; });
+  var ochiq; try { ochiq = JSON.parse(sessionStorage.getItem('gram-ochiq') || '[0]'); } catch (e) { ochiq = [0]; }
+  var h = (RU ? '' : '<div class="g-sr">' + SR + '<input id="gq" type="search" placeholder="Мавзу қидириш" autocomplete="off" aria-label="Мавзу қидириш"></div>') +
+    '<div class="g-tl">' + karta(SARF, '') + karta(NAHV, '') + '</div>' + karta(ESH, 'g-es');
+  if (RU) h += '<a class="q-rw" id="gru" style="margin-top:20px"><span class="t"><span class="n">Видео дарслар</span></span>' + CH + '</a>';
+  else {
+    h += '<div class="g-h"><span>Видео дарслар</span><span>' + jami + ' мавзу</span></div>';
+    var bn = 0;
+    B.forEach(function (b, i) {
+      var d = b[1], s0 = d[0][0], s1 = d[d.length - 1][0];
+      h += '<section class="g-b' + (ochiq.indexOf(i) >= 0 ? ' on' : '') + '" data-i="' + i + '"><button class="g-bh" type="button" aria-expanded="' + (ochiq.indexOf(i) >= 0) + '">' +
+        '<span class="g-bn">' + (i + 1) + '</span><span class="t"><b dir="ltr">' + arb(b[0]) + '</b><small>' + s0 + '–' + s1 + '-дарслар</small></span>' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button><div class="g-bd">' +
+        d.map(function (x) {
+          var v = V[x[0]];
+          return v ? '<a class="g-r" href="#d' + x[0] + '" data-t="' + (x[1] + ' ' + (x[2] || '')).toLowerCase() + '"><span class="no">' + x[0] + '</span><span class="nm">' + arb(x[1]) + '</span><span class="mu">' + (v.t || '') + '</span></a>'
+            : '<div class="g-r tz" data-t="' + (x[1] + ' ' + (x[2] || '')).toLowerCase() + '"><span class="no">' + x[0] + '</span><span class="nm">' + arb(x[1]) + '</span><span class="q-tzb">Тез орада</span></div>';
+        }).join('') + '</div></section>';
+    });
+    h += '<p class="g-yo" id="gyo" hidden>Ҳеч нарса топилмади</p>';
+  }
+  var app = document.getElementById('app'); app.innerHTML = h;
+
   /* ruscha rejimda tarjimasi hali yo'q bo'limlar — «Тез орада» (Наҳв ruschada bor) */
-  if (window.Qobiq && Qobiq.ru) [].forEach.call(document.querySelectorAll('#app .k-c'), function (a) { if (!/nahv\.html$/.test(a.getAttribute('href'))) Qobiq.tez(a); });
+  if (RU) [].forEach.call(app.querySelectorAll('.k-c, #gru'), function (a) { if (!/nahv\.html$/.test(a.getAttribute('href') || '')) Qobiq.tez(a); });
+  else {
+    var S = [].slice.call(app.querySelectorAll('.g-b'));
+    function saqla() { try { sessionStorage.setItem('gram-ochiq', JSON.stringify(S.filter(function (b) { return b.classList.contains('on'); }).map(function (b) { return +b.getAttribute('data-i'); }))); } catch (e) {} }
+    S.forEach(function (b) {
+      b.querySelector('.g-bh').onclick = function () { var o = b.classList.toggle('on'); this.setAttribute('aria-expanded', o); saqla(); };
+    });
+    /* qidiruv: mavzu nomi bo'yicha; topilgan bob o'zi ochiladi, bo'sh bo'lsa — avvalgi holat */
+    var q = document.getElementById('gq');
+    q.oninput = function () {
+      var t = q.value.trim().toLowerCase(), bor = 0;
+      S.forEach(function (b) {
+        var n = 0;
+        [].forEach.call(b.querySelectorAll('.g-r'), function (r) { var ok = !t || r.getAttribute('data-t').indexOf(t) >= 0 || r.querySelector('.no').textContent === t; r.hidden = !ok; if (ok) n++; });
+        b.hidden = !!t && !n; if (t) b.classList.toggle('g-q', !!n);
+        b.classList.toggle('on', t ? !!n : b.getAttribute('data-o') === '1');
+        bor += n;
+      });
+      document.getElementById('gyo').hidden = !t || !!bor;
+    };
+    q.onfocus = function () { if (!q.value) S.forEach(function (b) { b.setAttribute('data-o', b.classList.contains('on') ? '1' : '0'); }); };
+  }
   if (window.Qobiq) Qobiq.nav('qoida');
 })();
 </script>

@@ -104,7 +104,7 @@ def turi(bosh, uz, fel):
         return 'zamir' if bosh.startswith('.') else 'harf'
     if 'ҳарфи)' in u:
         return 'harf'
-    if re.search(r'\((эр\.исми|аёл исми|вил\.шаҳ\.|вил\.|шаҳ\.|дав\.)\)', u):
+    if re.search(r'\((эр\.исми|аёл исми|вил\.шаҳ\.|вил\.|шаҳ\.|дав\.|қитъа)\)', u):
         return 'atoqli'
     return 'soz'
 
@@ -236,7 +236,7 @@ def main():
             r['tur'] = turi(r['ar'], uz, 'fel' in r)
             t = TUZ.get(str(wid)) or {}
             r.update({k: t[k] for k in t if k != 'izoh'})
-            bk = 'D:' + re.sub(r'[.\u0640\s]', '', r['ar']) if '.' in r['ar'] else r['ar']   # 19.11.2026: «بِ..», «بِ...», «بِـ...» — bitta so'z
+            bk = ('D.' if r['ar'].lstrip().startswith('.') else 'D:') + re.sub(r'[.\u0640\s]', '', r['ar']) if '.' in r['ar'] else r['ar']   # «..كَ» (zamir) va «كَ..» (harf) — boshqa so'z   # 19.11.2026: «بِ..», «بِ...», «بِـ...» — bitta so'z
             if bk in bosh_id:
                 r['asl'] = bosh_id[bk]                # shu so'zning keyingi ma'nosi: so'z sanog'ida birinchisi, takrorda — o'z kartasi (takror.js)
             else:
@@ -247,8 +247,8 @@ def main():
                 r['mz'] = MZ[str(wid)]
             elif r['tur'] == 'fel':
                 OGOH.append("%d-dars lug'at %s: fe'lning o'tgan zamon ma'nosi yo'q — src/build/lugat-moziy.json ga qo'shing (id %d)" % (n, kn, wid))
-            if ex:
-                r['x'] = ex
+            if ex:                                      # 19.11.2026: misoldagi belgilar ({…} so'z, […] «...» o'rni) — faqat sahifada, ma'lumotga belgisiz
+                r['x'] = [[re.sub(r'[{}\[\]]', '', t) if isinstance(t, str) else t for t in e] for e in ex]
             vi = len(lug) - voc0                      # Eshitish Луғат yo'lagida tartib = lug'at tartibi
             if str(vi) in vl and vi in vseg:
                 if plain(vl[str(vi)][0]).split()[0].strip('.؟،') != plain(asl).split()[0].strip('.؟،'):

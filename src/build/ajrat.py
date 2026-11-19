@@ -104,7 +104,7 @@ def turi(bosh, uz, fel):
         return 'zamir' if bosh.startswith('.') else 'harf'
     if 'ҳарфи)' in u:
         return 'harf'
-    if re.search(r'\((эр\.исми|аёл исми|вил\.шаҳ\.|вил\.|шаҳ\.|дав\.)\)', u):
+    if re.search(r'\((эр\.исми|аёл исми|вил\.шаҳ\.|вил\.|шаҳ\.|дав\.|қитъа)\)', u):
         return 'atoqli'
     return 'soz'
 
@@ -236,7 +236,7 @@ def main():
             r['tur'] = turi(r['ar'], uz, 'fel' in r)
             t = TUZ.get(str(wid)) or {}
             r.update({k: t[k] for k in t if k != 'izoh'})
-            bk = 'D:' + re.sub(r'[.\u0640\s]', '', r['ar']) if '.' in r['ar'] else r['ar']   # 19.11.2026: «بِ..», «بِ...», «بِـ...» — bitta so'z
+            bk = ('D.' if r['ar'].lstrip().startswith('.') else 'D:') + re.sub(r'[.\u0640\s]', '', r['ar']) if '.' in r['ar'] else r['ar']   # «..كَ» (zamir) va «كَ..» (harf) — boshqa so'z   # 19.11.2026: «بِ..», «بِ...», «بِـ...» — bitta so'z
             if bk in bosh_id:
                 r['asl'] = bosh_id[bk]                # shu so'zning keyingi ma'nosi: so'z sanog'ida birinchisi, takrorda — o'z kartasi (takror.js)
             else:

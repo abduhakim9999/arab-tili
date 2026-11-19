@@ -861,11 +861,7 @@ document.addEventListener('click', function (e) {
   var BM = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h11a1 1 0 0 1 1 1V21l-6.5-4.2L5.5 21V4.5a1 1 0 0 1 1-1z"/></svg>';
   var css = document.createElement('style');
   css.textContent = '.zo-bm{display:flex;align-items:center;gap:8px;margin:10px auto 0;height:40px;padding:0 16px;border-radius:20px;border:1.5px solid var(--bd,#e3ddd0);background:none;color:var(--mu,#6b716c);font:inherit;font-size:15px;font-weight:600;cursor:pointer}' +
-    '.zo-bm svg{width:19px;height:19px}.zo-bm[aria-pressed="true"]{border-color:#b3261e;background:rgba(179,38,30,.08);color:#b3261e}.zo-bm[aria-pressed="true"] svg{fill:currentColor}' +
-    '.zo-oz{margin:10px 0 0;padding:8px 10px 10px;border-radius:12px;background:color-mix(in srgb,var(--mu,#6b716c) 8%,transparent)}' +
-    '.zo-oz-t{font-size:12.5px;color:var(--mu,#6b716c);margin-bottom:6px}.zo-oz bdi{font-family:"DarsNaskh","Noto Naskh Arabic",serif;color:var(--tx,#1f2421)}' +
-    '.zo-oz-t bdi{font-size:16px}.zo-oz-l{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px}' +
-    '.zo-oz-l span{display:inline-flex;align-items:center;gap:6px;padding:1px 10px;border:1px solid var(--bd,#e3ddd0);border-radius:10px;font-size:13px;color:var(--tx,#1f2421)}.zo-oz-l bdi{font-size:19px;line-height:1.6}';
+    '.zo-bm svg{width:19px;height:19px}.zo-bm[aria-pressed="true"]{border-color:#b3261e;background:rgba(179,38,30,.08);color:#b3261e}.zo-bm[aria-pressed="true"] svg{fill:currentColor}';
   document.head.appendChild(css);
   function yal(x) { return String(x || '').replace(/[\u064B-\u065F\u0670\u0640]/g, '').replace(/[\u0623\u0625\u0622\u0671]/g, '\u0627').replace(/[^\u0621-\u064A]/g, ''); }
   function variant(w) {                                /* so'z → qidiriladigan shakllar */
@@ -898,16 +894,8 @@ document.addEventListener('click', function (e) {
   }
   function top(txt) { var a = variant(yal(txt)); for (var i = 0; i < a.length; i++) if (a[i] && MAP[a[i]]) return MAP[a[i]]; return null; }
   function qoy() {
-    var mid = sb.querySelector('.zo-mid'); if (!mid) return;
+    var mid = sb.querySelector('.zo-mid'); if (!mid || sb.querySelector('.zo-bm')) return;
     var ki = window.OPK && OPK.getAttribute ? OPK.getAttribute('data-i') : '', rp = ki ? POS[ki] : null;
-    if (rp && rp.o && rp.oz && !sb.querySelector('.zo-oz')) {   /* o'zakdosh so'zlar — faqat shu oynada (B variant, 19.11.2026) */
-      var d = document.createElement('div'), at = sb.querySelector('.zo-bm') || sb.querySelector('.hk') || sb.querySelector('.zo-hd');
-      d.className = 'zo-oz';
-      d.innerHTML = '<div class="zo-oz-t">Бир ўзакдан · <bdi lang="ar" dir="rtl">' + rp.o + '</bdi></div><div class="zo-oz-l">' +
-        rp.oz.map(function (x) { return '<span><bdi lang="ar" dir="rtl">' + x[0] + '</bdi>' + x[1] + '</span>'; }).join('') + '</div>';
-      at.insertAdjacentElement('afterend', d);
-    }
-    if (sb.querySelector('.zo-bm')) return;
     var c = mid.cloneNode(true), mn = c.querySelector('.mnl'); if (mn) mn.parentNode.removeChild(mn);
     var r = rp ? (rp.asl ? BYID[rp.asl] : rp) : top(c.textContent);
     if (!r || !r.tk) return;
@@ -924,7 +912,6 @@ document.addEventListener('click', function (e) {
     yoz();
     var hk = sb.querySelector('.hk'), hd = sb.querySelector('.zo-hd');
     (hk || hd).insertAdjacentElement('afterend', b);
-    var oz = sb.querySelector('.zo-oz'); if (oz) b.insertAdjacentElement('afterend', oz);
   }
   new MutationObserver(function () {
     if (!sb.querySelector('.zo-mid')) return;

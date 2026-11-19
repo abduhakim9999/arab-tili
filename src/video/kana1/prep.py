@@ -9,21 +9,25 @@ D = os.path.dirname(os.path.abspath(__file__))
 SR = 44100
 HOP = int(SR * 0.01)
 
+# Talaffuz ro'yxati (20.11.2026, foydalanuvchi tanlovi — tovush belgisi, «3-variant»): ovoz matnida arabcha so'z va harf nomi shunday yoziladi.
+#   كَانَ  -> /ˈkaːna/  (qo'shimcha bilan: /ˈkaːnaniŋ/, /ˈkaːnaɡa/)      مَا -> /maː/      لَا -> /laː/
+#   ت -> "ta"   ي -> "ya"   (o'zbekcha «to», «yo», «mo», «lo» emas — «to» ط bo'lib eshitiladi)
+# Bo'lak boshida kelgan qo'shimchali shakl qisqa chiqadi — oldiga so'z qo'yiladi («Agar …», «Endi …»). Tekshiruv: tekshir.py (k–n oralig'i).
 # Ovozga berilgan matnlar (o'zbekcha — Davronbek, lotincha; arabcha — Abdullah, tanvin «نْ» bilan — vaqfsiz o'qilishi uchun).
 # «|» — ekrandagi qadam shu joyda almashadi (gap ichidagi pauza izlanadi).
 TXT = {
- 'u0': "Bitta so'z gapning oxirini o'zgartirib yuboradi. | Bu so'z — kana.",
+ 'u0': "Bitta so'z gapning oxirini o'zgartirib yuboradi. | Bu so'z — /ˈkaːna/.",
  'u1': "Mana oddiy gap: tolib kattadir. | Mubtado ham, xabar ham raf holatida. | Oxirlarida zamma turibdi.",
- 'u2': "Endi gap boshiga kana keladi. | Mubtado kananing ismi deb ataladi va raf holicha qoladi. | Xabar esa kananing xabari bo'lib, nasb qilinadi. | Zamma fathaga aylanadi.",
- 'u3': "Demak, kananing ismi — raf, | xabari — nasb. | Kana noqis fe'l sanaladi, chunki u fo'il bilan ishlamaydi.",
+ 'u2': "Endi gap boshiga /ˈkaːna/ keladi. | Mubtado /ˈkaːnaniŋ/ ismi deb ataladi | va raf holicha qoladi. | Xabar esa /ˈkaːnaniŋ/ xabari bo'lib, | nasb qilinadi. | Zamma fathaga aylanadi.",
+ 'u3': "Demak, /ˈkaːnaniŋ/ ismi — raf, | xabari — nasb. | /ˈkaːna/ noqis fe'l sanaladi, chunki u fo'il bilan ishlamaydi.",
  'u4': "Tarjimasi: qadimgi voqea haqida bo'lsa — \"edi\", | yaqinda bo'lgan voqea haqida bo'lsa — \"bo'ldi\".",
- 'u5': "Kananing ismi muannas bo'lsa, kanaga muannaslik harfi \"to\" qo'shiladi. | Ikki sukun yo'liqmasligi uchun, u keyingi so'zga kasra bilan bog'lanadi.",
- 'u6a': "Nasb alomati so'zga qarab o'zgaradi. | Birlikda — fatha. | Ikkilikda esa — \"yo\" harfi.",
+ 'u5': "Agar /ˈkaːnaniŋ/ ismi muannas bo'lsa, /ˈkaːnaɡa/ muannaslik harfi | \"ta\" qo'shiladi. | Ikki sukun yo'liqmasligi uchun, u keyingi so'zga | kasra bilan bog'lanadi.",
+ 'u6a': "Nasb alomati so'zga qarab o'zgaradi. | Birlikda — fatha. | Ikkilikda esa — \"ya\" harfi.",
  'u6b': "Muannas ko'plikda — fathaga o'rinbosar kasra.",
- 'u7a': "Kananing muzorisi ham xuddi shunday ishlaydi. | U \"bo'ladi\" deb tarjima qilinadi.",
- 'u7b': "Inkor uchun mozi oldidan \"mo\", | muzori oldidan esa \"lo\" qo'shiladi.",
- 'u8a': "Xulosa. | Kana mubtado va xabar oldidan keladi. | Ismi — raf, | xabari — nasb. | Endi savol: bo'sh joyga qaysi biri to'g'ri keladi?",
- 'u8b': "To'g'ri javob — fathalisi, chunki u kananing xabari. | Keyingi videoda: kana va zamirlar.",
+ 'u7a': "Endi /ˈkaːnaniŋ/ muzorisi. U ham xuddi shunday ishlaydi va | \"bo'ladi\" deb tarjima qilinadi.",
+ 'u7b': "Inkor uchun mozi oldidan | /maː/, | muzori oldidan esa | /laː/ qo'shiladi.",
+ 'u8a': "Xulosa. | /ˈkaːna/ mubtado va xabar oldidan keladi. | Ismi — raf, | xabari — nasb. | Endi savol: bo'sh joyga qaysi biri to'g'ri keladi?",
+ 'u8b': "To'g'ri javob — fathalisi, chunki u /ˈkaːnaniŋ/ xabari. | Keyingi videoda: /ˈkaːna/ va zamirlar.",
  'a1': "اَلطَّالِبُ كَبِيرُنْ.", 'a2': "كَانَ الطَّالِبُ كَبِيرَنْ.", 'a5': "كَانَتِ الطَّالِبَةُ كَبِيرَتَنْ.",
  'a6b': "كَانَ الطَّالِبَانِ كَبِيرَيْنِ.", 'a6c': "كَانَتِ الطَّالِبَاتُ كَبِيرَاتِنْ.", 'a7a': "يَكُونُ الطَّالِبُ كَبِيرَنْ.",
  'a7b': "مَا كَانَ الطَّالِبُ كَبِيرَنْ.", 'a8': "كَانَ الْجَوُّ جَمِيلَنْ.",
@@ -41,18 +45,18 @@ SEQ = [
 ]
 # Qadam vaqtlari (bo'lak boshidan, soniya) — pauzalarga qarab qo'lda belgilangan; yo'q bo'lak uchun cues() avtomat topadi.
 CUE = {
- 'u0': [0, 4.05],
+ 'u0': [0, 4.02],
  'u1': [0, 2.54, 5.47],
- 'u2': [0, 2.13, 4.35, 6.01, 7.9, 9.15],
- 'u3': [0, 2.48, 4.22],
+ 'u2': [0, 2.16, 4.24, 5.98, 8.22, 9.38],
+ 'u3': [0, 2.58, 4.14],
  'u4': [0, 2.95, 3.67, 5.9],
- 'u5': [0, 3.6, 4.76, 7.3],
- 'u6a': [0, 2.48, 4.21],
+ 'u5': [0, 3.97, 5.17, 8.03],
+ 'u6a': [0, 2.62, 4.34],
  'u6b': [0, 1.62],
- 'u7a': [0, 2.65],
- 'u7b': [0, 1.7, 2.43, 3.8],
- 'u8a': [0, 0.9, 3.55, 4.93, 6.40],
- 'u8b': [0, 4.28],
+ 'u7a': [0, 3.7],
+ 'u7b': [0, 1.7, 2.44, 3.8],
+ 'u8a': [0, 0.88, 3.8, 5.1, 6.64],
+ 'u8b': [0, 4.3],
 }
 TARGET = {'u': 10 ** (-21 / 20), 'a': 10 ** (-21 / 20)}   # faol qismning RMS darajasi
 

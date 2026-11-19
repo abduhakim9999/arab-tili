@@ -359,6 +359,14 @@
   function frEls(f) { if (f.gh) return [f.gh.e]; var o = []; for (var i = f.a; i <= f.b; i++) if (LW[f.L][i]) o.push(LW[f.L][i].e); return o }
   /* nishon doimiy ramkada bo'lsa — o'sha qatordagi butun ramka qutisi (sim ramkaning o'rtasiga ulanadi) */
   /* sim nishoni: mahzuf xabar bo'lsa — o'zi (katta kitoblardagidek xabar — o'sha; 18.11.2026, foydalanuvchi), aks holda doimiy ramka butunicha */
+  /* yashirin zamir (fe'l tagida) ko'rinib turgan bo'lsa — ramka uni ham o'z ichiga oladi: pastki chiziq zamir ostidan o'tadi (19.11.2026, foydalanuvchi) */
+  function yzQ(els) { var o = []; els.forEach(function (x) { var y = x && x.querySelector && x.querySelector('.t3y'); if (y && y.offsetParent) o.push(y.getBoundingClientRect()) }); return o }
+  function yzX(els, LL) { yzQ(els).forEach(function (q) { LL.forEach(function (z) { if (q.left < z.r && q.right > z.l && q.top < z.b + 30) z.b = Math.max(z.b, q.bottom + 6) }) }) }
+  function yzB(te, r) {
+    var o = { left: r.left, right: r.right, top: r.top, bottom: r.bottom };
+    yzQ(te.t3fr ? frEls(te.t3fr) : [te]).forEach(function (q) { if (q.left < o.right && q.right > o.left && q.top < o.bottom + 30) o.bottom = Math.max(o.bottom, q.bottom + 6) });
+    return o;
+  }
   function frT(te, rel) { return te.classList.contains('t3r') && rel.tl && !te.classList.contains('t3h') ? frBox(te) : ykR(te) }
   function frBox(te) {
     var q = ykR(te), f = te.t3fr; if (!f) return q;
@@ -590,7 +598,7 @@
     var ln = src[0].closest('.ln'), c = tx.getBoundingClientRect();
     var last = src[src.length - 1], fc = colOf(last), LL = rows(src);
     /* yashirin zamir ko'rinsa — ramka uni ham o'z ichiga oladi */
-    src.forEach(function (x) { var y = x.querySelector && x.querySelector('.t3y'); if (!y || !y.offsetParent) return; var q = y.getBoundingClientRect(); LL.forEach(function (z) { if (q.left < z.r && q.right > z.l && q.top < z.b + 30) z.b = Math.max(z.b, q.bottom + 4) }) });
+    yzX(src, LL);
     var a = { left: Math.min.apply(null, LL.map(function (z) { return z.l })), right: Math.max.apply(null, LL.map(function (z) { return z.r })), top: Math.min.apply(null, LL.map(function (z) { return z.t })), bottom: Math.max.apply(null, LL.map(function (z) { return z.b })) };
     /* bo'lak bir necha qatorda bo'lsa — chiziq va yorliq bog'langan so'zga eng yaqin qatordagi bo'lagiga */
     var t0 = (rel.tg || []).filter(function (te) { return te && te.closest('.ln') === ln })[0] || (rel.tg || []).filter(Boolean)[0], pk = LL[LL.length - 1];
@@ -601,14 +609,14 @@
     if (inFr) fc = frC(src[0]); /* butun bo'lak doimiy ramkada — uning rangi */
     var sf = inFr || !RS.length ? 0 : ins ? 6 : 3, so = inFr || !RS.length ? 0 : ins ? -2 : 3;
     var fx = (pk.l + pk.r) / 2 - c.left, fb = pk.b - c.top - sf, ft = pk.t - c.top + sf, ly = fb + 6, h = '';
-    if (!inFr && RS.length) h += pieces(rows(RS), c, fc, ins);
+    if (!inFr && RS.length) { var RR = rows(RS); yzX(RS, RR); h += pieces(RR, c, fc, ins) } /* ramka chizig'i yashirin zamir ustidan o'tmasin (19.11.2026, foydalanuvchi) */
     var XT = null, XB = null, LS = [];
     (rel.tg || []).forEach(function (te, ti) {
       if (!te) return; te.classList.add('t3f'); YF.push(te);
       if (te.t3fr && rel.tl) frEls(te.t3fr).forEach(function (x) { x.classList.add('t3f'); YF.push(x) }); /* nishon ramkada — butun ramka yonadi */
       var tr = te.classList.contains('t3r'), cc = tr && rel.tl ? frC(te) : colOf(te), inS = src.some(function (x) { return x !== te && x.contains && x.contains(te) });
       if (te.closest('.ln') === ln) {
-        var tq = frT(te, rel);
+        var tq = yzB(te, frT(te, rel));
         if (!inS && !te.classList.contains('t3h') && !(tr && rel.tl)) h += rect({ l: tq.left, r: tq.right, t: tq.top, b: tq.bottom }, c, cc, false, tr);
         if (rel.tl && rel.tl[ti]) LS.push([rel.tl[ti], (tq.left + tq.right) / 2 - c.left, tq.bottom - c.top + 4, cc]);
         if (inS) return;
@@ -631,7 +639,7 @@
         return;
       }
       /* gap ichidagi nishon: sim bo'lak ramkasining o'rtasidan chiqib, nishon ramkasining chetiga ulanadi (so'z ichiga kirmaydi) — boshqa gapga simdek, yumaloq burchakli (18.11.2026, foydalanuvchi) */
-      var gh0 = te.classList.contains('t3h') && !tr, b = frT(te, rel), tf = gh0 || (tr && rel.tl) ? 0 : tr ? 6 : 3, to = gh0 || (tr && rel.tl) ? 0 : tr ? -2 : 3, tx2 = (b.left + b.right) / 2 - c.left,
+      var gh0 = te.classList.contains('t3h') && !tr, b = yzB(te, frT(te, rel)), tf = gh0 || (tr && rel.tl) ? 0 : tr ? 6 : 3, to = gh0 || (tr && rel.tl) ? 0 : tr ? -2 : 3, tx2 = (b.left + b.right) / 2 - c.left,
         tb = b.bottom - c.top - tf, tt = b.top - c.top + tf, id = 't3g' + (YN++), P, y0, y9;
       var same = Math.abs((pk.t + pk.b) - (b.top + b.bottom)) < 40;
       if (same) { var yb = Math.max(fb, tb) + 9; P = [[fx, fb], [fx, yb], [tx2, yb], [tx2, tb]]; y0 = fb; y9 = tb; ly = Math.max(ly, yb + 4) }

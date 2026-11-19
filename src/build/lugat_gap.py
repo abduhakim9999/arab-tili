@@ -226,6 +226,30 @@ def ball(r, note, gloss):
 
 
 def gap_tanla(r, lines):
+    """Topilmasa va yozuvda matndagi o'rinlar (`mw`, «qator-so'z» — Claude qoralamasi, 19.11.2026) bo'lsa — o'sha o'rindagi gap."""
+    g = gap_tanla0(r, lines)
+    if g or not r.get('mw'):
+        return g
+    for p in r['mw']:
+        li, wi = [int(x) for x in p.split('-')]
+        if li >= len(lines) or wi >= len(lines[li]['w']):
+            continue
+        w = lines[li]['w'][wi][0]
+        lead = len(w) - len(w.lstrip(PUN))
+        s, e = gap_chegara(lines[li], wi, wi)
+        if e > s:
+            return gap_yasa(lines[li], li, s, e, [[wi, lead, len(w.rstrip(PUN))]])
+    return None
+
+
+def gap_yasa(ln, li, s, e, m):
+    AP = {'?': '؟', ',': '،', ';': '؛'}
+    a = [(ln['w'][i][0] + ''.join(AP.get(c, c) for c in ln['w'][i][1])).strip() for i in range(s, e + 1)]
+    tr = ' '.join(c[0] for c in (ln.get('trc') or []) if any(s <= x <= e for x in (c[1] if len(c) > 1 else []))).replace(' ,', ',')
+    return {'l': li, 'r': [s, e], 'a': a, 'i': [[x[0] - s, x[1], x[2]] for x in m], 'tr': tr or ln.get('tr', '')}
+
+
+def gap_tanla0(r, lines):
     """r — lug'at yozuvi; lines — shu darsning qatorlari (ajrat.py JS: w, nt, gl, trc)."""
     NT = {}
     for ln in lines:
@@ -254,11 +278,7 @@ def gap_tanla(r, lines):
     if not best or (X and best[3] == best[2]):         # darsda ham bitta so'z — kitob misoli qoladi
         return {'k': X[0][1], 'i': X[0][2]} if X else None
     sc, li, s, e, m = best
-    ln = lines[li]
-    AP = {'?': '؟', ',': '،', ';': '؛'}
-    a = [(ln['w'][i][0] + ''.join(AP.get(c, c) for c in ln['w'][i][1])).strip() for i in range(s, e + 1)]
-    tr = ' '.join(c[0] for c in (ln.get('trc') or []) if any(s <= x <= e for x in (c[1] if len(c) > 1 else []))).replace(' ,', ',')
-    return {'l': li, 'r': [s, e], 'a': a, 'i': [[x[0] - s, x[1], x[2]] for x in m], 'tr': tr or ln.get('tr', '')}
+    return gap_yasa(lines[li], li, s, e, m)
 
 
 def gap_chegara(ln, a, b):

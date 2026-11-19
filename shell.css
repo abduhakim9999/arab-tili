@@ -234,21 +234,21 @@ body.lo2 .w>.tabs:first-child{margin-top:-14px!important}
 /* Ҳаракат (эъроб) ранглари — вазифа ранглари палитрасидан (05.11.2026): раф — фоил, насб — мафъул, жар — мажрур, жазм — феъл */
 html:root:not([data-nc]){--cR:var(--co);--cN:var(--cb);--cJ:var(--cj);--cZ:var(--cf)}
 
-/* 06.11.2026: surgich yo'q — o'rnida gap raqami, ⏮ ⏭ kattaroq */
-.pbar .pqk{display:none}
-.pbar .pq2{gap:0;margin-top:4px}
+/* 19.11.2026: tepada uzun chiziq (o'tgan vaqt · surgich · umumiy vaqt); pastda ЎЗ · ⏮ ▶ ⏭ · 1× (gap raqami va 🎧 yo'q) */
+.pbar{flex-wrap:wrap;row-gap:0;padding-top:4px}
+.pbar .pq0{flex:0 0 100%;display:flex;align-items:center}
+.pbar .pq0 .pqt,.pbar .pq0 .pqd{flex:none;min-width:34px;font-size:12px;font-weight:600;opacity:.85;font-variant-numeric:tabular-nums}
+.pbar .pq0 .pqd{text-align:right}
+.pbar .pq0 .pqk{height:28px;margin:0 8px}
+.pbar .pq1{display:none}
+.pbar .pq2{gap:0;margin-top:0}
 .pbar .pqs{width:46px;height:46px;border-radius:23px}
 .pbar .pqs svg{width:28px;height:28px}
-.pbar .pqn{flex:1;text-align:center;font-size:13px;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
 .pbar .pb{width:58px;height:58px;border-radius:29px}
 .pbar .pb svg{width:24px;height:24px}
-.pbar .uzb,.pbar .sp{height:42px}
-.pbar .esh{width:42px;height:42px}
-.pbar .esh svg{width:24px;height:24px}
-.pbar.mid .pq2{justify-content:center;gap:14px;margin-top:2px}
-.pbar.mid .pq1{justify-content:center;gap:10px}
-.pbar.mid .pq1 .lb{display:none}
-.pbar.mid .pqn{flex:none}
+.pbar .uzb,.pbar .sp{height:42px;min-width:52px}
+.pbar .uzb0{flex:none;width:52px}
+.pbar.mid .pq2{justify-content:center;gap:14px}
 
 /* ЎЗ: ўзбекча ўқилганда мос арабча сўз ёнади (07.11.2026) */
 #tx .ws span.pu,#tx .ts.pu{background:rgba(234,88,12,.25);color:var(--tx)}#tx.hidetr .tr:not(.rev) .ts.pu{background:none}
@@ -280,3 +280,21 @@ html.til-ar .zo-uz,html:not(.til-ar) .zo-ar{display:none}
 /* So'z oynasi: holat yorlig'i — Наҳв жадвалига ҳавола (11.11.2026; shell.js) */
 #sb .hk span.cR,#sb .hk span.cN,#sb .hk span.cJ,#sb .hk span.cZ{cursor:pointer}
 #sb .hk span.cR::after,#sb .hk span.cN::after,#sb .hk span.cJ::after,#sb .hk span.cZ::after{content:" \203A";font-weight:700;opacity:.7}
+/* «Тайёрлов» savollari yopiq — «Саволлар · N та» (19.11.2026; shell.js SVQ) */
+#tx .svq{margin:0 0 10px}
+#tx .svq-b{display:flex;align-items:center;gap:12px;width:100%;min-height:54px;padding:12px 16px;border:0;border-radius:18px;background:var(--cd);box-shadow:var(--sh);color:var(--ac);font:600 16px/1.2 system-ui,-apple-system,sans-serif;direction:ltr;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .15s}
+#tx .svq-b:active{transform:scale(.985)}
+/* tugma — sarlavhaning o'zi: arabcha «تَهْيِئَةٌ» o'ngda, tagida «Тайёрлов · N савол»; ichidagi sarlavha qatori yashirin */
+#tx .svq-b.sar{direction:rtl;text-align:right;padding:10px 18px}
+#tx .svq-m{flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-width:0}
+#tx .svq-a{font:600 var(--fs,22px)/1.5 system-ui,-apple-system,sans-serif;color:var(--ac)}
+#tx .svq-s{direction:ltr;unicode-bidi:isolate;font:500 13px/1.3 system-ui,-apple-system,sans-serif;color:var(--mu)}
+#tx .ln.svq-h{display:none}
+#tx .svq-t{flex:1}
+#tx .svq-b svg{flex:none;color:var(--mu);transition:transform .25s}
+#tx .svq.och .svq-b{margin-bottom:10px}
+#tx .svq.och .svq-b svg{transform:rotate(180deg)}
+#tx .svq-i{display:none}
+#tx .svq.och .svq-i{display:block;animation:svqIn .28s ease-out}
+@keyframes svqIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){#tx .svq.och .svq-i{animation:none}#tx .svq-b,#tx .svq-b svg{transition:none}}

@@ -62,6 +62,17 @@ body.nop .pbar{transform:translateY(24px);opacity:0;pointer-events:none}
 .pbar .pqk.dr b{transform:scale(1.35)}
 .pbar .sp{height:36px;min-width:52px;padding:0 8px;font:inherit;font-size:14px;font-weight:700;border-radius:10px;border:1px solid currentColor;background:transparent;color:inherit;cursor:pointer;transition:transform .17s}
 .pbar .sp.pop{transform:scale(1.18)}
+.pbar .uzb{height:36px;min-width:44px;padding:0 6px;font:inherit;font-size:13px;font-weight:700;border-radius:10px;border:1px solid currentColor;background:transparent;color:inherit;opacity:.55;cursor:pointer;transition:transform .17s,opacity .17s,background .17s}
+.pbar .uzb.on{opacity:1}
+.pbar .uzb.pop{transform:scale(1.18)}
+.pbar .sp{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.pbar .spm{position:absolute;right:8px;bottom:calc(100% + 8px);display:none;flex-direction:column;gap:2px;padding:6px;background:var(--cd,#fff);color:var(--tx);border:1px solid var(--bd,rgba(0,0,0,.1));border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.pbar .spm.on{display:flex}
+.pbar .spm button{min-width:76px;height:40px;border:none;border-radius:10px;background:transparent;color:inherit;font:inherit;font-size:15px;font-weight:700;cursor:pointer}
+.pbar .spm button.on{background:var(--ac);color:var(--bg)}
+.pbar .esh{flex:none;width:36px;height:36px;padding:0;border:none;border-radius:18px;background:transparent;color:inherit;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.pbar .esh:active{background:var(--tint)}
+@media (max-width:400px){.pbar{gap:6px;padding:10px 8px}.pbar .pqs{width:30px}.pbar .sp{min-width:44px;padding:0 4px}.pbar .uzb{min-width:36px;padding:0 4px}}
 
 
 /* mavzu: dars sahifasi */
@@ -97,6 +108,8 @@ body.nop .pbar{transform:translateY(24px);opacity:0;pointer-events:none}
 @media (prefers-color-scheme:dark){.pbar{border-color:var(--bd)!important}}
 .pbar .pqk .pqr{background:rgba(127,127,127,.22)!important}
 .pbar .sp{color:var(--ac)!important;border-color:var(--tint)!important;background:var(--tint)!important}
+.pbar .uzb{color:var(--ac)!important;border-color:var(--tint)!important}
+.pbar .uzb.on{background:var(--ac)!important;color:var(--bg)!important;border-color:var(--ac)!important}
 .sheet{border-radius:22px 22px 0 0!important}
 
 
@@ -168,6 +181,7 @@ input,textarea,input *,.lq input{-webkit-user-select:text!important;user-select:
 .tour{position:fixed;inset:0;z-index:9999}
 .tsp{position:fixed;border-radius:14px;box-shadow:0 0 0 9999px rgba(0,0,0,.58);outline:2px solid var(--ac);pointer-events:none;transition:left .25s,top .25s,width .25s,height .25s}
 .tcd{position:fixed;width:min(320px,calc(100vw - 32px));box-sizing:border-box;background:var(--cd);color:var(--tx);border:1px solid var(--bd);border-radius:16px;padding:14px 16px;box-shadow:0 12px 32px rgba(0,0,0,.35)}
+.tcd .tx{position:absolute;top:6px;right:6px;width:32px;height:32px;border:0;border-radius:50%;background:none;color:var(--mu);font-size:18px;line-height:32px;cursor:pointer;padding:0}
 .tcd .tn{font-size:12px;color:var(--mu);margin-bottom:2px}
 .tcd .th{display:block;font-size:17px;color:var(--ac);margin-bottom:4px}
 .tcd .tp{margin:0 0 12px;font-size:14px;line-height:1.5}
@@ -220,8 +234,67 @@ body.lo2 .w>.tabs:first-child{margin-top:-14px!important}
 /* Ҳаракат (эъроб) ранглари — вазифа ранглари палитрасидан (05.11.2026): раф — фоил, насб — мафъул, жар — мажрур, жазм — феъл */
 html:root:not([data-nc]){--cR:var(--co);--cN:var(--cb);--cJ:var(--cj);--cZ:var(--cf)}
 
+/* 19.11.2026: tepada uzun chiziq (o'tgan vaqt · surgich · umumiy vaqt); pastda ЎЗ · ⏮ ▶ ⏭ · 1× (gap raqami va 🎧 yo'q) */
+.pbar{flex-wrap:wrap;row-gap:0;padding-top:4px}
+.pbar .pq0{flex:0 0 100%;display:flex;align-items:center}
+.pbar .pq0 .pqt,.pbar .pq0 .pqd{flex:none;min-width:34px;font-size:12px;font-weight:600;opacity:.85;font-variant-numeric:tabular-nums}
+.pbar .pq0 .pqd{text-align:right}
+.pbar .pq0 .pqk{height:28px;margin:0 8px}
+.pbar .pq1{display:none}
+.pbar .pq2{gap:0;margin-top:0}
+.pbar .pqs{width:46px;height:46px;border-radius:23px}
+.pbar .pqs svg{width:28px;height:28px}
+.pbar .pb{width:58px;height:58px;border-radius:29px}
+.pbar .pb svg{width:24px;height:24px}
+.pbar .uzb,.pbar .sp{height:42px;min-width:52px}
+.pbar .uzb0{flex:none;width:52px}
+.pbar.mid .pq2{justify-content:center;gap:14px}
+
 /* ЎЗ: ўзбекча ўқилганда мос арабча сўз ёнади (07.11.2026) */
 #tx .ws span.pu,#tx .ts.pu{background:rgba(234,88,12,.25);color:var(--tx)}#tx.hidetr .tr:not(.rev) .ts.pu{background:none}
+/* So'z oynasi (07.11.2026) — grammatika va fiqhda yagona: ✕, ‹ ›, Таркиб Ўзбекча/Арабча, qo'shimcha tugmalar */
+.sheet,.fsb{position:relative}
+.zo-cl{position:absolute;top:10px;left:12px;width:36px;height:36px;border-radius:50%;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font-size:18px;line-height:1;cursor:pointer;z-index:1}
+.zo-hd{display:flex;align-items:center;gap:6px;margin-top:30px}
+.zo-mid{flex:1;min-width:0;text-align:center}
+.zo-nv{width:40px;height:40px;border-radius:50%;border:1px solid var(--bd);background:var(--cd);color:var(--tx);font-size:24px;line-height:1;flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:0 0 3px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.zo-cs{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:4px 0 2px}
+.zo-c{display:inline-flex;align-items:center;gap:5px;font:inherit;font-size:13px;font-weight:600;padding:5px 12px;border-radius:999px;background:rgba(127,127,127,.12);color:var(--tx);border:0}
+button.zo-c{cursor:pointer;background:var(--ac);color:var(--cd)}
+.zo-tk{background:rgba(127,127,127,.06);border:1px solid var(--bd);border-radius:12px;padding:8px 12px;margin-top:10px}
+.zo-tkh{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:2px}
+.zo-tkh>i,.zo-tkh>b{font-style:normal;color:var(--mu);font-size:12px;font-weight:400}
+.zo-til{display:inline-flex;border:1px solid var(--bd);border-radius:999px;padding:2px;flex-shrink:0}
+.zo-til button{border:0;background:none;color:var(--mu);border-radius:999px;padding:4px 10px;font:inherit;font-size:12.5px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent}
+html:not(.til-ar) .zo-til [data-l=uz],html.til-ar .zo-til [data-l=ar]{background:var(--ac);color:var(--cd)}
+html.til-ar .zo-uz,html:not(.til-ar) .zo-ar{display:none}
+.tk .zo-ar.irb{margin-top:4px}
+.zo-ar.fai{border-top:0;padding-top:0}
+.zo-n{color:var(--mu);font-size:14px;line-height:1.55;margin:4px 0}
+.zo-xc{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.zo-x{border:1px solid var(--bd);background:var(--cd);color:var(--tx);border-radius:999px;padding:7px 13px;font:inherit;font-size:14px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.zo-x.on{background:var(--ac);color:var(--cd);border-color:var(--ac)}
+.zo-xp{margin-top:8px;font-size:15px;line-height:1.6;background:rgba(127,127,127,.08);border-radius:12px;padding:8px 12px}
+.zo-xp.zo-h{display:none}
+.zo-xp .ar{font-family:"DarsNaskh","Noto Naskh Arabic","Geeza Pro","Traditional Arabic",serif;font-size:1.2em;line-height:1.3;unicode-bidi:isolate;direction:rtl}
 /* So'z oynasi: holat yorlig'i — Наҳв жадвалига ҳавола (11.11.2026; shell.js) */
 #sb .hk span.cR,#sb .hk span.cN,#sb .hk span.cJ,#sb .hk span.cZ{cursor:pointer}
 #sb .hk span.cR::after,#sb .hk span.cN::after,#sb .hk span.cJ::after,#sb .hk span.cZ::after{content:" \203A";font-weight:700;opacity:.7}
+/* «Тайёрлов» savollari yopiq — «Саволлар · N та» (19.11.2026; shell.js SVQ) */
+#tx .svq{margin:0 0 10px}
+#tx .svq-b{display:flex;align-items:center;gap:12px;width:100%;min-height:54px;padding:12px 16px;border:0;border-radius:18px;background:var(--cd);box-shadow:var(--sh);color:var(--ac);font:600 16px/1.2 system-ui,-apple-system,sans-serif;direction:ltr;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .15s}
+#tx .svq-b:active{transform:scale(.985)}
+/* tugma — sarlavhaning o'zi: arabcha «تَهْيِئَةٌ» o'ngda, tagida «Тайёрлов · N савол»; ichidagi sarlavha qatori yashirin */
+#tx .svq-b.sar{direction:rtl;text-align:right;padding:10px 18px}
+#tx .svq-m{flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-width:0}
+#tx .svq-a{font:600 var(--fs,22px)/1.5 system-ui,-apple-system,sans-serif;color:var(--ac)}
+#tx .svq-s{direction:ltr;unicode-bidi:isolate;font:500 13px/1.3 system-ui,-apple-system,sans-serif;color:var(--mu)}
+#tx .ln.svq-h{display:none}
+#tx .svq-t{flex:1}
+#tx .svq-b svg{flex:none;color:var(--mu);transition:transform .25s}
+#tx .svq.och .svq-b{margin-bottom:10px}
+#tx .svq.och .svq-b svg{transform:rotate(180deg)}
+#tx .svq-i{display:none}
+#tx .svq.och .svq-i{display:block;animation:svqIn .28s ease-out}
+@keyframes svqIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){#tx .svq.och .svq-i{animation:none}#tx .svq-b,#tx .svq-b svg{transition:none}}

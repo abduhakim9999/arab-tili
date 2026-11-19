@@ -4,7 +4,7 @@ import tarkib
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.environ.get('OUT') or '/mnt/user-data/outputs/arab-tili'
-VER = '309'
+VER = '310'
 ZO = json.load(open(os.path.join(HERE, 'zo_patch.json'), encoding='utf-8'))
 
 LESSONS = [
@@ -48,7 +48,7 @@ U27 = ('الْوَحْدَةُ السَّابِعَةُ: اللُّغَةُ ال
 # Dars boshi: bismillah, keyin dars raqami va mavzu. Ваҳда nomi faqat ваҳданинг 1-darsida (SHOWU) yoziladi.
 SHOWU = {1, 7, 10, 70, 74, 94}
 TKNEW = {l[0] for l in LESSONS}  # Таркиб: yangi ko'rinish (tarkib2.js) — hamma darslarda
-TK3 = {97}  # Таркиб: fiqhdagi yangi ko'rinish (tarkib3.js, docs/tarkib-korinishi.md 12) — sinov, faqat shu darslarda
+TK3_ESKI = set()  # eski Таркибда qoladigan darslar — bo'sh: hamma darslar, yangilari ham, tarkib3.js da (19.11.2026, foydalanuvchi). Oldin: TK3 = {97} — Таркиб: fiqhdagi yangi ko'rinish (tarkib3.js, docs/tarkib-korinishi.md 12) — sinov, faqat shu darslarda
 TOPIC = {1: 'topic_hiwar.mp3', 2: 'topic_hiwar.mp3', 3: 'topic_hiwar.mp3', 4: 'topic_hiwar.mp3', 5: 'topic_hiwar.mp3', 6: 'topic_hiwar.mp3', 7: 'topic_hiwar.mp3', 8: 'topic_hiwar.mp3', 9: 'topic_hiwar.mp3', 10: 'topic_hiwar.mp3'}  # МАВЗУ (حِوَارْ) ovozi — ElevenLabs Mehdi VO, vaqf bilan; sarlavhadan keyin qo'shiladi  # Таркиб'нинг янги кўриниши (tarkib2.js) — синов
 LN = {3: 'اَلدَّرْسُ الثَّالِثُ', 4: 'اَلدَّرْسُ الرَّابِعُ', 5: 'اَلدَّرْسُ الْخَامِسُ', 6: 'اَلدَّرْسُ السَّادِسُ'}  # 3–4-darslar: raqam ElevenLabs (Mehdi) bilan qo'shilgan (hdr/mk_hnum.py); h3/h4 dagi eski «الْحِوَارُ» (cf[2]…) kesiladi, mavzu — matndagi حِوَارٌ
 HDR = {3: (('الْحِوَارُ', 'Суҳбат'), ''), 4: (('الْحِوَارُ', 'Суҳбат'), ''), 5: (('الْحِوَارُ', 'Суҳбат'), ''), 6: (('الْحِوَارُ', 'Суҳбат'), ''), 1: (U1, 'اَلدَّرْسُ الْأَوَّلُ'), 7: (U12, 'اَلدَّرْسُ السَّابِعُ'), 8: (U12, 'اَلدَّرْسُ الثَّامِنُ'), 9: (U12, 'اَلدَّرْسُ التَّاسِعُ'), 10: (U13, 'اَلدَّرْسُ الْعَاشِرُ'), 2: (U1, 'اَلدَّرْسُ الثَّانِي'), 70: (U21, 'اَلدَّرْسُ السَّبْعُونَ'), 71: (U21, 'اَلدَّرْسُ الْحَادِي وَالسَّبْعُونَ'),
@@ -212,7 +212,7 @@ for num, src, uz, ar, key, nq in LESSONS:
         JOY = '<script>(function(){try{var K="%s",N="%s",L=localStorage;if(L.getItem("joy-dars")!==N){var S=JSON.parse(L.getItem(K)||"{}")||{};if(S.at!=null||S.pos||S.tab){delete S.at;delete S.pos;delete S.tab;L.setItem(K,JSON.stringify(S))}}L.setItem("joy-dars",N)}catch(e){}})()</script>' % (m_tg.group(1), num)
         doc = doc[:m_tg.end()] + JOY + doc[m_tg.end():]
     doc += '<script src="shell.js"></script>\n'
-    if num in TK3:
+    if num not in TK3_ESKI:
         doc += '<script>window.TK3=1</script><script src="tarkib3.js"></script>\n'
     if num in LISTEN:
         doc += ('<style>.dh .lq{width:44px;height:44px;flex:none;border-radius:22px;border:1px solid var(--bd);background:var(--cd);color:var(--ac);display:flex;align-items:center;justify-content:center;text-decoration:none;margin-right:6px}</style>'

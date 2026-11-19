@@ -1,5 +1,5 @@
 /* tarkib3.js — yangi tarkib ko'rinishi «Нур ут-толиб» darslarida (fiqh 1–2 sinovidan ko'chirildi, 18.11.2026).
-   Qoidalar — docs/tarkib-korinishi.md (yagona manba). Faqat window.TK3 qo'yilgan darsda ishlaydi (hozir 97-dars).
+   Qoidalar — docs/tarkib-korinishi.md (yagona manba). Faqat window.TK3 qo'yilgan darsda ishlaydi (19.11.2026 dan — hamma «Нур ут-толиб» darslari; ruschada hali yo'q).
    Ma'lumot qo'lda yozilmaydi — darsdagi IRB (har so'z e'robi), CATOV, TKG/TKT (shibhi jumla, jumla), QMP/QT (qoidalar) dan avtomat:
      1-qavat (doim, Таркиб yoqilganda): rang — vazifa yoki holat oilasi, ramka — asosiy bo'lak o'rnidagi bo'lak, mahzuf so'z o'z o'rnida;
      2-qavat (bir bosish): bo'lak o'z rangidagi ramkada, bosh so'zdan chiziq, ostida nomi; boshqa gapga — strelka;
@@ -28,8 +28,7 @@
     '#tx.tartib.nv .n-co{color:var(--co)!important}#tx.tartib.nv .n-cb{color:var(--nb)!important}#tx.tartib.nv .n-cn{color:var(--nn)!important}' +
     '#tx.tartib.nv .n-cj{color:var(--nj)!important}#tx.tartib.nv .n-jh{color:var(--nh)!important}#tx.tartib.nv .n-cd{color:var(--nd)!important}' +
     '#tx.tartib.nv .n-0{color:var(--tx)!important}#tx.tartib.nv .n-cz{color:var(--nz)!important}' +
-    /* tegish va audio belgilari: bosilgan so'z foni yo'q (ramka ko'rsatadi), audio belgisi faqat ijroda */
-    '#tx.tartib.nv .ws span.on{background:none!important}' +
+    /* tegish va audio belgilari: bosilgan so'z o'z yashil fonida (tarjimadagi jufti bilan bir xil — 19.11.2026, foydalanuvchi), audio belgisi faqat ijroda */
     '#tx.tartib.nv:not(.apl) .ws span.pl,#tx.tartib.nv:not(.apl) .ts.pl{background:none!important}' +
     /* ramka (doim): asosiy bo'lak o'rnidagi bo'lak */
     '#tx.tartib.nv .ws span.t3r{border-top:1.8px solid var(--rc);border-bottom:1.8px solid var(--rc);border-radius:0}' +
@@ -309,7 +308,27 @@
     Object.keys(WD).forEach(function (k) {
       var w = WD[k];
       w.nrows.forEach(function (u) {
-        var m = u.match(/^мубтадоси маҳзуф:?\s*\(([^)]+)\)/); if (m) add(w.L, w.i, m[1], 'маҳзуф мубтадо', 'm');
+        var m = u.match(/^мубтадоси маҳзуф.*?\(([؀-ۿً-ْٰ ]+)\)/); if (m) add(w.L, w.i, m[1], 'маҳзуф мубтадо', 'm');
+      });
+    });
+  }
+  /* xabar bo'lgan jumla: arabcha e'robda «وَجُمْلَةُ «…» فِي مَحَلِّ رَفْعٍ خَبَرُ …» bo'lsa-yu, TKG da guruhi bo'lmasa —
+     guruh qo'shiladi (eski darslar, 19.11.2026): ramka va mubtado ipi shundan chiqadi. «…» — jumla bo'lak oxirigacha */
+  function jx() {
+    Object.keys(WD).forEach(function (k) {
+      var w = WD[k], row = LW[w.L]; if (!row) return;
+      (w.E.a || []).forEach(function (p) {
+        var m = (p[1] || '').match(/جُمْلَةُ «([^»]+)» فِي مَحَلِّ (رَفْعٍ|نَصْبٍ) خَبَرُ/); if (!m) return;
+        var toks = m[1].replace(/…/g, ' ').trim().split(/\s+/), t0 = bare(toks[0]), i0 = -1;
+        if (!t0) return;
+        function hit(i) { var o = row[i]; if (!o) return false; var b = bare(wt(o.e)); return b == t0 || b.replace(/^[وف]/, '') == t0 }
+        for (var d = 0; d < row.length && i0 < 0; d++) { if (hit(w.i - d)) i0 = w.i - d; else if (hit(w.i + d)) i0 = w.i + d }
+        if (i0 < 0) return;
+        var end = Math.min(row.length - 1, i0 + toks.length - 1);
+        if (/…/.test(m[1])) { end = row.length - 1; (TT[w.L] || []).forEach(function (t) { if (t[0] >= i0 && t[0] < end) end = t[0] }) }
+        var g = G[w.L] = G[w.L] || [];
+        if (g.some(function (x) { return x[3] == 'j' && x[0] <= i0 && x[1] >= end })) return;
+        g.push([i0, end, 'жумла — хабар, ' + (m[2] == 'رَفْعٍ' ? 'раф' : 'насб') + ' ўринда', 'j']);
       });
     });
   }
@@ -429,6 +448,32 @@
           if (mb) set(mb.k, pr); if (gm) gm.rel = pr;
           (xb.fr ? grpWords(L, xb.fr.a, xb.fr.b) : [xb]).forEach(function (w) { set(w.k, pr) });
           if (xb.fr && xb.fr.gh && !xb.fr.gh.rel) xb.fr.gh.rel = pr;
+        }
+        /* bitta bo'lakda bir nechta mubtado–xabar (atf qilingan jumlalar, 19.11.2026): har juftlik o'z ipi bilan.
+           Avval xabar izohidagi «X нинг хабари» bo'yicha, bo'lmasa — tartib bo'yicha (sonlari teng bo'lsa) */
+        {
+          var tx0 = kn && (ms.length || xs.length) ? xs : (ms.length && xs.length ? xs : []);
+          var mbs = W.filter(function (w) { return w.mc == 'cm' && !w.tob && !w.fr && !RELS[w.k] });
+          var xu = [], seen = [];
+          W.forEach(function (w) {
+            if (!((w.mc == 'cx' && !w.tob) || (w.fr && w.fr.c == 'cx'))) return;
+            if (w.fr) { if (seen.indexOf(w.fr) >= 0) return; seen.push(w.fr) }
+            var ws2 = w.fr ? grpWords(L, w.fr.a, w.fr.b) : [w];
+            var el = w.fr ? frEls(w.fr)[0] : w.e;
+            if (tx0.indexOf(el) >= 0 || ws2.some(function (o) { return RELS[o.k] && (RELS[o.k].lab == 'мубтадо' || RELS[o.k].src[0] === (kn && kn.e)) })) return;
+            xu.push({ w: w, ws: ws2, el: el });
+          });
+          function pair(m, x) {
+            var p2 = { src: [m.e], tg: [x.el], tl: ['хабар'], tgf: true, lab: 'мубтадо' };
+            set(m.k, p2); x.ws.forEach(function (o) { set(o.k, p2) });
+            mbs.splice(mbs.indexOf(m), 1); xu.splice(xu.indexOf(x), 1);
+          }
+          xu.slice().forEach(function (x) {
+            var h = ((x.w.nrows.join(' ') + ' ' + ((x.w.rows[x.w.mi] || {}).u || '')).match(/([؀-ۿً-ْٰ]+) нинг хабари/) || [])[1];
+            var m = h && mbs.filter(function (o) { var b = bare(wt(o.e)), q = bare(h); return b == q || b.replace(/^[وف]/, '') == q })[0];
+            if (m) pair(m, x);
+          });
+          if (mbs.length && mbs.length == xu.length) mbs.slice().forEach(function (m, z) { pair(m, xu[0]) });
         }
         /* fe'l — foil — maf'ul */
         W.forEach(function (w) {
@@ -944,7 +989,7 @@
   /* ===================== yig'ish ===================== */
   function deco3() {
     clr();
-    analyse(); paint(); ghosts(); frames(); relations(); boxes(); legend(); plBtns();
+    analyse(); paint(); ghosts(); jx(); frames(); relations(); boxes(); legend(); plBtns();
   }
   function relayout() { clr(); rowFix() }
   function wrap(n, f) { var o = window[n]; if (typeof o != 'function') return; window[n] = function () { var r = o.apply(this, arguments); f(); return r } }

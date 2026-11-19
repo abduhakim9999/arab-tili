@@ -22,7 +22,13 @@
     mustahkam: 90     // «мустаҳкам»: arabcha → ma'no kartasi shuncha kun + ma'no → arabcha kartasi «bilgan»
   };
 
-  function yarat(o) {
+  /* 19.11.2026 (foydalanuvchi): ma'nosi «маъносиз» harflar (ibtido وَ, zoida بِ) ham yodlanadi — karta «Вазифаси?» (takror.html),
+   «Арабчаси?» kartasi yo'q. Ruschada asl o'zbekcha ma'no `uzA` da (ru.js). */
+function manosiz(n) {
+  return n.m.every(function (r) { return /^\s*(\d+\.\s*)?маъносиз/i.test(((r.uzA || r.uz) || [])[0] || ''); });
+}
+
+function yarat(o) {
     var soz = {}, k;
     for (k in SOZ) soz[k] = SOZ[k];
     for (k in (o.sozlama || {})) soz[k] = o.sozlama[k];
@@ -39,14 +45,23 @@
     /* ---- kartalar ---- */
     var K = [], KM = {}, mano = {};
     function qoy(c) { K.push(c); KM[c.id] = c; }
-    o.lugat.forEach(function (r) { if (faol[r.d]) { var a = r.asl || r.id; (mano[a] = mano[a] || []).push(r); } });
+    /* 19.11.2026 (foydalanuvchi: «qaysi ma'no so'ralayotgani gapdan bilinsin»): so'zning keyingi ma'nosi (`asl`) — o'z darsidagi gapi
+       (lugat.json `g`) bilan alohida karta (faqat «Маъноси?» va «Арабчаси?»; so'z sanog'iga kirmaydi — hisob() va takror.html sozlar()).
+       Gapi bir xil ma'nolar (kitobda bitta misolning tarjima variantlari) yoki gapsizlari — bitta kartada, avvalgidek birga. */
+    function gapM(r) { var g = r.g; return !g ? '' : g.k != null ? ((r.x || [])[g.k] || [''])[0] : g.a.join(' '); }
+    function guruh(r) { return (r.asl || r.id) + '|' + gapM(r); }
+    o.lugat.forEach(function (r) { if (faol[r.d]) { var a = guruh(r); (mano[a] = mano[a] || []).push(r); } });
     o.lugat.forEach(function (r) {
-      if (!r.tk || !(faol[r.d] || usz[r.id])) return;
+      var qm = !r.tk && r.asl && r.tur !== 'atoqli' && faol[r.d];   // keyingi ma'no
+      if (!qm && !(r.tk && (faol[r.d] || usz[r.id]))) return;
+      var m = mano[guruh(r)] || [r];
+      if (m[0] !== r) return;                                 // shu gap bilan oldingi kartaga qo'shilgan
       var nk = 'w' + r.id;
-      var n = { id: r.id, r: r, m: mano[r.id] || [r], au: r.au && lv[r.d] ? { f: lv[r.d], s: r.au[0], e: r.au[1] } : null };
+      var n = { id: r.id, r: r, m: m, q: qm ? 1 : 0, au: !qm && r.au && lv[r.d] ? { f: lv[r.d], s: r.au[0], e: r.au[1] } : null };
       qoy({ id: nk + 'a', tur: 'a', nk: nk, n: n, u: usz[r.id] ? 1 : 0 });
-      qoy({ id: nk + 'u', tur: 'u', nk: nk, n: n, old: nk + 'a' });
-      if (n.au) qoy({ id: nk + 'o', tur: 'o', nk: nk, n: n, old: nk + 'u' });
+      if (!manosiz(n)) qoy({ id: nk + 'u', tur: 'u', nk: nk, n: n, old: nk + 'a' });   /* «зоида жар ҳарфи → ?» — noaniq */
+      if (qm) return;
+      if (n.au && !manosiz(n)) qoy({ id: nk + 'o', tur: 'o', nk: nk, n: n, old: nk + 'u' });
       /* shakl kartasi (13.11.2026: «Машқ» takrorga qo'shildi): ko'pligi (ism), muzore'-amr-masdari (fe'l), turi (harf).
          Qaysi so'zda nima so'ralishini sahifa aytadi (o.shakl(r) → 'j' | 'k' | 't' | ''). Ma'no kartasi kamida bir marta kun o'tib
          to'g'ri takrorlangach chiqadi (qo'shimcha kartalar qatorida, kuniga yangiQosh tadan). */
@@ -144,7 +159,7 @@
     function hisob() {
       var r = { jami: 0, bilgan: 0, mustahkam: 0, organilmoqda: 0 };
       K.forEach(function (x) {
-        if (x.tur !== 'a') return;
+        if (x.tur !== 'a' || x.n.q) return;                   // keyingi ma'no kartasi so'z sanalmaydi
         r.jami++;
         var s = S[x.id];
         if (!s) return;
@@ -194,5 +209,5 @@
     return jami;
   }
 
-  return { yarat: yarat, SOZ: SOZ, VER: 1, ball: ball, haftaBoshi: haftaBoshi, REY: REY };
+  return { yarat: yarat, SOZ: SOZ, VER: 1, ball: ball, haftaBoshi: haftaBoshi, REY: REY, manosiz: manosiz };
 });

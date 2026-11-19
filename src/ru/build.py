@@ -132,6 +132,20 @@ def build(n, out):
     L = json.load(open(os.path.join(HERE, 'd%02d.json' % n), encoding='utf-8'))
     warn = []
 
+    # --- yangi tarkib ko'rinishi (tarkib3.js) va yangi qoida kartalari ruschaga hali o'tkazilmagan (19.11.2026,
+    #     foydalanuvchi: «ruscha keyin»): ruscha sahifa eski ko'rinishda — TK3 ulanmaydi, QT — eski matn (qt-eski.json,
+    #     lugat-qoida.txt shunga mos). Ruschasi qilinganda shu ikki qator olib tashlanadi.
+    s = s.replace('<script>window.TK3=1</script><script src="tarkib3.js"></script>\n', '')
+    qe = os.path.join(HERE, 'qt-eski.json')
+    if os.path.exists(qe):
+        i = re.search(r'\bQT\s*=\s*\{', s)
+        if i:
+            j, d = s.index('{', i.start()), 0
+            for k in range(j, len(s)):
+                d += {'{': 1, '}': -1}.get(s[k], 0)
+                if not d: break
+            s = s[:j] + open(qe, encoding='utf-8').read() + s[k + 1:]
+
     # --- sarlavha
     s = s.replace('<html lang="uz">', '<html lang="ru">', 1)
     s, k1 = re.subn(r'<title>.*?</title>', lambda m: '<title>' + L['title'] + '</title>', s, count=1, flags=re.S)
@@ -244,6 +258,12 @@ def ru_data(ready):
             v = voc.get(str(r.get('kn'))) if r['d'] == n else None
             if v:
                 W[r['id']] = [v.get('m') or [], [x[0] for x in v.get('x', [])]] + ([v['mz']] if v.get('mz') else [])   # 3-chi: fe'l testdagi o'tgan zamon ma'nosi (mz)
+                g = r.get('g') or {}
+                if 'l' in g and 0 <= g['l'] < len(tr):  # 4-chi: takror kartasidagi dars gapining tarjimasi (19.11.2026; lugat_gap.py)
+                    a, b = g['r']
+                    t = ' '.join(c[0] for c in tr[g['l']] if any(a <= x <= b for x in (c[1] if len(c) > 1 else []))).replace(' ,', ',')
+                    if t:
+                        W[r['id']] += [[]] * (3 - len(W[r['id']])) + [t]
         for q in M:
             i = int(str(q.get('k', '-')).split('-')[0] or -1) if q['d'] == n else -1
             if 0 <= i < len(tr):

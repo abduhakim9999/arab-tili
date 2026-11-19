@@ -45,7 +45,7 @@
         if (p) V[p.charAt(0).toLowerCase() + p.slice(1)] = 1;
       });
     };
-    Object.keys(RW).forEach(function (i) { RW[i][0].forEach(bil); RW[i][1].forEach(bil); (RW[i][2] || []).forEach(bil); });
+    Object.keys(RW).forEach(function (i) { RW[i][0].forEach(bil); RW[i][1].forEach(bil); (RW[i][2] || []).forEach(bil); bil(RW[i][3]); });
     Object.keys(RQ).forEach(function (i) { bil(RQ[i]); });
     var FIX = {
       darslar: function (j) { (j.s || []).forEach(function (d) { if (RL.indexOf(d.n) >= 0) d.sahifa = 'ru' + d.n + '.html'; else d.tez = 1; d.eshitish = 0; }); },
@@ -55,6 +55,7 @@
           if (w[0].length) { r.uzA = r.uz; r.uz = w[0].slice(); }   /* uzA — asl o'zbekcha (harf turi shundan aniqlanadi) */
           if (w[2] && w[2].length) r.mz = w[2].slice(); else if (w[0].length) delete r.mz;   /* fe'l testdagi o'tgan zamon ma'nosi; ruschasi bo'lmasa — ruscha uz */
           if (r.x) r.x.forEach(function (x, i) { if (w[1][i] != null) x[1] = w[1][i]; });
+          if (r.g && r.g.tr != null && w[3]) r.g.tr = w[3];   /* takror kartasidagi dars gapi tarjimasi (19.11.2026) */
         });
       },
       mashq: function (j) { (j.s || []).forEach(function (q) { if (RQ[q.id] != null) q.tr = RQ[q.id]; }); }

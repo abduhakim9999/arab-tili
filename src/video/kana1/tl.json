@@ -17,7 +17,8 @@
     14.88,
     17.12,
     17.96
-   ]
+   ],
+   "t": "O'zbekchada \"havo chiroyli\" deymiz. Kechagi kun haqida gapirsak-chi? Oxiriga bitta so'z qo'shamiz: \"havo chiroyli edi\". Arab tilida ham shunday so'z bor. Faqat u gapning oxiriga emas, boshiga keladi. Va kelib jim turmaydi \u2014 gapning oxirini o'zgartirib ketadi. Bu so'z \u2014 kaana."
   },
   "t1": {
    "s": 20.6,
@@ -28,7 +29,8 @@
     25.18,
     25.98,
     26.46
-   ]
+   ],
+   "t": "Avval u bilan tanishib olaylik. Kitoblarda uni uch so'z bilan tanitishadi: noqis moziy fe'li."
   },
   "t2": {
    "s": 27.32,
@@ -39,7 +41,8 @@
     30.98,
     32.4,
     35.46
-   ]
+   ],
+   "t": "Fe'l \u2014 chunki fe'ldek tuslanadi: muzoriysi ham, muannasi ham bor. Moziy \u2014 chunki o'tgan zamonni bildiradi: \"edi\"."
   },
   "t3": {
    "s": 36.34,
@@ -56,14 +59,16 @@
     46.92,
     47.84,
     49.06
-   ]
+   ],
+   "t": "Noqis esa \"to'liqsiz\" degani. Oddiy fe'lga bitta so'z yetadi: \"tolib o'tirdi\" \u2014 gap tugadi. kaana bilan esa \"tolib edi\" deb to'xtasak, gap chala qoladi: nima edi? Unga ikkinchi so'z \u2014 xabar ham kerak."
   },
   "u1a": {
    "s": 51.19,
    "e": 53.48,
    "c": [
     51.19
-   ]
+   ],
+   "t": "Keling, buni bitta gapda ko'ramiz."
   },
   "a1": {
    "s": 53.78,
@@ -82,7 +87,8 @@
     59.96,
     60.76,
     62.6
-   ]
+   ],
+   "t": "\"Tolib kattadir\". Bu gapda ikki bo'lak bor: mubtado va xabar. Ikkalasi ham raf holatida \u2014 oxirlarida zamma."
   },
   "u2": {
    "s": 64.47,
@@ -103,7 +109,8 @@
     83.51,
     84.57,
     86.77
-   ]
+   ],
+   "t": "Endi shu gapga kaana mehmondek kirib keladi \u2014 lekin o'zini uy egasidek tutadi. Avval mubtadoga qaraydi, unga tegmaydi: mubtado raf holida qolaveradi, faqat yangi nom oladi \u2014 endi u kaananing ismi. Keyin xabarga yuzlanadi va buyuradi: \"Oxiringni o'zgartir!\" Xabar bo'ysunadi: zammasini qo'yib, fatha oladi. Endi u kaananing xabari, holati \u2014 nasb."
   },
   "a2": {
    "s": 88.02,
@@ -122,7 +129,8 @@
     95.42,
     96.1,
     96.92
-   ]
+   ],
+   "t": "\"Tolib katta edi\". Demak, qoida oddiy: kaana kelsa, ismi \u2014 raf, xabari \u2014 nasb."
   },
   "u4": {
    "s": 97.95,
@@ -133,7 +141,8 @@
     101.69,
     102.47,
     104.07
-   ]
+   ],
+   "t": "Tarjimasi ikki xil: voqea qadimda bo'lgan bo'lsa \u2014 \"edi\", yaqinda bo'lgan bo'lsa \u2014 \"bo'ldi\"."
   },
   "u5": {
    "s": 105.97,
@@ -153,7 +162,8 @@
     122.05,
     124.03,
     125.67
-   ]
+   ],
+   "t": "Lekin bu uy egasining ham o'z kattasi bor \u2014 ismi. kaana xabariga buyuradi-yu, ismiga o'zi bo'ysunadi. Ismi muannas bo'lsa \u2014 masalan, toliba \u2014 kaana ham unga moslashadi: oxiriga muannaslik harfi \u2014 \"ta\" qo'shiladi. Bir nozik joyi bor: ikki sukun yo'liqib qolmasligi uchun bu \"ta\" keyingi so'zga kasra bilan bog'lanadi."
   },
   "a5": {
    "s": 127.27,
@@ -178,7 +188,8 @@
     143.22,
     144.9,
     147.0
-   ]
+   ],
+   "t": "Xulosa qilamiz. kaana \u2014 arab tilining edisi. Xabariga buyuradi: u nasb bo'ladi. Ismiga esa o'zi ergashadi: ismi rafda qoladi, muannas bo'lsa, kaana \"ta\" oladi. Endi o'zingizni sinab ko'ring. \"Dars oson edi\" demoqchimiz: bo'sh joyga qaysi biri mos?"
   },
   "a9": {
    "s": 151.51,
@@ -197,7 +208,8 @@
     156.58,
     157.94,
     159.14
-   ]
+   ],
+   "t": "To'g'ri \u2014 fathalisi: u kaananing xabari, demak nasbda. Keyingi videoda \u2014 kaana va zamirlar."
   }
  },
  "scenes": [

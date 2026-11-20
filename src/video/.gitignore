@@ -1,0 +1,12 @@
+narr.wav
+mix.wav
+out.mp4
+st/
+test/
+chk/
+package/
+naskh.ttf
+gsap.min.js
+*.tgz
+ph.*
+__pycache__/

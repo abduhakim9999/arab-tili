@@ -28,19 +28,19 @@ def page_open(pw):
     br = pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox', '--force-color-profile=srgb', '--font-render-hinting=none'])
     pg = br.new_page(viewport={'width': W, 'height': H}, device_scale_factor=1)
     pg.on('pageerror', lambda e: print('JS XATO:', e, flush=True)); pg.on('console', lambda m: m.type == 'error' and print('KONSOL:', m.text, flush=True))
-    pg.goto(f'file://{D}/video.html')
+    pg.goto(f'file://{D}/{os.environ.get('KANA_HTML','video.html')}')
     pg.wait_for_function('window.READY === true', timeout=30000)
     return br, pg
 
 
 def test(ts):
     from playwright.sync_api import sync_playwright
-    os.makedirs(f'{D}/test5', exist_ok=True)
+    os.makedirs(f'{D}/{os.environ.get('KANA_TEST','test5')}', exist_ok=True)
     with sync_playwright() as pw:
         br, pg = page_open(pw)
         for t in ts:
             pg.evaluate(f'seek({t})')
-            pg.screenshot(path=f'{D}/test5/t{t:07.2f}.jpg', type='jpeg', quality=92)
+            pg.screenshot(path=f'{D}/{os.environ.get('KANA_TEST','test5')}/t{t:07.2f}.jpg', type='jpeg', quality=92)
             print('test', t)
         br.close()
 

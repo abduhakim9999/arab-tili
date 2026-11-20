@@ -17,6 +17,12 @@ HOP = int(SR * 0.01)
 # Uslub (20.11.2026, foydalanuvchi): ustozdek sodda, o'xshatish va kundalik misol bilan; har gapda bitta fikr.
 # 4-nusxa: «bo'ysunish» zanjiri — kaana xabariga buyuradi (nasb), o'zi esa ismiga bo'ysunadi (muannas «ta»).
 TXT = {
+ # 2-qism (KANA_QISM=2): p0 kirish, j1 «faqat jinsda», p8 xulosa + savol, p9 javob, a10 savol javobi (arabcha)
+ 'p0': "O'tgan safar /ˈkaːna/ xabariga buyurdi: \"Oxiringni o'zgartir!\" Xabar fatha oldi. Lekin hamma so'z ham fatha ololmaydi-ku?",
+ 'j1': "E'tibor bering: ismi ikkita yoki ko'p bo'lsa ham, /ˈkaːna/ birlikda turibdi. U ismiga faqat jinsda ergashadi, sonda emas.",
+ 'p8': "Xulosa: nasbning uch alomati — fatha, \"ya\" va kasra. /ˈkaːna/ ismiga faqat jinsda ergashadi. Muzoriysi — /jaˈkuːnu/, inkori — /maː/ va /laː/. Endi sinab ko'ring: \"Ikki tolib katta edi\" — xabar qanday bo'ladi?",
+ 'p9': "To'g'ri — \"ya\" bilan. Keyingi videoda — /ˈkaːna/ va zamirlar.",
+ 'a10': "كَانَ الطَّالِبَانِ كَبِيرَيْنِ.",
  'u0': "O'zbekchada \"havo chiroyli\" deymiz. Kechagi kun haqida gapirsak-chi? Oxiriga bitta so'z qo'shamiz: \"havo chiroyli edi\". Arab tilida ham shunday so'z bor. Faqat u gapning oxiriga emas, boshiga keladi. Va kelib jim turmaydi — gapning oxirini o'zgartirib ketadi. Bu so'z — /ˈkaːna/.",
  't1': "Avval u bilan tanishib olaylik. Kitoblarda uni uch so'z bilan tanitishadi: noqis moziy fe'li.",
  't2': "Fe'l — chunki fe'ldek tuslanadi: muzoriysi ham, muannasi ham bor. Moziy — chunki o'tgan zamonni bildiradi: \"edi\".",
@@ -57,7 +63,20 @@ TARGET = 10 ** (-21 / 20)   # faol qismning RMS darajasi
 
 # 1-qism (asosiy video, Shorts uchun 3:00 gacha): S6 «Насб аломатлари» va S7 «Музорий ва инкор» siz;
 # KANA_QISM=hammasi — eski to'liq ketma-ketlik (2-qism shu ikki sahnadan alohida video bo'ladi).
-if os.environ.get('KANA_QISM', '1') == '1': SEQ = [x for x in SEQ if x[0] not in ('S6', 'S7')]
+QISM = os.environ.get('KANA_QISM', '1'); SUF = '2' if QISM == '2' else ''      # 2-qism fayllari: tl2.json, tl2.js, narr2.wav, mix2.wav
+if QISM == '1': SEQ = [x for x in SEQ if x[0] not in ('S6', 'S7')]
+if QISM == '2':
+    _s = dict(SEQ)
+    SEQ = [('P0', [('lead', 1.9), 'p0', ('gap', 0.6)]),
+           ('S6', _s['S6'][:-1] + [('gap', 0.5), 'j1', ('gap', 0.8)]),
+           ('S7', _s['S7']),
+           ('P8', [('lead', 0.5), 'p8', ('gap', 2.8), 'a10', ('gap', 0.45), 'p9', ('gap', 2.6)])]
+
+
+def sub(n):                                    # qoralama subtitri: tovush belgilari o'rniga oddiy yozuv
+    t = TXT[n]
+    for a, b in (('/ˈkaːnaniŋ/', 'kaananing'), ('/ˈkaːna/', 'kaana'), ('/jaˈkuːnu/', 'yakuunu'), ('/maː/', 'maa'), ('/laː/', 'laa')): t = t.replace(a, b)
+    return t
 
 
 def load(n):
@@ -90,23 +109,28 @@ def wav_write(p, x):
 
 
 def main():
-    clips = {}; t = 0.0; scenes = []; parts = []
+    clips = {}; t = 0.0; scenes = []; parts = []; draft = False
     for sid, items in SEQ:
         s0 = t
         for it in items:
             if isinstance(it, tuple): t += it[1]; continue
-            y = prep(it); dur = len(y) / SR
+            if os.path.exists(f'{D}/ovoz/{it}.mp3'): y = prep(it); ph = False
+            else: y = np.zeros(int(max(1.2, len(sub(it)) / (9.5 if it[0] == 'a' else 13.5)) * SR)); ph = True     # ovozi hali yo'q — jim joy (qoralama)
+            dur = len(y) / SR
             clips[it] = {'s': round(t, 3), 'e': round(t + dur, 3), 'c': [round(t + c, 3) for c in CUE.get(it, [0])]}
+            if ph: clips[it]['ph'] = 1; draft = True
+            if it[0] != 'a': clips[it]['t'] = sub(it)
             parts.append((t, y)); t += dur
         scenes.append({'id': sid, 's': round(s0, 3), 'e': round(t, 3)})
     total = np.ceil(t * 30) / 30
     out = np.zeros(int(total * SR) + 1)
     for st, y in parts:
         i = int(st * SR); out[i:i + len(y)] += y
-    wav_write(f'{D}/narr.wav', out)
+    wav_write(f'{D}/narr{SUF}.wav', out)
     tl = {'dur': round(float(total), 3), 'fps': 30, 'clips': clips, 'scenes': scenes}
-    json.dump(tl, open(f'{D}/tl.json', 'w'), indent=1)
-    open(f'{D}/tl.js', 'w').write('window.TL=' + json.dumps(tl) + ';')
+    if draft: tl['draft'] = 1
+    json.dump(tl, open(f'{D}/tl{SUF}.json', 'w'), indent=1)
+    open(f'{D}/tl{SUF}.js', 'w').write('window.TL=' + json.dumps(tl) + ';')
     print('jami', round(float(total), 2), 's;', len(parts), "bo'lak;", ' '.join(f"{s['id']}={s['s']:.1f}" for s in scenes))
 
 
@@ -164,7 +188,7 @@ VOL = {'whoosh': 0.085, 'whoosh2': 0.08, 'pop': 0.10, 'thud': 0.20, 'shimmer': 0
 
 def mix(events):
     """events: [[nom, soniya, kuch(ixtiyoriy)], ...] -> mix.wav (narr.wav + effektlar)"""
-    with wave.open(f'{D}/narr.wav') as w: x = np.frombuffer(w.readframes(w.getnframes()), dtype='<i2').astype(np.float64) / 32767
+    with wave.open(f'{D}/narr{SUF}.wav') as w: x = np.frombuffer(w.readframes(w.getnframes()), dtype='<i2').astype(np.float64) / 32767
     cache = {}
     for ev in events:
         name, t = ev[0], ev[1]; k = ev[2] if len(ev) > 2 else 1
@@ -172,7 +196,7 @@ def mix(events):
         y = cache[name] * VOL[name] * k; i = int(t * SR)
         if i < 0 or i >= len(x): continue
         m = min(len(y), len(x) - i); x[i:i + m] += y[:m]
-    wav_write(f'{D}/mix.wav', x)
+    wav_write(f'{D}/mix{SUF}.wav', x)
     return len(events)
 
 

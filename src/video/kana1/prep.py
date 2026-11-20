@@ -14,19 +14,20 @@ HOP = int(SR * 0.01)
 #   كَانَ -> /ˈkaːna/ (qo'shimcha bilan /ˈkaːnaniŋ/, /ˈkaːnaɡa/)   مَا -> /maː/   لَا -> /laː/   ت -> "ta"   ي -> "ya"
 # Bo'lak boshiga qo'shimchali shakl qo'yilmaydi (qisqa chiqadi). Tekshiruv: tekshir.py.
 # Uslub (20.11.2026, foydalanuvchi): ustozdek sodda, o'xshatish va kundalik misol bilan; har gapda bitta fikr.
+# 4-nusxa: «bo'ysunish» zanjiri — kaana xabariga buyuradi (nasb), o'zi esa ismiga bo'ysunadi (muannas «ta»).
 TXT = {
  'u0': "O'zbekchada \"havo chiroyli\" deymiz. Kechagi kun haqida gapirsak-chi? Oxiriga bitta so'z qo'shamiz: \"havo chiroyli edi\". Arab tilida ham shunday so'z bor. Faqat u gapning oxiriga emas, boshiga keladi. Va kelib jim turmaydi — gapning oxirini o'zgartirib ketadi. Bu so'z — /ˈkaːna/.",
  'u1a': "Keling, buni bitta gapda ko'ramiz.",
  'u1b': "\"Tolib kattadir\". Bu gapda ikki bo'lak bor: mubtado va xabar. Ikkalasi ham raf holatida — oxirlarida zamma.",
- 'u2': "Endi shu gapga /ˈkaːna/ mehmondek kirib keladi. Mubtado joyidan qimirlamaydi: raf holida qolaveradi, faqat nomi o'zgaradi — endi u /ˈkaːnaniŋ/ ismi. Xabar esa o'rnidan turadi: zammasini qo'yib, fatha oladi. U endi /ˈkaːnaniŋ/ xabari, holati — nasb.",
+ 'u2': "Endi shu gapga /ˈkaːna/ mehmondek kirib keladi — lekin o'zini uy egasidek tutadi. Avval mubtadoga qaraydi, unga tegmaydi: mubtado raf holida qolaveradi, faqat yangi nom oladi — endi u /ˈkaːnaniŋ/ ismi. Keyin xabarga yuzlanadi va buyuradi: \"Oxiringni o'zgartir!\" Xabar bo'ysunadi: zammasini qo'yib, fatha oladi. Endi u /ˈkaːnaniŋ/ xabari, holati — nasb.",
  'u3': "\"Tolib katta edi\". Demak, qoida oddiy: /ˈkaːnaniŋ/ ismi — raf, xabari — nasb. /ˈkaːna/ — noqis, ya'ni \"to'liqsiz\" fe'l. Nega? Boshqa fe'llar fo'il bilan ishlaydi, /ˈkaːna/ esa — yo'q: unga ism ham, xabar ham kerak.",
  'u4': "Tarjimasi ikki xil: voqea qadimda bo'lgan bo'lsa — \"edi\", yaqinda bo'lgan bo'lsa — \"bo'ldi\".",
- 'u5': "Agar ism muannas bo'lsa-chi? Masalan, toliba. Unda /ˈkaːna/ ham unga moslashadi: oxiriga muannaslik harfi — \"ta\" qo'shiladi. Bir nozik joyi bor: ikki sukun yo'liqib qolmasligi uchun bu \"ta\" keyingi so'zga kasra bilan bog'lanadi.",
- 'u6a': "Nasb bitta, lekin alomati so'zga qarab o'zgaradi. Birlikda — fatha. Ikkilikda — \"ya\" harfi.",
+ 'u5': "Lekin bu uy egasining ham o'z kattasi bor — ismi. /ˈkaːna/ xabariga buyuradi-yu, ismiga o'zi bo'ysunadi. Ismi muannas bo'lsa — masalan, toliba — /ˈkaːna/ ham unga moslashadi: oxiriga muannaslik harfi — \"ta\" qo'shiladi. Bir nozik joyi bor: ikki sukun yo'liqib qolmasligi uchun bu \"ta\" keyingi so'zga kasra bilan bog'lanadi.",
+ 'u6a': "Xabar esa buyruqni har doim bajaradi — faqat har safar o'zicha. Buyruq bitta: nasb. Ijrosi uch xil. Birlikda — fatha. Ikkilikda — \"ya\" harfi.",
  'u6b': "Muannas ko'plikda esa fatha o'rniga kasra keladi.",
  'u7a': "Muzorisi-chi? U \"bo'ladi\" deb tarjima qilinadi va xuddi shunday ishlaydi.",
  'u7b': "\"Yo'q\" demoqchi bo'lsak-chi? Juda oson: mozi oldidan /maː/, muzori oldidan /laː/ qo'yamiz.",
- 'u8a': "Xulosa qilamiz. /ˈkaːna/ — arab tilining edisi. Gap boshiga keladi; ismi — raf, xabari — nasb. Endi o'zingizni sinab ko'ring. \"Dars oson edi\" demoqchimiz: bo'sh joyga qaysi biri mos?",
+ 'u8a': "Xulosa qilamiz. /ˈkaːna/ — arab tilining edisi. Xabariga buyuradi: u nasb bo'ladi. Ismiga esa o'zi ergashadi: ismi rafda qoladi, muannas bo'lsa, /ˈkaːna/ \"ta\" oladi. Endi o'zingizni sinab ko'ring. \"Dars oson edi\" demoqchimiz: bo'sh joyga qaysi biri mos?",
  'u8b': "To'g'ri — fathalisi: u /ˈkaːnaniŋ/ xabari, demak nasbda. Keyingi videoda — /ˈkaːna/ va zamirlar.",
  'a1': "اَلطَّالِبُ كَبِيرُنْ.", 'a2': "كَانَ الطَّالِبُ كَبِيرَنْ.", 'a5': "كَانَتِ الطَّالِبَةُ كَبِيرَتَنْ.",
  'a6b': "كَانَ الطَّالِبَانِ كَبِيرَيْنِ.", 'a6c': "كَانَتِ الطَّالِبَاتُ كَبِيرَاتِنْ.", 'a7a': "يَكُونُ الطَّالِبُ كَبِيرَنْ.",

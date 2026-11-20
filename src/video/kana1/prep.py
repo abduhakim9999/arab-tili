@@ -18,10 +18,13 @@ HOP = int(SR * 0.01)
 # 4-nusxa: «bo'ysunish» zanjiri — kaana xabariga buyuradi (nasb), o'zi esa ismiga bo'ysunadi (muannas «ta»).
 TXT = {
  'u0': "O'zbekchada \"havo chiroyli\" deymiz. Kechagi kun haqida gapirsak-chi? Oxiriga bitta so'z qo'shamiz: \"havo chiroyli edi\". Arab tilida ham shunday so'z bor. Faqat u gapning oxiriga emas, boshiga keladi. Va kelib jim turmaydi — gapning oxirini o'zgartirib ketadi. Bu so'z — /ˈkaːna/.",
+ 't1': "Avval u bilan tanishib olaylik. Kitoblarda uni uch so'z bilan tanitishadi: noqis moziy fe'li.",
+ 't2': "Fe'l — chunki fe'ldek tuslanadi: muzoriysi ham, muannasi ham bor. Moziy — chunki o'tgan zamonni bildiradi: \"edi\".",
+ 't3': "Noqis esa \"to'liqsiz\" degani. Oddiy fe'lga bitta so'z yetadi: \"tolib o'tirdi\" — gap tugadi. /ˈkaːna/ bilan esa \"tolib edi\" deb to'xtasak, gap chala qoladi: nima edi? Unga ikkinchi so'z — xabar ham kerak.",
  'u1a': "Keling, buni bitta gapda ko'ramiz.",
  'u1b': "\"Tolib kattadir\". Bu gapda ikki bo'lak bor: mubtado va xabar. Ikkalasi ham raf holatida — oxirlarida zamma.",
  'u2': "Endi shu gapga /ˈkaːna/ mehmondek kirib keladi — lekin o'zini uy egasidek tutadi. Avval mubtadoga qaraydi, unga tegmaydi: mubtado raf holida qolaveradi, faqat yangi nom oladi — endi u /ˈkaːnaniŋ/ ismi. Keyin xabarga yuzlanadi va buyuradi: \"Oxiringni o'zgartir!\" Xabar bo'ysunadi: zammasini qo'yib, fatha oladi. Endi u /ˈkaːnaniŋ/ xabari, holati — nasb.",
- 'u3': "\"Tolib katta edi\". Demak, qoida oddiy: /ˈkaːnaniŋ/ ismi — raf, xabari — nasb. /ˈkaːna/ — noqis, ya'ni \"to'liqsiz\" fe'l. Nega? Boshqa fe'llar fo'il bilan ishlaydi, /ˈkaːna/ esa — yo'q: unga ism ham, xabar ham kerak.",
+ 'u3': "\"Tolib katta edi\". Demak, qoida oddiy: /ˈkaːna/ kelsa, ismi — raf, xabari — nasb.",
  'u4': "Tarjimasi ikki xil: voqea qadimda bo'lgan bo'lsa — \"edi\", yaqinda bo'lgan bo'lsa — \"bo'ldi\".",
  'u5': "Lekin bu uy egasining ham o'z kattasi bor — ismi. /ˈkaːna/ xabariga buyuradi-yu, ismiga o'zi bo'ysunadi. Ismi muannas bo'lsa — masalan, toliba — /ˈkaːna/ ham unga moslashadi: oxiriga muannaslik harfi — \"ta\" qo'shiladi. Bir nozik joyi bor: ikki sukun yo'liqib qolmasligi uchun bu \"ta\" keyingi so'zga kasra bilan bog'lanadi.",
  'u6a': "Xabar esa buyruqni har doim bajaradi — faqat har safar o'zicha. Buyruq bitta: nasb. Ijrosi uch xil. Birlikda — fatha. Ikkilikda — \"ya\" harfi.",
@@ -36,6 +39,7 @@ TXT = {
 }
 SEQ = [
  ('S0', [('lead', 0.6), 'u0', ('gap', 1.5)]),
+ ('ST', [('lead', 0.5), 't1', ('gap', 0.35), 't2', ('gap', 0.4), 't3', ('gap', 0.8)]),   # tanishuv: noqis moziy fe'li
  ('S1', [('lead', 0.3), 'u1a', ('gap', 0.3), 'a1', ('gap', 0.35), 'u1b', ('gap', 0.45)]),
  ('S2', [('lead', 0.0), 'u2', ('gap', 0.35), 'a2', ('gap', 0.45)]),
  ('S3', [('lead', 0.0), 'u3', ('gap', 0.45), 'u4', ('gap', 0.8)]),

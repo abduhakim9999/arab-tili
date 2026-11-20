@@ -55,6 +55,11 @@ except Exception: pass
 TARGET = 10 ** (-21 / 20)   # faol qismning RMS darajasi
 
 
+# 1-qism (asosiy video, Shorts uchun 3:00 gacha): S6 «Насб аломатлари» va S7 «Музорий ва инкор» siz;
+# KANA_QISM=hammasi — eski to'liq ketma-ketlik (2-qism shu ikki sahnadan alohida video bo'ladi).
+if os.environ.get('KANA_QISM', '1') == '1': SEQ = [x for x in SEQ if x[0] not in ('S6', 'S7')]
+
+
 def load(n):
     raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', f'{D}/ovoz/{n}.mp3', '-ac', '1', '-ar', str(SR), '-f', 'f32le', '-'],
                          capture_output=True, check=True).stdout

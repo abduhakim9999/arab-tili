@@ -19,7 +19,7 @@ ENC = ['-vf', 'scale=in_color_matrix=bt601:in_range=full:out_color_matrix=bt709:
 
 def stages():
     sc = {s['id']: s for s in TL['scenes']}
-    b = [sc['S0']['s'], sc['S1']['s'], sc['S3']['s'], sc['S5']['s'], sc['S6']['s'], sc['S7']['s'], sc['S8']['s'], TL['dur']]
+    b = [sc[k]['s'] for k in ('S0', 'S1', 'S3', 'S5', 'S6', 'S7', 'S8') if k in sc] + [TL['dur']]
     f = [round(x * FPS) for x in b]
     return [(f[i], f[i + 1]) for i in range(len(f) - 1)]
 

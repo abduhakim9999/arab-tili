@@ -132,6 +132,15 @@ i{font-style:normal}
 .cll{font-size:34px;font-weight:600;color:#F3E6EE;line-height:1.15;text-align:left}
 .cll small{display:block;font-size:24px;color:var(--mut)}
 .rw2>.lbl{flex:0 0 250px}.rw2>.mid{flex:0 0 240px;text-align:center}.rw2>.ar{flex:0 0 380px;text-align:right}
+#tg{position:absolute;top:716px;left:64px;right:64px;display:grid;direction:rtl;grid-template-columns:62px repeat(5,1fr);grid-template-rows:52px 44px repeat(3,176px);gap:8px}
+#tg>div{direction:ltr;display:flex;flex-direction:column;align-items:center;justify-content:center;box-sizing:border-box}
+.th{font-size:30px;font-weight:700;color:var(--mut);border-radius:14px;background:rgba(255,255,255,.07)}
+.th2{font-size:26px;font-weight:600;color:var(--mut)}
+.tlb{font-size:38px;font-weight:800;color:var(--mut)}
+.tc{border-radius:22px;background:rgba(255,255,255,.055);border:2px solid rgba(255,255,255,.12)}
+.tc .ar{font-size:84px;line-height:1.4;display:inline-block}
+.tcl{font-size:26px;font-weight:600;color:#E9D9E3;line-height:1.2}
+#bgh{width:.5em;height:.8em;padding:0;margin:0 .1em 0 0;border-radius:.16em;vertical-align:-.1em}
 #cn{position:absolute;left:0;top:0;overflow:visible}
 #sub{position:absolute;top:1584px;left:50px;right:50px;font-size:40px;font-weight:600;line-height:1.35;color:#fff;text-shadow:0 2px 10px #000,0 0 3px #000}
 .sb{position:absolute;left:0;right:0;top:0;text-align:center;opacity:0;visibility:hidden}
@@ -191,31 +200,25 @@ i{font-style:normal}
   </div>
 </section>
 
-<!-- SC: har mehmonning o'z shakli — katta shakl almashadi, pastda jadval to'ladi; keyin to'liq jadval (13 shakl) -->
+<!-- SC: har zamirning o'z shakli — tepada katta shakl almashadi, pastda kitobdagi jadval (48-dars; ustunlar o'ngdan: III, II, I shaxs; qatorlar: М, Т, Ж) to'ladi -->
 <section class="sc" id="SC">
-  <div class="pl" id="bpw" style="left:540px;top:366px"><span class="chip raf" style="font-size:44px;padding:8px 34px;display:inline-flex;align-items:center;gap:.3em"><span class="mut" style="font-weight:600">меҳмон:</span><span class="ul" id="bp" style="height:1.4em"><span class="v">мен</span><span class="v">сен</span><span class="v">биз</span><span class="v">сиз</span><span class="v">улар</span></span></span></div>
-  <div class="sent" id="bfs" style="top:430px;font-size:170px"><span class="sl" id="BF" style="margin-left:0">
-    <span class="v gold">كُنْ<i class="raf">تُ</i></span><span class="v gold">كُنْ<i class="raf">تَ</i></span><span class="v gold">كُ<i class="raf">نَّا</i></span><span class="v gold">كُنْ<i class="raf">تُمْ</i></span><span class="v gold">كَانُ<i class="raf">و</i>ا</span></span></div>
-  <div class="cd h" id="tb" style="top:750px;left:60px;right:60px;height:754px;padding-top:0">
-    <div class="rw2 h" id="tr0" style="border-top:0"><span class="lbl">мен</span><span class="mid"><span class="chip raf"><span class="ar">ـتُ</span></span></span><span class="ar gold"><span class="h" id="tw0" style="display:inline-block">كُنْ<i class="raf">تُ</i></span></span></div>
-    <div class="rw2 h" id="tr1"><span class="lbl">сен</span><span class="mid"><span class="chip raf"><span class="ar">ـتَ</span></span></span><span class="ar gold"><span class="h" id="tw1" style="display:inline-block">كُنْ<i class="raf">تَ</i></span></span></div>
-    <div class="rw2 h" id="tr2"><span class="lbl">биз</span><span class="mid"><span class="chip raf"><span class="ar">ـنَا</span></span></span><span class="ar gold"><span class="h" id="tw2" style="display:inline-block">كُ<i class="raf">نَّا</i></span></span></div>
-    <div class="rw2 h" id="tr3"><span class="lbl">сиз</span><span class="mid"><span class="chip raf"><span class="ar">ـتُمْ</span></span></span><span class="ar gold"><span class="h" id="tw3" style="display:inline-block">كُنْ<i class="raf">تُمْ</i></span></span></div>
-    <div class="rw2 h" id="tr4"><span class="lbl">улар</span><span class="mid"><span class="chip raf"><span class="ar">ـُوا</span></span></span><span class="ar gold"><span class="h" id="tw4" style="display:inline-block">كَانُ<i class="raf">و</i>ا</span></span></div>
-  </div>
-  <div id="ft"></div>
-  <div class="pl h" id="sp1" style="left:540px;top:1392px"><span class="chip pink" style="font-size:44px;padding:12px 36px"><span class="ar gold">كَانَ</span> — меҳмон кўринмайди</span></div>
-  <div class="pl h" id="sp2" style="left:540px;top:1392px"><span class="chip gold" style="font-size:44px;padding:12px 36px">бу сир — кейинги видеода</span></div>
+  <div class="pl" id="bpw" style="left:540px;top:352px"><span class="chip raf" style="font-size:42px;padding:8px 32px;display:inline-flex;align-items:center;gap:.3em"><span class="mut" style="font-weight:600">замир:</span><span class="ul" id="bp" style="height:1.4em"><span class="v">мен</span><span class="v">сен</span><span class="v">биз</span><span class="v">сиз</span><span class="v">улар</span><span class="v">у</span></span></span></div>
+  <div class="sent" id="bfs" style="top:410px;font-size:150px"><span class="sl" id="BF" style="margin-left:0">
+    <span class="v gold">كُنْ<i class="raf">تُ</i></span><span class="v gold">كُنْ<i class="raf">تَ</i></span><span class="v gold">كُ<i class="raf">نَّا</i></span><span class="v gold">كُنْ<i class="raf">تُمْ</i></span><span class="v gold">كَانُ<i class="raf">و</i>ا</span><span class="v gold">كَانَ<i class="gh" id="bgh"></i></span></span></div>
+  <div id="tg"></div>
+  <div class="pl h" id="sp1" style="left:540px;top:1404px"><span class="chip pink" style="font-size:42px;padding:12px 34px">III шахс, муфрад — замир кўринмайди</span></div>
+  <div class="pl h" id="sp2" style="left:540px;top:1404px"><span class="chip gold" style="font-size:42px;padding:12px 34px">бу сир — кейинги видеода</span></div>
 </section>
 
 <!-- SF: xulosa, savol, keyingi video -->
 <section class="sc" id="SF">
   <div id="fsum" style="position:absolute;inset:0">
-    <div class="card h" id="fs2" style="top:385px;left:60px;right:60px;height:300px;padding:34px 30px;border-color:rgba(201,182,255,.45);background:rgba(201,182,255,.08)">
+    <div class="card h" id="fs2" style="top:385px;left:60px;right:60px;height:350px;padding:34px 30px;border-color:rgba(201,182,255,.45);background:rgba(201,182,255,.08)">
       <div class="ar raf" style="text-align:center;font-size:92px;line-height:1.25;direction:rtl">تُ · تَ · نَا · و</div>
-      <div id="fs2t" style="text-align:center;font-size:48px;font-weight:700;margin-top:18px"><span class="raf">уланган замир</span> — <span class="ar gold" style="font-size:1.3em;line-height:1">كَانَ</span> нинг исми</div>
+      <div id="fs2t" style="text-align:center;font-size:48px;font-weight:700;margin-top:18px"><span class="raf">муттасил замир</span> — <span class="ar gold" style="font-size:1.3em;line-height:1">كَانَ</span> нинг исми</div>
+      <div class="mut" style="text-align:center;font-size:32px;font-weight:600;margin-top:6px">муттасил — феълга уланган</div>
     </div>
-    <div class="card h" id="fs3" style="top:725px;left:60px;right:60px;height:300px;padding:34px 30px;border-color:rgba(116,232,174,.45);background:rgba(116,232,174,.07)">
+    <div class="card h" id="fs3" style="top:775px;left:60px;right:60px;height:300px;padding:34px 30px;border-color:rgba(116,232,174,.45);background:rgba(116,232,174,.07)">
       <div class="ar" style="text-align:center;font-size:100px;line-height:1.15;direction:rtl">طَالِ<i class="nasb">بًا</i></div>
       <div id="fs3t" style="text-align:center;font-size:48px;font-weight:700;margin-top:18px"><span class="nasb">хабар</span> — одатдагидек насбда</div>
     </div>
@@ -239,13 +242,13 @@ i{font-style:normal}
   </div>
   <div id="fe" style="position:absolute;inset:0">
     <div style="position:absolute;top:395px;left:0;right:0;text-align:center"><img src="../kana1/g9big.jpg" style="width:340px;height:510px;object-fit:cover;border-radius:36px;border:4px solid rgba(255,255,255,.28)"></div>
-    <div id="fe1" style="position:absolute;top:965px;left:0;right:0;text-align:center;font-size:76px;font-weight:800">Яширин замир</div>
-    <div class="mut h" id="fe2" style="position:absolute;top:1100px;left:60px;right:60px;text-align:center;font-size:44px;font-weight:600">Меҳмон кўринмаса — у қаерда?</div>
+    <div id="fe1" style="position:absolute;top:965px;left:0;right:0;text-align:center;font-size:76px;font-weight:800">Яширин замир<div class="mut" style="font-size:36px;font-weight:600;margin-top:4px">мустатир замир</div></div>
+    <div class="mut h" id="fe2" style="position:absolute;top:1140px;left:60px;right:60px;text-align:center;font-size:44px;font-weight:600">Замир кўринмаса — у қаерда?</div>
     <div style="position:absolute;top:1300px;left:0;right:0;text-align:center"><span class="ar gold" style="font-size:76px">نُورُ الطَّالِبِ</span><div class="mut" style="font-size:32px;font-weight:600;margin-top:6px">Грамматика · 9-боб</div></div>
   </div>
 </section>
 </div><!-- /cam -->
-<div id="ttl"><span class="h" id="t1">Меҳмон ким?</span><span class="h" id="t2">Ҳар меҳмоннинг ўз шакли</span><span class="h" id="t3">Тўлиқ жадвал</span><span class="h" id="t6">Хулоса</span><span class="h" id="t7">Савол</span><span class="h" id="t8">Кейинги видео</span></div>
+<div id="ttl"><span class="h" id="t1">Меҳмон ким?</span><span class="h" id="t2">Ҳар замирнинг ўз шакли</span><span class="h" id="t3">Тўлиқ жадвал</span><span class="h" id="t6">Хулоса</span><span class="h" id="t7">Савол</span><span class="h" id="t8">Кейинги видео</span></div>
 <div id="seg"></div>
 <div id="hl" class="h"><span>Грамматика · 9-боб</span><span><span class="ar">كَانَ</span> ва замирлар</span></div>
 <div id="wm" class="h"><span class="chip pink" style="font-size:30px">ҚОРАЛАМА · овоз вақтинча (робот)</span></div>
@@ -291,14 +294,11 @@ function swap(id, i, t, d = .45) { const s = SL[id]; if (s.cur >= 0) to(s.vs[s.c
 function open(id, i, t, from, d = .7, ease = 'back.out(1.5)') { const s = SL[id]; to(s.el, { width: s.w[i], marginLeft: s.gap, ease: 'power3.out' }, t, d * .8); M.fromTo(s.vs[i], Object.assign({ autoAlpha: 0, x: 0, y: 0, scale: 1 }, from), { autoAlpha: 1, x: 0, y: 0, scale: 1, duration: d, ease, immediateRender: false }, t); s.cur = i; }
 function shut(id, t, d = .4) { const s = SL[id]; to(s.vs[s.cur], { autoAlpha: 0 }, t, d * .6); to(s.el, { width: 0, marginLeft: 0, ease: 'power2.inOut' }, t, d); s.cur = -1; }
 
-/* to'liq jadval (kitobdagi 13 shakl): [shakl, kim, jins] */
-const FT = [['كُنْ<i class="raf">تُ</i>', 'мен', ''], ['كُ<i class="raf">نَّا</i>', 'биз', ''],
-  ['كُنْ<i class="raf">تَ</i>', 'сен', 'эр'], ['كُنْ<i class="raf">تِ</i>', 'сен', 'аёл'],
-  ['كُنْ<i class="raf">تُمَا</i>', 'иккингиз', ''],
-  ['كُنْ<i class="raf">تُمْ</i>', 'сизлар', 'эр'], ['كُنْ<i class="raf">تُنَّ</i>', 'сизлар', 'аёл'],
-  ['كَانَ', 'у', 'эр'], ['كَانَ<i class="pink">تْ</i>', 'у', 'аёл'],
-  ['كَانَ<i class="raf">ا</i>', 'иккиси', 'эр'], ['كَانَ<i class="pink">تَ</i><i class="raf">ا</i>', 'иккиси', 'аёл'],
-  ['كَانُ<i class="raf">و</i>ا', 'улар', 'эр'], ['كُ<i class="raf">نَّ</i>', 'улар', 'аёл']];
+/* kitobdagi jadval (48-dars): [shakl, kim, ustun, qator, ustunlar soni, qatorlar soni]; ustun 2..6 = III мз, III мн, II мз, II мн, I (o'ngdan chapga); qator 3..5 = М, Т, Ж */
+const FT = [
+  ['كَانَ', 'у', 2, 3], ['كَانَ<i class="pink">تْ</i>', 'у', 3, 3], ['كُنْ<i class="raf">تَ</i>', 'сен', 4, 3], ['كُنْ<i class="raf">تِ</i>', 'сен', 5, 3], ['كُنْ<i class="raf">تُ</i>', 'мен', 6, 3],
+  ['كَانَ<i class="raf">ا</i>', 'иккиси', 2, 4], ['كَانَ<i class="pink">تَ</i><i class="raf">ا</i>', 'иккиси', 3, 4], ['كُنْ<i class="raf">تُمَا</i>', 'иккингиз', 4, 4, 2], ['كُ<i class="raf">نَّا</i>', 'биз', 6, 4, 1, 2],
+  ['كَانُ<i class="raf">و</i>ا', 'улар', 2, 5], ['كُ<i class="raf">نَّ</i>', 'улар', 3, 5], ['كُنْ<i class="raf">تُمْ</i>', 'сизлар', 4, 5], ['كُنْ<i class="raf">تُنَّ</i>', 'сизлар', 5, 5]];
 
 function build() {
   const D = TL.dur; M.to({}, { duration: D }, 0);
@@ -311,9 +311,12 @@ function build() {
   /* tepadagi bo'laklar */
   const S = id => sc(id).s, B = TL.scenes.map(s => s.s).concat([D]);
   TL.scenes.forEach((_, i) => { const b = document.createElement('b'), f = document.createElement('i'); b.appendChild(f); $('#seg').appendChild(b); M.to(f, { scaleX: 1, duration: B[i + 1] - B[i], ease: 'none' }, B[i]); });
-  /* to'liq jadval kataklari */
-  FT.forEach(([w, k, j], i) => { const d = document.createElement('div'); d.className = 'cl h' + (i === 4 ? ' w2' : '') + ([2, 3, 7, 8].includes(i) ? ' g' : ''); if (i === 7) d.id = 'clk';
-    d.innerHTML = `<span class="ar gold"${i === 7 ? ' id="clkw"' : ''}>${w}</span><span class="cll">${k}${j ? `<small>${j}</small>` : ''}</span>`; $('#ft').appendChild(d); });
+  /* jadval: sarlavhalar va kataklar (shakllar yashirin turadi) */
+  const tg = $('#tg'), mk = (cls, html, col, row, cs = 1, rs = 1, id) => { const d = document.createElement('div'); d.className = cls; if (id) d.id = id; d.style.gridColumn = `${col} / span ${cs}`; d.style.gridRow = `${row} / span ${rs}`; d.innerHTML = html; tg.appendChild(d); };
+  mk('th', 'III шахс', 2, 1, 2, 1, 'h3'); mk('th', 'II шахс', 4, 1, 2); mk('th', 'I шахс', 6, 1);
+  ['мз', 'мн', 'мз', 'мн', 'мн-мз'].forEach((x, i) => mk('th2', x, i + 2, 2));
+  ['М', 'Т', 'Ж'].forEach((x, i) => mk('tlb', x, 1, i + 3, 1, 1, 'lb' + i));
+  FT.forEach(([w, k, col, row, cs, rs], i) => mk('tc', `<span class="ar gold h" id="tw${i}">${w}</span><span class="tcl h" id="tl${i}">${k}</span>`, col, row, cs || 1, rs || 1, 'tc' + i));
   /* qoralama: subtitr va belgi */
   if (TL.draft && TL.draft.length) { gsap.set('#wm', { autoAlpha: 1 });
     TL.subs.forEach(([s, e, x]) => { const d = document.createElement('div'); d.className = 'sb'; d.textContent = x; $('#sub').appendChild(d); M.set(d, { autoAlpha: 1 }, s); M.set(d, { autoAlpha: 0 }, e - .02); }); }
@@ -335,11 +338,11 @@ function build() {
   const P = $('#cnp'); P.setAttribute('d', `M${xA} ${yA} C${xA} ${ym + 20} ${xB} ${ym - 40} ${xB} ${yE}`);
   const CL = P.getTotalLength(), pm = P.getPointAtLength(CL * .22); gsap.set(P, { strokeDasharray: CL, strokeDashoffset: CL, autoAlpha: 0 });
   gsap.set('#cnl', { left: pm.x, top: 816 });
-  /* jadval: katta shakldan qatorga uchish */
-  const BCY = 430 + 170 * 1.75 / 2, fl = [0, 1, 2, 3, 4].map(k => { const c = ctr(R('#tw' + k)); return { x: 540 - c.x, y: BCY - c.y }; });
+  /* jadval: katta shakldan katakka uchish */
+  const BCY = 410 + 150 * 1.75 / 2, FL = {}; [9, 2, 11, 4, 8].forEach(i => { const c = ctr(R('#tw' + i)); FL[i] = { x: 540 - c.x, y: BCY - c.y }; });
   /* savol */
   const rO = R('#fo1i'), rBl = R('#fbl');
-  window.DBG = { hk: HK.w, ht: HT.w, hx: HX.w, W, SA, sB, xA, yA, xB, yE, bf: SL['#BF'].w, ft: R('#ft').bottom };
+  window.DBG = { hk: HK.w, ht: HT.w, hx: HX.w, W, SA, sB, xA, yA, xB, yE, bf: SL['#BF'].w, tw: FT.map((_, i) => Math.round(R('#tw' + i).width)), tc: Math.round(R('#tc0').width), tgb: R('#tg').bottom };
 
   gsap.set('#hs', { scale: SA }); gsap.set(['#SC', '#SF'], { x: 1150 }); gsap.set(['#fq', '#fe'], { autoAlpha: 0 }); gsap.set('#hl', { autoAlpha: 1 });
   let u, a, c, t;
@@ -392,21 +395,27 @@ function build() {
   /* Xabar esa odatdagidek nasbda */
   pulse(HX.vs[0], c[7], 1.06, .6); pop('#l_xb', c[8] + .15, .5); glow('#hxn', c[8] + .2, NASB, 1.3);
 
-  /* ================= S2: har mehmonning o'z shakli ================= */
+  /* ================= S2: har zamirning o'z shakli ================= */
   u = C.u2; c = u.c; t = S('S2') - .3; title('#t2', t + .1); pushX(['#SB', '#SH'], '#SC', t);
   const sw = (k, tt) => { swap('#BF', k, tt, .4); swap('#bp', k, tt, .4); sfx('tick', tt + .1, 1.1); };
-  /* Mehmon almashsa, oxiri ham almashadi — tez namoyish */
-  sw(1, c[0] + 1.0); sw(2, c[0] + 1.75); sw(0, c[1] - .45);
-  rise('#tb', c[1] - .5, .5, 70);
-  for (let k = 0; k < 5; k++) { const tk = c[k + 1]; if (k) sw(k, tk - .2);
-    rise('#tr' + k, tk + .2, .35, 20);
-    M.fromTo('#tw' + k, { autoAlpha: 0, x: fl[k].x, y: fl[k].y, scale: 170 / 92 }, { autoAlpha: 1, x: 0, y: 0, scale: 1, duration: .6, ease: 'power3.inOut', immediateRender: false }, tk + .32); sfx('pop', tk + .85, .7); }
+  /* Zamir almashsa, oxiri ham almashadi — tez namoyish */
+  sw(1, c[0] + 1.0); sw(2, c[0] + 1.75);
+  /* jadval bo'yicha: ular, sen, siz, men, biz — [katta shakl, jadval katagi] */
+  [[4, 9], [1, 2], [3, 11], [0, 4], [2, 8]].forEach(([b, i], k) => { const tk = c[k + 1]; sw(b, tk - (k ? .2 : .45));
+    M.fromTo('#tw' + i, { autoAlpha: 0, x: FL[i].x, y: FL[i].y, scale: 150 / 84 }, { autoAlpha: 1, x: 0, y: 0, scale: 1, duration: .6, ease: 'power3.inOut', immediateRender: false }, tk + .32); sfx('pop', tk + .85, .7);
+    rise('#tl' + i, tk + .8, .3, 10); M.to('#tc' + i, { borderColor: `rgba(${GOLD},.75)`, duration: .35, ease: 'sine.inOut', yoyo: true, repeat: 1 }, tk + .8); });
   /* Qolgan shakllar ham shu qolipda — to'liq jadval */
-  t = c[6] - .1; title('#t3', t + .1); to(['#bfs', '#bpw', '#tb'], { autoAlpha: 0, y: -50, ease: 'power2.in' }, t, .35); sfx('whoosh2', t);
-  M.fromTo('#ft .cl', { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: .4, stagger: .07, immediateRender: false }, t + .35);
-  /* «U» deganda esa mehmon ko'rinmaydi: kaana */
-  t = c[8] + .3; to('#ft .cl:not(#clk)', { autoAlpha: .25 }, t, .5); to('#clk', { borderColor: `rgba(${GOLD},.9)`, backgroundColor: `rgba(${GOLD},.14)`, scale: 1.06 }, t, .5); sfx('shimmer', t);
-  pop('#sp1', c[8] + 1.2, .5); glow('#clkw', c[9], GOLD, 1.4);
+  t = c[6] - .1; title('#t3', t + .1); to(['#bfs', '#bpw'], { autoAlpha: 0, ease: 'power2.in' }, t, .3);
+  const rest = [0, 1, 3, 5, 6, 7, 10, 12];
+  M.fromTo(rest.map(i => '#tw' + i), { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: .4, stagger: .09, immediateRender: false }, t + .3);
+  M.fromTo(rest.map(i => '#tl' + i), { autoAlpha: 0 }, { autoAlpha: 1, duration: .4, stagger: .09, immediateRender: false }, t + .45); sfx('shimmer', t + .3);
+  /* «U» deganda, ya'ni uchinchi shaxs birlikda, zamir ko'rinmaydi: kaana */
+  t = c[8] + .2; swap('#BF', 5, t - .3, .2); swap('#bp', 5, t - .3, .2); to(['#bfs', '#bpw'], { autoAlpha: 1 }, t, .4); sfx('pop', t, .8);
+  to(FT.map((_, i) => i).filter(i => i).flatMap(i => ['#tw' + i, '#tl' + i]), { autoAlpha: .28 }, t, .5);
+  to('#tc0', { borderColor: `rgba(${GOLD},.9)`, backgroundColor: `rgba(${GOLD},.14)` }, t, .5);
+  to(['#h3', '#lb0'], { color: `rgb(${GOLD})` }, t + 1.2, .4); pulse('#h3', t + 1.2, 1.08, .6); pulse('#lb0', t + 1.2, 1.25, .6); sfx('tick', t + 1.2, 1.1);
+  pop('#sp1', c[9] - .8, .5); pulse('#bgh', c[9] - .7, 1.3, .7);
+  glow(SL['#BF'].vs[5], c[9], GOLD, 1.4); glow('#tw0', c[9], GOLD, 1.4);
   hide('#sp1', c[10] - .05, .25); pop('#sp2', c[10] + .25, .5);
 
   /* ================= S3: xulosa, savol, keyingi video ================= */

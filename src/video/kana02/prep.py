@@ -20,9 +20,9 @@ IPA = {'kaananing': '/ˈkaːnaniŋ/', 'kaanaga': '/ˈkaːnaɡa/', 'kaanada': '/�
 TXT = {
  'u0': "Hamma o'z o'tmishini «edim» bilan eslaydi: |«men tolib edim». |O'tgan safar gapga bir mehmon kirgan edi: |kaana. |Bugun uning o'ziga mehmon keladi — |zamir. |Masalan, «men»: |arabchada u alohida turmaydi, |fe'lning etagiga yopishadi.",
  'u1': "Bu mehmon sizga tanish. |Oddiy fe'lda u fo'il bo'ladi: |katabtu — |«men yozdim». |Kaanada esa |xuddi shu zamir |uning ismi bo'ladi. |Xabar esa |odatdagidek nasbda.",
- 'u2': "Mehmon almashsa, kaananing oxiri ham almashadi. |«Men» — kuntu. |«Sen» — kunta. |«Biz» — kunnaa. |«Siz» — kuntum. |«Ular» — kaanuu. |Qolgan shakllar ham shu qolipda — |to'liq jadval ekranda. |«U» deganda esa mehmon ko'rinmaydi: |kaana. |Buni keyingi videoda ko'ramiz.",
+ 'u2': "Zamir almashsa, kaananing oxiri ham almashadi. |«Ular» — kaanuu. |«Sen» — kunta. |«Siz» — kuntum. |«Men» — kuntu. |«Biz» — kunnaa. |Qolgan shakllar ham shu qolipda — |to'liq jadval ekranda. |«U» deganda, ya'ni uchinchi shaxs birlikda, zamir ko'rinmaydi: |kaana. |Buni keyingi videoda ko'ramiz.",
  'u3': "Xulosa: |kaanaga ulangan zamir — uning ismi, |xabar esa nasbda. |Endi sinab ko'ring: |«Biz xursand edik» — |bo'sh joyga qaysi biri mos?",
- 'u3b': "To'g'ri — |kunnaa: |«biz» ulangan. |Keyingi videoda: |mehmon ko'rinmasa — |u qayerda?",
+ 'u3b': "To'g'ri — |kunnaa: |«biz» ulangan. |Keyingi videoda: |zamir ko'rinmasa — |u qayerda?",
  'a0': "كُنْتُ طَالِبَنْ.", 'a6': "كُنَّا فَرِحِينَ.",
 }
 SEQ = [

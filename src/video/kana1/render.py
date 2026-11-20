@@ -35,12 +35,12 @@ def page_open(pw):
 
 def test(ts):
     from playwright.sync_api import sync_playwright
-    os.makedirs(f'{D}/test', exist_ok=True)
+    os.makedirs(f'{D}/test5', exist_ok=True)
     with sync_playwright() as pw:
         br, pg = page_open(pw)
         for t in ts:
             pg.evaluate(f'seek({t})')
-            pg.screenshot(path=f'{D}/test/t{t:07.2f}.jpg', type='jpeg', quality=92)
+            pg.screenshot(path=f'{D}/test5/t{t:07.2f}.jpg', type='jpeg', quality=92)
             print('test', t)
         br.close()
 
@@ -48,8 +48,8 @@ def test(ts):
 def stage(n):
     from playwright.sync_api import sync_playwright
     a, b = stages()[n]
-    os.makedirs(f'{D}/st', exist_ok=True)
-    tmp, out = f'{D}/st/{n}.tmp.mp4', f'{D}/st/{n}.mp4'
+    os.makedirs(f'{D}/st3', exist_ok=True)
+    tmp, out = f'{D}/st3/{n}.tmp.mp4', f'{D}/st3/{n}.mp4'
     ff = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'image2pipe', '-framerate', str(FPS), '-c:v', 'mjpeg', '-i', '-'] + ENC + [tmp],
                           stdin=subprocess.PIPE)
     t0 = time.time()
@@ -67,9 +67,9 @@ def stage(n):
 
 def join():
     n = len(stages())
-    with open(f'{D}/st/list.txt', 'w') as f:
-        for i in range(n): f.write(f"file '{D}/st/{i}.mp4'\n")
-    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', f'{D}/st/list.txt', '-c', 'copy', f'{D}/st/video.mp4'], check=True)
+    with open(f'{D}/st3/list.txt', 'w') as f:
+        for i in range(n): f.write(f"file '{D}/st3/{i}.mp4'\n")
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', f'{D}/st3/list.txt', '-c', 'copy', f'{D}/st3/video.mp4'], check=True)
     # tovush effektlari: sahifadagi window.SFX ro'yxati -> mix.wav (prep.mix); keyin balandlik -16 LUFS atrofiga
     from playwright.sync_api import sync_playwright
     import prep
@@ -79,7 +79,7 @@ def join():
     r = subprocess.run(['ffmpeg', '-hide_banner', '-nostats', '-i', f'{D}/mix.wav', '-af', 'ebur128', '-f', 'null', '-'], capture_output=True, text=True).stderr
     I = float([l for l in r.splitlines() if l.strip().startswith('I:')][-1].split()[1])
     g = -16.0 - I
-    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', f'{D}/st/video.mp4', '-i', f'{D}/mix.wav', '-map', '0:v', '-map', '1:a', '-c:v', 'copy',
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', f'{D}/st3/video.mp4', '-i', f'{D}/mix.wav', '-map', '0:v', '-map', '1:a', '-c:v', 'copy',
                     '-af', f'volume={g:.2f}dB,alimiter=limit=0.89:level=false', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-movflags', '+faststart', f'{D}/out.tmp.mp4'], check=True)
     os.replace(f'{D}/out.tmp.mp4', f'{D}/out.mp4')
     print(f'out.mp4 tayyor (ovoz {I:.1f} LUFS -> {I + g:.1f})')

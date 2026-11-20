@@ -12,6 +12,7 @@ HOP = int(SR * 0.01)
 
 # Talaffuz ro'yxati (20.11.2026, foydalanuvchi tanlovi — tovush belgisi): ovoz matnida arabcha so'z va harf nomi shunday yoziladi.
 #   كَانَ -> /ˈkaːna/ (qo'shimcha bilan /ˈkaːnaniŋ/, /ˈkaːnaɡa/)   مَا -> /maː/   لَا -> /laː/   ت -> "ta"   ي -> "ya"
+#   Atamalar: «moziy», «muzoriy» (oxirida «y» bilan — «mozi», «muzori» emas; foydalanuvchi, 20.11.2026).
 # Bo'lak boshiga qo'shimchali shakl qo'yilmaydi (qisqa chiqadi). Tekshiruv: tekshir.py.
 # Uslub (20.11.2026, foydalanuvchi): ustozdek sodda, o'xshatish va kundalik misol bilan; har gapda bitta fikr.
 # 4-nusxa: «bo'ysunish» zanjiri — kaana xabariga buyuradi (nasb), o'zi esa ismiga bo'ysunadi (muannas «ta»).
@@ -25,8 +26,8 @@ TXT = {
  'u5': "Lekin bu uy egasining ham o'z kattasi bor — ismi. /ˈkaːna/ xabariga buyuradi-yu, ismiga o'zi bo'ysunadi. Ismi muannas bo'lsa — masalan, toliba — /ˈkaːna/ ham unga moslashadi: oxiriga muannaslik harfi — \"ta\" qo'shiladi. Bir nozik joyi bor: ikki sukun yo'liqib qolmasligi uchun bu \"ta\" keyingi so'zga kasra bilan bog'lanadi.",
  'u6a': "Xabar esa buyruqni har doim bajaradi — faqat har safar o'zicha. Buyruq bitta: nasb. Ijrosi uch xil. Birlikda — fatha. Ikkilikda — \"ya\" harfi.",
  'u6b': "Muannas ko'plikda esa fatha o'rniga kasra keladi.",
- 'u7a': "Muzorisi-chi? U \"bo'ladi\" deb tarjima qilinadi va xuddi shunday ishlaydi.",
- 'u7b': "\"Yo'q\" demoqchi bo'lsak-chi? Juda oson: mozi oldidan /maː/, muzori oldidan /laː/ qo'yamiz.",
+ 'u7a': "Muzoriysi-chi? U \"bo'ladi\" deb tarjima qilinadi va xuddi shunday ishlaydi.",
+ 'u7b': "\"Yo'q\" demoqchi bo'lsak-chi? Juda oson: moziy oldidan /maː/, muzoriy oldidan /laː/ qo'yamiz.",
  'u8a': "Xulosa qilamiz. /ˈkaːna/ — arab tilining edisi. Xabariga buyuradi: u nasb bo'ladi. Ismiga esa o'zi ergashadi: ismi rafda qoladi, muannas bo'lsa, /ˈkaːna/ \"ta\" oladi. Endi o'zingizni sinab ko'ring. \"Dars oson edi\" demoqchimiz: bo'sh joyga qaysi biri mos?",
  'u8b': "To'g'ri — fathalisi: u /ˈkaːnaniŋ/ xabari, demak nasbda. Keyingi videoda — /ˈkaːna/ va zamirlar.",
  'a1': "اَلطَّالِبُ كَبِيرُنْ.", 'a2': "كَانَ الطَّالِبُ كَبِيرَنْ.", 'a5': "كَانَتِ الطَّالِبَةُ كَبِيرَتَنْ.",

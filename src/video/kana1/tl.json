@@ -1,5 +1,5 @@
 {
- "dur": 162.1,
+ "dur": 163.6,
  "fps": 30,
  "clips": {
   "u0": {
@@ -17,220 +17,199 @@
     14.88,
     17.12,
     17.96
-   ]
+   ],
+   "t": "O'zbekchada \"havo chiroyli\" deymiz. Kechagi kun haqida gapirsak-chi? Oxiriga bitta so'z qo'shamiz: \"havo chiroyli edi\". Arab tilida ham shunday so'z bor. Faqat u gapning oxiriga emas, boshiga keladi. Va kelib jim turmaydi \u2014 gapning oxirini o'zgartirib ketadi. Bu so'z \u2014 kaana."
+  },
+  "t1": {
+   "s": 20.6,
+   "e": 26.97,
+   "c": [
+    20.6,
+    22.56,
+    25.18,
+    25.98,
+    26.46
+   ],
+   "t": "Avval u bilan tanishib olaylik. Kitoblarda uni uch so'z bilan tanitishadi: noqis moziy fe'li."
+  },
+  "t2": {
+   "s": 27.32,
+   "e": 35.94,
+   "c": [
+    27.32,
+    29.96,
+    30.98,
+    32.4,
+    35.46
+   ],
+   "t": "Fe'l \u2014 chunki fe'ldek tuslanadi: muzoriysi ham, muannasi ham bor. Moziy \u2014 chunki o'tgan zamonni bildiradi: \"edi\"."
+  },
+  "t3": {
+   "s": 36.34,
+   "e": 50.09,
+   "c": [
+    36.34,
+    37.42,
+    38.82,
+    40.9,
+    42.08,
+    43.02,
+    44.12,
+    45.66,
+    46.92,
+    47.84,
+    49.06
+   ],
+   "t": "Noqis esa \"to'liqsiz\" degani. Oddiy fe'lga bitta so'z yetadi: \"tolib o'tirdi\" \u2014 gap tugadi. kaana bilan esa \"tolib edi\" deb to'xtasak, gap chala qoladi: nima edi? Unga ikkinchi so'z \u2014 xabar ham kerak."
   },
   "u1a": {
-   "s": 20.4,
-   "e": 22.69,
+   "s": 51.19,
+   "e": 53.48,
    "c": [
-    20.4
-   ]
+    51.19
+   ],
+   "t": "Keling, buni bitta gapda ko'ramiz."
   },
   "a1": {
-   "s": 22.99,
-   "e": 24.73,
+   "s": 53.78,
+   "e": 55.52,
    "c": [
-    22.99
+    53.78
    ]
   },
   "u1b": {
-   "s": 25.08,
-   "e": 33.23,
+   "s": 55.87,
+   "e": 64.02,
    "c": [
-    25.08,
-    26.55,
-    28.25,
-    29.17,
-    29.97,
-    31.81
-   ]
+    55.87,
+    57.34,
+    59.04,
+    59.96,
+    60.76,
+    62.6
+   ],
+   "t": "\"Tolib kattadir\". Bu gapda ikki bo'lak bor: mubtado va xabar. Ikkalasi ham raf holatida \u2014 oxirlarida zamma."
   },
   "u2": {
-   "s": 33.68,
-   "e": 50.4,
+   "s": 64.47,
+   "e": 87.67,
    "c": [
-    33.68,
-    34.68,
-    36.56,
-    38.5,
-    39.92,
-    41.48,
-    43.26,
-    43.94,
-    45.04,
-    46.04,
-    47.06,
-    48.92
-   ]
+    64.47,
+    65.39,
+    67.29,
+    69.61,
+    71.21,
+    72.97,
+    74.31,
+    75.87,
+    77.57,
+    78.97,
+    81.23,
+    82.49,
+    83.51,
+    84.57,
+    86.77
+   ],
+   "t": "Endi shu gapga kaana mehmondek kirib keladi \u2014 lekin o'zini uy egasidek tutadi. Avval mubtadoga qaraydi, unga tegmaydi: mubtado raf holida qolaveradi, faqat yangi nom oladi \u2014 endi u kaananing ismi. Keyin xabarga yuzlanadi va buyuradi: \"Oxiringni o'zgartir!\" Xabar bo'ysunadi: zammasini qo'yib, fatha oladi. Endi u kaananing xabari, holati \u2014 nasb."
   },
   "a2": {
-   "s": 50.75,
-   "e": 52.66,
+   "s": 88.02,
+   "e": 89.93,
    "c": [
-    50.75
+    88.02
    ]
   },
   "u3": {
-   "s": 53.11,
-   "e": 69.37,
+   "s": 90.38,
+   "e": 97.5,
    "c": [
-    53.11,
-    54.7,
-    56.36,
-    57.5,
-    58.2,
-    59.02,
-    59.8,
-    61.3,
-    63.02,
-    63.8,
-    65.84,
-    66.7,
-    67.32,
-    68.32
-   ]
+    90.38,
+    91.96,
+    94.76,
+    95.42,
+    96.1,
+    96.92
+   ],
+   "t": "\"Tolib katta edi\". Demak, qoida oddiy: kaana kelsa, ismi \u2014 raf, xabari \u2014 nasb."
   },
   "u4": {
-   "s": 69.82,
-   "e": 76.54,
+   "s": 97.95,
+   "e": 104.67,
    "c": [
-    69.82,
-    71.54,
-    73.56,
-    74.34,
-    75.94
-   ]
+    97.95,
+    99.67,
+    101.69,
+    102.47,
+    104.07
+   ],
+   "t": "Tarjimasi ikki xil: voqea qadimda bo'lgan bo'lsa \u2014 \"edi\", yaqinda bo'lgan bo'lsa \u2014 \"bo'ldi\"."
   },
   "u5": {
-   "s": 77.84,
-   "e": 93.59,
+   "s": 105.97,
+   "e": 126.92,
    "c": [
-    77.84,
-    80.13,
-    80.83,
-    81.71,
-    84.01,
-    85.89,
-    87.19,
-    88.61,
-    90.67,
-    92.27
-   ]
+    105.97,
+    107.17,
+    108.93,
+    109.69,
+    111.35,
+    113.09,
+    114.99,
+    115.77,
+    117.57,
+    119.37,
+    120.59,
+    122.05,
+    124.03,
+    125.67
+   ],
+   "t": "Lekin bu uy egasining ham o'z kattasi bor \u2014 ismi. kaana xabariga buyuradi-yu, ismiga o'zi bo'ysunadi. Ismi muannas bo'lsa \u2014 masalan, toliba \u2014 kaana ham unga moslashadi: oxiriga muannaslik harfi \u2014 \"ta\" qo'shiladi. Bir nozik joyi bor: ikki sukun yo'liqib qolmasligi uchun bu \"ta\" keyingi so'zga kasra bilan bog'lanadi."
   },
   "a5": {
-   "s": 93.94,
-   "e": 96.12,
+   "s": 127.27,
+   "e": 129.45,
    "c": [
-    93.94
-   ]
-  },
-  "u6a": {
-   "s": 97.52,
-   "e": 104.78,
-   "c": [
-    97.52,
-    98.82,
-    101.28,
-    102.08,
-    102.96,
-    103.94
-   ]
-  },
-  "a6b": {
-   "s": 105.08,
-   "e": 107.15,
-   "c": [
-    105.08
-   ]
-  },
-  "u6b": {
-   "s": 107.55,
-   "e": 111.12,
-   "c": [
-    107.55,
-    109.08,
-    110.12
-   ]
-  },
-  "a6c": {
-   "s": 111.42,
-   "e": 113.71,
-   "c": [
-    111.42
-   ]
-  },
-  "u7a": {
-   "s": 115.11,
-   "e": 120.47,
-   "c": [
-    115.11,
-    116.43,
-    116.95,
-    118.95
-   ]
-  },
-  "a7a": {
-   "s": 120.77,
-   "e": 122.85,
-   "c": [
-    120.77
-   ]
-  },
-  "u7b": {
-   "s": 123.35,
-   "e": 129.49,
-   "c": [
-    123.35,
-    125.15,
-    126.11,
-    126.95,
-    127.53,
-    128.61
-   ]
-  },
-  "a7b": {
-   "s": 129.79,
-   "e": 131.71,
-   "c": [
-    129.79
+    127.27
    ]
   },
   "u8a": {
-   "s": 133.11,
-   "e": 147.2,
+   "s": 130.85,
+   "e": 148.71,
    "c": [
-    133.11,
-    134.37,
-    135.25,
+    130.85,
+    132.04,
+    132.92,
+    133.72,
+    134.52,
     136.05,
-    136.93,
-    138.37,
-    139.07,
-    139.83,
-    140.67,
-    141.59,
-    143.37,
-    145.43
-   ]
+    137.22,
+    139.35,
+    140.44,
+    143.22,
+    144.9,
+    147.0
+   ],
+   "t": "Xulosa qilamiz. kaana \u2014 arab tilining edisi. Xabariga buyuradi: u nasb bo'ladi. Ismiga esa o'zi ergashadi: ismi rafda qoladi, muannas bo'lsa, kaana \"ta\" oladi. Endi o'zingizni sinab ko'ring. \"Dars oson edi\" demoqchimiz: bo'sh joyga qaysi biri mos?"
   },
   "a9": {
-   "s": 150.0,
-   "e": 151.5,
+   "s": 151.51,
+   "e": 153.01,
    "c": [
-    150.0
+    151.51
    ]
   },
   "u8b": {
-   "s": 151.95,
-   "e": 159.47,
+   "s": 153.46,
+   "e": 160.98,
    "c": [
-    151.95,
-    152.59,
-    153.65,
-    155.07,
-    156.43,
-    157.63
-   ]
+    153.46,
+    154.1,
+    155.16,
+    156.58,
+    157.94,
+    159.14
+   ],
+   "t": "To'g'ri \u2014 fathalisi: u kaananing xabari, demak nasbda. Keyingi videoda \u2014 kaana va zamirlar."
   }
  },
  "scenes": [
@@ -240,39 +219,34 @@
    "e": 20.1
   },
   {
-   "id": "S1",
+   "id": "ST",
    "s": 20.1,
-   "e": 33.68
+   "e": 50.89
+  },
+  {
+   "id": "S1",
+   "s": 50.89,
+   "e": 64.47
   },
   {
    "id": "S2",
-   "s": 33.68,
-   "e": 53.11
+   "s": 64.47,
+   "e": 90.38
   },
   {
    "id": "S3",
-   "s": 53.11,
-   "e": 77.34
+   "s": 90.38,
+   "e": 105.47
   },
   {
    "id": "S5",
-   "s": 77.34,
-   "e": 97.02
-  },
-  {
-   "id": "S6",
-   "s": 97.02,
-   "e": 114.61
-  },
-  {
-   "id": "S7",
-   "s": 114.61,
-   "e": 132.61
+   "s": 105.47,
+   "e": 130.35
   },
   {
    "id": "S8",
-   "s": 132.61,
-   "e": 162.07
+   "s": 130.35,
+   "e": 163.58
   }
  ]
 }

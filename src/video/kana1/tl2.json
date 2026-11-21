@@ -1,0 +1,150 @@
+{
+ "dur": 89.033,
+ "fps": 30,
+ "clips": {
+  "p0": {
+   "s": 1.9,
+   "e": 10.641,
+   "c": [
+    1.9
+   ],
+   "ph": 1,
+   "t": "O'tgan safar kaana xabariga buyurdi: \"Oxiringni o'zgartir!\" Xabar fatha oldi. Lekin hamma so'z ham fatha ololmaydi-ku?"
+  },
+  "u6a": {
+   "s": 11.741,
+   "e": 23.511,
+   "c": [
+    11.741,
+    14.321,
+    16.281,
+    18.421,
+    19.841,
+    20.721,
+    21.621,
+    22.621
+   ],
+   "t": "Xabar esa buyruqni har doim bajaradi \u2014 faqat har safar o'zicha. Buyruq bitta: nasb. Ijrosi uch xil. Birlikda \u2014 fatha. Ikkilikda \u2014 \"ya\" harfi."
+  },
+  "a6b": {
+   "s": 23.811,
+   "e": 25.881,
+   "c": [
+    23.811
+   ]
+  },
+  "u6b": {
+   "s": 26.281,
+   "e": 29.851,
+   "c": [
+    26.281,
+    27.811,
+    28.851
+   ],
+   "t": "Muannas ko'plikda esa fatha o'rniga kasra keladi."
+  },
+  "a6c": {
+   "s": 30.151,
+   "e": 32.441,
+   "c": [
+    30.151
+   ]
+  },
+  "j1": {
+   "s": 32.941,
+   "e": 41.681,
+   "c": [
+    32.941
+   ],
+   "ph": 1,
+   "t": "E'tibor bering: ismi ikkita yoki ko'p bo'lsa ham, kaana birlikda turibdi. U ismiga faqat jinsda ergashadi, sonda emas."
+  },
+  "u7a": {
+   "s": 42.981,
+   "e": 48.121,
+   "c": [
+    42.981,
+    44.201,
+    44.681,
+    46.581
+   ],
+   "t": "Muzoriysi-chi? U \"bo'ladi\" deb tarjima qilinadi va xuddi shunday ishlaydi."
+  },
+  "a7a": {
+   "s": 48.421,
+   "e": 50.501,
+   "c": [
+    48.421
+   ]
+  },
+  "u7b": {
+   "s": 51.001,
+   "e": 57.231,
+   "c": [
+    51.001,
+    52.811,
+    53.771,
+    54.671,
+    55.271,
+    56.351
+   ],
+   "t": "\"Yo'q\" demoqchi bo'lsak-chi? Juda oson: moziy oldidan maa, muzoriy oldidan laa qo'yamiz."
+  },
+  "a7b": {
+   "s": 57.531,
+   "e": 59.451,
+   "c": [
+    57.531
+   ]
+  },
+  "p8": {
+   "s": 60.851,
+   "e": 75.518,
+   "c": [
+    60.851
+   ],
+   "ph": 1,
+   "t": "Xulosa: nasbning uch alomati \u2014 fatha, \"ya\" va kasra. kaana ismiga faqat jinsda ergashadi. Muzoriysi \u2014 yakuunu, inkori \u2014 maa va laa. Endi sinab ko'ring: \"Ikki tolib katta edi\" \u2014 xabar qanday bo'ladi?"
+  },
+  "a10": {
+   "s": 78.318,
+   "e": 81.687,
+   "c": [
+    78.318
+   ],
+   "ph": 1
+  },
+  "p9": {
+   "s": 82.137,
+   "e": 86.433,
+   "c": [
+    82.137
+   ],
+   "ph": 1,
+   "t": "To'g'ri \u2014 \"ya\" bilan. Keyingi videoda \u2014 kaana va zamirlar."
+  }
+ },
+ "scenes": [
+  {
+   "id": "P0",
+   "s": 0.0,
+   "e": 11.241
+  },
+  {
+   "id": "S6",
+   "s": 11.241,
+   "e": 42.481
+  },
+  {
+   "id": "S7",
+   "s": 42.481,
+   "e": 60.351
+  },
+  {
+   "id": "P8",
+   "s": 60.351,
+   "e": 89.033
+  }
+ ],
+ "draft": 1
+}

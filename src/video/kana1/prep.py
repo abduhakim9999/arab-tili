@@ -12,21 +12,32 @@ HOP = int(SR * 0.01)
 
 # Talaffuz ro'yxati (20.11.2026, foydalanuvchi tanlovi — tovush belgisi): ovoz matnida arabcha so'z va harf nomi shunday yoziladi.
 #   كَانَ -> /ˈkaːna/ (qo'shimcha bilan /ˈkaːnaniŋ/, /ˈkaːnaɡa/)   مَا -> /maː/   لَا -> /laː/   ت -> "ta"   ي -> "ya"
+#   Atamalar: «moziy», «muzoriy» (oxirida «y» bilan — «mozi», «muzori» emas; foydalanuvchi, 20.11.2026).
 # Bo'lak boshiga qo'shimchali shakl qo'yilmaydi (qisqa chiqadi). Tekshiruv: tekshir.py.
 # Uslub (20.11.2026, foydalanuvchi): ustozdek sodda, o'xshatish va kundalik misol bilan; har gapda bitta fikr.
+# 4-nusxa: «bo'ysunish» zanjiri — kaana xabariga buyuradi (nasb), o'zi esa ismiga bo'ysunadi (muannas «ta»).
 TXT = {
+ # 2-qism (KANA_QISM=2): p0 kirish, j1 «faqat jinsda», p8 xulosa + savol, p9 javob, a10 savol javobi (arabcha)
+ 'p0': "O'tgan safar /ˈkaːna/ xabariga buyurdi: \"Oxiringni o'zgartir!\" Xabar fatha oldi. Lekin hamma so'z ham fatha ololmaydi-ku?",
+ 'j1': "E'tibor bering: ismi ikkita yoki ko'p bo'lsa ham, /ˈkaːna/ birlikda turibdi. U ismiga faqat jinsda ergashadi, sonda emas.",
+ 'p8': "Xulosa: nasbning uch alomati — fatha, \"ya\" va kasra. /ˈkaːna/ ismiga faqat jinsda ergashadi. Muzoriysi — /jaˈkuːnu/, inkori — /maː/ va /laː/. Endi sinab ko'ring: \"Ikki tolib katta edi\" — xabar qanday bo'ladi?",
+ 'p9': "To'g'ri — \"ya\" bilan. Keyingi videoda — /ˈkaːna/ va zamirlar.",
+ 'a10': "كَانَ الطَّالِبَانِ كَبِيرَيْنِ.",
  'u0': "O'zbekchada \"havo chiroyli\" deymiz. Kechagi kun haqida gapirsak-chi? Oxiriga bitta so'z qo'shamiz: \"havo chiroyli edi\". Arab tilida ham shunday so'z bor. Faqat u gapning oxiriga emas, boshiga keladi. Va kelib jim turmaydi — gapning oxirini o'zgartirib ketadi. Bu so'z — /ˈkaːna/.",
+ 't1': "Avval u bilan tanishib olaylik. Kitoblarda uni uch so'z bilan tanitishadi: noqis moziy fe'li.",
+ 't2': "Fe'l — chunki fe'ldek tuslanadi: muzoriysi ham, muannasi ham bor. Moziy — chunki o'tgan zamonni bildiradi: \"edi\".",
+ 't3': "Noqis esa \"to'liqsiz\" degani. Oddiy fe'lga bitta so'z yetadi: \"tolib o'tirdi\" — gap tugadi. /ˈkaːna/ bilan esa \"tolib edi\" deb to'xtasak, gap chala qoladi: nima edi? Unga ikkinchi so'z — xabar ham kerak.",
  'u1a': "Keling, buni bitta gapda ko'ramiz.",
  'u1b': "\"Tolib kattadir\". Bu gapda ikki bo'lak bor: mubtado va xabar. Ikkalasi ham raf holatida — oxirlarida zamma.",
- 'u2': "Endi shu gapga /ˈkaːna/ mehmondek kirib keladi. Mubtado joyidan qimirlamaydi: raf holida qolaveradi, faqat nomi o'zgaradi — endi u /ˈkaːnaniŋ/ ismi. Xabar esa o'rnidan turadi: zammasini qo'yib, fatha oladi. U endi /ˈkaːnaniŋ/ xabari, holati — nasb.",
- 'u3': "\"Tolib katta edi\". Demak, qoida oddiy: /ˈkaːnaniŋ/ ismi — raf, xabari — nasb. /ˈkaːna/ — noqis, ya'ni \"to'liqsiz\" fe'l. Nega? Boshqa fe'llar fo'il bilan ishlaydi, /ˈkaːna/ esa — yo'q: unga ism ham, xabar ham kerak.",
+ 'u2': "Endi shu gapga /ˈkaːna/ mehmondek kirib keladi — lekin o'zini uy egasidek tutadi. Avval mubtadoga qaraydi, unga tegmaydi: mubtado raf holida qolaveradi, faqat yangi nom oladi — endi u /ˈkaːnaniŋ/ ismi. Keyin xabarga yuzlanadi va buyuradi: \"Oxiringni o'zgartir!\" Xabar bo'ysunadi: zammasini qo'yib, fatha oladi. Endi u /ˈkaːnaniŋ/ xabari, holati — nasb.",
+ 'u3': "\"Tolib katta edi\". Demak, qoida oddiy: /ˈkaːna/ kelsa, ismi — raf, xabari — nasb.",
  'u4': "Tarjimasi ikki xil: voqea qadimda bo'lgan bo'lsa — \"edi\", yaqinda bo'lgan bo'lsa — \"bo'ldi\".",
- 'u5': "Agar ism muannas bo'lsa-chi? Masalan, toliba. Unda /ˈkaːna/ ham unga moslashadi: oxiriga muannaslik harfi — \"ta\" qo'shiladi. Bir nozik joyi bor: ikki sukun yo'liqib qolmasligi uchun bu \"ta\" keyingi so'zga kasra bilan bog'lanadi.",
- 'u6a': "Nasb bitta, lekin alomati so'zga qarab o'zgaradi. Birlikda — fatha. Ikkilikda — \"ya\" harfi.",
+ 'u5': "Lekin bu uy egasining ham o'z kattasi bor — ismi. /ˈkaːna/ xabariga buyuradi-yu, ismiga o'zi bo'ysunadi. Ismi muannas bo'lsa — masalan, toliba — /ˈkaːna/ ham unga moslashadi: oxiriga muannaslik harfi — \"ta\" qo'shiladi. Bir nozik joyi bor: ikki sukun yo'liqib qolmasligi uchun bu \"ta\" keyingi so'zga kasra bilan bog'lanadi.",
+ 'u6a': "Xabar esa buyruqni har doim bajaradi — faqat har safar o'zicha. Buyruq bitta: nasb. Ijrosi uch xil. Birlikda — fatha. Ikkilikda — \"ya\" harfi.",
  'u6b': "Muannas ko'plikda esa fatha o'rniga kasra keladi.",
- 'u7a': "Muzorisi-chi? U \"bo'ladi\" deb tarjima qilinadi va xuddi shunday ishlaydi.",
- 'u7b': "\"Yo'q\" demoqchi bo'lsak-chi? Juda oson: mozi oldidan /maː/, muzori oldidan /laː/ qo'yamiz.",
- 'u8a': "Xulosa qilamiz. /ˈkaːna/ — arab tilining edisi. Gap boshiga keladi; ismi — raf, xabari — nasb. Endi o'zingizni sinab ko'ring. \"Dars oson edi\" demoqchimiz: bo'sh joyga qaysi biri mos?",
+ 'u7a': "Muzoriysi-chi? U \"bo'ladi\" deb tarjima qilinadi va xuddi shunday ishlaydi.",
+ 'u7b': "\"Yo'q\" demoqchi bo'lsak-chi? Juda oson: moziy oldidan /maː/, muzoriy oldidan /laː/ qo'yamiz.",
+ 'u8a': "Xulosa qilamiz. /ˈkaːna/ — arab tilining edisi. Xabariga buyuradi: u nasb bo'ladi. Ismiga esa o'zi ergashadi: ismi rafda qoladi, muannas bo'lsa, /ˈkaːna/ \"ta\" oladi. Endi o'zingizni sinab ko'ring. \"Dars oson edi\" demoqchimiz: bo'sh joyga qaysi biri mos?",
  'u8b': "To'g'ri — fathalisi: u /ˈkaːnaniŋ/ xabari, demak nasbda. Keyingi videoda — /ˈkaːna/ va zamirlar.",
  'a1': "اَلطَّالِبُ كَبِيرُنْ.", 'a2': "كَانَ الطَّالِبُ كَبِيرَنْ.", 'a5': "كَانَتِ الطَّالِبَةُ كَبِيرَتَنْ.",
  'a6b': "كَانَ الطَّالِبَانِ كَبِيرَيْنِ.", 'a6c': "كَانَتِ الطَّالِبَاتُ كَبِيرَاتِنْ.", 'a7a': "يَكُونُ الطَّالِبُ كَبِيرَنْ.",
@@ -34,6 +45,7 @@ TXT = {
 }
 SEQ = [
  ('S0', [('lead', 0.6), 'u0', ('gap', 1.5)]),
+ ('ST', [('lead', 0.5), 't1', ('gap', 0.35), 't2', ('gap', 0.4), 't3', ('gap', 0.8)]),   # tanishuv: noqis moziy fe'li
  ('S1', [('lead', 0.3), 'u1a', ('gap', 0.3), 'a1', ('gap', 0.35), 'u1b', ('gap', 0.45)]),
  ('S2', [('lead', 0.0), 'u2', ('gap', 0.35), 'a2', ('gap', 0.45)]),
  ('S3', [('lead', 0.0), 'u3', ('gap', 0.45), 'u4', ('gap', 0.8)]),
@@ -47,6 +59,24 @@ CUE = {}
 try: CUE = json.load(open(f'{D}/cue.json'))
 except Exception: pass
 TARGET = 10 ** (-21 / 20)   # faol qismning RMS darajasi
+
+
+# 1-qism (asosiy video, Shorts uchun 3:00 gacha): S6 «Насб аломатлари» va S7 «Музорий ва инкор» siz;
+# KANA_QISM=hammasi — eski to'liq ketma-ketlik (2-qism shu ikki sahnadan alohida video bo'ladi).
+QISM = os.environ.get('KANA_QISM', '1'); SUF = '2' if QISM == '2' else ''      # 2-qism fayllari: tl2.json, tl2.js, narr2.wav, mix2.wav
+if QISM == '1': SEQ = [x for x in SEQ if x[0] not in ('S6', 'S7')]
+if QISM == '2':
+    _s = dict(SEQ)
+    SEQ = [('P0', [('lead', 1.9), 'p0', ('gap', 0.6)]),
+           ('S6', _s['S6'][:-1] + [('gap', 0.5), 'j1', ('gap', 0.8)]),
+           ('S7', _s['S7']),
+           ('P8', [('lead', 0.5), 'p8', ('gap', 2.8), 'a10', ('gap', 0.45), 'p9', ('gap', 2.6)])]
+
+
+def sub(n):                                    # qoralama subtitri: tovush belgilari o'rniga oddiy yozuv
+    t = TXT[n]
+    for a, b in (('/ˈkaːnaniŋ/', 'kaananing'), ('/ˈkaːna/', 'kaana'), ('/jaˈkuːnu/', 'yakuunu'), ('/maː/', 'maa'), ('/laː/', 'laa')): t = t.replace(a, b)
+    return t
 
 
 def load(n):
@@ -79,23 +109,28 @@ def wav_write(p, x):
 
 
 def main():
-    clips = {}; t = 0.0; scenes = []; parts = []
+    clips = {}; t = 0.0; scenes = []; parts = []; draft = False
     for sid, items in SEQ:
         s0 = t
         for it in items:
             if isinstance(it, tuple): t += it[1]; continue
-            y = prep(it); dur = len(y) / SR
+            if os.path.exists(f'{D}/ovoz/{it}.mp3'): y = prep(it); ph = False
+            else: y = np.zeros(int(max(1.2, len(sub(it)) / (9.5 if it[0] == 'a' else 13.5)) * SR)); ph = True     # ovozi hali yo'q — jim joy (qoralama)
+            dur = len(y) / SR
             clips[it] = {'s': round(t, 3), 'e': round(t + dur, 3), 'c': [round(t + c, 3) for c in CUE.get(it, [0])]}
+            if ph: clips[it]['ph'] = 1; draft = True
+            if it[0] != 'a': clips[it]['t'] = sub(it)
             parts.append((t, y)); t += dur
         scenes.append({'id': sid, 's': round(s0, 3), 'e': round(t, 3)})
     total = np.ceil(t * 30) / 30
     out = np.zeros(int(total * SR) + 1)
     for st, y in parts:
         i = int(st * SR); out[i:i + len(y)] += y
-    wav_write(f'{D}/narr.wav', out)
+    wav_write(f'{D}/narr{SUF}.wav', out)
     tl = {'dur': round(float(total), 3), 'fps': 30, 'clips': clips, 'scenes': scenes}
-    json.dump(tl, open(f'{D}/tl.json', 'w'), indent=1)
-    open(f'{D}/tl.js', 'w').write('window.TL=' + json.dumps(tl) + ';')
+    if draft: tl['draft'] = 1
+    json.dump(tl, open(f'{D}/tl{SUF}.json', 'w'), indent=1)
+    open(f'{D}/tl{SUF}.js', 'w').write('window.TL=' + json.dumps(tl) + ';')
     print('jami', round(float(total), 2), 's;', len(parts), "bo'lak;", ' '.join(f"{s['id']}={s['s']:.1f}" for s in scenes))
 
 
@@ -153,7 +188,7 @@ VOL = {'whoosh': 0.085, 'whoosh2': 0.08, 'pop': 0.10, 'thud': 0.20, 'shimmer': 0
 
 def mix(events):
     """events: [[nom, soniya, kuch(ixtiyoriy)], ...] -> mix.wav (narr.wav + effektlar)"""
-    with wave.open(f'{D}/narr.wav') as w: x = np.frombuffer(w.readframes(w.getnframes()), dtype='<i2').astype(np.float64) / 32767
+    with wave.open(f'{D}/narr{SUF}.wav') as w: x = np.frombuffer(w.readframes(w.getnframes()), dtype='<i2').astype(np.float64) / 32767
     cache = {}
     for ev in events:
         name, t = ev[0], ev[1]; k = ev[2] if len(ev) > 2 else 1
@@ -161,7 +196,7 @@ def mix(events):
         y = cache[name] * VOL[name] * k; i = int(t * SR)
         if i < 0 or i >= len(x): continue
         m = min(len(y), len(x) - i); x[i:i + m] += y[:m]
-    wav_write(f'{D}/mix.wav', x)
+    wav_write(f'{D}/mix{SUF}.wav', x)
     return len(events)
 
 

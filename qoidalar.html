@@ -115,6 +115,10 @@ a:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
     ['كَانَ ва إِنَّ',  [[46, 'كَانَ нинг исми ва хабари (1)', 'кона'], [47, 'كَانَ нинг исми ва хабари (2)', 'кона'], [48, 'Муттасил замирлар (5)'], [49, 'كَانَ нинг музорийдаги исми вазифасини бажарувчи муттасил замирлар', 'кона'], [50, 'كَانَ нинг амрдаги исми вазифасини бажарувчи муттасил замирлар', 'кона'], [51, 'إِنَّ нинг исми вазифасини бажарувчи муттасил замирлар (1)', 'инна'], [52, 'إِنَّ нинг исми вазифасини бажарувчи муттасил замирлар (2)', 'инна'], [53, 'Исмнинг раф ўринлари ва уларга мисоллар']]]
   ];
   var V = {};
+  /* TB — «Татбиқ» kitobi sahifasi tayyor darslar (21.11.2026; matn, sxema, Машқ, Қўшимча — tatbiq.js, #dN) */
+  var TB = { 1: 1, 2: 1, 3: 1 };
+  function ochiq(n) { return !!(V[n] || TB[n]); }
+  function belgi(n) { var v = V[n]; return v ? '▶ ' + (v.t || '') : 'Ўқиш'; }
   function arb(t) { return t.replace(/[\u0600-\u06FF]+/g, function (w) { return '<span class="ar" lang="ar">' + w + '</span>'; }); }
   var SR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>';
 
@@ -130,9 +134,9 @@ a:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
   var CHV = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>';
   function kor(x) { var v = V[x[0]]; return v ? 0 : 0; }   /* ko'rilgan videolar — videolar qo'shilganda */
   function qator(x, b) {
-    var v = V[x[0]];
+    var v = ochiq(x[0]);
     return '<' + (v ? 'a href="#d' + x[0] + '"' : 'div') + ' class="g-r' + (v ? '' : ' tz') + '"><span class="no">' + x[0] + '</span><span class="nm">' + arb(x[1]) +
-      (b != null ? '<small>' + (b + 1) + '-боб · ' + arb(B[b][0]) + '</small>' : '') + '</span>' + (v ? '<span class="mu">' + (v.t || '') + '</span>' : '<span class="q-tzb">Тез орада</span>') + (v ? '</a>' : '</div>');
+      (b != null ? '<small>' + (b + 1) + '-боб · ' + arb(B[b][0]) + '</small>' : '') + '</span>' + (v ? '<span class="mu">' + belgi(x[0]) + '</span>' : '<span class="q-tzb">Тез орада</span>') + (v ? '</a>' : '</div>');
   }
   var app = document.getElementById('app'), h1 = document.getElementById('gh1'), bk = document.getElementById('gbk');
 
@@ -141,7 +145,7 @@ a:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
       '<div class="g-tl">' + karta(SARF, '') + karta(NAHV, '') + '</div>' + karta(ESH, 'g-es');
     if (RU) h += '<a class="q-rw" id="gru" style="margin-top:20px"><span class="t"><span class="n">Видео дарслар</span></span>' + CH + '</a>';
     else h += '<div id="gnt" hidden></div><a class="g-vk" id="gvk" href="#v"><span class="st"><i style="background-image:url(' + rsm(3) + ')"></i><i style="background-image:url(' + rsm(0) + ')"></i><i style="background-image:url(' + rsm(8) + ')"></i></span>' +
-      '<span class="t"><b>Видео дарслар</b><small>' + B.length + ' боб · ' + jami + ' мавзу</small><small>Китоб тартибида</small></span>' + CHV + '</a>';
+      '<span class="t"><b>Видео дарслар</b><small>' + B.length + ' боб · ' + jami + ' мавзу</small><small>«Татбиқ» китоби тартибида</small></span>' + CHV + '</a>';
     app.innerHTML = h;
     if (RU) { [].forEach.call(app.querySelectorAll('.k-c, #gru'), function (a) { if (!/nahv\.html$/.test(a.getAttribute('href') || '')) Qobiq.tez(a); }); return; }
     /* qidiruv: mavzu nomi yoki dars raqami bo'yicha; natija — ro'yxat, video kartasi o'rnida */
@@ -154,7 +158,7 @@ a:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
     };
   }
   function javon() {
-    app.innerHTML = '<div class="g-h"><span>Китоб тартибида</span><span>' + jami + ' мавзу</span></div><div class="g-sh">' + B.map(function (b, i) {
+    app.innerHTML = '<div class="g-h"><span>«Татбиқ» китоби</span><span>' + jami + ' мавзу</span></div><div class="g-sh">' + B.map(function (b, i) {
       var n = b[1].length, k = 0;
       return '<a class="g-cv" href="#v' + (i + 1) + '" style="background-color:' + M[i][1] + ';background-image:url(' + rsm(i) + ')"><span class="nb"><span>' + (i + 1) + '-боб</span><span>' + k + ' / ' + n + '</span></span>' +
         '<span class="bt"><span class="ar" lang="ar">' + M[i][0] + '</span><span class="uz">' + arb(b[0]) + '</span><span class="g-pr"><i style="width:' + Math.round(k / n * 100) + '%"></i></span></span></a>';
@@ -165,14 +169,31 @@ a:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
     app.innerHTML = '<div class="g-bb" style="background-color:' + M[i][1] + ';background-image:url(' + rsm(i) + ')"><span class="nb"><span>' + (i + 1) + '-боб · ' + d[0][0] + '–' + d[d.length - 1][0] + '-дарслар</span></span>' +
       '<div class="ar" lang="ar">' + M[i][0] + '</div><b>' + arb(b[0]) + '</b><small>' + k + ' / ' + d.length + ' кўрилди</small><span class="g-pr"><i style="width:' + Math.round(k / d.length * 100) + '%"></i></span></div>' +
       '<div class="g-sh">' + d.map(function (x) {
-        var v = V[x[0]];
+        var v = ochiq(x[0]);
         return '<' + (v ? 'a href="#d' + x[0] + '"' : 'div') + ' class="g-vd' + (v ? '' : ' tz') + '" style="background-color:' + M[i][1] + '"><span class="no">' + x[0] + '-дарс</span><span class="nm">' + arb(x[1]) + '</span>' +
-          (v ? '<span class="no">▶ ' + (v.t || '') + '</span>' : '<span class="q-tzb">Тез орада</span>') + (v ? '</a>' : '</div>');
+          (v ? '<span class="q-tzb">' + belgi(x[0]) + '</span>' : '<span class="q-tzb">Тез орада</span>') + (v ? '</a>' : '</div>');
       }).join('') + '</div>';
   }
-  /* ko'rinishlar: «» — bosh, #v — boblar javoni, #vN — bob ichi (#dN — mavzu sahifasi, birinchi video bilan) */
+  /* #dN — dars sahifasi: «Татбиқ» kitobi matni + video (tatbiq.js; 21.11.2026) */
+  var ROY = []; B.forEach(function (b, i) { b[1].forEach(function (x) { ROY.push([x[0], x[1], i]); }); });
+  function topD(n) { for (var k = 0; k < ROY.length; k++) if (ROY[k][0] === n) return k; return -1; }
+  function dars(n) {
+    var k = topD(n), x = ROY[k], i = x[2], old = null, keyin = null;
+    for (var a = k - 1; a >= 0; a--) if (ochiq(ROY[a][0])) { old = ROY[a]; break; }
+    for (var b = k + 1; b < ROY.length; b++) if (ochiq(ROY[b][0])) { keyin = ROY[b]; break; }
+    var o = { nom: x[1], bob: (i + 1) + '-боб · ' + arb(B[i][0]), v: V[n], old: old, keyin: keyin };
+    function chiz() { if (!window.Tatbiq || !Tatbiq.chiz(n, app, o)) app.innerHTML = '<p class="g-yo">Тез орада</p>'; }
+    if (window.Tatbiq) return chiz();
+    app.innerHTML = '<p class="g-yo">…</p>';
+    var s = document.createElement('script'); s.src = 'tatbiq.js'; s.onload = chiz;
+    s.onerror = function () { app.innerHTML = '<p class="g-yo">Юкланмади. Интернетни текширинг.</p>'; };
+    document.head.appendChild(s);
+  }
+  /* ko'rinishlar: «» — bosh, #v — boblar javoni, #vN — bob ichi, #dN — dars sahifasi */
   var ichki = false;
   function korsat() {
+    var dm = /^#d(\d+)$/.exec(location.hash);
+    if (!RU && dm && topD(+dm[1]) >= 0 && ochiq(+dm[1])) { h1.textContent = dm[1] + '-дарс'; bk.hidden = false; dars(+dm[1]); window.scrollTo(0, 0); return; }
     var m = /^#v(\d*)$/.exec(location.hash), i = m && m[1] ? +m[1] - 1 : -1;
     if (RU || !m || (m[1] && !B[i])) { h1.textContent = 'Грамматика'; bk.hidden = true; bosh(); }
     else if (i < 0) { h1.textContent = 'Видеолар'; bk.hidden = false; javon(); }
@@ -180,8 +201,9 @@ a:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
     window.scrollTo(0, 0);
   }
   bk.onclick = function () {
+    var dm = /^#d(\d+)$/.exec(location.hash), k = dm ? topD(+dm[1]) : -1;
     if (ichki) history.back();
-    else location.replace(/^#v\d+$/.test(location.hash) ? '#v' : '#');
+    else location.replace(k >= 0 ? '#v' + (ROY[k][2] + 1) : /^#v\d+$/.test(location.hash) ? '#v' : '#');
   };
   window.addEventListener('hashchange', function () { ichki = true; korsat(); });
   korsat();

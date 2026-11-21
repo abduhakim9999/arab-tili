@@ -9,6 +9,9 @@
   var CSS = '.tb .ar{font-family:"DarsNaskh","Noto Naskh Arabic",serif;direction:rtl;unicode-bidi:isolate;font-weight:400}' +
     '.tb .c-i{--c:#5446C2;--t:rgba(84,70,194,.11)}.tb .c-f,.tb .c-z{--c:#0D7A62;--t:rgba(13,122,98,.11)}.tb .c-h{--c:#B4511F;--t:rgba(180,81,31,.11)}' +
     '.tb .c-m{--c:#8E5C0E;--t:rgba(142,92,14,.12)}.tb .c-a{--c:#B0335A;--t:rgba(176,51,90,.1)}' +
+    '.tb .c-k{--c:#1D66A3;--t:rgba(29,102,163,.11)}.tb .c-n{--c:#A13A86;--t:rgba(161,58,134,.1)}' +
+    '@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tb .c-k{--c:#8EC3F0;--t:rgba(142,195,240,.13)}:root:not([data-theme="light"]) .tb .c-n{--c:#EBA0D6;--t:rgba(235,160,214,.12)}}' +
+    ':root[data-theme="dark"] .tb .c-k{--c:#8EC3F0;--t:rgba(142,195,240,.13)}:root[data-theme="dark"] .tb .c-n{--c:#EBA0D6;--t:rgba(235,160,214,.12)}' +
     '@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tb .c-i{--c:#ADA4FF;--t:rgba(173,164,255,.13)}:root:not([data-theme="light"]) .tb .c-f,:root:not([data-theme="light"]) .tb .c-z{--c:#6FD8BC;--t:rgba(111,216,188,.12)}:root:not([data-theme="light"]) .tb .c-h{--c:#F2A27A;--t:rgba(242,162,122,.13)}:root:not([data-theme="light"]) .tb .c-m{--c:#E8C07A;--t:rgba(232,192,122,.13)}:root:not([data-theme="light"]) .tb .c-a{--c:#F49AB6;--t:rgba(244,154,182,.12)}}' +
     ':root[data-theme="dark"] .tb .c-i{--c:#ADA4FF;--t:rgba(173,164,255,.13)}:root[data-theme="dark"] .tb .c-f,:root[data-theme="dark"] .tb .c-z{--c:#6FD8BC;--t:rgba(111,216,188,.12)}:root[data-theme="dark"] .tb .c-h{--c:#F2A27A;--t:rgba(242,162,122,.13)}:root[data-theme="dark"] .tb .c-m{--c:#E8C07A;--t:rgba(232,192,122,.13)}:root[data-theme="dark"] .tb .c-a{--c:#F49AB6;--t:rgba(244,154,182,.12)}' +
     '.tb{padding-bottom:6px}.tb-tp{display:flex;align-items:center;gap:8px;margin:2px 0 4px;font-size:13px;color:var(--mu)}' +
@@ -88,6 +91,12 @@
     '.tb-ar{display:inline-flex;direction:rtl;align-items:center;flex-wrap:wrap;gap:0 7px;margin-left:auto}.tb .tb-ar .ar{font-size:22px;line-height:1.7}.tb-ar i{font-style:normal;color:var(--mu);font-size:15px}' +
     '.tb-cp{display:flex;justify-content:center;margin:2px 0 8px}.tb .tb-cp .ar{font-size:25px}.tb-cp .tb-ar{margin:0 auto}' +
     '.tb-nv{display:flex;justify-content:space-between;gap:10px;margin:24px 0 4px}.tb-nv a,.tb-nv span{flex:1;padding:12px 14px;border-radius:14px;border:1.5px solid var(--bd);background:var(--cd);color:var(--tx);text-decoration:none;font-weight:600;font-size:15px}' +
+    '.tb-ms em,.tb-qd em,.tb-r em,.tb-cp em{font-style:normal;color:var(--c)}.tb-dr .tb-chs.n2{grid-template-columns:repeat(2,minmax(0,1fr))}' +
+    '.tb-qd{border:1.5px solid var(--bd);border-radius:16px;background:var(--cd);padding:4px 12px;margin:0 0 12px}' +
+    '.tb-qd .r{display:flex;align-items:center;gap:10px;padding:4px 0;border-top:1px solid var(--bd)}.tb-qd .r:first-child{border-top:0}' +
+    '.tb-qd b{flex-shrink:0;min-width:26px;height:24px;padding:0 4px;border-radius:8px;background:var(--c);color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center}' +
+    '.tb-qd .tx{flex:1;min-width:0;font-size:14.5px;line-height:1.35}.tb .tb-qd .ar{flex-shrink:0;font-size:27px;line-height:1.6}' +
+    '.tb-wl.tn{justify-content:center;gap:9px}.tb-wl.tn .tb-w{font-size:25px;padding:2px 14px}' +
     '.tb-nv span{visibility:hidden}.tb-nv a:last-child{text-align:right}.tb-nv small{display:block;font-weight:400;font-size:12.5px;color:var(--mu)}';
 
   function A(s) {
@@ -110,8 +119,10 @@
     },
     /* daraxt: ildiz va uch shox [rang, nom, izoh] */
     dar: function (x) {
-      return '<div class="tb-dr"><span class="rt">' + x[1] + '</span><svg viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path d="M150 0V10M50 10H250M50 10V24M150 10V24M250 10V24"/></svg>' +
-        '<div class="tb-chs">' + x[2].map(function (c) { return '<span class="c-' + c[0] + '">' + c[1] + (c[2] ? '<small>' + c[2] + '</small>' : '') + '</span>'; }).join('') + '</div></div>';
+      var d2 = x[2].length === 2;
+      return '<div class="tb-dr"><span class="rt">' + x[1] + '</span><svg viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path d="' +
+        (d2 ? 'M150 0V10M75 10H225M75 10V24M225 10V24' : 'M150 0V10M50 10H250M50 10V24M150 10V24M250 10V24') + '"/></svg>' +
+        '<div class="tb-chs' + (d2 ? ' n2' : '') + '">' + x[2].map(function (c) { return '<span class="c-' + c[0] + '">' + c[1] + (c[2] ? '<small>' + c[2] + '</small>' : '') + '</span>'; }).join('') + '</div></div>';
     },
     /* zinapoya: [so'z, ma'no, harflar] — 1 dan 7 harfgacha */
     zina: function (x) {
@@ -140,7 +151,11 @@
     },
     /* aylanish: mozi → muzori (qo'shilgan harf em) */
     ayl: function (x) {
-      return '<div class="tb-ay c-z">' + ar(x[1]) + STR + '<span class="ar yn" lang="ar"><em>' + x[2] + '</em>' + x[3] + '</span></div><p class="tb-ac">' + A(x[4]) + '</p>';
+      return '<div class="tb-ay c-' + (x[5] || 'z') + '">' + ar(x[1]) + STR + '<span class="ar yn" lang="ar">' + (x[6] === 'o' ? x[3] + '<em>' + x[2] + '</em>' : '<em>' + x[2] + '</em>' + x[3]) + '</span></div><p class="tb-ac">' + A(x[4]) + '</p>';
+    },
+    /* bosqichlar: [belgi, izoh, arabcha (<em> — qo'shilgan qism), rang] — 4-dars, muannas yasash */
+    qd: function (x) {
+      return '<div class="tb-qd">' + x[1].map(function (r) { return '<div class="r c-' + (r[3] || 'n') + '"><b>' + r[0] + '</b><span class="tx">' + A(r[1]) + '</span>' + ar(r[2]) + '</div>'; }).join('') + '</div>';
     }
   };
 
@@ -159,15 +174,17 @@
     return h + (r ? '<div class="tb-rw">' + r + '</div>' : '');
   }
 
-  /* Машқ: {s: savol, j: javob} | {s, aj: [guruhlar [rang, nom]], w: [[so'z, guruh]]} | {s, sn: [[so'z, harflar]]} */
+  /* Машқ: {s: savol, j: javob} | {s, aj: [guruhlar [rang, nom]], w: [[so'z, guruh, xato bo'lsa maslahat]]} | {s, sn: [[so'z, harflar]]}
+     | {s, tn: [[so'z, izoh, [variantlar], to'g'ri, [har variant uchun maslahat]]], c: rang} — bittadan tanlash (4-dars) */
   function mashq(d) {
     return '<ol class="tb-mq">' + d.m.map(function (q, k) {
       var h = '<li data-k="' + k + '"><p>' + A(q.s) + '</p>';
       if (q.j) h += '<button class="tb-bt tb-jb" type="button">Жавобни кўриш</button><div class="tb-jv" hidden>' + (Array.isArray(q.j) ? qism(q.j) : A(q.j)) + '</div>';
       else if (q.aj) h += '<div class="tb-wl">' + q.w.map(function (w, i) { return '<button class="tb-w" type="button" data-i="' + i + '">' + w[0] + '</button>'; }).join('') + '</div>' +
-        '<div class="tb-gb">' + q.aj.map(function (g, i) { return '<button class="tb-bt c-' + g[0] + '" type="button" data-g="' + i + '">' + g[1] + '</button>'; }).join('') + '</div>' +
+        '<div class="tb-gb"' + (q.aj.length !== 3 ? ' style="grid-template-columns:repeat(' + q.aj.length + ',minmax(0,1fr))"' : '') + '>' + q.aj.map(function (g, i) { return '<button class="tb-bt c-' + g[0] + '" type="button" data-g="' + i + '">' + g[1] + '</button>'; }).join('') + '</div>' +
         '<p class="tb-xb">Сўзни босинг, кейин туркумини танланг · <span class="sc">0 / ' + q.w.length + '</span></p>';
       else if (q.sn) h += '<div class="tb-sn"></div>';
+      else if (q.tn) h += '<div class="tb-sn c-' + (q.c || 'n') + '"></div>';
       return h + '</li>';
     }).join('') + '</ol>';
   }
@@ -183,10 +200,22 @@
       (s.j ? '<div class="tb-ts" style="margin-top:10px"><span class="tb-lt">' + h.map(function (l) { return '<i>' + l + '</i>'; }).join('') + '</span><span>' + h.length + ' ҳарф</span></div>' +
         '<div class="tb-sr"><button class="tb-bt tb-kb" type="button">' + (s.i + 1 < q.sn.length ? 'Кейингиси ›' : 'Натижа') + '</button></div>' : '');
   }
+  function tnChiz(li, q) {
+    var s = li._s || (li._s = { i: 0, b: 0, t: -1 }), box = li.querySelector('.tb-sn');
+    if (s.i >= q.tn.length) {
+      box.innerHTML = '<div class="tb-sw"><b style="font-size:20px">' + s.b + ' / ' + q.tn.length + '</b><small>тўғри топилди</small></div><div class="tb-sr"><button class="tb-bt tb-qy" type="button">Қайтадан</button></div>';
+      return;
+    }
+    var w = q.tn[s.i], j = s.t >= 0;
+    box.innerHTML = '<div class="tb-sw">' + ar(w[0]) + '<small>' + (s.i + 1) + ' / ' + q.tn.length + ' · ' + A(w[1]) + '</small></div>' +
+      '<div class="tb-wl tn">' + w[2].map(function (v, k) { return '<button class="tb-w' + (j ? (k === w[3] ? ' ok' : k === s.t ? ' no' : '') : '') + '" type="button" data-v="' + k + '">' + v + '</button>'; }).join('') + '</div>' +
+      (j ? '<p class="tb-xb ' + (s.t === w[3] ? 'ok">Тўғри!' : 'no">' + A(w[4][s.t] || 'Яна ўйлаб кўринг')) + '</p>' +
+        '<div class="tb-sr"><button class="tb-bt tb-kb" type="button">' + (s.i + 1 < q.tn.length ? 'Кейингиси ›' : 'Натижа') + '</button></div>' : '');
+  }
   /* tinglovchi el ga bir marta ulanadi; joriy dars — el._tbD (dars almashsa eski tinglovchi qolmaydi) */
   function bogla(el, d) {
     el._tbD = d;
-    [].forEach.call(el.querySelectorAll('.tb-mq>li'), function (li) { var q = d.m[+li.getAttribute('data-k')]; if (q.sn) snChiz(li, q); });
+    [].forEach.call(el.querySelectorAll('.tb-mq>li'), function (li) { var q = d.m[+li.getAttribute('data-k')]; if (q.sn) snChiz(li, q); else if (q.tn) tnChiz(li, q); });
     if (el._tbB) return; el._tbB = 1;
     el.addEventListener('click', function (e) {
       var b = e.target.closest('button'); if (!b) return;
@@ -209,10 +238,18 @@
             w.classList.add('ok', 'c-' + q.aj[g][0]); li._w = null; li._b = (li._b || 0) + 1;
             var hammasi = li._b === q.w.length;
             xb.className = 'tb-xb ok'; xb.firstChild.textContent = hammasi ? 'Ҳаммаси тўғри! · ' : 'Тўғри — ' + q.aj[g][1].toLowerCase() + ' · ';
-          } else { void w.offsetWidth; w.classList.add('no'); xb.className = 'tb-xb no'; xb.firstChild.textContent = 'Яна ўйлаб кўринг · '; }
+          } else { void w.offsetWidth; w.classList.add('no'); xb.className = 'tb-xb no'; xb.firstChild.textContent = (q.w[+w.getAttribute('data-i')][2] || 'Яна ўйлаб кўринг') + ' · '; }
           xb.querySelector('.sc').textContent = (li._b || 0) + ' / ' + q.w.length;
         }
         return;
+      }
+      if (q.tn) {
+        var u = li._s;
+        if (b.hasAttribute('data-v') && u.t < 0) { u.t = +b.getAttribute('data-v'); if (u.t === q.tn[u.i][3]) u.b++; }
+        else if (b.classList.contains('tb-kb')) { u.i++; u.t = -1; }
+        else if (b.classList.contains('tb-qy')) li._s = { i: 0, b: 0, t: -1 };
+        else return;
+        tnChiz(li, q); return;
       }
       if (q.sn) {
         var s = li._s;
@@ -389,6 +426,80 @@
         '⟨سَ⟩ ёки ⟨سَوْفَ⟩ билан эса фақат келаси замонни:', ['r', '«кетади»', 'سَيَذْهَبُ']],
       ['Амрлиги баҳсли сўзлар', 'Тўғрироқ қавлга кўра булар амр феъли, чунки аёлга айтилганда ⟨ي⟩ олади:',
         ['r', 'бер', 'هَاتِ → هَاتِي'], ['r', 'кел', 'تَعَالَ → تَعَالَيْ']]
+    ]
+  };
+  /* ===================== 4-дарс · Музаккар ва муаннас ===================== */
+  /* muannas yasash mashqi: to'g'ri — fatha + ةٌ; xato — damma qolgan, ة tanvinsiz; to'g'ri javob o'rni har savolda boshqa */
+  function mnT(st, uz, k) {
+    var v = [[st + 'َةٌ', ''], [st + 'ُةٌ', 'Охирги ҳарфга фатҳа қўйилади'], [st + 'َةُ', 'Та марбута танвинли бўлади']];
+    for (var i = 0; i < k % 3; i++) v.push(v.shift());
+    var t = 0; v.forEach(function (x, i) { if (!x[1]) t = i; });
+    return [st + 'ٌ', uz + ' (мз) → муаннаси?', v.map(function (x) { return x[0]; }), t, v.map(function (x) { return x[1]; })];
+  }
+  T.D[4] = {
+    b: [
+      ['dar', 'Исм', [['k', 'Музаккар'], ['n', 'Муаннас']]],
+      ['p', 'Исм жинс жиҳатидан 2 турга бўлинади:'],
+      ['h', 'k', '1', '**Музаккар**', '(мз)'],
+      ['p', 'Эркак жинсини ифодаловчи исм **музаккар** деб аталади. Унга мисол:'],
+      ['mis', [['مُحَمَّدٌ', 'Муҳаммад'], ['مُعَلِّمٌ', 'муаллим'], ['ثَوْرٌ', 'буқа']], 'k'],
+      ['h', 'n', '2', '**Муаннас**', '(мн)'],
+      ['p', 'Аёл жинсини ифодаловчи исм **муаннас** деб аталади. Унга мисол:'],
+      ['mis', [['عَائِشَ<em>ةُ</em>', 'Ойша'], ['مُعَلِّمَ<em>ةٌ</em>', 'муаллима'], ['بَقَرَ<em>ةٌ</em>', 'сигир']], 'n'],
+      ['p', '⟨ةٌ⟩ – *та марбута* муаннасликнинг энг катта аломати саналади. ⟨ة⟩ – *та марбута* икки учи туташган ⟨ت⟩ – т дегани.'],
+      ['ayl', 'ت', 'ة', '', 'икки учи туташган «т»', 'n'],
+      ['p', 'Жонли нарсаларни жинсга ажратишда аввало уларнинг жинсига эътибор қаратилади, муаннаслик аломатига эмас. Жонсиз нарсаларни жинсга ажратишда эса унда муаннаслик аломати бор ёки йўқлигига қаралади. Муаннаслик аломатига эга жонсиз нарсалар номи **муаннас** деб юритилади. Унга мисол:'],
+      ['mis', [['مِسْطَرَ<em>ةٌ</em>', 'чизғич']], 'n'],
+      ['p', 'Муаннаслик аломатига эга бўлмаган жонсиз нарсалар номи эса **музаккар** деб юритилади. Унга мисол:'],
+      ['mis', [['قَلَمٌ', 'қалам'], ['كِتَابٌ', 'китоб']], 'k'],
+      ['p', 'Сифатни англатувчи исмларнинг музаккари кетидан ⟨ةٌ⟩ – *та марбута* қўшилса, унинг муаннас кўриниши ҳосил бўлади. Бунда музаккарининг охиридаги танвин олиб ташланади. Сўнг охирги ҳарф устига фатҳа қўйилиб, кетидан танвинли ⟨ةٌ⟩ – *та марбута* қўшилади. Унга мисол:'],
+      ['qd', [['мз', 'катта (мз)', 'كَبِيرٌ', 'k'], ['1', 'танвин олиб ташланади', 'كَبِير'], ['2', 'охирги ҳарф устига фатҳа', 'كَبِيرَ'], ['3', 'танвинли та марбута — катта (мн)', 'كَبِيرَ<em>ةٌ</em>']]]
+    ],
+    m: [
+      { s: 'Исм жинс жиҳатидан неча қисмга бўлинади? Улар қайсилар?', j: '2 қисмга: **музаккар** ва **муаннас**.' },
+      { s: 'Музаккар деб нимага айтилади? Унга 3 та мисол келтиринг.',
+        j: ['Эркак жинсини ифодаловчи исм **музаккар** деб аталади. Масалан:', ['r', 'Муҳаммад', 'مُحَمَّدٌ'], ['r', 'муаллим', 'مُعَلِّمٌ'], ['r', 'буқа', 'ثَوْرٌ']] },
+      { s: 'Муаннас деб нимага айтилади? Унга 3 та мисол келтиринг.',
+        j: ['Аёл жинсини ифодаловчи исм **муаннас** деб аталади. Масалан:', ['r', 'Ойша', 'عَائِشَةُ'], ['r', 'муаллима', 'مُعَلِّمَةٌ'], ['r', 'сигир', 'بَقَرَةٌ']] },
+      { s: 'Муаннасликнинг энг катта аломати қайси?', j: ['Та марбута:', '⟨ةٌ⟩'] },
+      { s: 'Жонли нарсаларни жинсга ажратишда нимага эътибор қаратилади?', j: 'Аввало уларнинг жинсига эътибор қаратилади, муаннаслик аломатига эмас.' },
+      { s: 'Жонсиз нарсаларни жинсга ажратишда нимага эътибор қаратилади? Жавобингизни мисол билан изоҳлаб беринг.',
+        j: ['Унда муаннаслик аломати бор ёки йўқлигига қаралади. Масалан:', ['r', 'чизғич — аломати бор, муаннас', 'مِسْطَرَةٌ'], ['r', 'қалам — аломати йўқ, музаккар', 'قَلَمٌ'], ['r', 'китоб — аломати йўқ, музаккар', 'كِتَابٌ']] },
+      { s: '⟨ةٌ⟩ – та марбутанинг маъноси нима?', j: 'Икки учи туташган ⟨ت⟩ – т дегани.' },
+      { s: 'Сифатни англатувчи исмларнинг муаннас кўриниши қандай ҳосил қилинади?',
+        j: ['Музаккарининг охиридаги танвин олиб ташланади, охирги ҳарф устига фатҳа қўйилиб, кетидан танвинли та марбута қўшилади. Масалан:', ['r', 'катта (мз → мн)', 'كَبِيرٌ → كَبِيرَةٌ']] },
+      { s: 'Қуйидаги исмларни музаккар ва муаннасга ажратинг:', aj: [['k', 'Музаккар'], ['n', 'Муаннас']],
+        w: [['مُحَمَّدٌ', 0], ['حَمْزَةُ', 0, 'Ҳамза — эркак исми: жонлида жинсига қаралади'], ['عَائِشَةُ', 1], ['مُعَلِّمَةٌ', 1], ['مُعَلِّمٌ', 0],
+          ['مَرْيَمُ', 1, 'Марям — аёл исми: жонлида жинсига қаралади'], ['طَالِبٌ', 0], ['طَالِبَةٌ', 1], ['بَقَرَةٌ', 1], ['ثَوْرٌ', 0, 'Буқа — эркак жинси'],
+          ['قَلَمٌ', 0, 'Жонсиз ва аломати йўқ — музаккар'], ['مِسْطَرَةٌ', 1, 'Жонсиз, лекин та марбутаси бор — муаннас'], ['كِتَابٌ', 0, 'Жонсиз ва аломати йўқ — музаккар'],
+          ['كَبِيرٌ', 0, 'Та марбута йўқ — музаккар сифат'], ['كَبِيرَةٌ', 1, 'Та марбута бор — муаннас сифат']] },
+      { s: 'Қуйидаги музаккар сифатларнинг муаннас кўринишини ҳосил қилинг:', c: 'n',
+        tn: [mnT('كَبِير', 'катта', 0), mnT('صَغِير', 'кичкина', 1), mnT('طَوِيل', 'узун', 2), mnT('قَصِير', 'калта', 4),
+          mnT('وَاسِع', 'кенг', 3), mnT('ضَيِّق', 'тор', 5), mnT('نَظِيف', 'тоза', 7), mnT('وَسِخ', 'кир', 6)] }
+    ],
+    q: [
+      ['Муаннасликнинг яна икки аломати', 'Та марбутадан ташқари исм охиридаги алифи мақсура ва алифи мамдуда ҳам муаннаслик аломати:',
+        ['r', 'Алифи мақсура — Салмо (аёл исми)', 'سَلْمَى'], ['r', 'Алифи мақсура — энг катта (мн)', 'كُبْرَى'],
+        ['r', 'Алифи мамдуда — саҳро', 'صَحْرَاءُ'], ['r', 'Алифи мамдуда — қизил (мн)', 'حَمْرَاءُ'],
+        'Лекин бундай тугаган ҳар сўз ҳам муаннас эмас:', ['r', 'Мусо — эркак исми', 'مُوسَى'], ['r', 'сув — ҳамзаси асл ҳарф', 'مَاءٌ']],
+      ['Аломатсиз муаннаслар', 'Баъзи жонсиз исмларда аломат йўқ, лекин араблар уларни муаннас деб ишлатган — бу эшитиб билинади:',
+        ['r', 'қуёш', 'شَمْسٌ'], ['r', 'ер', 'أَرْضٌ'], ['r', 'ҳовли, уй', 'دَارٌ'], ['r', 'олов', 'نَارٌ'], ['r', 'уруш', 'حَرْبٌ'], ['r', 'шамол', 'رِيحٌ'],
+        'Танадаги жуфт аъзолар ҳам кўпинча муаннас:', ['r', 'қўл', 'يَدٌ'], ['r', 'кўз', 'عَيْنٌ'], ['r', 'қулоқ', 'أُذُنٌ'], ['r', 'оёқ', 'رِجْلٌ']],
+      ['Та марбута бор, лекин музаккар', 'Жонлида жинсига қаралади: эркак исмлари та марбута билан ҳам музаккар.',
+        ['r', 'Ҳамза', 'حَمْزَةُ'], ['r', 'Талҳа', 'طَلْحَةُ'], ['r', 'Муовия', 'مُعَاوِيَةُ']],
+      ['Та марбута қандай ўқилади', 'Тўхтаб ўқилганда (вақф) «ҳ» бўлиб ўқилади, уланиб ўқилганда «т»:',
+        ['r', 'тўхтаганда: «муаллимаҳ»', 'مُعَلِّمَهْ'], ['r', 'уланганда: «муаллиматун кабийраҳ»', 'مُعَلِّمَةٌ كَبِيرَةٌ'],
+        'Феълдаги муаннаслик «т»си эса очиқ ёзилади:', ['r', 'урди (аёл)', 'ضَرَبَتْ']]
+    ],
+    y: [
+      ['Ҳақиқий ва мажозий муаннас', 'Жонли муаннас — **ҳақиқий** (унинг эркаги бор), жонсиз муаннас — **мажозий**. Бу фарқ кейин феълнинг жинсга мослашувида керак бўлади.',
+        ['r', 'ҳақиқий — аёл', 'اِمْرَأَةٌ'], ['r', 'ҳақиқий — урғочи туя', 'نَاقَةٌ'], ['r', 'мажозий — чизғич', 'مِسْطَرَةٌ'], ['r', 'мажозий — қуёш', 'شَمْسٌ']],
+      ['Ҳамма сифат ҳам та марбута олмайди', 'Баъзи сифатларнинг муаннаси бошқа қолипда ясалади:',
+        ['r', 'қизил', 'أَحْمَرُ → حَمْرَاءُ'], ['r', 'чанқаган', 'عَطْشَانُ → عَطْشَى'],
+        'Баъзилари икки жинсга бир хил:', ['r', 'сабрли (эркак ҳам, аёл ҳам)', 'صَبُورٌ'], ['r', 'ўлдирилган (эркак ҳам, аёл ҳам)', 'قَتِيلٌ'],
+        'Фақат аёлга хос сифат та марбута олмайди:', ['r', 'ҳомиладор', 'حَامِلٌ']],
+      ['Муболаға та марбутаси', 'Баъзан та марбута муаннаслик учун эмас, маънони кучайтириш учун келади — сўз эркакка ҳам айтилади:',
+        ['r', 'жуда билимдон', 'عَلَّامَةٌ'], ['r', 'кўп ривоят қилувчи', 'رَاوِيَةٌ']]
     ]
   };
 })();

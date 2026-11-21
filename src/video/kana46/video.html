@@ -90,6 +90,7 @@ i{font-style:normal}
 .tx{flex:1;display:flex;flex-direction:column;gap:4px;white-space:nowrap}
 .tx b{font-size:38px;font-weight:700;color:#F3E6EE;line-height:1.25}.tx b .ar{font-size:1.3em;line-height:1;font-weight:500}
 .tx small{font-size:30px;font-weight:600;color:var(--mut);line-height:1.25}
+.fly{position:absolute;left:0;top:0;font-family:Naskh,serif;font-weight:500;font-size:140px;line-height:1.75;white-space:nowrap;direction:rtl;opacity:0;visibility:hidden}
 </style></head>
 <body>
 <div id="st">
@@ -329,6 +330,18 @@ function build() {
   gsap.set([AI.vs[0], AX.vs[0], I.vs[0], X.vs[0], GI.vs[0], GX.vs[0], NK.vs[0]], { autoAlpha: 0 });
   let u, a, t;
 
+  /* ---- DIQQAT TIZIMI (foydalanuvchi, 21.11.2026): gap ketayotgan joy yorug', qolgani xira; gap tugaguncha shunday turadi.
+     filter: opacity(...) — autoAlpha (opacity/visibility) bilan to'qnashmaydi. foc(vaqt, yorug' bo'ladiganlar, xiralashadiganlar).
+     mag — mayda joyni (so'z oxiri) joyida kattalashtirish; fly — so'z gapdan tarkib qatoriga uchib tushadi (qator shu so'zniki ekani ko'rinadi). ---- */
+  const E = x => typeof x === 'string' ? [...document.querySelectorAll(x)] : Array.isArray(x) ? x.flatMap(E) : x ? [x] : [];
+  const FOC = new Set();
+  const foc = (t, on, off, a = .34) => [[E(on), 1], [E(off), a]].forEach(([l, v]) => { l.forEach(e => { if (!FOC.has(e)) { FOC.add(e); gsap.set(e, { filter: 'opacity(1)' }); } }); if (l.length) M.to(l, { filter: `opacity(${v})`, duration: .3, ease: 'power2.out' }, t); });
+  const mag = (w, i, t0, t1, s = 1.16) => { M.to(w[i], { scale: s, duration: .35, ease: 'back.out(1.6)' }, t0); M.to(w[i], { scale: 1, duration: .3, ease: 'power2.inOut' }, t1); foc(t0, [w[i]], w.filter((x, k) => k !== i), .45); foc(t1, w, []); };
+  const TW = ['#tk1', '#tk2', '#tk3'].map(r => { const b = R(r + ' .tw'); return { el: $(r + ' .tw'), cx: b.left + b.width / 2, cy: b.top + b.height / 2 }; });
+  const fly = (html, cx, i, t) => { const d = document.createElement('div'); d.className = 'fly'; d.innerHTML = html; $('#SR').appendChild(d); gsap.set(d, { xPercent: -50, yPercent: -50, x: cx, y: 642.5 }); gsap.set(TW[i].el, { autoAlpha: 0 });
+    M.fromTo(d, { autoAlpha: 0, x: cx, y: 642.5, scale: 1 }, { autoAlpha: 1, duration: .12, immediateRender: false }, t); M.to(d, { x: TW[i].cx, y: TW[i].cy, scale: 74 / 140, duration: .6, ease: 'power3.inOut' }, t + .08);
+    M.to(d, { autoAlpha: 0, duration: .12 }, t + .7); M.to(TW[i].el, { autoAlpha: 1, duration: .12 }, t + .64); sfx('whoosh2', t + .05, .5); };
+
   /* ================= S1: muqova -> kirish videosidagi savol («Охири ўзгарди — нега?») ================= */
   u = C.k1; const c1 = u.c;
   M.fromTo('#i0', { scale: 1.12 }, { scale: 1, duration: u.s + 1.2, ease: 'none', immediateRender: false }, 0);
@@ -341,6 +354,7 @@ function build() {
   to('#axe', { color: `rgb(${RAF})` }, c1[1] - .1, .3); pulse(AX.el, c1[1], 1.1, .6); glow('#axe', c1[1], RAF, 1);                       // «jamiylun»
   swap('#AX', 1, c1[2] - .05, .45); glow(AX.vs[1], c1[2] + .1, NASB, 1.2); sfx('shimmer', c1[2]); pulse(AX.el, c1[2] + .05, 1.1, .6);     // «jamiylan»
   pop('#axq', c1[3] - .1, .5);                                          // Nega?
+  foc(c1[1] - .15, [AX.el], [AK.el, AI.el]); foc(c1[3] - .2, [AK.el, AI.el, AX.el], []);                    // diqqat: o'zgargan so'z
 
   /* ================= S2: oddiy gap ================= */
   t = S('S2'); title('#t1', t + .15); pushX('#P0', null, t - .1, .75);
@@ -348,6 +362,7 @@ function build() {
   kar([I.vs[0], X.vs[0]], C.a1);
   u = C.u1b; rise('#ht1', u.s, .45, 24);
   rise('#il1', u.c[2] - .1, .35, 16); sfx('pop', u.c[2] - .1, .7); rise('#xl1', u.c[3] - .1, .35, 16); sfx('pop', u.c[3] - .1, .7);
+  foc(u.c[2] - .1, [I.el], [X.el]); foc(u.c[3] - .1, [X.el], [I.el]); foc(u.c[4] - .05, [I.el, X.el], []);       // diqqat: mubtado -> xabar -> ikkalasi
   pop('#ic', u.c[4] + .25, .45); pop('#xc1', u.c[4] + .45, .45);
   to(['#ie0', '#xe0'], { color: `rgb(${RAF})` }, u.c[5], .4); glow('#ie0', u.c[5], RAF, 1.1); glow('#xe0', u.c[5], RAF, 1.1); sfx('shimmer', u.c[5]);
 
@@ -359,6 +374,7 @@ function build() {
     to(box, { borderColor: `rgba(${c},.6)`, backgroundColor: `rgba(${c},.1)` }, t + .1, .4); sfx('pop', t + .2); };
   t = cq[1] + (cq[2] - cq[1]) * .4; pulse(I.vs[0], cq[1] + .1, 1.06, .5); flip('#bi1', '#bi2', '#bi', RAF, t); pop('#bic', cq[2] + .05, .45);          // mubtado -> kaananing ismi; raf
   t = cq[3] + (cq[4] - cq[3]) * .4; pulse(X.vs[0], cq[3] + .1, 1.06, .5); flip('#bx1', '#bx2', '#bx', NASB, t); pop('#bxc', cq[4] + .05, .45);        // xabar -> kaananing xabari; nasb
+  foc(cq[1], ['#bi', I.el], ['#bk', '#bx', X.el]); foc(cq[3], ['#bx', X.el], ['#bk', '#bi', I.el]); foc(u.e + .05, ['#bk', '#bi', '#bx', I.el, X.el], []);   // diqqat: gap ketayotgan quti va uning so'zi
 
   /* ================= S3b: sodda tushuntirish — kaana ikkalasiga ham hukm qiladi (ismni ham kaana raf qiladi — ko'pchilik fikri); pastda tarkib qatorlari yig'iladi ================= */
   u = C.k3a; const c2 = u.c; t = u.s - .25; title('#t2b', t + .05);
@@ -368,10 +384,12 @@ function build() {
   /* yoylar: S3b yakuniy joylashuvi bo'yicha (o'rinlar kengligidan hisoblanadi) */
   const g = K.gap, W2 = K.w[0] + g + I.w[1] + g + X.w[1], xr = 540 + W2 / 2, kx = xr - K.w[0] / 2, ix = xr - K.w[0] - g - I.w[1] / 2, xx = xr - K.w[0] - g - I.w[1] - g - X.w[1] / 2;
   const svg = $('#arc'), a1 = arc(svg, kx - 20, ix, 34, 100, RAF), a2 = arc(svg, kx + 20, xx, 34, 180, NASB), a3 = arc(svg, ix, kx - 20, 34, 100, PINK);
+  const xr1 = 540 + (K.w[0] + g + I.w[1] + g + X.w[0]) / 2, kx1 = xr1 - K.w[0] / 2, ix1 = xr1 - K.w[0] - g - I.w[1] / 2;   // xabar hali o'zgarmagan paytdagi o'rinlar (uchish boshi aniq so'z ustidan bo'lsin)
   draw(a1, c2[1] + .65, .5); draw(a2, c2[1] + .8, .65);                                                         // ikkalasiga ham hukm qiladi
-  show('#tk', c2[1] + .75, .4); rise('#tk1', c2[1] + 1.0, .45, 24);
+  show('#tk', c2[1] + .75, .4); rise('#tk1', c2[1] + 1.0, .45, 24); fly('<span class="gold">كَانَ</span>', kx1, 0, c2[1] + 1.05);
   /* Mubtadoga: «Raf bo'l!» */
   pulse(I.vs[1], c2[2] + .05, 1.06, .5);
+  foc(c2[2] - .1, [K.el, I.el], [X.el, '#tk1']); to(a2, { opacity: .22 }, c2[2] - .1, .3);                    // diqqat: kaana va mubtado
   M.fromTo('#cmd0', { autoAlpha: 0, x: kx - 30, scale: .5 }, { autoAlpha: 1, x: kx - 30, scale: 1, duration: .4, ease: 'back.out(2)', immediateRender: false }, c2[3] - .1); sfx('pop', c2[3] - .1);
   to('#cmd0', { x: ix, ease: 'power2.inOut' }, c2[3] + .4, .55); sfx('whoosh', c2[3] + .35, .7);
   /* Mubtado jilmayadi: «Men allaqachon rafman» */
@@ -380,9 +398,10 @@ function build() {
   t = c2[4] + (c2[5] - c2[4]) * .4; hide('#cmd0', t - .15, .25); pop('#ip', t, .45); glow(I.vs[1], t + .15, RAF, 1.1);
   /* oxiri o'zgarmaydi — nomi o'zgaradi: kaananing ismi (tarkib qatori) */
   hide('#ip', c2[5] - .15, .25); pop('#ip2', c2[5] + .1, .45); pulse('#ic .chip', c2[5] + .3, 1.22, .6);
-  sink('#il1', c2[5] + .55, .3, 20); rise('#il2', c2[5] + .85, .35, 16); rise('#tk2', c2[5] + .75, .45, 24); hide('#ip2', c2[6] + .2, .25);
+  sink('#il1', c2[5] + .55, .3, 20); rise('#il2', c2[5] + .85, .35, 16); rise('#tk2', c2[5] + .75, .45, 24); fly('الطَّالِ<i class="raf">بُ</i>', ix1, 1, c2[5] + .8); hide('#ip2', c2[6] + .2, .25);
   /* Xabarga esa: «Oxiringni o'zgartir!» */
   pulse(K.vs[0], c2[6] + .05, 1.08, .5);
+  foc(c2[6] - .1, [K.el, X.el], [I.el, '#tk1', '#tk2']); to(a2, { opacity: 1 }, c2[6] - .1, .3); to(a1, { opacity: .22 }, c2[6] - .1, .3);   // diqqat: kaana va xabar
   M.fromTo('#cmd', { autoAlpha: 0, x: kx - 60, scale: .5 }, { autoAlpha: 1, x: kx - 60, scale: 1, duration: .4, ease: 'back.out(2)', immediateRender: false }, c2[7] - .1); sfx('pop', c2[7] - .1);
   to('#cmd', { x: Math.max(xx + 40, 270), ease: 'power2.inOut' }, c2[7] + .5, .65); sfx('whoosh', c2[7] + .45, .7);
   /* xabar bo'ysunadi: egiladi, zammani qo'yib fatha oladi; nomi — kaananing xabari, nasb */
@@ -392,9 +411,11 @@ function build() {
   to('#tk', { autoAlpha: 0 }, c2[9] - .2, .3);                                                                    // yaqinlashganda diqqat faqat so'z oxirida
   swap('#X', 1, c2[10] + .05, .45); glow(X.vs[1], c2[10] + .2, NASB, 1.2); sfx('shimmer', c2[10] + .1);
   cam0(c2[10] + .75, .7); to('#tk', { autoAlpha: 1 }, c2[10] + 1.0, .4);
-  sink('#xl1', c2[10] + .9, .3, 20); rise('#xl2', c2[10] + 1.2, .35, 16); hide('#xc1', c2[10] + .9, .25); pop('#xc2', c2[10] + 1.25, .5); rise('#tk3', c2[10] + 1.35, .45, 24);
+  sink('#xl1', c2[10] + .9, .3, 20); rise('#xl2', c2[10] + 1.2, .35, 16); hide('#xc1', c2[10] + .9, .25); pop('#xc2', c2[10] + 1.25, .5); rise('#tk3', c2[10] + 1.45, .45, 24); fly('كَبِي<i class="nasb">رًا</i>', xx, 2, c2[10] + 1.5);
+  foc(c2[10] + 1.5, [I.el, '#tk1', '#tk2'], []);                                                                  // tarkib to'liq — hammasi yorug'
   /* lekin ism ham jim qolmaydi: kaananing o'zini o'zgartirib qo'yadi (ishora — javobi S5 da) */
   u = C.k3b; const cb = u.c;
+  foc(cb[0] + 1.0, [K.el, I.el], [X.el, '#tk']); foc(C.a2.s - .25, [K.el, I.el, X.el, '#tk'], []);               // diqqat: ism va kaana; o'qilganda hammasi yorug'
   pulse(I.vs[1], cb[0] + .35, 1.1, .6); to(a1.concat(a2), { opacity: .22 }, cb[0] + .2, .3);
   M.set(a3[0], { opacity: 1 }, cb[0]); draw(a3, cb[0] + .6, .6); sfx('pop', cb[0] + 1.1, .7);
   t = cb[1] + (cb[2] - cb[1]) * .3;
@@ -413,6 +434,7 @@ function build() {
   to('#ht2', { y: -104, ease: 'power3.inOut' }, t + .05, .6);                                                    // yorliqlar ketgach tarjima gapga yaqinlashadi
   rise('#bt', t + .35, .5, 110); sfx('whoosh', t + .2, .7); pulse('#ht2 .gold', u.c[2] + .1, 1.25, .6);
   rise('#bt1', u.c[1] - .1, .35, 20); pop('#bt1c', u.c[2] - .1, .45); rise('#bt2', u.c[3] - .05, .35, 20); pop('#bt2c', u.c[4] - .1, .45);
+  foc(u.c[3] - .1, ['#bt2'], ['#bt1']); foc(u.e, ['#bt1', '#bt2'], []);
   /* bitta nozik joy: Alloh haqida «edi» emas, «doimo» — ma'no gap egasidan keladi */
   u = C.k4; const c4 = u.c; a = C.b4; t = u.s - .3; title('#t4', t + .05);
   to('#hs', { y: -90, autoAlpha: 0, ease: 'power2.in' }, t, .4); sink('#ht2', t, .35, -170);
@@ -420,12 +442,14 @@ function build() {
   to(['#bt1', '#bt2'], { autoAlpha: .4 }, c4[1] - .1, .4); rise('#bt3', c4[1], .4, 20); sfx('pop', c4[1], .7);
   pop('#bt3c', c4[2] - .05, .5); glow('#bt3c .chip', c4[2] + .1, GOLD, 1.1);
   rise('#ay', c4[3] - .2, .5, 30); sfx('whoosh', c4[3] - .25, .5);
-  { const wy = $$('#ay .wa'); pulse(wy[0], c4[3] + .25, 1.07, .6); pulse(wy[1], c4[4] + .1, 1.1, .7); glow(wy[1], c4[4] + .1, RAF, 1.2); }
+  { const wy = $$('#ay .wa'); pulse(wy[0], c4[3] + .25, 1.07, .6); pulse(wy[1], c4[4] + .1, 1.1, .7); glow(wy[1], c4[4] + .1, RAF, 1.2);
+    foc(c4[3] + .1, [wy[0]], [wy[1], wy[2], wy[3]]); foc(c4[4], [wy[1]], [wy[0], wy[2], wy[3]]); foc(a.s - .2, wy, []); }             // «kaanadan emas» -> «gap egasidan»
   pop('#ayn', c4[4] + .35, .5);
   kar('#ay .wa', a); rise('#ayt', a.s - .15, .45, 20);
 
   /* ================= S5: ismi muannas bo'lsa — kaana unga moslashadi ================= */
   u = C.u5; const v = u.c; t = u.s - .4; title('#t5', t + .1);
+  foc(v[1] - .15, [I.el], [K.el, X.el]); foc(v[2] - .15, [I.el, K.el], [X.el]); foc(u.e - .2, [K.el, I.el, X.el], []);   // diqqat: ism -> ism va kaana
   pushX('#SR', null, t, .75);
   M.set('#hs', { y: 70, scale: .83 }, t); M.fromTo('#hs', { x: 1150, autoAlpha: 1 }, { x: 0, autoAlpha: 1, duration: .75, ease: 'power3.inOut', immediateRender: false }, t);
   swap('#I', 2, v[1] - .1, .5); glow(I.vs[2], v[1] + .15, PINK, 1.1); sfx('pop', v[1] - .05); pop('#ic5', v[1] + .35, .45, 0);          // toliba
@@ -446,11 +470,14 @@ function build() {
   M.fromTo(['#d1', '#d2', '#d3'], { y: 260 }, { y: 0, duration: .75, stagger: .1, ease: 'power3.out', immediateRender: false }, t + .25);
   pulse('#t6', u.c[2] + .1, 1.1, .7); M.to(['#d1', '#d2', '#d3'], { scale: 1.03, duration: .25, yoyo: true, repeat: 1, stagger: .14, ease: 'sine.inOut' }, u.c[3]);   // buyruq bitta, ijrosi uch xil
   rise('#d1s', u.c[4] - .1, .45, 26); pop('#d1b', u.c[5] - .05, .45); to('#d1', { borderColor: `rgba(${NASB},.6)` }, u.c[4], .3);
+  foc(u.c[4] - .1, ['#d1'], ['#d2', '#d3']); foc(u.c[6] - .1, ['#d2'], ['#d1', '#d3']); mag($$('#d1s .wa'), 2, u.c[5] - .05, u.c[6] - .25); mag(w2, 2, u.c[7] - .05, C.a6b.s - .15);   // diqqat: faol qator; so'z oxiri kattalashadi
   rise('#d2s', u.c[6] - .1, .45, 26); pop('#d2b', u.c[7] - .05, .45); to('#d1', { borderColor: 'rgba(255,255,255,.13)' }, u.c[6], .3); to('#d2', { borderColor: `rgba(${NASB},.6)` }, u.c[6], .3);
   kar('#d2s .wa', C.a6b);
   u = C.u6b; rise('#d3s', u.s, .45, 26); pop('#d3b', u.c[2] - .05, .45); to('#d2', { borderColor: 'rgba(255,255,255,.13)' }, u.s, .3); to('#d3', { borderColor: `rgba(${NASB},.6)` }, u.s, .3);
+  foc(u.s - .05, ['#d3'], ['#d1', '#d2']); mag(w3, 2, u.c[2] - .05, C.a6c.s - .15);
   kar('#d3s .wa', C.a6c);
   u = C.k6; const c6 = u.c; to('#d3', { borderColor: 'rgba(255,255,255,.13)' }, u.s, .3);
+  foc(u.s - .1, ['#d1', '#d2', '#d3'], []);
   glow(w2[1], c6[1], RAF, 1.1); pulse(w2[1], c6[1], 1.06, .5);                                                  // ismi ikkita
   glow(w3[1], c6[2], RAF, 1.1); pulse(w3[1], c6[2], 1.06, .5);                                                  // yoki ko'p bo'lsa ham
   t = c6[2] + .3; hide('#d1s', t, .3); show('#d1p', t + .2, .4); hide('#d1c1', t, .25); show('#d1c2', t + .2, .3); glow(w1p[1], t + .45, RAF, 1.1); glow(w1p[2], t + .6, NASB, 1.1); sfx('pop', t + .2, .6);   // siniq jam: xabar yana fatha bilan
@@ -463,6 +490,7 @@ function build() {
   M.fromTo([GI.vs[0], GX.vs[0]], { y: 70, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .6, stagger: .14, immediateRender: false }, t + .5);
   rise('#gt1', t + .9, .45, 24);
   pop('#gil', c7[0] + .55, .45);                                                                               // aqlsiz narsalar ko'pligida
+  foc(c7[0] + .5, [GI.el], [GX.el]); foc(c7[1] - .05, [GX.el], [GI.el]); foc(c7[3] - .3, [GK.el, GX.el], [GI.el]); foc(a.s - .2, [GK.el, GI.el, GX.el], []);   // diqqat: ism -> xabar
   pulse(GX.vs[0], c7[1] + .1, 1.08, .6);                                                                       // xabar oldingi darslardagidek
   pop('#gxl', c7[2], .45);                                                                                     // muannas birlikda
   t = c7[3] - .3; hide('#gch', t, .3);                                                                          // faqat endi nasbda: kaana keladi, xabar fatha oladi
@@ -483,6 +511,7 @@ function build() {
   u = C.k9a; const c9 = u.c, b = C.k9b; a = C.b9; t = u.s - .4; title('#t9', t + .15); pushX('#SE', '#SF', t);
   rise('#f0', c9[1] - .2, .45, 20); glow('#f0 .ar', c9[1] + .1, GOLD, 1.1);
   rise('#f1', c9[2] - .05, .4, 20); sfx('pop', c9[2], .7);
+  foc(c9[3] - .1, ['#f2'], ['#f1']); foc(c9[4] - .1, ['#f3'], ['#f1', '#f2']); foc(c9[6] - .55, ['#f1', '#f2', '#f3'], []);
   rise('#f2', c9[3] - .05, .4, 20); sfx('pop', c9[3], .7);
   rise('#f3', c9[4] - .05, .4, 20); sfx('pop', c9[4], .7); glow('#f3 .pink', c9[5] + .2, PINK, 1.1);
   t = c9[6] - .15; title('#t10', t + .1); M.to('#fsum', { y: -1500, duration: .8, ease: 'power3.inOut' }, t); M.set('#fq', { autoAlpha: 1 }, t); sfx('whoosh2', t + .05);   // savol

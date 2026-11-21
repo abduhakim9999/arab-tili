@@ -4,7 +4,7 @@ Foydalanuvchi 19.11.2026 da yuborgan yangi nashr: 1-qism (1–24) va 2-qism (25�
 
 **Eski nashrdan farqi:** 1–12 va 24–53-darslar raqami bir xil. 13–23 tartibi o'zgargan: eski 20–23 (исм ишора, замирлар) → yangi 13–16; eski 13–15 (феъл 2–4) → yangi 17–19; eski 16 (амр ясалиши) → yangi 20; eski 17–19 (мабний феъллар) → yangi 21–23. `claude/kitob-konspekti.md` (va repodagi `docs/kitob-konspekti.md`) dagi raqamlar 19.11.2026 da yangi nashrga moslandi. Eski nashrning 54–94-darslari: `eski-54-94/`.
 
-**Opechatka:** 2-qismda 51-dars ham «52 - дарс» deb yozilgan; bu nusxada «51 - дарс» qilib tuzatildi.
+**Opechatka:** 2-qismda 51-dars ham «52 - дарс» deb yozilgan; bu nusxada «51 - дарс» qilib tuzatildi. 52-dars sarlavhasi ham «(1)» edi — «(2)» qilindi (21.11.2026).
 
 ---
 
@@ -6509,7 +6509,7 @@ Foydalanuvchi 19.11.2026 da yuborgan yangi nashr: 1-qism (1–24) va 2-qism (25�
 
 **52 - дарс**
 
-**<span dir="rtl">إِنَّ</span> нинг исми вазифасини бажарувчи муттасил замирлар(1)**
+**<span dir="rtl">إِنَّ</span> нинг исми вазифасини бажарувчи муттасил замирлар(2)**
 
 <span dir="rtl">إِنَّ</span> нинг исми вазифасини бажарувчи замирлар:
 

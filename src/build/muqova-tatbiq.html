@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!-- «Татбиқ» kitobi muqovasi (21.11.2026, foydalanuvchi: «har bob rasmi shart emas, boblar ko'payishi mumkin — umumiy bitta rasm ElevenLabs'dan»).
+     Fon — muqova-rasm.jpg (ElevenLabs, flow dK830LkjgOdz4Zg9rpZ8, tugun Ptk2JS5avheLY1vVrafl; tepa 40% nom uchun bo'sh), ustida ramka va nom.
+     Sonlar (dars, bob) yozilmaydi. Yasash: python3 src/build/muqova.py → fon/tatbiq.jpg (750×1125). -->
+<html lang="uz"><head><meta charset="utf-8">
+<style>
+@font-face{font-family:"DarsNaskh";src:url(../../naskh.woff)}
+html,body{margin:0;width:600px;height:900px;overflow:hidden}
+body{position:relative;background:#0F5E3E url(muqova-rasm.jpg) center/cover no-repeat;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:#F5E7C0}
+.qr{position:absolute;left:0;right:0;top:0;height:420px;background:linear-gradient(to bottom,rgba(8,52,36,.55),rgba(8,52,36,.25) 70%,rgba(8,52,36,0))}
+.r1{position:absolute;inset:20px;border:2px solid #D8B56A;border-radius:6px}
+.r2{position:absolute;inset:29px;border:1px solid rgba(216,181,106,.55);border-radius:3px}
+.bc{position:absolute;width:26px;height:26px;fill:#D8B56A}
+.yu{position:absolute;left:0;right:0;text-align:center}
+.t1{top:66px;font-size:15px;font-weight:600;letter-spacing:.3em;padding-left:.3em;color:#EBD69E;text-shadow:0 1px 2px rgba(0,0,0,.4)}
+.ch{top:96px;display:flex;justify-content:center;align-items:center;gap:10px}
+.ch i{display:block;width:70px;height:1.5px;background:linear-gradient(90deg,transparent,#D8B56A)}.ch i:last-child{transform:scaleX(-1)}
+.ch svg{width:16px;height:16px;fill:#D8B56A}
+.ar{top:112px;font-family:"DarsNaskh",serif;font-size:118px;line-height:1.5;direction:rtl;
+  background:linear-gradient(180deg,#FBE7A6 0%,#E3BE67 55%,#B98A34 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 3px 3px rgba(0,0,0,.45))}
+.uz{top:322px;font-size:44px;font-weight:800;letter-spacing:.36em;padding-left:.36em;color:#F7EBC8;text-shadow:0 2px 4px rgba(0,0,0,.5)}
+</style></head>
+<body>
+<div class="qr"></div>
+<div class="r1"></div><div class="r2"></div>
+<svg class="bc" style="left:16px;top:16px" viewBox="-13 -13 26 26"><path id="y" d="M0-12L3.5-8.5H8.5V-3.5L12 0L8.5 3.5V8.5H3.5L0 12L-3.5 8.5H-8.5V3.5L-12 0L-8.5-3.5V-8.5H-3.5Z"/></svg>
+<svg class="bc" style="right:16px;top:16px" viewBox="-13 -13 26 26"><use href="#y"/></svg>
+<svg class="bc" style="left:16px;bottom:16px" viewBox="-13 -13 26 26"><use href="#y"/></svg>
+<svg class="bc" style="right:16px;bottom:16px" viewBox="-13 -13 26 26"><use href="#y"/></svg>
+<div class="yu t1">АРАБ ТИЛИ ГРАММАТИКАСИ</div>
+<div class="yu ch"><i></i><svg viewBox="-13 -13 26 26"><use href="#y"/></svg><i></i></div>
+<div class="yu ar">اَلتَّطْبِيقُ</div>
+<div class="yu uz">ТАТБИҚ</div>
+</body></html>

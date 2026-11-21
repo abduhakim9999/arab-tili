@@ -18,7 +18,7 @@
     '@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tb .c-i{--c:#ADA4FF;--t:rgba(173,164,255,.13)}:root:not([data-theme="light"]) .tb .c-f,:root:not([data-theme="light"]) .tb .c-z{--c:#6FD8BC;--t:rgba(111,216,188,.12)}:root:not([data-theme="light"]) .tb .c-h{--c:#F2A27A;--t:rgba(242,162,122,.13)}:root:not([data-theme="light"]) .tb .c-m{--c:#E8C07A;--t:rgba(232,192,122,.13)}:root:not([data-theme="light"]) .tb .c-a{--c:#F49AB6;--t:rgba(244,154,182,.12)}}' +
     ':root[data-theme="dark"] .tb .c-i{--c:#ADA4FF;--t:rgba(173,164,255,.13)}:root[data-theme="dark"] .tb .c-f,:root[data-theme="dark"] .tb .c-z{--c:#6FD8BC;--t:rgba(111,216,188,.12)}:root[data-theme="dark"] .tb .c-h{--c:#F2A27A;--t:rgba(242,162,122,.13)}:root[data-theme="dark"] .tb .c-m{--c:#E8C07A;--t:rgba(232,192,122,.13)}:root[data-theme="dark"] .tb .c-a{--c:#F49AB6;--t:rgba(244,154,182,.12)}' +
     '.tb{padding-bottom:6px}.tb-tp{display:flex;align-items:center;gap:8px;margin:2px 0 4px;font-size:13px;color:var(--mu)}' +
-    '.tb-tp>span{background:var(--cd);border:1px solid var(--bd);border-radius:9px;padding:2px 9px}' +
+    '.tb-tp>span:first-child{background:var(--cd);border:1px solid var(--bd);border-radius:9px;padding:2px 9px}' +
     '.tb-nm{font-size:23px;font-weight:700;line-height:1.25;margin:0 0 14px}' +
     '.tb-bs{text-align:center;font-size:25px;line-height:1.7;margin:0 0 8px}' +
     '.tb-vd{display:flex;gap:14px;align-items:center;border:1.5px solid var(--bd);border-radius:18px;padding:10px 12px 10px 10px;background:var(--cd);margin:0 0 20px;box-shadow:inset 0 -3px 0 var(--bd)}' +
@@ -116,9 +116,10 @@
     '.tb-ps{display:flex;align-items:center;justify-content:center;gap:6px;margin:0 0 6px;color:var(--mu);font-size:14px}.tb-ps svg{width:22px;height:22px}.tb .tb-ps .ar{font-size:24px;color:var(--kn)}' +
     '.tb-gp{display:grid;gap:10px;margin:0 0 14px}.tb-gp .sc{border:1.5px solid var(--bd);border-radius:16px;background:var(--cd);overflow:hidden}' +
     '.tb-gp .hd{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:4px 12px;border-bottom:1px solid var(--bd);font-size:14.5px}.tb .tb-gp .hd .ar{font-size:21px;line-height:1.6;color:var(--mu)}' +
-    '.tb-gp .rw{direction:rtl;display:flex;align-items:flex-start;gap:10px;padding:5px 12px;border-top:1px solid var(--bd)}.tb-gp .hd+.rw{border-top:0}' +
-    '.tb .tb-gp .rw>.ar{flex-shrink:0;margin-top:6px;font-size:16px;line-height:1.5;color:var(--c);background:var(--t);border-radius:8px;padding:0 8px}' +
-    '.tb-gp .ss{flex:1;min-width:0;display:flex;flex-wrap:wrap;gap:0 16px}.tb .tb-gp .ss .ar{font-size:22px;line-height:1.75}' +
+    '.tb-gp .jn{display:flex;flex-direction:row-reverse;align-items:center;gap:8px;padding:2px 12px;background:var(--t);color:var(--c);border-top:1px solid var(--bd)}.tb-gp .hd+.jn{border-top:0}' +
+    '.tb .tb-gp .jn .ar{font-size:18px;line-height:1.6}.tb-gp .jn small{font-size:12.5px;font-weight:700}' +
+    '.tb-gp .tb-r{padding:2px 12px}.tb .tb-gp .tb-ar .ar{font-size:22px}' +
+    '.tb .tb-sn1{font-style:normal;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;color:var(--c);background:var(--t);border-radius:7px;padding:0 8px}' +
     '.tb-sn.gp .tb-sw .ar{font-size:27px;white-space:normal}.tb-sn.gp .tb-wl.tn .tb-w{font-size:21px;line-height:1.7}' +
     '.tb-kf{border:1.5px solid var(--bd);border-radius:16px;background:var(--cd);padding:0 12px 2px;margin:0 0 12px}.tb-mq .tb-kf{margin:10px 0 0;background:var(--bg)}.tb-kf .hd{text-align:right;padding:2px 0 0;font-size:13px;font-weight:700;color:var(--mu)}.tb .tb-kf .hd .ar{font-size:18px;color:var(--c)}' +
     '.tb-kf .r{padding:4px 0 8px;border-top:1px solid var(--bd);text-align:center}.tb-kf .hd+.r{border-top:0}' +
@@ -144,6 +145,9 @@
     return E(String(s).replace(/⟨([^⟩]+)⟩/g, '<span class="ar" lang="ar">$1</span>').replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>').replace(/\*([^*]+)\*/g, '<i>$1</i>'));
   }
   function ar(s) { return '<span class="ar" lang="ar">' + E(s) + '</span>'; }
+  /* son turi yorlig'i (46-darsdan): b муфрад, t тасния, jt жам таксир, js жам солим — ranglari 5-darsdagidek */
+  var SN = { b: ['муфрад', 'b'], t: ['тасния', 't'], jt: ['жам таксир', 'j'], js: ['жам солим', 'j'] };
+  function sn(k) { return k && SN[k] ? '<i class="tb-sn1 c-' + SN[k][1] + '">' + SN[k][0] + '</i>' : ''; }
   var CV = '<svg class="cv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
   var PLAY = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>';
   var STR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
@@ -208,18 +212,21 @@
     },
     /* pastga strelka + yozuv (masalan «+ كَانَ») */
     ps: function (x) { return '<div class="tb-ps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v15M6 13l6 6 6-6"/></svg><span>' + A(x[1]) + '</span></div>'; },
-    /* mubtado–xabar guruhlari: [[sarlavha, arabcha sarlavha, [[rang, arabcha nom, [gaplar]], …]], …] */
+    /* mubtado–xabar guruhlari: [[sarlavha, arabcha sarlavha, [[rang, arabcha nom, [[son turi (SN), gap], …]], …]], …];
+       har gap alohida qatorda, chapda son turi (21.11.2026, foydalanuvchi: «bitta gapga o'xshab turibdi — ajralib tursin») */
     gp: function (x) {
       return '<div class="tb-gp">' + x[1].map(function (g) {
         return '<div class="sc"><div class="hd"><b>' + A(g[0]) + '</b>' + ar(g[1]) + '</div>' + g[2].map(function (r) {
-          return '<div class="rw c-' + r[0] + '">' + ar(r[1]) + '<div class="ss">' + r[2].map(ar).join('') + '</div></div>';
+          return '<div class="jn c-' + r[0] + '">' + ar(r[1]) + '<small>' + (r[0] === 'k' ? 'музаккар' : 'муаннас') + '</small></div>' + r[2].map(function (q) {
+            return '<div class="tb-r"><span class="tb-l">' + sn(q[0]) + '</span><span class="tb-ar">' + ar(q[1]) + '</span></div>';
+          }).join('');
         }).join('') + '</div>';
       }).join('') + '</div>';
     },
     /* kaana formulasi: x[1] — arabcha sarlavha, x[2] — rang, x[3] — [[kaana, mubtado–xabar, natija, tarjima], …] */
     kf: function (x) {
       return '<div class="tb-kf c-' + x[2] + '"><div class="hd">' + A(x[1]) + '</div>' + x[3].map(function (r) {
-        return '<div class="r"><div class="fx">' + ar(r[0]) + '<i>+</i>' + ar(r[1]) + '</div><div class="nt"><i>=</i>' + ar(r[2]) + '</div><small>' + A(r[3]) + '</small></div>';
+        return '<div class="r"><div class="fx">' + ar(r[0]) + '<i>+</i>' + ar(r[1]) + '</div><div class="nt"><i>=</i>' + ar(r[2]) + '</div><small>' + (r[4] ? sn(r[4]) + ' ' : '') + A(r[3]) + '</small></div>';
       }).join('') + '</div>';
     },
     /* tarkib kartasi: gap, tarjima, [[so'z, tarkibi, rang], …], jumla turi */
@@ -674,10 +681,10 @@
      Ranglar videodagidek: [g] kaana — tilla, [r] raf — binafsha, [s] nasb — yashil, [n] muannaslik «т»si — pushti, [h] harf. */
   /* mubtado va xabar (46, 47 — kitobda ikkalasida ham bor) */
   var MX = ['gp', [
-    ['Ақлли учун', 'لِلْعَاقِلِ', [['k', 'مُذَكَّرٌ', ['اَلطَّالِبُ كَبِيرٌ', 'اَلطَّالِبَانِ كَبِيرَانِ', 'اَلطُّلَّابُ كِبَارٌ', 'اَلطَّالِبُونَ كِبَارٌ']],
-      ['n', 'مُؤَنَّثٌ', ['اَلطَّالِبَةُ كَبِيرَةٌ', 'اَلطَّالِبَتَانِ كَبِيرَتَانِ', 'اَلطَّالِبَاتُ كَبِيرَاتٌ']]]],
-    ['Ақлсиз учун', 'لِغَيْرِ الْعَاقِلِ', [['k', 'مُذَكَّرٌ', ['اَلثَّوْرُ كَبِيرٌ', 'اَلثَّوْرَانِ كَبِيرَانِ', 'اَلثِّيرَانُ كَبِيرَةٌ']],
-      ['n', 'مُؤَنَّثٌ', ['اَلْبَقَرَةُ كَبِيرَةٌ', 'اَلْبَقَرَتَانِ كَبِيرَتَانِ', 'اَلْبَقَرَاتُ كَبِيرَةٌ (كَبِيرَاتٌ)']]]]]];
+    ['Ақлли учун', 'لِلْعَاقِلِ', [['k', 'مُذَكَّرٌ', [['b', 'اَلطَّالِبُ كَبِيرٌ'], ['t', 'اَلطَّالِبَانِ كَبِيرَانِ'], ['jt', 'اَلطُّلَّابُ كِبَارٌ'], ['js', 'اَلطَّالِبُونَ كِبَارٌ']]],
+      ['n', 'مُؤَنَّثٌ', [['b', 'اَلطَّالِبَةُ كَبِيرَةٌ'], ['t', 'اَلطَّالِبَتَانِ كَبِيرَتَانِ'], ['js', 'اَلطَّالِبَاتُ كَبِيرَاتٌ']]]]],
+    ['Ақлсиз учун', 'لِغَيْرِ الْعَاقِلِ', [['k', 'مُذَكَّرٌ', [['b', 'اَلثَّوْرُ كَبِيرٌ'], ['t', 'اَلثَّوْرَانِ كَبِيرَانِ'], ['jt', 'اَلثِّيرَانُ كَبِيرَةٌ']]],
+      ['n', 'مُؤَنَّثٌ', [['b', 'اَلْبَقَرَةُ كَبِيرَةٌ'], ['t', 'اَلْبَقَرَتَانِ كَبِيرَتَانِ'], ['js', 'اَلْبَقَرَاتُ كَبِيرَةٌ (كَبِيرَاتٌ)']]]]]]];
   /* tarkib qatorlari: k — kaana shakli va tarkibi; ism/xabar — alomati bilan */
   function tkK(k, t) { return [k, t, 'g']; }
   function tkI(w, k, al) { return [w, '⟨' + k + '⟩ нинг исми, раф қилинган, аломати ' + al, 'r']; }
@@ -699,14 +706,14 @@
       ['ps', '⟨كَانَ⟩ кирса'],
       ['gl', [['[g]كَانَ[/]', 'ноқис феъл', '', 'g'], ['اَلطَّالِ[r]بُ[/]', '⟨كَانَ⟩ нинг исми', 'раф', 'r'], ['كَبِي[s]رًا[/]', '⟨كَانَ⟩ нинг хабари', 'насб', 's']], 'Толиб катта бўлди (эди)'],
       ['kf', '⟨مُذَكَّرٌ⟩', 'k', [
-        ['[g]كَانَ[/]', 'اَلطَّالِبُ كَبِيرٌ', '[g]كَانَ[/] الطَّالِبُ كَبِي[s]رًا[/]', 'Толиб катта бўлди'],
-        ['[g]كَانَ[/]', 'اَلطَّالِبَانِ كَبِيرَانِ', '[g]كَانَ[/] الطَّالِبَانِ كَبِي[s]رَيْنِ[/]', '2 толиб катта бўлди'],
-        ['[g]كَانَ[/]', 'اَلطُّلَّابُ كِبَارٌ', '[g]كَانَ[/] الطُّلَّابُ كِبَا[s]رًا[/]', 'Толиблар катта бўлдилар'],
-        ['[g]كَانَ[/]', 'اَلطَّالِبُونَ كِبَارٌ', '[g]كَانَ[/] الطَّالِبُونَ كِبَا[s]رًا[/]', 'Толиблар катта бўлдилар']]],
+        ['[g]كَانَ[/]', 'اَلطَّالِبُ كَبِيرٌ', '[g]كَانَ[/] الطَّالِبُ كَبِي[s]رًا[/]', 'Толиб катта бўлди', 'b'],
+        ['[g]كَانَ[/]', 'اَلطَّالِبَانِ كَبِيرَانِ', '[g]كَانَ[/] الطَّالِبَانِ كَبِي[s]رَيْنِ[/]', '2 толиб катта бўлди', 't'],
+        ['[g]كَانَ[/]', 'اَلطُّلَّابُ كِبَارٌ', '[g]كَانَ[/] الطُّلَّابُ كِبَا[s]رًا[/]', 'Толиблар катта бўлдилар', 'jt'],
+        ['[g]كَانَ[/]', 'اَلطَّالِبُونَ كِبَارٌ', '[g]كَانَ[/] الطَّالِبُونَ كِبَا[s]رًا[/]', 'Толиблар катта бўлдилар', 'js']]],
       ['kf', '⟨مُؤَنَّثٌ⟩', 'n', [
-        ['[g]كَانَ[n]تْ[/][/]', 'اَلطَّالِبَةُ كَبِيرَةٌ', '[g]كَانَ[n]تِ[/][/] الطَّالِبَةُ كَبِيرَ[s]ةً[/]', 'Толиба катта бўлди'],
-        ['[g]كَانَ[n]تْ[/][/]', 'اَلطَّالِبَتَانِ كَبِيرَتَانِ', '[g]كَانَ[n]تِ[/][/] الطَّالِبَتَانِ كَبِيرَ[s]تَيْنِ[/]', '2 толиба катта бўлди'],
-        ['[g]كَانَ[n]تْ[/][/]', 'اَلطَّالِبَاتُ كَبِيرَاتٌ', '[g]كَانَ[n]تِ[/][/] الطَّالِبَاتُ كَبِيرَا[s]تٍ[/]', 'Толибалар катта бўлдилар']]],
+        ['[g]كَانَ[n]تْ[/][/]', 'اَلطَّالِبَةُ كَبِيرَةٌ', '[g]كَانَ[n]تِ[/][/] الطَّالِبَةُ كَبِيرَ[s]ةً[/]', 'Толиба катта бўлди', 'b'],
+        ['[g]كَانَ[n]تْ[/][/]', 'اَلطَّالِبَتَانِ كَبِيرَتَانِ', '[g]كَانَ[n]تِ[/][/] الطَّالِبَتَانِ كَبِيرَ[s]تَيْنِ[/]', '2 толиба катта бўлди', 't'],
+        ['[g]كَانَ[n]تْ[/][/]', 'اَلطَّالِبَاتُ كَبِيرَاتٌ', '[g]كَانَ[n]تِ[/][/] الطَّالِبَاتُ كَبِيرَا[s]تٍ[/]', 'Толибалар катта бўлдилар', 'js']]],
       ['p', 'Юқорида кўрганингиздек, ⟨كَانَ⟩ нинг исми муаннас бўлганида, ⟨كَانَ⟩ феълининг кетига муаннаслик ⟨ت⟩ си боғланади ва 2 сукуннинг ўзаро йўлиқиш қоидаларига кўра ⟨كَانَ⟩ нинг исмига у касра билан боғланади.'],
       ['qd', [['мз', 'исми музаккар', '[g]كَانَ[/]', 'g'], ['мн', 'исми муаннас — кетига муаннаслик «т»си боғланади', '[g]كَانَ[/][n]تْ[/]', 'n'],
         ['2 сукун', 'икки сукун йўлиқади — «т» касра олади', '[g]كَانَ[/][n]تِ[/] الطَّالِبَةُ', 'n']]],
@@ -812,13 +819,13 @@
       ['h', 'g', '2', '**⟨يَكُونُ⟩ кирганда**'],
       ['gl', [['[g]يَكُونُ[/]', 'ноқис феъл', '', 'g'], ['اَلطَّالِ[r]بُ[/]', '⟨يَكُونُ⟩ нинг исми', 'раф', 'r'], ['كَبِي[s]رًا[/]', '⟨يَكُونُ⟩ нинг хабари', 'насб', 's']], 'Толиб катта бўлади'],
       ['kf', '⟨مُذَكَّرٌ⟩', 'k', [
-        ['[g]يَكُونُ[/]', 'اَلطَّالِبُ كَبِيرٌ', '[g]يَكُونُ[/] الطَّالِبُ كَبِي[s]رًا[/]', 'Толиб катта бўлади'],
-        ['[g]يَكُونُ[/]', 'اَلطَّالِبَانِ كَبِيرَانِ', '[g]يَكُونُ[/] الطَّالِبَانِ كَبِي[s]رَيْنِ[/]', '2 толиб катта бўлади'],
-        ['[g]يَكُونُ[/]', 'اَلطُّلَّابُ كِبَارٌ', '[g]يَكُونُ[/] الطُّلَّابُ كِبَا[s]رًا[/]', 'Толиблар катта бўладилар']]],
+        ['[g]يَكُونُ[/]', 'اَلطَّالِبُ كَبِيرٌ', '[g]يَكُونُ[/] الطَّالِبُ كَبِي[s]رًا[/]', 'Толиб катта бўлади', 'b'],
+        ['[g]يَكُونُ[/]', 'اَلطَّالِبَانِ كَبِيرَانِ', '[g]يَكُونُ[/] الطَّالِبَانِ كَبِي[s]رَيْنِ[/]', '2 толиб катта бўлади', 't'],
+        ['[g]يَكُونُ[/]', 'اَلطُّلَّابُ كِبَارٌ', '[g]يَكُونُ[/] الطُّلَّابُ كِبَا[s]رًا[/]', 'Толиблар катта бўладилар', 'jt']]],
       ['kf', '⟨مُؤَنَّثٌ⟩', 'n', [
-        ['[g][n]تَ[/]كُونُ[/]', 'اَلطَّالِبَةُ كَبِيرَةٌ', '[g][n]تَ[/]كُونُ[/] الطَّالِبَةُ كَبِيرَ[s]ةً[/]', 'Толиба катта бўлади'],
-        ['[g][n]تَ[/]كُونُ[/]', 'اَلطَّالِبَتَانِ كَبِيرَتَانِ', '[g][n]تَ[/]كُونُ[/] الطَّالِبَتَانِ كَبِيرَ[s]تَيْنِ[/]', '2 толиба катта бўлади'],
-        ['[g][n]تَ[/]كُونُ[/]', 'اَلطَّالِبَاتُ كَبِيرَاتٌ', '[g][n]تَ[/]كُونُ[/] الطَّالِبَاتُ كَبِيرَا[s]تٍ[/]', 'Толибалар катта бўладилар']]],
+        ['[g][n]تَ[/]كُونُ[/]', 'اَلطَّالِبَةُ كَبِيرَةٌ', '[g][n]تَ[/]كُونُ[/] الطَّالِبَةُ كَبِيرَ[s]ةً[/]', 'Толиба катта бўлади', 'b'],
+        ['[g][n]تَ[/]كُونُ[/]', 'اَلطَّالِبَتَانِ كَبِيرَتَانِ', '[g][n]تَ[/]كُونُ[/] الطَّالِبَتَانِ كَبِيرَ[s]تَيْنِ[/]', '2 толиба катта бўлади', 't'],
+        ['[g][n]تَ[/]كُونُ[/]', 'اَلطَّالِبَاتُ كَبِيرَاتٌ', '[g][n]تَ[/]كُونُ[/] الطَّالِبَاتُ كَبِيرَا[s]تٍ[/]', 'Толибалар катта бўладилар', 'js']]],
       ['p', 'Юқорида кўрганингиздек, ⟨يَكُونُ⟩ нинг исми муаннас бўлганида, ундаги музороат ҳарфи ⟨ت⟩ га ўзгаради.'],
       ['ayl', 'يَكُونُ', 'تَ', 'كُونُ', 'музороат ҳарфи ⟨ت⟩ га ўзгаради', 'n'],
       ['h', 's', '3', '**Таркиб**'],

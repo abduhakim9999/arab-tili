@@ -24,7 +24,7 @@ TXT = {
  # («yonida yana bir fe'l turadi» edi — foydalanuvchi, 21.11.2026: so'z bilan tasvir mos kelsin: يَقْرَأُ kaananing yonida emas — «gapda yana bir fe'l ham bor»)
  'k1': "Bir mo'ysafid har kecha Qur'on o'qir edi. |Arabchada bu ham kaana bilan aytiladi, |lekin gapda yana bir fe'l ham bor. |Sirini oxirida ochamiz.",
  # S2 qoida — avval atamalar bilan, kitobdagidek (47-dars)
- 'k2': "Avval muzoriysi: |kaana — |yakuunu. |U ham noqis — |fo'ili yo'q. |Mubtadoni ismi qilib, |raf qiladi; |xabarni xabari qilib, |nasb qiladi. |Tarjimasi — |«bo'ladi».",
+ 'k2': "Avval muzoriysi: |kaana — |yakuunu. |U ham noqis — |foili yo'q. |Mubtadoni ismi qilib, |raf qiladi; |xabarni xabari qilib, |nasb qiladi. |Tarjimasi — |«bo'ladi».",
  # S3 sodda qilib — vaqt chizig'i (o'ngdan chapga)
  'k3': "Sodda qilib aytsak: |kaana — |kecha haqida, |yakuunu — |bugun va ertaga haqida. |Hukm o'sha.",
  # S4 ismi muannas — muzoraat harfi

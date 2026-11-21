@@ -974,8 +974,19 @@ button.y-bsh[data-sr]{font-size:14.5px;gap:6px;padding:0 8px;white-space:nowrap}
   function yalang(x) { return plain(x).replace(/[.\sـ؟?]/g, ''); }
   function sof(x) { return x.replace(/\((мз|мн)\)/g, '').replace(/\s+/g, ' ').trim().toLowerCase(); }
   /* chalg'ituvchi variant bo'la olmaydi: o'sha so'z, uning muzakkar/muannas jufti yoki ma'nosi bir xil so'z */
+  /* 21.11.2026 (foydalanuvchi: «...га» ma'noli so'z ko'p — bilib bo'lmaydi): biror ma'no qismi bir xil so'z ham chalg'ituvchi bo'lmaydi */
+  function qism(r) {
+    var o = {};
+    (r.uz || []).join(';').replace(/\([^()]*\)/g, ' ').split(/(?:^|\s)\d+\.\s*|[;,]/).forEach(function (q) {
+      q = q.toLowerCase().replace(/\.{2,}|…|[«»"!?]/g, ' ').replace(/\s+/g, ' ').trim(); if (q) o[q] = 1;
+    });
+    return o;
+  }
   function oxshash(a, b) {
-    return a.id === b.id || yalang(a.ar) === yalang(b.ar) || (a.asl || a.id) === (b.asl || b.id) || (a.mn && a.mn === b.ar) || (b.mn && b.mn === a.ar) || sof(mano(a)) === sof(mano(b));
+    if (a.id === b.id || yalang(a.ar) === yalang(b.ar) || (a.asl || a.id) === (b.asl || b.id) || (a.mn && a.mn === b.ar) || (b.mn && b.mn === a.ar) || sof(mano(a)) === sof(mano(b))) return true;
+    var qa = qism(a), qb = qism(b), q;
+    for (q in qa) if (qb[q]) return true;
+    return false;
   }
   function lugSavol(r, dars) {
     var turlar = r.au && LV[r.d] ? ['a', 'a', 'u', 'u', 'o'] : ['a', 'u'], hov = [], kit = 0, i;

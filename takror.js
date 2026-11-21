@@ -28,6 +28,31 @@ function manosiz(n) {
   return n.m.every(function (r) { return /^\s*(\d+\.\s*)?маъносиз/i.test(((r.uzA || r.uz) || [])[0] || ''); });
 }
 
+/* 21.11.2026 (foydalanuvchi: «...га», «...ҳам» kabi ma'noga arabchasi ko'p — bilib bo'lmaydi): «Арабчаси?» kartasi faqat javobi bitta
+   bo'lsa. Yo'q: harflar (`tur` harf) va biror ma'no qismi butun lug'atda boshqa so'zda ham bor so'zlar («келмоқ» — جَاءَ va أَتَى,
+   muzakkar/muannas jufti ham). Ular faqat «Маъноси?» (gap bilan). Ma'no — o'zbekcha asli (ruschada `uzA`), qavs ichi hisobga olinmaydi. */
+function qismlar(r) {
+  var o = [];
+  ((r.uzA || r.uz) || []).forEach(function (u) {
+    u.replace(/\([^()]*\)/g, ' ').split(/(?:^|\s)\d+\.\s*|[;,]/).forEach(function (q) {
+      q = q.toLowerCase().replace(/\.{2,}|…|[«»"!?]/g, ' ').replace(/\s+/g, ' ').trim();
+      if (q && !/^маъносиз/.test(q)) o.push(q);
+    });
+  });
+  return o;
+}
+function yalangA(x) { return String(x || '').replace(/[ً-ٰٟـ.\s؟?…-]/g, '').replace(/[أإآ]/g, 'ا'); }
+function sinonim(lugat) {                                  /* → function(n): shu kartaning «Арабчаси?»si noaniqmi */
+  var QM = {};
+  lugat.forEach(function (r) { qismlar(r).forEach(function (q) { (QM[q] = QM[q] || []).push(r); }); });
+  function bir(a, b) { return (a.asl || a.id) === (b.asl || b.id) || yalangA(a.ar) === yalangA(b.ar); }
+  return function (n) {
+    return manosiz(n) || n.m.some(function (r) {
+      return r.tur === 'harf' || qismlar(r).some(function (q) { return QM[q].some(function (x) { return !bir(x, r); }); });
+    });
+  };
+}
+
 function yarat(o) {
     var soz = {}, k;
     for (k in SOZ) soz[k] = SOZ[k];
@@ -45,10 +70,10 @@ function yarat(o) {
     (o.ustunSoz || []).forEach(function (id) { usz[id] = 1; });
 
     /* ---- kartalar ---- */
-    var K = [], KM = {}, mano = {};
+    var K = [], KM = {}, mano = {}, noaniq = sinonim(o.barcha || o.lugat);   /* barcha — «аниқ биламан»lar ham (takror.html) */
     function qoy(c) { K.push(c); KM[c.id] = c; }
     /* 19.11.2026 (foydalanuvchi: «qaysi ma'no so'ralayotgani gapdan bilinsin»): so'zning keyingi ma'nosi (`asl`) — o'z darsidagi gapi
-       (lugat.json `g`) bilan alohida karta (faqat «Маъноси?» va «Арабчаси?»; so'z sanog'iga kirmaydi — hisob() va takror.html sozlar()).
+       (lugat.json `g`) bilan alohida karta («Маъноси?», javobi bitta bo'lsa «Арабчаси?» ham; so'z sanog'iga kirmaydi — hisob() va takror.html sozlar()).
        Gapi bir xil ma'nolar (kitobda bitta misolning tarjima variantlari) yoki gapsizlari — bitta kartada, avvalgidek birga. */
     function gapM(r) { var g = r.g; return !g ? '' : g.k != null ? ((r.x || [])[g.k] || [''])[0] : g.a.join(' '); }
     function guruh(r) { return (r.asl || r.id) + '|' + gapM(r); }
@@ -61,9 +86,10 @@ function yarat(o) {
       var nk = 'w' + r.id;
       var n = { id: r.id, r: r, m: m, q: qm ? 1 : 0, au: !qm && r.au && lv[r.d] ? { f: lv[r.d], s: r.au[0], e: r.au[1] } : null };
       qoy({ id: nk + 'a', tur: 'a', nk: nk, n: n, u: usz[r.id] ? 1 : 0 });
-      if (!manosiz(n)) qoy({ id: nk + 'u', tur: 'u', nk: nk, n: n, old: nk + 'a' });   /* «зоида жар ҳарфи → ?» — noaniq */
+      var bitta = !noaniq(n);                                 /* «зоида жар ҳарфи → ?», «...га → ?» — noaniq (21.11.2026) */
+      if (bitta) qoy({ id: nk + 'u', tur: 'u', nk: nk, n: n, old: nk + 'a' });
       if (qm) return;
-      if (n.au && !manosiz(n)) qoy({ id: nk + 'o', tur: 'o', nk: nk, n: n, old: nk + 'u' });
+      if (n.au && !manosiz(n)) qoy({ id: nk + 'o', tur: 'o', nk: nk, n: n, old: nk + (bitta ? 'u' : 'a') });
       /* shakl kartasi (13.11.2026: «Машқ» takrorga qo'shildi): ko'pligi (ism), muzore'-amr-masdari (fe'l), turi (harf).
          Qaysi so'zda nima so'ralishini sahifa aytadi (o.shakl(r) → 'j' | 'k' | 't' | ''). Ma'no kartasi kamida bir marta kun o'tib
          to'g'ri takrorlangach chiqadi (qo'shimcha kartalar qatorida, kuniga yangiQosh tadan). */
@@ -168,8 +194,8 @@ function yarat(o) {
         if (!s) return;
         if (s.c.state === ST.Review && s.c.stability >= soz.bilgan) {
           r.bilgan++;
-          var u = S[x.nk + 'u'];                               // ikki tomonlama: ma'no → arabcha ham bilinsa
-          if (s.c.stability >= soz.mustahkam && u && u.c.state === ST.Review && u.c.stability >= soz.bilgan) r.mustahkam++;
+          var u = S[x.nk + 'u'];                               // ikki tomonlama: ma'no → arabcha ham bilinsa (bunday karta bo'lsa)
+          if (s.c.stability >= soz.mustahkam && (!KM[x.nk + 'u'] || (u && u.c.state === ST.Review && u.c.stability >= soz.bilgan))) r.mustahkam++;
         } else r.organilmoqda++;
       });
       return r;

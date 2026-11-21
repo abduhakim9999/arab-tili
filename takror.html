@@ -89,10 +89,25 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .tq-gd{margin-top:2px;font-size:12px;font-weight:600;color:var(--mu)}
 .tq-r .tq-gp{font-size:23px}
 .tq-gt{margin-top:10px;font-size:15.5px;line-height:1.45;color:var(--mu)}
+/* 21.11.2026: «Маъноси?» — tarjima o'z qatori tagida, joyi oldindan ajratilgan (karta sakramaydi) */
+.tq-fy{justify-content:flex-start;padding-top:10px}
+.tq-oc{visibility:hidden}
+.tq-k.och .tq-oc{visibility:visible}
+@media (prefers-reduced-motion:no-preference){.tq-k.och .tq-oc{animation:tqo .28s cubic-bezier(.2,.9,.25,1.05)}}
+.tq-ma{margin-top:2px}
+.tq-ma .tq-m{font-size:23px;line-height:1.35;font-weight:700}
+.tq-ma .tq-fm{margin-top:8px}
+.tq-ma .tq-fm.ar{font-size:20px;color:var(--mu)}
+.tq-gb{width:100%;margin-top:16px;padding-top:10px;border-top:1px solid var(--bd)}
+.tq-gb .tq-gt{margin-top:0}
+.tq-gb .tq-gd{margin-top:6px}
+.tq-r:empty{display:none}
+.tq-fy+.tq-r{background:none;padding:0}
+.tq-fy+.tq-r .tq-ex{background:var(--tint)}
 .tq-ex{margin-top:12px;padding:10px 12px;border-radius:12px;background:var(--cd);font-size:14.5px;color:var(--mu)}
 .tq-ex .ar{display:block;font-size:22px;line-height:1.8;color:var(--tx)}
 .tq-au{margin-left:auto;width:42px;height:42px;border-radius:50%;border:0;background:var(--tint);color:var(--ac);display:flex;align-items:center;justify-content:center;padding:0}
-.tq-au[hidden]{display:none}
+.tq-au[hidden]{visibility:hidden}   /* 21.11.2026: joyi turadi — ochilganda karta sakramaydi */
 .tq-hn{margin-top:14px;font-size:13.5px;color:var(--mu);padding:5px 12px;border-radius:10px;background:var(--tint)}
 .tq-fl{display:flex;flex-direction:column;gap:6px;text-align:left}
 .tq-fl div{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 12px;border-radius:12px;background:var(--cd)}
@@ -368,7 +383,7 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
     var yn = 0;                                        /* «Созламалар» → кунлик янги сўзлар (10 / 15 / 20) */
     try { yn = +JSON.parse(L('sozlama') || '{}').yangi || 0; } catch (e) {}
     QAYTA = false;
-    E = Takror.yarat({ shakl: shaklTuri, lugat: D.l.filter(function (r) { return !W.a[r.id]; }), mashq: D.m, darslar: D.d, faol: FAOL, jurnal: j, ustun: ust, ustunSoz: usz, sozlama: yn ? { yangi: yn } : null });
+    E = Takror.yarat({ shakl: shaklTuri, lugat: D.l.filter(function (r) { return !W.a[r.id]; }), barcha: D.l, mashq: D.m, darslar: D.d, faol: FAOL, jurnal: j, ustun: ust, ustunSoz: usz, sozlama: yn ? { yangi: yn } : null });
     tozala();
   }
   /* 14.11.2026 (foydalanuvchi qarori): so'z turli kunlarda ketma-ket BILDI marta to'g'ri topilsa — «биламан» va «Билмаганларим»dan chiqadi;
@@ -839,15 +854,17 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
     if (g.k != null) { e = (r.x || [])[g.k]; return e ? { w: e[0].trim().split(/\s+/), i: g.i, tr: e[1], a: e[0] } : null; }
     return { w: g.a, i: g.i, tr: g.tr, a: g.a.join(' ') };
   }
-  function gapAr(r) {
+  /* 21.11.2026 (foydalanuvchi: «matndagi gapning tarjimasi gapning tagida bo'lsin»): gap bloki — gap, tagida tarjimasi, keyin «N-дарс».
+     tr: 1 — tarjima ko'rinadi; 2 — joyi ajratilgan, «Кўрсатиш»da ochiladi (`.tq-oc`; karta sakramaydi) */
+  function gapAr(r, tr) {
     var s = gapS(r); if (!s) return '';
     var w = s.w.map(function (x, k) {
       var q = s.i.filter(function (y) { return y[0] === k; })[0];
       return q ? esc(x.slice(0, q[1])) + '<span class="tq-gh">' + esc(x.slice(q[1], q[2])) + '</span>' + esc(x.slice(q[2])) : esc(x);
     });
-    return '<div class="tq-gp ar" lang="ar" dir="rtl">' + w.join(' ') + '</div><div class="tq-gd">' + r.d + '-дарс</div>';
+    return '<div class="tq-gb"><div class="tq-gp ar" lang="ar" dir="rtl">' + w.join(' ') + '</div>' +
+      (tr && s.tr ? '<div class="tq-gt' + (tr === 2 ? ' tq-oc' : '') + '">' + esc(s.tr) + '</div>' : '') + '<div class="tq-gd">' + r.d + '-дарс</div></div>';
   }
-  function gapTr(r) { var s = gapS(r); return s && s.tr ? '<div class="tq-gt">' + esc(s.tr) + '</div>' : ''; }
   function misol(n) {
     var x = [], g = gapS(n.r), bor = g ? g.a.trim() : '';
     n.m.forEach(function (r) { (r.x || []).forEach(function (e) { if (e[0].trim() !== bor) x.push(e); }); });   /* kartadagi gap qaytarilmaydi */
@@ -857,13 +874,15 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
     var n = cur.n, r = n.r, t = cur.tur, old, orqa;
     var sorov = { a: Takror.manosiz(n) ? 'Вазифаси?' : 'Маъноси?', u: 'Арабчаси?', o: 'Эшитинг' }[t];   /* «маъносиз» harf — vazifasi so'raladi (19.11.2026) */
     var soz_ = sozQator(r);
-    if (t === 'a') { old = soz_ + gapAr(r); orqa = manolar(n) + gapTr(r) + shakl(r) + misol(n); }   /* gap old tomonda — «Арабчаси?»da javobni ochib qo'ymasin */
-    else if (t === 'u') { old = manolar(n); orqa = soz_ + gapAr(r) + gapTr(r) + shakl(r) + misol(n); }
-    else { old = '<button class="tq-pl" id="pl" aria-label="Тинглаш">▶</button>'; orqa = soz_ + manolar(n) + gapAr(r) + gapTr(r) + shakl(r); }
+    /* 21.11.2026 (foydalanuvchi: «oyna tartibliroq»): «Маъноси?»da har arabcha qatorning tarjimasi o'zining tagida — so'z → ma'nosi (+ shakllari),
+       gap → tarjimasi; joylari oldindan ajratilgan (`.tq-oc`), ochilganda faqat ko'rinadi. Pastda (bo'lsa) boshqa misol. */
+    if (t === 'a') { old = soz_ + '<div class="tq-oc tq-ma">' + manolar(n) + shakl(r) + '</div>' + gapAr(r, 2); orqa = misol(n); }   /* gap old tomonda — «Арабчаси?»da javobni ochib qo'ymasin */
+    else if (t === 'u') { old = manolar(n); orqa = soz_ + shakl(r) + gapAr(r, 1) + misol(n); }
+    else { old = '<button class="tq-pl" id="pl" aria-label="Тинглаш">▶</button>'; orqa = soz_ + manolar(n) + shakl(r) + gapAr(r, 1); }
     /* tinglash: ochilganda o'zi o'qiladi; qayta eshitish — burchakdagi kichik tugma (katta 🔊 o'rniga) */
     var sp = n.au && t !== 'o' ? '<button class="tq-au" id="sp" aria-label="Қайта эшитиш" hidden>' + KARNAY + '</button>' : '';
     app.innerHTML = bosh_ + '<section class="tq-c tq-k" id="kk"><div class="tq-l"><span>' + sorov + '</span>' + (x.yangi ? '<em>янги</em>' : '') + sp +
-      '</div><div class="tq-f">' + old + '</div><div class="tq-r" id="rv" hidden>' + orqa + '</div></section>';
+      '</div><div class="tq-f' + (t === 'a' ? ' tq-fy' : '') + '">' + old + '</div><div class="tq-r" id="rv" hidden>' + orqa + '</div></section>';
     tugma('<button class="tq-b tq-b1" id="ko">Кўрсатиш</button>');
     if (t === 'o') { document.getElementById('pl').onclick = function () { ovoz(n.au); }; ovoz(n.au); }
     document.getElementById('ko').onclick = function () {

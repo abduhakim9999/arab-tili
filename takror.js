@@ -33,7 +33,9 @@ function yarat(o) {
     for (k in SOZ) soz[k] = SOZ[k];
     for (k in (o.sozlama || {})) soz[k] = o.sozlama[k];
     var tz = o.tz != null ? o.tz : new Date().getTimezoneOffset();     // daqiqa; kun chegarasi — o'quvchi soati bo'yicha
-    var f = F.fsrs(F.generatorParameters({ request_retention: soz.eslab, enable_fuzz: true }));
+    /* 21.11.2026 (foydalanuvchi qarori): yangi karta bir mashg'ulotda bir marta — «билдим» bo'lsa bugun qayta so'ralmaydi (~2 kundan
+       keyin chiqadi); «билмадим» bo'lsa ~10 daqiqadan keyin yana so'raladi. Oldin sukut ['1m','10m'] — «билдим»dan keyin ham yana bir marta. */
+    var f = F.fsrs(F.generatorParameters({ request_retention: soz.eslab, enable_fuzz: true, learning_steps: ['10m'] }));
     var ST = F.State, faol = {}, lv = {};
     (o.faol || []).forEach(function (d) { faol[d] = 1; });
     (o.darslar || []).forEach(function (d) { if (d.lv) lv[d.n] = d.lv; });
@@ -83,7 +85,8 @@ function yarat(o) {
       var avval = s.c.state;
       s.c = f.next(s.c, new Date(t), g === 1 ? F.Rating.Again : F.Rating.Good).card;
       s.n++;
-      if (g !== 1 && avval === ST.Review) s.rv++;           // kun o'tib qilingan to'g'ri takror
+      if (g !== 1 && avval === ST.Review && s.kx !== kun(t)) s.rv++;   // kun o'tib qilingan to'g'ri takror (eski jurnaldagi shu kungi
+                                                               // ikkinchi «билдим» yangi qadam bilan Review'da qayta o'ynaladi — sanalmaydi)
       s.kx = kun(t);
     }
     (o.jurnal || []).forEach(qosh);

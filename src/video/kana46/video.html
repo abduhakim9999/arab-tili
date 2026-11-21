@@ -132,6 +132,7 @@ i{font-style:normal}
   <div class="tr h" id="ht1" style="top:928px">Толиб каттадир</div>
   <div class="tr h" id="ht2" style="top:928px">Толиб катта <span class="gold" style="display:inline-block">эди</span></div>
   <div class="tr h" id="ht3" style="top:1010px">Толиба катта <span class="gold">эди</span></div>
+  <div class="h" id="bb" style="position:absolute;top:880px;left:0;right:0;text-align:center"><span class="chip nasb" style="font-size:40px;padding:9px 34px">буйруқ битта — насб</span></div>
   <div class="h" id="jc1" style="position:absolute;top:455px;left:0;right:0;text-align:center"><span class="chip pink" style="font-size:36px">2 сукун йўлиқди</span></div>
   <div class="h" id="jc2" style="position:absolute;top:455px;left:0;right:0;text-align:center"><span class="chip pink" style="font-size:36px"><span class="ar">تْ</span> → <span class="ar">تِ</span> &nbsp;касра билан боғланди</span></div>
 </section>
@@ -449,9 +450,18 @@ function build() {
   kar([K.vs[2], I.vs[2], X.vs[2]], C.a5); rise('#ht3', C.a5.s, .45, 24);
 
   /* ================= S6: nasb alomatlari; kaana ismiga faqat jinsda moslashadi ================= */
-  u = C.u6a; t = u.s - .4; title('#t6', t + .15); pushY('#SH', '#SD', t);
-  M.fromTo(['#d1', '#d2', '#d3'], { y: 260 }, { y: 0, duration: .75, stagger: .1, ease: 'power3.out', immediateRender: false }, t + .25);
-  pulse('#t6', u.c[2] + .1, 1.1, .7); M.to(['#d1', '#d2', '#d3'], { scale: 1.03, duration: .25, yoyo: true, repeat: 1, stagger: .14, ease: 'sine.inOut' }, u.c[3]);   // buyruq bitta, ijrosi uch xil
+  u = C.u6a; t = u.s - .4; title('#t6', t + .15);
+  /* boshi (21.11.2026): asosiy gap ekranda qoladi — buyruq yana xabarga boradi, xabar bo'ysunadi, «буйруқ битта — насб»; kartalar «ijrosi uch xil» deganda chiqadi
+     (oldin shu ~8,5 s davomida ekranda uchta bo'sh karta turardi) */
+  { const c = u.c, W6 = K.w[2] + g + I.w[2] + g + X.w[2], xr6 = 540 + W6 / 2, sx = x => 540 + (x - 540) * .83, k6x = Math.min(sx(xr6 - K.w[2] / 2) - 40, 800), x6x = Math.max(sx(xr6 - W6 + X.w[2] / 2) + 30, 270);
+    foc(c[0] - .15, [K.el, X.el], [I.el, '#ht3']); pulse(K.vs[2], c[0] + .05, 1.08, .5);
+    M.fromTo('#cmd', { autoAlpha: 0, x: k6x, y: 92, scale: .5 }, { autoAlpha: 1, x: k6x, y: 92, scale: 1, duration: .4, ease: 'back.out(2)', immediateRender: false }, c[0] + .2); sfx('pop', c[0] + .2);
+    to('#cmd', { x: x6x, ease: 'power2.inOut' }, c[0] + .75, .6); hide('#cmd', c[0] + 1.75, .25);
+    M.to(X.el, { rotation: -9, y: 12, duration: .3, ease: 'power2.out' }, c[0] + 1.6); M.to(X.el, { rotation: 0, y: 0, duration: .5, ease: 'back.out(2)' }, c[0] + 2.15); pop('#xp', c[0] + 1.75, .45);
+    hide('#xp', c[1] + .9, .25); glow(X.vs[2], c[1] + .15, NASB, 1.2);                                            // faqat har safar o'zicha
+    foc(c[2] - .1, [X.el], [K.el, I.el, '#ht3']); pop('#bb', c[2] + .05, .45); pulse('#t6', c[2] + .1, 1.1, .7);   // buyruq bitta: nasb
+    t = c[3] - .5; pushY('#SH', '#SD', t);                                                                       // ijrosi uch xil — uch karta
+    M.fromTo(['#d1', '#d2', '#d3'], { y: 260 }, { y: 0, duration: .7, stagger: .12, ease: 'power3.out', immediateRender: false }, t + .3); }
   rise('#d1s', u.c[4] - .1, .45, 26); pop('#d1b', u.c[5] - .05, .45, 1); to('#d1', { borderColor: `rgba(${NASB},.6)` }, u.c[4], .3);
   foc(u.c[4] - .1, ['#d1'], ['#d2', '#d3']); foc(u.c[6] - .1, ['#d2'], ['#d1', '#d3']); mag($$('#d1s .wa'), 2, u.c[5] - .05, u.c[6] - .25); mag(w2, 2, u.c[7] - .05, C.a6b.s - .15);   // diqqat: faol qator; so'z oxiri kattalashadi
   rise('#d2s', u.c[6] - .1, .45, 26); pop('#d2b', u.c[7] - .05, .45, 1); to('#d1', { borderColor: 'rgba(255,255,255,.13)' }, u.c[6], .3); to('#d2', { borderColor: `rgba(${NASB},.6)` }, u.c[6], .3);

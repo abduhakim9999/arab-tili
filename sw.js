@@ -170,6 +170,8 @@ self.addEventListener('fetch', function (e) {
   if (r.method !== 'GET') return;
   var same = new URL(r.url).origin === location.origin;
   if (!same && r.url !== TG) return;
+  /* 21.11.2026: video (mp4) — keshlanmaydi, brauzer o'zi bo'laklab oladi (katta fayl) */
+  if (same && /\.mp4$/i.test(new URL(r.url).pathname)) return;
   /* 06.11.2026: sinov sahifalari va ularning fayllari telefonda saqlanmaydi — doim internetdan (eski nusxa chiqmasin); 14.11: github.io /tayyor/ ham */
   if (same && /\/(sinov-[^/]*|shell-s\.(js|css))$|\/tayyor\//.test(new URL(r.url).pathname)) { e.respondWith(fetch(r, { cache: 'no-store' })); return; }
   var isRange = r.headers.has('range');

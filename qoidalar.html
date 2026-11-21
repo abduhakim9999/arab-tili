@@ -130,7 +130,8 @@ a:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
     ['Якуний дарс', [[53, 'Исмнинг раф ва насб ўринлари ва уларга мисоллар', 'якун хулоса']]]
   ];
   var YI = B.length - 1;   /* oxirgi element — «Якуний дарс» (bob emas) */
-  var V = {};
+  /* V — dars videolari: {yt: YouTube ID} yoki YouTube'ga qo'yilguncha {mp4, p: rasm} (saytda turadi); t — uzunligi (docs/texnik.md 18, 21) */
+  var V = { 47: { mp4: 'vk47-acc2d531.mp4', p: 'vk47-05498a21.jpg', t: '2:49' } };
   /* TB — «Татбиқ» kitobi sahifasi tayyor darslar (21.11.2026; matn, sxema, Машқ, Қўшимча — tatbiq.js, #dN) */
   var TB = { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1 };
   function ochiq(n) { return !!(V[n] || TB[n]); }

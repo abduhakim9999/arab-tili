@@ -24,7 +24,7 @@
     '.tb-vd{display:flex;gap:14px;align-items:center;border:1.5px solid var(--bd);border-radius:18px;padding:10px 12px 10px 10px;background:var(--cd);margin:0 0 20px;box-shadow:inset 0 -3px 0 var(--bd)}' +
     '.tb-vd .tb-th{width:54px;height:88px;border-radius:10px;background:#0F5E3E;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;opacity:.5}' +
     '.tb-vd .tb-th svg{width:24px;height:24px}.tb-vd b{display:block;font-size:16px}.tb-vd small{display:block;font-size:13.5px;color:var(--mu);margin-top:2px}' +
-    '.tb-yt{position:relative;width:min(100%,300px);aspect-ratio:9/16;margin:0 auto 20px;border-radius:18px;overflow:hidden;background:#000}.tb-yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}' +
+    '.tb-yt{position:relative;width:min(100%,300px);aspect-ratio:9/16;margin:0 auto 20px;border-radius:18px;overflow:hidden;background:#000}.tb-yt iframe,.tb-yt video{position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:contain;background:#000}.tb-tz{text-align:center;color:var(--mu);font-size:15px;margin:0 0 18px}' +
     '.tb-p{margin:0 0 12px;font-size:16.5px;line-height:1.65}.tb-p .ar{font-size:1.3em;line-height:1}' +
     '.tb-h{display:flex;align-items:center;gap:10px;margin:24px 0 8px;font-size:19px;line-height:1.3;color:var(--c)}' +
     '.tb-h i{font-style:normal;flex-shrink:0;width:30px;height:30px;border-radius:9px;background:var(--t);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}' +
@@ -281,20 +281,23 @@
 
   /* o: {bob: '1-боб · Калима', nom, v: {yt, t}, old: [n, nom], keyin: [n, nom]} */
   T.chiz = function (n, el, o) {
-    var d = T.D[n]; if (!d) return false;
+    var d = T.D[n], v = o.v; if (!d && !(v && (v.yt || v.mp4))) return false;   /* 21.11.2026: kitob matni hali yo'q, video bor — faqat video */
     if (!document.getElementById('tb-css')) { var st = document.createElement('style'); st.id = 'tb-css'; st.textContent = CSS; document.head.appendChild(st); }
-    var v = o.v, h = '<div class="tb">';
-    if (d.bs) h += '<div class="tb-bs ar" lang="ar">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ</div>';
+    var h = '<div class="tb">';
+    if (d && d.bs) h += '<div class="tb-bs ar" lang="ar">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ</div>';
     h += '<div class="tb-tp"><span>Татбиқ</span>' + (o.bob || '') + '</div><h2 class="tb-nm">' + n + '-дарс · ' + A(o.nom) + '</h2>';
     h += v && v.yt ? '<div class="tb-yt"><iframe src="https://www.youtube-nocookie.com/embed/' + v.yt + '?playsinline=1&rel=0" title="Видео дарс" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>'
+      : v && v.mp4 ? '<div class="tb-yt"><video src="' + v.mp4 + '"' + (v.p ? ' poster="' + v.p + '"' : '') + ' controls playsinline preload="none" title="Видео дарс"></video></div>'   /* YouTube'ga qo'yilguncha — saytdagi mp4 (21.11.2026) */
       : '';   /* video yo'q bo'lsa joy egallamaydi (21.11.2026: bo'lim endi kitob, video — bor darslarda) */
-    h += d.b.map(function (x) { return BL[x[0]](x); }).join('');
-    h += '<div class="tb-s">Машқ</div>' + mashq(d);
-    h += bolim(d, 'q', 'qd', IQ, 'Қўшимча', 'Мавзуга оид, китобда йўқ') + bolim(d, 'y', 'yd', IY, 'Юқори даража', 'Бундай нарсалар ҳам бор');
+    if (d) {
+      h += d.b.map(function (x) { return BL[x[0]](x); }).join('');
+      h += '<div class="tb-s">Машқ</div>' + mashq(d);
+      h += bolim(d, 'q', 'qd', IQ, 'Қўшимча', 'Мавзуга оид, китобда йўқ') + bolim(d, 'y', 'yd', IY, 'Юқори даража', 'Бундай нарсалар ҳам бор');
+    } else h += '<p class="tb-tz">Китоб матни ва машқ — тез орада</p>';
     h += '<div class="tb-nv">' + (o.old ? '<a href="#d' + o.old[0] + '">‹ ' + o.old[0] + '-дарс<small>' + A(o.old[1]) + '</small></a>' : '<span></span>') +
       (o.keyin ? '<a href="#d' + o.keyin[0] + '">' + o.keyin[0] + '-дарс ›<small>' + A(o.keyin[1]) + '</small></a>' : '<span></span>') + '</div></div>';
     el.innerHTML = h;
-    bogla(el, d);
+    if (d) bogla(el, d);
     return true;
   };
 

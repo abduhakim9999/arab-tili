@@ -12,7 +12,11 @@
    sozlamalar va dars holati kalitlari (GEN; har biri {v, t}, yangisi ustun; vaqt — kalitning «-t» juftidan yoki «baza-vt» dan, tg.js yozadi),
    «lsR» — «Аккаунтни ўчириш» vaqti (undan eskilari tashlanadi). Server chegarasi uchun: yangi kod faqat Telegram orqali kirganda ochiladi;
    yozish — birinchi o'zgarishdan YOZ ms keyin (har o'zgarishda emas), o'qish — oxirgi sinxronlashdan OQ ms o'tgan bo'lsa.
-   Sahifalar: yol.html, takror.html, sozlamalar.html, yana.html (window.Baza). Sinov sahifalarida ishlamaydi. */
+   Sahifalar: yol.html, takror.html, sozlamalar.html, yana.html (window.Baza). Sinov sahifalarida ishlamaydi.
+   21.11.2026 (foydalanuvchi: ruscha rejim — «boshqa odamga aylangandek», natija, Луғат, reyting alohida): ruscha profil (tg.js Profil,
+   telefonda «ru-…» kalitlar) bitta hujjatning «ru» qismida — o'sha tuzilma (r, rk, soz, yol, yolT, j, xato, ls, lsR), ls da faqat PGEN
+   (dars holati, oxirgi dars); akkaunt, ism va sozlamalar — umumiy (ildizda). Ikkala profil har sinxronda birga yuboriladi;
+   tozalash/qaytarish/eski nusxa — joriy profilniki (ruschada server nusxasi «kod + rueski»); «Аккаунтни ўчириш» — ikkalasi. */
 (function () {
   if (/\/sinov-[^\/]*$/.test(location.pathname)) return;
   var API = /(^|\.)vercel\.app$/.test(location.hostname) ? '/api/soz' : 'https://nurut-tolib.vercel.app/api/soz';
@@ -21,12 +25,15 @@
   var set0 = Storage.prototype.setItem, rem0 = Storage.prototype.removeItem;      /* tg.js o'ragan bo'lishi mumkin — zanjir saqlanadi */
   var KEYS = { 'soz': 1, 'takror-j': 1, 'yol': 1, 'yol-xato': 1, 'ism': 1 }, KODRE = /^[a-z0-9]{20,64}$/;
   var GEN = /^(dars\d+-holat|sarf-holat|fl200_(best|mist|t)|sozlama|sozlama-q|til|dars-uz|dars-tezlik|izoh-til|tinglash-(opt|mode|dars)|fe-pref|fe-tour|oxirgi-dars)$/;   /* tg.js bilan bir xil */
+  var PGEN = /^(dars\d+-holat|oxirgi-dars)$/;          /* ruscha profilning «ls» qismi (tg.js Profil ajratadigan GEN kalitlari) */
+  var XOM = window.Profil && window.Profil.xom;         /* haqiqiy kalitlar bilan — ikkala profil («…» va «ru-…») bir vaqtda o'qiladi */
+  function PR() { return window.Profil ? window.Profil.p() : ''; }      /* joriy profil oldi: '' | 'ru-' */
   var YOZ = 3 * 60000, OQ = 10 * 60000;                 /* yozish va o'qish oralig'i (Vercel Blob bepul: oyiga 2 000 yozish, 10 000 o'qish) */
   var ichki = false, band = false, tm = null, tingl = [];
   var JIM = !!window.BAZA_JIM;                          /* dars sahifasidagi kirish oynasi (tg.js) yuklaganda: o'zi sinxronlamaydi, faqat kirish */
 
-  function L(k) { try { return LSs.getItem(k); } catch (e) { return null; } }
-  function S(k, v) { ichki = true; window.BAZA_ICHKI = true; try { v == null ? rem0.call(LSs, k) : set0.call(LSs, k, v); } catch (e) {} ichki = false; window.BAZA_ICHKI = false; }
+  function L(k) { try { return XOM ? XOM.ol(LSs, k) : LSs.getItem(k); } catch (e) { return null; } }
+  function S(k, v) { ichki = true; window.BAZA_ICHKI = true; try { XOM ? (v == null ? XOM.ochir(LSs, k) : XOM.yoz(LSs, k, v)) : (v == null ? rem0.call(LSs, k) : set0.call(LSs, k, v)); } catch (e) {} ichki = false; window.BAZA_ICHKI = false; }
   function J(k, d) { try { var v = JSON.parse(L(k) || 'null'); return v == null ? d : v; } catch (e) { return d; } }
   function kanon(x) {                                   /* kalitlari tartiblangan JSON — solishtirish uchun */
     if (x === null || typeof x !== 'object') return JSON.stringify(x === undefined ? null : x);
@@ -45,19 +52,27 @@
     var oz = +L('baza-oz') || 0; if (!oz) return;
     clearTimeout(tm); tm = setTimeout(function () { sinx(); }, Math.max(1500, oz + YOZ - Date.now()));
   }
-  function genOl() {                                    /* sozlama va dars holati: {kalit: {v, t}}; o'chirilgani — v: null */
-    var vt = J('baza-vt', {}) || {}, o = {}, i, k;
-    for (i = 0; i < LSs.length; i++) { k = LSs.key(i); if (k && GEN.test(k)) o[k] = { v: L(k), t: +L(k + '-t') || +vt[k] || 0 }; }
-    for (k in vt) if (GEN.test(k) && !o[k]) o[k] = { v: null, t: +vt[k] || 0 };
+  function genOl(p) {                                   /* sozlama va dars holati: {kalit: {v, t}}; o'chirilgani — v: null. p — profil oldi */
+    var vt = J('baza-vt', {}) || {}, o = {}, i, k, l, G = p ? PGEN : GEN;
+    var mn = function (k) { return !k ? null : !p ? k : k.indexOf(p) === 0 ? k.slice(p.length) : null; };   /* haqiqiy → mantiqiy kalit */
+    for (i = 0; i < LSs.length; i++) { k = LSs.key(i); l = mn(k); if (l != null && G.test(l)) o[l] = { v: L(k), t: +L(k + '-t') || +vt[k] || 0 }; }
+    for (k in vt) { l = mn(k); if (l != null && G.test(l) && !o[l]) o[l] = { v: null, t: +vt[k] || 0 }; }
     return o;
   }
 
-  function lokal() {
-    var soz = J('soz', null), jr = J('takror-j', null);
-    var rk = L('baza-rk');
-    return { v: 1, r: +L('baza-r') || 0, rk: rk == null ? undefined : +rk || 0, soz: soz, yol: J('yol', null), yolT: +L('yol-t') || 0, j: (jr && jr.j) || [], xato: J('yol-xato', []) || [], ism: J('ism', null), ls: genOl(), lsR: +L('baza-lsr') || 0 };
+  function qism(p) {                                    /* bitta profilning natijalari (p: '' — o'zbekcha, 'ru-' — ruscha) */
+    var soz = J(p + 'soz', null), jr = J(p + 'takror-j', null);
+    var rk = L(p + 'baza-rk');
+    return { v: 1, r: +L(p + 'baza-r') || 0, rk: rk == null ? undefined : +rk || 0, soz: soz, yol: J(p + 'yol', null), yolT: +L(p + 'yol-t') || 0, j: (jr && jr.j) || [], xato: J(p + 'yol-xato', []) || [], ls: genOl(p), lsR: +L(p + 'baza-lsr') || 0 };
   }
-  function bormi(d) { return !!((d.ism && d.ism.n) || Object.keys(d.ls || {}).some(function (k) { return d.ls[k].v != null; }) || d.j.length || (d.soz && (Object.keys(d.soz.s || {}).length || Object.keys(d.soz.b || {}).length || Object.keys(d.soz.a || {}).length)) || (d.yol && (Object.keys(d.yol.d || {}).length || Object.keys(d.yol.e || {}).length)) || d.r); }
+  function lokal() {
+    var o = qism(''), ru = qism('ru-');
+    o.ism = J('ism', null);
+    if (bormiP(ru)) o.ru = ru;                          /* ruschada o'qimagan o'quvchining hujjati avvalgidek qoladi */
+    return o;
+  }
+  function bormiP(d) { return !!(d && (Object.keys(d.ls || {}).some(function (k) { return d.ls[k].v != null; }) || (d.j || []).length || (d.soz && (Object.keys(d.soz.s || {}).length || Object.keys(d.soz.b || {}).length || Object.keys(d.soz.a || {}).length)) || (d.yol && (Object.keys(d.yol.d || {}).length || Object.keys(d.yol.e || {}).length)) || d.r)); }
+  function bormi(d) { return !!((d.ism && d.ism.n) || bormiP(d) || bormiP(d.ru)); }
 
   /* n — yangisi, e — eskisi. Har so'zda bitta holat: b («билмайман») / a («аниқ биламан») / k (biladi, tekshirilmagan);
      yangisida holat bo'lsa — o'sha, bo'lmasa — eskisidagi. */
@@ -79,7 +94,7 @@
     });
     return o;
   }
-  function birlash(a, b) {                              /* a — mahalliy, b — serverdagi (bo'lmasa null) */
+  function birlashP(a, b, G) {                          /* bitta profil. a — mahalliy, b — serverdagi (bo'lmasa null); G — ls kalitlari */
     if (!b || b.v !== 1) return a;
     var r = Math.max(a.r || 0, b.r || 0), o = { v: 1, r: r }, km = {}, j = [];
     var A = (a.r || 0) === r ? a : null, B = (b.r || 0) === r ? b : null;          /* tozalashni ko'rmagan nusxa hisobga olinmaydi */
@@ -96,35 +111,49 @@
     var xm = {}, x = [];
     [A && A.xato, B && B.xato].forEach(function (xs) { (xs || []).forEach(function (i) { if (!xm[i]) { xm[i] = 1; x.push(i); } }); });
     o.xato = x;
-    var ia = a.ism, ib = b.ism;                        /* ism: tozalash (r) unga tegmaydi; yangisi (t) ustun; «Аккаунтни ўчириш» — bo'sh ism */
-    o.ism = ia && ib ? ((ia.t || 0) >= (ib.t || 0) ? ia : ib) : (ia || ib || null);
-    if (!o.ism) delete o.ism;
     var lsR = Math.max(a.lsR || 0, b.lsR || 0), ls = {};      /* sozlama va dars holati: har kalitda yangisi (teng bo'lsa — telefondagisi) */
-    [b.ls || {}, a.ls || {}].forEach(function (m, n) { for (var k in m) { var x = m[k]; if (!x || !GEN.test(k) || (x.t || 0) < lsR) continue;
+    [b.ls || {}, a.ls || {}].forEach(function (m, n) { for (var k in m) { var x = m[k]; if (!x || !G.test(k) || (x.t || 0) < lsR) continue;
       if (!ls[k] || (x.t || 0) > (ls[k].t || 0) || (n === 1 && (x.t || 0) === (ls[k].t || 0))) ls[k] = { v: x.v == null ? null : String(x.v), t: x.t || 0 }; } });
     o.ls = ls; if (lsR) o.lsR = lsR;
     return o;
   }
-  function teng(a, b) { return !!b && (a.r || 0) === (b.r || 0) && (a.rk == null ? -1 : a.rk) === (b.rk == null ? -1 : b.rk) && (a.j || []).length === (b.j || []).length && kanon(a.soz) === kanon(b.soz) && kanon(a.yol) === kanon(b.yol) && kanon(a.ism || null) === kanon(b.ism || null) && kanon(a.ls || {}) === kanon(b.ls || {}) && (a.lsR || 0) === (b.lsR || 0) && kanon(a.xato || []) === kanon(b.xato || []); }
-  function qoy(o) {                                     /* birlashgan hujjatni telefonga yozish; o'zgardimi? */
-    var e = lokal(), ozg = false;
-    if (kanon(e.soz) !== kanon(o.soz)) { S('soz', o.soz ? JSON.stringify(o.soz) : null); ozg = true; }
-    if (kanon(e.yol) !== kanon(o.yol)) { S('yol', o.yol ? JSON.stringify(o.yol) : null); ozg = true; }
-    if (o.yol && o.yolT && +L('yol-t') !== o.yolT) S('yol-t', String(o.yolT));
-    if (e.j.length !== o.j.length) { S('takror-j', o.j.length ? JSON.stringify({ v: 1, j: o.j }) : null); ozg = true; }
-    if (kanon(e.xato) !== kanon(o.xato)) { S('yol-xato', o.xato.length ? JSON.stringify(o.xato) : null); ozg = true; }
-    if (kanon(e.ism || null) !== kanon(o.ism || null)) { S('ism', o.ism ? JSON.stringify(o.ism) : null); ozg = true; }
+  function birlash(a, b) {                              /* a — mahalliy, b — serverdagi (bo'lmasa null) */
+    if (!b || b.v !== 1) return a;
+    var o = birlashP(a, b, GEN);
+    var ia = a.ism, ib = b.ism;                        /* ism: tozalash (r) unga tegmaydi; yangisi (t) ustun; «Аккаунтни ўчириш» — bo'sh ism */
+    o.ism = ia && ib ? ((ia.t || 0) >= (ib.t || 0) ? ia : ib) : (ia || ib || null);
+    if (!o.ism) delete o.ism;
+    var ra = a.ru || null, rb = b.ru && b.ru.v === 1 ? b.ru : null;     /* ruscha profil — o'sha qoidalar bilan, alohida */
+    var ru = ra || rb ? birlashP(ra || { v: 1, r: 0, j: [], soz: null, yol: null, yolT: 0, xato: [], ls: {} }, rb, PGEN) : null;
+    if (bormiP(ru)) o.ru = ru;
+    return o;
+  }
+  function tengP(a, b) { if (!a || !b) return !a && !b; return (a.r || 0) === (b.r || 0) && (a.rk == null ? -1 : a.rk) === (b.rk == null ? -1 : b.rk) && (a.j || []).length === (b.j || []).length && kanon(a.soz) === kanon(b.soz) && kanon(a.yol) === kanon(b.yol) && kanon(a.ls || {}) === kanon(b.ls || {}) && (a.lsR || 0) === (b.lsR || 0) && kanon(a.xato || []) === kanon(b.xato || []); }
+  function teng(a, b) { return !!b && tengP(a, b) && kanon(a.ism || null) === kanon(b.ism || null) && tengP(a.ru || null, b.ru || null); }
+  function qoyP(o, p) {                                 /* bitta profilni telefonga yozish (p — oldi); o'zgardimi? */
+    var e = qism(p), ozg = false;
+    if (kanon(e.soz) !== kanon(o.soz)) { S(p + 'soz', o.soz ? JSON.stringify(o.soz) : null); ozg = true; }
+    if (kanon(e.yol) !== kanon(o.yol)) { S(p + 'yol', o.yol ? JSON.stringify(o.yol) : null); ozg = true; }
+    if (o.yol && o.yolT && +L(p + 'yol-t') !== o.yolT) S(p + 'yol-t', String(o.yolT));
+    if (e.j.length !== (o.j || []).length) { S(p + 'takror-j', o.j.length ? JSON.stringify({ v: 1, j: o.j }) : null); ozg = true; }
+    if (kanon(e.xato) !== kanon(o.xato || [])) { S(p + 'yol-xato', (o.xato || []).length ? JSON.stringify(o.xato) : null); ozg = true; }
     var vt = J('baza-vt', {}) || {}, vtO = false;
     for (var k in (o.ls || {})) {
-      var x = o.ls[k], cur = L(k);
-      if (x.v == null ? cur !== null : cur !== x.v) { S(k, x.v); ozg = true; }
-      if (L(k + '-t') !== null || /^(dars\d+-holat|sarf-holat)$/.test(k)) { if (x.v != null && +L(k + '-t') !== x.t) S(k + '-t', String(x.t)); }
-      if (+vt[k] !== x.t) { vt[k] = x.t; vtO = true; }
+      var x = o.ls[k], f = p + k, cur = L(f);
+      if (x.v == null ? cur !== null : cur !== x.v) { S(f, x.v); ozg = true; }
+      if (L(f + '-t') !== null || /^(dars\d+-holat|sarf-holat)$/.test(k)) { if (x.v != null && +L(f + '-t') !== x.t) S(f + '-t', String(x.t)); }
+      if (+vt[f] !== x.t) { vt[f] = x.t; vtO = true; }
     }
     if (vtO) S('baza-vt', JSON.stringify(vt));
-    if ((+L('baza-lsr') || 0) !== (o.lsR || 0)) S('baza-lsr', o.lsR ? String(o.lsR) : null);
-    if ((e.r || 0) !== (o.r || 0)) S('baza-r', o.r ? String(o.r) : null);
-    if ((e.rk == null ? -1 : e.rk) !== (o.rk == null ? -1 : o.rk)) S('baza-rk', o.rk == null ? null : String(o.rk));
+    if ((+L(p + 'baza-lsr') || 0) !== (o.lsR || 0)) S(p + 'baza-lsr', o.lsR ? String(o.lsR) : null);
+    if ((e.r || 0) !== (o.r || 0)) S(p + 'baza-r', o.r ? String(o.r) : null);
+    if ((e.rk == null ? -1 : e.rk) !== (o.rk == null ? -1 : o.rk)) S(p + 'baza-rk', o.rk == null ? null : String(o.rk));
+    return ozg;
+  }
+  function qoy(o) {                                     /* birlashgan hujjatni telefonga yozish; o'zgardimi? */
+    var ozg = qoyP(o, '');
+    if (kanon(J('ism', null)) !== kanon(o.ism || null)) { S('ism', o.ism ? JSON.stringify(o.ism) : null); ozg = true; }
+    if (o.ru) ozg = qoyP(o.ru, 'ru-') || ozg;
     return ozg;
   }
 
@@ -240,15 +269,15 @@
       sinx(cb);
     },
     /* «Натижаларни тозалаш»: tozalash vaqti qo'yiladi — serverdagi va boshqa qurilmalardagi nusxa ham tozalanadi */
-    tozala: function (cb) { S('baza-r', String(Date.now())); S('baza-rk', null); sinx(cb); },
+    tozala: function (cb) { var p = PR(); S(p + 'baza-r', String(Date.now())); S(p + 'baza-rk', null); sinx(cb); },
     /* «Қайтариш»: sahifa eski nusxani telefonga yozib bo'lgach chaqiradi. Yangi r — boshqa qurilmalardagi (bo'sh) nusxadan ustun bo'lishi uchun;
        rk — o'sha nusxaning eski chegarasi: jurnaldagi eski yozuvlar tozalashdan oldingi bo'lsa ham saqlanadi. */
-    qaytar: function (rk, cb) { S('baza-r', String(Date.now())); S('baza-rk', String(+rk || 0)); sinx(cb); },
+    qaytar: function (rk, cb) { var p = PR(); S(p + 'baza-r', String(Date.now())); S(p + 'baza-rk', String(+rk || 0)); sinx(cb); },
     /* tozalashdan oldingi nusxa — serverda alohida fayl (kod + «eski»); d: {v:1, ar: vaqt, r, rk, ls: {kalit: qiymat}}. Bo'shatish: {v:1, ar:0}. */
     eskiYoz: function (d, cb) {
       var k = L('baza-kod');
       if (!k || !KODRE.test(k)) { if (cb) cb(false); return; }
-      so(k + 'eski', 'yoz', d).then(function () { if (cb) cb(true); }).catch(function () { if (cb) cb(false); });
+      so(k + (PR() ? 'rueski' : 'eski'), 'yoz', d).then(function () { if (cb) cb(true); }).catch(function () { if (cb) cb(false); });
     },
     /* «Telegram орқали кириш» — sayt tomoni: belgi yasaladi (10 daqiqa), Telegram'da tasdiqlangach kod serverdan bir marta olinadi */
     ulashBoshla: function () { var t = yangiKod(); S('baza-ulash', JSON.stringify({ tok: t, t: Date.now() })); return t; },
@@ -269,23 +298,25 @@
     ochir: function (cb) {
       clearTimeout(tm);
       var k = L('baza-kod'), r = Date.now();
-      S('baza-r', String(r)); S('baza-rk', null);
+      S('baza-r', String(r)); S('baza-rk', null); S('ru-baza-r', String(r)); S('ru-baza-rk', null);
       var tamom = function () {
         S('baza-oz', null); S('baza-t', null); S('baza-ulash', null); S('baza-tgi', null); S('ism', null);
-        if (!tgIchi()) ['baza-kod', 'baza-tg', 'baza-r', 'baza-rk'].forEach(function (x) { S(x, null); });
+        if (!tgIchi()) ['baza-kod', 'baza-tg', 'baza-r', 'baza-rk', 'ru-baza-r', 'ru-baza-rk'].forEach(function (x) { S(x, null); });
         if (cb) cb(true);
       };
       if (!k || !KODRE.test(k)) { tamom(); return; }
-      S('baza-lsr', String(r));
-      so(k, 'yoz', { v: 1, r: r, j: [], soz: null, yol: null, yolT: 0, xato: [], ism: { n: '', t: r }, ls: {}, lsR: r })   /* bo'sh ism — boshqa qurilmadagisi qaytib kelmasin */
+      S('baza-lsr', String(r)); S('ru-baza-lsr', String(r));
+      so(k, 'yoz', { v: 1, r: r, j: [], soz: null, yol: null, yolT: 0, xato: [], ism: { n: '', t: r }, ls: {}, lsR: r,   /* bo'sh ism — boshqa qurilmadagisi qaytib kelmasin */
+        ru: { v: 1, r: r, j: [], soz: null, yol: null, yolT: 0, xato: [], ls: {}, lsR: r } })      /* ruscha profil ham (boshqa qurilmadagisi qaytmasin) */
         .then(function () { return so(k + 'eski', 'yoz', { v: 1, ar: 0 }); })
+        .then(function () { return so(k + 'rueski', 'yoz', { v: 1, ar: 0 }); })
         .then(function () { return post({ amal: 'tgOchir', kod: k }).catch(function () {}); })
         .then(tamom, function () { if (cb) cb(false); });
     },
     eskiOl: function (cb) {
       var k = L('baza-kod');
       if (!k || !KODRE.test(k)) { cb(null); return; }
-      so(k + 'eski', 'ol').then(function (j) { cb(j.d && j.d.v === 1 && j.d.ar && j.d.ls ? j.d : null); }).catch(function () { cb(null); });
+      so(k + (PR() ? 'rueski' : 'eski'), 'ol').then(function (j) { cb(j.d && j.d.v === 1 && j.d.ar && j.d.ls ? j.d : null); }).catch(function () { cb(null); });
     }
   };
 

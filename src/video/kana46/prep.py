@@ -21,22 +21,22 @@ IPA = {'kaananing': '/ˈkaːnaniŋ/', 'kaanadan': '/ˈkaːnadan/', 'kaanaga': '/
        'jamiylun': '/dʒaˈmiːlun/', 'jamiylan': '/dʒaˈmiːlan/'}      # jamiylun/jamiylan — yangi so'z: ovozdan oldin bitta sinov bo'lagi
 TXT = {
  # S1 kirish — kirish videosidagi «Охири ўзгарди — нега?» savoli
- 'k1': "O'tgan videoda kaana gap boshiga keldi-yu, |«jamiylun» |«jamiylan» bo'lib qoldi. |Nega?",
+ 'k1': "O'tgan videoda kaana gap boshiga keldi-yu, |«jamiylun» — |«jamiylan» bo'lib qoldi. |Nega?",
  # S2 oddiy gap (tayyor)
  'u1a': "Keling, buni bitta gapda ko'ramiz.",
- 'u1b': "«Tolib kattadir». Bu gapda ikki bo'lak bor: mubtado va xabar. Ikkalasi ham raf holatida — oxirlarida zamma.",
+ 'u1b': "«Tolib kattadir». |Bu gapda ikki bo'lak bor: |mubtado |va xabar. |Ikkalasi ham raf holatida — |oxirlarida zamma.",
  # S3 qoida — avval atamalar bilan, kitobdagidek (foydalanuvchi, 21.11.2026: talaba avval tarkibda qanday aytilishini bilsin), keyin sodda tushuntirish
- 'k3t': "Kaana mubtado va xabarning oldiga kirib keladi. |Mubtadoni o'zining ismi qilib oladi: |u raf qilinadi. |Xabarni o'zining xabari qilib oladi: |u nasb qilinadi.",
+ 'k3t': "Kaana — mubtado va xabarning oldiga kirib keladi. |Mubtadoni o'zining ismi qilib oladi: |u raf qilinadi. |Xabarni o'zining xabari qilib oladi: |u nasb qilinadi.",
  # S3b sodda tushuntirish: kaana ikkalasiga ham hukm qiladi (ko'pchilik — basraliklar fikri: ismni ham kaana raf qiladi; kelishilgan 21.11.2026)
  'k3a': "Sodda qilib aytsak, |kaana ikkalasiga ham hukm qiladi. |Mubtadoga: |«Raf bo'l!» |Mubtado jilmayadi: «Men allaqachon rafman». |Oxiri o'zgarmaydi. |Xabarga esa: |«Oxiringni o'zgartir!» |Xabar bo'ysunadi: |zammani qo'yib, |fatha oladi.",
  'k3b': "Lekin ism ham jim qolmaydi: |kerak bo'lsa, kaananing o'zini o'zgartirib qo'yadi. |Qanday qilib? |Birozdan keyin ko'ramiz.",
  # S4 tarjima. «Alloh haqida — doimo» (k4, b4) bu videodan olindi — «Qiyinroq daraja» videosiga (foydalanuvchi, 21.11.2026). Tayyor u3 («Demak, qoida oddiy…») olib tashlandi — qoida endi S3 da aytiladi
- 'u4': "Tarjimasi ikki xil: voqea qadimda bo'lgan bo'lsa — «edi», yaqinda bo'lgan bo'lsa — «bo'ldi».",
+ 'u4': "Tarjimasi ikki xil: |voqea qadimda bo'lgan bo'lsa — |«edi», |yaqinda bo'lgan bo'lsa — |«bo'ldi».",
  # S5 ismi muannas (tayyor, boshi kesilgan)
- 'u5': "Ismi muannas bo'lsa — masalan, toliba — kaana ham unga moslashadi: oxiriga muannaslik harfi — «ta» qo'shiladi. Bir nozik joyi bor: ikki sukun yo'liqib qolmasligi uchun bu «ta» keyingi so'zga kasra bilan bog'lanadi.",
+ 'u5': "Ismi muannas bo'lsa — |masalan, toliba — |kaana ham unga moslashadi: |oxiriga muannaslik harfi — |«ta» qo'shiladi. |Bir nozik joyi bor: |ikki sukun yo'liqib qolmasligi uchun |bu «ta» keyingi so'zga |kasra bilan bog'lanadi.",
  # S6 nasb alomatlari (tayyor) + faqat jinsda (yangi)
- 'u6a': "Xabar esa buyruqni har doim bajaradi — faqat har safar o'zicha. Buyruq bitta: nasb. Ijrosi uch xil. Birlikda — fatha. Ikkilikda — «ya» harfi.",
- 'u6b': "Muannas ko'plikda esa fatha o'rniga kasra keladi.",
+ 'u6a': "Xabar esa buyruqni har doim bajaradi — |faqat har safar o'zicha. |Buyruq bitta: nasb. |Ijrosi uch xil. |Birlikda — |fatha. |Ikkilikda — |«ya» harfi.",
+ 'u6b': "Muannas ko'plikda esa |fatha o'rniga |kasra keladi.",
  'k6': "E'tibor bering: |ismi ikkita |yoki ko'p bo'lsa ham, |kaana birlikda turibdi. |U ismiga faqat jinsda moslashadi, |sonda emas.",
  # S7 aqlsiz ko'plik (yangi)
  'k7': "Aqlsiz narsalar ko'pligida esa |xabar oldingi darslardagidek |muannas birlikda keladi, |faqat endi nasbda.",
@@ -62,7 +62,7 @@ SEQ = [
  ('S8', [('lead', 0.45), 'k8', ('gap', 0.3), 'a7b', ('gap', 0.7)]),
  ('S9', [('lead', 0.45), 'k9a', ('gap', 2.3), 'b9', ('gap', 0.4), 'k9b', ('gap', 2.0)]),
 ]
-CUT = {'u5': 7.0}                      # tayyor bo'lakning boshidan kesiladigan qism (soniya, chet jimlik olingandan keyin); cue.json dagi vaqtlar kesilgandan keyingi
+CUT = {}                                 # tayyor bo'lakning boshidan kesiladigan qism (soniya, chet jimlik olingandan keyin); cue.json dagi vaqtlar kesilgandan keyingi
 ARDUR = {'b7': 2.3, 'b9': 3.1}   # ovozi hali yo'q arabcha bo'laklarning taxminiy uzunligi (qoralamada jim, yozuv ekranda)
 SUR = 13.8                             # Farruh ovozining o'rtacha sur'ati (belgi/soniya; kana0 bo'laklaridan) — yakuniy uzunlik taxmini uchun
 AR = lambda n: n[0] in 'ab'
@@ -256,5 +256,5 @@ if __name__ == '__main__':
     import sys
     if len(sys.argv) > 1 and sys.argv[1] == 'matn':
         for k, v in TXT.items():
-            if k[0] in 'kb' and not os.path.exists(f'{D}/ovoz/{k}.mp3'): print(k, len(eleven(v)), eleven(v), sep='\t')
+            if not os.path.exists(f'{D}/ovoz/{k}.mp3'): print(k, len(eleven(v)), eleven(v), sep='\t')
     else: main()

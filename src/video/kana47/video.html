@@ -320,6 +320,7 @@ i{font-style:normal}
 </div>
 
 <script src="tl.js"></script>
+<script src="klip.js"></script>
 <script src="gsap.min.js"></script>
 <script>
 gsap.config({ force3D: false });
@@ -385,7 +386,7 @@ function build() {
   /* qoralama: subtitr va belgi (faqat ovozi hali yo'q bo'laklarda) */
   if (TL.draft && TL.draft.length) { gsap.set('#wm', { autoAlpha: 1 });
     TL.subs.forEach(([s, e, x]) => { const d = document.createElement('div'); d.className = 'sb'; d.textContent = x; $('#sub').appendChild(d); M.set(d, { autoAlpha: 1 }, s); M.set(d, { autoAlpha: 0 }, e - .02); }); }
-  if (!KLIP) gsap.set('#cliplb', { autoAlpha: 1 });                       /* haqiqiy klip yo'q — vaqtinchalik rasm ekani yozib qo'yiladi */
+  if (KLIP) { $('#clipph').style.display = 'none'; $('#clipimg').style.display = 'block'; } else gsap.set('#cliplb', { autoAlpha: 1 });   /* haqiqiy klip yo'q — vaqtinchalik rasm ekani yozib qo'yiladi */
 
   /* uzun qatorlar kenglikka sig'diriladi (data-max) */
   $$('.fit').forEach(el => { const max = +el.dataset.max || 940, w = [...el.children].reduce((a, c) => a + c.getBoundingClientRect().width + (parseFloat(getComputedStyle(c).marginLeft) || 0), 0);
@@ -425,7 +426,7 @@ function build() {
   /* ================= S1: ilmoq — klip fonda (kechasi xona, moychiroq, rahlda kitob); «ўқир эди» arabchada kaana bilan, yonida yana bir fe'l ================= */
   u = C.k1; const c1 = u.c;
   gsap.set(['#hl', '#t0', '#clipw'], { autoAlpha: 1 }); curT = '#t0';
-  M.fromTo('#clipin', { scale: 1 }, { scale: 1.13, duration: S('S2') + .6, ease: 'none', immediateRender: false }, 0);
+  if (!KLIP) M.fromTo('#clipin', { scale: 1 }, { scale: 1.13, duration: S('S2') + .6, ease: 'none', immediateRender: false }, 0);   /* haqiqiy klipda kamera o'zi yaqinlashadi */
   M.to('#flame', { scaleY: 1.14, scaleX: .9, transformOrigin: '50% 100%', duration: .21, ease: 'sine.inOut', yoyo: true, repeat: Math.ceil(D / .21) }, 0);
   pulse('#t0', .25, 1.06, .7); glow('#p0g', .5, GOLD, 1.4); pulse('#p0g', .5, 1.12, .8);
   t = c1[1];                                                                                                     // «Arabchada bu ham kaana bilan aytiladi»
@@ -534,7 +535,7 @@ function build() {
 
   /* ================= S9: boshidagi sir — كَانَ + muzoriy fe'l = «қилар эди» (xabar — jumla, nasb o'rnida); oyat (Maryam, 55) qiroati bilan ================= */
   u = C.k9a; const c9 = u.c; a = C.b9; t = u.s - .45; title('#t9s', t + .15); pushX('#SG', '#SK', t);
-  M.set('#clipin', { scale: 1 }, t - .05); M.to('#clipin', { scale: 1.1, duration: S('S10') - t, ease: 'none' }, t);                         // klip qaytadi
+  if (!KLIP) { M.set('#clipin', { scale: 1 }, t - .05); M.to('#clipin', { scale: 1.1, duration: S('S10') - t, ease: 'none' }, t); }           // klip qaytadi
   M.to('#clipw', { autoAlpha: .9, duration: .8 }, t + .1); M.to('#clipw', { autoAlpha: .42, duration: .6 }, c9[1] - .25);
   rise('#kt', u.s + .3, .45, 24);
   foc(c9[1] - .1, [k1w[0]], [k1w[1], ...k2w]); pulse(k1w[0], c9[1], 1.1, .6); glow(k1w[0], c9[1], GOLD, 1.2);                               // kaananing xabari
@@ -584,8 +585,10 @@ function build() {
 }
 /* Klip kadrlari (yakuniy videoda): klip.js bo'lsa — window.KLIP = [{id, s, e, n, fps, dir}], kadr rasmlari klip/<id>-0001.jpg …; seek() kadrni almashtirib, rasm tayyor bo'lishini kutadi */
 function klipKadr(t) {
-  if (!KLIP) return null; const k = KLIP.find(k => t >= k.s && t < k.e); if (!k) return null;
-  const n = Math.min(k.n, Math.max(1, Math.round(((t - k.s) * (k.rate || 1) % (k.n / k.fps)) * k.fps) + 1)), src = `klip/${k.id}-${String(n).padStart(4, '0')}.jpg`, im = $('#clipimg');
+  if (!KLIP) return null; const k = KLIP.find(k => t >= k.s && t < k.e), im = $('#clipimg'); if (!k) return null;
+  let i = Math.floor((t - k.s) * (k.rate || 1) * k.fps);
+  if (k.pp) { const p = 2 * (k.n - 1); i %= p; if (i >= k.n) i = p - i; } else i = Math.min(i, k.n - 1);     /* pp — oldinga-orqaga aylanadi (uzun sahna foni) */
+  const src = `klip/${k.id}-${String(i + 1).padStart(4, '0')}.jpg`;
   if (im.dataset.src === src) return null; im.dataset.src = src; im.src = src; return im.decode().catch(() => 0);
 }
 function seek(t) { M.time(t); return klipKadr(t); }

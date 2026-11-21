@@ -16,9 +16,9 @@ document.write('<script src="tg.js" data-key="takror" data-home="' + SN + 'yol.h
 </script>
 <style>
 @font-face{font-family:"DarsNaskh";src:url(naskh.woff)}
-:root{--tq-ok:#17794a;--tq-okb:rgba(23,121,74,.12);--tq-no:#b3261e;--tq-nob:rgba(179,38,30,.10);--tq-act:#fff;--tq-an:#2f6fc0}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--tq-ok:#7ad9a8;--tq-okb:rgba(122,217,168,.16);--tq-no:#ff9b91;--tq-nob:rgba(255,155,145,.14);--tq-act:#06281d;--tq-an:#8ab8f5}}
-:root[data-theme="dark"]{--tq-ok:#7ad9a8;--tq-okb:rgba(122,217,168,.16);--tq-no:#ff9b91;--tq-nob:rgba(255,155,145,.14);--tq-act:#06281d;--tq-an:#8ab8f5}
+:root{--tq-ok:#17794a;--tq-okb:rgba(23,121,74,.12);--tq-no:#b3261e;--tq-nob:rgba(179,38,30,.10);--tq-act:#fff;--tq-an:#2f6fc0;--tq-ph:#8a5a00;--tq-phb:rgba(214,160,60,.22)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--tq-ok:#7ad9a8;--tq-okb:rgba(122,217,168,.16);--tq-no:#ff9b91;--tq-nob:rgba(255,155,145,.14);--tq-act:#06281d;--tq-an:#8ab8f5;--tq-ph:#f0c870;--tq-phb:rgba(232,192,106,.18)}}
+:root[data-theme="dark"]{--tq-ok:#7ad9a8;--tq-okb:rgba(122,217,168,.16);--tq-no:#ff9b91;--tq-nob:rgba(255,155,145,.14);--tq-act:#06281d;--tq-an:#8ab8f5;--tq-ph:#f0c870;--tq-phb:rgba(232,192,106,.18)}
 body{margin:0;background-color:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-tap-highlight-color:transparent}
 .w{max-width:560px;margin:0 auto;padding:12px 16px calc(104px + env(safe-area-inset-bottom,0px));box-sizing:border-box}
 body.tq-ses .w{padding-bottom:calc(112px + env(safe-area-inset-bottom,0px))}
@@ -71,15 +71,19 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .tq-r .tq-w{font-size:40px;line-height:1.6}
 .tq-r .tq-m{font-size:24px;line-height:1.35;font-weight:700}
 /* so'z va yonida muannasi */
-/* 21.11.2026: so'z qatori — so'ralgan so'z katta, yonida (chapida) qolgan shakllar, har birining tagida nomi; sig'masa kichrayadi (sigdir()) */
-.tq-wq{width:100%;display:flex;flex-wrap:nowrap;align-items:flex-end;justify-content:center;gap:2px 14px;font-size:16px}
+/* 21.11.2026: so'z qatori — hamma shakllar bir xil kattalikda, chiziqcha bilan (lug'atdagidek); sig'masa kichrayadi (sigdir()) */
+.tq-wq{width:100%;display:flex;flex-wrap:nowrap;align-items:baseline;justify-content:center;row-gap:2px;font-size:36px;line-height:1.6;color:var(--tx)}
 .tq-wq.tq-ws{flex-wrap:wrap}
-.tq-sf{display:flex;flex-direction:column;align-items:center;flex:none}
-.tq-sf .ar{font-size:1.55em;line-height:1.6;color:var(--tx);white-space:nowrap}
-.tq-sf small{font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--mu);line-height:1.2;margin-top:-1px}
-.tq-sb .ar{font-size:2.75em;line-height:1.5}
-.tq-r .tq-sb .ar{font-size:2.5em}
-.tq-k:not(.och) .tq-sb small{visibility:hidden}
+.tq-sf{flex:none;white-space:nowrap}
+.tq-sf i{font-style:normal;color:var(--mu);margin:0 .3em;font-size:.6em}
+.tq-sf small{font-size:.55em;color:var(--mu);margin-left:.25em}
+.tq-r .tq-wq{font-size:32px}
+/* fe'l bilan keladigan harf (sila) va unga mos joylar — bitta rangda */
+.tq-pp{display:inline-block;font-size:24px;line-height:1.5;padding:0 12px 3px;border-radius:10px;background:var(--tq-phb);color:var(--tq-ph)}
+.tq-ph{background:var(--tq-phb);color:var(--tq-ph);border-radius:6px;padding:0 3px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.tq-pa{margin:2px 0 4px}
+.tq-k:not(.och) .tq-ph{background:none;color:inherit;padding:0}
+.tq-th{color:var(--ac);background:var(--tint);border-radius:5px;padding:0 2px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 /* boshqa shakllar — kichik yorliqlar */
 .tq-fm{margin-top:12px;font-size:14px;color:var(--mu);display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px}
 .tq-fm span{display:inline-flex;align-items:center;gap:6px;padding:2px 12px 4px;border-radius:12px;background:var(--cd);border:1px solid var(--bd)}
@@ -102,8 +106,6 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .tq-gb .tq-gt{margin-top:0}
 .tq-gb .tq-gd{margin-top:6px}
 .tq-r:empty{display:none}
-.tq-fy+.tq-r{background:none;padding:0}
-.tq-fy+.tq-r .tq-ex{background:var(--tint)}
 .tq-ex{margin-top:12px;padding:10px 12px;border-radius:12px;background:var(--cd);font-size:14.5px;color:var(--mu)}
 .tq-ex .ar{display:block;font-size:22px;line-height:1.8;color:var(--tx)}
 .tq-au{margin-left:auto;width:42px;height:42px;border-radius:50%;border:0;background:var(--tint);color:var(--ac);display:flex;align-items:center;justify-content:center;padding:0}
@@ -827,33 +829,85 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
     saqla(); keyingi();
   }
 
-  function manolar(n) {
-    var a = [];
+  function manolar(n, ph) {                            /* ph — fe'lning harfi bor: ma'nodagi birinchi «..га» / «(...ни)» o'sha rangda */
+    var a = [], bor = !ph;
     n.m.forEach(function (r) { (r.mz || r.uz).forEach(function (u) { u.split(/\s(?=\d\.\s)/).forEach(function (p) { a.push(p); }); }); });
     if (a.length === 1) a[0] = a[0].replace(/^\d+\.\s*/, '');
-    return '<div class="tq-m">' + a.map(function (p) { return '<div>' + esc(p.replace(/^(\d+)\.\s*/, '$1. ')) + '</div>'; }).join('') + '</div>';
+    return '<div class="tq-m">' + a.map(function (p) {
+      var h = esc(p.replace(/^(\d+)\.\s*/, '$1. '));
+      var M = '\u2063';   /* ko'rinmas belgi — ruscha qatlam bo'lingan ma'noni o'girmaydi (trBelgi kabi) */
+      if (!bor && /\.{2,3}/.test(h)) { bor = true; h = h.replace(/\(?\.{2,3}[^\s,;()\u2063]*\)?/, M + '<span class="tq-ph">' + M + '$&' + M + '</span>' + M); }
+      return '<div>' + h + '</div>';
+    }).join('') + '</div>';
   }
-  /* 21.11.2026 (foydalanuvchi: «мозий, музореъ, амр, масдар bitta qatorda; so'ralgani o'z joyida, qolganlari ochilganda yonida»): so'z qatori
-     o'ngdan chapga — so'ralgan so'z (katta), keyin fe'lning qolgan shakllari yoki ismning ko'pligi, muannasi, «ال» bilan shakli; har birining
-     tagida nomi. oc — qolganlari «Кўрсатиш»da ko'rinadi (joyi oldindan ajratilgan, so'z qimirlamaydi). Sig'masa — sigdir(). */
-  var FQ = ['мозий', 'музореъ', 'амр', 'масдар'];
+  /* 21.11.2026 (foydalanuvchi: «мозий, музореъ, амр deb yozish shart emas, bir xil ko'rinishda»): so'z qatori o'ngdan chapga — so'ralgan so'z,
+     keyin fe'lning qolgan shakllari yoki ismning «ج» ko'pligi, «مؤ.» muannasi, «ال» bilan shakli — hammasi bir xil kattalikda, chiziqcha bilan.
+     oc — qolganlari «Кўрсатиш»da ko'rinadi (joyi oldindan ajratilgan, so'z qimirlamaydi). Sig'masa — sigdir(). */
+  /* «إِلَى alohidaroq tursin — ..га ma'nosi shundan» (21.11.2026): fe'l bilan keladigan harf oxirgi shakldan ajratiladi
+     («تَأْدِيَةٌ إِلَى ..», «مُحَافَظَةٌ (عَلَى ..)» → «إِلَى ..»); kartada o'z rangida (.tq-pp) — ma'nodagi «..га» va gapdagi إِلَيْهِ ham shu rangda. */
+  function sila(r) {
+    if (!r.fel || r.fel.length < 2) return null;
+    var f = r.fel.slice(), o = f[f.length - 1], m = /\s*\(([^()]*\.\.[^()]*)\)\s*$/.exec(o) || /\s+(\S+\s*\.{2,3})\s*$/.exec(o);
+    if (!m) return null;
+    f[f.length - 1] = o.slice(0, m.index).trim();
+    return { f: f, p: m[1].trim() };
+  }
   function sozQator(r, oc) {
-    var q = [], f = r.fel && r.fel.length > 1 ? r.fel : null;
-    if (f) f.slice(1).forEach(function (x, i) { q.push([x, FQ[f.length === 3 && i === 1 ? 3 : i + 1]]); });   /* 3 shakl — мозий, музореъ, масдар */
+    var si = sila(r), f = si ? si.f : (r.fel && r.fel.length > 1 ? r.fel : null), q = [];
+    if (f) f.slice(1).forEach(function (x) { q.push(['', x]); });
     else {
-      if (r.jam && r.jam.length) q.push([r.jam.join('، '), 'жам']);
-      if (r.mn) q.push([r.mn, 'муаннас']);
-      if (r.al) q.push([r.al, 'маърифа']);
+      if (r.jam && r.jam.length) q.push(['ج', r.jam.join('، ')]);
+      if (r.mn) q.push(['مؤ.', r.mn]);
+      if (r.al) q.push(['', '(' + r.al + ')']);
     }
-    function el(a, nom, cls) { return '<span class="tq-sf' + cls + '"><bdi class="ar" lang="ar">' + esc(a) + '</bdi>' + (nom ? '<small dir="ltr">' + nom + '</small>' : '') + '</span>'; }
-    return '<div class="tq-wq" dir="rtl">' + el(r.ar, f ? FQ[0] : '', ' tq-sb') + q.map(function (x) { return el(x[0], x[1], oc ? ' tq-oc' : ''); }).join('') + '</div>';
+    return '<div class="tq-wq ar" lang="ar" dir="rtl"><span class="tq-sf">' + esc(r.ar) + '</span>' + q.map(function (x) {
+      return '<span class="tq-sf' + (oc ? ' tq-oc' : '') + '"><i>–</i>' + (x[0] ? '<small>' + x[0] + '</small>' : '') + esc(x[1]) + '</span>';
+    }).join('') + '</div>';
   }
-  function sigdir() {                                  /* qator bitta satrga sig'masa — 0,7 gacha kichrayadi, baribir sig'masa — ikki satr */
+  function silaB(p, oc) { return p ? '<div class="tq-pa' + (oc ? ' tq-oc' : '') + '"><span class="tq-pp ar" lang="ar">' + esc(p) + '</span></div>' : ''; }
+  /* 21.11.2026 (foydalanuvchi: «tarjimadagi qaysi joy shu so'zga to'g'ri kelayotgani ko'rsatilsin»): gap tarjimasida ma'noga mos so'zlar yashil.
+     Ma'noning birinchi satridagi so'zlar bilan solishtiriladi: 4+ harfli — o'zagi («келди» → «кел…», «қисм» → «қис…»: «-моқ/-ди/-ти» yoki
+     oxirgi harf tushadi), qisqasi — o'zi yoki o'zi + qo'shimcha («сиз» → «Сизга», «уй» → «уйда»); ko'pi bilan 4 so'z; topilmasa — belgisiz. */
+  var QQ = /^(лар)?(и|им|инг|имиз|ингиз|си|м|нг|миз|нгиз)?(да|га|ни|нинг|дан|ча|дир)?(ми)?$/;
+  function mos(k, w) {
+    var s = w.length > 3 ? w.replace(/(моқ|ди|ти)$/, '') : w;
+    if (w.length > 3 && s === w) s = w.slice(0, -1);
+    if (s.length >= 3 && w.length > 3) return k.indexOf(s) === 0;
+    return k.indexOf(w) === 0 && QQ.test(k.slice(w.length));
+  }
+  function trBelgi(r, tr, p) {                         /* p — fe'lning harfi: yashil so'z yonidagi «..га» qo'shimchali so'z («шунга») sariq */
+    var u0 = ((r.mz || r.uz || [])[0] || ''), qs = p ? /\.{2,3}([а-яёўқғҳ]+)/i.exec(u0) : null, u = u0.replace(/^\d+\.\s*/, '').replace(/\([^()]*\)/g, ' ').split(/\s\d+\.\s/)[0];
+    var oz = u.toLowerCase().split(/\s+/).map(function (w) { return w.replace(/[^а-яёўқғҳ]/g, ''); }).filter(function (w) { return w; }), n = 0;
+    var M = '\u2063';   /* ko'rinmas belgi: ruscha qatlam (ru.js) bo'lakni tayyor matn deb biladi — gap bo'linsa ham o'girmaydi */
+    tr = tr.split('\u2063').join('');
+    var T = tr.split(/(\s+)/), Y = T.map(function (t) {
+      var k = t.toLowerCase().replace(/[^а-яёўқғҳ]/g, '');
+      var ok = k && n < 4 && oz.some(function (w) { return mos(k, w); });
+      if (ok) n++;
+      return ok;
+    });
+    return T.map(function (t, i) {
+      if (Y[i]) return '<span class="tq-th">' + M + esc(t) + M + '</span>';
+      var k = t.toLowerCase().replace(/[^а-яёўқғҳ]/g, '');
+      if (qs && k.length > qs[1].length && k.slice(-qs[1].length) === qs[1].toLowerCase() && (Y[i - 2] || Y[i + 2])) return '<span class="tq-ph">' + M + esc(t) + M + '</span>';
+      return M + esc(t) + M;
+    }).join('');
+  }
+  /* gapdagi harf: so'zdan keyingi 4 so'z ichida — harfning o'zi yoki olmosh qo'shilgani (إِلَيْهِ, عَنْهُ, بِهِ); yopishib kelgani (بِالْ...) — yo'q */
+  var QSH = ['', 'ه', 'ها', 'هم', 'هما', 'هن', 'ك', 'كم', 'كما', 'كن', 'ي', 'نا'];
+  function nrm(x) { return String(x).replace(/[\u064B-\u065F\u0670\u0640]/g, '').replace(/[أإآ]/g, 'ا').replace(/ى/g, 'ي').replace(/[^\u0621-\u064A]/g, ''); }
+  function silaJoy(g, p) {
+    var b = nrm(p), k0 = g.i.length ? g.i[0][0] : -1, j, t, q;
+    if (!b || k0 < 0) return -1;
+    for (j = k0 + 1; j < g.w.length && j <= k0 + 4; j++) { t = nrm(g.w[j]); for (q = 0; q < QSH.length; q++) if (t === b + QSH[q] && (q || b.length > 1)) return j; }
+    return -1;
+  }
+  function sigdir() {                                  /* qator bitta satrga sig'masa — 24 px gacha kichrayadi, baribir sig'masa — ikki satr */
     [].forEach.call(app.querySelectorAll('.tq-wq'), function (q) {
       if (!q.clientWidth) return;
-      var k = 16;
       q.classList.remove('tq-ws'); q.style.fontSize = '';
-      while (q.scrollWidth > q.clientWidth + 1 && k > 11.5) { k -= 1; q.style.fontSize = k + 'px'; }
+      var k = parseFloat(getComputedStyle(q).fontSize) || 36;
+      while (q.scrollWidth > q.clientWidth + 1 && k > 24) { k -= 1; q.style.fontSize = k + 'px'; }
       if (q.scrollWidth > q.clientWidth + 1) q.classList.add('tq-ws');
     });
   }
@@ -868,14 +922,16 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
   }
   /* 21.11.2026 (foydalanuvchi: «matndagi gapning tarjimasi gapning tagida bo'lsin»): gap bloki — gap, tagida tarjimasi, keyin «N-дарс».
      tr: 1 — tarjima ko'rinadi; 2 — joyi ajratilgan, «Кўрсатиш»da ochiladi (`.tq-oc`; karta sakramaydi) */
-  function gapAr(r, tr) {
+  function gapAr(r, tr, p) {
     var s = gapS(r); if (!s) return '';
+    var pj = p ? silaJoy(s, p) : -1;
     var w = s.w.map(function (x, k) {
       var q = s.i.filter(function (y) { return y[0] === k; })[0];
+      if (k === pj && !q) return '<span class="tq-ph">' + esc(x) + '</span>';
       return q ? esc(x.slice(0, q[1])) + '<span class="tq-gh">' + esc(x.slice(q[1], q[2])) + '</span>' + esc(x.slice(q[2])) : esc(x);
     });
     return '<div class="tq-gb"><div class="tq-gp ar" lang="ar" dir="rtl">' + w.join(' ') + '</div>' +
-      (tr && s.tr ? '<div class="tq-gt' + (tr === 2 ? ' tq-oc' : '') + '">' + esc(s.tr) + '</div>' : '') + '<div class="tq-gd">' + r.d + '-дарс</div></div>';
+      (tr && s.tr ? '<div class="tq-gt' + (tr === 2 ? ' tq-oc' : '') + '">' + trBelgi(r, s.tr, p) + '</div>' : '') + '<div class="tq-gd">' + r.d + '-дарс</div></div>';
   }
   function misol(n) {
     var x = [], g = gapS(n.r), bor = g ? g.a.trim() : '';
@@ -887,9 +943,10 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
     var sorov = { a: Takror.manosiz(n) ? 'Вазифаси?' : 'Маъноси?', u: 'Арабчаси?', o: 'Эшитинг' }[t];   /* «маъносиз» harf — vazifasi so'raladi (19.11.2026) */
     /* 21.11.2026 (foydalanuvchi: «oyna tartibliroq»): «Маъноси?»da har arabcha qatorning tarjimasi o'zining tagida — so'z → ma'nosi (+ shakllari),
        gap → tarjimasi; joylari oldindan ajratilgan (`.tq-oc`), ochilganda faqat ko'rinadi. Pastda (bo'lsa) boshqa misol. */
-    if (t === 'a') { old = sozQator(r, 1) + '<div class="tq-oc tq-ma">' + manolar(n) + '</div>' + gapAr(r, 2); orqa = misol(n); }   /* gap old tomonda — «Арабчаси?»da javobni ochib qo'ymasin */
-    else if (t === 'u') { old = manolar(n); orqa = sozQator(r) + gapAr(r, 1) + misol(n); }
-    else { old = '<button class="tq-pl" id="pl" aria-label="Тинглаш">▶</button>'; orqa = sozQator(r) + manolar(n) + gapAr(r, 1); }
+    var si = sila(r), p = si && si.p, ma = manolar(n, p);   /* harf belgisi shakllar tagida (A variant, foydalanuvchi tanlovi 21.11.2026) */
+    if (t === 'a') { old = sozQator(r, 1) + '<div class="tq-oc tq-ma">' + silaB(p) + ma + '</div>' + gapAr(r, 2, p); orqa = ''; }   /* boshqa misol yo'q — gap bitta (21.11.2026, foydalanuvchi: «qil»); misollar «Луғат» ro'yxatida */   /* gap old tomonda — «Арабчаси?»da javobni ochib qo'ymasin */
+    else if (t === 'u') { old = manolar(n); orqa = sozQator(r) + silaB(p) + gapAr(r, 1, p) + misol(n); }
+    else { old = '<button class="tq-pl" id="pl" aria-label="Тинглаш">▶</button>'; orqa = sozQator(r) + silaB(p) + ma + gapAr(r, 1, p); }
     /* tinglash: ochilganda o'zi o'qiladi; qayta eshitish — burchakdagi kichik tugma (katta 🔊 o'rniga) */
     var sp = n.au && t !== 'o' ? '<button class="tq-au" id="sp" aria-label="Қайта эшитиш" hidden>' + KARNAY + '</button>' : '';
     app.innerHTML = bosh_ + '<section class="tq-c tq-k" id="kk"><div class="tq-l"><span>' + sorov + '</span>' + (x.yangi ? '<em>янги</em>' : '') + sp +

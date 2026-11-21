@@ -1,6 +1,6 @@
-"""«Татбиқ» kitobi muqovasini yasash: src/build/muqova-tatbiq.html → fon/tatbiq.jpg (750×1125, JPEG).
+"""«Татбиқ» kitobi muqovasini yasash: src/build/muqova-tatbiq.html (fon — src/build/muqova-rasm.jpg, ElevenLabs) → fon/tatbiq.jpg (750×1125, JPEG).
 Ishga tushirish (repo ildizidan): python3 src/build/muqova.py
-Bob rasmi qo'shilsa yoki o'zgarsa — HTML dagi G ro'yxati yangilanadi va qayta yasaladi (docs/texnik.md 18)."""
+Rasm yoki nom o'zgarsa — qayta ishga tushiriladi (docs/texnik.md 18)."""
 import asyncio, io, os
 from PIL import Image
 from playwright.async_api import async_playwright

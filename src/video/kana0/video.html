@@ -356,10 +356,10 @@ function build() {
   { u = C.k4a; const c = u.c, b = C.k4b; t = u.s - .45; title('#t4', t + .15); pushX('#S3', '#S4', t);
     M.fromTo('.pb', { scaleX: 0 }, { scaleX: 1, duration: .5, stagger: .025, ease: 'power2.out', immediateRender: false }, t + .45);
     const PK = $$('.pk'), ord = [0, 2, 1, 4, 3, 6, 5, 7];
-    ord.forEach((k, i) => { const tt = c[0] + .9 + i * .22; pop(PK[k], tt, .4, 0); sfx('tick', tt); });        // eng ko'p uchraydigan
+    ord.forEach((k, i) => { const tt = c[0] + 1.5 + i * .25; pop(PK[k], tt, .4, 0); sfx('tick', tt); });        // eng ko'p uchraydigan
     rise('#pgt', c[0] + .8, .45, 24);
     PK.forEach((p, i) => { pulse(p, c[1] + .05 + i * .04, 1.18, .6); glow(p, c[1] + .05 + i * .04, GOLD, 1.1); });   // uni tanisangiz
-    M.to('.pb', { backgroundColor: 'rgba(255,244,224,.6)', duration: .5, stagger: .04, ease: 'power1.inOut' }, c[2] + .35); sfx('shimmer', c[2] + .4); sfx('shimmer', c[2] + .95, .7);   // ochiladi
+    M.to('.pb', { backgroundColor: 'rgba(255,244,224,.6)', duration: .5, stagger: .04, ease: 'power1.inOut' }, c[2] + 1.0); sfx('shimmer', c[2] + 1.05); sfx('shimmer', c[2] + 1.6, .7);   // ochiladi
     sink('#pgt', c[2] + .1, .3, -20); rise('#pgt2', c[2] + .45, .45, 24);
     /* keyingi video */
     t = b.s - .3; title('#t10', t + .1); M.to('#pg', { y: -1500, duration: .8, ease: 'power3.inOut' }, t); sfx('whoosh2', t + .05);

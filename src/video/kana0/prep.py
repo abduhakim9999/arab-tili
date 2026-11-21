@@ -23,8 +23,8 @@ TXT = {
  't1': "Avval u bilan tanishib olaylik. Kitoblarda uni uch so'z bilan tanitishadi: noqis moziy fe'li.",
  't2': "Fe'l — chunki fe'ldek tuslanadi: muzoriysi ham, muannasi ham bor. Moziy — chunki o'tgan zamonni bildiradi: «edi».",
  't3': "Noqis esa «to'liqsiz» degani. Oddiy fe'lga bitta so'z yetadi: «tolib o'tirdi» — gap tugadi. Kaana bilan esa «tolib edi» deb to'xtasak, gap chala qoladi: nima edi? Unga ikkinchi so'z — xabar ham kerak.",
- 'k3': "Kaana oddiy fe'ldek uch shaklda keladi: |o'tgan zamon, |hozirgi-kelasi zamon |va buyruq. |Ularni kitob darslari tartibida, |birma-bir ko'ramiz.",
- 'k4a': "Kaana arab tilida eng ko'p uchraydigan fe'llardan biri. |Uni tanisangiz, |o'qiganingizning katta qismi ochiladi.",
+ 'k3': "Kaana — oddiy fe'ldek uch shaklda keladi: |o'tgan zamon, |hozirgi-kelasi zamon |va buyruq. |Ularni kitob darslari tartibida, |birma-bir ko'ramiz.",
+ 'k4a': "Kaana — arab tilida eng ko'p uchraydigan fe'llardan biri. |Uni tanisangiz, |o'qiganingizning katta qismi ochiladi.",
  'k4b': "Keyingi video: |qirq oltinchi dars — |kaananing ismi va xabari.",
 }
 SEQ = [

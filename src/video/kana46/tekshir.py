@@ -28,15 +28,16 @@ def phones(n):
     return out
 
 
-ZICH = '--zich' in sys.argv
-for n in ([a for a in sys.argv[1:] if not a.startswith('--')] or sorted(k for k in prep.TXT if k[0] == 'u')):
-    ph = phones(n)
-    line = ''; last = -9
-    for t, p in ph:
-        if t - last >= (0.14 if ZICH else 0.45): line += f' [{t:.2f}]'
-        line += p; last = t
-    kn = []
-    for i, (t, p) in enumerate(ph):                                         # k + unli + n + a
-        if p == 'k' and i + 3 < len(ph) and ph[i + 1][1][0] in VOW and ph[i + 2][1] == 'n' and ph[i + 3][1][0] in 'aɑæeɛ':
-            d = ph[i + 2][0] - t; kn.append(f"{t:.2f}:{d:.2f}{'' if d >= 0.195 else ' QISQA'}")
-    print(f'{n}: {line.strip()}\n    k–n: {", ".join(kn) or "—"}')
+if __name__ == '__main__':
+    ZICH = '--zich' in sys.argv
+    for n in ([a for a in sys.argv[1:] if not a.startswith('--')] or sorted(k for k in prep.TXT if not prep.AR(k))):
+        ph = phones(n)
+        line = ''; last = -9
+        for t, p in ph:
+            if t - last >= (0.14 if ZICH else 0.45): line += f' [{t:.2f}]'
+            line += p; last = t
+        kn = []
+        for i, (t, p) in enumerate(ph):                                         # k + unli + n + a
+            if p == 'k' and i + 3 < len(ph) and ph[i + 1][1][0] in VOW and ph[i + 2][1] == 'n' and ph[i + 3][1][0] in 'aɑæeɛ':
+                d = ph[i + 2][0] - t; kn.append(f"{t:.2f}:{d:.2f}{'' if d >= 0.195 else ' QISQA'}")
+        print(f'{n}: {line.strip()}\n    k–n: {", ".join(kn) or "—"}')

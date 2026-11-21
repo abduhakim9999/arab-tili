@@ -24,11 +24,12 @@ TXT = {
  # S2 oddiy gap (tayyor)
  'u1a': "Keling, buni bitta gapda ko'ramiz.",
  'u1b': "«Tolib kattadir». Bu gapda ikki bo'lak bor: mubtado va xabar. Ikkalasi ham raf holatida — oxirlarida zamma.",
- # S3 kaana ikkalasiga ham hukm qiladi (ko'pchilik — basraliklar fikri: ismni ham kaana raf qiladi; foydalanuvchi bilan kelishilgan, 21.11.2026)
- 'k3a': "Kaana gapga kirib keladi |va ikkalasiga ham hukm qiladi. |Mubtadoga: |«Raf bo'l!» |Mubtado jilmayadi: «Men allaqachon rafman». |Oxiri o'zgarmaydi, |faqat yangi nom oladi: |kaananing ismi. |Xabarga esa: |«Oxiringni o'zgartir!» |Xabar bo'ysunadi: |zammani qo'yib, |fatha oladi. |Endi u kaananing xabari, |holati nasb.",
+ # S3 qoida — avval atamalar bilan, kitobdagidek (foydalanuvchi, 21.11.2026: talaba avval tarkibda qanday aytilishini bilsin), keyin sodda tushuntirish
+ 'k3t': "Kaana mubtado va xabarning oldiga kirib keladi. |Mubtadoni o'zining ismi qilib oladi: |u raf qilinadi. |Xabarni o'zining xabari qilib oladi: |u nasb qilinadi.",
+ # S3b sodda tushuntirish: kaana ikkalasiga ham hukm qiladi (ko'pchilik — basraliklar fikri: ismni ham kaana raf qiladi; kelishilgan 21.11.2026)
+ 'k3a': "Sodda qilib aytsak, |kaana ikkalasiga ham hukm qiladi. |Mubtadoga: |«Raf bo'l!» |Mubtado jilmayadi: «Men allaqachon rafman». |Oxiri o'zgarmaydi. |Xabarga esa: |«Oxiringni o'zgartir!» |Xabar bo'ysunadi: |zammani qo'yib, |fatha oladi.",
  'k3b': "Lekin ism ham jim qolmaydi: |kerak bo'lsa, kaananing o'zini o'zgartirib qo'yadi. |Qanday qilib? |Birozdan keyin ko'ramiz.",
- # S4 qoida va tarjima (tayyor) + doimiylik (yangi)
- 'u3': "«Tolib katta edi». Demak, qoida oddiy: kaana kelsa, ismi — raf, xabari — nasb.",
+ # S4 tarjima (tayyor) + doimiylik (yangi). Tayyor u3 («Demak, qoida oddiy…») olib tashlandi — qoida endi S3 da aytiladi
  'u4': "Tarjimasi ikki xil: voqea qadimda bo'lgan bo'lsa — «edi», yaqinda bo'lgan bo'lsa — «bo'ldi».",
  'k4': "Bitta nozik joy: |Alloh haqida «edi» emas, |«doimo» deyiladi. |Bu ma'no kaanadan emas, |gap egasidan keladi.",
  # S5 ismi muannas (tayyor, boshi kesilgan)
@@ -52,8 +53,9 @@ TXT = {
 SEQ = [
  ('S1', [('lead', 1.1), 'k1', ('gap', 0.45)]),
  ('S2', [('lead', 0.25), 'u1a', ('gap', 0.3), 'a1', ('gap', 0.35), 'u1b', ('gap', 0.4)]),
- ('S3', [('lead', 0.0), 'k3a', ('gap', 0.3), 'k3b', ('gap', 0.35), 'a2', ('gap', 0.4)]),
- ('S4', [('lead', 0.0), 'u3', ('gap', 0.4), 'u4', ('gap', 0.4), 'k4', ('gap', 0.3), 'b4', ('gap', 0.6)]),
+ ('S3', [('lead', 0.0), 'k3t', ('gap', 0.4)]),
+ ('S3b', [('lead', 0.0), 'k3a', ('gap', 0.5), 'k3b', ('gap', 0.35), 'a2', ('gap', 0.5)]),
+ ('S4', [('lead', 0.3), 'u4', ('gap', 0.4), 'k4', ('gap', 0.3), 'b4', ('gap', 0.6)]),
  ('S5', [('lead', 0.45), 'u5', ('gap', 0.3), 'a5', ('gap', 0.7)]),
  ('S6', [('lead', 0.45), 'u6a', ('gap', 0.3), 'a6b', ('gap', 0.35), 'u6b', ('gap', 0.3), 'a6c', ('gap', 0.45), 'k6', ('gap', 0.6)]),
  ('S7', [('lead', 0.45), 'k7', ('gap', 0.3), 'b7', ('gap', 0.6)]),

@@ -81,6 +81,15 @@ i{font-style:normal}
 #sub{position:absolute;top:1584px;left:50px;right:50px;font-size:40px;font-weight:600;line-height:1.35;color:#fff;text-shadow:0 2px 10px #000,0 0 3px #000}
 .sb{position:absolute;left:0;right:0;top:0;text-align:center;opacity:0;visibility:hidden}
 #wm{position:absolute;top:34px;left:0;right:0;text-align:center}
+/* qoida qutilari (ikki holat) va tarkib kartasi */
+.bs{position:absolute;left:0;right:0;top:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.bs .bg2{font-size:54px;line-height:1.25}
+.bn{font-size:36px;font-weight:600;color:#F0E2EB;line-height:1.2}.bn .ar{font-size:1.5em;line-height:1}
+.tkr{display:flex;flex-direction:row-reverse;align-items:center;gap:24px;height:128px;border-top:2px solid rgba(255,255,255,.1)}
+.tw{flex:none;width:240px;text-align:center;direction:rtl;font-family:Naskh,serif;font-weight:500;font-size:74px;line-height:1.5}
+.tx{flex:1;display:flex;flex-direction:column;gap:4px;white-space:nowrap}
+.tx b{font-size:38px;font-weight:700;color:#F3E6EE;line-height:1.25}.tx b .ar{font-size:1.3em;line-height:1;font-weight:500}
+.tx small{font-size:30px;font-weight:600;color:var(--mut);line-height:1.25}
 </style></head>
 <body>
 <div id="st">
@@ -119,21 +128,34 @@ i{font-style:normal}
   <div id="ip2" class="h" style="position:absolute;left:0;top:432px"><span class="chip raf" style="display:inline-block;transform:translateX(-50%);background:#3d2452;font-size:36px;padding:8px 28px">охири ўзгармайди</span></div>
   <div class="h" id="kq" style="position:absolute;top:400px;left:0;right:0;text-align:center"><span class="chip pink" style="font-size:40px;padding:9px 34px">Қандай қилиб?</span></div>
   <div class="h" id="kq2" style="position:absolute;top:400px;left:0;right:0;text-align:center"><span class="chip pink" style="font-size:40px;padding:9px 34px">бироздан кейин кўрамиз</span></div>
-  <div class="tr h" id="ht1" style="top:985px">Толиб каттадир</div>
-  <div class="tr h" id="ht2" style="top:985px">Толиб катта <span class="gold">эди</span></div>
+  <div class="tr h" id="ht1" style="top:928px">Толиб каттадир</div>
+  <div class="tr h" id="ht2" style="top:928px">Толиб катта <span class="gold" style="display:inline-block">эди</span></div>
   <div class="tr h" id="ht3" style="top:1010px">Толиба катта <span class="gold">эди</span></div>
   <div class="h" id="jc1" style="position:absolute;top:455px;left:0;right:0;text-align:center"><span class="chip pink" style="font-size:36px">2 сукун йўлиқди</span></div>
   <div class="h" id="jc2" style="position:absolute;top:455px;left:0;right:0;text-align:center"><span class="chip pink" style="font-size:36px"><span class="ar">تْ</span> → <span class="ar">تِ</span> &nbsp;касра билан боғланди</span></div>
 </section>
 
-<!-- SR: qoida, tarjima, «Alloh haqida — doimo» (S4) -->
+<!-- SR: qoida qutilari (S3), tarkib kartasi (S3b), tarjima va «Alloh haqida — doimo» (S4) -->
 <section class="sc" id="SR">
-  <div id="bxs" style="position:absolute;top:400px;left:60px;right:60px;display:flex;flex-direction:row-reverse;gap:24px">
-    <div class="bx gold h" id="bk"><div class="ar gold" style="font-size:140px;line-height:1.3">كَانَ</div></div>
-    <div class="bx raf h" id="bi"><div class="bg2 raf">исми</div><span class="h" id="bic"><span class="chip raf">раф</span></span></div>
-    <div class="bx nasb h" id="bx"><div class="bg2 nasb">хабари</div><span class="h" id="bxc"><span class="chip nasb">насб</span></span></div>
+  <div id="bxs" style="position:absolute;top:1010px;left:60px;right:60px;display:flex;flex-direction:row-reverse;gap:24px">
+    <div class="bx gold h" id="bk" style="height:270px"><div class="ar gold" style="font-size:140px;line-height:1.3">كَانَ</div></div>
+    <div class="bx h" id="bi" style="height:270px;position:relative;border-color:rgba(255,255,255,.3);background-color:rgba(255,255,255,.07)">
+      <div class="bs" id="bi1"><div class="bg2">мубтадо</div></div>
+      <div class="bs h" id="bi2"><div class="bn"><span class="ar gold">كَانَ</span> нинг</div><div class="bg2 raf">исми</div><span class="h" id="bic"><span class="chip raf">раф</span></span></div>
+    </div>
+    <div class="bx h" id="bx" style="height:270px;position:relative;border-color:rgba(255,255,255,.3);background-color:rgba(255,255,255,.07)">
+      <div class="bs" id="bx1"><div class="bg2">хабар</div></div>
+      <div class="bs h" id="bx2"><div class="bn"><span class="ar gold">كَانَ</span> нинг</div><div class="bg2 nasb">хабари</div><span class="h" id="bxc"><span class="chip nasb">насб</span></span></div>
+    </div>
   </div>
-  <div class="card h" id="bt" style="top:930px;left:60px;right:60px;height:410px;padding:36px 54px">
+  <!-- tarkib — kitobdagi so'zlar bilan (46-dars): qatorlar tushuntirish davomida bittadan chiqadi -->
+  <div class="card h" id="tk" style="top:1030px;left:60px;right:60px;height:466px;padding:20px 40px 0">
+    <div class="cap" style="font-size:30px;letter-spacing:.06em;height:54px">ТАРКИБДА ШУНДАЙ АЙТИЛАДИ</div>
+    <div class="tkr h" id="tk1"><span class="tw gold">كَانَ</span><span class="tx"><b>ноқис мозий феъли</b><small>фатҳага мабний</small></span></div>
+    <div class="tkr h" id="tk2"><span class="tw">الطَّالِ<i class="raf">بُ</i></span><span class="tx"><b><span class="ar gold">كَانَ</span> нинг исми</b><small>раф қилинган, аломати зоҳирий замма</small></span></div>
+    <div class="tkr h" id="tk3"><span class="tw">كَبِي<i class="nasb">رًا</i></span><span class="tx"><b><span class="ar gold">كَانَ</span> нинг хабари</b><small>насб қилинган, аломати зоҳирий фатҳа</small></span></div>
+  </div>
+  <div class="card h" id="bt" style="top:1040px;left:60px;right:60px;height:410px;padding:36px 54px">
     <div class="gold" id="bth" style="font-size:46px;font-weight:700;text-align:center;margin-bottom:14px">Таржимаси икки хил</div>
     <div class="row2 h" id="bt1"><span>қадимда бўлган воқеа</span><span class="mut">→</span><span class="h" id="bt1c"><span class="chip gold" style="font-size:44px">эди</span></span></div>
     <div style="height:2px;background:rgba(255,255,255,.14)"></div>
@@ -223,7 +245,7 @@ i{font-style:normal}
   </div>
 </section>
 </div><!-- /cam -->
-<div id="ttl"><span class="h" id="t0">Ўтган видеода</span><span class="h" id="t1">Оддий гап</span><span class="h" id="t2"><span class="ar">كَانَ</span> кириб келади</span><span class="h" id="t3">Қоида</span><span class="h" id="t4">Бир нозик жой</span><span class="h" id="t5">Исми муаннас бўлса</span><span class="h" id="t6">Насб аломатлари</span><span class="h" id="t7">Ақлсиз кўплик</span><span class="h" id="t8">Инкор</span><span class="h" id="t9">Хулоса</span><span class="h" id="t10">Савол</span><span class="h" id="t11">Кейинги видео</span></div>
+<div id="ttl"><span class="h" id="t0">Ўтган видеода</span><span class="h" id="t1">Оддий гап</span><span class="h" id="t2">Қоида</span><span class="h" id="t2b">Содда қилиб айтсак</span><span class="h" id="t3">Таржимаси</span><span class="h" id="t4">Бир нозик жой</span><span class="h" id="t5">Исми муаннас бўлса</span><span class="h" id="t6">Насб аломатлари</span><span class="h" id="t7">Ақлсиз кўплик</span><span class="h" id="t8">Инкор</span><span class="h" id="t9">Хулоса</span><span class="h" id="t10">Савол</span><span class="h" id="t11">Кейинги видео</span></div>
 <div id="seg"></div>
 <div id="hl" class="h"><span>Грамматика · 46-дарс</span><span><span class="ar" id="hk">كَانَ</span> нинг исми ва хабари</span></div>
 <div id="wm" class="h"><span class="chip pink" style="font-size:30px">ҚОРАЛАМА · янги бўлаклар — робот овоз</span></div>
@@ -329,13 +351,25 @@ function build() {
   pop('#ic', u.c[4] + .25, .45); pop('#xc1', u.c[4] + .45, .45);
   to(['#ie0', '#xe0'], { color: `rgb(${RAF})` }, u.c[5], .4); glow('#ie0', u.c[5], RAF, 1.1); glow('#xe0', u.c[5], RAF, 1.1); sfx('shimmer', u.c[5]);
 
-  /* ================= S3: kaana kirib keladi va ikkalasiga ham hukm qiladi (ismni ham kaana raf qiladi — ko'pchilik fikri) ================= */
-  u = C.k3a; const c2 = u.c; title('#t2', u.s + .1); sink('#ht1', u.s + .1, .3, 30);
-  swap('#I', 1, c2[0] + .25, .4); open('#K', 0, c2[0] + .2, { x: 420 }, .85, 'back.out(1.7)'); sfx('whoosh', c2[0] + .15); sfx('thud', c2[0] + .55); glow(K.vs[0], c2[0] + .75, GOLD, 1.1);
-  /* yoylar: S3 yakuniy joylashuvi bo'yicha (o'rinlar kengligidan hisoblanadi) */
+  /* ================= S3: qoida — avval atamalar bilan (kitobdagidek): mubtado -> kaananing ismi (raf), xabar -> kaananing xabari (nasb) ================= */
+  u = C.k3t; const cq = u.c; t = u.s - .3; title('#t2', t + .05); sink('#ht1', t, .3, 30);
+  M.fromTo(['#bi', '#bx'], { autoAlpha: 0, y: 90 }, { autoAlpha: 1, y: 0, duration: .55, stagger: .12, immediateRender: false }, t + .2); sfx('whoosh2', t + .15, .6);
+  M.fromTo('#bk', { autoAlpha: 0, x: 320 }, { autoAlpha: 1, x: 0, duration: .65, ease: 'back.out(1.5)', immediateRender: false }, cq[0] + .6); sfx('thud', cq[0] + .9); glow('#bk .ar', cq[0] + 1.05, GOLD, 1.1);
+  const flip = (p, q, box, c, t) => { to(p, { autoAlpha: 0, scaleY: 0, ease: 'power2.in' }, t, .2); M.fromTo(q, { autoAlpha: 0, scaleY: 0 }, { autoAlpha: 1, scaleY: 1, duration: .38, ease: 'back.out(1.8)', immediateRender: false }, t + .2);
+    to(box, { borderColor: `rgba(${c},.6)`, backgroundColor: `rgba(${c},.1)` }, t + .1, .4); sfx('pop', t + .2); };
+  t = cq[1] + (cq[2] - cq[1]) * .4; pulse(I.vs[0], cq[1] + .1, 1.06, .5); flip('#bi1', '#bi2', '#bi', RAF, t); pop('#bic', cq[2] + .05, .45);          // mubtado -> kaananing ismi; raf
+  t = cq[3] + (cq[4] - cq[3]) * .4; pulse(X.vs[0], cq[3] + .1, 1.06, .5); flip('#bx1', '#bx2', '#bx', NASB, t); pop('#bxc', cq[4] + .05, .45);        // xabar -> kaananing xabari; nasb
+
+  /* ================= S3b: sodda tushuntirish — kaana ikkalasiga ham hukm qiladi (ismni ham kaana raf qiladi — ko'pchilik fikri); pastda tarkib qatorlari yig'iladi ================= */
+  u = C.k3a; const c2 = u.c; t = u.s - .25; title('#t2b', t + .05);
+  to('#bxs', { y: 130, autoAlpha: 0, ease: 'power2.in' }, t + .1, .4);
+  t = c2[1] - .25;                                                                                              // kaana gapga kiradi
+  swap('#I', 1, t + .05, .4); open('#K', 0, t, { x: 420 }, .85, 'back.out(1.7)'); sfx('whoosh', t - .05); sfx('thud', t + .35); glow(K.vs[0], t + .55, GOLD, 1.1);
+  /* yoylar: S3b yakuniy joylashuvi bo'yicha (o'rinlar kengligidan hisoblanadi) */
   const g = K.gap, W2 = K.w[0] + g + I.w[1] + g + X.w[1], xr = 540 + W2 / 2, kx = xr - K.w[0] / 2, ix = xr - K.w[0] - g - I.w[1] / 2, xx = xr - K.w[0] - g - I.w[1] - g - X.w[1] / 2;
   const svg = $('#arc'), a1 = arc(svg, kx - 20, ix, 34, 100, RAF), a2 = arc(svg, kx + 20, xx, 34, 180, NASB), a3 = arc(svg, ix, kx - 20, 34, 100, PINK);
-  pulse(K.vs[0], c2[1] + .05, 1.12, .7); draw(a1, c2[1] + .2, .55); draw(a2, c2[1] + .4, .7);                 // ikkalasiga ham hukm qiladi
+  draw(a1, c2[1] + .65, .5); draw(a2, c2[1] + .8, .65);                                                         // ikkalasiga ham hukm qiladi
+  show('#tk', c2[1] + .75, .4); rise('#tk1', c2[1] + 1.0, .45, 24);
   /* Mubtadoga: «Raf bo'l!» */
   pulse(I.vs[1], c2[2] + .05, 1.06, .5);
   M.fromTo('#cmd0', { autoAlpha: 0, x: kx - 30, scale: .5 }, { autoAlpha: 1, x: kx - 30, scale: 1, duration: .4, ease: 'back.out(2)', immediateRender: false }, c2[3] - .1); sfx('pop', c2[3] - .1);
@@ -344,26 +378,25 @@ function build() {
   M.to(I.el, { rotation: 4, duration: .16, yoyo: true, repeat: 3, ease: 'sine.inOut' }, c2[4] + .15);
   gsap.set(['#ip', '#ip2'], { x: ix });
   t = c2[4] + (c2[5] - c2[4]) * .4; hide('#cmd0', t - .15, .25); pop('#ip', t, .45); glow(I.vs[1], t + .15, RAF, 1.1);
-  /* oxiri o'zgarmaydi, faqat yangi nom oladi: kaananing ismi */
+  /* oxiri o'zgarmaydi — nomi o'zgaradi: kaananing ismi (tarkib qatori) */
   hide('#ip', c2[5] - .15, .25); pop('#ip2', c2[5] + .1, .45); pulse('#ic .chip', c2[5] + .3, 1.22, .6);
-  sink('#il1', c2[6] + .1, .3, 20); hide('#ip2', c2[7] + .5, .25);
-  rise('#il2', c2[7] - .05, .35, 16); sfx('pop', c2[7] - .05, .7);
+  sink('#il1', c2[5] + .55, .3, 20); rise('#il2', c2[5] + .85, .35, 16); rise('#tk2', c2[5] + .75, .45, 24); hide('#ip2', c2[6] + .2, .25);
   /* Xabarga esa: «Oxiringni o'zgartir!» */
-  pulse(K.vs[0], c2[8] + .05, 1.08, .5);
-  M.fromTo('#cmd', { autoAlpha: 0, x: kx - 60, scale: .5 }, { autoAlpha: 1, x: kx - 60, scale: 1, duration: .4, ease: 'back.out(2)', immediateRender: false }, c2[9] - .1); sfx('pop', c2[9] - .1);
-  to('#cmd', { x: Math.max(xx + 40, 270), ease: 'power2.inOut' }, c2[9] + .5, .65); sfx('whoosh', c2[9] + .45, .7);
-  /* xabar bo'ysunadi: egiladi, zammani qo'yib fatha oladi */
-  hide('#cmd', c2[10] - .05, .25);
-  M.to(X.el, { rotation: -9, y: 12, duration: .3, ease: 'power2.out' }, c2[10] + .05); M.to(X.el, { rotation: 0, y: 0, duration: .5, ease: 'back.out(2)' }, c2[10] + .65); pop('#xp', c2[10] + .2, .45);
-  cam(xx - X.w[1] / 2 + 250, 650, 1.4, c2[11] - .15, .75); to('#xe0', { autoAlpha: .3 }, c2[11] + .3, .35); hide('#xp', c2[11], .25);
-  swap('#X', 1, c2[12] + .05, .45); glow(X.vs[1], c2[12] + .2, NASB, 1.2); sfx('shimmer', c2[12] + .1);
-  cam0(c2[13] - .35, .75);
-  sink('#xl1', c2[13] + .1, .3, 20); rise('#xl2', c2[13] + .5, .35, 16); sfx('pop', c2[13] + .5, .7);
-  hide('#xc1', c2[14] - .1, .25); pop('#xc2', c2[14] + .15, .5);
+  pulse(K.vs[0], c2[6] + .05, 1.08, .5);
+  M.fromTo('#cmd', { autoAlpha: 0, x: kx - 60, scale: .5 }, { autoAlpha: 1, x: kx - 60, scale: 1, duration: .4, ease: 'back.out(2)', immediateRender: false }, c2[7] - .1); sfx('pop', c2[7] - .1);
+  to('#cmd', { x: Math.max(xx + 40, 270), ease: 'power2.inOut' }, c2[7] + .5, .65); sfx('whoosh', c2[7] + .45, .7);
+  /* xabar bo'ysunadi: egiladi, zammani qo'yib fatha oladi; nomi — kaananing xabari, nasb */
+  hide('#cmd', c2[8] - .05, .25);
+  M.to(X.el, { rotation: -9, y: 12, duration: .3, ease: 'power2.out' }, c2[8] + .05); M.to(X.el, { rotation: 0, y: 0, duration: .5, ease: 'back.out(2)' }, c2[8] + .65); pop('#xp', c2[8] + .2, .45);
+  cam(xx - X.w[1] / 2 + 250, 650, 1.4, c2[9] - .15, .75); to('#xe0', { autoAlpha: .3 }, c2[9] + .3, .35); hide('#xp', c2[9], .25);
+  to('#tk', { autoAlpha: 0 }, c2[9] - .2, .3);                                                                    // yaqinlashganda diqqat faqat so'z oxirida
+  swap('#X', 1, c2[10] + .05, .45); glow(X.vs[1], c2[10] + .2, NASB, 1.2); sfx('shimmer', c2[10] + .1);
+  cam0(c2[10] + .75, .7); to('#tk', { autoAlpha: 1 }, c2[10] + 1.0, .4);
+  sink('#xl1', c2[10] + .9, .3, 20); rise('#xl2', c2[10] + 1.2, .35, 16); hide('#xc1', c2[10] + .9, .25); pop('#xc2', c2[10] + 1.25, .5); rise('#tk3', c2[10] + 1.35, .45, 24);
   /* lekin ism ham jim qolmaydi: kaananing o'zini o'zgartirib qo'yadi (ishora — javobi S5 da) */
   u = C.k3b; const cb = u.c;
-  pulse(I.vs[1], cb[0] + .15, 1.1, .6); to(a1.concat(a2), { opacity: .22 }, cb[0], .3);
-  M.set(a3[0], { opacity: 1 }, cb[0]); draw(a3, cb[0] + .5, .6); sfx('pop', cb[0] + 1.0, .7);
+  pulse(I.vs[1], cb[0] + .35, 1.1, .6); to(a1.concat(a2), { opacity: .22 }, cb[0] + .2, .3);
+  M.set(a3[0], { opacity: 1 }, cb[0]); draw(a3, cb[0] + .6, .6); sfx('pop', cb[0] + 1.1, .7);
   t = cb[1] + (cb[2] - cb[1]) * .3;
   M.to(K.el, { rotation: 9, y: 12, duration: .3, ease: 'power2.out' }, t); M.to(K.el, { rotation: 0, y: 0, duration: .5, ease: 'back.out(2)' }, t + .55);
   to(K.vs[0], { autoAlpha: 0 }, t + .15, .25); to(K.vs[1], { autoAlpha: .8 }, t + .25, .3); to(K.el, { width: K.w[1], ease: 'power2.inOut' }, t + .15, .35); sfx('shimmer', t + .25, .7);
@@ -371,24 +404,19 @@ function build() {
   pop('#kq', cb[2] - .05, .45);
   hide('#kq', cb[3] - .1, .2); pop('#kq2', cb[3] + .1, .45, 0);
   hide('#kq2', C.a2.s - .15, .3); to(a3, { opacity: 0 }, C.a2.s - .25, .3); to(a1.concat(a2), { opacity: 1 }, C.a2.s - .15, .3);
-  kar([K.vs[0], I.vs[1], X.vs[1]], C.a2);
+  kar([K.vs[0], I.vs[1], X.vs[1]], C.a2); rise('#ht2', C.a2.s - .05, .45, 24);
 
-  /* ================= S4: qoida, tarjima, «Alloh haqida — doimo» ================= */
-  u = C.u3; const c3 = u.c; rise('#ht2', u.s - .05, .45, 24);
-  t = c3[1]; title('#t3', t);
-  hide(['#il2', '#xl2', '#ic', '#xc2', '#ht2'], t, .3); to(a1.concat(a2), { opacity: 0 }, t, .3);
-  to('#hs', { y: 185, scale: .78, ease: 'power3.inOut' }, t + .05, .85); sfx('whoosh2', t + .1);
-  M.fromTo('#bk', { autoAlpha: 0, x: 300 }, { autoAlpha: 1, x: 0, duration: .6, immediateRender: false }, t + .35);
-  M.fromTo('#bi', { autoAlpha: 0, y: -200 }, { autoAlpha: 1, y: 0, duration: .6, ease: 'back.out(1.4)', immediateRender: false }, c3[2] - .05); sfx('pop', c3[2] - .05); pulse(I.vs[1], c3[2], 1.08, .5);
-  pop('#bic', c3[3] - .05, .45);
-  M.fromTo('#bx', { autoAlpha: 0, y: -200 }, { autoAlpha: 1, y: 0, duration: .6, ease: 'back.out(1.4)', immediateRender: false }, c3[4] - .05); sfx('pop', c3[4] - .05); pulse(X.vs[1], c3[4], 1.08, .5);
-  pop('#bxc', c3[5] - .05, .45);
-  u = C.u4; rise('#bt', u.s + .1, .5, 110); sfx('whoosh', u.s - .05, .7);
+  /* ================= S4: tarjima; «Alloh haqida — doimo» ================= */
+  u = C.u4; t = u.s - .3; title('#t3', t + .05);
+  hide(['#il2', '#xl2', '#ic', '#xc2'], t, .3); to(a1.concat(a2), { opacity: 0 }, t, .3);
+  to('#tk', { y: 130, autoAlpha: 0, ease: 'power2.in' }, t, .4);
+  to('#ht2', { y: -104, ease: 'power3.inOut' }, t + .05, .6);                                                    // yorliqlar ketgach tarjima gapga yaqinlashadi
+  rise('#bt', t + .35, .5, 110); sfx('whoosh', t + .2, .7); pulse('#ht2 .gold', u.c[2] + .1, 1.25, .6);
   rise('#bt1', u.c[1] - .1, .35, 20); pop('#bt1c', u.c[2] - .1, .45); rise('#bt2', u.c[3] - .05, .35, 20); pop('#bt2c', u.c[4] - .1, .45);
   /* bitta nozik joy: Alloh haqida «edi» emas, «doimo» — ma'no gap egasidan keladi */
   u = C.k4; const c4 = u.c; a = C.b4; t = u.s - .3; title('#t4', t + .05);
-  to('#bxs', { y: -90, autoAlpha: 0, ease: 'power2.in' }, t, .4); to('#hs', { y: 110, autoAlpha: 0, ease: 'power2.in' }, t, .4);
-  to("#bt", { y: -530, height: 500, ease: 'power3.inOut' }, t + .15, .8); sfx('whoosh2', t + .15);
+  to('#hs', { y: -90, autoAlpha: 0, ease: 'power2.in' }, t, .4); sink('#ht2', t, .35, -170);
+  to('#bt', { y: -640, height: 500, ease: 'power3.inOut' }, t + .15, .8); sfx('whoosh2', t + .15);
   to(['#bt1', '#bt2'], { autoAlpha: .4 }, c4[1] - .1, .4); rise('#bt3', c4[1], .4, 20); sfx('pop', c4[1], .7);
   pop('#bt3c', c4[2] - .05, .5); glow('#bt3c .chip', c4[2] + .1, GOLD, 1.1);
   rise('#ay', c4[3] - .2, .5, 30); sfx('whoosh', c4[3] - .25, .5);

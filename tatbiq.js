@@ -287,7 +287,7 @@
     if (d.bs) h += '<div class="tb-bs ar" lang="ar">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ</div>';
     h += '<div class="tb-tp"><span>Татбиқ</span>' + (o.bob || '') + '</div><h2 class="tb-nm">' + n + '-дарс · ' + A(o.nom) + '</h2>';
     h += v && v.yt ? '<div class="tb-yt"><iframe src="https://www.youtube-nocookie.com/embed/' + v.yt + '?playsinline=1&rel=0" title="Видео дарс" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>'
-      : '<div class="tb-vd"><span class="tb-th">' + PLAY + '</span><span><b>Видео дарс</b><small>Тез орада</small></span></div>';
+      : '';   /* video yo'q bo'lsa joy egallamaydi (21.11.2026: bo'lim endi kitob, video — bor darslarda) */
     h += d.b.map(function (x) { return BL[x[0]](x); }).join('');
     h += '<div class="tb-s">Машқ</div>' + mashq(d);
     h += bolim(d, 'q', 'qd', IQ, 'Қўшимча', 'Мавзуга оид, китобда йўқ') + bolim(d, 'y', 'yd', IY, 'Юқори даража', 'Бундай нарсалар ҳам бор');

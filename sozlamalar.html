@@ -251,7 +251,8 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
   var KAL = [p, p + '-t', p + '-xato', p + '-kitob', SN ? 'soz-sinov' : 'soz', SN ? 'takror-sinov-j' : 'takror-j', SN ? 'takror-sinov-xulosa' : 'takror-xulosa'];
   var $ = function (i) { return document.getElementById(i); };
   function G(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
-  function darsKalit(f) { try { for (var i = 0; i < localStorage.length; i++) { var k = localStorage.key(i); if (/^dars\d+-holat$/.test(k)) f(k); } } catch (e) {} }
+  /* joriy til profilidagi dars holati kalitlari (21.11.2026: ruscha profil — «ru-…», tg.js Profil; f ga mantiqiy kalit beriladi) */
+  function darsKalit(f) { var p = window.Profil ? Profil.p() : '', a = [], i, k; try { for (i = 0; i < localStorage.length; i++) { k = localStorage.key(i); if (k && k.indexOf(p) === 0 && /^dars\d+-holat$/.test(k.slice(p.length))) a.push(k.slice(p.length)); } } catch (e) {} a.forEach(f); }
   function arxOl() { try { var a = JSON.parse(G(KE) || 'null'); return a && a.v === 1 && a.ar && a.ls ? a : null; } catch (e) { return null; } }
 
   /* o'chirishdan oldingi nusxa; saqlaydigan narsa bo'lmasa — null (oldingi nusxa ustiga bo'sh yozilmasin) */
@@ -302,13 +303,17 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
      qaytarib bo'lmaydi. Tasdiq — o'sha qat'iy oyna (ЎЧИРИШ). */
   function hisobOchir() {
     var hz = String(Date.now());
-    LS(p, '{"v":1,"d":{},"e":{}}'); LS(p + '-t', hz);
-    KAL.slice(2).concat(['takror-sinov-kun']).forEach(function (k) { LS(k, null); });
-    try { sessionStorage.removeItem('takror-mashgulot'); } catch (e) {}
-    darsKalit(function (k) {
-      try { var S = JSON.parse(G(k) || 'null'); if (S && (S.q || S.qr)) { delete S.q; delete S.qr; localStorage.setItem(k, JSON.stringify(S)); localStorage.setItem(k + '-t', hz); } } catch (e) {}
+    var har = window.Profil ? function (f) { Profil.bilan('uz', f); Profil.bilan('ru', f); } : function (f) { f(); };   /* ikkala til profili (21.11.2026) */
+    har(function () {
+      LS(p, '{"v":1,"d":{},"e":{}}'); LS(p + '-t', hz);
+      KAL.slice(2).concat(['takror-sinov-kun']).forEach(function (k) { LS(k, null); });
+      try { sessionStorage.removeItem('takror-mashgulot'); } catch (e) {}
+      darsKalit(function (k) {
+        try { var S = JSON.parse(G(k) || 'null'); if (S && (S.q || S.qr)) { delete S.q; delete S.qr; localStorage.setItem(k, JSON.stringify(S)); localStorage.setItem(k + '-t', hz); } } catch (e) {}
+      });
+      LS(KE, null);
     });
-    LS(KE, null); LS('ism', null); qtChiz();
+    LS('ism', null); qtChiz();
     if (window.Baza && Baza.ochir) Baza.ochir(function (ok) { xabar(ok ? 'Аккаунт ўчирилди' : 'Серверда ўчмади. Интернетни текшириб, қайта уриниб кўринг.'); });
     else xabar('Аккаунт ўчирилди');
   }

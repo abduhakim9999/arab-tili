@@ -10,3 +10,4 @@ gsap.min.js
 *.tgz
 ph.*
 __pycache__/
+qoralama/

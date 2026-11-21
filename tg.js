@@ -1,6 +1,38 @@
 /* Telegram Mini App ulanishi + natijalarni Telegram bulutida saqlash */
 (function () {
   var me = document.currentScript;
+  /* TIL PROFILI (21.11.2026, foydalanuvchi: «ruschaga o'tkazganda reyting, hammasi o'z boshqa bo'lishi kerak — boshqa odamga aylangandek»;
+     docs/texnik.md 12): ruscha rejimda natija kalitlari alohida — «ru-» oldi bilan (ruscha o'quvchi noldan boshlaydi, o'zbekchadagilar joyida qoladi).
+     Sahifa kodi o'zgarmaydi: localStorage/sessionStorage chaqiruvlari shu yerda o'raladi (tg.js hamma sahifada birinchi yuklanadi).
+     Umumiy qoladi: akkaunt (baza-kod, baza-tg, ism), til, sozlamalar, yo'riqnoma belgilari. Profil: ruN.html — ruscha, N.html — o'zbekcha,
+     boshqa sahifalar — «til» bo'yicha. Ko'rish sahifasida (korish-shim.js, «korish:<nom>:» oldi) ham ishlaydi. Serverga — baza.js (hujjatda «ru»). */
+  try {
+    var PK = { 'soz': 1, 'takror-j': 1, 'takror-xulosa': 1, 'takror-mashgulot': 1, 'yol': 1, 'yol-t': 1, 'yol-xato': 1, 'yol-kitob': 1, 'yol-xulosa': 1,
+      'reyting-kesh': 1, 'oxirgi-dars': 1, 'baza-eski': 1, 'baza-r': 1, 'baza-rk': 1 };
+    var PRE = /^dars\d+-holat(-t)?$/, KOR = /^(korish:[^:]*:)?([\s\S]*)$/;
+    var pRU = false, pth = location.pathname;
+    if (/(^|[\/-])ru\d+\.html$/.test(pth)) pRU = true;
+    else if (!/(^|[\/-])\d+\.html$/.test(pth)) pRU = window.localStorage.getItem('til') === 'ru';
+    var g0 = Storage.prototype.getItem, ps0 = Storage.prototype.setItem, pr0 = Storage.prototype.removeItem, pJoriy = pRU;
+    var fiz = function (k) {                            /* mantiqiy kalit → joriy profildagi haqiqiy kalit */
+      if (!pJoriy || typeof k !== 'string') return k;
+      var m = KOR.exec(k), l = m[2];
+      return PK[l] === 1 || PRE.test(l) ? (m[1] || '') + 'ru-' + l : k;
+    };
+    Storage.prototype.getItem = function (k) { return g0.call(this, fiz(k)); };
+    Storage.prototype.setItem = function (k, v) { return ps0.call(this, fiz(k), v); };
+    Storage.prototype.removeItem = function (k) { return pr0.call(this, fiz(k)); };
+    window.Profil = {
+      til: pRU ? 'ru' : 'uz',
+      p: function () { return pJoriy ? 'ru-' : ''; },   /* joriy profil oldi (baza.js) */
+      fiz: function (k) { return fiz(k); },
+      kalitmi: function (k) { return PK[k] === 1 || PRE.test(k); },
+      /* fn ni boshqa profilda bajarish («Аккаунтни ўчириш» ikkala profilni tozalaydi) */
+      bilan: function (til, fn) { var e = pJoriy; pJoriy = til === 'ru'; try { return fn(); } finally { pJoriy = e; } },
+      /* haqiqiy kalit bilan (o'ramsiz) — baza.js ikkala profilni bir hujjatga yig'adi */
+      xom: { ol: function (st, k) { return g0.call(st, k); }, yoz: function (st, k, v) { return ps0.call(st, k, v); }, ochir: function (st, k) { return pr0.call(st, k); } }
+    };
+  } catch (e) {}
   /* ko'rinish: «Созламалар» → Кўриниш (yorug / tungi; avto — telefon sozlamasi). docs/texnik.md 16 */
   try { var _k = JSON.parse(localStorage.getItem('sozlama') || '{}').kor; if (_k === 'yorug' || _k === 'tungi') document.documentElement.setAttribute('data-theme', _k === 'tungi' ? 'dark' : 'light'); } catch (e) {}
   /* «Офлайн сақлаш» o'chirilgan bo'lsa — saqlangan dars ovozlari (sw.js keshi) har sahifa ochilganda tozalanadi: telefonda yig'ilib qolmaydi */
@@ -13,7 +45,7 @@
     var s0 = Storage.prototype.setItem, r0 = Storage.prototype.removeItem;
     var belgi = function (st, k) {
       if (window.BAZA_ICHKI || !GEN.test(k)) return;
-      try { var m = JSON.parse(st.getItem('baza-vt') || '{}'), t = Date.now(); m[k] = t; s0.call(st, 'baza-vt', JSON.stringify(m)); if (!st.getItem('baza-oz')) s0.call(st, 'baza-oz', String(t)); } catch (e) {}
+      try { var m = JSON.parse(st.getItem('baza-vt') || '{}'), t = Date.now(); m[window.Profil ? Profil.fiz(k) : k] = t;   /* ruscha profilda — «ru-…» (baza.js) */ s0.call(st, 'baza-vt', JSON.stringify(m)); if (!st.getItem('baza-oz')) s0.call(st, 'baza-oz', String(t)); } catch (e) {}
     };
     Storage.prototype.setItem = function (k, v) { if (this !== window.localStorage) return s0.call(this, k, v); var o = this.getItem(k); s0.call(this, k, v); if (o !== String(v)) belgi(this, k); };
     Storage.prototype.removeItem = function (k) { if (this !== window.localStorage) return r0.call(this, k); var o = this.getItem(k); r0.call(this, k); if (o !== null) belgi(this, k); };
@@ -29,6 +61,7 @@
   function uyMi(p) { return /\/(index\.html)?$/.test(p); }   /* sayt ildizi (bosh sahifa) */
   if (UY && uyMi(new URL(HOME || 'x', location.href).pathname)) HOME = UY;
   var TK = KEY + '-t', W = null, tm = null, last = 0, BLOCK = false;
+  var CK = window.Profil ? Profil.fiz(KEY) : KEY;     /* Telegram bulutidagi nom: ruscha profilda «ru-…» (localStorage kalitlari Profil orqali o'zi) */
   var LT0 = 0; try { LT0 = +(localStorage.getItem(TK) || 0); } catch (e) {}
 
   /* bosilganda darhol belgi: sahifa yuklanayotganini ko'rsatadi */
@@ -215,19 +248,19 @@
     last = now;
     try {
       var p = JSON.stringify({ t: +(localStorage.getItem(TK) || now), v: localStorage.getItem(KEY) || '' });
-      if (p.length < 4000) W.CloudStorage.setItem(KEY, p);
+      if (p.length < 4000) W.CloudStorage.setItem(CK, p);
     } catch (e) {}
   }
 
   function pull() {
-    W.CloudStorage.getItem(KEY, function (err, val) {
+    W.CloudStorage.getItem(CK, function (err, val) {
       if (err || !val) return;
       try {
         var c = JSON.parse(val), lt = LT0;
         if (c.v && c.t > lt + 1000) {
           localStorage.setItem(KEY, c.v);
           localStorage.setItem(TK, String(c.t));
-          if (!sessionStorage.getItem(KEY + '-r')) { sessionStorage.setItem(KEY + '-r', '1'); BLOCK = true; location.reload(); }
+          if (!sessionStorage.getItem(CK + '-r')) { sessionStorage.setItem(CK + '-r', '1'); BLOCK = true; location.reload(); }
         }
       } catch (e) {}
     });

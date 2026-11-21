@@ -1,5 +1,6 @@
 // «Рейтинг» ro'yxati (15.11.2026; docs/texnik.md 19). Hisob — api/_rey.js (har saqlashda api/soz.js yangilaydi).
-// So'rov:  POST /api/reyting  {"kod": "..."}  (kod — ixtiyoriy; bo'lsa o'quvchining o'z o'rni ham beriladi)
+// So'rov:  POST /api/reyting  {"kod": "...", "til": "ru"}  (kod — ixtiyoriy; bo'lsa o'quvchining o'z o'rni ham beriladi;
+//          til: "ru" — ruscha profil ro'yxati, 21.11.2026; bo'lmasa — o'zbekcha)
 // Javob:   {"ok": true, "hb": <hafta boshi ms>, "h": {"top": [{"n", "b", "men"?}], "o", "b", "ol"}, "s": {...}}
 //          top — 50 tagacha; o — o'quvchi o'rni (1 dan; 0 — ro'yxatda yo'q), b — bali, ol — bitta yuqoridagi kishining bali.
 //          Ombor ulanmagan bo'lsa: {"ok": false, "xato": "ulanmagan"} — sahifa faqat o'quvchining o'zini ko'rsatadi.
@@ -35,14 +36,15 @@ module.exports = async (req, res) => {
   let b = req.body;
   try { if (typeof b === 'string') b = JSON.parse(b); } catch (e) { b = null; }
   const kod = b && typeof b.kod === 'string' && KODRE.test(b.kod) ? b.kod : '';
+  const til = b && b.til === 'ru' ? 'ru' : '';
   try {
-    const hb = Rey.hisob(null).hb, H = Rey.hk(hb), i = kod ? Rey.id(kod) : '';
+    const hb = Rey.hisob(null).hb, H = Rey.hk(hb, til), SK = Rey.sk(til), i = kod ? Rey.id(kod) : '';
     if (kod) {
       const [bor] = await Rey.redis([['HEXISTS', 'rey:ism', i]]);
       if (!bor) { const d = await hujjat(kod).catch(function () { return null; }); if (d && d.v === 1) await Rey.yangila(kod, d); }
     }
-    const q = [['ZREVRANGE', H, 0, TOP - 1, 'WITHSCORES'], ['ZREVRANGE', 'rey:s', 0, TOP - 1, 'WITHSCORES']];
-    if (kod) q.push(['ZREVRANK', H, i], ['ZSCORE', H, i], ['ZREVRANK', 'rey:s', i], ['ZSCORE', 'rey:s', i]);
+    const q = [['ZREVRANGE', H, 0, TOP - 1, 'WITHSCORES'], ['ZREVRANGE', SK, 0, TOP - 1, 'WITHSCORES']];
+    if (kod) q.push(['ZREVRANK', H, i], ['ZSCORE', H, i], ['ZREVRANK', SK, i], ['ZSCORE', SK, i]);
     const r = await Rey.redis(q);
     const L = { h: juft(r[0]), s: juft(r[1]) };
     const M = { h: { o: r[2] == null ? 0 : +r[2] + 1, b: +(r[3] || 0) }, s: { o: r[4] == null ? 0 : +r[4] + 1, b: +(r[5] || 0) } };
@@ -51,7 +53,7 @@ module.exports = async (req, res) => {
     const ro = Object.keys(ids), q2 = [];
     if (ro.length) q2.push(['HMGET', 'rey:ism'].concat(ro));
     const tash = [];
-    if (kod) [['h', H], ['s', 'rey:s']].forEach(function (x) { const m = M[x[0]]; if (m.o > TOP) { tash.push(x[0]); q2.push(['ZREVRANGE', x[1], m.o - 2, m.o - 2, 'WITHSCORES']); } });
+    if (kod) [['h', H], ['s', SK]].forEach(function (x) { const m = M[x[0]]; if (m.o > TOP) { tash.push(x[0]); q2.push(['ZREVRANGE', x[1], m.o - 2, m.o - 2, 'WITHSCORES']); } });
     const r2 = q2.length ? await Rey.redis(q2) : [];
     const ism = {}; if (ro.length) ro.forEach(function (x, k) { ism[x] = r2[0][k] || ''; });
     tash.forEach(function (t, k) { const a = juft(r2[(ro.length ? 1 : 0) + k]); M[t].ol = a.length ? a[0][1] : 0; });

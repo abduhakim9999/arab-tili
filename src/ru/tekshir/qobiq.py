@@ -47,6 +47,10 @@ SEED = {
     'baza-tg': '1',                    # 14.11.2026: kirgan o'quvchi — Луғат va imtihonlar kirishsiz yopiq (tg.js Kirish)
     'baza-eski': json.dumps({'v': 1, 'ar': now, 'ls': {'x': '1'}}),   # «Ўчирилган: … · яна N кун сақланади» qatori ham ko'rinsin
 }
+# 21.11.2026: ruscha rejimda natija kalitlari alohida profil — «ru-…» (tg.js Profil); to'ldirilgan holat ruscha profilga yoziladi
+PROFIL = ('soz', 'yol', 'baza-eski')
+if not UZREJ:
+    SEED = {('ru-' + k if k in PROFIL else k): v for k, v in SEED.items()}
 INIT = """(()=>{try{if(!sessionStorage.__seed){const S=%s;for(const k in S)localStorage.setItem(k,S[k]);sessionStorage.__seed=1}}catch(e){}})()""" % json.dumps(SEED)
 
 UZ = '[ўқғҳЎҚҒҲ]'

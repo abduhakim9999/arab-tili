@@ -156,7 +156,9 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
     if (NAMUNA || !window.fetch || Date.now() - olT < 30000) return;
     olT = Date.now();
     var kod = kirgan ? L('baza-kod') || '' : '';
-    fetch(API, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(kod ? { kod: kod } : {}) })
+    var so = kod ? { kod: kod } : {};
+    if (window.Profil && Profil.til === 'ru') so.til = 'ru';   /* ruscha profil — o'z ro'yxati (21.11.2026); kesh «reyting-kesh» ham profilniki (tg.js) */
+    fetch(API, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(so) })
       .then(function (r) { return r.json(); })
       .then(function (j) {
         if (!j || !j.ok || !j.h || !j.s) return;

@@ -18,7 +18,7 @@ HOP = int(SR * 0.01)
 # Aralash usul (foydalanuvchi, 21.11.2026): S1 va S9 fonida ElevenLabs video klipi (klip/ papkasi; yo'q bo'lsa — chizilgan vaqtinchalik rasm).
 import re
 IPA = {'kaananing': '/ˈkaːnaniŋ/', 'kaanadan': '/ˈkaːnadan/', 'kaanaga': '/ˈkaːnaɡa/', 'kaana': '/ˈkaːna/', 'maa': '/maː/', 'laa': '/laː/',
-       'yakuunu': '/jaˈkuːnu/', 'takuunu': '/taˈkuːnu/'}      # takuunu — yangi so'z: ovozdan keyin tekshir.py bilan qaraladi
+       'yakuunu': '/jaˈkuːnu/', 'takuunu': '/taˈkuːnu/', 'bir': '/bɨr/'}      # takuunu — yangi so'z: ovozdan keyin tekshir.py bilan qaraladi
 TXT = {
  # S1 ilmoq — klip: kechasi xona, moychiroq, rahlda kitob (javobi S9 da)
  # («yonida yana bir fe'l turadi» edi — foydalanuvchi, 21.11.2026: so'z bilan tasvir mos kelsin: يَقْرَأُ kaananing yonida emas — «gapda yana bir fe'l ham bor»)

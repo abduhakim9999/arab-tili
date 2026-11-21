@@ -11,3 +11,8 @@ gsap.min.js
 ph.*
 __pycache__/
 qoralama/
+node_modules/
+package.json
+package-lock.json
+audit/
+**/klip/*-[0-9][0-9][0-9][0-9].jpg

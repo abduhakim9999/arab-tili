@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="uz"><head><meta charset="utf-8"><title>46-дарс: كَانَ нинг исми ва хабари (1)</title>
+<link rel="stylesheet" href="package/wght.css">
+<style>
+/* Grammatika videosi (1080×1920, 30 fps) — kana46: 46-dars «كَانَ нинг исми ва хабари (1)» (asos: kana1 sahnalari + kana0 qolipi): GSAP, uzluksiz o'tishlar.
+   Vaqt jadvali — tl.js (prep.py); kadrlar — render.py (seek(t) + skrinshot); tovush effektlari — window.SFX (render.py join -> prep.mix).
+   Ranglar: raf — binafsha, nasb — yashil, kana — tilla, muannas — pushti. Tepadagi 10% va pastki 20% bo'sh. */
+@font-face{font-family:Naskh;src:url(naskh.ttf);font-weight:400 700}
+:root{--raf:#C9B6FF;--nasb:#74E8AE;--gold:#F6D88F;--pink:#FFA3C7;--cream:#FFF4E0;--mut:#D7BFD0}
+html,body{margin:0;background:#000}
+#st{position:relative;width:1080px;height:1920px;overflow:hidden;color:var(--cream);font-family:"Inter Variable",sans-serif;
+  background:radial-gradient(ellipse 95% 62% at 50% 42%,#4A1A41 0%,#2A0F25 62%,#1D0A1A 100%)}
+#pt{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.045' stroke-width='2'%3E%3Crect x='30' y='30' width='60' height='60'/%3E%3Crect x='30' y='30' width='60' height='60' transform='rotate(45 60 60)'/%3E%3C/g%3E%3C/svg%3E")}
+#glow{position:absolute;left:140px;top:420px;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(190,90,170,.22),rgba(190,90,170,0) 68%)}
+.star{position:absolute;border-radius:50%;background:#F6D88F;opacity:.1}
+#cam,#cam>.sc{position:absolute;left:0;top:0;width:1080px;height:1920px}
+#cam{transform-origin:0 0}
+.ar{font-family:Naskh,serif;direction:rtl;unicode-bidi:isolate;font-weight:500}
+i{font-style:normal}
+.h{opacity:0;visibility:hidden}
+.raf{color:var(--raf)}.nasb{color:var(--nasb)}.gold{color:var(--gold)}.pink{color:var(--pink)}.mut{color:var(--mut)}
+#seg{position:absolute;top:112px;left:70px;right:70px;display:flex;gap:10px}
+#seg b{flex:1;height:8px;border-radius:4px;background:rgba(255,255,255,.2);overflow:hidden}
+#seg b>i{display:block;height:100%;background:var(--gold);transform:scaleX(0);transform-origin:left}
+#hl{position:absolute;top:136px;left:70px;right:70px;display:flex;justify-content:space-between;align-items:center;font-size:28px;color:var(--mut);font-weight:500}
+#hl .ar{font-size:38px;color:var(--gold)}
+#ttl{position:absolute;top:258px;left:0;right:0;height:80px;font-size:48px;font-weight:700;color:var(--gold)}
+#ttl>span{position:absolute;left:0;right:0;text-align:center}
+#ttl .ar{font-size:1.3em;line-height:1}
+/* gap: so'z o'rinlari (.sl) — ichida almashadigan variantlar (.v) */
+.sent{position:absolute;left:0;right:0;display:flex;direction:rtl;justify-content:center;align-items:flex-start;font-family:Naskh,serif;font-weight:500;line-height:1.75;white-space:nowrap;transform-origin:50% 0}
+.sl{position:relative;display:inline-block;height:1.75em;margin-left:.3em}
+.sl:last-child,#AX,#AG{margin-left:0}
+.sl>.v{position:absolute;right:0;top:0;white-space:nowrap;opacity:0;visibility:hidden}
+.wd{position:relative;margin-left:.3em}.wd:last-child{margin-left:0}.wa{display:inline-block}
+.lbs,.tps{position:absolute;left:50%;width:0;height:0;direction:ltr;font-family:"Inter Variable",sans-serif;font-size:36px;line-height:1.3}
+.lbs{top:100%}.tps{top:6%}
+.lbs>*,.tps>*{position:absolute;left:0;transform:translateX(-50%);white-space:nowrap}
+.tps>*{bottom:0}
+.lb{top:0;font-weight:600;color:#F0E2EB}.lb .ar{font-size:1.3em;color:var(--gold)}
+.lbs .cw{top:74px}
+.chip{display:inline-block;padding:7px 26px;border-radius:999px;font-size:32px;font-weight:700;border:2px solid;line-height:1.4;white-space:nowrap}
+.chip.raf{border-color:rgba(201,182,255,.55);background:rgba(201,182,255,.15)}
+.chip.nasb{border-color:rgba(116,232,174,.55);background:rgba(116,232,174,.14)}
+.chip.gold{border-color:rgba(246,216,143,.55);background:rgba(246,216,143,.13)}
+.chip.pink{border-color:rgba(255,163,199,.55);background:rgba(255,163,199,.13)}
+.chip .ar{font-size:1.35em;line-height:1}
+.tr{position:absolute;left:40px;right:40px;text-align:center;font-size:52px;font-weight:600;color:#F3E6EE}
+.card{position:absolute;border-radius:40px;background:rgba(255,255,255,.07);border:2px solid rgba(255,255,255,.14);box-sizing:border-box}
+.bx{flex:1;height:240px;border-radius:36px;border:3px solid;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;box-sizing:border-box}
+.bx.gold{border-color:rgba(246,216,143,.6);background:rgba(246,216,143,.1)}
+.bx.raf{border-color:rgba(201,182,255,.6);background:rgba(201,182,255,.1)}
+.bx.nasb{border-color:rgba(116,232,174,.6);background:rgba(116,232,174,.1)}
+.bx .bg2{font-size:60px;font-weight:700}
+.row2{display:flex;justify-content:space-between;align-items:center;font-size:42px;font-weight:600;padding:16px 0}
+.nr{display:flex;align-items:center;justify-content:center;gap:22px;font-size:44px;font-weight:600;height:118px}
+.rw{position:absolute;left:60px;right:60px;height:312px;border-radius:36px;background:rgba(255,255,255,.065);border:2px solid rgba(255,255,255,.13);box-sizing:border-box}
+.rh{display:flex;justify-content:space-between;align-items:center;padding:24px 34px 0;height:64px}
+.cap{font-size:34px;font-weight:600;color:var(--mut)}
+.rs{display:flex;direction:rtl;justify-content:center;font-family:Naskh,serif;font-weight:500;font-size:98px;line-height:1.8;white-space:nowrap}
+.vb{display:flex;flex-direction:column;align-items:center;gap:6px;width:400px}
+.vb .v2{font-size:150px;line-height:1.55}
+.vt{font-size:44px;font-weight:600;color:#F3E6EE}
+.ng{flex:1;height:196px;border-radius:32px;border:2px solid rgba(255,163,199,.5);background:rgba(255,163,199,.09);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ng .ar{font-size:84px;line-height:1.35}
+.op{flex:1;height:250px;border-radius:36px;border:3px solid rgba(255,255,255,.3);background-color:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;font-family:Naskh,serif;font-size:124px;font-weight:500;direction:rtl;box-sizing:border-box}
+.sl2{font-size:46px;font-weight:600;line-height:1.5;text-align:center}
+.gbox{display:inline-block;width:150px;height:1.2em;line-height:1.2em;margin:.27em .2em 0 0;border:5px dashed rgba(255,255,255,.5);border-radius:28px;font-family:"Inter Variable";font-size:.55em;font-weight:700;color:var(--mut);text-align:center;direction:ltr}
+/* ST: tanishuv — «ноқис мозий феъли» (uch quti + har biriga bitta izoh kartasi) */
+.tb{flex:1;height:210px;border-radius:34px;border:3px solid rgba(255,255,255,.22);background-color:rgba(255,255,255,.06);display:flex;flex-direction:column;align-items:center;justify-content:center;box-sizing:border-box}
+.tb b{font-size:56px;font-weight:700;line-height:1.25}
+.tb .ar{font-size:68px;line-height:1.3;color:var(--mut)}
+.tp{position:absolute;top:890px;left:60px;right:60px;border-radius:40px;background:rgba(255,255,255,.07);border:2px solid rgba(255,255,255,.14);box-sizing:border-box;padding:34px 40px}
+.tph{display:flex;align-items:center;justify-content:center;gap:20px;height:84px;font-size:56px;font-weight:700;color:var(--gold)}
+.tex{display:flex;direction:rtl;justify-content:center;align-items:center;gap:.3em;font-family:Naskh,serif;font-weight:500;font-size:104px;line-height:1.6;white-space:nowrap}
+.tcp{display:flex;align-items:center;justify-content:center;gap:22px;font-size:44px;font-weight:600;color:#F3E6EE;height:70px}
+/* ---- kana46 qo'shimchalari; qoralama rejimi (TL.draft): pastda subtitr, tepada «ҚОРАЛАМА» ---- */
+.kb{position:absolute;left:50%;top:100%;margin-top:-38px;font-family:"Inter Variable",sans-serif;font-size:31px;font-weight:700;line-height:1.2;color:var(--gold);white-space:nowrap;direction:ltr}
+.sep{height:2px;background:rgba(255,255,255,.14);margin:16px 0}
+.chip.wh{border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.1);color:#F3E6EE}
+#sub{position:absolute;top:1584px;left:50px;right:50px;font-size:40px;font-weight:600;line-height:1.35;color:#fff;text-shadow:0 2px 10px #000,0 0 3px #000}
+.sb{position:absolute;left:0;right:0;top:0;text-align:center;opacity:0;visibility:hidden}
+#wm{position:absolute;top:34px;left:0;right:0;text-align:center}
+</style></head>
+<body>
+<div id="st">
+<div id="pt"></div><div id="glow"></div><div id="stars"></div>
+<div id="cam">
+
+<!-- P0 (S1): muqova, keyin kirish videosidagi savol — «الْجَوُّ جَمِيلٌ» ga kaana keldi, oxiri o'zgardi: nega? -->
+<section class="sc" id="P0">
+  <div style="position:absolute;top:0;left:0;width:1080px;height:1620px;overflow:hidden;-webkit-mask-image:linear-gradient(to bottom,rgba(0,0,0,.55) 0%,rgba(0,0,0,.8) 14%,rgba(0,0,0,.7) 38%,rgba(0,0,0,.12) 60%,transparent 72%);mask-image:linear-gradient(to bottom,rgba(0,0,0,.55) 0%,rgba(0,0,0,.8) 14%,rgba(0,0,0,.7) 38%,rgba(0,0,0,.12) 60%,transparent 72%)" id="i0w"><img id="i0" src="g9big.jpg" style="width:1080px;height:1620px;display:block;transform-origin:50% 35%"></div>
+  <div id="pv" style="position:absolute;top:1000px;left:60px;right:60px;text-align:center"><span class="chip gold" style="font-size:46px;padding:8px 40px">46-дарс</span><div style="font-size:76px;font-weight:800;line-height:1.3;margin-top:24px"><span class="ar gold" style="font-size:1.7em;line-height:1.1">كَانَ</span> нинг<br>исми ва хабари</div></div>
+  <div class="sent" id="a0" style="top:620px;font-size:150px">
+    <span class="sl" id="AK"><span class="v gold">كَانَ</span></span>
+    <span class="sl" id="AI"><span class="v">الْجَوُّ</span></span>
+    <span class="sl" id="AX"><span class="v">جَمِي<i id="axe">لٌ</i></span><span class="v">جَمِي<i class="nasb">لًا</i></span></span>
+  </div>
+  <div class="tr h" id="a0t1" style="top:930px">Ҳаво чиройли</div>
+  <div class="tr h" id="a0t2" style="top:930px">Ҳаво чиройли <span class="gold">эди</span></div>
+  <div class="h" id="axq" style="position:absolute;top:1090px;left:0;right:0;text-align:center"><span class="chip nasb" style="font-size:46px;padding:12px 40px">Охири ўзгарди — нега?</span></div>
+</section>
+
+<!-- SH: asosiy gap (S2, S3, S4, S5) — ekrandan ketmaydi, joyi va shakli o'zgaradi -->
+<section class="sc" id="SH">
+  <div class="sent" id="hs" style="top:520px;font-size:140px">
+    <svg id="arc" width="1080" height="10" style="position:absolute;left:0;top:0;overflow:visible"></svg>
+    <span class="sl" id="K"><span class="v gold">كَانَ</span><span class="v gold">كَانَ<i class="pink">تْ</i></span><span class="v gold">كَانَ<i class="pink">تِ</i></span>
+      <span class="lbs"><span class="cw h" id="kc1" style="top:0"><span class="chip pink">муаннаслик <span class="ar">ت</span> си</span></span></span></span>
+    <span class="sl" id="I"><span class="v">اَلطَّالِ<i id="ie0">بُ</i></span><span class="v">الطَّالِ<i class="raf">بُ</i></span><span class="v">الطَّالِبَ<i class="pink">ةُ</i></span>
+      <span class="lbs"><span class="lb h" id="il1">мубтадо</span><span class="lb h" id="il2"><span class="ar">كَانَ</span> нинг исми</span><span class="cw h" id="ic"><span class="chip raf">раф</span></span><span class="cw h" id="ic5" style="top:0"><span class="chip pink">муаннас</span></span></span></span>
+    <span class="sl" id="X"><span class="v">كَبِي<i id="xe0">رٌ</i></span><span class="v">كَبِي<i class="nasb">رًا</i></span><span class="v">كَبِيرَ<i class="nasb">ةً</i></span>
+      <span class="tps"><span class="h" id="xp"><span class="chip nasb">бўйсунди</span></span></span>
+      <span class="lbs"><span class="lb h" id="xl1">хабар</span><span class="lb h" id="xl2"><span class="ar">كَانَ</span> нинг хабари</span><span class="cw h" id="xc1"><span class="chip raf">раф</span></span><span class="cw h" id="xc2"><span class="chip nasb">насб</span></span></span></span>
+  </div>
+  <div id="cmd0" class="h" style="position:absolute;left:0;top:396px"><span class="chip gold" style="display:inline-block;transform:translateX(-50%);background:#4d2343;font-size:38px;padding:9px 30px">«Раф бўл!»</span></div>
+  <div id="cmd" class="h" style="position:absolute;left:0;top:396px"><span class="chip gold" style="display:inline-block;transform:translateX(-50%);background:#4d2343;font-size:38px;padding:9px 30px">«Охирингни ўзгартир!»</span></div>
+  <div id="ip" class="h" style="position:absolute;left:0;top:432px"><span class="chip raf" style="display:inline-block;transform:translateX(-50%);background:#3d2452;font-size:36px;padding:8px 28px">«Мен аллақачон рафман»</span></div>
+  <div id="ip2" class="h" style="position:absolute;left:0;top:432px"><span class="chip raf" style="display:inline-block;transform:translateX(-50%);background:#3d2452;font-size:36px;padding:8px 28px">охири ўзгармайди</span></div>
+  <div class="h" id="kq" style="position:absolute;top:400px;left:0;right:0;text-align:center"><span class="chip pink" style="font-size:40px;padding:9px 34px">Қандай қилиб?</span></div>
+  <div class="h" id="kq2" style="position:absolute;top:400px;left:0;right:0;text-align:center"><span class="chip pink" style="font-size:40px;padding:9px 34px">бироздан кейин кўрамиз</span></div>
+  <div class="tr h" id="ht1" style="top:985px">Толиб каттадир</div>
+  <div class="tr h" id="ht2" style="top:985px">Толиб катта <span class="gold">эди</span></div>
+  <div class="tr h" id="ht3" style="top:1010px">Толиба катта <span class="gold">эди</span></div>
+  <div class="h" id="jc1" style="position:absolute;top:455px;left:0;right:0;text-align:center"><span class="chip pink" style="font-size:36px">2 сукун йўлиқди</span></div>
+  <div class="h" id="jc2" style="position:absolute;top:455px;left:0;right:0;text-align:center"><span class="chip pink" style="font-size:36px"><span class="ar">تْ</span> → <span class="ar">تِ</span> &nbsp;касра билан боғланди</span></div>
+</section>
+
+<!-- SR: qoida, tarjima, «Alloh haqida — doimo» (S4) -->
+<section class="sc" id="SR">
+  <div id="bxs" style="position:absolute;top:400px;left:60px;right:60px;display:flex;flex-direction:row-reverse;gap:24px">
+    <div class="bx gold h" id="bk"><div class="ar gold" style="font-size:140px;line-height:1.3">كَانَ</div></div>
+    <div class="bx raf h" id="bi"><div class="bg2 raf">исми</div><span class="h" id="bic"><span class="chip raf">раф</span></span></div>
+    <div class="bx nasb h" id="bx"><div class="bg2 nasb">хабари</div><span class="h" id="bxc"><span class="chip nasb">насб</span></span></div>
+  </div>
+  <div class="card h" id="bt" style="top:930px;left:60px;right:60px;height:410px;padding:36px 54px">
+    <div class="gold" id="bth" style="font-size:46px;font-weight:700;text-align:center;margin-bottom:14px">Таржимаси икки хил</div>
+    <div class="row2 h" id="bt1"><span>қадимда бўлган воқеа</span><span class="mut">→</span><span class="h" id="bt1c"><span class="chip gold" style="font-size:44px">эди</span></span></div>
+    <div style="height:2px;background:rgba(255,255,255,.14)"></div>
+    <div class="row2 h" id="bt2"><span>яқинда бўлган воқеа</span><span class="mut">→</span><span class="h" id="bt2c"><span class="chip gold" style="font-size:44px">бўлди</span></span></div>
+    <div style="height:2px;background:rgba(255,255,255,.14)"></div>
+    <div class="row2 h" id="bt3"><span>Аллоҳ ҳақида</span><span class="mut">→</span><span class="h" id="bt3c"><span class="chip gold" style="font-size:44px">доимо</span></span></div>
+  </div>
+  <div class="rs h" id="ay" style="position:absolute;left:0;right:0;top:985px;font-size:100px" data-s="وَ[g]كَانَ[/]|اللّٰهُ|غَفُو[n]رًا[/]|رَحِي[n]مًا[/]"></div>
+  <div class="tr h" id="ayt" style="top:1190px;font-size:46px">Аллоҳ <span class="gold">доимо</span> мағфиратли, раҳмлидир</div>
+  <div class="h" id="ayn" style="position:absolute;top:1300px;left:0;right:0;text-align:center"><span class="chip raf" style="font-size:36px;padding:9px 32px">маъно гап эгасидан келади</span></div>
+</section>
+
+<!-- SD: nasb alomatlari + «faqat jinsda» (S6) -->
+<section class="sc" id="SD">
+  <div class="rw" id="d1" style="top:395px"><div class="rh"><span class="cap" style="position:relative"><span id="d1c1">муфрад · бирлик</span><span class="h" id="d1c2" style="position:absolute;left:0;top:0;white-space:nowrap">синиқ жам · кўплик</span></span><span class="h" id="d1b"><span class="chip nasb">фатҳа</span></span></div>
+    <div style="position:relative"><div class="rs h" id="d1s" data-s="[g]كَانَ[/]|الطَّالِ[r]بُ[/]|كَبِي[n]رًا[/]"></div><div class="rs h" id="d1p" style="position:absolute;left:0;right:0;top:0" data-s="[g]كَانَ[/]|الطُّلَّا[r]بُ[/]|كِبَا[n]رًا[/]"></div></div></div>
+  <div class="rw" id="d2" style="top:745px"><div class="rh"><span class="cap">тасния · иккилик</span><span class="h" id="d2b"><span class="chip nasb"><span class="ar">ي</span> ҳарфи</span></span></div><div class="rs h" id="d2s" data-s="[g]كَانَ[/]|الطَّالِبَ[r]ا[/]نِ|كَبِيرَ[n]يْ[/]نِ"></div></div>
+  <div class="rw" id="d3" style="top:1095px"><div class="rh"><span class="cap">муаннас жам · кўплик</span><span class="h" id="d3b"><span class="chip nasb">фатҳа ўрнига касра</span></span></div><div class="rs h" id="d3s" data-s="[g]كَانَ[/][p]تِ[/]|الطَّالِبَا[r]تُ[/]|كَبِيرَا[n]تٍ[/]"></div></div>
+  <div class="h" id="djc" style="position:absolute;top:1432px;left:0;right:0;text-align:center"><span class="chip pink" style="font-size:38px;padding:10px 32px">фақат жинсда мослашади · сонда эмас</span></div>
+</section>
+
+<!-- SG: aqlsiz ko'plik (S7) -->
+<section class="sc" id="SG">
+  <div class="h" id="gch" style="position:absolute;top:430px;left:0;right:0;text-align:center"><span class="chip wh" style="font-size:36px;padding:8px 30px">олдинги дарслардан</span></div>
+  <div class="sent" id="gs" style="top:560px;font-size:136px">
+    <span class="sl" id="GK"><span class="v gold">كَانَ</span></span>
+    <span class="sl" id="GI"><span class="v">اَلثِّيرَا<i class="raf">نُ</i></span><span class="v">الثِّيرَا<i class="raf">نُ</i></span>
+      <span class="lbs"><span class="cw h" id="gil" style="top:0"><span class="chip wh" style="font-size:28px;padding:6px 20px">ақлсиз · кўплик</span></span></span></span>
+    <span class="sl" id="GX"><span class="v">كَبِيرَ<i class="raf">ةٌ</i></span><span class="v">كَبِيرَ<i class="nasb">ةً</i></span>
+      <span class="lbs"><span class="cw h" id="gxl" style="top:0"><span class="chip pink" style="font-size:28px;padding:6px 20px">муаннас · бирлик</span></span><span class="cw h" id="gxn" style="top:74px"><span class="chip nasb">насб</span></span></span></span>
+  </div>
+  <div class="tr h" id="gt1" style="top:1080px">Ҳўкизлар каттадир</div>
+  <div class="tr h" id="gt2" style="top:1080px">Ҳўкизлар катта <span class="gold">эди</span></div>
+</section>
+
+<!-- SE: inkor — «مَا كَانَ» (S8) -->
+<section class="sc" id="SE">
+  <div class="sent" id="ns" style="top:410px;font-size:200px">
+    <span class="sl" id="NM"><span class="v pink">مَا</span>
+      <span class="lbs"><span class="cw h" id="nml" style="top:0"><span class="chip pink">нафий ҳарфи</span></span></span></span>
+    <span class="sl" id="NK"><span class="v gold">كَانَ</span></span>
+  </div>
+  <div class="tr h" id="nt1" style="top:880px;font-size:62px">бўлди · эди</div>
+  <div class="tr h" id="nt2" style="top:880px;font-size:62px">бўл<span class="pink">ма</span>ди · <span class="pink">эмас</span> эди</div>
+  <div class="h" id="nln" style="position:absolute;top:1010px;left:160px;right:160px;height:2px;background:rgba(255,255,255,.16)"></div>
+  <div class="rs h" id="es2" style="position:absolute;left:0;right:0;top:1050px;font-size:100px" data-s="[p]مَا[/]|[g]كَانَ[/]|الطَّالِ[r]بُ[/]|كَبِي[n]رًا[/]"></div>
+  <div class="tr h" id="etr2" style="top:1245px;font-size:46px">Толиб катта <span class="pink">эмас</span> эди</div>
+</section>
+
+<!-- SF: xulosa, savol, keyingi video (S9) -->
+<section class="sc" id="SF">
+  <div id="fsum" style="position:absolute;inset:0">
+    <div class="card" id="fsc" style="top:400px;left:60px;right:60px;height:668px;padding:26px 50px">
+      <div class="row2 h" id="f0" style="justify-content:center;gap:26px;font-size:54px;font-weight:700;padding:6px 0"><span class="ar gold" style="font-size:124px;line-height:1.25">كَانَ</span><span>келса</span></div>
+      <div class="sep"></div>
+      <div class="row2 h" id="f1" style="font-size:52px;font-weight:700"><span>исми</span><span class="chip raf" style="font-size:44px">раф</span></div>
+      <div class="sep"></div>
+      <div class="row2 h" id="f2" style="font-size:52px;font-weight:700"><span>хабари</span><span class="chip nasb" style="font-size:44px">насб</span></div>
+      <div class="sep"></div>
+      <div class="row2 h" id="f3" style="font-size:52px;font-weight:700;padding:6px 0"><span>исми муаннас бўлса</span><span class="ar gold" style="font-size:96px;line-height:1.2">كَانَ<i class="pink">تْ</i></span></div>
+    </div>
+  </div>
+  <div id="fq" style="position:absolute;inset:0">
+    <div class="h" id="fqp" style="position:absolute;top:385px;left:0;right:0;text-align:center"><span class="chip gold" style="font-size:52px;padding:14px 44px">«Икки толиба катта эди»</span></div>
+    <div class="sent h" id="fqs" style="top:505px;font-size:96px">
+      <div class="wd"><span class="wa gold">كَانَ<i class="pink">تِ</i></span></div>
+      <div class="wd"><span class="wa">الطَّالِبَتَ<i class="raf">ا</i>نِ</span></div>
+      <div class="wd"><span class="gbox" id="fbl" style="width:300px;margin-right:0">?</span></div>
+    </div>
+    <div style="position:absolute;top:740px;left:150px;right:150px;display:flex;flex-direction:column;gap:20px">
+      <div class="op h" id="fo1" style="flex:none;height:156px;font-size:100px"><span>كَبِيرَتَ<i class="raf">ا</i>نِ</span></div>
+      <div class="op h" id="fo2" style="flex:none;height:156px;font-size:100px"><span id="fo2i" style="display:inline-block">كَبِيرَتَ<i class="nasb">يْ</i>نِ</span></div>
+      <div class="op h" id="fo3" style="flex:none;height:156px;font-size:100px"><span>كَبِيرَ<i class="nasb">ةً</i></span></div>
+    </div>
+    <div class="h" id="fbw" style="position:absolute;top:1300px;left:0;right:0">
+      <div style="margin:0 250px;height:14px;border-radius:7px;background:rgba(255,255,255,.16);overflow:hidden"><i id="fbi" style="display:block;height:100%;background:var(--gold);transform-origin:left"></i></div>
+      <div class="mut" style="text-align:center;font-size:36px;font-weight:600;margin-top:22px">Ўйлаб кўринг…</div>
+    </div>
+    <div class="h" id="fex" style="position:absolute;top:1290px;left:0;right:0;text-align:center"><span class="chip nasb" style="font-size:44px;padding:12px 40px">✓ &nbsp;<span class="ar">ي</span> билан</span></div>
+    <div class="h" id="fex2" style="position:absolute;top:1395px;left:0;right:0;text-align:center"><span class="chip gold" style="font-size:40px;padding:10px 36px">иккиликда насб аломати — <span class="ar">ي</span></span></div>
+  </div>
+  <div id="fe" style="position:absolute;inset:0">
+    <div style="position:absolute;top:395px;left:0;right:0;text-align:center"><img src="g9big.jpg" style="width:340px;height:510px;object-fit:cover;border-radius:36px;border:4px solid rgba(255,255,255,.28)"></div>
+    <div id="fe1" style="position:absolute;top:965px;left:0;right:0;text-align:center;font-size:58px;font-weight:700;white-space:nowrap"><span class="ar gold" style="font-size:1.75em;line-height:1.2">كَانَ</span> нинг исми ва хабари <span class="mut">(2)</span></div>
+    <div style="position:absolute;top:1150px;left:0;right:0;text-align:center"><span class="chip gold" style="font-size:42px;padding:8px 34px">47-дарс</span></div>
+    <div style="position:absolute;top:1300px;left:0;right:0;text-align:center"><span class="ar gold" style="font-size:76px">نُورُ الطَّالِبِ</span><div class="mut" style="font-size:32px;font-weight:600;margin-top:6px">Грамматика · 9-боб</div></div>
+  </div>
+</section>
+</div><!-- /cam -->
+<div id="ttl"><span class="h" id="t0">Ўтган видеода</span><span class="h" id="t1">Оддий гап</span><span class="h" id="t2"><span class="ar">كَانَ</span> кириб келади</span><span class="h" id="t3">Қоида</span><span class="h" id="t4">Бир нозик жой</span><span class="h" id="t5">Исми муаннас бўлса</span><span class="h" id="t6">Насб аломатлари</span><span class="h" id="t7">Ақлсиз кўплик</span><span class="h" id="t8">Инкор</span><span class="h" id="t9">Хулоса</span><span class="h" id="t10">Савол</span><span class="h" id="t11">Кейинги видео</span></div>
+<div id="seg"></div>
+<div id="hl" class="h"><span>Грамматика · 46-дарс</span><span><span class="ar" id="hk">كَانَ</span> нинг исми ва хабари</span></div>
+<div id="wm" class="h"><span class="chip pink" style="font-size:30px">ҚОРАЛАМА · янги бўлаклар — робот овоз</span></div>
+<div id="sub"></div>
+</div>
+
+<script src="tl.js"></script>
+<script src="gsap.min.js"></script>
+<script>
+gsap.config({ force3D: false });
+const TL = window.TL, C = TL.clips, SFX = window.SFX = [];
+const $ = s => typeof s === 'string' ? document.querySelector(s) : s, $$ = s => [...document.querySelectorAll(s)];
+const RAF = '201,182,255', NASB = '116,232,174', GOLD = '246,216,143', PINK = '255,163,199';
+const sc = id => TL.scenes.find(s => s.id === id);
+const M = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } });
+const R = e => $(e).getBoundingClientRect();
+const sfx = (n, t, k = 1) => SFX.push([n, Math.round(t * 1000) / 1000, k]);
+
+/* ---- yordamchilar (hammasi mutlaq vaqt bilan) ---- */
+const to = (el, v, t, d = .5) => M.to(el, Object.assign({ duration: d }, v), t);
+const show = (el, t, d = .35) => to(el, { autoAlpha: 1 }, t, d);
+const hide = (el, t, d = .3) => to(el, { autoAlpha: 0, ease: 'power2.in' }, t, d);
+const rise = (el, t, d = .55, y = 44, st = 0) => M.fromTo(el, { autoAlpha: 0, y }, { autoAlpha: 1, y: 0, duration: d, stagger: st, immediateRender: false }, t);
+const sink = (el, t, d = .35, y = -44) => to(el, { autoAlpha: 0, y, ease: 'power2.in' }, t, d);
+const pop = (el, t, d = .5, s = 1) => { M.fromTo(el, { autoAlpha: 0, scale: .4 }, { autoAlpha: 1, scale: 1, duration: d, ease: 'back.out(2.4)', immediateRender: false }, t); if (s) sfx('pop', t, s); };
+const pulse = (el, t, s = 1.1, d = .5) => M.to(el, { scale: s, duration: d / 2, ease: 'sine.inOut', yoyo: true, repeat: 1 }, t);
+const glow = (el, t, c, d = .9) => M.fromTo(el, { textShadow: `0px 0px 0px rgba(${c},0)` }, { textShadow: `0px 0px 46px rgba(${c},1)`, duration: d / 2, ease: 'sine.inOut', yoyo: true, repeat: 1, immediateRender: false }, t);
+function kar(els, clip, s = 1.08) {           /* arabcha gap o'qilayotganda so'zlar navbat bilan «nafas oladi» */
+  els = (typeof els === 'string' ? $$(els) : els).map($); const L = els.map(e => e.textContent.replace(/[ً-ْٰ\s]/g, '').length), tot = L.reduce((a, b) => a + b, 0);
+  let acc = 0; const d = clip.e - clip.s - .3;
+  els.forEach((el, i) => { pulse(el, clip.s + d * acc / tot, s, Math.max(.5, d * L[i] / tot + .2)); acc += L[i]; });
+}
+const cam = (cx, cy, s, t, d = .9) => M.to('#cam', { x: 540 - cx * s, y: 960 - cy * s, scale: s, duration: d, ease: 'power2.inOut' }, t);
+const cam0 = (t, d = .9) => M.to('#cam', { x: 0, y: 0, scale: 1, duration: d, ease: 'power2.inOut' }, t);
+let curT = null;
+function title(id, t) { if (curT) sink(curT, t, .26, -34); rise(id, t + .3, .45, 34); curT = id; }
+function pushX(o, n, t, d = .8) { if (o) M.to(o, { x: -1150, duration: d, ease: 'power3.inOut' }, t); if (n) M.fromTo(n, { x: 1150 }, { x: 0, duration: d, ease: 'power3.inOut', immediateRender: false }, t); sfx('whoosh', t + .05); }
+function pushY(o, n, t, d = .85) { if (o) { M.to(o, { y: -1500, duration: d, ease: 'power3.inOut' }, t); M.to(o, { autoAlpha: 0, duration: d * .35, ease: 'none' }, t + d * .22); } if (n) M.fromTo(n, { y: 1700 }, { y: 0, duration: d, ease: 'power3.inOut', immediateRender: false }, t); sfx('whoosh2', t + .05); }
+
+/* ---- so'z o'rinlari ---- */
+const SL = {};
+function slot(id, init) { const el = $(id), vs = [...el.children].filter(c => c.classList.contains('v')), w = vs.map(v => v.getBoundingClientRect().width); SL[id] = { el, vs, w, cur: -1, gap: parseFloat(getComputedStyle(el).marginLeft) || 0 };
+  if (init >= 0) { gsap.set(el, { width: w[init] }); gsap.set(vs[init], { autoAlpha: 1 }); SL[id].cur = init; } else gsap.set(el, { width: 0, marginLeft: 0 }); }
+function swap(id, i, t, d = .45) { const s = SL[id]; if (s.cur >= 0) to(s.vs[s.cur], { autoAlpha: 0 }, t, d * .7); to(s.vs[i], { autoAlpha: 1 }, t + d * .25, d * .75); to(s.el, { width: s.w[i], ease: 'power2.inOut' }, t, d); s.cur = i; }
+function open(id, i, t, from, d = .7, ease = 'back.out(1.5)') { const s = SL[id]; to(s.el, { width: s.w[i], marginLeft: s.gap, ease: 'power3.out' }, t, d * .8); M.fromTo(s.vs[i], Object.assign({ autoAlpha: 0, x: 0, y: 0, scale: 1 }, from), { autoAlpha: 1, x: 0, y: 0, scale: 1, duration: d, ease, immediateRender: false }, t); s.cur = i; }
+function shut(id, t, d = .4) { const s = SL[id]; to(s.vs[s.cur], { autoAlpha: 0 }, t, d * .6); to(s.el, { width: 0, marginLeft: 0, ease: 'power2.inOut' }, t, d); s.cur = -1; }
+/* data-s="[g]كَانَ[/]|الطَّالِ[r]بُ[/]" -> so'zlar */
+const MK = { g: 'gold', r: 'raf', n: 'nasb', p: 'pink' };
+$$('[data-s]').forEach(el => { el.innerHTML = el.dataset.s.split('|').map(w => '<div class="wd"><span class="wa">' + w.replace(/\[(\w)\]/g, (m, k) => `<i class="${MK[k]}">`).replace(/\[\/\]/g, '</i>') + '</span></div>').join(''); });
+
+function arc(svg, x0, x1, y, h, c) {
+  const NS = 'http://www.w3.org/2000/svg', p = document.createElementNS(NS, 'path'), a = document.createElementNS(NS, 'path');
+  p.setAttribute('d', `M ${x0} ${y} C ${x0} ${y - h}, ${x1} ${y - h}, ${x1} ${y}`); p.setAttribute('pathLength', '1');
+  a.setAttribute('d', `M ${x1 - 17} ${y - 24} L ${x1} ${y} L ${x1 + 17} ${y - 24}`);
+  for (const e of [p, a]) { e.setAttribute('fill', 'none'); e.setAttribute('stroke', `rgb(${c})`); e.setAttribute('stroke-width', '7'); e.setAttribute('stroke-linecap', 'round'); e.setAttribute('stroke-linejoin', 'round'); svg.appendChild(e); }
+  p.style.strokeDasharray = '1'; p.style.strokeDashoffset = '1'; a.style.opacity = 0; return [p, a];
+}
+const draw = (pa, t, d = .6) => { to(pa[0], { strokeDashoffset: 0, ease: 'power2.inOut' }, t, d); to(pa[1], { opacity: 1 }, t + d - .12, .15); };
+function build() {
+  const D = TL.dur; M.to({}, { duration: D }, 0);
+  /* fon: sekin yorug'lik, yulduzlar */
+  M.to('#glow', { x: 150, y: -120, duration: 23, ease: 'sine.inOut', yoyo: true, repeat: Math.ceil(D / 23) }, 0);
+  let sd = 7; const rnd = () => (sd = (sd * 16807) % 2147483647) / 2147483647;
+  for (let i = 0; i < 20; i++) { const s = document.createElement('div'); s.className = 'star'; const z = 3 + rnd() * 5; s.style.cssText = `left:${40 + rnd() * 1000}px;top:${200 + rnd() * 1350}px;width:${z}px;height:${z}px`; $('#stars').appendChild(s);
+    const d = 1.6 + rnd() * 2.4; M.to(s, { opacity: .2 + rnd() * .5, duration: d, ease: 'sine.inOut', yoyo: true, repeat: Math.ceil(D / d) }, rnd() * 3); }
+  /* tepadagi bo'laklar — har sahna bittasi */
+  const S = id => sc(id).s;
+  const SB = TL.scenes.map(s => s.s).concat([D]);
+  SB.slice(0, -1).map((x, i) => [x, SB[i + 1]]).forEach(s => { const b = document.createElement('b'), f = document.createElement('i'); b.appendChild(f); $('#seg').appendChild(b); M.to(f, { scaleX: 1, duration: s[1] - s[0], ease: 'none' }, s[0]); });
+  /* qoralama: subtitr va belgi (faqat ovozi hali yo'q bo'laklarda) */
+  if (TL.draft && TL.draft.length) { gsap.set('#wm', { autoAlpha: 1 });
+    TL.subs.forEach(([s, e, x]) => { const d = document.createElement('div'); d.className = 'sb'; d.textContent = x; $('#sub').appendChild(d); M.set(d, { autoAlpha: 1 }, s); M.set(d, { autoAlpha: 0 }, e - .02); }); }
+
+  /* o'lchovlar (hech narsa siljimasdan oldin) */
+  ['AI', 'AX', 'I', 'X', 'GI', 'GX', 'NK'].forEach(id => slot('#' + id, 0)); ['AK', 'K', 'GK', 'NM'].forEach(id => slot('#' + id, -1));
+  const K = SL['#K'], I = SL['#I'], X = SL['#X'], AK = SL['#AK'], AI = SL['#AI'], AX = SL['#AX'], GK = SL['#GK'], GI = SL['#GI'], GX = SL['#GX'], NM = SL['#NM'], NK = SL['#NK'];
+  const rO = R('#fo2i'), rBl = R('#fbl');                               /* savol: to'g'ri javob bo'sh joyga uchadi */
+  const kbl = row => { const e = document.createElement('span'); e.className = 'kb h'; e.textContent = 'бирликда'; $$(row + ' .wd')[0].appendChild(e); gsap.set(e, { xPercent: -50 }); return e; };
+  const kb1 = kbl('#d1p'), kb2 = kbl('#d2s'), kb3 = kbl('#d3s'), w1p = $$('#d1p .wa'), w2 = $$('#d2s .wa'), w3 = $$('#d3s .wa');
+  gsap.set('#SD', { y: 1700 }); gsap.set(['#SG', '#SE', '#SF'], { x: 1150 }); gsap.set(['#fq', '#fe'], { autoAlpha: 0 });
+  gsap.set([AI.vs[0], AX.vs[0], I.vs[0], X.vs[0], GI.vs[0], GX.vs[0], NK.vs[0]], { autoAlpha: 0 });
+  let u, a, t;
+
+  /* ================= S1: muqova -> kirish videosidagi savol («Охири ўзгарди — нега?») ================= */
+  u = C.k1; const c1 = u.c;
+  M.fromTo('#i0', { scale: 1.12 }, { scale: 1, duration: u.s + 1.2, ease: 'none', immediateRender: false }, 0);
+  t = u.s - .35; hide('#i0w', t, .8); sink('#pv', t, .4, -70); show('#hl', t + .45, .3); title('#t0', t + .2); sfx('whoosh2', t);
+  M.fromTo([AI.vs[0], AX.vs[0]], { y: 60, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .55, stagger: .1, immediateRender: false }, t + .3);
+  rise('#a0t1', t + .6, .4, 24);
+  t = c1[0] + (c1[1] - c1[0]) * .4;                                     // «kaana gap boshiga keldi-yu»
+  open('#AK', 0, t, { y: -420 }, .85, 'bounce.out'); sfx('thud', t + .33); glow(AK.vs[0], t + .45, GOLD, 1);
+  hide('#a0t1', t + .25, .25); show('#a0t2', t + .5, .4);
+  to('#axe', { color: `rgb(${RAF})` }, c1[1] - .1, .3); pulse(AX.el, c1[1], 1.1, .6); glow('#axe', c1[1], RAF, 1);                       // «jamiylun»
+  swap('#AX', 1, c1[2] - .05, .45); glow(AX.vs[1], c1[2] + .1, NASB, 1.2); sfx('shimmer', c1[2]); pulse(AX.el, c1[2] + .05, 1.1, .6);     // «jamiylan»
+  pop('#axq', c1[3] - .1, .5);                                          // Nega?
+
+  /* ================= S2: oddiy gap ================= */
+  t = S('S2'); title('#t1', t + .15); pushX('#P0', null, t - .1, .75);
+  M.fromTo([I.vs[0], X.vs[0]], { y: 70, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .6, stagger: .14, immediateRender: false }, t + .45);
+  kar([I.vs[0], X.vs[0]], C.a1);
+  u = C.u1b; rise('#ht1', u.s, .45, 24);
+  rise('#il1', u.c[2] - .1, .35, 16); sfx('pop', u.c[2] - .1, .7); rise('#xl1', u.c[3] - .1, .35, 16); sfx('pop', u.c[3] - .1, .7);
+  pop('#ic', u.c[4] + .25, .45); pop('#xc1', u.c[4] + .45, .45);
+  to(['#ie0', '#xe0'], { color: `rgb(${RAF})` }, u.c[5], .4); glow('#ie0', u.c[5], RAF, 1.1); glow('#xe0', u.c[5], RAF, 1.1); sfx('shimmer', u.c[5]);
+
+  /* ================= S3: kaana kirib keladi va ikkalasiga ham hukm qiladi (ismni ham kaana raf qiladi — ko'pchilik fikri) ================= */
+  u = C.k3a; const c2 = u.c; title('#t2', u.s + .1); sink('#ht1', u.s + .1, .3, 30);
+  swap('#I', 1, c2[0] + .25, .4); open('#K', 0, c2[0] + .2, { x: 420 }, .85, 'back.out(1.7)'); sfx('whoosh', c2[0] + .15); sfx('thud', c2[0] + .55); glow(K.vs[0], c2[0] + .75, GOLD, 1.1);
+  /* yoylar: S3 yakuniy joylashuvi bo'yicha (o'rinlar kengligidan hisoblanadi) */
+  const g = K.gap, W2 = K.w[0] + g + I.w[1] + g + X.w[1], xr = 540 + W2 / 2, kx = xr - K.w[0] / 2, ix = xr - K.w[0] - g - I.w[1] / 2, xx = xr - K.w[0] - g - I.w[1] - g - X.w[1] / 2;
+  const svg = $('#arc'), a1 = arc(svg, kx - 20, ix, 34, 100, RAF), a2 = arc(svg, kx + 20, xx, 34, 180, NASB), a3 = arc(svg, ix, kx - 20, 34, 100, PINK);
+  pulse(K.vs[0], c2[1] + .05, 1.12, .7); draw(a1, c2[1] + .2, .55); draw(a2, c2[1] + .4, .7);                 // ikkalasiga ham hukm qiladi
+  /* Mubtadoga: «Raf bo'l!» */
+  pulse(I.vs[1], c2[2] + .05, 1.06, .5);
+  M.fromTo('#cmd0', { autoAlpha: 0, x: kx - 30, scale: .5 }, { autoAlpha: 1, x: kx - 30, scale: 1, duration: .4, ease: 'back.out(2)', immediateRender: false }, c2[3] - .1); sfx('pop', c2[3] - .1);
+  to('#cmd0', { x: ix, ease: 'power2.inOut' }, c2[3] + .4, .55); sfx('whoosh', c2[3] + .35, .7);
+  /* Mubtado jilmayadi: «Men allaqachon rafman» */
+  M.to(I.el, { rotation: 4, duration: .16, yoyo: true, repeat: 3, ease: 'sine.inOut' }, c2[4] + .15);
+  gsap.set(['#ip', '#ip2'], { x: ix });
+  t = c2[4] + (c2[5] - c2[4]) * .4; hide('#cmd0', t - .15, .25); pop('#ip', t, .45); glow(I.vs[1], t + .15, RAF, 1.1);
+  /* oxiri o'zgarmaydi, faqat yangi nom oladi: kaananing ismi */
+  hide('#ip', c2[5] - .15, .25); pop('#ip2', c2[5] + .1, .45); pulse('#ic .chip', c2[5] + .3, 1.22, .6);
+  sink('#il1', c2[6] + .1, .3, 20); hide('#ip2', c2[7] + .5, .25);
+  rise('#il2', c2[7] - .05, .35, 16); sfx('pop', c2[7] - .05, .7);
+  /* Xabarga esa: «Oxiringni o'zgartir!» */
+  pulse(K.vs[0], c2[8] + .05, 1.08, .5);
+  M.fromTo('#cmd', { autoAlpha: 0, x: kx - 60, scale: .5 }, { autoAlpha: 1, x: kx - 60, scale: 1, duration: .4, ease: 'back.out(2)', immediateRender: false }, c2[9] - .1); sfx('pop', c2[9] - .1);
+  to('#cmd', { x: Math.max(xx + 40, 270), ease: 'power2.inOut' }, c2[9] + .5, .65); sfx('whoosh', c2[9] + .45, .7);
+  /* xabar bo'ysunadi: egiladi, zammani qo'yib fatha oladi */
+  hide('#cmd', c2[10] - .05, .25);
+  M.to(X.el, { rotation: -9, y: 12, duration: .3, ease: 'power2.out' }, c2[10] + .05); M.to(X.el, { rotation: 0, y: 0, duration: .5, ease: 'back.out(2)' }, c2[10] + .65); pop('#xp', c2[10] + .2, .45);
+  cam(xx - X.w[1] / 2 + 250, 650, 1.4, c2[11] - .15, .75); to('#xe0', { autoAlpha: .3 }, c2[11] + .3, .35); hide('#xp', c2[11], .25);
+  swap('#X', 1, c2[12] + .05, .45); glow(X.vs[1], c2[12] + .2, NASB, 1.2); sfx('shimmer', c2[12] + .1);
+  cam0(c2[13] - .35, .75);
+  sink('#xl1', c2[13] + .1, .3, 20); rise('#xl2', c2[13] + .5, .35, 16); sfx('pop', c2[13] + .5, .7);
+  hide('#xc1', c2[14] - .1, .25); pop('#xc2', c2[14] + .15, .5);
+  /* lekin ism ham jim qolmaydi: kaananing o'zini o'zgartirib qo'yadi (ishora — javobi S5 da) */
+  u = C.k3b; const cb = u.c;
+  pulse(I.vs[1], cb[0] + .15, 1.1, .6); to(a1.concat(a2), { opacity: .22 }, cb[0], .3);
+  M.set(a3[0], { opacity: 1 }, cb[0]); draw(a3, cb[0] + .5, .6); sfx('pop', cb[0] + 1.0, .7);
+  t = cb[1] + (cb[2] - cb[1]) * .3;
+  M.to(K.el, { rotation: 9, y: 12, duration: .3, ease: 'power2.out' }, t); M.to(K.el, { rotation: 0, y: 0, duration: .5, ease: 'back.out(2)' }, t + .55);
+  to(K.vs[0], { autoAlpha: 0 }, t + .15, .25); to(K.vs[1], { autoAlpha: .8 }, t + .25, .3); to(K.el, { width: K.w[1], ease: 'power2.inOut' }, t + .15, .35); sfx('shimmer', t + .25, .7);
+  to(K.vs[1], { autoAlpha: 0 }, t + 1.3, .3); to(K.vs[0], { autoAlpha: 1 }, t + 1.45, .3); to(K.el, { width: K.w[0], ease: 'power2.inOut' }, t + 1.3, .35);
+  pop('#kq', cb[2] - .05, .45);
+  hide('#kq', cb[3] - .1, .2); pop('#kq2', cb[3] + .1, .45, 0);
+  hide('#kq2', C.a2.s - .15, .3); to(a3, { opacity: 0 }, C.a2.s - .25, .3); to(a1.concat(a2), { opacity: 1 }, C.a2.s - .15, .3);
+  kar([K.vs[0], I.vs[1], X.vs[1]], C.a2);
+
+  /* ================= S4: qoida, tarjima, «Alloh haqida — doimo» ================= */
+  u = C.u3; const c3 = u.c; rise('#ht2', u.s - .05, .45, 24);
+  t = c3[1]; title('#t3', t);
+  hide(['#il2', '#xl2', '#ic', '#xc2', '#ht2'], t, .3); to(a1.concat(a2), { opacity: 0 }, t, .3);
+  to('#hs', { y: 185, scale: .78, ease: 'power3.inOut' }, t + .05, .85); sfx('whoosh2', t + .1);
+  M.fromTo('#bk', { autoAlpha: 0, x: 300 }, { autoAlpha: 1, x: 0, duration: .6, immediateRender: false }, t + .35);
+  M.fromTo('#bi', { autoAlpha: 0, y: -200 }, { autoAlpha: 1, y: 0, duration: .6, ease: 'back.out(1.4)', immediateRender: false }, c3[2] - .05); sfx('pop', c3[2] - .05); pulse(I.vs[1], c3[2], 1.08, .5);
+  pop('#bic', c3[3] - .05, .45);
+  M.fromTo('#bx', { autoAlpha: 0, y: -200 }, { autoAlpha: 1, y: 0, duration: .6, ease: 'back.out(1.4)', immediateRender: false }, c3[4] - .05); sfx('pop', c3[4] - .05); pulse(X.vs[1], c3[4], 1.08, .5);
+  pop('#bxc', c3[5] - .05, .45);
+  u = C.u4; rise('#bt', u.s + .1, .5, 110); sfx('whoosh', u.s - .05, .7);
+  rise('#bt1', u.c[1] - .1, .35, 20); pop('#bt1c', u.c[2] - .1, .45); rise('#bt2', u.c[3] - .05, .35, 20); pop('#bt2c', u.c[4] - .1, .45);
+  /* bitta nozik joy: Alloh haqida «edi» emas, «doimo» — ma'no gap egasidan keladi */
+  u = C.k4; const c4 = u.c; a = C.b4; t = u.s - .3; title('#t4', t + .05);
+  to('#bxs', { y: -90, autoAlpha: 0, ease: 'power2.in' }, t, .4); to('#hs', { y: 110, autoAlpha: 0, ease: 'power2.in' }, t, .4);
+  to("#bt", { y: -530, height: 500, ease: 'power3.inOut' }, t + .15, .8); sfx('whoosh2', t + .15);
+  to(['#bt1', '#bt2'], { autoAlpha: .4 }, c4[1] - .1, .4); rise('#bt3', c4[1], .4, 20); sfx('pop', c4[1], .7);
+  pop('#bt3c', c4[2] - .05, .5); glow('#bt3c .chip', c4[2] + .1, GOLD, 1.1);
+  rise('#ay', c4[3] - .2, .5, 30); sfx('whoosh', c4[3] - .25, .5);
+  { const wy = $$('#ay .wa'); pulse(wy[0], c4[3] + .25, 1.07, .6); pulse(wy[1], c4[4] + .1, 1.1, .7); glow(wy[1], c4[4] + .1, RAF, 1.2); }
+  pop('#ayn', c4[4] + .35, .5);
+  kar('#ay .wa', a); rise('#ayt', a.s - .15, .45, 20);
+
+  /* ================= S5: ismi muannas bo'lsa — kaana unga moslashadi ================= */
+  u = C.u5; const v = u.c; t = u.s - .4; title('#t5', t + .1);
+  pushX('#SR', null, t, .75);
+  M.set('#hs', { y: 70, scale: .83 }, t); M.fromTo('#hs', { x: 1150, autoAlpha: 1 }, { x: 0, autoAlpha: 1, duration: .75, ease: 'power3.inOut', immediateRender: false }, t);
+  swap('#I', 2, v[1] - .1, .5); glow(I.vs[2], v[1] + .15, PINK, 1.1); sfx('pop', v[1] - .05); pop('#ic5', v[1] + .35, .45, 0);          // toliba
+  { const W5 = K.w[0] + g + I.w[2] + g + X.w[1], xr5 = 540 + W5 / 2, a4 = arc(svg, xr5 - K.w[0] - g - I.w[2] / 2, xr5 - K.w[0] / 2 - 20, 34, 100, PINK);
+    draw(a4, v[2] - .1, .6); sfx('pop', v[2] + .45, .7); to(a4, { opacity: 0 }, v[3] + .3, .3); }                                    // kaana ham unga moslashadi
+  M.to(K.el, { rotation: 9, y: 12, duration: .3, ease: 'power2.out' }, v[2] + .45); M.to(K.el, { rotation: 0, y: 0, duration: .5, ease: 'back.out(2)' }, v[2] + 1.0);
+  swap('#K', 1, v[4] - .1, .45); glow(K.vs[1], v[4] + .1, PINK, 1.1); sfx('thud', v[4], .7); pop('#kc1', v[4] + .35, .45, 0);           // «ta»
+  swap('#X', 2, v[4] + .75, .45);
+  { const W5 = K.w[1] + g + I.w[2] + g + X.w[2], jx = 540 + (W5 / 2 - K.w[1] - g / 2) * .83;
+    hide('#ic5', v[5] - .1, .3); hide('#kc1', v[6] - .15, .25); cam(jx, 700, 1.42, v[5] + .05, .85);
+    pop('#jc1', v[6] + .1, .45); pulse(K.vs[1], v[7], 1.06, .5);
+    swap('#K', 2, v[8] - .05, .4); glow(K.vs[2], v[8] + .1, PINK, 1.1); sfx('shimmer', v[8]); hide('#jc1', v[8] - .05, .2); pop('#jc2', v[8] + .2, .45, 0);
+    cam0(u.e - .15, .8); hide('#jc2', C.a5.e + .1, .3); }
+  kar([K.vs[2], I.vs[2], X.vs[2]], C.a5); rise('#ht3', C.a5.s, .45, 24);
+
+  /* ================= S6: nasb alomatlari; kaana ismiga faqat jinsda moslashadi ================= */
+  u = C.u6a; t = u.s - .4; title('#t6', t + .15); pushY('#SH', '#SD', t);
+  M.fromTo(['#d1', '#d2', '#d3'], { y: 260 }, { y: 0, duration: .75, stagger: .1, ease: 'power3.out', immediateRender: false }, t + .25);
+  pulse('#t6', u.c[2] + .1, 1.1, .7); M.to(['#d1', '#d2', '#d3'], { scale: 1.03, duration: .25, yoyo: true, repeat: 1, stagger: .14, ease: 'sine.inOut' }, u.c[3]);   // buyruq bitta, ijrosi uch xil
+  rise('#d1s', u.c[4] - .1, .45, 26); pop('#d1b', u.c[5] - .05, .45); to('#d1', { borderColor: `rgba(${NASB},.6)` }, u.c[4], .3);
+  rise('#d2s', u.c[6] - .1, .45, 26); pop('#d2b', u.c[7] - .05, .45); to('#d1', { borderColor: 'rgba(255,255,255,.13)' }, u.c[6], .3); to('#d2', { borderColor: `rgba(${NASB},.6)` }, u.c[6], .3);
+  kar('#d2s .wa', C.a6b);
+  u = C.u6b; rise('#d3s', u.s, .45, 26); pop('#d3b', u.c[2] - .05, .45); to('#d2', { borderColor: 'rgba(255,255,255,.13)' }, u.s, .3); to('#d3', { borderColor: `rgba(${NASB},.6)` }, u.s, .3);
+  kar('#d3s .wa', C.a6c);
+  u = C.k6; const c6 = u.c; to('#d3', { borderColor: 'rgba(255,255,255,.13)' }, u.s, .3);
+  glow(w2[1], c6[1], RAF, 1.1); pulse(w2[1], c6[1], 1.06, .5);                                                  // ismi ikkita
+  glow(w3[1], c6[2], RAF, 1.1); pulse(w3[1], c6[2], 1.06, .5);                                                  // yoki ko'p bo'lsa ham
+  t = c6[2] + .3; hide('#d1s', t, .3); show('#d1p', t + .2, .4); hide('#d1c1', t, .25); show('#d1c2', t + .2, .3); glow(w1p[1], t + .45, RAF, 1.1); glow(w1p[2], t + .6, NASB, 1.1); sfx('pop', t + .2, .6);   // siniq jam: xabar yana fatha bilan
+  t = c6[3]; [w1p[0], w2[0], w3[0]].forEach((w, i) => glow(w, t + i * .12, GOLD, 1.2)); [kb1, kb2, kb3].forEach((k, i) => pop(k, t + .1 + i * .15, .45, i ? 0 : 1));   // kaana birlikda turibdi
+  pop('#djc', c6[4], .5); glow($$('#d3s .pink')[0], c6[4] + .25, PINK, 1.2);                                    // faqat jinsda
+
+  /* ================= S7: aqlsiz ko'plik — xabar muannas birlikda, endi nasbda ================= */
+  u = C.k7; const c7 = u.c; a = C.b7; t = u.s - .4; title('#t7', t + .15); pushX('#SD', '#SG', t);
+  pop('#gch', t + .55, .45, 0);
+  M.fromTo([GI.vs[0], GX.vs[0]], { y: 70, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .6, stagger: .14, immediateRender: false }, t + .5);
+  rise('#gt1', t + .9, .45, 24);
+  pop('#gil', c7[0] + .55, .45);                                                                               // aqlsiz narsalar ko'pligida
+  pulse(GX.vs[0], c7[1] + .1, 1.08, .6);                                                                       // xabar oldingi darslardagidek
+  pop('#gxl', c7[2], .45);                                                                                     // muannas birlikda
+  t = c7[3] - .3; hide('#gch', t, .3);                                                                          // faqat endi nasbda: kaana keladi, xabar fatha oladi
+  swap('#GI', 1, t + .05, .4); open('#GK', 0, t, { x: 420 }, .8, 'back.out(1.7)'); sfx('whoosh', t - .05); sfx('thud', t + .35); glow(GK.vs[0], t + .5, GOLD, 1.1);
+  swap('#GX', 1, t + .8, .45); glow(GX.vs[1], t + .95, NASB, 1.2); sfx('shimmer', t + .85); pop('#gxn', t + 1.15, .45);
+  hide('#gt1', t + .5, .25); show('#gt2', t + .8, .4);
+  kar([GK.vs[0], GI.vs[1], GX.vs[1]], a);
+
+  /* ================= S8: inkor — «مَا كَانَ» ================= */
+  u = C.k8; const c8 = u.c; a = C.a7b; t = u.s - .4; title('#t8', t + .15); pushX('#SG', '#SE', t);
+  M.fromTo(NK.vs[0], { autoAlpha: 0, scale: .6 }, { autoAlpha: 1, scale: 1, duration: .55, ease: 'back.out(1.6)', immediateRender: false }, t + .5); rise('#nt1', t + .8, .45, 24);
+  pulse(NK.vs[0], c8[1] + .05, 1.08, .5);                                                                      // kaana oldidan
+  open('#NM', 0, c8[2] - .15, { y: -380 }, .8, 'bounce.out'); sfx('thud', c8[2] + .15); glow(NM.vs[0], c8[2] + .35, PINK, 1.1); pop('#nml', c8[2] + .6, .45);   // «maa» qo'yamiz
+  hide('#nt1', c8[3] - .15, .25); rise('#nt2', c8[3] + .05, .4, 20); sfx('pop', c8[3] + .05, .7);                 // bo'lmadi, emas edi
+  show('#nln', a.s - .5, .3); rise('#es2', a.s - .35, .5, 30); kar('#es2 .wa', a); rise('#etr2', a.s + .4, .4, 20);
+
+  /* ================= S9: xulosa, savol, keyingi video ================= */
+  u = C.k9a; const c9 = u.c, b = C.k9b; a = C.b9; t = u.s - .4; title('#t9', t + .15); pushX('#SE', '#SF', t);
+  rise('#f0', c9[1] - .2, .45, 20); glow('#f0 .ar', c9[1] + .1, GOLD, 1.1);
+  rise('#f1', c9[2] - .05, .4, 20); sfx('pop', c9[2], .7);
+  rise('#f2', c9[3] - .05, .4, 20); sfx('pop', c9[3], .7);
+  rise('#f3', c9[4] - .05, .4, 20); sfx('pop', c9[4], .7); glow('#f3 .pink', c9[5] + .2, PINK, 1.1);
+  t = c9[6] - .15; title('#t10', t + .1); M.to('#fsum', { y: -1500, duration: .8, ease: 'power3.inOut' }, t); M.set('#fq', { autoAlpha: 1 }, t); sfx('whoosh2', t + .05);   // savol
+  pop('#fqp', c9[7] - .1, .5); rise('#fqs', c9[7] + .4, .5, 40);
+  t = c9[8]; ['#fo1', '#fo2', '#fo3'].forEach((o, i) => pop(o, t + i * .25, .45)); pulse('#fbl', t + .1, 1.12, .7);
+  show('#fbw', u.e - .1, .3); M.fromTo('#fbi', { scaleX: 1 }, { scaleX: 0, duration: a.s - u.e - .15, ease: 'none', immediateRender: false }, u.e); hide('#fbw', a.s - .2, .2);
+  for (let k = 0; k < 3; k++) sfx('tick', u.e + .25 + k * .75);
+  t = a.s - .1;                                                                                                  // javob bo'sh joyga uchadi
+  to('#fo2i', { x: (rBl.left + rBl.width / 2) - (rO.left + rO.width / 2), y: (rBl.top + rBl.height / 2) - (rO.top + rO.height / 2) - 6, scale: 96 / 100, ease: 'power3.inOut' }, t, .75); sfx('whoosh', t); sfx('chime', t + .55);
+  to('#fo2', { backgroundColor: 'rgba(255,255,255,0)', borderColor: 'rgba(255,255,255,0)' }, t, .4); to('#fbl', { autoAlpha: 0 }, t + .3, .3); to(['#fo1', '#fo3'], { autoAlpha: .25 }, t + .1, .4);
+  glow('#fo2i', t + .7, NASB, 1.2); kar('#fqs .wa', a);
+  pop('#fex', b.c[1] - .1, .5, 0); pop('#fex2', b.c[2] + .1, .5);
+  t = b.c[3] - .25; title('#t11', t + .1); M.to('#fq', { y: -1500, duration: .8, ease: 'power3.inOut' }, t); sfx('whoosh2', t + .05);     // keyingi video
+  M.set('#fe', { autoAlpha: 1 }, t); M.fromTo('#fe', { y: 1500 }, { y: 0, duration: .8, ease: 'power3.inOut', immediateRender: false }, t); pulse('#fe1', b.c[4], 1.06, .7);
+  M.to('#st', { opacity: 0, duration: .4, ease: 'power2.in' }, D - .45);
+
+  /* hamma animatsiyani bir marta boshidan oxirigacha «yurgizib» olish — keyin istalgan vaqtga sakrash aniq bo'ladi */
+  M.time(M.duration()); M.time(0);
+}
+function seek(t) { M.time(t); }
+window.seek = seek;
+document.fonts.ready.then(() => Promise.all([...document.images].map(i => i.decode().catch(() => 0)))).then(() => { build(); seek(+new URLSearchParams(location.search).get('t') || 0); window.READY = true; });
+</script>
+</body></html>

@@ -23,7 +23,7 @@ def rec(n):                                     # eshitilgan: [(vaqt, belgi)]
 
 
 def exp(n):                                     # kutilgan: belgilar va har «|» ning o'rni
-    s = prep.TXT[n].lower().replace('kaana', 'kana').replace('maa', 'ma').replace('jamiyl', 'jamil')
+    s = prep.TXT[n].lower().replace('kaana', 'kana').replace('maa', 'ma').replace('laa', 'la').replace('kuunu', 'kunu')
     s = s.replace("o'", 'o').replace("g'", 'g').replace('sh', 'S').replace('ch', 'C').replace('j', 'J').replace('q', 'k').replace("'", '')
     chars = []; marks = []; words = []
     for part in s.split('|'):

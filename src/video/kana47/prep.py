@@ -21,9 +21,10 @@ IPA = {'kaananing': '/ˈkaːnaniŋ/', 'kaanadan': '/ˈkaːnadan/', 'kaanaga': '/
        'yakuunu': '/jaˈkuːnu/', 'takuunu': '/taˈkuːnu/'}      # takuunu — yangi so'z: ovozdan keyin tekshir.py bilan qaraladi
 TXT = {
  # S1 ilmoq — klip: kechasi xona, moychiroq, rahlda kitob (javobi S9 da)
- 'k1': "Bir mo'ysafid har kecha Qur'on o'qir edi. |Arabchada bu ham kaana bilan aytiladi, |lekin yonida yana bir fe'l turadi. |Qanday qilib? Oxirida ko'ramiz.",
+ # («yonida yana bir fe'l turadi» edi — foydalanuvchi, 21.11.2026: so'z bilan tasvir mos kelsin: يَقْرَأُ kaananing yonida emas — «gapda yana bir fe'l ham bor»)
+ 'k1': "Bir mo'ysafid har kecha Qur'on o'qir edi. |Arabchada bu ham kaana bilan aytiladi, |lekin gapda yana bir fe'l ham bor. |Sirini oxirida ochamiz.",
  # S2 qoida — avval atamalar bilan, kitobdagidek (47-dars)
- 'k2': "Avval kaananing muzoriysi: |yakuunu. |U ham noqis — |fo'ili yo'q. |Mubtadoni ismi qilib, |raf qiladi; |xabarni xabari qilib, |nasb qiladi. |Tarjimasi — |«bo'ladi».",
+ 'k2': "Avval muzoriysi: |kaana — |yakuunu. |U ham noqis — |fo'ili yo'q. |Mubtadoni ismi qilib, |raf qiladi; |xabarni xabari qilib, |nasb qiladi. |Tarjimasi — |«bo'ladi».",
  # S3 sodda qilib — vaqt chizig'i (o'ngdan chapga)
  'k3': "Sodda qilib aytsak: |kaana — |kecha haqida, |yakuunu — |bugun va ertaga haqida. |Hukm o'sha.",
  # S4 ismi muannas — muzoraat harfi
@@ -37,7 +38,7 @@ TXT = {
  # S8 aqlsiz muannas ko'plik (46 dan ko'chgan)
  'k8': "Aqlsiz muannas ko'plikda |xabar ikki xil keladi, |ikkalasi ham joiz.",
  # S9 boshidagi sir — kaana + muzoriy = «qilar edi» (kitobda yo'q; mashhur nahv: xabar — jumla, nasb o'rnida); oyat — Maryam, 55
- 'k9a': "Endi boshidagi sir. |Kaananing xabari |muzoriy fe'l bo'lsa, |«qilar edi» chiqadi: |o'tmishda takrorlangan ish. |Xabar — butun jumla, |shuning uchun fe'l oxiri o'zgarmaydi: |jumla nasb o'rnida turadi.",
+ 'k9a': "Endi boshidagi sir. |Kaana — xabari |muzoriy fe'l bo'lsa, |«qilar edi» chiqadi: |o'tmishda takrorlangan ish. |Xabar — butun jumla, |shuning uchun fe'l oxiri o'zgarmaydi: |jumla nasb o'rnida turadi.",
  'k9b': "Qur'onda Ismoil alayhissalom haqida ham shunday deyilgan:",
  'k9c': "Ahlini namoz va zakotga |buyurar edi. |Farqini eslang: |yakuunu — |«bo'ladi», |kaana va muzoriy — |«qilar edi».",
  # S10 xulosa, savol, keyingi video

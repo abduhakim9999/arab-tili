@@ -106,8 +106,6 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .tq-gb .tq-gt{margin-top:0}
 .tq-gb .tq-gd{margin-top:6px}
 .tq-r:empty{display:none}
-.tq-fy+.tq-r{background:none;padding:0}
-.tq-fy+.tq-r .tq-ex{background:var(--tint)}
 .tq-ex{margin-top:12px;padding:10px 12px;border-radius:12px;background:var(--cd);font-size:14.5px;color:var(--mu)}
 .tq-ex .ar{display:block;font-size:22px;line-height:1.8;color:var(--tx)}
 .tq-au{margin-left:auto;width:42px;height:42px;border-radius:50%;border:0;background:var(--tint);color:var(--ac);display:flex;align-items:center;justify-content:center;padding:0}
@@ -944,7 +942,7 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
     /* 21.11.2026 (foydalanuvchi: «oyna tartibliroq»): «Маъноси?»da har arabcha qatorning tarjimasi o'zining tagida — so'z → ma'nosi (+ shakllari),
        gap → tarjimasi; joylari oldindan ajratilgan (`.tq-oc`), ochilganda faqat ko'rinadi. Pastda (bo'lsa) boshqa misol. */
     var si = sila(r), p = si && si.p, ma = manolar(n, p);   /* harf belgisi shakllar tagida (A variant, foydalanuvchi tanlovi 21.11.2026) */
-    if (t === 'a') { old = sozQator(r, 1) + '<div class="tq-oc tq-ma">' + silaB(p) + ma + '</div>' + gapAr(r, 2, p); orqa = misol(n); }   /* gap old tomonda — «Арабчаси?»da javobni ochib qo'ymasin */
+    if (t === 'a') { old = sozQator(r, 1) + '<div class="tq-oc tq-ma">' + silaB(p) + ma + '</div>' + gapAr(r, 2, p); orqa = ''; }   /* boshqa misol yo'q — gap bitta (21.11.2026, foydalanuvchi: «qil»); misollar «Луғат» ro'yxatida */   /* gap old tomonda — «Арабчаси?»da javobni ochib qo'ymasin */
     else if (t === 'u') { old = manolar(n); orqa = sozQator(r) + silaB(p) + gapAr(r, 1, p) + misol(n); }
     else { old = '<button class="tq-pl" id="pl" aria-label="Тинглаш">▶</button>'; orqa = sozQator(r) + silaB(p) + ma + gapAr(r, 1, p); }
     /* tinglash: ochilganda o'zi o'qiladi; qayta eshitish — burchakdagi kichik tugma (katta 🔊 o'rniga) */

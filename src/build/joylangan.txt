@@ -46,5 +46,6 @@ tayyor-video-kana 6c3a999173b6dd2b73d93998051c42f384c84069
 tayyor-video-kana0 3adca57c487ecb027fd9f707097fdb62165c089b
 tayyor-video-kana46 3ec377266c3bb702b25bf6f227c91bf25ddd4e17
 tayyor-video-kana46b 11e13ae2a8d9262e42b3f95bb880ddd3339c535b
+tayyor-video-kana47 40f4a8de30f2cb9daac105429cf307fc2b564cef
 tayyor-yoriqnoma d36923579e00c385741f200722996be6ae2d491d
 tayyor-zamir-ramka ad411919098ec9a84d0facc947f815c7a932756e

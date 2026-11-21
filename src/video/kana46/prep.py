@@ -13,7 +13,8 @@ HOP = int(SR * 0.01)
 # kana46 — 46-dars videosi: «كَانَ нинг исми ва хабари (1)» (reja — claude.ai claude/kana-video-reja.md 1-bo'lim, 1-qator).
 # Matn oddiy lotinchada; «|» — ekrandagi qadam joyi (qoralamada vaqti matn uzunligiga qarab taxmin qilinadi,
 # haqiqiy ovozdan keyin cue.json ga aniq vaqtlar yoziladi — tekshir.py --zich). ElevenLabs matni: python3 prep.py matn
-# Ovoz: u*, a* — kana1 dan tayyor (Davronbek, Abdullah), o'zgarmaydi; k* (o'zbekcha, Farruh) va b* (arabcha, Abdullah) — yangi.
+# Ovoz (foydalanuvchi qarori, 21.11.2026): hamma o'zbekcha bo'lak bitta ovozda — Farruh; u* (kana1 dagi Davronbek) faqat qoralamada turibdi,
+# ovoz bosqichida u* ham Farruhda qayta yoziladi (matni TXT da). a* — Abdullah (tayyor), b* — Abdullah (yangi).
 # u5 ning boshidagi ikki gap («uy egasining ham o'z kattasi bor…») kesiladi (CUT) — endi bu fikrni k3b aytadi; fayl o'zi butun turadi.
 import re
 IPA = {'kaananing': '/ˈkaːnaniŋ/', 'kaanadan': '/ˈkaːnadan/', 'kaanaga': '/ˈkaːnaɡa/', 'kaana': '/ˈkaːna/', 'maa': '/maː/',
@@ -29,9 +30,8 @@ TXT = {
  # S3b sodda tushuntirish: kaana ikkalasiga ham hukm qiladi (ko'pchilik — basraliklar fikri: ismni ham kaana raf qiladi; kelishilgan 21.11.2026)
  'k3a': "Sodda qilib aytsak, |kaana ikkalasiga ham hukm qiladi. |Mubtadoga: |«Raf bo'l!» |Mubtado jilmayadi: «Men allaqachon rafman». |Oxiri o'zgarmaydi. |Xabarga esa: |«Oxiringni o'zgartir!» |Xabar bo'ysunadi: |zammani qo'yib, |fatha oladi.",
  'k3b': "Lekin ism ham jim qolmaydi: |kerak bo'lsa, kaananing o'zini o'zgartirib qo'yadi. |Qanday qilib? |Birozdan keyin ko'ramiz.",
- # S4 tarjima (tayyor) + doimiylik (yangi). Tayyor u3 («Demak, qoida oddiy…») olib tashlandi — qoida endi S3 da aytiladi
+ # S4 tarjima. «Alloh haqida — doimo» (k4, b4) bu videodan olindi — «Qiyinroq daraja» videosiga (foydalanuvchi, 21.11.2026). Tayyor u3 («Demak, qoida oddiy…») olib tashlandi — qoida endi S3 da aytiladi
  'u4': "Tarjimasi ikki xil: voqea qadimda bo'lgan bo'lsa — «edi», yaqinda bo'lgan bo'lsa — «bo'ldi».",
- 'k4': "Bitta nozik joy: |Alloh haqida «edi» emas, |«doimo» deyiladi. |Bu ma'no kaanadan emas, |gap egasidan keladi.",
  # S5 ismi muannas (tayyor, boshi kesilgan)
  'u5': "Ismi muannas bo'lsa — masalan, toliba — kaana ham unga moslashadi: oxiriga muannaslik harfi — «ta» qo'shiladi. Bir nozik joyi bor: ikki sukun yo'liqib qolmasligi uchun bu «ta» keyingi so'zga kasra bilan bog'lanadi.",
  # S6 nasb alomatlari (tayyor) + faqat jinsda (yangi)
@@ -48,14 +48,14 @@ TXT = {
  # arabcha (Abdullah; vaqfsiz — tanvin ovoz matnida «نْ» bilan, ekranda to'g'ri yozuv)
  'a1': "اَلطَّالِبُ كَبِيرُنْ.", 'a2': "كَانَ الطَّالِبُ كَبِيرَنْ.", 'a5': "كَانَتِ الطَّالِبَةُ كَبِيرَتَنْ.",
  'a6b': "كَانَ الطَّالِبَانِ كَبِيرَيْنِ.", 'a6c': "كَانَتِ الطَّالِبَاتُ كَبِيرَاتِنْ.", 'a7b': "مَا كَانَ الطَّالِبُ كَبِيرَنْ.",
- 'b4': "وَكَانَ اللّٰهُ غَفُورَنْ رَحِيمَنْ.", 'b7': "كَانَ الثِّيرَانُ كَبِيرَتَنْ.", 'b9': "كَانَتِ الطَّالِبَتَانِ كَبِيرَتَيْنِ.",
+ 'b7': "كَانَ الثِّيرَانُ كَبِيرَتَنْ.", 'b9': "كَانَتِ الطَّالِبَتَانِ كَبِيرَتَيْنِ.",
 }
 SEQ = [
- ('S1', [('lead', 1.1), 'k1', ('gap', 0.45)]),
+ ('S1', [('lead', 0.35), 'k1', ('gap', 0.45)]),                      # muqovasiz: birinchi kadrdan savol (Shorts — birinchi soniya)
  ('S2', [('lead', 0.25), 'u1a', ('gap', 0.3), 'a1', ('gap', 0.35), 'u1b', ('gap', 0.4)]),
  ('S3', [('lead', 0.0), 'k3t', ('gap', 0.4)]),
  ('S3b', [('lead', 0.0), 'k3a', ('gap', 0.5), 'k3b', ('gap', 0.35), 'a2', ('gap', 0.5)]),
- ('S4', [('lead', 0.3), 'u4', ('gap', 0.4), 'k4', ('gap', 0.3), 'b4', ('gap', 0.6)]),
+ ('S4', [('lead', 0.3), 'u4', ('gap', 0.6)]),
  ('S5', [('lead', 0.45), 'u5', ('gap', 0.3), 'a5', ('gap', 0.7)]),
  ('S6', [('lead', 0.45), 'u6a', ('gap', 0.3), 'a6b', ('gap', 0.35), 'u6b', ('gap', 0.3), 'a6c', ('gap', 0.45), 'k6', ('gap', 0.6)]),
  ('S7', [('lead', 0.45), 'k7', ('gap', 0.3), 'b7', ('gap', 0.6)]),
@@ -63,7 +63,7 @@ SEQ = [
  ('S9', [('lead', 0.45), 'k9a', ('gap', 2.3), 'b9', ('gap', 0.4), 'k9b', ('gap', 2.0)]),
 ]
 CUT = {'u5': 7.0}                      # tayyor bo'lakning boshidan kesiladigan qism (soniya, chet jimlik olingandan keyin); cue.json dagi vaqtlar kesilgandan keyingi
-ARDUR = {'b4': 3.0, 'b7': 2.3, 'b9': 3.1}   # ovozi hali yo'q arabcha bo'laklarning taxminiy uzunligi (qoralamada jim, yozuv ekranda)
+ARDUR = {'b7': 2.3, 'b9': 3.1}   # ovozi hali yo'q arabcha bo'laklarning taxminiy uzunligi (qoralamada jim, yozuv ekranda)
 SUR = 13.8                             # Farruh ovozining o'rtacha sur'ati (belgi/soniya; kana0 bo'laklaridan) — yakuniy uzunlik taxmini uchun
 AR = lambda n: n[0] in 'ab'
 CUE = {}
@@ -150,7 +150,7 @@ def main():
     tl = {'dur': round(float(total), 3), 'fps': 30, 'clips': clips, 'scenes': scenes, 'draft': sorted(DRAFT), 'subs': subs if DRAFT else []}
     json.dump(tl, open(f'{D}/tl.json', 'w'), indent=1, ensure_ascii=False)
     open(f'{D}/tl.js', 'w').write('window.TL=' + json.dumps(tl, ensure_ascii=False) + ';')
-    est = float(total) + sum(len(toza(TXT[n])) / SUR - (clips[n]['e'] - clips[n]['s']) for n in DRAFT if not AR(n))
+    est = float(total) + sum(len(toza(TXT[n])) / SUR - (clips[n]['e'] - clips[n]['s']) for n in clips if not AR(n))      # hamma o'zbekcha bo'lak Farruhda yoziladi
     print(f"haqiqiy ovoz bilan taxminan {int(est // 60)}:{est % 60:04.1f} (chegara 3:00)")
     print('jami', round(float(total), 2), 's;', len(parts), "bo'lak;", ' '.join(f"{s['id']}={s['s']:.1f}" for s in scenes), '| qoralama:', ' '.join(sorted(DRAFT)) or "yo'q")
 

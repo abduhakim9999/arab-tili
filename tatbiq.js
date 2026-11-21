@@ -30,8 +30,8 @@
     '.tb-ms.k span:last-child{text-align:left}' +
     '.tb-dr{margin:6px 0 16px;text-align:center}.tb-dr .rt{display:inline-block;padding:5px 18px;border-radius:12px;background:var(--cd);border:1.5px solid var(--bd);font-weight:700;font-size:16px}' +
     '.tb-dr svg{display:block;width:100%;height:24px}.tb-dr path{stroke:var(--mu);stroke-width:1.4;fill:none;opacity:.7}' +
-    '.tb-dr .tb-chs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}' +
-    '.tb-dr .tb-chs span{display:block;padding:7px 4px;border-radius:12px;background:var(--t);color:var(--c);font-weight:700;font-size:15.5px}' +
+    '.tb-dr .tb-chs{direction:rtl;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}' +
+    '.tb-dr .tb-chs span{direction:ltr;display:block;padding:7px 4px;border-radius:12px;background:var(--t);color:var(--c);font-weight:700;font-size:15.5px}' +
     '.tb-dr .tb-chs small{display:block;font-weight:400;font-size:12px;opacity:.85}' +
     '.tb-zn{border:1.5px solid var(--bd);border-radius:16px;background:var(--cd);padding:6px 12px;margin:0 0 12px}' +
     '.tb-zn .r{display:flex;align-items:center;gap:10px;padding:5px 0;border-top:1px solid var(--bd)}.tb-zn .r:first-child{border-top:0}' +
@@ -45,9 +45,9 @@
     '.tb-jd th,.tb-jd td{padding:8px 6px;text-align:center;border-top:1px solid var(--bd)}.tb-jd tr:first-child th{border-top:0;font-weight:600;color:var(--mu);font-size:12.5px;line-height:1.25}' +
     '.tb-jd th:first-child{text-align:left;padding-left:12px;width:26%}.tb-jd td.y{color:var(--ac);font-weight:700}.tb-jd td.n{color:var(--mu);opacity:.7}' +
     '.tb-jd tr[class] th{color:var(--c);background:var(--t)}' +
-    '.tb-vq{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:4px 0 16px;padding-top:16px}' +
+    '.tb-vq{direction:rtl;position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:4px 0 16px;padding-top:16px}' +
     '.tb-vq:before{content:"";position:absolute;left:8%;right:8%;top:7px;height:2px;background:var(--bd)}' +
-    '.tb-vq>div{position:relative;text-align:center;border-radius:14px;background:var(--t);padding:16px 4px 9px;color:var(--c)}' +
+    '.tb-vq>div{direction:ltr;position:relative;text-align:center;border-radius:14px;background:var(--t);padding:16px 4px 9px;color:var(--c)}' +
     '.tb-vq>div:before{content:"";position:absolute;top:-14px;left:50%;margin-left:-6px;width:12px;height:12px;border-radius:50%;background:var(--c);border:2px solid var(--bg)}' +
     '.tb-vq small{display:block;font-size:12px;opacity:.85}.tb-vq b{display:block;font-size:14.5px}.tb-vq .ar{display:block;font-size:26px;line-height:1.6;color:var(--tx)}' +
     '.tb-vq i{display:block;font-style:normal;font-size:13px;color:var(--mu)}.tb-vq .c-a .ar:after{content:"!";font-family:system-ui;font-size:.7em;color:var(--c);margin-right:2px}' +
@@ -86,7 +86,7 @@
     '.tb-r{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0 12px;padding:4px 12px;border-top:1px solid var(--bd)}.tb-r:first-child{border-top:0}' +
     '.tb-l{flex:1 1 130px;font-size:14px;line-height:1.4;color:var(--mu);padding:3px 0}.tb .tb-l .ar{font-size:1.2em}' +
     '.tb-ar{display:inline-flex;direction:rtl;align-items:center;flex-wrap:wrap;gap:0 7px;margin-left:auto}.tb .tb-ar .ar{font-size:22px;line-height:1.7}.tb-ar i{font-style:normal;color:var(--mu);font-size:15px}' +
-    '.tb-cp{display:flex;justify-content:center;margin:2px 0 8px}.tb .tb-cp .ar{font-size:25px}' +
+    '.tb-cp{display:flex;justify-content:center;margin:2px 0 8px}.tb .tb-cp .ar{font-size:25px}.tb-cp .tb-ar{margin:0 auto}' +
     '.tb-nv{display:flex;justify-content:space-between;gap:10px;margin:24px 0 4px}.tb-nv a,.tb-nv span{flex:1;padding:12px 14px;border-radius:14px;border:1.5px solid var(--bd);background:var(--cd);color:var(--tx);text-decoration:none;font-weight:600;font-size:15px}' +
     '.tb-nv span{visibility:hidden}.tb-nv a:last-child{text-align:right}.tb-nv small{display:block;font-weight:400;font-size:12.5px;color:var(--mu)}';
 
@@ -372,7 +372,7 @@
         w: [['ضَرَبَ', 0], ['اِضْرِبْ', 2], ['يَضْرِبُ', 1], ['يَذْهَبُ', 1], ['اِذْهَبْ', 2], ['ذَهَبَ', 0], ['اُكْتُبْ', 2], ['يَكْتُبُ', 1], ['كَتَبَ', 0]] }
     ],
     q: [
-      ['Музороат ҳарфларини эслаб қолиш', 'Тўрт ҳарф бир сўзга жамланади:', '⟨أَنَيْتُ⟩', 'Баъзи китобларда бошқача жамланган:', '⟨نَأَيْتُ⟩'],
+      ['Музороат ҳарфларини эслаб қолиш', 'Тўрт ҳарф бир сўзга жамланади:', '⟨أَتَيْنَ⟩', 'Бошқа китобларда шундай жамланган:', '⟨أَنَيْتُ · نَأَيْتُ⟩'],
       ['Ҳар ҳарф кимни билдиради',
         ['r', 'мен', 'أَضْرِبُ'], ['r', 'биз', 'نَضْرِبُ'], ['r', 'у (эркак)', 'يَضْرِبُ'], ['r', 'сен', 'تَضْرِبُ'], ['r', 'у (аёл) — «т» шуни ҳам билдиради', 'هِيَ تَضْرِبُ']],
       ['Музороат ҳарфининг ҳаракати', 'Мозийси тўрт ҳарфли бўлса, музороат ҳарфи заммали бўлади; бошқаларида фатҳали.',

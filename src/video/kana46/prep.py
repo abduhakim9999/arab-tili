@@ -172,7 +172,38 @@ def _bp(x, f0, f1, q=2.2):                       # markazi f0 -> f1 ga siljiydig
     return y
 
 
+# Haqiqiy tovush effektlari (ElevenLabs Sound Effects v3; foydalanuvchi, 21.11.2026: «Eleven bilan qil») — sfx/NAME.mp3 bo'lsa shu olinadi,
+# bo'lmasa pastdagi sintez. Har biri: faol qismi kesib olinadi (THR dB dan baland joy), uzunligi MAXLEN bilan cheklanadi, chetlari so'ndiriladi.
+SFXREAL = {  # nom: (bo'sag'a dB, eng ko'p uzunlik s, kirish so'nishi s, chiqish so'nishi s)
+ 'whoosh': (-24, 0.75, 0.06, 0.18), 'whoosh2': (-24, 0.75, 0.06, 0.18), 'pop': (-35, 0.25, 0.002, 0.06), 'thud': (-35, 0.40, 0.002, 0.10),
+ 'shimmer': (-35, 0.90, 0.004, 0.25), 'chime': (-40, 1.40, 0.004, 0.35), 'tick': (-35, 0.15, 0.001, 0.04)}
+
+
+def sfx_real(name):
+    p = f'{D}/sfx/{name}.mp3'
+    if name not in SFXREAL or not os.path.exists(p): return None
+    thr, mx, fi, fo = SFXREAL[name]
+    raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', p, '-af', 'highpass=f=120', '-ac', '1', '-ar', str(SR), '-f', 'f32le', '-'], capture_output=True, check=True).stdout
+    x = np.frombuffer(raw, dtype=np.float32).astype(np.float64); h = int(SR * .005); n = len(x) // h
+    e = np.sqrt((x[:n * h].reshape(n, h) ** 2).mean(axis=1) + 1e-12); act = np.where(20 * np.log10(e / e.max()) > thr)[0]
+    a = max(0, act[0] * h - int(.008 * SR)); b = min(len(x), (act[-1] + 1) * h + int(fo * SR), a + int(mx * SR))
+    y = x[a:b].copy(); i, o = max(1, int(fi * SR)), max(1, int(fo * SR))
+    y[:i] *= np.linspace(0, 1, i); y[-o:] *= np.linspace(1, 0, o)
+    return y / (np.abs(y).max() + 1e-9)
+
+
+def _lvl(y):                                     # eng baland 30 ms lik bo'lakning RMS darajasi
+    w = int(SR * .03); c = np.cumsum(np.concatenate([[0], y ** 2]))
+    return np.sqrt(((c[w:] - c[:-w]) / w).max()) if len(y) > w else np.sqrt((y ** 2).mean())
+
+
 def sfx(name):
+    r = sfx_real(name)
+    if r is not None: return r * (_lvl(sfx_synth(name)) / (_lvl(r) + 1e-9))    # balandligi avvalgi (sintez) effektniki bilan teng
+    return sfx_synth(name)
+
+
+def sfx_synth(name):
     if name == 'whoosh':                         # sirpanib o'tish
         n = int(0.55 * SR); e = np.sin(np.pi * np.arange(n) / n) ** 2.2
         y = _bp(_noise(n, 1), 500, 3200) * e

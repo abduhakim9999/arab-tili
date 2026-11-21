@@ -1,0 +1,182 @@
+{
+ "dur": 77.3,
+ "fps": 30,
+ "clips": {
+  "k0a": {
+   "s": 0.6,
+   "e": 13.57,
+   "c": [
+    0.6,
+    2.95,
+    5.1,
+    8.03,
+    8.42,
+    10.64,
+    12.59
+   ]
+  },
+  "k0b": {
+   "s": 16.37,
+   "e": 17.67,
+   "c": [
+    16.37,
+    17.18
+   ]
+  },
+  "t1": {
+   "s": 19.87,
+   "e": 26.24,
+   "c": [
+    19.87,
+    21.83,
+    24.45,
+    25.25,
+    25.73
+   ]
+  },
+  "t2": {
+   "s": 26.59,
+   "e": 35.21,
+   "c": [
+    26.59,
+    29.23,
+    30.25,
+    31.67,
+    34.73
+   ]
+  },
+  "t3": {
+   "s": 35.61,
+   "e": 49.36,
+   "c": [
+    35.61,
+    36.69,
+    38.09,
+    40.17,
+    41.35,
+    42.29,
+    43.39,
+    44.93,
+    46.19,
+    47.11,
+    48.33
+   ]
+  },
+  "k3": {
+   "s": 51.16,
+   "e": 62.114,
+   "c": [
+    51.16,
+    54.34,
+    55.45,
+    57.11,
+    57.99,
+    60.61
+   ]
+  },
+  "k4a": {
+   "s": 64.014,
+   "e": 70.092,
+   "c": [
+    64.014,
+    67.104,
+    67.994
+   ]
+  },
+  "k4b": {
+   "s": 70.892,
+   "e": 74.888,
+   "c": [
+    70.892,
+    71.872,
+    73.252
+   ]
+  }
+ },
+ "scenes": [
+  {
+   "id": "S0",
+   "s": 0.0,
+   "e": 19.37
+  },
+  {
+   "id": "ST",
+   "s": 19.37,
+   "e": 50.26
+  },
+  {
+   "id": "S3",
+   "s": 50.26,
+   "e": 63.414
+  },
+  {
+   "id": "S4",
+   "s": 63.414,
+   "e": 77.288
+  }
+ ],
+ "draft": [
+  "k0a",
+  "k0b",
+  "k3",
+  "k4a",
+  "k4b"
+ ],
+ "subs": [
+  [
+   0.6,
+   2.93,
+   "O'zbekchada «havo chiroyli» deymiz."
+  ],
+  [
+   2.93,
+   5.06,
+   "Kechagi kun haqida gapirsak-chi?"
+  ],
+  [
+   5.06,
+   8.38,
+   "Oxiriga bitta so'z qo'shamiz: «havo chiroyli edi»."
+  ],
+  [
+   8.38,
+   10.58,
+   "Arab tilida ham shunday so'z bor."
+  ],
+  [
+   10.58,
+   13.57,
+   "Faqat u gapning oxiriga emas, boshiga keladi."
+  ],
+  [
+   16.37,
+   17.67,
+   "Bu so'z — kaana."
+  ],
+  [
+   51.16,
+   57.96,
+   "Kaana oddiy fe'ldek uch shaklda keladi: o'tgan zamon, hozirgi-kelasi zamon va buyruq."
+  ],
+  [
+   57.96,
+   62.11,
+   "Ularni kitob darslari tartibida, birma-bir ko'ramiz."
+  ],
+  [
+   64.01,
+   67.08,
+   "Kaana arab tilida eng ko'p uchraydigan fe'llardan biri."
+  ],
+  [
+   67.08,
+   70.09,
+   "Uni tanisangiz, o'qiganingizning katta qismi ochiladi."
+  ],
+  [
+   70.89,
+   74.89,
+   "Keyingi video: 46-dars — kaananing ismi va xabari."
+  ]
+ ]
+}

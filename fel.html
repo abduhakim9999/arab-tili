@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Феъл тести</title>
+<meta name="theme-color" content="#0f766e">
+<link rel="icon" href="icon-192.png">
+<link rel="stylesheet" href="shell.css">
+<script src="tg.js" data-key="" data-home="./"></script>
+<style>
+@font-face{font-family:"DarsNaskh";src:url(naskh.woff)}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tx);min-height:100vh}
+.fw{max-width:520px;margin:0 auto;padding:14px 16px calc(24px + env(safe-area-inset-bottom,0px));min-height:100vh;display:flex;flex-direction:column}
+.fh{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.fh b{font-size:18px}.fh span{font-size:13px;color:var(--mu);font-weight:600}
+.dots{display:flex;gap:6px;margin-bottom:16px}
+.dots i{flex:1;height:6px;border-radius:3px;background:var(--bd);transition:background .3s}
+.dots i.ok{background:#16a34a}.dots i.no{background:#dc2626}.dots i.cur{background:var(--ac)}
+.card{background:var(--cd);border:1px solid var(--bd);border-radius:24px;padding:22px 18px;box-shadow:var(--sh,0 4px 16px rgba(0,0,0,.06));text-align:center;animation:in .3s ease}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.tag{display:inline-block;font-size:12px;font-weight:700;color:var(--au2,#c99434);background:rgba(201,148,52,.12);border-radius:999px;padding:3px 10px;margin-bottom:8px}
+.vb{direction:rtl;font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:36px;line-height:1.7;color:var(--tx)}
+.say{margin:6px auto 4px;width:58px;height:58px;border-radius:29px;border:none;background:var(--ac);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 16px rgba(15,122,79,.3)}
+.say.pl{animation:pulse 1s ease infinite}
+@keyframes pulse{50%{transform:scale(1.08)}}
+.q{font-size:14px;color:var(--mu);margin:12px 0 10px}
+.op{display:block;width:100%;text-align:left;margin:8px 0;padding:14px 16px;border-radius:16px;border:1.5px solid var(--bd);background:var(--cd);color:var(--tx);font-size:16px;line-height:1.35;cursor:pointer;transition:all .2s}
+.op:active{transform:scale(.98)}
+.op.ok{border-color:#16a34a;background:rgba(22,163,74,.12);font-weight:600}
+.op.no{border-color:#dc2626;background:rgba(220,38,38,.10)}
+.op[disabled]{cursor:default}
+.nx{margin-top:14px;width:100%;padding:15px;border:none;border-radius:16px;background:var(--ac);color:#fff;font-size:16px;font-weight:700;cursor:pointer}
+.res{text-align:center;padding-top:20px}
+.big{font-size:54px;font-weight:800;color:var(--ac)}
+.st{font-size:18px;margin:6px 0 18px}
+.ml{text-align:left;background:var(--cd);border:1px solid var(--bd);border-radius:18px;padding:6px 14px;margin-bottom:14px}
+.ml div{padding:10px 0;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;gap:10px;align-items:center}
+.ml div:last-child{border:none}.ml .a{direction:rtl;font-family:"DarsNaskh",serif;font-size:20px}
+.note{font-size:13px;color:var(--mu);text-align:center;margin-top:8px}
+.bk{color:var(--ac);text-decoration:none;font-size:22px;font-weight:700;margin-right:8px}
+.bg{text-align:left;background:var(--cd);border:1px solid var(--bd);border-radius:18px;padding:12px 14px;margin-top:14px}
+.bg h4{margin:0 0 6px;font-size:15px}.bg div{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--bd);font-size:15px}
+.bg div:last-child{border:none}.bg .me{font-weight:700;color:var(--ac)}.bg .no{color:var(--mu)}
+.ln{color:var(--ac);font-size:13px;text-decoration:none;display:inline-block;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="fw" id="app"><div class="note" style="margin-top:40vh">Юкланмоқда…</div></div>
+<audio id="au" preload="auto"></audio>
+<script>
+var API = 'https://script.google.com/macros/s/AKfycbwfQAUAC3jHlqE5KHAeaqGekAkedI1UP7qECuJpzHF5lwl4fmBn_xEpj5nt8SfKiOBX/exec';
+var N = 5;
+var A = document.getElementById('au'), APP = document.getElementById('app');
+var V = [], items = [], cur = 0, res = [], K = 1, init = '', streak = 0;
+function initData() {
+  try { if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initData) return Telegram.WebApp.initData; } catch (e) {}
+  try { var m = /(?:^|&)tgWebAppData=([^&]*)/.exec(location.hash.slice(1)); if (m) return decodeURIComponent(m[1]); } catch (e) {}
+  try { return (JSON.parse(sessionStorage.getItem('__telegram__initParams') || '{}').tgWebAppData) || ''; } catch (e) { return ''; }
+}
+function post(p, t) {
+  return new Promise(function (ok) {
+    var done = false, x = setTimeout(function () { if (!done) { done = true; ok(null); } }, t || 6000);
+    fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(p) })
+      .then(function (r) { return r.json(); }).then(function (j) { if (!done) { done = true; clearTimeout(x); ok(j); } })
+      .catch(function () { if (!done) { done = true; clearTimeout(x); ok(null); } });
+  });
+}
+function vt(v) { return v.mu ? v.m + ' – ' + v.mu : v.m; }
+function mn(v) { return String(v.me).replace(/\s+/g, ' ').trim(); }
+function opts(i) {
+  var v = V[i], right = mn(v), o = [right], seed = (i + 1) * 7919;
+  for (var t = 1; o.length < 4 && t < 400; t++) { var x = V[(seed + t * 37) % V.length], m = mn(x); if (x !== v && o.indexOf(m) < 0) o.push(m); }
+  var pos = (seed + t) % 4; o.splice(0, 1); o.splice(pos, 0, right);
+  return { o: o, pos: pos };
+}
+function say(i, btn) {
+  A.src = 'fq/v' + ('00' + (i + 1)).slice(-3) + '.mp3';
+  if (btn) btn.classList.add('pl');
+  A.onended = function () { if (btn) btn.classList.remove('pl'); };
+  A.play().catch(function () { if (btn) btn.classList.remove('pl'); });
+}
+var SPK = '<svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+function dots() { return '<div class="dots">' + items.map(function (it, j) { var r = res[j]; return '<i class="' + (r ? (r.ok ? 'ok' : 'no') : (j === cur ? 'cur' : '')) + '"></i>'; }).join('') + '</div>'; }
+function hc() { return 'Феъллар ' + ((K - 1) * N + 1) + '–' + Math.min(K * N, V.length) + ' · ' + (cur + 1) + '/' + items.length; }
+// кейинги феълнинг овози олдиндан юклаб қўйилади
+function preload(j) { if (items[j]) { var a = new Audio(); a.preload = 'auto'; a.src = 'fq/v' + ('00' + (items[j].i + 1)).slice(-3) + '.mp3'; } }
+function show() {
+  if (cur >= items.length) return finish();
+  var it = items[cur], i = it.i, v = V[i], q = opts(i);
+  APP.innerHTML = '<div class="fh"><b><a class="bk" href="feellar.html" aria-label="Феъллар">‹</a>🔤 Феъл тести</b><span id="hc">' + hc() + '</span></div>' + dots() +
+    '<div class="card">' + (it.rep ? '<div class="tag">🔁 Такрорлаш</div>' : '') +
+    '<div class="vb">' + vt(v) + '</div><button class="say" id="sy" aria-label="Эшитиш">' + SPK + '</button>' +
+    '<div class="q">Маъноси қайси?</div>' + q.o.map(function (t, j) { return '<button class="op" data-j="' + j + '">' + t + '</button>'; }).join('') +
+    '<div id="nx"></div></div>';
+  var sy = document.getElementById('sy'); sy.onclick = function () { say(i, sy); }; say(i, sy); preload(cur + 1);
+  [].forEach.call(APP.querySelectorAll('.op'), function (b) {
+    b.onclick = function () {
+      var j = +b.dataset.j, ok = j === q.pos;
+      [].forEach.call(APP.querySelectorAll('.op'), function (x) { x.disabled = true; if (+x.dataset.j === q.pos) x.classList.add('ok'); });
+      if (!ok) b.classList.add('no');
+      try { Telegram.WebApp.HapticFeedback.notificationOccurred(ok ? 'success' : 'error'); } catch (e) {}
+      res[cur] = { n: i + 1, ok: ok };
+      document.getElementById('nx').innerHTML = '<button class="nx">' + (cur + 1 < items.length ? 'Кейинги ›' : 'Натижа') + '</button>';
+      document.querySelector('.nx').onclick = function () { cur++; show(); };
+      APP.querySelector('.dots').outerHTML = dots();
+    };
+  });
+}
+// «Феъллар» бўлими билан умумий: хатолар ўша ердаги «↻ Хатолар»га тушади, ишланган кун белгиланади
+function saveLocal(ok, bad) {
+  try {
+    var M = JSON.parse(localStorage.getItem('fl200_mist') || '[]') || [];
+    bad.forEach(function (r) { var i = r.n - 1; if (M.indexOf(i) < 0) M.push(i); });
+    localStorage.setItem('fl200_mist', JSON.stringify(M));
+    if (bad.length) localStorage.setItem('fl200_t', JSON.stringify(Date.now()));
+    var D = JSON.parse(localStorage.getItem('fel_done') || '{}') || {};
+    D[K] = Math.max(D[K] || 0, ok); localStorage.setItem('fel_done', JSON.stringify(D));
+  } catch (e) {}
+}
+// Бугун шу кун тестини ким ишлади — жадвалдан
+function bugun() {
+  post({ a: 'app', b: 'bugun', init: init, k: K }, 15000).then(function (j) {
+    var el = document.getElementById('bgn'); if (!el || !j || !j.ok) return;
+    var e = function (t) { return String(t).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); };
+    el.innerHTML = '<div class="bg"><h4>👥 Бугун ишлаганлар (' + j.ha.length + ')</h4>' +
+      (j.ha.map(function (x) { return '<div' + (x.men ? ' class="me"' : '') + '><span>' + e(x.n) + '</span><span>' + x.ok + ' / ' + j.jami + '</span></div>'; }).join('') || '<div class="no">—</div>') + '</div>' +
+      (j.yoq.length ? '<div class="bg"><h4>⏳ Ҳали ишламаганлар (' + j.yoq.length + ')</h4>' + j.yoq.map(function (n) { return '<div class="no"><span>' + e(n) + '</span></div>'; }).join('') + '</div>' : '');
+  });
+}
+function finish() {
+  var ok = res.filter(function (r) { return r.ok; }).length, bad = res.filter(function (r) { return !r.ok; });
+  APP.innerHTML = '<div class="res"><div class="big">' + ok + ' / ' + res.length + '</div><div class="st" id="st">' + (ok === res.length ? 'Баракалла! 🎉' : 'Яхши! Хатолар кейинги кунларда яна чиқади 🔁') + '</div>' +
+    (bad.length ? '<div class="ml">' + bad.map(function (r) { var v = V[r.n - 1]; return '<div><span class="a">' + vt(v) + '</span><span>' + mn(v) + '</span></div>'; }).join('') + '</div>' : '') +
+    '<div id="bgn"></div><button class="nx" id="cl">Ёпиш</button><button class="nx" id="fl" style="background:var(--cd);color:var(--ac);border:1.5px solid var(--bd)">📚 Барча феъллар</button><div class="note" id="sv">Сақланмоқда…</div></div>';
+  document.getElementById('cl').onclick = function () { try { Telegram.WebApp.close(); } catch (e) { location.href = './'; } };
+  document.getElementById('fl').onclick = function () { location.href = 'feellar.html'; };
+  saveLocal(ok, bad);
+  init = init || initData();
+  if (!init) { document.getElementById('sv').textContent = 'Натижа фақат Telegram ичида очилганда сақланади.'; return; }
+  post({ a: 'app', b: 'res', init: init, k: K, res: res }, 15000).then(function (j) {
+    var sv = document.getElementById('sv');
+    if (j && j.ok) { bugun(); sv.textContent = '✅ Натижа сақланди'; if (j.streak > 1) document.getElementById('st').innerHTML += '<br>🔥 ' + j.streak + ' кун кетма-кет'; }
+    else sv.textContent = 'Натижа сақланмади, интернетни текширинг.';
+  });
+}
+function start() {
+  init = initData();
+  var sp = ''; try { sp = Telegram.WebApp.initDataUnsafe.start_param || ''; } catch (e) {}
+  if (!sp) { var m0 = /(?:^|&)tgWebAppStartParam=([^&]*)/.exec(location.hash.slice(1)); if (m0) sp = decodeURIComponent(m0[1]); }
+  var m = /[?&]k=(\d+)/.exec(location.search) || /^fel_(\d+)/.exec(sp);
+  K = m ? +m[1] : 1;
+  var a = (K - 1) * N;
+  // олдинги хатолар жадвалдан орқа фонда сўралади — тест уларни кутмайди
+  var mistP = init ? post({ a: 'app', b: 'get', init: init }, 15000) : Promise.resolve(null);
+  fetch('fq/verbs.json').then(function (r) { return r.json(); }).then(function (d) {
+    V = d;
+    for (var i = a; i < Math.min(a + N, V.length); i++) items.push({ i: i });
+    show();
+    mistP.then(function (j) {
+      if (cur >= items.length) return;   // тест тугаб бўлган
+      var add = ((j && j.mist) || []).filter(function (n) { return n - 1 < a || n - 1 >= a + N; }).slice(0, 3);
+      if (!add.length) return;
+      add.forEach(function (n) { items.push({ i: n - 1, rep: 1 }); });
+      var h = document.getElementById('hc'); if (h) h.textContent = hc();
+      var ds = APP.querySelector('.dots'); if (ds) ds.outerHTML = dots();
+      var nb = APP.querySelector('.nx'); if (nb && cur + 1 < items.length) nb.textContent = 'Кейинги ›';
+    });
+  });
+}
+var started = false;
+function boot() { if (started) return; started = true; start(); }
+boot();
+</script>
+</body>
+</html>

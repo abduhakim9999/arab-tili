@@ -77,10 +77,15 @@ function yarat(o) {
        Gapi bir xil ma'nolar (kitobda bitta misolning tarjima variantlari) yoki gapsizlari — bitta kartada, avvalgidek birga. */
     function gapM(r) { var g = r.g; return !g ? '' : g.k != null ? ((r.x || [])[g.k] || [''])[0] : g.a.join(' '); }
     function guruh(r) { return (r.asl || r.id) + '|' + gapM(r); }
-    o.lugat.forEach(function (r) { if (faol[r.d]) { var a = guruh(r); (mano[a] = mano[a] || []).push(r); } });
+    /* 22.11.2026 (foydalanuvchi: «har bitta darsda hamma lug'at»): darsdagi eski so'z — `ay` (aynan shu ma'noli yozuv id si): o'z kartasi yo'q,
+       dars faol bo'lsa o'sha yozuv kartasi ochiladi (o'z darsi hali o'tilmagan bo'lsa ham) */
+    var akt = {};
+    o.lugat.forEach(function (r) { if (r.ay && faol[r.d]) akt[r.ay] = 1; });
+    o.lugat.forEach(function (r) { if (faol[r.d] && !r.ay) { var a = guruh(r); (mano[a] = mano[a] || []).push(r); } });
     o.lugat.forEach(function (r) {
-      var qm = !r.tk && r.asl && r.tur !== 'atoqli' && faol[r.d];   // keyingi ma'no
-      if (!qm && !(r.tk && (faol[r.d] || usz[r.id]))) return;
+      if (r.ay) return;
+      var qm = !r.tk && r.asl && r.tur !== 'atoqli' && (faol[r.d] || akt[r.id] || usz[r.id]);   // keyingi ma'no
+      if (!qm && !(r.tk && (faol[r.d] || usz[r.id] || akt[r.id]))) return;
       var m = mano[guruh(r)] || [r];
       if (m[0] !== r) return;                                 // shu gap bilan oldingi kartaga qo'shilgan
       var nk = 'w' + r.id;

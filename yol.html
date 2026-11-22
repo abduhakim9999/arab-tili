@@ -269,7 +269,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
 .y-kn .t .m{font-size:13.5px;color:var(--mu)}
 .y-kn .go{flex-shrink:0;display:flex;align-items:center;gap:2px;font-weight:700;color:var(--kt)}
 .y-kn .go svg{width:18px;height:18px}
-.y-lsb{padding:0 16px 6px}
+.y-lsb{padding:0 10px 6px}
 .y-lsb .y-bk{margin:16px 0 12px;box-shadow:0 4px 14px rgba(0,0,0,.12)}
 .y-lsb:last-child{padding-bottom:calc(200px + env(safe-area-inset-bottom,0px))}
 .y-lh{display:flex;align-items:flex-end;gap:12px;padding:18px 4px 10px}
@@ -294,6 +294,23 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
 .y-li.tz{opacity:.6}.y-md.tz{filter:grayscale(.75);opacity:.6}
 .y-li em.tz{font-size:12px;color:var(--ac);white-space:nowrap}
 .y-li.hz{border-color:#E0B95A;box-shadow:inset 0 -3px 0 #E0B95A}
+/* bob paneli (22.11.2026): bob kartasi + darslar + bob imtihoni bitta panelda; dars rasmi chiziq ustida, karta o'ngida */
+.y-li .k{display:contents}
+.y-pn{margin:16px 0 12px;padding:6px 6px 2px;border-radius:24px;background:color-mix(in srgb,var(--br) 9%,transparent);border:1.5px solid color-mix(in srgb,var(--br) 34%,transparent)}
+.y-lsb .y-pn .y-bk{margin:0 0 4px;box-shadow:0 3px 10px rgba(0,0,0,.1)}
+.y-pn .y-li,.y-pn .y-li:active,.y-pn .y-li.hz{position:relative;min-height:0;margin:0;padding:5px 0;gap:8px;border:0;border-radius:0;background:none;box-shadow:none;transform:none}
+.y-pn .y-li::before,.y-pn .y-li::after{content:'';position:absolute;left:21px;width:4px;margin-left:-2px;background:color-mix(in srgb,var(--br) 24%,transparent)}
+.y-pn .y-li::before{top:0;height:50%}
+.y-pn .y-li::after{top:50%;height:50%}
+.y-pn .y-li:last-child::after{display:none}
+.y-pn .y-li.o::before,.y-pn .y-li.no::after{background:var(--br)}
+.y-pn .y-li .ic{position:relative;z-index:1;width:42px;height:42px;box-sizing:border-box;border:2.5px solid color-mix(in srgb,var(--br) 30%,var(--cd))}
+.y-pn .y-li.o .ic{border-color:var(--br)}
+.y-pn .y-li .ic.q{background:var(--cd);border-radius:50%;overflow:hidden}
+.y-pn .y-li .ic.q svg{width:26px;height:30px}
+.y-pn .y-li .k{flex:1;min-width:0;min-height:62px;box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:8px 10px 11px;border-radius:16px;border:1.5px solid var(--bd);background:var(--cd);box-shadow:inset 0 -3px 0 var(--bd);transition:transform .06s,box-shadow .06s}
+.y-pn .y-li:active .k{transform:translateY(2px);box-shadow:inset 0 -1px 0 var(--bd)}
+.y-pn .y-li.hz .k{border-color:#E0B95A;box-shadow:inset 0 -3px 0 #E0B95A}
 </style>
 </head>
 <body>
@@ -617,23 +634,27 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
     var hb = H.b[b.k], m = MV[b.k] || {}, seg = '';
     b.d.forEach(function (d) { seg += '<i' + (H.d[d.n].ot ? ' class="o"' : '') + '></i>'; });
     /* 14.11.2026 (foydalanuvchi): ro'yxatda ham bob — rasmli karta (xaritadagi kabi; bosilsa boblar ro'yxati) */
-    var h = '<section class="y-lsb" data-b="' + b.k + '" style="--br:' + bobRang(b, k) + '">' +
+    /* 22.11.2026 (foydalanuvchi): bob — bitta panel (bob rangining och tusi): bob kartasi, darslar, bob imtihoni; dars rasmlari chiziq bilan
+       bog'langan, chiziq o'tilgan darsgacha bob rangida. Rasm o'zgarmaydi; «100% ✓» va navbatdagi darsning tilla hoshiyasi — avvalgidek */
+    var ots = b.d.map(function (d) { return !!H.d[d.n].ot; }).concat([!!hb.ot]);
+    var ch = function (i) { return (ots[i] ? ' o' : '') + (ots[i + 1] ? ' no' : ''); };   /* o — chiziq shu darsgacha to'la, no — keyingisigacha */
+    var h = '<section class="y-lsb" data-b="' + b.k + '" style="--br:' + bobRang(b, k) + '"><div class="y-pn">' +
       '<div class="y-bk" role="button" tabindex="0" aria-label="Боблар рўйхати"><div class="tx"><small>' + b.raq + '-БОБ · ' + hb.d + ' / ' + b.d.length + ' ДАРС' + IC.past + '</small><b class="ar" lang="ar">' + esc(b.nom) + '</b>' +
       (m.uz ? '<span class="uz">' + m.uz + '</span>' : '') + '<div class="y-sg" aria-hidden="true">' + seg + '</div></div>' +
       (m.kr ? '<img class="y-bki" src="' + rasm(m.kr) + '" alt="" loading="lazy" decoding="async">' : '') + '</div>';
-    b.d.forEach(function (d) {
+    b.d.forEach(function (d, di) {
       var u = H.d[d.n], qf = !u.ot && !u.op, ik = IK[d.n], r = u.r, lq = u.ls && u.mo && !u.lo;
-      h += '<button class="y-li' + (H.hz === 'd' + d.n ? ' hz' : '') + (qf ? ' qf' : '') + (u.tez ? ' tz' : '') + '" data-i="d' + d.n + '" aria-label="' + d.n + '-дарс: ' + esc(d.uz) + (u.ot ? ', ўтилган' : u.tez ? ', тез орада' : qf ? ', навбати келмаган' : '') + '">' +
+      h += '<button class="y-li' + (H.hz === 'd' + d.n ? ' hz' : '') + (qf ? ' qf' : '') + (u.tez ? ' tz' : '') + ch(di) + '" data-i="d' + d.n + '" aria-label="' + d.n + '-дарс: ' + esc(d.uz) + (u.ot ? ', ўтилган' : u.tez ? ', тез орада' : qf ? ', навбати келмаган' : '') + '">' +
         (ik ? '<span class="ic" style="background:' + ik.l + '"><svg viewBox="0 0 64 64" aria-hidden="true">' + ik.s + '</svg></span>' : '<span class="ic">' + d.n + '</span>') +
-        '<span class="t"><b>' + d.n + '. ' + esc(d.uz) + '</b><span class="ar" lang="ar">' + esc(d.ar) + '</span>' + '' + '</span>' +
-        (u.ot ? '<em class="ok">' + (r && !u.imt ? r.b + '%' : '') + IC.ok + '</em>' : u.tez ? '<em class="tz">тез орада</em>' : qf ? '' : r ? '<em>' + r.s + '%</em>' : '<em>' + IC.ong + '</em>') + '</button>';
+        '<span class="k"><span class="t"><b>' + d.n + '. ' + esc(d.uz) + '</b><span class="ar" lang="ar">' + esc(d.ar) + '</span>' + '' + '</span>' +
+        (u.ot ? '<em class="ok">' + (r && !u.imt ? r.b + '%' : '') + IC.ok + '</em>' : u.tez ? '<em class="tz">тез орада</em>' : qf ? '' : r ? '<em>' + r.s + '%</em>' : '<em>' + IC.ong + '</em>') + '</span></button>';
     });
-    var imt = function (t, i, x) {
-      return '<button class="y-li' + (H.hz === i ? ' hz' : '') + (!x.ot && !x.op ? ' qf' : '') + (x.tez ? ' tz' : '') + '" data-i="' + i + '"><span class="ic q">' + (t === 'b' ? IC.qalqon : IC.kubok) + '</span>' +
-        '<span class="t"><b>' + (t === 'b' ? 'Боб имтиҳони' : 'Китоб имтиҳони') + '</b><span class="m">' + (x.tez ? 'тез орада' : savolSoni(t, i.slice(1)) + ' савол · ' + OTISH + '% — ўтиш') + '</span></span>' +
-        (x.ot ? '<em class="ok">' + (x.r ? x.r.b + '%' : '') + IC.ok + '</em>' : x.r ? '<em>' + x.r.b + '%</em>' : '<em>' + IC.ong + '</em>') + '</button>';
+    var imt = function (t, i, x, c) {
+      return '<button class="y-li' + (H.hz === i ? ' hz' : '') + (!x.ot && !x.op ? ' qf' : '') + (x.tez ? ' tz' : '') + (c || '') + '" data-i="' + i + '"><span class="ic q">' + (t === 'b' ? IC.qalqon : IC.kubok) + '</span>' +
+        '<span class="k"><span class="t"><b>' + (t === 'b' ? 'Боб имтиҳони' : 'Китоб имтиҳони') + '</b><span class="m">' + (x.tez ? 'тез орада' : savolSoni(t, i.slice(1)) + ' савол · ' + OTISH + '% — ўтиш') + '</span></span>' +
+        (x.ot ? '<em class="ok">' + (x.r ? x.r.b + '%' : '') + IC.ok + '</em>' : x.r ? '<em>' + x.r.b + '%</em>' : '<em>' + IC.ong + '</em>') + '</span></button>';
     };
-    h += imt('b', 'b' + b.k, hb);
+    h += imt('b', 'b' + b.k, hb, ch(b.d.length)) + '</div>';
     if (k.b[k.b.length - 1] === b) h += imt('k', 'k' + k.n, H.k[k.n]) + keyingiKitob(k);
     return h + '</section>';
   }

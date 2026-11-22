@@ -33,8 +33,7 @@ def oqi(p):
         key = (t, v)
         d = json.loads(js) if js else {}
         if t == 'id':
-            ext = d.get('uz')
-            key = ('id', v, json.dumps(ext, ensure_ascii=False) if ext else '')
+            key = ('id', v)        # bitta id — bitta yozuv (ma'no o'zgartirilsa — birinchisidagi)
         if key not in Y:
             Y[key] = {'pos': [], 'd': {}}
             ord_.append(key)

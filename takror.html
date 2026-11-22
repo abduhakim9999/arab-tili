@@ -846,10 +846,10 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
      keyin fe'lning qolgan shakllari yoki ismning «ج» ko'pligi, «مؤ.» muannasi, «ال» bilan shakli — hammasi bir xil kattalikda, chiziqcha bilan.
      oc — qolganlari «Кўрсатиш»da ko'rinadi (joyi oldindan ajratilgan, so'z qimirlamaydi). Sig'masa — sigdir(). */
   /* «إِلَى alohidaroq tursin — ..га ma'nosi shundan» (21.11.2026): fe'l bilan keladigan harf oxirgi shakldan ajratiladi
-     («تَأْدِيَةٌ إِلَى ..», «مُحَافَظَةٌ (عَلَى ..)» → «إِلَى ..»); kartada o'z rangida (.tq-pp) — ma'nodagi «..га» va gapdagi إِلَيْهِ ham shu rangda. */
+     («تَأْدِيَةٌ إِلَى ..», «مُحَافَظَةٌ (عَلَى ..)» → «إِلَى ..»; 22.11.2026: «(هُ)», «(هُ مِنْ ..)» ham — maf'ul belgisi, gapda faqat harfi qidiriladi); kartada o'z rangida (.tq-pp) — ma'nodagi «..га» va gapdagi إِلَيْهِ ham shu rangda. */
   function sila(r) {
     if (!r.fel || r.fel.length < 2) return null;
-    var f = r.fel.slice(), o = f[f.length - 1], m = /\s*\(([^()]*\.\.[^()]*)\)\s*$/.exec(o) || /\s+(\S+\s*\.{2,3})\s*$/.exec(o);
+    var f = r.fel.slice(), o = f[f.length - 1], m = /\s*\((\u0647\u064F[^()]*|[^()]*\.\.[^()]*)\)\s*$/.exec(o) || /\s+(\S+\s*\.{2,3})\s*$/.exec(o);
     if (!m) return null;
     f[f.length - 1] = o.slice(0, m.index).trim();
     return { f: f, p: m[1].trim() };
@@ -899,7 +899,7 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
   var QSH = ['', 'ه', 'ها', 'هم', 'هما', 'هن', 'ك', 'كم', 'كما', 'كن', 'ي', 'نا'];
   function nrm(x) { return String(x).replace(/[\u064B-\u065F\u0670\u0640]/g, '').replace(/[أإآ]/g, 'ا').replace(/ى/g, 'ي').replace(/[^\u0621-\u064A]/g, ''); }
   function silaJoy(g, p) {
-    var b = nrm(p), k0 = g.i.length ? g.i[0][0] : -1, j, t, q;
+    var b = nrm(String(p).replace(/^(?:\u0647\u064F\s*)+/, '')), k0 = g.i.length ? g.i[0][0] : -1, j, t, q;
     if (!b || k0 < 0) return -1;
     for (j = k0 + 1; j < g.w.length && j <= k0 + 4; j++) { t = nrm(g.w[j]); for (q = 0; q < QSH.length; q++) if (t === b + QSH[q] && (q || b.length > 1)) return j; }
     return -1;

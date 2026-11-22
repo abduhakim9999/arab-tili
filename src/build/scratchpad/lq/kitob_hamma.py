@@ -63,7 +63,7 @@ def qur(n):
     V0 = voc0(n)
     L = json.load(open(os.path.join(ROOT, 'data/lugat.json'), encoding='utf-8'))['s']
     rp = os.path.join(ROOT, 'src/ru/d%02d.json' % n)
-    RU = json.load(open(rp, encoding='utf-8')) if os.path.exists(rp) else None
+    RU = json.load(open(rp, encoding='utf-8')) if os.path.exists(rp) and os.path.exists(os.path.join(ROOT, 'ru%d.html' % n)) else None   # ruscha sahifasi yo'q (70 qoralamasi) — tegilmaydi
     kn0 = [v[0] for v in V0]
     assert set(W) <= set(kn0), set(W) - set(kn0)
     # yangi qatorlar oldin qo'shilgan bo'lsa (qayta ishga tushirish) — kitob qatorlarigacha qaytariladi

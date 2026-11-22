@@ -10,8 +10,12 @@ LF = [f for f in os.listdir(R) if re.match(r'l%d-[0-9a-f]{8}\.mp3$' % N, f)][0]
 UZ = {m[0]: (m[2], m[3]) for m in J['m'] if m[1] == 'uz'}
 SAY = {8: {2: 'Ha, bu shajara. Bu paygʻambarning, sollallohu alayhi va sallam, oilasi.'}, 96: {14: 'Allohga omonatsiz!'},
        97: {29: 'Shuningdek, u dunyodagi oltinchi til boʻlib,', 30: 'Ikki yuz milliondan koʻproq arab shu tilda gaplashadi,', 31: 'Bir milliarddan koʻproq musulmonlar ibodatlarini shu tilda ado etadilar.'},
-       98: {5: 'Qurʼoni Karim boʻyicha mukofotga, Paygʻambarimiz sollallohu alayhi vasallamning siyratlari boʻyicha mukofotga va umumiy maʼlumotlar boʻyicha mukofotga sazovor boʻldim.'}}.get(N, {})
-SKIP = {8: {2: [5, 6, 7, 8]}, 97: {29: [4], 30: [1]}, 98: {5: [5, 6, 7]}}.get(N, {})   # qavsdagi (с.а.в.) — ovozda o'qiladi, sahifada qavsda: so'z ro'yxatiga kirmaydi; 97: «6-тил», «200 млн.дан» — ovozda ikki so'z, ekranda bitta
+       98: {5: 'Qurʼoni Karim boʻyicha mukofotga, Paygʻambarimiz sollallohu alayhi vasallamning siyratlari boʻyicha mukofotga va umumiy maʼlumotlar boʻyicha mukofotga sazovor boʻldim.'},
+       11: {5: 'Oʻsha kvartirada nechta xona bor?', 6: 'Oʻsha kvartirada besh ta xona bor.', 7: 'Oʻsha kvartira qaysi qavatda?',
+            8: 'Oʻsha kvartira beshin chi qavatda.', 9: 'Oʻsha kvartirani koʻrmoqchiman.', 10: 'Marhamat, koʻring! Mana bu oʻsha kvartira.'},
+       12: {11: 'Menga isitgich va oyna kerak. Mebellarni koʻrishni istayman.', 12: 'Marhamat, koʻring!'}}.get(N, {})
+SKIP = {8: {2: [5, 6, 7, 8]}, 97: {29: [4], 30: [1]}, 98: {5: [5, 6, 7]},
+        11: {5: [0], 6: [0], 7: [0], 8: [0], 9: [0], 10: [1, 3]}, 12: {12: [1]}}.get(N, {})   # qavsdagi (с.а.в.) — ovozda o'qiladi, sahifada qavsda: so'z ro'yxatiga kirmaydi; 97: «6-тил», «200 млн.дан» — ovozda ikki so'z, ekranda bitta
 def txt(li):
     if li in SAY: return SAY[li]
     t = re.sub(r'\s*\([^)]*\)', '', J['l'][str(li)][1])
@@ -43,7 +47,9 @@ w = {}
 for li, (a, b) in UZ.items():
     ws = json.load(open(R + '/align/out/u%d-%d.uz.align.json' % (N, li)))
     ws = [x for i, x in enumerate(ws) if i not in SKIP.get(li, [])]
-    nt = len(re.sub(r'\s*\([^)]*\)', '', J['l'][str(li)][1]).split())
+    pt = re.sub(r'\s*\([^)]*\)', '', J['l'][str(li)][1]).split(); nt = len(pt)
+    for k, t in enumerate(pt):   # «–» (tire) ekranda alohida so'z, ovozda yo'q — oldingi so'z oxiri bilan (11-dars, 22.11.2026)
+        if t in ('–', '—') and len(ws) < nt and k > 0: ws.insert(k, {'start': ws[k - 1]['end'], 'end': ws[k - 1]['end']})
     assert len(ws) == nt, (li, len(ws), nt)
     w[str(li)] = [[round(a + x['start'], 2) for x in ws], round(a + ws[-1]['end'], 2)]
 U = {'f': LF, 'o': o, 'h': h, 'w': w}

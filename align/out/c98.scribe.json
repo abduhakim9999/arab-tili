@@ -1,0 +1,631 @@
+{
+"words": [
+{
+"text": "الفرحة",
+"start": 0.28,
+"end": 1.24,
+"type": "word"
+},
+{
+"text": "بالجوائز.",
+"start": 1.3,
+"end": 2.28,
+"type": "word"
+},
+{
+"text": "ماذا",
+"start": 3.86,
+"end": 4.1,
+"type": "word"
+},
+{
+"text": "تحمل",
+"start": 4.14,
+"end": 4.5,
+"type": "word"
+},
+{
+"text": "يا",
+"start": 4.64,
+"end": 4.74,
+"type": "word"
+},
+{
+"text": "ولدي؟",
+"start": 4.78,
+"end": 5.18,
+"type": "word"
+},
+{
+"text": "ما",
+"start": 5.76,
+"end": 5.86,
+"type": "word"
+},
+{
+"text": "هذه",
+"start": 5.9,
+"end": 6.24,
+"type": "word"
+},
+{
+"text": "الأشياء؟",
+"start": 6.26,
+"end": 6.82,
+"type": "word"
+},
+{
+"text": "هذه",
+"start": 7.3,
+"end": 7.72,
+"type": "word"
+},
+{
+"text": "جوائز.",
+"start": 7.8,
+"end": 8.34,
+"type": "word"
+},
+{
+"text": "ساعدوني",
+"start": 8.92,
+"end": 9.6,
+"type": "word"
+},
+{
+"text": "فالجوائز",
+"start": 10.04,
+"end": 10.6,
+"type": "word"
+},
+{
+"text": "كثيرة.",
+"start": 10.74,
+"end": 11.16,
+"type": "word"
+},
+{
+"text": "ما",
+"start": 11.76,
+"end": 11.84,
+"type": "word"
+},
+{
+"text": "الجوائز",
+"start": 11.86,
+"end": 12.5,
+"type": "word"
+},
+{
+"text": "التي",
+"start": 12.52,
+"end": 12.86,
+"type": "word"
+},
+{
+"text": "حصلت",
+"start": 12.94,
+"end": 13.42,
+"type": "word"
+},
+{
+"text": "عليها؟",
+"start": 13.46,
+"end": 13.98,
+"type": "word"
+},
+{
+"text": "حصلت",
+"start": 14.42,
+"end": 14.8,
+"type": "word"
+},
+{
+"text": "على",
+"start": 14.92,
+"end": 15.12,
+"type": "word"
+},
+{
+"text": "جائزة",
+"start": 15.18,
+"end": 15.68,
+"type": "word"
+},
+{
+"text": "القرآن",
+"start": 15.7,
+"end": 16.18,
+"type": "word"
+},
+{
+"text": "الكريم",
+"start": 16.2,
+"end": 16.72,
+"type": "word"
+},
+{
+"text": "وجائزة",
+"start": 17.36,
+"end": 18.02,
+"type": "word"
+},
+{
+"text": "السيرة",
+"start": 18.06,
+"end": 18.58,
+"type": "word"
+},
+{
+"text": "النبوية",
+"start": 18.62,
+"end": 19.3,
+"type": "word"
+},
+{
+"text": "وجائزة",
+"start": 19.78,
+"end": 20.44,
+"type": "word"
+},
+{
+"text": "المعلومات",
+"start": 20.48,
+"end": 21.14,
+"type": "word"
+},
+{
+"text": "العامة.",
+"start": 21.18,
+"end": 21.62,
+"type": "word"
+},
+{
+"text": "ما",
+"start": 22.1,
+"end": 22.26,
+"type": "word"
+},
+{
+"text": "شاء",
+"start": 22.38,
+"end": 22.66,
+"type": "word"
+},
+{
+"text": "الله",
+"start": 22.68,
+"end": 23.14,
+"type": "word"
+},
+{
+"text": "فَقَدْ",
+"start": 23.54,
+"end": 23.82,
+"type": "word",
+"scribe": "لقد"
+},
+{
+"text": "حصل",
+"start": 23.88,
+"end": 24.2,
+"type": "word"
+},
+{
+"text": "ولدي",
+"start": 24.34,
+"end": 24.72,
+"type": "word"
+},
+{
+"text": "على",
+"start": 24.78,
+"end": 25.0,
+"type": "word"
+},
+{
+"text": "جوائز",
+"start": 25.06,
+"end": 25.6,
+"type": "word"
+},
+{
+"text": "المسابقة.",
+"start": 25.64,
+"end": 26.42,
+"type": "word"
+},
+{
+"text": "كانت",
+"start": 26.82,
+"end": 27.22,
+"type": "word"
+},
+{
+"text": "المنافسة",
+"start": 27.26,
+"end": 28.06,
+"type": "word"
+},
+{
+"text": "شديدة",
+"start": 28.12,
+"end": 28.74,
+"type": "word"
+},
+{
+"text": "جدا.",
+"start": 28.8,
+"end": 29.18,
+"type": "word"
+},
+{
+"text": "ماذا",
+"start": 30.22,
+"end": 30.6,
+"type": "word"
+},
+{
+"text": "فعل",
+"start": 30.68,
+"end": 31.02,
+"type": "word"
+},
+{
+"text": "صديقك",
+"start": 31.1,
+"end": 31.66,
+"type": "word"
+},
+{
+"text": "حسام؟",
+"start": 31.72,
+"end": 32.28,
+"type": "word"
+},
+{
+"text": "حصل",
+"start": 32.78,
+"end": 33.16,
+"type": "word"
+},
+{
+"text": "على",
+"start": 33.22,
+"end": 33.4,
+"type": "word"
+},
+{
+"text": "جائزة",
+"start": 33.48,
+"end": 33.96,
+"type": "word"
+},
+{
+"text": "الحديث",
+"start": 33.98,
+"end": 34.52,
+"type": "word"
+},
+{
+"text": "وجائزة",
+"start": 34.58,
+"end": 35.2,
+"type": "word"
+},
+{
+"text": "الخطابة.",
+"start": 35.22,
+"end": 35.78,
+"type": "word"
+},
+{
+"text": "هذا",
+"start": 36.1,
+"end": 36.5,
+"type": "word"
+},
+{
+"text": "أسعد",
+"start": 36.6,
+"end": 37.12,
+"type": "word"
+},
+{
+"text": "يوم",
+"start": 37.18,
+"end": 37.6,
+"type": "word"
+},
+{
+"text": "في",
+"start": 37.66,
+"end": 37.8,
+"type": "word"
+},
+{
+"text": "حياتي.",
+"start": 37.88,
+"end": 38.48,
+"type": "word"
+},
+{
+"text": "لقد",
+"start": 39.0,
+"end": 39.4,
+"type": "word"
+},
+{
+"text": "رفعت",
+"start": 39.46,
+"end": 40.0,
+"type": "word"
+},
+{
+"text": "رأسنا.",
+"start": 40.04,
+"end": 40.72,
+"type": "word"
+},
+{
+"text": "أنتما",
+"start": 41.04,
+"end": 41.46,
+"type": "word"
+},
+{
+"text": "السبب",
+"start": 41.48,
+"end": 41.92,
+"type": "word"
+},
+{
+"text": "في",
+"start": 42.0,
+"end": 42.1,
+"type": "word"
+},
+{
+"text": "نجاحي.",
+"start": 42.16,
+"end": 42.74,
+"type": "word"
+},
+{
+"text": "جَزَاكُمَا",
+"start": 43.2,
+"end": 43.68,
+"type": "word",
+"scribe": "جزاكم"
+},
+{
+"text": "الله",
+"start": 43.74,
+"end": 44.06,
+"type": "word"
+},
+{
+"text": "خيرا.",
+"start": 44.14,
+"end": 44.54,
+"type": "word"
+},
+{
+"text": "ونحن",
+"start": 44.94,
+"end": 45.5,
+"type": "word"
+},
+{
+"text": "سنعطيك",
+"start": 45.58,
+"end": 46.32,
+"type": "word"
+},
+{
+"text": "جائزة",
+"start": 46.38,
+"end": 47.08,
+"type": "word"
+},
+{
+"text": "أيضا.",
+"start": 47.12,
+"end": 47.7,
+"type": "word"
+},
+{
+"text": "لا",
+"start": 47.98,
+"end": 48.12,
+"type": "word"
+},
+{
+"text": "أريد",
+"start": 48.16,
+"end": 48.5,
+"type": "word"
+},
+{
+"text": "منكما",
+"start": 48.54,
+"end": 48.96,
+"type": "word"
+},
+{
+"text": "جائزة،",
+"start": 49.02,
+"end": 49.42,
+"type": "word"
+},
+{
+"text": "فالخير",
+"start": 49.92,
+"end": 50.44,
+"type": "word"
+},
+{
+"text": "كثير",
+"start": 50.5,
+"end": 50.98,
+"type": "word"
+},
+{
+"text": "والحمد",
+"start": 51.04,
+"end": 51.46,
+"type": "word"
+},
+{
+"text": "لله،",
+"start": 51.5,
+"end": 51.88,
+"type": "word"
+},
+{
+"text": "لكنني",
+"start": 52.64,
+"end": 53.22,
+"type": "word"
+},
+{
+"text": "أريد",
+"start": 53.28,
+"end": 53.58,
+"type": "word"
+},
+{
+"text": "منكما",
+"start": 53.62,
+"end": 54.06,
+"type": "word"
+},
+{
+"text": "شيئا",
+"start": 54.12,
+"end": 54.48,
+"type": "word"
+},
+{
+"text": "آخر.",
+"start": 54.62,
+"end": 54.94,
+"type": "word"
+},
+{
+"text": "ما",
+"start": 55.4,
+"end": 55.52,
+"type": "word"
+},
+{
+"text": "هو",
+"start": 55.64,
+"end": 55.84,
+"type": "word"
+},
+{
+"text": "سنعطيك",
+"start": 56.42,
+"end": 57.14,
+"type": "word"
+},
+{
+"text": "ما",
+"start": 57.2,
+"end": 57.32,
+"type": "word"
+},
+{
+"text": "تريد.",
+"start": 57.38,
+"end": 57.92,
+"type": "word"
+},
+{
+"text": "أطلب",
+"start": 58.76,
+"end": 59.14,
+"type": "word"
+},
+{
+"text": "منكما",
+"start": 59.18,
+"end": 59.58,
+"type": "word"
+},
+{
+"text": "العفو",
+"start": 59.6,
+"end": 60.06,
+"type": "word"
+},
+{
+"text": "والدعاء.",
+"start": 60.1,
+"end": 60.64,
+"type": "word"
+},
+{
+"text": "عفا",
+"start": 61.36,
+"end": 61.5,
+"type": "word"
+},
+{
+"text": "الله",
+"start": 61.56,
+"end": 61.96,
+"type": "word"
+},
+{
+"text": "عنك",
+"start": 62.06,
+"end": 62.44,
+"type": "word"
+},
+{
+"text": "ووفقك",
+"start": 63.28,
+"end": 63.84,
+"type": "word"
+},
+{
+"text": "في",
+"start": 63.92,
+"end": 64.04,
+"type": "word"
+},
+{
+"text": "حياتك",
+"start": 64.12,
+"end": 64.84,
+"type": "word"
+},
+{
+"text": "ودراستك.",
+"start": 64.9,
+"end": 65.82,
+"type": "word"
+},
+{
+"text": "جَزَاكُمَا",
+"start": 66.12,
+"end": 66.7,
+"type": "word",
+"scribe": "جزاكم"
+},
+{
+"text": "الله",
+"start": 66.8,
+"end": 67.18,
+"type": "word"
+},
+{
+"text": "خيرا.",
+"start": 67.26,
+"end": 67.84,
+"type": "word"
+}
+]
+}

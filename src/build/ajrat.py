@@ -202,6 +202,7 @@ def main():
     lug, msh, drs = [], [], []
     QT, QTsrc, QTfarq = {}, {}, {}
     bosh_id = {}
+    BOG = []                                          # aniq bog'langan yozuvlar (ay / asl) — oxirida tekshiriladi
 
     def idber(tur, key):
         T = LOCK[tur]
@@ -237,11 +238,18 @@ def main():
             t = TUZ.get(str(wid)) or {}
             r.update({k: t[k] for k in t if k != 'izoh'})
             bk = ('D.' if r['ar'].lstrip().startswith('.') else 'D:') + re.sub(r'[.\u0640\s]', '', r['ar']) if '.' in r['ar'] else r['ar']   # «..كَ» (zamir) va «كَ..» (harf) — boshqa so'z   # 19.11.2026: «بِ..», «بِ...», «بِـ...» — bitta so'z
-            if bk in bosh_id:
+            e4 = v[4] if len(v) > 4 and isinstance(v[4], dict) else {}
+            if e4.get('ay') or e4.get('asl'):         # 22.11.2026: darsning hamma so'zi lug'atda — eski so'z aniq bog'lanadi (docs/texnik.md 14)
+                if e4.get('ay'):
+                    r['ay'] = e4['ay']                # aynan shu ma'noli yozuv: o'z kartasi yo'q, holati o'shaniki
+                else:
+                    r['asl'] = e4['asl']              # yangi ma'no — o'z kartasi (keyingi ma'no)
+                BOG.append(r)
+            elif bk in bosh_id and bosh_id[bk] != wid:
                 r['asl'] = bosh_id[bk]                # shu so'zning keyingi ma'nosi: so'z sanog'ida birinchisi, takrorda — o'z kartasi (takror.js)
             else:
                 bosh_id[bk] = wid
-            r['tk'] = 1 if (r['tur'] in ('soz', 'fel', 'harf', 'zamir') and 'asl' not in r and t.get('tk', 1)) else 0   # 13.11.2026: harf va olmoshlar ham bazaga kiradi (atoqli ot — yo'q)
+            r['tk'] = 1 if (r['tur'] in ('soz', 'fel', 'harf', 'zamir') and 'asl' not in r and 'ay' not in r and t.get('tk', 1)) else 0   # 13.11.2026: harf va olmoshlar ham bazaga kiradi (atoqli ot — yo'q)
             r['uz'] = uz
             if str(wid) in MZ:
                 r['mz'] = MZ[str(wid)]
@@ -352,6 +360,20 @@ def main():
         for k in yoq:
             LOCK['ochgan'][tur].append(LOCK[tur].pop(k))
 
+    # --- aniq bog'langan yozuvlar (22.11.2026): ay — aynan shu ma'noli yozuv (o'zi bazaga kirmaydi, holati o'shaniki), asl — bosh yozuv
+    BY = {r['id']: r for r in lug}
+    for r in BOG:
+        t0 = BY.get(r.get('ay') or r.get('asl'))
+        if not t0:
+            print("TO'XTA: %d-dars lug'at %s: bog'langan yozuv topilmadi (id %s)" % (r['d'], r['kn'], r.get('ay') or r.get('asl')))
+            sys.exit(2)
+        if r.get('ay'):
+            if t0.get('ay'):
+                r['ay'] = t0['ay']; t0 = BY[t0['ay']]
+            r['asl'] = t0.get('asl') or t0['id']
+        elif BY[r['asl']].get('asl') or BY[r['asl']].get('ay'):
+            print("TO'XTA: %d-dars lug'at %s: asl bosh yozuv emas (id %s)" % (r['d'], r['kn'], r['asl']))
+            sys.exit(2)
     yoz('lugat.json', '{"v":1,"s":[', lug, ']}')
     yoz('mashq.json', '{"v":1,"s":[', msh, ']}')
     yoz('qoida.json', '{"v":1,"guruh":%s,"s":[' % json.dumps(GUR['_guruh'], ensure_ascii=False), qrows, ']}')

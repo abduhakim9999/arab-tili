@@ -1,5 +1,6 @@
 tayyor-10-dars a12f8dd37008a66c25cce3953a3ab396dda28cd2
 tayyor-97-dars eaf4ad0c0c8e64e1af57b261f5c26495ea4d4ea8
+tayyor-98-dars 97b4369efd4c1296316a4f61e72c3e70e6291f08
 tayyor-bir-bosish 012aff06f651e1ddc03cd174f056e8305c4e992c
 tayyor-feel-moziy f94d4bbf06bff9b123801d837bbe7c58c3df445d
 tayyor-fiqh-1 99bf54368875c441d16295968e4aad9c41541787
@@ -19,6 +20,7 @@ tayyor-kitob-oxiri e3ad5e422288993b14584790cfa5758726e63bac
 tayyor-korish-tartib ca9dacb900bfa669a4a37abbe9ac38456b344ac2
 tayyor-lugat-92 0819ccac48d523cdb52746ac0018195c89e08d90
 tayyor-lugat-97 8f003bfa8ac8f59ceed8fe4580d178843f253cde
+tayyor-lugat-hamma 31be011437caac88ec1e8b13db1daaf35e4ad8c9
 tayyor-lugat-korinish 6de616c387d23f31592221e8104cf148d02ba2c0
 tayyor-mashq-darslar b37e14b901ec4e9f905ca26b0cd134f2bf66eb8e
 tayyor-mashq-reyting b3ce6026fdd5ad61c3a488b7c500d1dafa9e1ac6
@@ -29,6 +31,7 @@ tayyor-parallel f8a92fb9e371834571b135fc0358fbfcda815051
 tayyor-pleyer-chiziq a1957caab582c9c1587a5fb6961244163bf14653
 tayyor-qoidalar-yopiq dae45978d331fe85cf62cd34e79f90d15cf71b10
 tayyor-reyting 82f5e69ae0d73a9158429b1735432f2b08209f42
+tayyor-royxat 90c80b898bcc3f82a0c14f7432875565a8f3723c
 tayyor-ruscha 4db6c71635efebf009c7abf10f31cc0d6e72b33c
 tayyor-saqlash 73d9bdfae2c7efb424dbf49b06140fade959c8e3
 tayyor-saralashsiz c5e943f84ad52f45efa5621b87a23b046658f3eb

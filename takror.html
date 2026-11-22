@@ -333,7 +333,7 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
 <script>
 (function () {
   var SINOV = !!SN;
-  var FAOL = [1];                       /* so'zlari saralangan darslar (baza: W.s); hech biri saralanmagan bo'lsa — 1-dars */
+  var FAOL = [1], AKT = {};                       /* so'zlari saralangan darslar (baza: W.s); hech biri saralanmagan bo'lsa — 1-dars */
   var KB = SINOV ? 'soz-sinov' : 'soz'; /* SO'Z BAZASI belgilari (yol.html bilan umumiy): {v, b:{id:1} bilmayman, k:{id:1} «bilaman» deb aytilgan, s:{dars:vaqt}} */
   var W = null, LF = 'h', LT = '', LQ = '', MQ = null;   /* LF — holat filtri; LT — tur filtri ('' | i исм | f феъл | h ҳарф); LQ — qidiruv; MQ — ketayotgan qo'shimcha mashq */
   var KJ = SINOV ? 'takror-sinov-j' : 'takror-j', KS = 'takror-sinov-kun';
@@ -382,6 +382,8 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
     for (k in W.b) usz.push(+k);
     for (k in W.s) fa.push(+k);
     FAOL = fa.length ? fa.sort(function (a, b) { return a - b; }) : [1];
+    AKT = {};                                           /* 22.11.2026: faol darsdagi eski so'z (`ay`) — o'sha yozuv ham «mening so'zlarim»da */
+    D.l.forEach(function (r) { if (r.ay && FAOL.indexOf(r.d) > -1) AKT[r.ay] = 1; });
     var yn = 0;                                        /* «Созламалар» → кунлик янги сўзлар (10 / 15 / 20) */
     try { yn = +JSON.parse(L('sozlama') || '{}').yangi || 0; } catch (e) {}
     QAYTA = false;
@@ -493,7 +495,7 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
   function menHisob(S) {
     var f = {}, men, c = { m: 0, g: 0, o: 0, b: 0 }, qy = 0;
     FAOL.forEach(function (d) { f[d] = 1; });
-    men = S.filter(function (x) { return f[x.r.d] || W.b[x.r.id] || W.a[x.r.id] || x.ok + x.no > 0; });
+    men = S.filter(function (x) { return f[x.r.d] || AKT[x.r.id] || W.b[x.r.id] || W.a[x.r.id] || x.ok + x.no > 0; });
     men.forEach(function (x) { c[x.st]++; if (x.qy) qy++; });
     return { men: men, c: c, qy: qy };
   }

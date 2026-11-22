@@ -62,5 +62,7 @@
 "DUA": {"g": "boshqa", "kb": "7"},
 "TAAJ": {"g": "boshqa"},
 "TAALA": {"g": "boshqa", "kb": "7"},
-"WAHD": {"g": "boshqa"}
+"WAHD": {"g": "boshqa"},
+"QASAM": {"g": "harf", "kb": "7"},
+"ITIRAZ": {"g": "boshqa", "kb": "7"}
 }

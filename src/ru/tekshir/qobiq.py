@@ -43,7 +43,6 @@ SEED = {
     'til': 'uz' if UZREJ else 'ru',
     'soz': json.dumps({'v': 1, 'b': {str(i): 1 for i in ids1[:8]}, 'k': {str(i): 1 for i in ids1[8:14]}, 's': {str(n): now for n in (1, 2, 3, 4)}, 'a': {}, 't': now}),
     'yol': json.dumps({'v': 1, 'd': {'1': {'b': 90, 's': 90, 'j': 10, 't': now}, '2': {'b': 60, 's': 60, 'j': 10, 't': now}}, 'e': {}}),
-    'yol-kor': 'r',
     'baza-tg': '1',                    # 14.11.2026: kirgan o'quvchi — Луғат va imtihonlar kirishsiz yopiq (tg.js Kirish)
     'baza-eski': json.dumps({'v': 1, 'ar': now, 'ls': {'x': '1'}}),   # «Ўчирилган: … · яна N кун сақланади» qatori ham ko'rinsin
 }
@@ -129,11 +128,9 @@ with sync_playwright() as p:
     def bos(sel, n=0):
         return pg.evaluate("([s,n])=>{const e=document.querySelectorAll(s)[n];if(!e)return false;e.click();return true}", [sel, n])
 
-    # ---- Йўл: ro'yxat, keyin xarita ----
-    for kor in ('r', 'x'):
-        pg.evaluate("k=>localStorage.setItem('yol-kor',k)", kor) if sahifa[0] else None
+    # ---- Йўл: ro'yxat (xarita 22.11.2026 da olib tashlandi) ----
+    for kor in ('r',):
         och('yol.html')
-        pg.evaluate("k=>localStorage.setItem('yol-kor',k)", kor); pg.reload(); pg.wait_for_timeout(1500)
         scan('yol-' + kor)
         ni = pg.evaluate("()=>[...new Set([...document.querySelectorAll('[data-i]')].map(e=>e.getAttribute('data-i')))]")
         for i in ni:

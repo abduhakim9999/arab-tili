@@ -22,7 +22,7 @@ if [ "$M" = fiqh ]; then
   cp "$O/fiqh.html" "$O/index.html"
 else
   [ -d fq ] && cp -r fq "$O/"
-  [ -d fon ] && cp -r fon "$O/"     # «Йўл» xaritasi manzaralari va bob kartasi rasmlari (docs/texnik.md 15)
+  [ -d fon ] && cp -r fon "$O/"     # bob kartasi rasmlari, «Грамматика»/«Татбиқ» rasmlari (docs/texnik.md 15, 18)
   [ -d qol ] && cp -r qol "$O/"     # yo'riqnoma o'ynatkichi: ekran rasmlari va mavzular (docs/texnik.md 20)
   [ -d data ] && cp -r data "$O/"   # lug'at, mashq, qoida ma'lumot fayllari (docs/texnik.md 14)
   # sw.js: fiqh fayllari keshlanmaydi

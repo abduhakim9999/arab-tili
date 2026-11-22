@@ -1,4 +1,6 @@
 tayyor-10-dars a12f8dd37008a66c25cce3953a3ab396dda28cd2
+tayyor-11-12-dars 9b698b208ab0afa37e6a38322463a6a6b0ab2fff
+tayyor-90-dars ee2e50da25f14a52856e179372942018c9da0634
 tayyor-97-dars eaf4ad0c0c8e64e1af57b261f5c26495ea4d4ea8
 tayyor-98-dars 97b4369efd4c1296316a4f61e72c3e70e6291f08
 tayyor-bir-bosish 012aff06f651e1ddc03cd174f056e8305c4e992c
@@ -7,6 +9,7 @@ tayyor-bob8-sila 433076457b23ca61cf2ea3b6b9cd99f1cb2c3d02
 tayyor-feel-moziy f94d4bbf06bff9b123801d837bbe7c58c3df445d
 tayyor-fiqh-1 99bf54368875c441d16295968e4aad9c41541787
 tayyor-fiqh-2 3194f435ae9e12841abb3d97712b0709a3817f50
+tayyor-fiqh-3 9c67f8a9ac6bec4da263fca005ad840124c38a86
 tayyor-fiqh-legenda 09de4790dc9202f6e3c9dd2e83d663f7702f7d8b
 tayyor-fiqh-pin f542057fac69091dd39a8bce92628b7d68836c40
 tayyor-fiqh-sukut ecd856f8c24b4afd8fd4949686dd955a49942748
@@ -24,6 +27,7 @@ tayyor-lugat-92 0819ccac48d523cdb52746ac0018195c89e08d90
 tayyor-lugat-97 8f003bfa8ac8f59ceed8fe4580d178843f253cde
 tayyor-lugat-hamma 31be011437caac88ec1e8b13db1daaf35e4ad8c9
 tayyor-lugat-korinish 6de616c387d23f31592221e8104cf148d02ba2c0
+tayyor-lugat-qolgan 9d4576c709a5c066c560dd105e58872697827e44
 tayyor-lugat-sila efc9407dad9a03357c1842c7da35bc6db5a38c10
 tayyor-mashq-darslar b37e14b901ec4e9f905ca26b0cd134f2bf66eb8e
 tayyor-mashq-reyting b3ce6026fdd5ad61c3a488b7c500d1dafa9e1ac6

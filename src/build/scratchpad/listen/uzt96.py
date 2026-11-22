@@ -10,8 +10,12 @@ LF = [f for f in os.listdir(R) if re.match(r'l%d-[0-9a-f]{8}\.mp3$' % N, f)][0]
 UZ = {m[0]: (m[2], m[3]) for m in J['m'] if m[1] == 'uz'}
 SAY = {8: {2: 'Ha, bu shajara. Bu paygʻambarning, sollallohu alayhi va sallam, oilasi.'}, 96: {14: 'Allohga omonatsiz!'},
        97: {29: 'Shuningdek, u dunyodagi oltinchi til boʻlib,', 30: 'Ikki yuz milliondan koʻproq arab shu tilda gaplashadi,', 31: 'Bir milliarddan koʻproq musulmonlar ibodatlarini shu tilda ado etadilar.'},
+       90: {5: 'Firma oʻn ta muhandisga ehtiyoj sezadi, ammo ishlash uchun yuz ta muhandis ariza topshirgan boʻlib, ularning aksari ulkan tajribalarga ega.',
+            6: 'Oʻzingga mos ishni topasan, Alloh xohlasa.',
+            7: 'Otajon, muhandis boʻlishga oʻqiganimdan afsusdaman. Axir men muhandislik fakultetini ikki yil avval bitirganman, biroq hozirgacha ishlamadim.',
+            10: 'Hukumat: Bu yil yoshlar uchun koʻplab ish oʻrinlari yaratiladi, deyapti.'},
        98: {5: 'Qurʼoni Karim boʻyicha mukofotga, Paygʻambarimiz sollallohu alayhi vasallamning siyratlari boʻyicha mukofotga va umumiy maʼlumotlar boʻyicha mukofotga sazovor boʻldim.'}}.get(N, {})
-SKIP = {8: {2: [5, 6, 7, 8]}, 97: {29: [4], 30: [1]}, 98: {5: [5, 6, 7]}}.get(N, {})   # qavsdagi (с.а.в.) — ovozda o'qiladi, sahifada qavsda: so'z ro'yxatiga kirmaydi; 97: «6-тил», «200 млн.дан» — ovozda ikki so'z, ekranda bitta
+SKIP = {90: {6: [0]}, 8: {2: [5, 6, 7, 8]}, 97: {29: [4], 30: [1]}, 98: {5: [5, 6, 7]}}.get(N, {})   # 90: «(Ўзингга)» ovozda o'qiladi, sahifada qavsda; qavsdagi (с.а.в.) — ovozda o'qiladi, sahifada qavsda: so'z ro'yxatiga kirmaydi; 97: «6-тил», «200 млн.дан» — ovozda ikki so'z, ekranda bitta
 def txt(li):
     if li in SAY: return SAY[li]
     t = re.sub(r'\s*\([^)]*\)', '', J['l'][str(li)][1])

@@ -1,0 +1,1574 @@
+[
+{
+"start": 1.2399999999999958,
+"end": 2.04,
+"text": " Bismillahirrahmanirrahim",
+"words": [
+{
+"w": " Bismillahirrahmanirrahim",
+"s": 1.24,
+"e": 2.04
+}
+]
+},
+{
+"start": 2.04,
+"end": 4.38,
+"text": " Mustahabbatul wudu'i",
+"words": [
+{
+"w": " Mustahabbatul",
+"s": 2.04,
+"e": 3.56
+},
+{
+"w": " wudu",
+"s": 3.56,
+"e": 4.06
+},
+{
+"w": "'i",
+"s": 4.06,
+"e": 4.38
+}
+]
+},
+{
+"start": 4.38,
+"end": 6.12,
+"text": " Taharad ning mustahablara",
+"words": [
+{
+"w": " Taharad",
+"s": 4.38,
+"e": 5.06
+},
+{
+"w": " ning",
+"s": 5.06,
+"e": 5.22
+},
+{
+"w": " mustahablara",
+"s": 5.22,
+"e": 6.12
+}
+]
+},
+{
+"start": 6.12,
+"end": 9.66,
+"text": " Temiq mustahabbatul muzafu ala muttada",
+"words": [
+{
+"w": " Temiq",
+"s": 6.12,
+"e": 7.68
+},
+{
+"w": " mustahabbatul",
+"s": 7.68,
+"e": 8.66
+},
+{
+"w": " muzafu",
+"s": 8.66,
+"e": 9.12
+},
+{
+"w": " ala",
+"s": 9.12,
+"e": 9.28
+},
+{
+"w": " muttada",
+"s": 9.28,
+"e": 9.66
+}
+]
+},
+{
+"start": 9.66,
+"end": 12.66,
+"text": " Rafal ning alamati zahri zama al wudu'i muzafu ala ilaik",
+"words": [
+{
+"w": " Rafal",
+"s": 9.66,
+"e": 9.98
+},
+{
+"w": " ning",
+"s": 9.98,
+"e": 10.08
+},
+{
+"w": " alamati",
+"s": 10.08,
+"e": 10.44
+},
+{
+"w": " zahri",
+"s": 10.44,
+"e": 10.82
+},
+{
+"w": " zama",
+"s": 10.82,
+"e": 11.08
+},
+{
+"w": " al",
+"s": 11.08,
+"e": 11.3
+},
+{
+"w": " wudu",
+"s": 11.3,
+"e": 11.62
+},
+{
+"w": "'i",
+"s": 11.62,
+"e": 11.72
+},
+{
+"w": " muzafu",
+"s": 11.72,
+"e": 12.16
+},
+{
+"w": " ala",
+"s": 12.16,
+"e": 12.28
+},
+{
+"w": " ilaik",
+"s": 12.28,
+"e": 12.66
+}
+]
+},
+{
+"start": 12.66,
+"end": 16.56,
+"text": " Mana shu pastegi mustahab khakti kega mausulana hammasa",
+"words": [
+{
+"w": " Mana",
+"s": 12.66,
+"e": 13.76
+},
+{
+"w": " shu",
+"s": 13.76,
+"e": 13.98
+},
+{
+"w": " pastegi",
+"s": 13.98,
+"e": 14.52
+},
+{
+"w": " mustahab",
+"s": 14.52,
+"e": 14.98
+},
+{
+"w": " khakti",
+"s": 14.98,
+"e": 15.3
+},
+{
+"w": " kega",
+"s": 15.3,
+"e": 15.5
+},
+{
+"w": " mausulana",
+"s": 15.5,
+"e": 15.96
+},
+{
+"w": " hammasa",
+"s": 15.96,
+"e": 16.56
+}
+]
+},
+{
+"start": 16.56,
+"end": 18.2,
+"text": " Mustahabbatul muttada ke",
+"words": [
+{
+"w": " Mustahabbatul",
+"s": 16.56,
+"e": 17.46
+},
+{
+"w": " muttada",
+"s": 17.46,
+"e": 18.0
+},
+{
+"w": " ke",
+"s": 18.0,
+"e": 18.2
+}
+]
+},
+{
+"start": 18.2,
+"end": 19.7,
+"text": " Khabar khukmada",
+"words": [
+{
+"w": " Khabar",
+"s": 18.2,
+"e": 19.26
+},
+{
+"w": " khukmada",
+"s": 19.26,
+"e": 19.7
+}
+]
+},
+{
+"start": 19.7,
+"end": 20.98,
+"text": " Yeni rafalanda bolada",
+"words": [
+{
+"w": " Yeni",
+"s": 19.7,
+"e": 19.98
+},
+{
+"w": " rafalanda",
+"s": 19.98,
+"e": 20.56
+},
+{
+"w": " bolada",
+"s": 20.56,
+"e": 20.98
+}
+]
+},
+{
+"start": 20.98,
+"end": 23.62,
+"text": " Pastan wa mustahabbuhu",
+"words": [
+{
+"w": " Pastan",
+"s": 20.98,
+"e": 22.52
+},
+{
+"w": " wa",
+"s": 22.52,
+"e": 22.68
+},
+{
+"w": " mustahabbuhu",
+"s": 22.68,
+"e": 23.62
+}
+]
+},
+{
+"start": 23.62,
+"end": 24.96,
+"text": " Wa unik mustahabu",
+"words": [
+{
+"w": " Wa",
+"s": 23.62,
+"e": 23.8
+},
+{
+"w": " unik",
+"s": 23.8,
+"e": 24.08
+},
+{
+"w": " mustahabu",
+"s": 24.08,
+"e": 24.96
+}
+]
+},
+{
+"start": 24.96,
+"end": 26.58,
+"text": " Dabi azal gamna mustahablara",
+"words": [
+{
+"w": " Dabi",
+"s": 24.96,
+"e": 25.16
+},
+{
+"w": " azal",
+"s": 25.16,
+"e": 25.42
+},
+{
+"w": " gamna",
+"s": 25.42,
+"e": 25.68
+},
+{
+"w": " mustahablara",
+"s": 25.68,
+"e": 26.58
+}
+]
+},
+{
+"start": 26.58,
+"end": 27.46,
+"text": " Dabi itilnad",
+"words": [
+{
+"w": " Dabi",
+"s": 26.58,
+"e": 27.06
+},
+{
+"w": " itilnad",
+"s": 27.06,
+"e": 27.46
+}
+]
+},
+{
+"start": 27.46,
+"end": 30.58,
+"text": " Wad kharfe fadkha ke mani irabtu anguroya",
+"words": [
+{
+"w": " Wad",
+"s": 27.46,
+"e": 28.68
+},
+{
+"w": " kharfe",
+"s": 28.68,
+"e": 29.06
+},
+{
+"w": " fadkha",
+"s": 29.06,
+"e": 29.44
+},
+{
+"w": " ke",
+"s": 29.44,
+"e": 29.52
+},
+{
+"w": " mani",
+"s": 29.52,
+"e": 29.78
+},
+{
+"w": " irabtu",
+"s": 29.78,
+"e": 30.12
+},
+{
+"w": " anguroya",
+"s": 30.12,
+"e": 30.58
+}
+]
+},
+{
+"start": 30.58,
+"end": 34.52,
+"text": " Wa mustahabbuhu dup ahirgechi kegaan gab",
+"words": [
+{
+"w": " Wa",
+"s": 30.58,
+"e": 31.02
+},
+{
+"w": " mustahabbuhu",
+"s": 31.02,
+"e": 33.3
+},
+{
+"w": " dup",
+"s": 33.3,
+"e": 33.44
+},
+{
+"w": " ahirgechi",
+"s": 33.44,
+"e": 33.98
+},
+{
+"w": " kegaan",
+"s": 33.98,
+"e": 34.42
+},
+{
+"w": " gab",
+"s": 34.42,
+"e": 34.52
+}
+]
+},
+{
+"start": 34.52,
+"end": 38.22,
+"text": " Uzna aldingi wa sünnetuhu dup ahirgechi itilingan",
+"words": [
+{
+"w": " Uzna",
+"s": 34.52,
+"e": 35.0
+},
+{
+"w": " aldingi",
+"s": 35.0,
+"e": 35.58
+},
+{
+"w": " wa",
+"s": 35.58,
+"e": 35.72
+},
+{
+"w": " sünnetuhu",
+"s": 35.72,
+"e": 36.68
+},
+{
+"w": " dup",
+"s": 36.68,
+"e": 36.92
+},
+{
+"w": " ahirgechi",
+"s": 36.92,
+"e": 37.88
+},
+{
+"w": " itilingan",
+"s": 37.88,
+"e": 38.22
+}
+]
+},
+{
+"start": 38.22,
+"end": 42.2,
+"text": " Oni sünnetlere falan falan falan dup itilingan gablana",
+"words": [
+{
+"w": " Oni",
+"s": 38.22,
+"e": 38.44
+},
+{
+"w": " sünnetlere",
+"s": 38.44,
+"e": 39.16
+},
+{
+"w": " falan",
+"s": 39.16,
+"e": 40.04
+},
+{
+"w": " falan",
+"s": 40.04,
+"e": 40.4
+},
+{
+"w": " falan",
+"s": 40.4,
+"e": 40.9
+},
+{
+"w": " dup",
+"s": 40.9,
+"e": 41.14
+},
+{
+"w": " itilingan",
+"s": 41.14,
+"e": 41.72
+},
+{
+"w": " gablana",
+"s": 41.72,
+"e": 42.2
+}
+]
+},
+{
+"start": 42.2,
+"end": 43.56,
+"text": " Umumi hammasa ke",
+"words": [
+{
+"w": " Umumi",
+"s": 42.2,
+"e": 42.8
+},
+{
+"w": " hammasa",
+"s": 42.8,
+"e": 43.5
+},
+{
+"w": " ke",
+"s": 43.5,
+"e": 43.56
+}
+]
+},
+{
+"start": 43.56,
+"end": 47.76,
+"text": " Masho vadangke ingi mustahabbuhu dup ahirgechi itilingan gablana",
+"words": [
+{
+"w": " Masho",
+"s": 43.56,
+"e": 44.36
+},
+{
+"w": " vadangke",
+"s": 44.36,
+"e": 44.88
+},
+{
+"w": " ingi",
+"s": 44.88,
+"e": 45.06
+},
+{
+"w": " mustahabbuhu",
+"s": 45.06,
+"e": 45.92
+},
+{
+"w": " dup",
+"s": 45.92,
+"e": 46.04
+},
+{
+"w": " ahirgechi",
+"s": 46.04,
+"e": 46.94
+},
+{
+"w": " itilingan",
+"s": 46.94,
+"e": 47.36
+},
+{
+"w": " gablana",
+"s": 47.36,
+"e": 47.76
+}
+]
+},
+{
+"start": 47.76,
+"end": 49.18,
+"text": " Hammas onge mahtuf bolad",
+"words": [
+{
+"w": " Hammas",
+"s": 47.76,
+"e": 48.14
+},
+{
+"w": " onge",
+"s": 48.14,
+"e": 48.38
+},
+{
+"w": " mahtuf",
+"s": 48.38,
+"e": 48.86
+},
+{
+"w": " bolad",
+"s": 48.86,
+"e": 49.18
+}
+]
+},
+{
+"start": 50.620000000000005,
+"end": 52.6,
+"text": " Demik wa mustahabbuhu",
+"words": [
+{
+"w": " Demik",
+"s": 50.62,
+"e": 51.38
+},
+{
+"w": " wa",
+"s": 51.38,
+"e": 51.76
+},
+{
+"w": " mustahabbuhu",
+"s": 51.76,
+"e": 52.6
+}
+]
+},
+{
+"start": 52.6,
+"end": 54.36,
+"text": " Jumla jumla ga mahtuf bolad damak jums",
+"words": [
+{
+"w": " Jumla",
+"s": 52.6,
+"e": 52.92
+},
+{
+"w": " jumla",
+"s": 52.92,
+"e": 53.22
+},
+{
+"w": " ga",
+"s": 53.22,
+"e": 53.32
+},
+{
+"w": " mahtuf",
+"s": 53.32,
+"e": 53.64
+},
+{
+"w": " bolad",
+"s": 53.64,
+"e": 53.88
+},
+{
+"w": " damak",
+"s": 53.88,
+"e": 54.14
+},
+{
+"w": " jums",
+"s": 54.14,
+"e": 54.36
+}
+]
+},
+{
+"start": 55.34,
+"end": 56.1,
+"text": " Mustahabbuhu",
+"words": [
+{
+"w": " Mustahabbuhu",
+"s": 55.34,
+"e": 56.1
+}
+]
+},
+{
+"start": 56.1,
+"end": 56.98,
+"text": " Demik mustahabbuhu",
+"words": [
+{
+"w": " Demik",
+"s": 56.1,
+"e": 56.38
+},
+{
+"w": " mustahabbuhu",
+"s": 56.38,
+"e": 56.98
+}
+]
+},
+{
+"start": 56.98,
+"end": 58.76,
+"text": " Muzahaf rafqling alamata zahiri zame",
+"words": [
+{
+"w": " Muzahaf",
+"s": 56.98,
+"e": 57.36
+},
+{
+"w": " rafqling",
+"s": 57.36,
+"e": 57.72
+},
+{
+"w": " alamata",
+"s": 57.72,
+"e": 58.14
+},
+{
+"w": " zahiri",
+"s": 58.14,
+"e": 58.5
+},
+{
+"w": " zame",
+"s": 58.5,
+"e": 58.76
+}
+]
+},
+{
+"start": 58.76,
+"end": 59.02,
+"text": " Hu",
+"words": [
+{
+"w": " Hu",
+"s": 58.76,
+"e": 59.02
+}
+]
+},
+{
+"start": 59.02,
+"end": 60.64,
+"text": " Muttasil zanwiru",
+"words": [
+{
+"w": " Muttasil",
+"s": 59.02,
+"e": 60.26
+},
+{
+"w": " zanwiru",
+"s": 60.26,
+"e": 60.64
+}
+]
+},
+{
+"start": 60.64,
+"end": 61.36,
+"text": " Muzahafin ili",
+"words": [
+{
+"w": " Muzahafin",
+"s": 60.64,
+"e": 61.18
+},
+{
+"w": " ili",
+"s": 61.18,
+"e": 61.36
+}
+]
+},
+{
+"start": 61.36,
+"end": 61.94,
+"text": " Zame mege",
+"words": [
+{
+"w": " Zame",
+"s": 61.36,
+"e": 61.78
+},
+{
+"w": " mege",
+"s": 61.78,
+"e": 61.94
+}
+]
+},
+{
+"start": 61.94,
+"end": 63.04,
+"text": " Mabini jara oranda",
+"words": [
+{
+"w": " Mabini",
+"s": 61.94,
+"e": 62.3
+},
+{
+"w": " jara",
+"s": 62.3,
+"e": 62.6
+},
+{
+"w": " oranda",
+"s": 62.6,
+"e": 63.04
+}
+]
+},
+{
+"start": 63.04,
+"end": 64.82,
+"text": " Orta digana",
+"words": [
+{
+"w": " Orta",
+"s": 63.04,
+"e": 64.54
+},
+{
+"w": " digana",
+"s": 64.54,
+"e": 64.82
+}
+]
+},
+{
+"start": 64.82,
+"end": 65.7,
+"text": " Fasile bar",
+"words": [
+{
+"w": " Fasile",
+"s": 64.82,
+"e": 65.36
+},
+{
+"w": " bar",
+"s": 65.36,
+"e": 65.7
+}
+]
+},
+{
+"start": 65.7,
+"end": 67.26,
+"text": " Hua digana",
+"words": [
+{
+"w": " Hua",
+"s": 65.7,
+"e": 66.94
+},
+{
+"w": " digana",
+"s": 66.94,
+"e": 67.26
+}
+]
+},
+{
+"start": 67.26,
+"end": 67.76,
+"text": " Fasile",
+"words": [
+{
+"w": " Fasile",
+"s": 67.26,
+"e": 67.76
+}
+]
+},
+{
+"start": 68.92,
+"end": 69.68,
+"text": " Hua",
+"words": [
+{
+"w": " Hua",
+"s": 68.92,
+"e": 69.68
+}
+]
+},
+{
+"start": 69.68,
+"end": 70.84,
+"text": " Atteyamunu",
+"words": [
+{
+"w": " Atteyamunu",
+"s": 69.68,
+"e": 70.84
+}
+]
+},
+{
+"start": 70.84,
+"end": 71.68,
+"text": " Yarni",
+"words": [
+{
+"w": " Yarni",
+"s": 70.84,
+"e": 71.68
+}
+]
+},
+{
+"start": 71.68,
+"end": 72.88,
+"text": " Muzahafin ili",
+"words": [
+{
+"w": " Muzahafin",
+"s": 71.68,
+"e": 72.56
+},
+{
+"w": " ili",
+"s": 72.56,
+"e": 72.88
+}
+]
+},
+{
+"start": 86.44,
+"end": 88.04,
+"text": " Muzahafin ili",
+"words": [
+{
+"w": " Muzahafin",
+"s": 86.44,
+"e": 87.84
+},
+{
+"w": " ili",
+"s": 87.84,
+"e": 88.04
+}
+]
+},
+{
+"start": 91.64,
+"end": 93.42,
+"text": " Muzahafin ili",
+"words": [
+{
+"w": " Muzahafin",
+"s": 91.64,
+"e": 93.04
+},
+{
+"w": " ili",
+"s": 93.04,
+"e": 93.42
+}
+]
+},
+{
+"start": 98.01999999999998,
+"end": 100.82,
+"text": " Muzahafin ili",
+"words": [
+{
+"w": " Muzahafin",
+"s": 98.02,
+"e": 99.42
+},
+{
+"w": " ili",
+"s": 99.42,
+"e": 100.82
+}
+]
+},
+{
+"start": 100.82,
+"end": 101.66,
+"text": " Demik",
+"words": [
+{
+"w": " Demik",
+"s": 100.82,
+"e": 101.66
+}
+]
+},
+{
+"start": 101.66,
+"end": 102.82,
+"text": " Etkanimizdik",
+"words": [
+{
+"w": " Etkanimizdik",
+"s": 101.66,
+"e": 102.82
+}
+]
+},
+{
+"start": 102.82,
+"end": 104.08,
+"text": " Muzahafin ili",
+"words": [
+{
+"w": " Muzahafin",
+"s": 102.82,
+"e": 103.7
+},
+{
+"w": " ili",
+"s": 103.7,
+"e": 104.08
+}
+]
+},
+{
+"start": 104.08,
+"end": 105.06,
+"text": " Muzahabuhu",
+"words": [
+{
+"w": " Muzahabuhu",
+"s": 104.08,
+"e": 105.06
+}
+]
+},
+{
+"start": 105.06,
+"end": 106.0,
+"text": " Atteyamunu",
+"words": [
+{
+"w": " Atteyamunu",
+"s": 105.06,
+"e": 106.0
+}
+]
+},
+{
+"start": 106.0,
+"end": 106.6,
+"text": " Amasho",
+"words": [
+{
+"w": " Amasho",
+"s": 106.0,
+"e": 106.6
+}
+]
+},
+{
+"start": 106.6,
+"end": 107.18,
+"text": " Rraqabati",
+"words": [
+{
+"w": " Rraqabati",
+"s": 106.6,
+"e": 107.18
+}
+]
+},
+{
+"start": 107.18,
+"end": 107.9,
+"text": " Jumlasi",
+"words": [
+{
+"w": " Jumlasi",
+"s": 107.18,
+"e": 107.9
+}
+]
+},
+{
+"start": 107.9,
+"end": 108.5,
+"text": " Vada",
+"words": [
+{
+"w": " Vada",
+"s": 107.9,
+"e": 108.5
+}
+]
+},
+{
+"start": 108.5,
+"end": 109.18,
+"text": " Alingi",
+"words": [
+{
+"w": " Alingi",
+"s": 108.5,
+"e": 109.18
+}
+]
+},
+{
+"start": 109.18,
+"end": 110.68,
+"text": " Wasunnatuhu",
+"words": [
+{
+"w": " Wasunnatuhu",
+"s": 109.18,
+"e": 110.68
+}
+]
+},
+{
+"start": 110.68,
+"end": 112.44,
+"text": " Dup ahirgechi itilingan",
+"words": [
+{
+"w": " Dup",
+"s": 110.68,
+"e": 110.9
+},
+{
+"w": " ahirgechi",
+"s": 110.9,
+"e": 112.04
+},
+{
+"w": " itilingan",
+"s": 112.04,
+"e": 112.44
+}
+]
+},
+{
+"start": 112.44,
+"end": 112.72,
+"text": " Bitum",
+"words": [
+{
+"w": " Bitum",
+"s": 112.44,
+"e": 112.72
+}
+]
+},
+{
+"start": 112.72,
+"end": 113.3,
+"text": " Muzahafin ili",
+"words": [
+{
+"w": " Muzahafin",
+"s": 112.72,
+"e": 113.12
+},
+{
+"w": " ili",
+"s": 113.12,
+"e": 113.3
+}
+]
+},
+{
+"start": 113.3,
+"end": 115.5,
+"text": " Muzahafin ili",
+"words": [
+{
+"w": " Muzahafin",
+"s": 113.3,
+"e": 114.04
+},
+{
+"w": " ili",
+"s": 114.04,
+"e": 115.5
+}
+]
+},
+{
+"start": 115.5,
+"end": 116.04,
+"text": " Muzahafin ili",
+"words": [
+{
+"w": " Muzahafin",
+"s": 115.5,
+"e": 115.84
+},
+{
+"w": " ili",
+"s": 115.84,
+"e": 116.04
+}
+]
+},
+{
+"start": 116.04,
+"end": 121.42,
+"text": " Muzahafin ili",
+"words": [
+{
+"w": " Muzahafin",
+"s": 116.04,
+"e": 118.1
+},
+{
+"w": " ili",
+"s": 118.1,
+"e": 121.42
+}
+]
+},
+{
+"start": 127.12,
+"end": 129.04,
+"text": " Muzahafin ili",
+"words": [
+{
+"w": " Muzahafin",
+"s": 127.12,
+"e": 128.52
+},
+{
+"w": " ili",
+"s": 128.52,
+"e": 129.04
+}
+]
+},
+{
+"start": 129.04,
+"end": 129.78,
+"text": " Ointamandan",
+"words": [
+{
+"w": " Ointamandan",
+"s": 129.04,
+"e": 129.78
+}
+]
+},
+{
+"start": 129.78,
+"end": 130.4,
+"text": " Boshlej",
+"words": [
+{
+"w": " Boshlej",
+"s": 129.78,
+"e": 130.4
+}
+]
+},
+{
+"start": 130.4,
+"end": 130.68,
+"text": " Vah",
+"words": [
+{
+"w": " Vah",
+"s": 130.4,
+"e": 130.68
+}
+]
+},
+{
+"start": 130.68,
+"end": 131.08,
+"text": " Boying",
+"words": [
+{
+"w": " Boying",
+"s": 130.68,
+"e": 131.08
+}
+]
+},
+{
+"start": 131.08,
+"end": 131.96,
+"text": " Masq",
+"words": [
+{
+"w": " Masq",
+"s": 131.08,
+"e": 131.96
+}
+]
+},
+{
+"start": 131.96,
+"end": 132.3,
+"text": " Tartish",
+"words": [
+{
+"w": " Tartish",
+"s": 131.96,
+"e": 132.3
+}
+]
+},
+{
+"start": 132.3,
+"end": 133.06,
+"text": " Ibarat",
+"words": [
+{
+"w": " Ibarat",
+"s": 132.3,
+"e": 133.06
+}
+]
+},
+{
+"start": 133.06,
+"end": 133.32,
+"text": " Dere",
+"words": [
+{
+"w": " Dere",
+"s": 133.06,
+"e": 133.32
+}
+]
+},
+{
+"start": 133.32,
+"end": 133.5,
+"text": " Dere",
+"words": [
+{
+"w": " Dere",
+"s": 133.32,
+"e": 133.5
+}
+]
+},
+{
+"start": 133.5,
+"end": 133.76,
+"text": " Segan",
+"words": [
+{
+"w": " Segan",
+"s": 133.5,
+"e": 133.76
+}
+]
+},
+{
+"start": 133.76,
+"end": 134.1,
+"text": " Bulee",
+"words": [
+{
+"w": " Bulee",
+"s": 133.76,
+"e": 134.1
+}
+]
+},
+{
+"start": 135.10000000000002,
+"end": 135.8,
+"text": " Ointamandan",
+"words": [
+{
+"w": " Ointamandan",
+"s": 135.1,
+"e": 135.8
+}
+]
+},
+{
+"start": 135.8,
+"end": 136.3,
+"text": " Boshlej",
+"words": [
+{
+"w": " Boshlej",
+"s": 135.8,
+"e": 136.3
+}
+]
+},
+{
+"start": 136.3,
+"end": 136.64,
+"text": " Vah",
+"words": [
+{
+"w": " Vah",
+"s": 136.3,
+"e": 136.64
+}
+]
+},
+{
+"start": 136.64,
+"end": 137.14,
+"text": " Boying",
+"words": [
+{
+"w": " Boying",
+"s": 136.64,
+"e": 137.14
+}
+]
+},
+{
+"start": 137.14,
+"end": 137.58,
+"text": " Masq",
+"words": [
+{
+"w": " Masq",
+"s": 137.14,
+"e": 137.58
+}
+]
+},
+{
+"start": 137.58,
+"end": 137.86,
+"text": " Tartish",
+"words": [
+{
+"w": " Tartish",
+"s": 137.58,
+"e": 137.86
+}
+]
+},
+{
+"start": 137.86,
+"end": 138.06,
+"text": " Lig",
+"words": [
+{
+"w": " Lig",
+"s": 137.86,
+"e": 138.06
+}
+]
+},
+{
+"start": 138.06,
+"end": 138.34,
+"text": " Bulee",
+"words": [
+{
+"w": " Bulee",
+"s": 138.06,
+"e": 138.34
+}
+]
+},
+{
+"start": 138.34,
+"end": 138.8,
+"text": " Amalga",
+"words": [
+{
+"w": " Amalga",
+"s": 138.34,
+"e": 138.8
+}
+]
+},
+{
+"start": 138.8,
+"end": 139.14,
+"text": " Aşa",
+"words": [
+{
+"w": " Aşa",
+"s": 138.8,
+"e": 139.14
+}
+]
+},
+{
+"start": 139.14,
+"end": 139.6,
+"text": " Dere",
+"words": [
+{
+"w": " Dere",
+"s": 139.14,
+"e": 139.6
+}
+]
+},
+{
+"start": 139.6,
+"end": 139.7,
+"text": " Dere",
+"words": [
+{
+"w": " Dere",
+"s": 139.6,
+"e": 139.7
+}
+]
+},
+{
+"start": 139.7,
+"end": 140.2,
+"text": " Tرجimak",
+"words": [
+{
+"w": " Tرجimak",
+"s": 139.7,
+"e": 140.2
+}
+]
+},
+{
+"start": 140.2,
+"end": 140.56,
+"text": " Segan",
+"words": [
+{
+"w": " Segan",
+"s": 140.2,
+"e": 140.56
+}
+]
+},
+{
+"start": 140.56,
+"end": 140.96,
+"text": " Bulee",
+"words": [
+{
+"w": " Bulee",
+"s": 140.56,
+"e": 140.96
+}
+]
+},
+{
+"start": 140.96,
+"end": 141.38,
+"text": " Muzahafin ili",
+"words": [
+{
+"w": " Muzahafin",
+"s": 140.96,
+"e": 141.06
+},
+{
+"w": " ili",
+"s": 141.06,
+"e": 141.38
+}
+]
+}
+]

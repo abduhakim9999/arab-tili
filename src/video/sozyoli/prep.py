@@ -34,7 +34,7 @@ TXT = {
  # S7 — мустаҳкам
  'k7': "Mustahkam so'z |boshqa so'ralmaydi |va «Reyting»da hisoblanadi.",
  # S8 — xulosa
- 'k8': "Xatosiz ishlasangiz: |birinchi, |ikkinchi, |uchinchi, |o'ninchi |va o'ttiz birinchi kun. |Atigi besh savol — |va so'z bir oyda mustahkam. |Har kuni ozgina — |so'zlar sizniki.",
+ 'k8': "Xatosiz: |birinchi, |ikkinchi, |uchinchi, |o'ninchi |va o'ttiz birinchi kun. |Atigi besh savol — |va so'z bir oyda mustahkam bo'ladi. |Har kuni ozgina — |so'zlar sizniki.",   # foydalanuvchi (23.11.2026): «Xatosiz ishlasangiz» emas — «Xatosiz»; «mustahkam bo'ladi»
 }
 SEQ = [
  ('S1', [('lead', 0.5), 'k1', ('gap', 0.9)]),

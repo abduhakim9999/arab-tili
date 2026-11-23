@@ -140,15 +140,15 @@
     '.tb-oi small{display:block;direction:ltr;text-align:left;font-size:13.5px;color:var(--mu);line-height:1.35;margin:-2px 0 4px}' +
     /* 48-darsdan (23.11.2026): tuslanish jadvali (o'ngdan chapga, qator — shaxs/jins, ustun — son), savolli tarkib kartasi, yopiq jadval mashqi */
     '.tb-tl{width:100%;direction:rtl;border-collapse:separate;border-spacing:0;border:1.5px solid var(--bd);border-radius:14px;overflow:hidden;margin:4px 0 14px;table-layout:fixed;background:var(--cd)}' +
-    '.tb-tl th,.tb-tl td{padding:4px 3px;text-align:center;vertical-align:middle;border-top:1px solid var(--bd);border-left:1px solid var(--bd)}.tb-tl tr>:last-child{border-left:0}' +
-    '.tb-tl tr:first-child th{border-top:0;font-size:12px;font-weight:600;color:var(--mu);padding:6px 2px}' +
-    '.tb-tl th.rh{width:25%;text-align:right;padding:4px 8px;background:var(--t,transparent);color:var(--c,var(--tx))}.tb-tl th.rh b{display:block;font-size:13px;line-height:1.2}.tb-tl th.rh small{display:block;font-size:11px;font-weight:400;opacity:.85;line-height:1.2}' +
-    '.tb .tb-tl td .ar{display:block;font-size:21px;line-height:1.55}.tb-tl td small{display:block;font-size:11px;color:var(--mu);line-height:1.2;padding-bottom:2px}.tb .tb-tl td small .ar{display:inline;font-size:1.35em;line-height:1}.tb-tl .dh{display:block;font-size:20px;color:var(--mu)}' +
+    '.tb-tl th,.tb-tl td{padding:4px 2px;text-align:center;vertical-align:middle;border-top:1px solid var(--bd);border-right:1px solid var(--bd)}.tb-tl .rh{border-right:0}.tb-tl tr:first-child>*{border-top:0}' +
+    '.tb-tl th.h1{font-size:12px;font-weight:700;padding:5px 2px}.tb-tl th.h2{font-size:10.5px;font-weight:600;line-height:1.2;padding:3px 1px;background:var(--t,transparent);color:var(--c,var(--mu))}' +
+    '.tb-tl th.rh{width:12%;font-size:11px;font-weight:600;color:var(--mu);padding:4px 2px}' +
+    '.tb .tb-tl td .ar{display:block;font-size:20px;line-height:1.55}.tb-tl td small{display:block;font-size:10px;color:var(--mu);line-height:1.2;padding-bottom:2px;letter-spacing:-.1px}.tb .tb-tl td small .ar{display:inline;font-size:1.35em;line-height:1}.tb-tl .dh{display:block;font-size:20px;color:var(--mu)}' +
     '.tb .tb-tc{all:unset;box-sizing:border-box;display:block;width:100%;cursor:pointer;border-radius:9px}.tb-tc .q{display:flex;align-items:center;justify-content:center;min-height:42px;margin:2px;border:1.5px dashed var(--bd);border-radius:9px;color:var(--mu);font-weight:700}' +
     '.tb-tc .op{display:none}.tb-tc.on .op{display:block}.tb-tc.on .q{display:none}' +
     '.tb-tk .sv{text-align:center;padding:5px 12px 3px;border-bottom:1px dashed var(--bd);color:var(--mu)}.tb .tb-tk .sv .ar{font-size:21px;line-height:1.7;white-space:normal;color:var(--tx)}.tb-tk .sv small{display:block;font-size:13px}' +
     '.tb-oi small.tz{color:var(--tx);opacity:.85;border-top:1px dotted var(--bd);padding-top:3px}.tb .tb-oi small.tz .ar{display:inline;font-size:1.3em;line-height:1}' +
-    '.tb-tl th.rh,.tb-tl td small{direction:ltr}.tb-tl th.rh{text-align:right}';
+    '.tb-tl th,.tb-tl td small{direction:ltr}';
 
   /* arabcha ichida rang: [r]…[/] raf, [s] nasb, [g] kaana, [n] muannaslik «т»si, [h] harf (46-darsdan) */
   function E(s) { return String(s).replace(/\[([rsgnh])\]/g, '<span class="e-$1">').replace(/\[\/\]/g, '</span>'); }
@@ -254,19 +254,22 @@
       return '<div class="tb-qd">' + x[1].map(function (r) { return '<div class="r c-' + (r[3] || 'n') + '"><b>' + r[0] + '</b><span class="tx">' + A(r[1]) + '</span>' + ar(r[2]) + '</div>'; }).join('') + '</div>';
     },
     /* tuslanish jadvali (48-darsdan): x[1] — ustunlar, x[2] — qatorlar */
-    tsl: function (x) { return tslH(x[2], x[1]); }
+    tsl: function (x) { return tslH(x[1]); }
   };
-  /* qator: [shaxs, jins, rang, [katak × ustun]]; katak: [arabcha, tarjima, 'r2' | 'c2'] yoki 0 (qo'shni katak egallagan); '—' — yashirin;
-     yop — mashq uchun yopiq kataklar (bosilsa ochiladi) */
-  function tslH(rows, hd, yop) {
-    return '<table class="tb-tl' + (yop ? ' yp' : '') + '"><tr><th></th>' + hd.map(function (s) { return '<th>' + s + '</th>'; }).join('') + '</tr>' + rows.map(function (r) {
-      return '<tr' + (r[2] ? ' class="c-' + r[2] + '"' : '') + '><th class="rh"><b>' + r[0] + '</b><small>' + r[1] + '</small></th>' + r[3].map(function (c) {
-        if (!c) return '';
-        var ic = (c[0] === '—' ? '<span class="dh">—</span>' : ar(c[0])) + (c[1] ? '<small>' + A(c[1]) + '</small>' : '');
-        return '<td' + (c[2] === 'r2' ? ' rowspan="2"' : c[2] === 'c2' ? ' colspan="2"' : '') + '>' +
-          (yop ? '<button class="tb-tc" type="button"><span class="q">?</span><span class="op">' + ic + '</span></button>' : ic) + '</td>';
-      }).join('') + '</tr>';
-    }).join('') + '</table>';
+  /* kitobdagidek (23.11.2026, foydalanuvchi: «kitobdagidek yaxshi emasmi»): ustun — shaxs va jins (III shaxs eng o'ngda), qator — son.
+     t = {h1: [[shaxs, ustunlar soni]], h2: [[jins, rang]], r: [[son, [katak × ustun]]]}; katak: [arabcha, tarjima, 'r2' | 'c2'] yoki 0
+     (qo'shni katak egallagan); '—' — yashirin; yop — mashq uchun yopiq kataklar (bosilsa ochiladi) */
+  function tslH(t, yop) {
+    return '<table class="tb-tl' + (yop ? ' yp' : '') + '"><tr><th class="rh" rowspan="2"></th>' +
+      t.h1.map(function (h) { return '<th class="h1" colspan="' + (h[1] || 1) + '">' + h[0] + '</th>'; }).join('') + '</tr><tr>' +
+      t.h2.map(function (h) { return '<th class="h2' + (h[1] ? ' c-' + h[1] : '') + '">' + h[0] + '</th>'; }).join('') + '</tr>' + t.r.map(function (r) {
+        return '<tr><th class="rh">' + r[0] + '</th>' + r[1].map(function (c) {
+          if (!c) return '';
+          var ic = (c[0] === '—' ? '<span class="dh">—</span>' : ar(c[0])) + (c[1] ? '<small>' + A(c[1]) + '</small>' : '');
+          return '<td' + (c[2] === 'r2' ? ' rowspan="2"' : c[2] === 'c2' ? ' colspan="2"' : '') + '>' +
+            (yop ? '<button class="tb-tc" type="button"><span class="q">?</span><span class="op">' + ic + '</span></button>' : ic) + '</td>';
+        }).join('') + '</tr>';
+      }).join('') + '</table>';
   }
 
   /* qismlar: matn | '⟨a · b → c⟩' — arabcha chiplar alohida qatorda | ['r', izoh, 'a · b → c'] — qator-jadval (izoh chapda, arabcha o'ngda).
@@ -299,7 +302,7 @@
       else if (q.sn) h += '<div class="tb-sn"></div>';
       else if (q.tn) h += '<div class="tb-sn c-' + (q.c || 'n') + '"></div>';
       /* ty — yopiq jadval (48-darsdan): [ustunlar, qatorlar]; o'quvchi o'zi aytadi, katakni bosib tekshiradi */
-      else if (q.ty) h += '<p class="tb-xb">Ҳар катакни аввал ўзингиз айтинг, кейин босиб текширинг.</p>' + tslH(q.ty[1], q.ty[0], 1) +
+      else if (q.ty) h += '<p class="tb-xb">Ҳар катакни аввал ўзингиз айтинг, кейин босиб текширинг.</p>' + tslH(q.ty, 1) +
         '<div class="tb-sr"><button class="tb-bt tb-ha" type="button">Ҳаммасини очиш</button></div>';
       /* oq — harakatsiz gaplarni o'qish (46-darsdan): [[guruh nomi, [[savol, javob, savol harakatli, javob harakatli, tarjima, tarjima], …]], …] */
       else if (q.oq) h += '<p class="tb-xb">Аввал ўзингиз ўқинг, кейин гапни босинг — ҳаракатли ёзилиши ва таржимаси чиқади.</p>' + q.oq.map(function (g) {
@@ -946,20 +949,16 @@
   };
 
   /* ===================== 48-дарс · Муттасил замирлар (5) — كَانَ нинг мозийдаги исми ===================== */
-  /* kitob jadvallari (tuslanish + tarjima, zamirlar) bitta qolipda: qator — shaxs va jins, ustun — son; kaana tilla, zamir — raf (binafsha) */
-  var HD48 = ['муфрад', 'тасния', 'жам'];
-  var KT48 = [
-    ['III шахс', 'музаккар', 'k', [['[g]كَانَ[/]', 'бўлди'], ['[g]كَانَ[/][r]ا[/]', 'иккови бўлди'], ['[g]كَانُ[/][r]و[/]ا', 'бўлдилар']]],
-    ['III шахс', 'муаннас', 'n', [['[g]كَانَ[/][n]تْ[/]', 'бўлди'], ['[g]كَانَ[/][n]تَ[/][r]ا[/]', 'иккови бўлди'], ['[g]كُ[/][r]نَّ[/]', 'бўлдилар']]],
-    ['II шахс', 'музаккар', 'k', [['[g]كُنْ[/][r]تَ[/]', 'бўлдинг'], ['[g]كُنْ[/][r]تُمَا[/]', 'икковинг бўлдинг', 'r2'], ['[g]كُنْ[/][r]تُمْ[/]', 'бўлдинглар']]],
-    ['II шахс', 'муаннас', 'n', [['[g]كُنْ[/][r]تِ[/]', 'бўлдинг'], 0, ['[g]كُنْ[/][r]تُنَّ[/]', 'бўлдинглар']]],
-    ['I шахс', 'муз. · муан.', '', [['[g]كُنْ[/][r]تُ[/]', 'бўлдим'], ['[g]كُ[/][r]نَّا[/]', 'бўлдик', 'c2'], 0]]];
-  var ZT48 = [
-    ['III шахс', 'музаккар', 'k', [['—', 'яширин ⟨هُوَ⟩'], ['[r]ا[/]'], ['[r]و[/]']]],
-    ['III шахс', 'муаннас', 'n', [['—', 'яширин ⟨هِيَ⟩'], ['[r]ا[/]'], ['[r]نَ[/]']]],
-    ['II шахс', 'музаккар', 'k', [['[r]تَ[/]'], ['[r]تُمَا[/]', '', 'r2'], ['[r]تُمْ[/]']]],
-    ['II шахс', 'муаннас', 'n', [['[r]تِ[/]'], 0, ['[r]تُنَّ[/]']]],
-    ['I шахс', 'муз. · муан.', '', [['[r]تُ[/]'], ['[r]نَا[/]', '', 'c2'], 0]]];
+  /* kitob jadvallari kitobdagidek: ustun — shaxs va jins (III shaxs o'ngda), qator — son; tarjima har shakl tagida; kaana tilla, zamir — raf (binafsha) */
+  var TH48 = { h1: [['III шахс', 2], ['II шахс', 2], ['I шахс', 1]], h2: [['музаккар', 'k'], ['муаннас', 'n'], ['музаккар', 'k'], ['муаннас', 'n'], ['муз. · муан.', '']] };
+  var KT48 = { h1: TH48.h1, h2: TH48.h2, r: [
+    ['муфрад', [['[g]كَانَ[/]', 'бўлди'], ['[g]كَانَ[/][n]تْ[/]', 'бўлди'], ['[g]كُنْ[/][r]تَ[/]', 'бўлдинг'], ['[g]كُنْ[/][r]تِ[/]', 'бўлдинг'], ['[g]كُنْ[/][r]تُ[/]', 'бўлдим']]],
+    ['тасния', [['[g]كَانَ[/][r]ا[/]', 'иккови бўлди'], ['[g]كَانَ[/][n]تَ[/][r]ا[/]', 'иккови бўлди'], ['[g]كُنْ[/][r]تُمَا[/]', 'икковинг бўлдинг', 'c2'], 0, ['[g]كُ[/][r]نَّا[/]', 'бўлдик', 'r2']]],
+    ['жам', [['[g]كَانُ[/][r]و[/]ا', 'бўлдилар'], ['[g]كُ[/][r]نَّ[/]', 'бўлдилар'], ['[g]كُنْ[/][r]تُمْ[/]', 'бўлдинглар'], ['[g]كُنْ[/][r]تُنَّ[/]', 'бўлдинглар'], 0]]] };
+  var ZT48 = { h1: TH48.h1, h2: TH48.h2, r: [
+    ['муфрад', [['—', 'яширин ⟨هُوَ⟩'], ['—', 'яширин ⟨هِيَ⟩'], ['[r]تَ[/]'], ['[r]تِ[/]'], ['[r]تُ[/]']]],
+    ['тасния', [['[r]ا[/]'], ['[r]ا[/]'], ['[r]تُمَا[/]', '', 'c2'], 0, ['[r]نَا[/]', '', 'r2']]],
+    ['жам', [['[r]و[/]'], ['[r]نَ[/]'], ['[r]تُمْ[/]'], ['[r]تُنَّ[/]'], 0]]] };
   /* harakatsiz gap javobining qisqa tarkibi */
   function TZ(k, ism, x, al) { return '**Таркиби:** ⟨' + k + '⟩ нинг исми — ' + ism + '; хабари ⟨' + x + '⟩ — насб, аломати ' + al; }
   var S48 = 'Исм замир бўлса, сонда ҳам мослашади';
@@ -970,10 +969,10 @@
       ['vaqt', [['m', '1 · шу дарс', 'Мозийдаги исми', 'كَانَ', 'бўлди'], ['z', '2 · 49-дарс', 'Музорийдаги исми', 'يَكُونُ', 'бўлади'], ['a', '3 · 50-дарс', 'Амрдаги исми', 'كُنْ', 'бўл']]],
       ['h', 'g', '1', '**⟨كَانَ⟩ нинг тусланиши**', 'бўлди, эди'],
       ['p', '⟨كَانَ⟩ – *бўлди, эди* ноқис мозий феълининг тусланиши:'],
-      ['tsl', HD48, KT48],
+      ['tsl', KT48],
       ['h', 'r', '2', '**Исми бўлган замирлар**'],
       ['p', '⟨كَانَ⟩ *ноқис мозий* феълидаги ⟨كَانَ⟩ нинг исми вазифасини бажарувчи муттасил замирлар:'],
-      ['tsl', HD48, ZT48],
+      ['tsl', ZT48],
       ['p', 'Кўрганингиздек, ⟨كَانَ⟩ нинг исми вазифасини бажарувчи муттасил замирлар худди мозий феълидаги фоил вазифасини бажарувчи замирларнинг айни ўзидир.'],
       ['h', 's', '3', '**Таркиб**'],
       ['p', 'Келинг, уларни таркиблари билан кўриб чиқамиз:'],
@@ -1005,7 +1004,7 @@
         'Жумлатун истифҳомийя.']
     ],
     m: [
-      { s: '⟨كَانَ⟩ нинг тўлиқ тусланишининг арабчаси ва таржимасини айтиб беринг.', ty: [HD48, KT48] },
+      { s: '⟨كَانَ⟩ нинг тўлиқ тусланишининг арабчаси ва таржимасини айтиб беринг.', ty: KT48 },
       { s: '⟨كَانَ⟩ нинг исми вазифасини бажарувчи муттасил замирлар қайси феъл замирларига ўхшайди?',
         j: ['Мозий феълидаги **фоил** вазифасини бажарувчи замирларнинг айни ўзидир:', ['r', 'фоил — «ёздим»', 'كَتَبْتُ'], ['r', '⟨كَانَ⟩ нинг исми — «бўлдим»', 'كُنْتُ']] },
       { s: 'Нуқталар ўрнига ⟨كَانَ⟩ ни исми билан эмас, балки унга мос замир билан ифода этинг ва иккала гапнинг таржимасини айтиб беринг:', c: 'g gp',

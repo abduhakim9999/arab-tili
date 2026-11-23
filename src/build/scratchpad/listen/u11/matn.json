@@ -1,0 +1,78 @@
+{
+ "raqam_uz": "Oʻn birinchi dars.",
+ "gaplar_uz": {
+  "1": "Sizga omonlik boʻlsin!",
+  "2": "Sizga ham omonlik boʻlsin!",
+  "3": "Iltimos, menga kvartira kerak.",
+  "4": "Bizda chiroyli kvartira bor.",
+  "5": "Oʻsha, Kvartirada nechta xona bor?",
+  "6": "Oʻsha, Kvartirada 5 ta xona bor.",
+  "7": "Oʻsha, Kvartira qaysi, nechanchi, qavatda?",
+  "8": "Oʻsha, Kvartira 5 chi qavatda.",
+  "9": "Oʻsha, Kvartirani koʻrmoqchiman.",
+  "10": "Marhamat, koʻring! Mana, bu, oʻsha kvartira.",
+  "11": "Bu – chiroyli kvartira ekan."
+ },
+ "lugat": [
+  {
+   "i": 0,
+   "ar": "أَحَدَ عَشَرَ، إِحْدَى عَشْرَةَ",
+   "uz": "Oʻn bir."
+  },
+  {
+   "i": 1,
+   "ar": "حَادِيَ عَشَرَ، حَادِيَةَ عَشْرَةَ",
+   "uz": "Oʻn birinchi."
+  },
+  {
+   "i": 2,
+   "ar": "مُسْتَأْجِرُنْ، مُسْتَأْجِرُونَ",
+   "uz": "Ijaraga oluvchi, ijarachi."
+  },
+  {
+   "i": 3,
+   "ar": "مُؤَجِّرُنْ، مُؤَجِّرُونَ",
+   "uz": "Ijaraga beruvchi."
+  },
+  {
+   "i": 4,
+   "ar": "مِنْ فَضْلِكَ",
+   "uz": "Iltimos."
+  },
+  {
+   "i": 5,
+   "ar": "فَضْلُنْ",
+   "uz": "Fazl, marhamat."
+  },
+  {
+   "i": 6,
+   "ar": "لَدَى",
+   "uz": "...da...ning oldida, zarf."
+  },
+  {
+   "i": 7,
+   "ar": "جَمِيلُنْ، جَمِيلَتُنْ",
+   "uz": "Chiroyli."
+  },
+  {
+   "i": 8,
+   "ar": "كَمْ",
+   "uz": "Nechta? qancha?, soʻroq."
+  },
+  {
+   "i": 9,
+   "ar": "دَوْرُنْ، أَدْوَارُنْ",
+   "uz": "Qavat."
+  },
+  {
+   "i": 10,
+   "ar": "شَاهَدَ، يُشَاهِدُ، شَاهِدْ، مُشَاهَدَتُنْ",
+   "uz": "Koʻrmoq, tomosha qilmoq."
+  },
+  {
+   "i": 11,
+   "ar": "تَفَضَّلَ، يَتَفَضَّلُ، تَفَضَّلْ، تَفَضُّلُنْ",
+   "uz": "Marhamat qilmoq."
+  }
+ ]
+}

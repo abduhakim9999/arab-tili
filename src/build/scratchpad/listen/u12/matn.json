@@ -1,0 +1,104 @@
+{
+ "raqam_uz": "Oʻn ikkinchi dars.",
+ "gaplar_uz": {
+  "1": "Sizga omonlik boʻlsin!",
+  "2": "Sizga ham omonlik boʻlsin! Nima xizmat?",
+  "3": "Menga ayrim mebellar kerak.",
+  "4": "Yotoqxona uchun sizga nima kerak?",
+  "5": "Menga karavot va parda kerak.",
+  "6": "Zal, mehmon kutish xonasi, uchun-chi, sizga nima kerak?",
+  "7": "Menga divan va gilam kerak.",
+  "8": "Oshxona uchun-chi, sizga nima kerak?",
+  "9": "Menga pech va muzlatgich, xolodilnik, kerak.",
+  "10": "Hammom, vanna, uchun-chi, sizga nima kerak?",
+  "11": "Menga kotyol, isitgich, va oyna, koʻzgu, kerak. Mebellarni koʻrishni istayman.",
+  "12": "Marhamat, koʻring!"
+ },
+ "lugat": [
+  {
+   "i": 0,
+   "ar": "اِثْنَا عَشَرَ، اِثْنَتَا عَشْرَةَ",
+   "uz": "Oʻn ikki."
+  },
+  {
+   "i": 1,
+   "ar": "ثَانِيَ عَشَرَ، ثَانِيَةَ عَشْرَةَ",
+   "uz": "Oʻn ikkinchi."
+  },
+  {
+   "i": 2,
+   "ar": "مُشْتَرِنْ، مُشْتَرُونَ",
+   "uz": "Xaridor, sotib oluvchi."
+  },
+  {
+   "i": 3,
+   "ar": "بَائِعُنْ، بَاعَتُنْ",
+   "uz": "Sotuvchi."
+  },
+  {
+   "i": 4,
+   "ar": "خِدْمَتُنْ، خِدْمَاتُنْ",
+   "uz": "Xizmat."
+  },
+  {
+   "i": 5,
+   "ar": "أَثَاثُنْ",
+   "uz": "Mebel, uy jihozi."
+  },
+  {
+   "i": 6,
+   "ar": "نَوْمُنْ",
+   "uz": "Uyqu."
+  },
+  {
+   "i": 7,
+   "ar": "سَرِيرُنْ، أَسِرَّتُنْ",
+   "uz": "Karavot."
+  },
+  {
+   "i": 8,
+   "ar": "سِتَارَتُنْ، سَتَائِرُ",
+   "uz": "Parda."
+  },
+  {
+   "i": 9,
+   "ar": "جُلُوسُنْ",
+   "uz": "Oʻtirish."
+  },
+  {
+   "i": 10,
+   "ar": "أَرِيكَتُنْ، أَرَائِكُ",
+   "uz": "Divan."
+  },
+  {
+   "i": 11,
+   "ar": "سَجَّادَتُنْ، سَجَاجِيدُ",
+   "uz": "Gilam."
+  },
+  {
+   "i": 12,
+   "ar": "مَطْبَخُنْ، مَطَابِخُ",
+   "uz": "Oshxona."
+  },
+  {
+   "i": 13,
+   "ar": "فُرْنُنْ، أَفْرَانُنْ",
+   "uz": "Pech, duxovka."
+  },
+  {
+   "i": 14,
+   "ar": "ثَلَّاجَتُنْ، ثَلَّاجَاتُنْ",
+   "uz": "Muzlatgich, xolodilnik."
+  },
+  {
+   "i": 15,
+   "ar": "سَخَّانُنْ، سَخَّانَاتُنْ",
+   "uz": "Suv isitgich, kotyol."
+  },
+  {
+   "i": 16,
+   "ar": "مِرْآتُنْ، مَرَايَا",
+   "uz": "Oyna, koʻzgu."
+  }
+ ]
+}

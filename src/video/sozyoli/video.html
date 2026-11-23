@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="uz"><head><meta charset="utf-8"><title>Сўз йўли — Машқ йўриқномаси</title>
+<link rel="stylesheet" href="package/wght.css">
+<style>
+/* «Сўз йўли» (1080×1920, 30 fps): so'z 4 pog'onadan qanday o'tadi. Matn — claude.ai claude/soz-yoli-video.md; qoida — takror.js birlik().
+   Ilova ranglari: мустаҳкам ko'k, биламан yashil, ўрганяпман sariq, билмайман qizil; fon — ilovaning yashil tasmasi.
+   Vaqt — tl.js (prep.py); kadrlar — render.py (seek(t)); effektlar — window.SFX. Pastki 20% (subtitr) bo'sh. */
+@font-face{font-family:Naskh;src:url(naskh.ttf);font-weight:400 700}
+:root{--m:#4a86e0;--g:#2fa36f;--o:#e0a63c;--b:#d0453b;--cream:#FFF8E6;--gold:#F4D27A;--mut:#A9CDBB;--card:#fff;--ink:#1c2b24;--ink2:#66776e}
+html,body{margin:0;background:#000}
+#st{position:relative;width:1080px;height:1920px;overflow:hidden;color:var(--cream);font-family:"Inter Variable",sans-serif;
+  background:radial-gradient(ellipse 100% 65% at 50% 40%,#16744F 0%,#0C5137 58%,#07311F 100%)}
+#pt{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.045' stroke-width='2'%3E%3Crect x='30' y='30' width='60' height='60'/%3E%3Crect x='30' y='30' width='60' height='60' transform='rotate(45 60 60)'/%3E%3C/g%3E%3C/svg%3E")}
+#glow{position:absolute;left:140px;top:380px;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(244,210,122,.13),rgba(244,210,122,0) 68%)}
+.ar{font-family:Naskh,serif;direction:rtl;unicode-bidi:isolate;font-weight:500}
+i{font-style:normal}
+.h{opacity:0;visibility:hidden}
+.sc{position:absolute;left:0;top:0;width:1080px;height:1920px}
+#seg{position:absolute;top:112px;left:70px;right:70px;display:flex;gap:10px;z-index:9}
+#seg b{flex:1;height:8px;border-radius:4px;background:rgba(255,255,255,.2);overflow:hidden}
+#seg b>i{display:block;height:100%;background:var(--gold);transform:scaleX(0);transform-origin:left}
+#hl{position:absolute;top:136px;left:70px;right:70px;display:flex;justify-content:space-between;align-items:center;font-size:28px;color:var(--mut);font-weight:600;z-index:9}
+#hl .ar{font-size:36px;color:var(--gold)}
+#ttl{position:absolute;top:250px;left:0;right:0;height:80px;font-size:54px;font-weight:800;color:var(--gold);z-index:9}
+#ttl>span{position:absolute;left:0;right:0;text-align:center}
+.chip{display:inline-flex;align-items:center;gap:12px;padding:8px 28px;border-radius:999px;font-size:36px;font-weight:700;border:2px solid rgba(255,255,255,.35);background:rgba(255,255,255,.1);line-height:1.35;white-space:nowrap;color:var(--cream)}
+.chip svg{width:40px;height:40px;flex:none}
+.chip.g{border-color:rgba(47,163,111,.9);background:rgba(47,163,111,.28)}
+.chip.m{border-color:rgba(74,134,224,.95);background:rgba(74,134,224,.3)}
+.chip.o{border-color:rgba(224,166,60,.9);background:rgba(224,166,60,.25)}
+.chip.b{border-color:rgba(208,69,59,.9);background:rgba(208,69,59,.25)}
+.chip.x{border-color:#fff;background:#d0453b;color:#fff;box-shadow:0 8px 22px rgba(0,0,0,.3)}
+.chip.y{border-color:rgba(244,210,122,.8);background:rgba(244,210,122,.16);color:var(--gold)}
+/* zinapoya: konteyner 960×600, pastdan yuqoriga 4 pog'ona */
+#stairs{position:absolute;left:60px;top:640px;width:960px;height:600px;transform-origin:0 0;z-index:3}
+.stp{position:absolute;bottom:0;width:228px;border-radius:30px 30px 10px 10px;transform-origin:50% 100%;box-sizing:border-box;padding-top:20px;text-align:center;font-size:34px;font-weight:800;color:#fff;letter-spacing:-.3px}
+.stp small{display:block;font-size:26px;font-weight:600;opacity:.85;margin-top:2px;letter-spacing:0}
+.stp.b{background:linear-gradient(180deg,#DD5248,#B23229)}.stp.o{background:linear-gradient(180deg,#EDB24A,#C98B21)}
+.stp.g{background:linear-gradient(180deg,#3BB57D,#22875A)}.stp.m{background:linear-gradient(180deg,#5A94EA,#3168BF)}
+.tok{position:absolute;left:0;top:0;z-index:4;height:104px;line-height:104px;padding:0 30px;border-radius:52px;background:#fff;color:var(--ink);border:6px solid var(--o);font-size:66px;white-space:nowrap;box-shadow:0 10px 26px rgba(0,0,0,.28)}
+/* qahramon so'z kartasi — ilovadagi «Луғат» qatoridek */
+.row{position:absolute;left:70px;right:70px;height:230px;border-radius:38px;background:#fff;color:var(--ink);box-shadow:0 18px 50px rgba(0,0,0,.3);box-sizing:border-box;overflow:hidden}
+.row .acc{position:absolute;left:0;top:0;bottom:0;width:16px;background:var(--o)}
+.row .rw{position:absolute;left:58px;top:16px;font-family:Naskh,serif;font-size:100px;line-height:1.3;direction:rtl}
+.row .rm{position:absolute;left:62px;top:156px;font-size:38px;color:var(--ink2);font-weight:500}
+.row .rb{position:absolute;right:210px;top:62px;display:flex;gap:8px}
+.row .rb i{width:52px;height:26px;border-radius:7px;background:#E9E5DA}
+.row .rs{position:absolute;right:210px;top:104px;width:420px;height:110px}
+.row .rs>div{position:absolute;right:0;top:0;text-align:right;font-size:34px;font-weight:600;color:var(--ink2);line-height:1.25;white-space:nowrap}
+.row .rs>div small{display:block;font-size:27px;font-weight:500;color:#8a978f}
+.row .ic{position:absolute;top:70px;width:76px;height:76px;color:#CFC8BA}
+.row .ic svg{width:100%;height:100%}
+.row .ic1{right:112px}.row .ic2{right:26px}
+.row .x{position:absolute;inset:0;border:8px solid var(--b);border-radius:38px;opacity:0}
+/* S2: dars kartasi */
+.card{position:absolute;border-radius:38px;background:#fff;color:var(--ink);box-shadow:0 18px 50px rgba(0,0,0,.3);box-sizing:border-box}
+.tab{display:inline-block;padding:10px 30px;border-radius:999px;font-size:34px;font-weight:700;background:#EEF3EF;color:var(--ink2)}
+.wch{position:absolute;top:0;left:0;height:104px;line-height:104px;padding:0 28px;border-radius:52px;background:#fff;color:var(--ink);border:6px solid var(--o);font-size:60px;white-space:nowrap;box-shadow:0 10px 26px rgba(0,0,0,.25)}
+/* ilovadagi yashil bo'lim kartasi («Ўрганиш», «Такрор») */
+.band{position:absolute;left:70px;right:70px;height:200px;border-radius:36px;background:#246F52;border:2px solid rgba(255,255,255,.18);box-sizing:border-box;padding:30px 40px}
+.band .bl{font-size:30px;font-weight:800;letter-spacing:2px;color:#CFE3D8}
+.band .bn{font-size:62px;font-weight:800;color:#fff;margin-top:4px}
+.band .bt{position:absolute;right:36px;top:46px;width:300px;height:106px;border-radius:30px;background:#F6DD98;color:#1c2b24;font-size:44px;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 0 #CDAE5E}
+.day{position:absolute;top:0;width:280px;height:210px;border-radius:34px;background:rgba(255,255,255,.1);border:3px solid rgba(255,255,255,.22);box-sizing:border-box;text-align:center}
+.day b{display:block;font-size:46px;font-weight:800;margin-top:26px}
+.day .ck{width:84px;height:84px;margin:14px auto 0;color:#7BE3AE}
+.ck svg,.ico svg{width:100%;height:100%}
+.note{position:absolute;left:0;right:0;text-align:center}
+/* S4 / S8: vaqt chizig'i */
+.nd{position:absolute;width:130px;height:130px;margin-left:-65px;border-radius:50%;box-sizing:border-box;border:6px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;flex-direction:column}
+.nd svg{width:66px;height:66px}
+.nl{position:absolute;width:300px;margin-left:-150px;text-align:center;font-size:36px;font-weight:700;white-space:nowrap}
+.nl small{display:block;font-size:30px;font-weight:600;color:var(--mut)}
+svg.ln{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:visible}
+#tap{position:absolute;left:0;top:0;width:96px;height:96px;margin:-48px 0 0 -48px;border-radius:50%;background:rgba(255,255,255,.85);box-shadow:0 0 0 6px rgba(0,0,0,.18);z-index:8}
+#tapr{position:absolute;left:0;top:0;width:96px;height:96px;margin:-48px 0 0 -48px;border-radius:50%;border:6px solid #fff;box-sizing:border-box;z-index:8}
+.big{position:absolute;left:40px;right:40px;text-align:center;font-weight:800}
+#sub{position:absolute;top:1584px;left:50px;right:50px;font-size:40px;font-weight:600;line-height:1.35;color:#fff;text-shadow:0 2px 10px #000,0 0 3px #000;z-index:9}
+.sb{position:absolute;left:0;right:0;top:0;text-align:center;opacity:0;visibility:hidden}
+#wm{position:absolute;top:34px;left:0;right:0;text-align:center;z-index:9}
+#wm .chip{font-size:30px;border-color:rgba(255,163,199,.6);background:rgba(255,163,199,.14)}
+</style></head>
+<body>
+<div id="st">
+<div id="pt"></div><div id="glow"></div>
+
+<!-- doimiy: zinapoya (S1 da katta, keyin pastda kichik) -->
+<div id="stairs">
+  <div class="stp b h" id="P0" style="left:0;height:150px">Билмайман</div>
+  <div class="stp o h" id="P1" style="left:240px;height:300px">Ўрганяпман</div>
+  <div class="stp g h" id="P2" style="left:480px;height:450px">Биламан</div>
+  <div class="stp m h" id="P3" style="left:720px;height:600px">Мустаҳкам</div>
+</div>
+
+<!-- doimiy: qahramon so'z kartasi -->
+<div class="row h" id="hero" style="top:390px;z-index:4">
+  <div class="acc"></div>
+  <div class="rw">دَرْسٌ</div><div class="rm">дарс</div>
+  <div class="rb"><i></i><i></i><i></i></div>
+  <div class="rs">
+    <div class="h" id="hs0">ўрганяпман · 0/3</div>
+    <div class="h" id="hs1">ўрганяпман · 1/3</div>
+    <div class="h" id="hs2">ўрганяпман · 2/3</div>
+    <div class="h" id="hs3" style="color:#22875A">биламан<small>7 кундан кейин «Такрор»да</small></div>
+    <div class="h" id="hs4" style="color:#22875A">биламан<small>21 кундан кейин «Такрор»да</small></div>
+    <div class="h" id="hs5" style="color:#3168BF">мустаҳкам</div>
+  </div>
+  <div class="ic ic1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.4l2.8 2.8 5.2-5.6"/></svg></div>
+  <div class="ic ic2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M7 3.8h10v16.4l-5-3.6-5 3.6z"/></svg></div>
+</div>
+
+<!-- S1: savol -->
+<section class="sc" id="S1">
+  <div class="big h" id="q1" style="top:420px;font-size:80px;color:#fff">Сўз қандай ёдланади?</div>
+</section>
+
+<!-- S2: darsdan lug'atga -->
+<section class="sc" id="S2">
+  <div class="card h" id="les" style="top:400px;left:70px;right:70px;height:300px;padding:40px 44px">
+    <div style="display:flex;align-items:center;gap:30px">
+      <div style="width:120px;height:120px;border-radius:30px;background:#E3F1EA;color:#1f8f5c;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" width="70" height="70" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M4 5.5C6.5 4.3 9.5 4.3 12 5.8c2.5-1.5 5.5-1.5 8-.3V19c-2.5-1.2-5.5-1.2-8 .3-2.5-1.5-5.5-1.5-8-.3z"/><path d="M12 5.8V19.3"/></svg></div>
+      <div><div style="font-size:30px;font-weight:800;color:#C98B21;letter-spacing:2px">1-КИТОБ</div><div style="font-size:62px;font-weight:800">1-дарс</div></div>
+    </div>
+    <div style="display:flex;gap:16px;margin-top:30px"><span class="tab" id="tb1">Матн</span><span class="tab" id="tb2">Эшитиш</span><span class="tab" id="tb3">Машқ</span></div>
+  </div>
+  <div class="h" id="lpw" style="position:absolute;top:740px;left:110px;right:110px">
+    <div style="height:26px;border-radius:13px;background:rgba(255,255,255,.18);overflow:hidden"><div id="lp" style="height:100%;width:0;background:#7BE3AE;border-radius:13px"></div></div>
+    <div style="margin-top:22px;text-align:center"><span class="chip g" id="lpc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Машқ тугади · 80%</span></div>
+  </div>
+  <div class="wch ar h" id="w0">دَرْسٌ</div><div class="wch ar h" id="w1">سَلَامٌ</div><div class="wch ar h" id="w2">وَاحِدٌ</div><div class="wch ar h" id="w3">أَوَّلٌ</div>
+  <div class="note h" id="lug" style="top:770px"><span class="chip o">«Луғат»га — ўрганяпман</span></div>
+</section>
+
+<!-- S3: «Ўрганиш» — uch xil kun -->
+<section class="sc" id="S3">
+  <div class="band h" id="bd1" style="top:680px"><div class="bl">ЎРГАНИШ</div><div class="bn">10 та</div><div class="bt" id="bd1b">Бошлаш</div></div>
+  <div id="days" style="position:absolute;top:680px;left:90px;width:900px;height:210px">
+    <div class="day h" id="d1" style="left:0"><b>1-кун</b><div class="ck h" id="d1c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9.5"/><path d="M7.5 12.4l3 3 6-6.2" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="day h" id="d2" style="left:310px"><b>2-кун</b><div class="ck h" id="d2c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9.5"/><path d="M7.5 12.4l3 3 6-6.2" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="day h" id="d3" style="left:620px"><b>3-кун</b><div class="ck h" id="d3c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9.5"/><path d="M7.5 12.4l3 3 6-6.2" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+  </div>
+  <div class="note h" id="n1" style="top:930px"><span class="chip y">кетма-кет бўлиши шарт эмас</span></div>
+  <div class="note h" id="n2" style="top:1020px"><span class="chip y">бир кунда неча марта — <b style="color:#fff">1 кун</b></span></div>
+</section>
+
+<!-- S4: «Такрор» — 7 kun, yana 21 kun -->
+<section class="sc" id="S4">
+  <div class="band h" id="bd2" style="top:680px"><div class="bl">ТАКРОР</div><div class="bn">1 та</div><div class="bt" id="bd2b">Бошлаш</div></div>
+  <svg class="ln" id="tl4"></svg>
+  <div class="nl h" id="t4a" style="left:180px;top:672px">3-кун</div>
+  <div class="nd h" id="n4a" style="left:180px;top:730px;border-color:var(--g);background:rgba(47,163,111,.3)"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+  <div class="nl h" id="b4a" style="left:180px;top:880px">биламан</div>
+  <div class="nl h" id="t4b" style="left:540px;top:672px">10-кун</div>
+  <div class="nd h" id="n4b" style="left:540px;top:730px"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linejoin="round"><rect x="4" y="5.5" width="16" height="14" rx="2.5"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></svg></div>
+  <div class="nl h" id="b4b" style="left:540px;top:880px">1-текширув</div>
+  <div class="nl h" id="t4c" style="left:900px;top:672px">31-кун</div>
+  <div class="nd h" id="n4c" style="left:900px;top:730px"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linejoin="round"><rect x="4" y="5.5" width="16" height="14" rx="2.5"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></svg></div>
+  <div class="nl h" id="b4c" style="left:900px;top:880px">2-текширув</div>
+  <div class="h" id="p7" style="position:absolute;left:360px;top:764px;transform:translateX(-50%)"><span class="chip y">+7 кун</span></div>
+  <div class="h" id="p21" style="position:absolute;left:720px;top:764px;transform:translateX(-50%)"><span class="chip y">+21 кун</span></div>
+</section>
+
+<!-- S5: xato -->
+<section class="sc" id="S5">
+  <div class="row h" id="cA" style="top:420px">
+    <div class="acc"></div><div class="rw">سَلَامٌ</div><div class="rm">омонлик</div>
+    <div class="rb"><i></i><i></i><i></i></div>
+    <div class="rs"><div id="cAs0">ўрганяпман · 2/3</div><div class="h" id="cAs1">ўрганяпман · 0/3<small>ўрганяпманда қолади</small></div></div>
+    <div class="x"></div>
+  </div>
+  <div class="row h" id="cB" style="top:730px">
+    <div class="acc" style="background:var(--g)"></div><div class="rw">وَاحِدٌ</div><div class="rm">бир</div>
+    <div class="rb"><i></i><i></i><i></i></div>
+    <div class="rs"><div id="cBs0" style="color:#22875A">биламан<small>текширув</small></div><div class="h" id="cBs1">ўрганяпман · 2/3</div><div class="h" id="cBs2" style="color:#22875A">биламан<small>эртасига тўғри</small></div></div>
+    <div class="x"></div>
+  </div>
+  <div class="h" id="xA" style="position:absolute;left:790px;top:388px;z-index:6"><span class="chip x" style="font-size:44px">✕ хато</span></div>
+  <div class="h" id="xB" style="position:absolute;left:790px;top:698px;z-index:6"><span class="chip x" style="font-size:44px">✕ хато</span></div>
+  <div class="note h" id="eB" style="top:990px"><span class="chip g">эртасига ✓</span></div>
+</section>
+
+<!-- S6: «Луғат»dagi ikki belgi -->
+<section class="sc" id="S6">
+  <div class="note h" id="leg" style="top:400px;font-size:36px;font-weight:700;display:flex;justify-content:center;gap:50px">
+    <span style="display:inline-flex;align-items:center;gap:12px"><svg viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="#9BC1F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.4l2.8 2.8 5.2-5.6"/></svg>биламан</span>
+    <span style="display:inline-flex;align-items:center;gap:12px"><svg viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="#F09A92" stroke-width="2" stroke-linejoin="round"><path d="M7 3.8h10v16.4l-5-3.6-5 3.6z"/></svg>билмайман</span>
+  </div>
+  <div class="row h" id="r1" style="top:500px">
+    <div class="acc"></div><div class="rw">سَلَامٌ</div><div class="rm">омонлик</div>
+    <div class="rb"><i></i><i></i><i></i></div>
+    <div class="rs"><div id="r1s0">ўрганяпман · 0/3</div><div class="h" id="r1s1" style="color:#22875A">биламан<small>7 кундан кейин «Такрор»да</small></div></div>
+    <div class="ic ic1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.4l2.8 2.8 5.2-5.6"/></svg></div>
+    <div class="ic ic2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M7 3.8h10v16.4l-5-3.6-5 3.6z"/></svg></div>
+  </div>
+  <div class="row h" id="r2" style="top:770px">
+    <div class="acc"></div><div class="rw">أَوَّلٌ</div><div class="rm">биринчи</div>
+    <div class="rb"><i></i><i></i><i></i></div>
+    <div class="rs"><div id="r2s0">ўрганяпман · 1/3</div><div class="h" id="r2s1" style="color:#B23229">билмайман<small>йўл бошидан</small></div></div>
+    <div class="ic ic1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.4l2.8 2.8 5.2-5.6"/></svg></div>
+    <div class="ic ic2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M7 3.8h10v16.4l-5-3.6-5 3.6z"/></svg></div>
+  </div>
+</section>
+
+<!-- S7: мустаҳкам -->
+<section class="sc" id="S7">
+  <div class="note h" id="nq" style="top:670px"><span class="chip m">бошқа сўралмайди</span></div>
+  <div class="card h" id="rate" style="top:790px;left:150px;right:150px;height:200px;display:flex;align-items:center;gap:30px;padding:0 44px">
+    <svg viewBox="0 0 24 24" width="96" height="96" fill="none" stroke="#C98B21" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4.5a2.5 2.5 0 0 0 2.6 3.4M17 6h2.5a2.5 2.5 0 0 1-2.6 3.4M12 14v3.5M8.5 20h7"/></svg>
+    <div style="flex:1"><div style="font-size:42px;font-weight:800">Рейтинг</div><div style="font-size:32px;color:var(--ink2);font-weight:600">Сўзлар</div></div>
+    <div style="position:relative;width:150px;height:90px;font-size:76px;font-weight:800;color:#3168BF;text-align:right"><span id="rn0" style="position:absolute;right:0">52</span><span id="rn1" class="h" style="position:absolute;right:0">53</span></div>
+  </div>
+  <div class="h" id="rp" style="position:absolute;left:860px;top:760px;z-index:6"><span class="chip m" style="font-size:34px;padding:4px 20px">+1</span></div>
+</section>
+
+<!-- S8: xulosa -->
+<section class="sc" id="S8">
+  <svg class="ln" id="tl8"></svg>
+  <div id="n8" style="position:absolute;inset:0"></div>
+  <div class="note h" id="f1" style="top:830px"><span class="chip y" style="font-size:44px">5 та савол</span></div>
+  <div class="note h" id="f2" style="top:925px"><span class="chip m" style="font-size:44px">1 ойда — мустаҳкам</span></div>
+  <div class="big h" id="f3" style="top:560px;font-size:78px;color:#fff;line-height:1.25">Ҳар куни озгина —<br><span style="color:var(--gold)">сўзлар сизники</span></div>
+  <div class="note h" id="f4" style="top:830px"><span class="ar" style="font-size:96px;color:var(--gold)">نُورُ الطَّالِبِ</span><div style="font-size:34px;font-weight:700;color:var(--mut);margin-top:4px">Машқ · Ўрганиш · Такрор</div></div>
+</section>
+
+<div id="tap" class="h"></div><div id="tapr" class="h"></div>
+<div id="ttl"><span class="h" id="T1">Тўрт поғона</span><span class="h" id="T2">Дарсдан луғатга</span><span class="h" id="T3">Ўрганиш</span><span class="h" id="T4">Такрор</span><span class="h" id="T5">Хато қилсангиз</span><span class="h" id="T6">Икки белги</span><span class="h" id="T7">Мустаҳкам</span><span class="h" id="T8">Хулоса</span></div>
+<div id="seg"></div>
+<div id="hl"><span>Нур ут-толиб · Машқ</span><span>Сўз йўли</span></div>
+<div id="wm" class="h"><span class="chip">ҚОРАЛАМА · овоз вақтинча (робот)</span></div>
+<div id="sub"></div>
+</div>
+<script src="tl.js"></script>
+<script src="gsap.min.js"></script>
+<script>
+gsap.config({ force3D: false });
+const TL = window.TL, C = TL.clips, SFX = window.SFX = [];
+const $ = s => typeof s === 'string' ? document.querySelector(s) : s, $$ = s => [...document.querySelectorAll(s)];
+const sc = id => TL.scenes.find(s => s.id === id);
+const M = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } });
+const R = e => $(e).getBoundingClientRect();
+const sfx = (n, t, k = 1) => SFX.push([n, Math.round(t * 1000) / 1000, k]);
+const COL = { b: '#d0453b', o: '#e0a63c', g: '#2fa36f', m: '#4a86e0' }, RGB = { b: '208,69,59', o: '224,166,60', g: '47,163,111', m: '74,134,224', y: '244,210,122' };
+/* ---- yordamchilar (mutlaq vaqt) ---- */
+const to = (el, v, t, d = .5) => M.to(el, Object.assign({ duration: d }, v), t);
+const show = (el, t, d = .35) => to(el, { autoAlpha: 1 }, t, d);
+const hide = (el, t, d = .3) => to(el, { autoAlpha: 0, ease: 'power2.in' }, t, d);
+const rise = (el, t, d = .55, y = 44, st = 0) => M.fromTo(el, { autoAlpha: 0, y }, { autoAlpha: 1, y: 0, duration: d, stagger: st, immediateRender: false }, t);
+const sink = (el, t, d = .35, y = -44) => to(el, { autoAlpha: 0, y: '+=' + y, ease: 'power2.in' }, t, d);
+const pop = (el, t, d = .5, s = 1) => { M.fromTo(el, { autoAlpha: 0, scale: .4 }, { autoAlpha: 1, scale: 1, duration: d, ease: 'back.out(2.4)', immediateRender: false }, t); if (s) sfx('pop', t, s); };
+const pulse = (el, t, s = 1.1, d = .5) => M.to(el, { scale: s, duration: d / 2, ease: 'sine.inOut', yoyo: true, repeat: 1 }, t);
+const bglow = (el, t, c, d = 1) => M.fromTo(el, { boxShadow: `0 0 0px 0px rgba(${c},0)` }, { boxShadow: `0 0 60px 14px rgba(${c},.85)`, duration: d / 2, ease: 'sine.inOut', yoyo: true, repeat: 1, immediateRender: false }, t);
+const shake = (el, t) => M.to(el, { x: 14, duration: .06, yoyo: true, repeat: 5, ease: 'sine.inOut' }, t);
+let curT = null;
+function title(id, t) { if (curT) to(curT, { autoAlpha: 0, y: -30, ease: 'power2.in' }, t, .26); M.fromTo(id, { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: .45, immediateRender: false }, t + .3); curT = id; }
+/* ---- zinapoya geometriyasi (konteyner koordinatalari) ---- */
+const SX = i => i * 240 + 114, SY = i => 600 - 150 * (i + 1);                 // pog'ona tepasining o'rtasi
+const SMALL = { x: 144, y: 460, scale: .7 };                                   // pastdagi kichik holat: chap 204, tepa 1100
+const page = (i, st = SMALL) => [60 + st.x + SX(i) * st.scale, 640 + st.y + SY(i) * st.scale];
+/* so'z belgisi (pog'ona ustida) */
+function mkTok(word) { const d = document.createElement('div'); d.className = 'tok ar'; d.textContent = word; $('#stairs').appendChild(d); gsap.set(d, { xPercent: -50, yPercent: -100, autoAlpha: 0 }); return d; }
+function place(tok, i, t, c) { M.set(tok, { x: SX(i), y: SY(i) - 8, borderColor: COL[c || 'bgom'[i]] }, t); }
+function hop(tok, from, i, t, d = .7) {
+  const c = 'bgom'[i], top = Math.min(SY(from), SY(i)) - 120;
+  M.to(tok, { x: SX(i), duration: d, ease: 'power2.inOut' }, t);
+  M.to(tok, { y: top, duration: d * .45, ease: 'power2.out' }, t); M.to(tok, { y: SY(i) - 8, duration: d * .55, ease: 'bounce.out' }, t + d * .45);
+  M.to(tok, { borderColor: COL[c], duration: .3 }, t + d * .5); sfx('thud', t + d * .6, .6); stepGlow(i, t + d * .55);
+}
+const stepGlow = (i, t) => M.fromTo('#P' + i, { filter: 'brightness(1)' }, { filter: 'brightness(1.45)', duration: .35, yoyo: true, repeat: 1, ease: 'sine.inOut', immediateRender: false }, t);
+/* qator (karta) holati: bar to'ldirish, chap chiziq rangi, holat yozuvi */
+function bar(row, n, c, t) { [...$(row).querySelectorAll('.rb i')].forEach((e, k) => to(e, { backgroundColor: k < n ? COL[c] : '#E9E5DA' }, t + k * .06, .3)); }
+function acc(row, c, t) { to($(row).querySelector('.acc'), { backgroundColor: COL[c] }, t, .3); }
+function stat(a, b, t) { if (a) to(a, { autoAlpha: 0, y: -16 }, t, .22); M.fromTo(b, { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: .32, immediateRender: false }, t + .18); }
+function xflash(row, t) { M.fromTo($(row).querySelector('.x'), { opacity: 0 }, { opacity: 1, duration: .15, yoyo: true, repeat: 3, ease: 'none', immediateRender: false }, t); shake(row, t); sfx('thud', t, 1); }
+function tap(x, y, t, from) {                                                  // barmoq bosishi: kursor keladi, bosiladi, halqa tarqaladi
+  if (from) M.fromTo('#tap', { x: from[0], y: from[1], autoAlpha: 0, scale: 1 }, { x, y, autoAlpha: 1, scale: 1, duration: .5, ease: 'power2.inOut', immediateRender: false }, t - .55);
+  else M.set('#tap', { x, y }, t - .55), show('#tap', t - .55, .2);
+  M.to('#tap', { scale: .72, duration: .12, yoyo: true, repeat: 1, ease: 'power2.out' }, t);
+  M.fromTo('#tapr', { x, y, scale: .6, autoAlpha: .9 }, { x, y, scale: 2.2, autoAlpha: 0, duration: .55, ease: 'power2.out', immediateRender: false }, t);
+  sfx('tick', t, 1.2);
+}
+function line(svg, x0, y0, x1, y1, c, w = 8, dash) { const NS = 'http://www.w3.org/2000/svg', p = document.createElementNS(NS, 'path');
+  p.setAttribute('d', `M ${x0} ${y0} L ${x1} ${y1}`); p.setAttribute('pathLength', '1'); p.setAttribute('stroke', c); p.setAttribute('stroke-width', w); p.setAttribute('stroke-linecap', 'round'); p.setAttribute('fill', 'none');
+  p.style.strokeDasharray = '1'; p.style.strokeDashoffset = '1'; $(svg).appendChild(p); return p; }
+const draw = (p, t, d = .6) => to(p, { strokeDashoffset: 0, ease: 'power2.inOut' }, t, d);
+function build() {
+  const D = TL.dur; M.to({}, { duration: D }, 0);
+  M.to('#glow', { x: 150, y: -120, duration: 23, ease: 'sine.inOut', yoyo: true, repeat: Math.ceil(D / 23) }, 0);
+  const S = id => sc(id).s, SB = TL.scenes.map(s => s.s).concat([D]);
+  SB.slice(0, -1).forEach((x, i) => { const b = document.createElement('b'), f = document.createElement('i'); b.appendChild(f); $('#seg').appendChild(b); M.to(f, { scaleX: 1, duration: SB[i + 1] - x, ease: 'none' }, x); });
+  if (TL.draft && TL.draft.length) { gsap.set('#wm', { autoAlpha: 1 });
+    TL.subs.forEach(([s, e, x]) => { const d = document.createElement('div'); d.className = 'sb'; d.textContent = x; $('#sub').appendChild(d); M.set(d, { autoAlpha: 1 }, s); M.set(d, { autoAlpha: 0 }, e - .02); }); }
+  /* o'lchovlar */
+  const wr = [0, 1, 2, 3].map(k => R('#w' + k));
+  ['#S3', '#S4', '#S5', '#S6', '#S7', '#S8'].forEach(s => gsap.set(s, { autoAlpha: 0 }));
+  const sceneIn = (id, t) => M.set(id, { autoAlpha: 1 }, t), sceneOut = (id, t) => M.set(id, { autoAlpha: 0 }, t);
+  let c, t;
+  const tk = mkTok('دَرْسٌ');
+
+  /* ================= S1: to'rt pog'ona ================= */
+  c = C.k1.c; title('#T1', 0.15);
+  rise('#q1', c[0] - .2, .6);
+  ['#P0', '#P1', '#P2', '#P3'].forEach((p, i) => { const tt = c[3 + i] - .12; M.fromTo(p, { autoAlpha: 0, scaleY: 0 }, { autoAlpha: 1, scaleY: 1, duration: .55, ease: 'back.out(1.6)', immediateRender: false }, tt); sfx('pop', tt, .7); });
+  M.fromTo(tk, { autoAlpha: 0, x: 480, y: 40, scale: .4 }, { autoAlpha: 1, x: 480, y: 40, scale: 1, duration: .55, ease: 'back.out(2)', immediateRender: false }, c[1]); sfx('pop', c[1], .7);
+  pulse(tk, c[2] + .1, 1.12, .5);
+  M.to(tk, { x: SX(0), y: SY(0) - 8, borderColor: COL.b, duration: .6, ease: 'power2.inOut' }, c[3] + .2); sfx('thud', c[3] + .7, .6);
+  hop(tk, 0, 1, c[4] + .05, .6); hop(tk, 1, 2, c[5] + .05, .6); hop(tk, 2, 3, c[6] + .1, .7);
+  /* S1 -> S2: savol ketadi, zina pastga kichrayadi, belgi yo'qoladi */
+  t = S('S2');
+  sink('#q1', t - .1, .4, -60); hide(tk, t - .1, .3);
+  to('#stairs', { x: SMALL.x, y: SMALL.y, scale: SMALL.scale, ease: 'power3.inOut' }, t, .9); sfx('whoosh2', t);
+
+  /* ================= S2: darsdan lug'atga ================= */
+  c = C.k2.c; title('#T2', t + .1);
+  rise('#les', t + .3, .6, 80); sfx('whoosh', t + .3, .6);
+  const hiTab = (id, tt) => to(id, { backgroundColor: '#1f8f5c', color: '#fff' }, tt, .3), loTab = (id, tt) => to(id, { backgroundColor: '#EEF3EF', color: '#66776e' }, tt, .3);
+  hiTab('#tb1', c[0] + .1); pulse('#tb1', c[0] + .1, 1.08, .5); M.to('#tb2', { backgroundColor: '#1f8f5c', color: '#fff', duration: .25, yoyo: true, repeat: 1 }, c[0] + .9);
+  loTab('#tb1', c[1] - .1); hiTab('#tb3', c[1]); pulse('#tb3', c[1], 1.1, .5); sfx('tick', c[1]);
+  show('#lpw', c[1] + .4, .3); to('#lp', { width: '80%', ease: 'power1.inOut' }, c[1] + .5, 1.6);
+  M.fromTo('#lpc', { autoAlpha: 0, scale: .5 }, { autoAlpha: 1, scale: 1, duration: .5, ease: 'back.out(2)', immediateRender: false }, c[2]); sfx('chime', c[2], .8);
+  /* so'zlar kartadan chiqadi (qatorda), keyin «ўрганяпман» pog'onasiga tushadi */
+  const [ox, oy] = page(1), XS = [165, 405, 645, 885], WY = 860;
+  [0, 1, 2, 3].forEach(k => { const r = wr[k], cx = r.left + r.width / 2, cy = r.top + r.height / 2, tt = c[3] + k * .14;
+    M.fromTo('#w' + k, { autoAlpha: 0, x: 540 - r.width / 2, y: 560, scale: .4 }, { autoAlpha: 1, x: XS[k] - r.width / 2, y: WY, scale: 1, duration: .6, ease: 'back.out(1.6)', immediateRender: false }, tt); sfx('pop', tt, .6);
+    const t2 = c[4] - .1 + k * .12;
+    M.to('#w' + k, { x: ox - r.width / 2, y: oy - 110, scale: .55, duration: .7, ease: 'power2.in' }, t2); M.to('#w' + k, { autoAlpha: 0, duration: .15 }, t2 + .62);
+  });
+  hide('#lpw', c[3] - .1, .3);
+  place(tk, 1, c[4] + .6); M.fromTo(tk, { autoAlpha: 0, scale: .6 }, { autoAlpha: 1, scale: 1, duration: .4, ease: 'back.out(2)', immediateRender: false }, c[4] + .6); sfx('thud', c[4] + .62, .8); stepGlow(1, c[4] + .62);
+  pop('#lug', c[4] + .2, .45, 0);
+  /* dars kartasi ketadi, qahramon kartasi keladi */
+  t = c[5] + .3; to('#les', { x: -1150, ease: 'power3.inOut' }, t, .7); sink('#lug', t, .3, 30); sfx('whoosh', t);
+  M.fromTo('#hero', { autoAlpha: 1, x: 1150 }, { autoAlpha: 1, x: 0, duration: .7, ease: 'power3.inOut', immediateRender: false }, t);
+  M.set('#hs0', { autoAlpha: 1 }, t);
+
+  /* ================= S3: «Ўрганиш» ================= */
+  t = S('S3'); sceneIn('#S3', t); sceneOut('#S2', t + .5); c = C.k3a.c; title('#T3', t);
+  rise('#bd1', t + .2, .5, 60);
+  tap(830, 780, c[0] + 1.3, [900, 1300]); to('#bd1b', { y: 6, boxShadow: '0 2px 0 #CDAE5E' }, c[0] + 1.3, .1); to('#bd1b', { y: 0, boxShadow: '0 8px 0 #CDAE5E' }, c[0] + 1.45, .15);
+  hide('#tap', c[1] - .5, .2); sink('#bd1', c[1] - .45, .3, -40);
+  [1, 2, 3].forEach((k, j) => { const tt = c[1 + j] - .05; rise('#d' + k, j === 0 ? tt - .2 : tt - .35, .4, 30); pop('#d' + k + 'c', tt + .35, .45, 0); sfx('chime', tt + .35, .7);
+    to('#d' + k, { borderColor: 'rgba(123,227,174,.8)', backgroundColor: 'rgba(47,163,111,.22)' }, tt + .35, .3);
+    to($('#hero .rb').children[j], { backgroundColor: COL.o }, tt + .4, .3); if (j < 2) stat('#hs' + j, '#hs' + (j + 1), tt + .4); });
+  t = c[4]; bar('#hero', 3, 'g', t); acc('#hero', 'g', t); stat('#hs2', '#hs3', t); hop(tk, 1, 2, t + .1, .75); sfx('shimmer', t + .3); bglow('#hero', t + .2, RGB.g, 1.2);
+  c = C.k3b.c;
+  /* kunlar ketma-ket shart emas: 2- va 3-kun kartalari suriladi (oraliq), bir kunda bir marta */
+  pop('#n1', c[0] + .1, .45);
+  pop('#n2', c[1] + .2, .45); pulse('#n2', c[2] + .1, 1.08, .5);
+
+  /* ================= S4: «Такрор» ================= */
+  t = S('S4'); sceneIn('#S4', t); c = C.k4.c; title('#T4', t);
+  M.to('#S3', { y: -120, autoAlpha: 0, duration: .45, ease: 'power2.in' }, t - .1);
+  rise('#bd2', t + .2, .5, 60);
+  tap(830, 780, c[0] + 1.1, [900, 1300]); to('#bd2b', { y: 6, boxShadow: '0 2px 0 #CDAE5E' }, c[0] + 1.1, .1); to('#bd2b', { y: 0, boxShadow: '0 8px 0 #CDAE5E' }, c[0] + 1.25, .15);
+  hide('#tap', c[1] - .5, .2); sink('#bd2', c[1] - .5, .3, -40);
+  const l1 = line('#tl4', 245, 795, 475, 795, 'rgba(255,255,255,.55)', 8), l2 = line('#tl4', 605, 795, 835, 795, 'rgba(255,255,255,.55)', 8);
+  rise(['#t4a', '#n4a', '#b4a'], c[1] - .3, .4, 24);
+  draw(l1, c[1] + .05, .6); pop('#p7', c[1] + .15, .4, 0); rise(['#t4b', '#n4b'], c[1] + .5, .4, 24); sfx('whoosh', c[1] + .05, .5);
+  t = c[1] + 1.15; to('#n4b', { borderColor: COL.g, backgroundColor: 'rgba(47,163,111,.3)' }, t, .3); pulse('#n4b', t, 1.15, .5); sfx('chime', t, .7); rise('#b4b', t + .1, .35, 16);
+  stat('#hs3', '#hs4', t + .2); pulse('#hero', t + .2, 1.03, .4);
+  draw(l2, c[2] + .1, .6); pop('#p21', c[2] + .2, .4, 0); rise(['#t4c', '#n4c'], c[2] + .6, .4, 24); sfx('whoosh', c[2] + .1, .5);
+  t = c[3] + .1; to('#n4c', { borderColor: COL.m, backgroundColor: 'rgba(74,134,224,.35)' }, t, .3); pulse('#n4c', t, 1.15, .5); sfx('chime', t, .7); rise('#b4c', t + .1, .35, 16);
+  t = c[4]; bar('#hero', 3, 'm', t); acc('#hero', 'm', t); stat('#hs4', '#hs5', t); hop(tk, 2, 3, t + .1, .75); sfx('shimmer', t + .3); bglow('#hero', t + .2, RGB.m, 1.2);
+
+  /* ================= S5: xato ================= */
+  t = S('S5'); sceneIn('#S5', t); c = C.k5.c; title('#T5', t);
+  M.to('#S4', { y: -120, autoAlpha: 0, duration: .45, ease: 'power2.in' }, t - .1);
+  to('#hero', { autoAlpha: 0, y: -60, ease: 'power2.in' }, t - .1, .4); to(tk, { autoAlpha: .35 }, t, .4);
+  const tk2 = mkTok('وَاحِدٌ'); place(tk2, 2, t + .5);
+  bar('#cA', 2, 'o', t); bar('#cB', 3, 'g', t);
+  rise('#cA', t + .3, .55, 60); rise('#cB', t + .45, .55, 60); show(tk2, t + .7, .35); sfx('whoosh', t + .3, .6);
+  t = c[1] + .1; xflash('#cA', t); pop('#xA', t, .4, 0); bar('#cA', 0, 'o', t + .6); stat('#cAs0', '#cAs1', t + .6); hide('#xA', c[2] - .3, .25);
+  t = c[2] + .1; xflash('#cB', t); pop('#xB', t, .4, 0); bar('#cB', 2, 'o', t + .6); acc('#cB', 'o', t + .6); stat('#cBs0', '#cBs1', t + .6); hop(tk2, 2, 1, t + .7, .7);
+  pulse('#cBs1', c[3] + .05, 1.12, .5); hide('#xB', c[4] - .3, .25);
+  t = c[4] + .1; pop('#eB', t, .45, 0); sfx('chime', t + .2, .7);
+  t = c[5]; bar('#cB', 3, 'g', t); acc('#cB', 'g', t); stat('#cBs1', '#cBs2', t); hop(tk2, 1, 2, t + .05, .7); bglow('#cB', t + .2, RGB.g, 1);
+
+  /* ================= S6: ikki belgi ================= */
+  t = S('S6'); sceneIn('#S6', t); c = C.k6.c; title('#T6', t);
+  M.to('#S5', { y: -120, autoAlpha: 0, duration: .45, ease: 'power2.in' }, t - .1); hide(tk2, t - .1, .3);
+  const tk3 = mkTok('سَلَامٌ'), tk4 = mkTok('أَوَّلٌ'); place(tk3, 1, t + .4); place(tk4, 1, t + .4);
+  bar('#r1', 0, 'o', t); bar('#r2', 1, 'o', t);
+  rise('#leg', t + .2, .45, 30); rise('#r1', t + .35, .55, 60); rise('#r2', t + .5, .55, 60); sfx('whoosh', t + .35, .6);
+  M.fromTo(tk3, { autoAlpha: 0, x: SX(1) - 70 }, { autoAlpha: 1, x: SX(1) - 70, duration: .35, immediateRender: false }, t + .8);
+  M.fromTo(tk4, { autoAlpha: 0, x: SX(1) + 70, y: SY(1) - 118 }, { autoAlpha: 1, x: SX(1) + 70, y: SY(1) - 118, duration: .35, immediateRender: false }, t + .8);
+  const ic = (row, k) => $(row).querySelector('.ic' + k);
+  pulse(ic('#r1', 1), c[0] + 1.4, 1.25, .5); pulse(ic('#r1', 2), c[0] + 1.6, 1.25, .5); pulse(ic('#r2', 1), c[0] + 1.4, 1.25, .5); pulse(ic('#r2', 2), c[0] + 1.6, 1.25, .5);
+  to('#r2', { opacity: .55 }, c[1], .3);
+  const i1 = R(ic('#r1', 1)), i2 = R(ic('#r2', 2));
+  t = c[2] + .45; tap(i1.left + i1.width / 2, i1.top + i1.height / 2, t, [700, 1300]);
+  to(ic('#r1', 1), { color: COL.m }, t, .2); pulse(ic('#r1', 1), t, 1.3, .4);
+  t = c[3]; bar('#r1', 3, 'g', t); acc('#r1', 'g', t); stat('#r1s0', '#r1s1', t); hop(tk3, 1, 2, t + .05, .7); sfx('chime', t + .1, .7);
+  hide('#tap', c[4] - .5, .2);
+  to('#r1', { opacity: .55 }, c[4], .3); to('#r2', { opacity: 1 }, c[4], .3);
+  t = c[5] + .45; tap(i2.left + i2.width / 2, i2.top + i2.height / 2, t, [700, 1300]);
+  to(ic('#r2', 2), { color: COL.b }, t, .2); pulse(ic('#r2', 2), t, 1.3, .4);
+  t = c[6] - .2; bar('#r2', 0, 'b', t); acc('#r2', 'b', t); stat('#r2s0', '#r2s1', t); M.to(tk4, { x: SX(0), y: SY(0) - 8, borderColor: COL.b, duration: .7, ease: 'power2.inOut' }, t + .05); sfx('thud', t + .5, .6); stepGlow(0, t + .5);
+  hide('#tap', t + .3, .2);
+
+  /* ================= S7: мустаҳкам ================= */
+  t = S('S7'); sceneIn('#S7', t); c = C.k7.c; title('#T7', t);
+  M.to('#S6', { y: -120, autoAlpha: 0, duration: .45, ease: 'power2.in' }, t - .1); hide([tk3, tk4], t - .1, .3);
+  M.fromTo('#hero', { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: .55, immediateRender: false }, t + .3); to(tk, { autoAlpha: 1 }, t + .3, .4);
+  bglow('#hero', c[0] + .3, RGB.m, 1); stepGlow(3, c[0] + .3);
+  pop('#nq', c[1] + .05, .45);
+  rise('#rate', c[2] - .1, .5, 50); sfx('whoosh', c[2] - .1, .5);
+  t = c[2] + .9; to('#rn0', { autoAlpha: 0, y: -40 }, t, .25); M.fromTo('#rn1', { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: .35, immediateRender: false }, t + .1); pop('#rp', t + .1, .4, 0); sfx('chime', t + .1, .8);
+
+  /* ================= S8: xulosa ================= */
+  t = S('S8'); sceneIn('#S8', t); c = C.k8.c; title('#T8', t);
+  M.to('#S7', { y: -120, autoAlpha: 0, duration: .45, ease: 'power2.in' }, t - .1); to('#hero', { autoAlpha: 0, y: -60, ease: 'power2.in' }, t - .1, .4);
+  const X8 = [140, 340, 540, 740, 940], Y8 = 600, DY = ['1', '2', '3', '10', '31'], LB = ['1/3', '2/3', 'биламан', 'текширув', 'мустаҳкам'], CL = ['o', 'o', 'g', 'g', 'm'];
+  X8.forEach((x, k) => { if (k) { const p = line('#tl8', X8[k - 1] + 66, Y8 + 65, x - 66, Y8 + 65, 'rgba(255,255,255,.45)', 7); draw(p, c[1 + k] - .25, .3); }
+    const n = document.createElement('div'); n.className = 'nd h'; n.style.cssText = `left:${x}px;top:${Y8}px;border-color:${COL[CL[k]]};background:rgba(${RGB[CL[k]]},.3)`;
+    n.innerHTML = `<b style="font-size:50px;line-height:1">${DY[k]}</b><small style="font-size:24px;font-weight:700;color:#dfeee6">кун</small>`; $('#n8').appendChild(n);
+    const l = document.createElement('div'); l.className = 'nl h'; l.style.cssText = `left:${x}px;top:${Y8 + 150}px;font-size:28px;color:${k === 4 ? '#9BC1F5' : k > 1 ? '#8FE0B6' : '#F2C877'}`; l.textContent = LB[k]; $('#n8').appendChild(l);
+    pop(n, c[1 + k] - .05, .45, .7); rise(l, c[1 + k] + .1, .35, 14); });
+  pop('#f1', c[6] + .05, .45); pop('#f2', c[7] + .1, .45); bglow('#f2 .chip', c[7] + .4, RGB.m, 1);
+  ['#P0', '#P1', '#P2', '#P3'].forEach((p, i) => stepGlow(i, c[7] + .5 + i * .18));
+  t = c[8] - .35; M.to(['#n8', '#tl8', '#f1', '#f2'], { y: -100, autoAlpha: 0, duration: .4, ease: 'power2.in' }, t); hide(tk, t, .3);
+  M.fromTo('#f3', { autoAlpha: 0, y: 50 }, { autoAlpha: 1, y: 0, duration: .6, immediateRender: false }, c[8] + .05);
+  rise('#f4', c[9] + .9, .6, 40); sfx('shimmer', c[9] + .9, .8);
+  M.to('#stairs', { autoAlpha: 0, duration: .8 }, D - 1.6);
+  window.READY = true;
+}
+window.seek = t => { M.time(Math.max(0, Math.min(TL.dur, t)), false); };
+document.fonts.ready.then(() => { build(); M.time(TL.dur); M.time(0); });
+</script>
+</body></html>

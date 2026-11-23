@@ -6,3 +6,5 @@
 /* Tepadagi yorliqlar: «Упражнение» uzun — tor ekranda (390px dan kichik) harf shunga yarasha kichrayadi,
    aks holda uchta yorliq teng bo'lmay, ostidagi chiziq siljib qoladi. Keng ekranda shell.css dagi 15px. */
 html body.lo2 .tabs button{font-size:min(15px,calc(5.2vw - 5.2px))!important;white-space:nowrap}
+/* Yangi tarkib ko'rinishi (tarkib3.js; 23.11.2026): «Белгилар» oynasida shu darsda yo'q rang yonidagi yozuv CSS orqali */
+.t3sh .r.off small::after{content:" · нет в этом уроке"!important}

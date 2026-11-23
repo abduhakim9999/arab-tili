@@ -126,18 +126,56 @@ def J(x):
     return json.dumps(x, ensure_ascii=False)
 
 
+# Ruschada hali ESKI tarkib ko'rinishida qolgan darslar (navbatda — foydalanuvchi so'raganda o'tkaziladi).
+# Qolgan hamma ruscha dars, YANGI darslar ham o'zi — yangi ko'rinishda (tarkib3.js + qt-ru.json kartalari);
+# yangi darsda qt-ru.json da kartasi yo'q bo'lsa — build to'xtaydi (23.11.2026, foydalanuvchi: 11–12 da
+# o'zbekchasi yangi, ruschasi eski ko'rinishda chiqqan edi).
+RU_TK3_ESKI = set(range(1, 11))
+QAR = re.compile(r'\(?[\u0600-\u06FF](?:[\u0600-\u06FF\u064B-\u0652\u0670\s\u060C\u061B\u2026()]*[\u0600-\u06FF\u064B-\u0652\u0670)])?')   # tarkib3.js arw() bilan bir xil
+
+
+def qmark(x):
+    """Ruscha karta matni: har bo'lak (arabcha so'z, **…**, qator oralig'i) chegarasida U+2063 — ru.js tegmasin."""
+    x = QAR.sub(lambda m: MARK + m.group(0) + MARK, x)
+    x = x.replace('**', MARK + '**' + MARK).replace('\n', MARK + '\n' + MARK)
+    return MARK + x + MARK
+
+
+def qt_ru(s, n):
+    """QT dagi kartalar — ruscha (qt-ru.json); arabchasi o'zbekchadagi bilan bir xil bo'lishi tekshiriladi (tartibi ruschada boshqacha bo'lishi mumkin)."""
+    R = json.load(open(os.path.join(HERE, 'qt-ru.json'), encoding='utf-8'))
+    m = re.search(r'\bvar QT=(\{.*?\});\n', s)
+    QT = json.loads(m.group(1))
+    q = re.search(r'\bvar QMP=(\{.*?\});', s)
+    kerak = sorted({k for v in json.loads(q.group(1)).values() for k in v}) if q else []
+    yoq = [k for k in kerak if k not in R]
+    if yoq:
+        sys.exit('ru%d: qt-ru.json da karta yo`q: %s' % (n, ' '.join(yoq)))
+    ar = lambda t: [re.sub(r'\s+', ' ', a).strip(' ()') for a in QAR.findall(t)]
+    for k, v in R.items():
+        if k.startswith('_') or k not in QT: continue
+        u = QT[k][1]
+        if len(u) != len(v[1]) or any(sorted(ar(a)) != sorted(ar(b)) for a, b in zip(u, v[1])):
+            sys.exit('qt-ru.json %s: arabchasi yoki bandlar soni o`zbekchadagidan farq qiladi' % k)
+        QT[k] = [qmark(v[0]), [qmark(t) for t in v[1]]]
+    return s[:m.start(1)] + json.dumps(QT, ensure_ascii=False) + s[m.end(1):]
+
+
 def build(n, out):
     src = '%d.html' % n
     s = open(src, encoding='utf-8').read()
     L = json.load(open(os.path.join(HERE, 'd%02d.json' % n), encoding='utf-8'))
     warn = []
 
-    # --- yangi tarkib ko'rinishi (tarkib3.js) va yangi qoida kartalari ruschaga hali o'tkazilmagan (19.11.2026,
-    #     foydalanuvchi: «ruscha keyin»): ruscha sahifa eski ko'rinishda — TK3 ulanmaydi, QT — eski matn (qt-eski.json,
-    #     lugat-qoida.txt shunga mos). Ruschasi qilinganda shu ikki qator olib tashlanadi.
-    s = s.replace('<script>window.TK3=1</script><script src="tarkib3.js"></script>\n', '')
+    # --- yangi tarkib ko'rinishi (tarkib3.js) va yangi qoida kartalari: RU_TK3_ESKI dan tashqari darslarda ruschada ham
+    #     (23.11.2026, foydalanuvchi: «o'zbekchani yangicha, ruschasini eskicha qilibdi — to'g'rila»); qolganlari
+    #     hozircha eski ko'rinishda — TK3 ulanmaydi, QT — eski matn (qt-eski.json, lugat-qoida.txt shunga mos).
+    if n in RU_TK3_ESKI:
+        s = s.replace('<script>window.TK3=1</script><script src="tarkib3.js"></script>\n', '')
+    if n not in RU_TK3_ESKI:
+        s = qt_ru(s, n)
     qe = os.path.join(HERE, 'qt-eski.json')
-    if os.path.exists(qe):
+    if n in RU_TK3_ESKI and os.path.exists(qe):
         i = re.search(r'\bQT\s*=\s*\{', s)
         if i:
             j, d = s.index('{', i.start()), 0

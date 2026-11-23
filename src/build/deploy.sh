@@ -31,7 +31,7 @@ for TRY in 1 2 3; do
   if [ -f src/ru/build.py ] && ls ru[0-9]*.html >/dev/null 2>&1; then
     python3 src/ru/build.py --hammasi --index --out . >/dev/null || { echo "TO'XTA: ruscha qayta yasalmadi (src/ru/build.py)"; exit 7; }
     CH=$( { git diff --name-only origin/main; git ls-files --others --exclude-standard; } | sort -u)
-    if printf '%s\n' "$CH" | grep -qE '^((yol|takror|qoidalar|yana|sozlamalar|nahv|[0-9]+)\.html|(qobiq|takror|tg|baza|shell|tarkib2|ru|ru-index)\.js|data/.*|src/ru/.*)$'; then
+    if printf '%s\n' "$CH" | grep -qE '^((yol|takror|qoidalar|yana|sozlamalar|nahv|[0-9]+)\.html|(qobiq|takror|tg|baza|shell|tarkib2|tarkib3|ru|ru-index)\.js|data/.*|src/ru/.*)$'; then
       if [ -x /usr/bin/google-chrome ] && python3 -c 'import playwright' 2>/dev/null; then
         RT=$(python3 src/ru/tekshir/qobiq.py . 2>&1 || true)
         printf '%s\n' "$RT" | grep -q '^MISS (0)' && printf '%s\n' "$RT" | grep -q '^XATO (0)' || {
@@ -41,6 +41,10 @@ for TRY in 1 2 3; do
           n=${f%.html}; [ -f "ru$n.html" ] || continue
           RT=$(python3 src/ru/tekshir/harvest.py . "ru$n.html" "$(mktemp -d)" 2>&1 || true)
           printf '%s\n' "$RT" | grep -q 'MISS (0)' || { printf '%s\n' "$RT" | grep -A15 'MISS (' | head -20; echo "TO'XTA: ru$n.html da tarjimasi yo'q matn — src/ru/d$(printf %02d "$n").txt yoki lugat-umumiy.txt ga qo'shing"; exit 8; }
+          if grep -q 'src="tarkib3.js"' "ru$n.html"; then   # yangi tarkib ko'rinishi ruschada (23.11.2026; src/ru/build.py RU_TK3_ESKI dan tashqari darslar)
+            RT=$(python3 src/ru/tekshir/t3ru.py . "ru$n.html" 2>&1 || true)
+            printf '%s\n' "$RT" | grep -q '^MISS (0)' && printf '%s\n' "$RT" | grep -q '^UZ LEFT (0)' && printf '%s\n' "$RT" | grep -q '^ERRORS (0)' || { printf '%s\n' "$RT" | head -30; echo "TO'XTA: ru$n.html Таркибида tarjimasi yo'q matn — lugat-umumiy.txt / d$(printf %02d "$n").txt, kartalar — src/ru/qt-ru.json"; exit 8; }
+          fi
         done
       else echo "ESLATMA: Playwright/Chrome yo'q — ruscha matn tekshiruvi (src/ru/tekshir/qobiq.py, harvest.py) o'tkazilmadi"; fi
     fi

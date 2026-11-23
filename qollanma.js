@@ -24,6 +24,11 @@
     '.qs button{font:inherit;cursor:pointer;-webkit-appearance:none;appearance:none}' +
     '.qs-in{width:100%;max-width:520px;height:100%;display:flex;flex-direction:column;padding:calc(10px + env(safe-area-inset-top,0px)) 0 calc(12px + env(safe-area-inset-bottom,0px));transform:translateY(16px);transition:transform .36s cubic-bezier(.2,.8,.2,1)}' +
     '.qs.on .qs-in{transform:none}' +
+    /* 23.11.2026 (foydalanuvchi: «ekran to'liq ochiladigan emas — oyna bo'lib, bo'sh joyni bosib chiqib ketsa bo'ladi»): o.varaq — pastdan chiqadigan oyna (takror.html) */
+    '.qs.qs-va{background:rgba(0,0,0,.5);align-items:flex-end}' +
+    '.qs-va .qs-in{height:84%;border-radius:22px 22px 0 0;padding-top:0;background:radial-gradient(130% 70% at 50% 0%,#0f4231 0%,#072a1f 52%,#041911 100%);transform:translateY(100%)}' +
+    '.qs-tut{flex-shrink:0;height:20px;display:flex;align-items:center;justify-content:center;touch-action:none;cursor:grab}' +
+    '.qs-tut::before{content:"";width:40px;height:4px;border-radius:2px;background:rgba(255,255,255,.35)}' +
     '.qs-pr{display:flex;gap:4px;padding:0 14px}' +
     '.qs-pr i{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.2);overflow:hidden}' +
     '.qs-pr b{display:block;width:0;height:100%;border-radius:2px;background:#f6dc94}' +
@@ -156,9 +161,9 @@
     for (i = 1; i <= ND; i++) kun += '<span>' + X.kun(i) + '</span>';
     var KN = M.keyingi && MV[M.keyingi] ? MV[M.keyingi].nom : '';
     var el = document.createElement('div');
-    el.className = 'qs'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-label', M.nom); el.setAttribute('data-ru-yoq', '');
+    el.className = o.varaq ? 'qs qs-va' : 'qs'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-label', M.nom); el.setAttribute('data-ru-yoq', '');
     for (i = 0; i < n; i++) seg += '<i><b></b></i>';
-    el.innerHTML = '<div class="qs-in"><div class="qs-pr">' + seg + '</div>' +
+    el.innerHTML = '<div class="qs-in">' + (o.varaq ? '<div class="qs-tut"></div>' : '') + '<div class="qs-pr">' + seg + '</div>' +
       '<div class="qs-hd"><b>' + M.nom + '</b><span></span>' + (o.temaTugma ? '<button class="qs-hb" data-q="tema" aria-label="' + X.tema + '">◐</button>' : '') +
       '<button class="qs-hb" data-q="yop" aria-label="' + X.yop + '">✕</button></div>' +
       '<div class="qs-st"><div class="qs-cam"><div class="qs-scr"><img class="qs-i" alt=""><img class="qs-i" alt=""><div class="qs-r"></div><div class="qs-rp"></div></div></div>' +
@@ -344,6 +349,7 @@
       toz(); ish = false; cur = n - 1; ppIcon(); qolYoq(); ring.className = 'qs-r'; ts.classList.remove('on');
       for (var j = 0; j < n; j++) pr[j].className = 'd';
       en.classList.add('on');
+      if (o.tugadi) o.tugadi();                          /* oxirigacha ko'rildi (takror.html: ⓘ yonidagi nuqta o'chadi) */
     }
     function keyingi(d) {
       if (!tayyor) return;
@@ -378,6 +384,7 @@
       var r = st.getBoundingClientRect(); keyingi(e.clientX - r.left < r.width * .3 ? -1 : 1);   /* чап томон — олдинги, ўнг томон — кейинги */
     };
     el.addEventListener('click', function (e) {
+      if (o.varaq && e.target === el) { yopish(); return; }   /* oynadan tashqari (bo'sh joy) bosilsa — yopiladi */
       var b = e.target.closest('[data-q]'); if (!b) return;
       var q = b.getAttribute('data-q');
       if (q === 'yop') yopish();
@@ -392,6 +399,13 @@
       }
       else keyingi(+q);
     });
+    if (o.varaq) (function () {                         /* tepadagi chiziqni pastga surish — yopadi */
+      var ic = el.querySelector('.qs-in'), tu = el.querySelector('.qs-tut'), y0 = null, dy = 0;
+      tu.addEventListener('pointerdown', function (e) { y0 = e.clientY; dy = 0; ic.style.transition = 'none'; try { tu.setPointerCapture(e.pointerId); } catch (x) {} });
+      tu.addEventListener('pointermove', function (e) { if (y0 === null) return; dy = Math.max(0, e.clientY - y0); ic.style.transform = 'translateY(' + dy + 'px)'; });
+      var qo = function () { if (y0 === null) return; y0 = null; ic.style.transition = ''; if (dy > 80) { ic.style.transform = 'translateY(100%)'; yopish(); } else ic.style.transform = ''; };
+      tu.addEventListener('pointerup', qo); tu.addEventListener('pointercancel', qo);
+    })();
     window.addEventListener('popstate', orqaga); window.addEventListener('resize', olchOzgardi); document.addEventListener('keydown', tugma); document.addEventListener('visibilitychange', korin);
 
     /* расмларни олдиндан юклаш, кейин бошлаш */

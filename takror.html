@@ -220,21 +220,16 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .mq-i svg{width:18px;height:18px}
 .mq-i2{width:40px;height:40px;margin:0 0 0 auto}.mq-i2 svg{width:22px;height:22px}
 .lg-yn.mq-yn{margin:0 0 12px}
-.mq-dt{display:flex;align-items:center;gap:16px;margin:8px 0 14px}
-.mq-dz{position:relative;width:146px;height:146px;flex-shrink:0}
+/* 23.11.2026 (foydalanuvchi: «ortiqcha so'zlar kerak emas»): doira yolg'iz, o'rtada — o'ngdagi «N сўзни биламан», «шундан … мустаҳкам», «N та дарс ўтилмаган» olib tashlandi (pastdagi kartalar va kitob qatorlari takrorlardi) */
+.mq-dt{display:flex;align-items:center;justify-content:center;margin:10px 0 16px}
+.mq-dz{position:relative;width:168px;height:168px;flex-shrink:0}
 .mq-dz svg{width:100%;height:100%;transform:rotate(-90deg)}
 .mq-dz circle{fill:none;stroke-width:16}
 .mq-dz .m{stroke:#3a73cc}.mq-dz .g{stroke:#2fa36f}.mq-dz .o{stroke:#d9a23a}.mq-dz .b{stroke:var(--tq-no)}.mq-dz .n{stroke:color-mix(in srgb,var(--mu) 20%,transparent)}
 .mq-dz>div{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.mq-dz>div b{font-size:30px;line-height:1.05;font-weight:800;color:#1f8f5c}
-.mq-dz>div span{font-size:12.5px;color:var(--mu);font-variant-numeric:tabular-nums}
-.mq-dy{display:flex;flex-direction:column;gap:3px;min-width:0}
-.mq-dy .lg-bn{margin:0;flex-wrap:wrap;gap:4px 8px}.mq-dy .lg-bn b{font-size:32px}.mq-dy .lg-bn span{font-size:16.5px;font-weight:700;color:var(--tx)}
-.mq-dy em{font-style:normal;font-size:13.5px;font-weight:600;color:#2c63b8}
-.mq-dy small{font-size:13px;line-height:1.35;color:var(--mu)}
-/* o'tilmagan darslar (15.11.2026, A ko'rinish): sarlavha ostida «N та дарс ўтилмаган», kitob qatorida — har dars bitta bo'lak */
-.mq-qd{display:inline-flex;align-self:flex-start;align-items:center;gap:7px;margin:5px 0 0;padding:6px 10px;border-radius:10px;background:color-mix(in srgb,#E07A1F 15%,transparent);color:color-mix(in srgb,#E07A1F 55%,var(--tx));font-size:14px;font-weight:700;line-height:1.3}
-.mq-qd svg{flex:none;width:17px;height:17px}
+.mq-dz>div b{font-size:34px;line-height:1.05;font-weight:800;color:#1f8f5c}
+.mq-dz>div span{font-size:13.5px;color:var(--mu);font-variant-numeric:tabular-nums}
+/* o'tilmagan darslar (15.11.2026, A ko'rinish): kitob qatorida «N та дарс ўтилмаган», har dars bitta bo'lak */
 .mq-5{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .mq-c{display:flex;align-items:center;gap:10px;min-width:0;padding:9px 12px;border-radius:14px;border:0;background:var(--tint);text-align:left;color:var(--tx)}
 .mq-c.n{grid-column:1/-1;background:color-mix(in srgb,var(--mu) 9%,transparent)}
@@ -588,9 +583,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
       app.innerHTML = tepa(S, false, bg, t) + sinovQ + (saralangan ? '' : '<p class="lg-yn mq-yn">Ҳозирча 1-дарс сўзлари кўрсатиляпти. Дарс «Машқ»ини тугатсангиз, унинг сўзлари ўзи қўшилади.</p>') +
         '<a class="q-rw mq-lg" href="#lugat"><span class="q-ib">' + KITOB + '</span><span class="t">Луғат<small>Исм · Феъл · Ҳарф · қидирув' + (ca.b ? ' · Билмаганларим ' + ca.b : '') + '</small></span>' + CHV + '</a>' +
         '<section class="tq-c"><div class="tq-h">Статистика · жами ' + JJ + ' сўз<button class="tq-ib" id="bi" data-qol="soz" aria-label="Сўзлар ва поғоналар — кўрсатма">' + INF + '</button></div>' +
-        '<div class="mq-dt"><div class="mq-dz">' + doira(JA, JJ) + '<div><b>' + Math.round((JA.m + JA.g) * 100 / (JJ || 1)) + '%</b><span>' + (JA.m + JA.g) + ' / ' + JJ + ' сўз</span></div></div>' +
-          '<div class="mq-dy"><div class="lg-bn"><b>' + (ca.g + ca.m) + '</b><span>сўзни биламан</span></div>' + (ca.m ? '<em>шундан ' + ca.m + ' таси мустаҳкам</em>' : '') +
-          '<p class="mq-qd">' + KITOB + '<span>' + (DH.q ? DH.q + ' та дарс ўтилмаган' : 'Ҳамма дарслар ўтилди') + '</span></p>' + '</div></div>' +
+        '<div class="mq-dt"><div class="mq-dz">' + doira(JA, JJ) + '<div><b>' + Math.round((JA.m + JA.g) * 100 / (JJ || 1)) + '%</b><span>' + (JA.m + JA.g) + ' / ' + JJ + ' сўз</span></div></div></div>' +
         '<div class="mq-5" role="group" aria-label="Ҳолат бўйича">' + ['m', 'g', 'o', 'b'].map(function (k) {
           return '<button class="mq-c ' + k + '" data-h="' + k + '"><i></i><span><b>' + JA[k] + '</b>' + HN5[k] + '</span></button>'; }).join('') + '</div>' +
         '<div class="mq-hl"></div>' + DH.kq.map(function (k) {   /* kitob qatori: «N та дарс ўтилмаган», har dars — bo'lak (30 tadan ko'p bo'lsa — bitta chiziq), ostida so'zlar */

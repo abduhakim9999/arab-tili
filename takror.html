@@ -296,6 +296,10 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .tq-ib{position:relative;width:28px;height:28px;margin:-6px 0;padding:0;border:0;border-radius:50%;background:none;color:var(--mu);display:inline-flex;align-items:center;justify-content:center}
 .tq-ib::after{content:"";position:absolute;inset:-8px}
 .tq-ib svg{width:19px;height:19px}
+/* «Сўз йўли» videosi (23.11.2026, foydalanuvchi: «Статистика» ⓘ bosilsa video ochilsin; manba src/video/sozyoli, docs/texnik.md 21) */
+.vo{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.94);display:flex;align-items:center;justify-content:center}
+.vo video{display:block;max-width:100vw;max-height:100vh;max-height:100dvh;width:auto;height:100%;background:#000}
+.vo-x{position:absolute;top:calc(12px + env(safe-area-inset-top));right:12px;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.18);color:#fff;font-size:22px;line-height:44px;padding:0}
 .tq-ib[aria-expanded="true"]{color:var(--ac);background:var(--tint)}
 .tq-iz{margin:10px 0 0;padding:10px 12px;border-radius:12px;background:var(--tint);font-size:14px;line-height:1.5}
 .tq-iz a{color:var(--ac);font-weight:700}
@@ -528,6 +532,19 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     var s = document.createElement('script'); s.src = 'qollanma.js'; s.onload = function () { Qollanma.och(k, o); }; document.head.appendChild(s);
   }
   document.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[data-qol]'); if (b) { e.preventDefault(); qolOch(b.getAttribute('data-qol')); } });
+  /* «Сўз йўли» videosi — faqat o'zbekchada (ovozi o'zbekcha; ruschada ⓘ — avvalgi ko'rsatma). Butun ekranda, ✕ / fon / «Орқага» (tg.js OYNA «#vo») — yopadi */
+  var VSOZ = (window.Profil ? Profil.til : 'uz') !== 'ru' ? { mp4: 'vsoz-1104bdea.mp4', p: 'vsoz-ae2268c7.jpg' } : null;
+  function vidOch() {
+    if (!VSOZ || document.getElementById('vo')) return;
+    var o = document.createElement('div'); o.className = 'vo'; o.id = 'vo';
+    o.innerHTML = '<video src="' + VSOZ.mp4 + '" poster="' + VSOZ.p + '" controls playsinline autoplay title="Сўз йўли"></video><button class="vo-x" aria-label="Ёпиш">✕</button>';
+    var yop = function () { var v = o.querySelector('video'); try { v.pause(); } catch (x) {} o.remove(); };
+    o.querySelector('.vo-x').onclick = yop;
+    o.onclick = function (e) { if (e.target === o) yop(); };
+    document.body.appendChild(o);
+  }
+  document.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[data-vid]'); if (b) { e.preventDefault(); vidOch(); } });
+  document.addEventListener('keydown', function (e) { var o = document.getElementById('vo'); if (o && e.key === 'Escape') o.querySelector('.vo-x').click(); });
   /* «Сўзлар бу ерга қандай тушади?» matnli kartasi o'rnida «Сўзлар ва поғоналар» ko'rsatmasi (14.11.2026, foydalanuvchi: karta chalkash; 15.11 — ruschada ham):
      «Машқ»ga birinchi kirishda bir marta o'zi ochiladi (KQO), keyin «Статистика» ⓘ bilan */
   var KQO = SINOV ? 'takror-sinov-qol' : 'takror-qol';
@@ -582,7 +599,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
       kt5.sort(function (a, b) { return a - b; });
       app.innerHTML = tepa(S, false, bg, t) + sinovQ + (saralangan ? '' : '<p class="lg-yn mq-yn">Ҳозирча 1-дарс сўзлари кўрсатиляпти. Дарс «Машқ»ини тугатсангиз, унинг сўзлари ўзи қўшилади.</p>') +
         '<a class="q-rw mq-lg" href="#lugat"><span class="q-ib">' + KITOB + '</span><span class="t">Луғат<small>Исм · Феъл · Ҳарф · қидирув' + (ca.b ? ' · Билмаганларим ' + ca.b : '') + '</small></span>' + CHV + '</a>' +
-        '<section class="tq-c"><div class="tq-h">Статистика · жами ' + JJ + ' сўз<button class="tq-ib" id="bi" data-qol="soz" aria-label="Сўзлар ва поғоналар — кўрсатма">' + INF + '</button></div>' +
+        '<section class="tq-c"><div class="tq-h">Статистика · жами ' + JJ + ' сўз<button class="tq-ib" id="bi" ' + (VSOZ ? 'data-vid="soz" aria-label="Сўз йўли — видео">' : 'data-qol="soz" aria-label="Сўзлар ва поғоналар — кўрсатма">') + '' + INF + '</button></div>' +
         '<div class="mq-dt"><div class="mq-dz">' + doira(JA, JJ) + '<div><b>' + Math.round((JA.m + JA.g) * 100 / (JJ || 1)) + '%</b><span>' + (JA.m + JA.g) + ' / ' + JJ + ' сўз</span></div></div></div>' +
         '<div class="mq-5" role="group" aria-label="Ҳолат бўйича">' + ['m', 'g', 'o', 'b'].map(function (k) {
           return '<button class="mq-c ' + k + '" data-h="' + k + '"><i></i><span><b>' + JA[k] + '</b>' + HN5[k] + '</span></button>'; }).join('') + '</div>' +

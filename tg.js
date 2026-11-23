@@ -275,6 +275,7 @@
   var ESC = function () { document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); };
   var OYNA = [
     ['.qs', function () { if (window.Qollanma) Qollanma.yop(); }, 1],
+    ['#vo', function (e) { e.querySelector('.vo-x').click(); }],                                     /* takror.html: «Сўз йўли» videosi */
     ['.tour', function (e) { var x = e.querySelector('.tx'); if (x) x.click(); else e.remove(); }],   /* dars turi */
     ['#sh.on', function (e) { e.classList.remove('on'); }],                                              /* dars: so'z / izoh oynasi */
     ['#yp', ESC],                                                                                         /* yol.html: dars, imtihon, kitob oynasi */

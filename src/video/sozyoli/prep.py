@@ -62,7 +62,7 @@ DRAFT = set()
 def toza(t): return t.replace('|', '')
 
 
-def eleven(t): return re.sub(r"\b(" + '|'.join(IPA) + r")\b", lambda m: IPA[m.group(1).lower()], toza(t), flags=re.I)
+def eleven(t): return toza(t) if not IPA else re.sub(r"\b(" + '|'.join(IPA) + r")\b", lambda m: IPA[m.group(1).lower()], toza(t), flags=re.I)
 
 
 def load(n):

@@ -1,120 +1,120 @@
 {
- "dur": 112.967,
+ "dur": 111.167,
  "fps": 30,
  "clips": {
   "k1": {
    "s": 0.5,
-   "e": 8.832,
+   "e": 9.83,
    "c": [
     0.5,
-    2.17,
-    3.11,
-    4.92,
-    5.86,
-    7.02,
-    7.75
+    2.47,
+    3.33,
+    5.11,
+    6.3,
+    7.61,
+    8.43
    ]
   },
   "k2": {
-   "s": 10.232,
-   "e": 20.421,
+   "s": 11.23,
+   "e": 20.47,
    "c": [
-    10.232,
-    11.752,
-    14.062,
-    15.362,
-    16.952,
-    18.472
+    11.23,
+    12.69,
+    14.79,
+    15.81,
+    17.27,
+    18.61
    ]
   },
   "k3a": {
-   "s": 21.821,
-   "e": 33.211,
+   "s": 21.87,
+   "e": 33.31,
    "c": [
-    21.821,
-    24.791,
-    26.871,
-    28.761,
-    30.581
+    21.87,
+    24.81,
+    27.11,
+    29.39,
+    30.87
    ]
   },
   "k3b": {
-   "s": 33.811,
-   "e": 40.516,
+   "s": 33.91,
+   "e": 39.67,
    "c": [
-    33.811,
-    36.551,
-    39.291
+    33.91,
+    36.35,
+    38.61
    ]
   },
   "k4": {
-   "s": 41.916,
-   "e": 52.476,
+   "s": 41.07,
+   "e": 51.37,
    "c": [
-    41.916,
-    44.306,
-    45.676,
-    48.136,
-    50.666
+    41.07,
+    43.74,
+    45.07,
+    47.75,
+    49.59
    ]
   },
   "k5": {
-   "s": 53.976,
-   "e": 67.954,
+   "s": 52.87,
+   "e": 66.17,
    "c": [
-    53.976,
-    55.376,
-    58.866,
-    62.366,
-    64.736,
-    66.906
+    52.87,
+    54.46,
+    57.94,
+    61.12,
+    63.56,
+    65.32
    ]
   },
   "k5b": {
-   "s": 68.554,
-   "e": 75.424,
+   "s": 66.77,
+   "e": 73.09,
    "c": [
-    68.554,
-    70.454,
-    72.634
+    66.77,
+    68.35,
+    70.27
    ]
   },
   "k6": {
-   "s": 76.924,
-   "e": 91.364,
+   "s": 74.59,
+   "e": 87.97,
    "c": [
-    76.924,
-    79.934,
-    81.624,
-    83.654,
-    85.824,
-    87.224,
-    89.404
+    74.59,
+    77.7,
+    79.2,
+    80.84,
+    83.18,
+    84.48,
+    86.28
    ]
   },
   "k7": {
-   "s": 92.864,
-   "e": 97.29,
+   "s": 89.47,
+   "e": 93.81,
    "c": [
-    92.864,
-    93.954,
-    95.334
+    89.47,
+    90.59,
+    91.87
    ]
   },
   "k8": {
-   "s": 98.79,
-   "e": 110.741,
+   "s": 95.31,
+   "e": 108.96,
    "c": [
-    98.79,
-    100.31,
-    101.04,
-    101.76,
-    102.48,
-    103.14,
-    104.87,
-    106.25,
-    108.28,
-    109.58
+    95.31,
+    97.04,
+    97.93,
+    98.82,
+    99.73,
+    100.32,
+    102.16,
+    103.72,
+    106.08,
+    107.52
    ]
   }
  },
@@ -122,176 +122,44 @@
   {
    "id": "S1",
    "s": 0.0,
-   "e": 9.732
+   "e": 10.73
   },
   {
    "id": "S2",
-   "s": 9.732,
-   "e": 21.321
+   "s": 10.73,
+   "e": 21.37
   },
   {
    "id": "S3",
-   "s": 21.321,
-   "e": 41.416
+   "s": 21.37,
+   "e": 40.57
   },
   {
    "id": "S4",
-   "s": 41.416,
-   "e": 53.476
+   "s": 40.57,
+   "e": 52.37
   },
   {
    "id": "S5",
-   "s": 53.476,
-   "e": 76.424
+   "s": 52.37,
+   "e": 74.09
   },
   {
    "id": "S6",
-   "s": 76.424,
-   "e": 92.364
+   "s": 74.09,
+   "e": 88.97
   },
   {
    "id": "S7",
-   "s": 92.364,
-   "e": 98.29
+   "s": 88.97,
+   "e": 94.81
   },
   {
    "id": "S8",
-   "s": 98.29,
-   "e": 112.941
+   "s": 94.81,
+   "e": 111.16
   }
  ],
- "draft": [
-  "k1",
-  "k2",
-  "k3a",
-  "k3b",
-  "k4",
-  "k5",
-  "k5b",
-  "k6",
-  "k7",
-  "k8"
- ],
- "subs": [
-  [
-   0.5,
-   2.11,
-   "So'z qanday yodlanadi?"
-  ],
-  [
-   2.11,
-   8.83,
-   "Har bir so'z to'rt pog'onadan o'tadi: «bilmayman», «o'rganyapman», «bilaman» va «mustahkam»."
-  ],
-  [
-   10.23,
-   14.02,
-   "Avval darsni o'qing, keyin uning «Mashq»ini ishlang."
-  ],
-  [
-   14.02,
-   20.42,
-   "«Mashq» tugagach, darsdagi so'zlar o'zi «Lug'at»ga tushadi — «o'rganyapman» pog'onasiga."
-  ],
-  [
-   21.82,
-   24.77,
-   "Har kuni «Mashq»dagi «O'rganish»ni ishlang."
-  ],
-  [
-   24.77,
-   26.83,
-   "Bugun to'g'ri topdingiz — bir."
-  ],
-  [
-   26.83,
-   28.68,
-   "Ertaga yana to'g'ri — ikki."
-  ],
-  [
-   28.68,
-   33.21,
-   "Uchinchi kun ham to'g'ri — so'z «bilaman» pog'onasiga ko'tariladi."
-  ],
-  [
-   33.81,
-   36.51,
-   "Kunlar ketma-ket bo'lishi shart emas."
-  ],
-  [
-   36.51,
-   40.52,
-   "Bir kunda necha marta topsangiz ham — bir kun sanaladi."
-  ],
-  [
-   41.92,
-   48.11,
-   "Endi so'zni «Takror» tekshiradi: yetti kundan keyin va yana yigirma bir kundan keyin."
-  ],
-  [
-   48.11,
-   52.48,
-   "Ikkalasida ham to'g'ri topsangiz — so'z «mustahkam» bo'ladi."
-  ],
-  [
-   53.98,
-   55.32,
-   "Xato qilsangiz-chi?"
-  ],
-  [
-   55.32,
-   58.8,
-   "«O'rganyapman»dagi so'z hisobni noldan boshlaydi."
-  ],
-  [
-   58.8,
-   64.69,
-   "«Bilaman»dagi so'z esa «o'rganyapman»ga tushadi — lekin ikki chizig'i to'la qoladi."
-  ],
-  [
-   64.69,
-   67.95,
-   "Ertasi kuni to'g'ri topsangiz, yana «bilaman»."
-  ],
-  [
-   68.55,
-   75.42,
-   "Ko'p xato qilingan so'zning bo'sh chiziqlari qizarib turadi va u «Bilmaganlarim»ning boshiga chiqadi."
-  ],
-  [
-   76.92,
-   79.9,
-   "«Lug'at»da har so'z yonida ikki belgi bor."
-  ],
-  [
-   79.9,
-   85.77,
-   "Aniq bilgan so'zingizga «bilaman» belgisini bosing — so'z darhol «bilaman» bo'ladi."
-  ],
-  [
-   85.77,
-   91.36,
-   "Unutgan so'zingizga «bilmayman» belgisini bosing — so'z yo'lni boshidan o'tadi."
-  ],
-  [
-   92.86,
-   97.29,
-   "Mustahkam so'z boshqa so'ralmaydi va «Reyting»da hisoblanadi."
-  ],
-  [
-   98.79,
-   104.88,
-   "Xatosiz ishlasangiz: birinchi, ikkinchi, uchinchi, o'ninchi va o'ttiz birinchi kun."
-  ],
-  [
-   104.88,
-   108.25,
-   "Atigi besh savol — va so'z bir oyda mustahkam."
-  ],
-  [
-   108.25,
-   110.74,
-   "Har kuni ozgina — so'zlar sizniki."
-  ]
- ]
+ "draft": [],
+ "subs": []
 }

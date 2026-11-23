@@ -141,6 +141,7 @@
   var reInl = /^(SPAN|B|I|EM|STRONG|BDI|BDO|MARK|U|SMALL)$/;
   function isAtom(n) {
     if (n.nodeType !== 1 || !reInl.test(n.nodeName)) return false;
+    if (n.classList && n.classList.contains('a2')) return false;   /* so'z oynasidagi arabcha qator (tarkib3.js, display:block) — oldidagi matnga qo'shilmaydi (23.11.2026) */
     var t = n.textContent; return reAr.test(t) && !reCy.test(t);
   }
   function doText(t) {

@@ -697,7 +697,8 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
   function turi(r) { return r.tur === 'fel' ? 'f' : r.tur === 'harf' ? 'h' : 'i'; }
   var HT = ['насб ва масдар ҳарфи', 'жар ҳарфи', 'атф ҳарфи', 'истифҳом ҳарфи', 'жавоб ҳарфи', 'нидо ҳарфи', 'жазм ҳарфи', 'таъкид ҳарфи', 'масдар ҳарфи'];   /* lug'at izohidagi nomlar; boshqasi so'ralmaydi */
   function harfTuri(r) { if (r.tur !== 'harf') return ''; var u = (r.uzA || r.uz).join(' ');   /* uzA — ruscha rejimda asl o'zbekcha ma'no (ru.js): tur nomi o'shandan */ for (var i = 0; i < HT.length; i++) if (u.indexOf(HT[i]) > -1) return HT[i]; return ''; }
-  function shaklTuri(r) { return r.tur === 'fel' ? (r.fel && r.fel.length > 1 ? 'k' : '') : r.tur === 'harf' ? (harfTuri(r) ? 't' : '') : (r.jam && r.jam.length ? 'j' : ''); }
+  function shaklTuri(r) { return r.tur === 'fel' ? '' :   /* fe'l shakllari kartasi yo'q — shakllar Сарфнинг o'z mashqida (23.11.2026, foydalanuvchi); «Маъноси?»da shakllar boshidanoq ko'rinadi */
+     r.tur === 'harf' ? (harfTuri(r) ? 't' : '') : (r.jam && r.jam.length ? 'j' : ''); }
   /* 14.11.2026 (foydalanuvchi: fe'l mashqi tushunarsiz): fe'l shakllari nomi bilan; harf turi ham «Билдим / Билмадим» bilan (4 variant o'rniga) */
   var FN = ['Ўтган замон · мозий', 'Ҳозирги замон · музореъ', 'Буйруқ · амр', 'Масдар'];
   function shaklMatn(r, t) {
@@ -1069,11 +1070,6 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     return '<div class="tq-gb"><div class="tq-gp ar" lang="ar" dir="rtl">' + w.join(' ') + '</div>' +
       (tr && s.tr ? '<div class="tq-gt' + (tr === 2 ? ' tq-oc' : '') + '">' + trHtml(r, s.tr, p) + '</div>' : '') + '<div class="tq-gd">' + r.d + '-дарс</div></div>';
   }
-  function misol(n) {
-    var x = [], g = gapS(n.r), bor = g ? g.a.trim() : '';
-    n.m.forEach(function (r) { (r.x || []).forEach(function (e) { if (e[0].trim() !== bor) x.push(e); }); });   /* kartadagi gap qaytarilmaydi */
-    return x.slice(0, g ? 1 : 2).map(function (e) { return '<div class="tq-ex">' + ar(e[0]) + esc(e[1]) + '</div>'; }).join('');
-  }
   function soz(bosh_, x) {
     var n = cur.n, r = n.r, t = cur.tur, old, orqa;
     var sorov = { a: Takror.manosiz(n) ? 'Вазифаси?' : 'Маъноси?', u: 'Арабчаси?', o: 'Эшитинг' }[t];   /* «маъносиз» harf — vazifasi so'raladi (19.11.2026) */
@@ -1082,8 +1078,8 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     var si = sila(r), p = si && si.p, ma = manolar(n, p);   /* harf belgisi shakllar tagida (A variant, foydalanuvchi tanlovi 21.11.2026) */
     /* 23.11.2026 (foydalanuvchi: «harfini ham ko'rsatish kerak — qaysi ma'no so'ralayotganini bilib olish oson»): fe'lning harfi «Маъноси?»da
        savol tomonida ham — shakllar tagidagi belgi va gapdagi harf boshidanoq o'z rangida; ma'no va tarjima — ochilganda */
-    if (t === 'a') { old = sozQator(r, 1) + silaB(p) + '<div class="tq-oc tq-ma">' + ma + '</div>' + gapAr(r, 2, p); orqa = ''; }   /* boshqa misol yo'q — gap bitta (21.11.2026, foydalanuvchi: «qil»); misollar «Луғат» ro'yxatida */   /* gap old tomonda — «Арабчаси?»da javobni ochib qo'ymasin */
-    else if (t === 'u') { old = manolar(n); orqa = sozQator(r) + silaB(p) + gapAr(r, 1, p) + misol(n); }
+    if (t === 'a') { old = sozQator(r) + silaB(p) + '<div class="tq-oc tq-ma">' + ma + '</div>' + gapAr(r, 2, p); orqa = ''; }   /* boshqa misol yo'q — gap bitta (21.11.2026, foydalanuvchi: «qil»); misollar «Луғат» ro'yxatida */   /* gap old tomonda — «Арабчаси?»da javobni ochib qo'ymasin */
+    else if (t === 'u') { old = manolar(n); orqa = sozQator(r) + silaB(p) + gapAr(r, 1, p); }   /* qo'shimcha misol yo'q — gap bitta (23.11.2026, foydalanuvchi: «Арабчаси?»da ham ikki misol tushunarsiz) */
     else { old = '<button class="tq-pl" id="pl" aria-label="Тинглаш">▶</button>'; orqa = sozQator(r) + silaB(p) + ma + gapAr(r, 1, p); }
     /* tinglash: ochilganda o'zi o'qiladi; qayta eshitish — burchakdagi kichik tugma (katta 🔊 o'rniga) */
     var sp = n.au && t !== 'o' ? '<button class="tq-au" id="sp" aria-label="Қайта эшитиш" hidden>' + KARNAY + '</button>' : '';

@@ -494,16 +494,16 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
           if (!H.hz && dOchiq && !dOt) { H.hz = 'd' + d.n; H.hzk = k.n; }
           oldDars = dOt; if (!dOt) hammasi = false;
         });
-        var exOchiq = bOt || (bOchiq && hammasi);
-        H.b[b.k] = { ot: bOt, op: exOchiq, r: bx || null, d: b.d.filter(function (d) { return H.d[d.n].ot; }).length, tez: tzb && !bOt };
-        if (tzb && !bOt) ktz = true;
-        if (!H.hz && exOchiq && !bOt) { H.hz = 'b' + b.k; H.hzk = k.n; }
-        oldBob = bOt; if (!bOt) bobHammasi = false;
+        /* 23.11.2026 (foydalanuvchi: bob va kitob imtihonlari kerak emas): bob — hamma darsi o'tilsa o'tilgan, keyingi bob navbatga keladi;
+           ilgari topshirilgan imtihon natijasi (R.e) ham o'tilgan deb qoladi. Imtihon qatori, oynasi va tugmasi yo'q */
+        var bTam = bOt || hammasi;
+        H.b[b.k] = { ot: bTam, op: true, r: bx || null, d: b.d.filter(function (d) { return H.d[d.n].ot; }).length, tez: tzb && !bTam };
+        if (tzb && !bTam) ktz = true;
+        oldBob = bTam; if (!bTam) bobHammasi = false;
       });
-      var kxOchiq = kOt || (kOchiq && bobHammasi);
-      H.k[k.n] = { ot: kOt, op: kxOchiq && !ktz, r: kx || null, och: kOchiq, j: kj, o: ko, tez: ktz && !kOt };
-      if (!H.hz && kxOchiq && !kOt && !ktz) { H.hz = 'k' + k.n; H.hzk = k.n; }
-      oldKitobOtdi = kOt;
+      var kTam = kOt || bobHammasi;
+      H.k[k.n] = { ot: kTam, op: true, r: kx || null, och: kOchiq, j: kj, o: ko, tez: ktz && !kTam };
+      oldKitobOtdi = kTam;
     });
     if (SZ.erkin) {                                    /* sozlamalar → «Эркин режим»: hamma dars qulfsiz */
       var x; for (x in H.d) H.d[x].op = !H.d[x].tez; for (x in H.b) H.b[x].op = !H.b[x].tez; for (x in H.k) { H.k[x].op = !H.k[x].tez; H.k[x].och = true; }
@@ -637,7 +637,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
     /* 14.11.2026 (foydalanuvchi): ro'yxatda ham bob — rasmli karta (xaritadagi kabi; bosilsa boblar ro'yxati) */
     /* 22.11.2026 (foydalanuvchi): bob — bitta panel (bob rangining och tusi): bob kartasi, darslar, bob imtihoni; dars rasmlari chiziq bilan
        bog'langan, chiziq o'tilgan darsgacha bob rangida. Rasm o'zgarmaydi; «100% ✓» va navbatdagi darsning tilla hoshiyasi — avvalgidek */
-    var ots = b.d.map(function (d) { return !!H.d[d.n].ot; }).concat([!!hb.ot]);
+    var ots = b.d.map(function (d) { return !!H.d[d.n].ot; });   /* 23.11.2026: bob imtihoni yo'q — chiziq oxirgi darsda tugaydi */
     var ch = function (i) { return (ots[i] ? ' o' : '') + (ots[i + 1] ? ' no' : ''); };   /* o — chiziq shu darsgacha to'la, no — keyingisigacha */
     var h = '<section class="y-lsb" data-b="' + b.k + '" style="--br:' + bobRang(b, k) + '"><div class="y-pn">' +
       '<div class="y-bk" role="button" tabindex="0" aria-label="Боблар рўйхати"><div class="tx"><small>' + b.raq + '-БОБ · ' + hb.d + ' / ' + b.d.length + ' ДАРС' + IC.past + '</small><b class="ar" lang="ar">' + esc(b.nom) + '</b>' +
@@ -655,8 +655,8 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
         '<span class="k"><span class="t"><b>' + (t === 'b' ? 'Боб имтиҳони' : 'Китоб имтиҳони') + '</b><span class="m">' + (x.tez ? 'тез орада' : savolSoni(t, i.slice(1)) + ' савол · ' + OTISH + '% — ўтиш') + '</span></span>' +
         (x.ot ? '<em class="ok">' + (x.r ? x.r.b + '%' : '') + IC.ok + '</em>' : x.r ? '<em>' + x.r.b + '%</em>' : '<em>' + IC.ong + '</em>') + '</span></button>';
     };
-    h += imt('b', 'b' + b.k, hb, ch(b.d.length)) + '</div>';
-    if (k.b[k.b.length - 1] === b) h += imt('k', 'k' + k.n, H.k[k.n]) + keyingiKitob(k);
+    h += '</div>';                                      /* bob va kitob imtihoni qatorlari olib tashlandi (23.11.2026, foydalanuvchi) — imt() ishlatilmaydi */
+    if (k.b[k.b.length - 1] === b) h += keyingiKitob(k);
     return h + '</section>';
   }
 
@@ -748,13 +748,13 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
       /* qs — oynadagi qisqa qator, iz — ⓘ ichidagi batafsil. «Навбати келмаган» — yo'lda navbati yetmagan dars (o'qish va eshitish ochiq). */
       var qs = '', iz = '';
       if (s.imt) qs = 'Имтиҳон орқали ўтилган.';
-      else if (s.ot) iz = 'Дарс сўзлари «Машқ» бўлимидаги «Луғат»га тушди: ҳар куни такрорланади ва боб имтиҳонида сўралади.';
+      else if (s.ot) iz = 'Дарс сўзлари «Машқ» бўлимидаги «Луғат»га тушди: «Ўрганиш»да ҳар куни такрорланади.';
       else if (s.op) {
         qs = 'Ўтиш: машқ ' + OTISH + '%.';
         iz = 'Дарсдаги «Машқ»дан ' + OTISH + '% олсангиз, кейинги дарс очилади, дарс сўзлари «Луғат»га ўзи тушади. Қайта топшириш — машқ охиридаги «Қайтадан» тугмаси.';
       } else {
         qs = 'Аввал олдингисини ўтинг.';
-        iz = 'Йўлда дарслар навбат билан очилади; ўқиш ва эшитиш ҳозир ҳам очиқ. Мавзуни билсангиз — боб охиридаги имтиҳонни топширинг: ўтсангиз, боб ўтилган ҳисобланади.';
+        iz = 'Йўлда дарслар навбат билан очилади; ўқиш ва эшитиш ҳозир ҳам очиқ.';
       }
       h += varaqBosh('<span class="y-md' + (qf ? ' qf' : '') + '">' + (ik ? '<span class="ic" style="background:' + ik.l + '"><svg viewBox="0 0 64 64" aria-hidden="true">' + ik.s + '</svg></span>' : n) + '</span>',
         n + '-ДАРС' + (s.ot ? yorliq('ok', IC.ok + 'Ўтилди', iz) : qf ? yorliq('qf', 'Навбати келмаган', iz) : yorliq('', 'Ўтилмаган', iz)), esc(d.uz), esc(d.ar), iz);

@@ -74,15 +74,15 @@
   function bormiP(d) { return !!(d && (Object.keys(d.ls || {}).some(function (k) { return d.ls[k].v != null; }) || (d.j || []).length || (d.soz && (Object.keys(d.soz.s || {}).length || Object.keys(d.soz.b || {}).length || Object.keys(d.soz.a || {}).length)) || (d.yol && (Object.keys(d.yol.d || {}).length || Object.keys(d.yol.e || {}).length)) || d.r)); }
   function bormi(d) { return !!((d.ism && d.ism.n) || bormiP(d) || bormiP(d.ru)); }
 
-  /* n — yangisi, e — eskisi. Har so'zda bitta holat: b («билмайман») / a («аниқ биламан») / k (biladi, tekshirilmagan);
-     yangisida holat bo'lsa — o'sha, bo'lmasa — eskisidagi. */
+  /* n — yangisi, e — eskisi. Har so'zda bitta holat: b («Билмайман») / a («Биламан») / k (eski: biladi, tekshirilmagan);
+     yangisida holat bo'lsa — o'sha, bo'lmasa — eskisidagi. Qiymat (23.11.2026 dan — bosilgan vaqt, takror.js shunga qaraydi) saqlanadi. */
   function sozQ(n, e) {
     var o = { v: 1, b: {}, k: {}, a: {}, s: {}, t: n.t || 0 }, id, ids = {};
     for (id in (e.s || {})) o.s[id] = e.s[id];
     for (id in (n.s || {})) o.s[id] = Math.max(o.s[id] || 0, n.s[id]);
     function hol(x, i) { return (x.b || {})[i] ? 'b' : (x.a || {})[i] ? 'a' : (x.k || {})[i] ? 'k' : ''; }
     [e, n].forEach(function (x) { ['b', 'a', 'k'].forEach(function (g) { for (var i in (x[g] || {})) ids[i] = 1; }); });
-    for (id in ids) o[hol(n, id) || hol(e, id)][id] = 1;
+    for (id in ids) { var hn = hol(n, id), x = hn ? n : e, g = hn || hol(e, id); o[g][id] = x[g][id] === true ? 1 : x[g][id]; }
     if (!Object.keys(o.a).length) delete o.a;          /* belgi yo'q bo'lsa hujjat avvalgidek qoladi (ortiqcha qayta yozish bo'lmasin) */
     return o;
   }

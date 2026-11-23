@@ -14,7 +14,6 @@ const LUG = require('../data/lugat.json').s.filter(function (r) { return r.tk; }
 const RURL = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL || '';
 const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || '';
 const HAFTA_SAQLA = 21 * 86400;                         // haftalik ro'yxat shuncha soniya turadi
-const BILDI = 3;                                        // takror.html BILDI bilan bir xil
 
 function bor() { return !!(RURL && TOKEN); }
 function id(kod) { return crypto.createHash('sha256').update('rey:' + kod).digest('hex').slice(0, 20); }
@@ -35,24 +34,12 @@ function tozaIsm(n) {
   return String(n || '').replace(/[\u0000-\u001f\u007f-\u009f​-‏‪-‮⁠-⁯﻿]/g, '').replace(/\s+/g, ' ').trim().slice(0, 30);
 }
 
-// «N сўзни биламан» — takror.html sozlar() + menHisob() bilan bir xil (kun — Toshkent vaqti, sahifada — o'quvchi soati)
+// «Сўзлар» ro'yxati — faqat «мустаҳкам» so'zlar (23.11.2026, foydalanuvchi qarori: «Биламан» tugmasi bilan reytingga chiqib bo'lmasin —
+// so'z «Такрор»da 7 kundan keyin tekshirilgach sanaladi). Holat — takror.js Takror.holatlar (sahifa bilan bir xil qoida; kun — Toshkent vaqti)
 function bilgan(d) {
-  const W = d.soz || {}, b = W.b || {}, a = W.a || {}, k = W.k || {}, s = W.s || {};
-  const f = {}; let faol = Object.keys(s); if (!faol.length) faol = ['1']; faol.forEach(function (x) { f[x] = 1; });
-  const K = {};
-  (Array.isArray(d.j) ? d.j : []).slice().sort(function (x, y) { return x[1] - y[1]; }).forEach(function (e) {
-    const m = /^w(\d+)[auos]$/.exec(e && e[0]); if (!m) return;
-    const x = K[m[1]] = K[m[1]] || { d: 0, k: null, n: 0 }; x.n++;
-    if (e[2] === 1) { x.d = 0; x.k = null; return; }
-    const kn = Math.floor((e[1] + Takror.REY.TZ) / 86400000); if (kn !== x.k) { x.k = kn; x.d++; }
-  });
+  const W = d.soz || {}, H = Takror.holatlar(Array.isArray(d.j) ? d.j : [], { a: W.a || {}, b: W.b || {} }, -Takror.REY.TZ / 60000, LUG.map(function (r) { return String(r.id); }));
   let c = 0;
-  LUG.forEach(function (r) {
-    const x = K[r.id] || { d: 0, n: 0 };
-    if (!(f[r.d] || b[r.id] || a[r.id] || x.n > 0)) return;      // «mening so'zlarim»ga kirmagan
-    if (x.d >= BILDI) c++;
-    else if (!b[r.id] && (a[r.id] || k[r.id])) c++;
-  });
+  LUG.forEach(function (r) { if (H[r.id] && H[r.id].st === 'm') c++; });
   return c;
 }
 

@@ -838,7 +838,7 @@ document.addEventListener('click', function (e) {
       var kn = Math.floor((e[1] - tz * 60000) / 864e5); if (kn !== x.k) { x.k = kn; x.d++; }
     });
     var W = ol(), a = W.a || {};
-    return function (id) { return !!id && ((K[id] && K[id].d >= 3) || (!W.b[id] && (a[id] || W.k[id]))); };
+    return function (id) { return !!id && !W.b[id] && ((K[id] && K[id].d >= 3) || a[id] || W.k[id]); };   /* 23.11.2026: «Билмайман» belgisi ustun (мустаҳкам so'zni ham qaytaradi) */
   }
   function chiz() {
     if (!ID) return;
@@ -853,7 +853,7 @@ document.addEventListener('click', function (e) {
         b.onclick = function (e) {
           e.stopPropagation();
           var W = ol();
-          if (W.b[id]) delete W.b[id]; else { W.b[id] = 1; delete W.k[id]; if (W.a) delete W.a[id]; }
+          if (W.b[id]) delete W.b[id]; else { W.b[id] = Date.now(); delete W.k[id]; if (W.a) delete W.a[id]; }   /* qiymat — bosilgan vaqt (takror.js: shundan keyin «билмайман») */
           W.t = Date.now();
           try { localStorage.setItem(KB, JSON.stringify(W)); } catch (x) {}
           b.setAttribute('aria-pressed', W.b[id] ? 'true' : 'false');
@@ -1080,7 +1080,7 @@ document.addEventListener('click', function (e) {
     var yoz = function () { b.setAttribute('aria-pressed', W.b[r.id] ? 'true' : 'false'); b.innerHTML = BM + '<span>Билмайман</span>'; };
     b.onclick = function (e) {
       e.stopPropagation(); W = ol();
-      if (W.b[r.id]) delete W.b[r.id]; else { W.b[r.id] = 1; delete W.k[r.id]; if (W.a) delete W.a[r.id]; }   /* 22.11.2026: qaytarib olish «биламан» qilmaydi */
+      if (W.b[r.id]) delete W.b[r.id]; else { W.b[r.id] = Date.now(); delete W.k[r.id]; if (W.a) delete W.a[r.id]; }   /* 22.11.2026: qaytarib olish «биламан» qilmaydi; 23.11: qiymat — bosilgan vaqt */
       W.t = Date.now();
       try { localStorage.setItem(KB, JSON.stringify(W)); } catch (x) {}
       yoz();

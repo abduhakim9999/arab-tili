@@ -26,7 +26,9 @@ TXT = {
  # S4 — «Такрор»: 7 kun, yana 21 kun -> мустаҳкам
  'k4': "Endi so'zni «Takror» tekshiradi: |yetti kundan keyin |va yana yigirma bir kundan keyin. |Ikkalasida ham to'g'ri topsangiz — |so'z «mustahkam» bo'ladi.",
  # S5 — xato
- 'k5': "Xato qilsangiz-chi? |«O'rganyapman»dagi so'z hisobni noldan boshlaydi. |«Bilaman»dagi so'z esa bir pog'ona tushadi — |ikki uchdan. |Ertasi kuni to'g'ri topsangiz, |yana «bilaman».",
+ 'k5': "Xato qilsangiz-chi? |«O'rganyapman»dagi so'z hisobni noldan boshlaydi. |«Bilaman»dagi so'z esa «o'rganyapman»ga tushadi — |lekin ikki chizig'i to'la qoladi. |Ertasi kuni to'g'ri topsangiz, |yana «bilaman».",
+ # qiyin so'z (23.11.2026, ilovada: 4+ xato, hali biladigan emas — bo'sh chiziqlar qizg'ish, «Билмаганларим» boshida; tayyor-lugat-qiyin)
+ 'k5b': "Ko'p xato qilingan so'zning |bo'sh chiziqlari qizarib turadi |va u «Bilmaganlarim»ning boshiga chiqadi.",
  # S6 — Луғатdagi ikki belgi
  'k6': "«Lug'at»da har so'z yonida ikki belgi bor. |Aniq bilgan so'zingizga |«bilaman» belgisini bosing — |so'z darhol «bilaman» bo'ladi. |Unutgan so'zingizga |«bilmayman» belgisini bosing — |so'z yo'lni boshidan o'tadi.",
  # S7 — мустаҳкам
@@ -39,7 +41,7 @@ SEQ = [
  ('S2', [('lead', 0.5), 'k2', ('gap', 0.9)]),
  ('S3', [('lead', 0.5), 'k3a', ('gap', 0.6), 'k3b', ('gap', 0.9)]),
  ('S4', [('lead', 0.5), 'k4', ('gap', 1.0)]),
- ('S5', [('lead', 0.5), 'k5', ('gap', 1.0)]),
+ ('S5', [('lead', 0.5), 'k5', ('gap', 0.6), 'k5b', ('gap', 1.0)]),
  ('S6', [('lead', 0.5), 'k6', ('gap', 1.0)]),
  ('S7', [('lead', 0.5), 'k7', ('gap', 1.0)]),
  ('S8', [('lead', 0.5), 'k8', ('gap', 2.2)]),

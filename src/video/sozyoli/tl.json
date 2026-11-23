@@ -1,5 +1,5 @@
 {
- "dur": 104.067,
+ "dur": 112.967,
  "fps": 30,
  "clips": {
   "k1": {
@@ -60,52 +60,61 @@
   },
   "k5": {
    "s": 53.976,
-   "e": 66.519,
+   "e": 67.954,
    "c": [
     53.976,
-    55.416,
-    59.026,
-    62.266,
-    63.206,
-    65.436
+    55.376,
+    58.866,
+    62.366,
+    64.736,
+    66.906
+   ]
+  },
+  "k5b": {
+   "s": 68.554,
+   "e": 75.424,
+   "c": [
+    68.554,
+    70.454,
+    72.634
    ]
   },
   "k6": {
-   "s": 68.019,
-   "e": 82.459,
+   "s": 76.924,
+   "e": 91.364,
    "c": [
-    68.019,
-    71.029,
-    72.719,
-    74.749,
-    76.919,
-    78.319,
-    80.499
+    76.924,
+    79.934,
+    81.624,
+    83.654,
+    85.824,
+    87.224,
+    89.404
    ]
   },
   "k7": {
-   "s": 83.959,
-   "e": 88.385,
+   "s": 92.864,
+   "e": 97.29,
    "c": [
-    83.959,
-    85.049,
-    86.429
+    92.864,
+    93.954,
+    95.334
    ]
   },
   "k8": {
-   "s": 89.885,
-   "e": 101.836,
+   "s": 98.79,
+   "e": 110.741,
    "c": [
-    89.885,
-    91.405,
-    92.135,
-    92.855,
-    93.575,
-    94.235,
-    95.965,
-    97.345,
-    99.375,
-    100.675
+    98.79,
+    100.31,
+    101.04,
+    101.76,
+    102.48,
+    103.14,
+    104.87,
+    106.25,
+    108.28,
+    109.58
    ]
   }
  },
@@ -133,22 +142,22 @@
   {
    "id": "S5",
    "s": 53.476,
-   "e": 67.519
+   "e": 76.424
   },
   {
    "id": "S6",
-   "s": 67.519,
-   "e": 83.459
+   "s": 76.424,
+   "e": 92.364
   },
   {
    "id": "S7",
-   "s": 83.459,
-   "e": 89.385
+   "s": 92.364,
+   "e": 98.29
   },
   {
    "id": "S8",
-   "s": 89.385,
-   "e": 104.036
+   "s": 98.29,
+   "e": 112.941
   }
  ],
  "draft": [
@@ -158,6 +167,7 @@
   "k3b",
   "k4",
   "k5",
+  "k5b",
   "k6",
   "k7",
   "k8"
@@ -225,57 +235,62 @@
   ],
   [
    53.98,
-   55.37,
+   55.32,
    "Xato qilsangiz-chi?"
   ],
   [
-   55.37,
-   58.96,
+   55.32,
+   58.8,
    "«O'rganyapman»dagi so'z hisobni noldan boshlaydi."
   ],
   [
-   58.96,
-   63.14,
-   "«Bilaman»dagi so'z esa bir pog'ona tushadi — ikki uchdan."
+   58.8,
+   64.69,
+   "«Bilaman»dagi so'z esa «o'rganyapman»ga tushadi — lekin ikki chizig'i to'la qoladi."
   ],
   [
-   63.14,
-   66.52,
+   64.69,
+   67.95,
    "Ertasi kuni to'g'ri topsangiz, yana «bilaman»."
   ],
   [
-   68.02,
-   70.99,
+   68.55,
+   75.42,
+   "Ko'p xato qilingan so'zning bo'sh chiziqlari qizarib turadi va u «Bilmaganlarim»ning boshiga chiqadi."
+  ],
+  [
+   76.92,
+   79.9,
    "«Lug'at»da har so'z yonida ikki belgi bor."
   ],
   [
-   70.99,
-   76.87,
+   79.9,
+   85.77,
    "Aniq bilgan so'zingizga «bilaman» belgisini bosing — so'z darhol «bilaman» bo'ladi."
   ],
   [
-   76.87,
-   82.46,
+   85.77,
+   91.36,
    "Unutgan so'zingizga «bilmayman» belgisini bosing — so'z yo'lni boshidan o'tadi."
   ],
   [
-   83.96,
-   88.39,
+   92.86,
+   97.29,
    "Mustahkam so'z boshqa so'ralmaydi va «Reyting»da hisoblanadi."
   ],
   [
-   89.89,
-   95.97,
+   98.79,
+   104.88,
    "Xatosiz ishlasangiz: birinchi, ikkinchi, uchinchi, o'ninchi va o'ttiz birinchi kun."
   ],
   [
-   95.97,
-   99.34,
+   104.88,
+   108.25,
    "Atigi besh savol — va so'z bir oyda mustahkam."
   ],
   [
-   99.34,
-   101.84,
+   108.25,
+   110.74,
    "Har kuni ozgina — so'zlar sizniki."
   ]
  ]

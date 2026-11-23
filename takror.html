@@ -65,6 +65,10 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .tq-w{font-size:46px;line-height:1.7}
 .tq-m{font-size:21px;line-height:1.4;font-weight:600}
 .tq-m div+div{margin-top:2px}
+/* 23.11.2026: bitta ma'noning variantlari — har biri o'z qatorida, orasida qisqa chiziq (bitta gapga o'xshamasin); misol tarjimasi ham */
+.tq-mv>div+div::before,.tq-tv>span+span::before{content:'';display:block;width:26px;height:2px;border-radius:1px;background:currentColor;opacity:.22;margin:7px auto 6px}
+.tq-tv>span{display:block}
+.tq-tv>span+span::before{width:20px;margin:5px auto 4px}
 .tq-r{margin:0 -4px;padding:16px 14px 16px;border-radius:16px;background:var(--tint);text-align:center}
 @media (prefers-reduced-motion:no-preference){.tq-r{animation:tqo .28s cubic-bezier(.2,.9,.25,1.05)}}
 @keyframes tqo{from{opacity:0;transform:translateY(10px)}}
@@ -831,15 +835,42 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
     saqla(); keyingi();
   }
 
-  function manolar(n, ph) {                            /* ph — fe'lning harfi bor: ma'nodagi birinchi «..га» / «(...ни)» o'sha rangda */
+  /* 23.11.2026 (foydalanuvchi: «2 ta ma'noni ko'rsatyapti, lekin bitta gapdek bo'lib qolgan», «yaxshisini qil»): vergul / nuqtali vergul
+     bilan yozilgan variantlardan biri 2+ so'zli bo'lsa («олиб келди (борди), сабаб бўлди») — har biri o'z qatorida, orasida qisqa chiziq
+     (.tq-mv). Bitta so'zlilar («касал, бемор») bir qatorda qoladi. Qavs ichidagi vergul bo'lmaydi; boshidagi qavs («(...га)», «(бир жойда)»)
+     har qatorga qo'yiladi — u hammasiga tegishli. Raqam («1.», «2.») — boshqa ma'no uchun, shuning uchun variantlarga raqam qo'yilmaydi. */
+  var RAQ = /\s(?=\d+\.\s?[^\d\s.])/;                 /* «1. …», «2.тўлиқ» (bo'shliqsiz yozilgani ham) — alohida ma'no */
+  function variant(p) {
+    var a = [], d = 0, c = '', i, ch, m;
+    for (i = 0; i < p.length; i++) {
+      ch = p.charAt(i);
+      if (ch === '(') d++; else if (ch === ')') d = Math.max(0, d - 1);
+      if ((ch === ',' || ch === ';') && !d) { a.push(c); c = ''; } else c += ch;
+    }
+    a.push(c);
+    a = a.map(function (x) { return x.trim(); }).filter(function (x) { return x; });
+    if (a.length < 2 || !a.some(function (x) { return qsoz(x).length > 1; })) return [p.trim()];
+    m = /^\([^()]*\)\s*/.exec(a[0]);
+    if (m) for (i = 1; i < a.length; i++) if (a[i].charAt(0) !== '(') a[i] = m[0] + a[i];
+    return a;
+  }
+  function qsoz(x) {                                   /* qavsdan tashqaridagi so'zlar (harfi bor bo'laklar) */
+    return x.replace(/\([^()]*\)/g, ' ').toLowerCase().split(/\s+/).map(function (w) { return w.replace(/[^a-zа-яёўқғҳ]/g, ''); }).filter(function (w) { return w; });
+  }
+  function manolar(n, ph) {                            /* ph — fe'lning harfi bor: ma'nodagi «..га» / «(...ни)» o'sha rangda (har variant qatorida) */
     var a = [], bor = !ph;
-    n.m.forEach(function (r) { (r.mz || r.uz).forEach(function (u) { u.split(/\s(?=\d\.\s)/).forEach(function (p) { a.push(p); }); }); });
+    n.m.forEach(function (r) { (r.mz || r.uz).forEach(function (u) { u.split(RAQ).forEach(function (p) { a.push(p); }); }); });
     if (a.length === 1) a[0] = a[0].replace(/^\d+\.\s*/, '');
+    var M = '⁣';   /* ko'rinmas belgi — ruscha qatlam bo'lingan ma'noni o'girmaydi (trBelgi kabi) */
     return '<div class="tq-m">' + a.map(function (p) {
-      var h = esc(p.replace(/^(\d+)\.\s*/, '$1. '));
-      var M = '\u2063';   /* ko'rinmas belgi — ruscha qatlam bo'lingan ma'noni o'girmaydi (trBelgi kabi) */
-      if (!bor && /\.{2,3}/.test(h)) { bor = true; h = h.replace(/\(?\.{2,3}[^\s,;()\u2063]*\)?/, M + '<span class="tq-ph">' + M + '$&' + M + '</span>' + M); }
-      return '<div>' + h + '</div>';
+      var nm = /^(\d+)\.\s*/.exec(p), q = variant(nm ? p.slice(nm[0].length) : p), topdi = false;
+      var h = q.map(function (v, i) {
+        var x = (i === 0 && nm ? nm[1] + '. ' : '') + esc(v);
+        if (!bor && /\.{2,3}/.test(x)) { topdi = true; x = x.replace(/\(?\.{2,3}[^\s,;()⁣]*\)?/, function (m) { return M + '<span class="tq-ph">' + M + m.replace(/^\((.*)\)$/, '$1') + M + '</span>' + M; }); }   /* belgi o'zi ajratib turadi — qavssiz («...га»), qator sig'adi */
+        return q.length > 1 ? M + x + M : x;
+      });
+      if (topdi) bor = true;
+      return q.length > 1 ? '<div class="tq-mv">' + h.map(function (x) { return '<div>' + x + '</div>'; }).join('') + '</div>' : '<div>' + h[0] + '</div>';
     }).join('') + '</div>';
   }
   /* 21.11.2026 (foydalanuvchi: «мозий, музореъ, амр deb yozish shart emas, bir xil ko'rinishda»): so'z qatori o'ngdan chapga — so'ralgan so'z,
@@ -878,7 +909,7 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
     return k.indexOf(w) === 0 && QQ.test(k.slice(w.length));
   }
   function trBelgi(r, tr, p) {                         /* p — fe'lning harfi: yashil so'z yonidagi «..га» qo'shimchali so'z («шунга») sariq */
-    var u0 = ((r.mz || r.uz || [])[0] || ''), qs = p ? /\.{2,3}([а-яёўқғҳ]+)/i.exec(u0) : null, u = u0.replace(/^\d+\.\s*/, '').replace(/\([^()]*\)/g, ' ').split(/\s\d+\.\s/)[0];
+    var u0 = ((r.mz || r.uz || [])[0] || ''), qs = p ? /\.{2,3}([а-яёўқғҳ]+)/i.exec(u0) : null, u = u0.replace(/^\d+\.\s*/, '').replace(/\([^()]*\)/g, ' ').split(RAQ)[0];
     var oz = u.toLowerCase().split(/\s+/).map(function (w) { return w.replace(/[^а-яёўқғҳ]/g, ''); }).filter(function (w) { return w; }), n = 0;
     var M = '\u2063';   /* ko'rinmas belgi: ruscha qatlam (ru.js) bo'lakni tayyor matn deb biladi — gap bo'linsa ham o'girmaydi */
     tr = tr.split('\u2063').join('');
@@ -894,6 +925,19 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
       if (qs && k.length > qs[1].length && k.slice(-qs[1].length) === qs[1].toLowerCase() && (Y[i - 2] || Y[i + 2])) return '<span class="tq-ph">' + M + esc(t) + M + '</span>';
       return M + esc(t) + M;
     }).join('');
+  }
+  /* 23.11.2026: ma'no variantlarga bo'lingan bo'lsa (variant()) va misol tarjimasi ham vergul bilan o'shancha bo'lakdan iborat bo'lib, har bo'lak
+     o'z variantiga mos kelsa («шунга олиб келади, шунга сабаб бўлади») — tarjima ham qatorlarga bo'linadi. Oddiy gapdagi vergul tegilmaydi. */
+  function trQism(r, tr) {
+    var u0 = ((r.mz || r.uz || [])[0] || '').replace(/^\d+\.\s*/, '').split(RAQ)[0], v = variant(u0), t, i;
+    if (v.length < 2) return null;
+    t = tr.split('\u2063').join('').split(/[,;]\s+/).map(function (x) { return x.trim(); }).filter(function (x) { return x; });
+    if (t.length !== v.length || /[.!?]\s/.test(tr.replace(/\([^()]*\)/g, ''))) return null;   /* ichida gap tugasa — ikki gap, variant emas */
+    for (i = 0; i < t.length; i++) {
+      var oz = qsoz(v[i]);
+      if (!qsoz(t[i]).some(function (k) { return oz.some(function (w) { return mos(k, w); }); })) return null;
+    }
+    return t;
   }
   /* gapdagi harf: so'zdan keyingi 4 so'z ichida — harfning o'zi yoki olmosh qo'shilgani (إِلَيْهِ, عَنْهُ, بِهِ); yopishib kelgani (بِالْ...) — yo'q */
   var QSH = ['', 'ه', 'ها', 'هم', 'هما', 'هن', 'ك', 'كم', 'كما', 'كن', 'ي', 'نا'];
@@ -924,6 +968,10 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
   }
   /* 21.11.2026 (foydalanuvchi: «matndagi gapning tarjimasi gapning tagida bo'lsin»): gap bloki — gap, tagida tarjimasi, keyin «N-дарс».
      tr: 1 — tarjima ko'rinadi; 2 — joyi ajratilgan, «Кўрсатиш»da ochiladi (`.tq-oc`; karta sakramaydi) */
+  function trHtml(r, tr, p) {
+    var q = trQism(r, tr);
+    return q ? '<span class="tq-tv">' + q.map(function (x) { return '<span>' + trBelgi(r, x, p) + '</span>'; }).join('') + '</span>' : trBelgi(r, tr, p);
+  }
   function gapAr(r, tr, p) {
     var s = gapS(r); if (!s) return '';
     var pj = p ? silaJoy(s, p) : -1;
@@ -933,7 +981,7 @@ document.write('<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js
       return q ? esc(x.slice(0, q[1])) + '<span class="tq-gh">' + esc(x.slice(q[1], q[2])) + '</span>' + esc(x.slice(q[2])) : esc(x);
     });
     return '<div class="tq-gb"><div class="tq-gp ar" lang="ar" dir="rtl">' + w.join(' ') + '</div>' +
-      (tr && s.tr ? '<div class="tq-gt' + (tr === 2 ? ' tq-oc' : '') + '">' + trBelgi(r, s.tr, p) + '</div>' : '') + '<div class="tq-gd">' + r.d + '-дарс</div></div>';
+      (tr && s.tr ? '<div class="tq-gt' + (tr === 2 ? ' tq-oc' : '') + '">' + trHtml(r, s.tr, p) + '</div>' : '') + '<div class="tq-gd">' + r.d + '-дарс</div></div>';
   }
   function misol(n) {
     var x = [], g = gapS(n.r), bor = g ? g.a.trim() : '';

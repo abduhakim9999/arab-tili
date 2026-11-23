@@ -130,7 +130,7 @@ def J(x):
 # Qolgan hamma ruscha dars, YANGI darslar ham o'zi — yangi ko'rinishda (tarkib3.js + qt-ru.json kartalari);
 # yangi darsda qt-ru.json da kartasi yo'q bo'lsa — build to'xtaydi (23.11.2026, foydalanuvchi: 11–12 da
 # o'zbekchasi yangi, ruschasi eski ko'rinishda chiqqan edi).
-RU_TK3_ESKI = set(range(1, 11))
+RU_TK3_ESKI = set()
 QAR = re.compile(r'\(?[\u0600-\u06FF](?:[\u0600-\u06FF\u064B-\u0652\u0670\s\u060C\u061B\u2026()]*[\u0600-\u06FF\u064B-\u0652\u0670)])?')   # tarkib3.js arw() bilan bir xil
 
 
@@ -151,7 +151,7 @@ def qt_ru(s, n):
     yoq = [k for k in kerak if k not in R]
     if yoq:
         sys.exit('ru%d: qt-ru.json da karta yo`q: %s' % (n, ' '.join(yoq)))
-    ar = lambda t: [re.sub(r'\s+', ' ', a).strip(' ()') for a in QAR.findall(t)]
+    ar = lambda t: re.findall(r'[\u0600-\u06FF\u064B-\u0652\u0670]+', t)   # arabcha so'zlar (bo'linishi tilga qarab farq qilishi mumkin)
     for k, v in R.items():
         if k.startswith('_') or k not in QT: continue
         u = QT[k][1]

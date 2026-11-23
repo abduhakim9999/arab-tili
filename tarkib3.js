@@ -151,7 +151,7 @@
 
   /* ---------- IRB qatorini tahlil: tur va rang ---------- */
   var TYP = /^(жамъ вови — муттасил замир|муттасил замир|мунфасил замир|ажратиш \(фасл\) замири|муаннас учун исм ишора|исм ишора|исм мавсул|исм истифҳом|истифҳом исми|лафзи жалола|исм шарт|шарт исми)\s+бўлиб,?\s*(у\s+)?/;
-  function seg0(u) { return String(u).split(/,\s*/)[0] }
+  function seg0(u) { return String(u).replace(/«[^»]*»|\([^)]*\)/g, function (m) { return m.replace(/,/g, '\u0001') }).split(/,\s*/)[0].replace(/\u0001/g, ',') }   /* «…» va (…) ichidagi vergul bo'lmaydi (23.11.2026: «юринглар, тезланглар») */
   function isHarf(u) {
     var f = seg0(u);
     if (/бўлиб/.test(f)) return false;

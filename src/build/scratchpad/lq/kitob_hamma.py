@@ -79,6 +79,8 @@ def qur(n):
             yoz = s['yoz']
             if s.get('uz'):
                 uz = s['uz']
+            if s.get('y'):                              # boshqa ma'no (matndagisi uz da) — 23.11.2026, 93-dars أَتَى
+                e['y'] = s['y']
         rows.append([kn, yoz, uz, ex, e, [tuple(x) for x in W.get(kn, [])]])
     for k, (yoz, uz, w, d) in enumerate(YANGI, 1):
         d = dict(d)

@@ -115,6 +115,18 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .tq-gb .tq-gt{margin-top:0}
 .tq-gb .tq-gd{margin-top:6px}
 .tq-r:empty{display:none}
+/* 23.11.2026: «Маъноси?» — gap tepada, so'z o'rtada, javob qutisi eng tagida */
+.tq-yq{width:100%}
+.tq-yq:empty{display:none}
+.tq-yq .tq-gb{margin:0 0 12px;padding:0 0 12px;border-top:0;border-bottom:1px solid var(--bd)}
+.tq-yq .tq-gp{margin-top:0}
+.tq-jq{box-sizing:border-box;width:100%;margin-top:14px;display:grid;place-items:center;min-height:92px;padding:12px 14px;border-radius:16px;border:1.5px dashed var(--bd);border-color:color-mix(in srgb,var(--mu) 42%,transparent);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background-color .2s,border-color .2s}
+.tq-jq>*{grid-area:1/1}
+.tq-jb{font-size:34px;font-weight:600;line-height:1;color:var(--mu);opacity:.55}
+.tq-k.och .tq-jq{border-style:solid;border-color:transparent;background:var(--tint);cursor:default}
+.tq-k.och .tq-jb{visibility:hidden}
+.tq-jo{width:100%;margin-top:0}
+.tq-jo .tq-gt{margin-top:9px;padding-top:9px;border-top:1px solid var(--bd)}
 .tq-ex{margin-top:12px;padding:10px 12px;border-radius:12px;background:var(--cd);font-size:14.5px;color:var(--mu)}
 .tq-ex .ar{display:block;font-size:22px;line-height:1.8;color:var(--tx)}
 .tq-au{margin-left:auto;width:42px;height:42px;border-radius:50%;border:0;background:var(--tint);color:var(--ac);display:flex;align-items:center;justify-content:center;padding:0}
@@ -1071,7 +1083,16 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     var si = sila(r), p = si && si.p, ma = manolar(n, p);   /* harf belgisi shakllar tagida (A variant, foydalanuvchi tanlovi 21.11.2026) */
     /* 23.11.2026 (foydalanuvchi: «harfini ham ko'rsatish kerak — qaysi ma'no so'ralayotganini bilib olish oson»): fe'lning harfi «Маъноси?»da
        savol tomonida ham — shakllar tagidagi belgi va gapdagi harf boshidanoq o'z rangida; ma'no va tarjima — ochilganda */
-    if (t === 'a') { old = sozQator(r) + silaB(p) + '<div class="tq-oc tq-ma">' + ma + '</div>' + gapAr(r, 2, p); orqa = ''; }   /* boshqa misol yo'q — gap bitta (21.11.2026, foydalanuvchi: «qil»); misollar «Луғат» ro'yxatida */   /* gap old tomonda — «Арабчаси?»da javobni ochib qo'ymasin */
+    /* 23.11.2026 (foydalanuvchi: «avval matn, keyin so'zning o'zi, eng tagida ma'nosi topiladigan joy», «qil»): «Маъноси?» tartibi —
+       tepada dars gapi (so'z ajratilgan) va «N-дарс», chiziq, so'z + harfi, eng tagida javob qutisi (punktir, ichida «?»).
+       «Кўрсатиш» yoki qutining o'zini bossa — ma'no va gap tarjimasi shu quti ichida ochiladi. Ikkalasi bitta grid katakda —
+       quti balandligi boshidanoq javobniki, hech narsa surilmaydi. */
+    if (t === 'a') {
+      var gs = gapS(r), gtr = gs && gs.tr ? '<div class="tq-gt">' + trHtml(r, gs.tr, p) + '</div>' : '';
+      old = '<div class="tq-yq">' + gapAr(r, 0, p) + '</div>' + sozQator(r) + silaB(p) +
+        '<div class="tq-jq" id="jq"><div class="tq-jb" aria-hidden="true">?</div><div class="tq-oc tq-ma tq-jo">' + ma + gtr + '</div></div>';
+      orqa = '';
+    }   /* boshqa misol yo'q — gap bitta (21.11.2026, foydalanuvchi: «qil»); misollar «Луғат» ro'yxatida */   /* gap old tomonda — «Арабчаси?»da javobni ochib qo'ymasin */
     else if (t === 'u') { old = manolar(n); orqa = sozQator(r) + silaB(p) + gapAr(r, 1, p); }   /* qo'shimcha misol yo'q — gap bitta (23.11.2026, foydalanuvchi: «Арабчаси?»da ham ikki misol tushunarsiz) */
     else { old = '<button class="tq-pl" id="pl" aria-label="Тинглаш">▶</button>'; orqa = sozQator(r) + silaB(p) + ma + gapAr(r, 1, p); }
     /* tinglash: ochilganda o'zi o'qiladi; qayta eshitish — burchakdagi kichik tugma (katta 🔊 o'rniga) */
@@ -1081,14 +1102,18 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     tugma('<button class="tq-b tq-b1" id="ko">Кўрсатиш</button>');
     sigdir(); if (document.fonts && document.fonts.ready) document.fonts.ready.then(sigdir);
     if (t === 'o') { document.getElementById('pl').onclick = function () { ovoz(n.au); }; ovoz(n.au); }
-    document.getElementById('ko').onclick = function () {
-      document.getElementById('rv').hidden = false; document.getElementById('kk').classList.add('och'); sigdir();
+    var och = function () {
+      var kk = document.getElementById('kk');
+      if (!kk || kk.classList.contains('och')) return;
+      document.getElementById('rv').hidden = false; kk.classList.add('och'); sigdir();
       tugma('<button class="tq-b" id="j0">Билмадим</button><button class="tq-b tq-b1" id="j1">Билдим</button>', true);
       document.getElementById('j0').onclick = function () { javob(false); };
       document.getElementById('j1').onclick = function () { javob(true); };
       var sp = document.getElementById('sp');
       if (sp) { sp.hidden = false; sp.onclick = function () { ovoz(n.au); }; ovoz(n.au); }
     };
+    document.getElementById('ko').onclick = och;
+    var jq = document.getElementById('jq'); if (jq) jq.onclick = och;   /* javob qutisini bosish ham ochadi */
   }
 
   /* shakl kartasi (takror.js `w…s`): ko'pligi / fe'l shakllari — eslab ko'rib o'zini baholash; harf turi — 4 variant */

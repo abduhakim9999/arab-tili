@@ -21,6 +21,7 @@ tayyor-ish-belgi 071ae477c852fcdc2bad55f0c71c323abf79e4b1
 tayyor-karta-gap 3acd4011dd3a0a587156b27b74e2581c92d1cd0d
 tayyor-karta-orqaga 870909ca69f147073e3a4ce7bd214ecdf5b3dfa6
 tayyor-karta-play 48c6035238d6ab10df59644650c2ce2b6f21efc6
+tayyor-karta-quti 44468f8bc9669afa51f77927edee43a0184bc5e6
 tayyor-karta-shakl a7551603745f56c5649d4b4e33894b8064b670b1
 tayyor-karta-tartib 2de22ac2d170234b64e8671869ea4c46fbc76db3
 tayyor-kitob-oxiri e3ad5e422288993b14584790cfa5758726e63bac
@@ -29,6 +30,7 @@ tayyor-lugat-92 0819ccac48d523cdb52746ac0018195c89e08d90
 tayyor-lugat-97 8f003bfa8ac8f59ceed8fe4580d178843f253cde
 tayyor-lugat-hamma 31be011437caac88ec1e8b13db1daaf35e4ad8c9
 tayyor-lugat-korinish 6de616c387d23f31592221e8104cf148d02ba2c0
+tayyor-lugat-qiyin bcea160397866211d78633cf69412077c5fc49bb
 tayyor-lugat-qolgan 9d4576c709a5c066c560dd105e58872697827e44
 tayyor-lugat-sila efc9407dad9a03357c1842c7da35bc6db5a38c10
 tayyor-mano-qator 2cfab993f88db04331de32b64cb69371f60e7693
@@ -68,5 +70,6 @@ tayyor-video-kana46 3ec377266c3bb702b25bf6f227c91bf25ddd4e17
 tayyor-video-kana46b 11e13ae2a8d9262e42b3f95bb880ddd3339c535b
 tayyor-video-kana47 ebd1c507b8405d088ebf076b9b5891d6c3b51e72
 tayyor-video-soz 9f445f57fde56dc89a02e4cd916d68e07e484cdb
+tayyor-video-soz2 b78c9f4dc70ed7ae3420057a15949ad3ce7ed9ff
 tayyor-yoriqnoma d36923579e00c385741f200722996be6ae2d491d
 tayyor-zamir-ramka ad411919098ec9a84d0facc947f815c7a932756e

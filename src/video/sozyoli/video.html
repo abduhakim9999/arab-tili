@@ -74,6 +74,7 @@ i{font-style:normal}
 svg.ln{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:visible}
 #tap{position:absolute;left:0;top:0;width:96px;height:96px;margin:-48px 0 0 -48px;border-radius:50%;background:rgba(255,255,255,.85);box-shadow:0 0 0 6px rgba(0,0,0,.18);z-index:8}
 #tapr{position:absolute;left:0;top:0;width:96px;height:96px;margin:-48px 0 0 -48px;border-radius:50%;border:6px solid #fff;box-sizing:border-box;z-index:8}
+.mb{display:inline-flex;gap:6px;vertical-align:middle}.mb i{width:34px;height:18px;border-radius:6px;background:rgba(255,255,255,.25)}.mb i.f{background:#F2C877}
 .big{position:absolute;left:40px;right:40px;text-align:center;font-weight:800}
 #sub{position:absolute;top:1584px;left:50px;right:50px;font-size:40px;font-weight:600;line-height:1.35;color:#fff;text-shadow:0 2px 10px #000,0 0 3px #000;z-index:9}
 .sb{position:absolute;left:0;right:0;top:0;text-align:center;opacity:0;visibility:hidden}
@@ -98,9 +99,7 @@ svg.ln{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:visibl
   <div class="rw">دَرْسٌ</div><div class="rm">дарс</div>
   <div class="rb"><i></i><i></i><i></i></div>
   <div class="rs">
-    <div class="h" id="hs0">ўрганяпман · 0/3</div>
-    <div class="h" id="hs1">ўрганяпман · 1/3</div>
-    <div class="h" id="hs2">ўрганяпман · 2/3</div>
+    <div class="h" id="hs0">ўрганяпман</div>
     <div class="h" id="hs3" style="color:#22875A">биламан<small>7 кундан кейин «Такрор»да</small></div>
     <div class="h" id="hs4" style="color:#22875A">биламан<small>21 кундан кейин «Такрор»да</small></div>
     <div class="h" id="hs5" style="color:#3168BF">мустаҳкам</div>
@@ -165,18 +164,25 @@ svg.ln{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:visibl
   <div class="row h" id="cA" style="top:420px">
     <div class="acc"></div><div class="rw">سَلَامٌ</div><div class="rm">омонлик</div>
     <div class="rb"><i></i><i></i><i></i></div>
-    <div class="rs"><div id="cAs0">ўрганяпман · 2/3</div><div class="h" id="cAs1">ўрганяпман · 0/3<small>ўрганяпманда қолади</small></div></div>
+    <div class="rs"><div id="cAs0">ўрганяпман</div></div>
     <div class="x"></div>
   </div>
   <div class="row h" id="cB" style="top:730px">
     <div class="acc" style="background:var(--g)"></div><div class="rw">وَاحِدٌ</div><div class="rm">бир</div>
     <div class="rb"><i></i><i></i><i></i></div>
-    <div class="rs"><div id="cBs0" style="color:#22875A">биламан<small>текширув</small></div><div class="h" id="cBs1">ўрганяпман · 2/3</div><div class="h" id="cBs2" style="color:#22875A">биламан<small>эртасига тўғри</small></div></div>
+    <div class="rs"><div id="cBs0" style="color:#22875A">биламан<small>текширув</small></div><div class="h" id="cBs1">ўрганяпман</div><div class="h" id="cBs2" style="color:#22875A">биламан<small>эртасига тўғри</small></div></div>
     <div class="x"></div>
   </div>
   <div class="h" id="xA" style="position:absolute;left:790px;top:388px;z-index:6"><span class="chip x" style="font-size:44px">✕ хато</span></div>
   <div class="h" id="xB" style="position:absolute;left:790px;top:698px;z-index:6"><span class="chip x" style="font-size:44px">✕ хато</span></div>
   <div class="note h" id="eB" style="top:990px"><span class="chip g">эртасига ✓</span></div>
+  <div class="h" id="xs" style="position:absolute;left:640px;top:388px;z-index:6"><span class="chip x" style="font-size:42px;gap:18px"><i>✕</i><i class="h">✕</i><i class="h">✕</i><i class="h">✕</i></span></div>
+  <div class="h" id="bmh" style="position:absolute;left:80px;right:80px;top:470px;display:flex;justify-content:space-between;font-size:36px;font-weight:800;color:#F4A79F">Билмаганларим</div>
+  <div class="row h" id="cC" style="top:785px">
+    <div class="acc"></div><div class="rw">أَوَّلٌ</div><div class="rm">биринчи</div>
+    <div class="rb"><i></i><i></i><i></i></div>
+    <div class="rs"><div>ўрганяпман</div></div>
+  </div>
 </section>
 
 <!-- S6: «Луғат»dagi ikki belgi -->
@@ -188,14 +194,14 @@ svg.ln{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:visibl
   <div class="row h" id="r1" style="top:500px">
     <div class="acc"></div><div class="rw">سَلَامٌ</div><div class="rm">омонлик</div>
     <div class="rb"><i></i><i></i><i></i></div>
-    <div class="rs"><div id="r1s0">ўрганяпман · 0/3</div><div class="h" id="r1s1" style="color:#22875A">биламан<small>7 кундан кейин «Такрор»да</small></div></div>
+    <div class="rs"><div id="r1s0">ўрганяпман</div><div class="h" id="r1s1" style="color:#22875A">биламан<small>7 кундан кейин «Такрор»да</small></div></div>
     <div class="ic ic1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.4l2.8 2.8 5.2-5.6"/></svg></div>
     <div class="ic ic2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M7 3.8h10v16.4l-5-3.6-5 3.6z"/></svg></div>
   </div>
   <div class="row h" id="r2" style="top:770px">
     <div class="acc"></div><div class="rw">أَوَّلٌ</div><div class="rm">биринчи</div>
     <div class="rb"><i></i><i></i><i></i></div>
-    <div class="rs"><div id="r2s0">ўрганяпман · 1/3</div><div class="h" id="r2s1" style="color:#B23229">билмайман<small>йўл бошидан</small></div></div>
+    <div class="rs"><div id="r2s0">ўрганяпман</div><div class="h" id="r2s1" style="color:#B23229">билмайман<small>йўл бошидан</small></div></div>
     <div class="ic ic1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.4l2.8 2.8 5.2-5.6"/></svg></div>
     <div class="ic ic2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M7 3.8h10v16.4l-5-3.6-5 3.6z"/></svg></div>
   </div>
@@ -339,8 +345,8 @@ function build() {
   hide('#tap', c[1] - .5, .2); sink('#bd1', c[1] - .45, .3, -40);
   [1, 2, 3].forEach((k, j) => { const tt = c[1 + j] - .05; rise('#d' + k, j === 0 ? tt - .2 : tt - .35, .4, 30); pop('#d' + k + 'c', tt + .35, .45, 0); sfx('chime', tt + .35, .7);
     to('#d' + k, { borderColor: 'rgba(123,227,174,.8)', backgroundColor: 'rgba(47,163,111,.22)' }, tt + .35, .3);
-    to($('#hero .rb').children[j], { backgroundColor: COL.o }, tt + .4, .3); if (j < 2) stat('#hs' + j, '#hs' + (j + 1), tt + .4); });
-  t = c[4]; bar('#hero', 3, 'g', t); acc('#hero', 'g', t); stat('#hs2', '#hs3', t); hop(tk, 1, 2, t + .1, .75); sfx('shimmer', t + .3); bglow('#hero', t + .2, RGB.g, 1.2);
+    to($('#hero .rb').children[j], { backgroundColor: COL.o }, tt + .4, .3); pulse($('#hero .rb').children[j], tt + .4, 1.35, .45); });
+  t = c[4]; bar('#hero', 3, 'g', t); acc('#hero', 'g', t); stat('#hs0', '#hs3', t); hop(tk, 1, 2, t + .1, .75); sfx('shimmer', t + .3); bglow('#hero', t + .2, RGB.g, 1.2);
   c = C.k3b.c;
   /* kunlar ketma-ket shart emas: 2- va 3-kun kartalari suriladi (oraliq), bir kunda bir marta */
   pop('#n1', c[0] + .1, .45);
@@ -368,11 +374,18 @@ function build() {
   const tk2 = mkTok('وَاحِدٌ'); place(tk2, 2, t + .5);
   bar('#cA', 2, 'o', t); bar('#cB', 3, 'g', t);
   rise('#cA', t + .3, .55, 60); rise('#cB', t + .45, .55, 60); show(tk2, t + .7, .35); sfx('whoosh', t + .3, .6);
-  t = c[1] + .1; xflash('#cA', t); pop('#xA', t, .4, 0); bar('#cA', 0, 'o', t + .6); stat('#cAs0', '#cAs1', t + .6); hide('#xA', c[2] - .3, .25);
+  t = c[1] + .1; xflash('#cA', t); pop('#xA', t, .4, 0); bar('#cA', 0, 'o', t + .6); hide('#xA', c[2] - .3, .25);
   t = c[2] + .1; xflash('#cB', t); pop('#xB', t, .4, 0); bar('#cB', 2, 'o', t + .6); acc('#cB', 'o', t + .6); stat('#cBs0', '#cBs1', t + .6); hop(tk2, 2, 1, t + .7, .7);
-  pulse('#cBs1', c[3] + .05, 1.12, .5); hide('#xB', c[4] - .3, .25);
+  pulse('#cB .rb', c[3] + .05, 1.25, .6); hide('#xB', c[4] - .3, .25);
   t = c[4] + .1; pop('#eB', t, .45, 0); sfx('chime', t + .2, .7);
   t = c[5]; bar('#cB', 3, 'g', t); acc('#cB', 'g', t); stat('#cBs1', '#cBs2', t); hop(tk2, 1, 2, t + .05, .7); bglow('#cB', t + .2, RGB.g, 1);
+  /* qiyin so'z: ko'p xato -> bo'sh chiziqlar qizg'ish, «Билмаганларим» boshida */
+  c = C.k5b.c; bar('#cC', 1, 'o', c[0]);
+  pop('#xs', c[0] + .05, .4, 0); $$('#xs i').slice(1).forEach((x, k) => { pop(x, c[0] + .4 + k * .3, .3, 0); sfx('thud', c[0] + .4 + k * .3, .5); }); sfx('thud', c[0] + .05, .5);
+  M.to('#cA .rb i', { backgroundColor: '#e8b4ae', duration: .35, stagger: .08 }, c[1] + .1); pulse('#cA .rb', c[1] + .3, 1.25, .6); hide('#xs', c[1] + 1, .3);
+  t = c[2]; sink('#eB', t - .3, .3, 30); M.to('#cB', { y: 120, autoAlpha: 0, duration: .45, ease: 'power2.in' }, t - .3); hide(tk2, t - .3, .3);
+  to('#cA', { y: 110, ease: 'power3.inOut' }, t + .1, .6); rise('#bmh', t + .75, .4, 20); rise('#cC', t + .75, .5, 50); to('#cC', { opacity: .75 }, t + 1.25, .3);
+  bglow('#cA', t + .7, RGB.b, 1.1); sfx('whoosh', t + .1, .5);
 
   /* ================= S6: ikki belgi ================= */
   t = S('S6'); sceneIn('#S6', t); c = C.k6.c; title('#T6', t);
@@ -408,11 +421,11 @@ function build() {
   /* ================= S8: xulosa ================= */
   t = S('S8'); sceneIn('#S8', t); c = C.k8.c; title('#T8', t);
   M.to('#S7', { y: -120, autoAlpha: 0, duration: .45, ease: 'power2.in' }, t - .1); to('#hero', { autoAlpha: 0, y: -60, ease: 'power2.in' }, t - .1, .4);
-  const X8 = [140, 340, 540, 740, 940], Y8 = 600, DY = ['1', '2', '3', '10', '31'], LB = ['1/3', '2/3', 'биламан', 'текширув', 'мустаҳкам'], CL = ['o', 'o', 'g', 'g', 'm'];
+  const X8 = [140, 340, 540, 740, 940], Y8 = 600, DY = ['1', '2', '3', '10', '31'], LB = ['<span class="mb"><i class="f"></i><i></i><i></i></span>', '<span class="mb"><i class="f"></i><i class="f"></i><i></i></span>', 'биламан', 'текширув', 'мустаҳкам'], CL = ['o', 'o', 'g', 'g', 'm'];
   X8.forEach((x, k) => { if (k) { const p = line('#tl8', X8[k - 1] + 66, Y8 + 65, x - 66, Y8 + 65, 'rgba(255,255,255,.45)', 7); draw(p, c[1 + k] - .25, .3); }
     const n = document.createElement('div'); n.className = 'nd h'; n.style.cssText = `left:${x}px;top:${Y8}px;border-color:${COL[CL[k]]};background:rgba(${RGB[CL[k]]},.3)`;
     n.innerHTML = `<b style="font-size:50px;line-height:1">${DY[k]}</b><small style="font-size:24px;font-weight:700;color:#dfeee6">кун</small>`; $('#n8').appendChild(n);
-    const l = document.createElement('div'); l.className = 'nl h'; l.style.cssText = `left:${x}px;top:${Y8 + 150}px;font-size:28px;color:${k === 4 ? '#9BC1F5' : k > 1 ? '#8FE0B6' : '#F2C877'}`; l.textContent = LB[k]; $('#n8').appendChild(l);
+    const l = document.createElement('div'); l.className = 'nl h'; l.style.cssText = `left:${x}px;top:${Y8 + 150}px;font-size:28px;color:${k === 4 ? '#9BC1F5' : k > 1 ? '#8FE0B6' : '#F2C877'}`; l.innerHTML = LB[k]; $('#n8').appendChild(l);
     pop(n, c[1 + k] - .05, .45, .7); rise(l, c[1 + k] + .1, .35, 14); });
   pop('#f1', c[6] + .05, .45); pop('#f2', c[7] + .1, .45); bglow('#f2 .chip', c[7] + .4, RGB.m, 1);
   ['#P0', '#P1', '#P2', '#P3'].forEach((p, i) => stepGlow(i, c[7] + .5 + i * .18));

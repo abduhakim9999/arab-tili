@@ -14,7 +14,7 @@ HOP = int(SR * 0.01)
 # Qoida kodda: takror.js birlik() (tayyor-takror-21). Matn oddiy lotinchada; «|» — ekrandagi qadam joyi (qoralamada vaqti matn uzunligiga
 # qarab taxmin qilinadi, haqiqiy ovozdan keyin cue.json ga aniq vaqtlar). Ovoz (rejada): Farruh — foydalanuvchi ruxsati bilan; hozircha qoralama.
 import re
-IPA = {}
+IPA = {'xatosiz': 'Хатосиз'}   # gap boshida yolg'iz «Xatosiz:» «Zatosiz» bo'lib o'qildi; IPA /χatoˈsiz/ da «i» yumshoq chiqdi — kirill yozuv olindi (foydalanuvchi eshitib tanladi, 23.11.2026)
 TXT = {
  # S1 — to'rt pog'ona
  'k1': "So'z qanday yodlanadi? |Har bir so'z |to'rt pog'onadan o'tadi: |«bilmayman», |«o'rganyapman», |«bilaman» |va «mustahkam».",
@@ -26,20 +26,22 @@ TXT = {
  # S4 — «Такрор»: 7 kun, yana 21 kun -> мустаҳкам
  'k4': "Endi so'zni «Takror» tekshiradi: |yetti kundan keyin |va yana yigirma bir kundan keyin. |Ikkalasida ham to'g'ri topsangiz — |so'z «mustahkam» bo'ladi.",
  # S5 — xato
- 'k5': "Xato qilsangiz-chi? |«O'rganyapman»dagi so'z hisobni noldan boshlaydi. |«Bilaman»dagi so'z esa bir pog'ona tushadi — |ikki uchdan. |Ertasi kuni to'g'ri topsangiz, |yana «bilaman».",
+ 'k5': "Xato qilsangiz-chi? |«O'rganyapman»dagi so'z hisobni noldan boshlaydi. |«Bilaman»dagi so'z esa «o'rganyapman»ga tushadi — |lekin ikki chizig'i to'la qoladi. |Ertasi kuni to'g'ri topsangiz, |yana «bilaman».",
+ # qiyin so'z (23.11.2026, ilovada: 4+ xato, hali biladigan emas — bo'sh chiziqlar qizg'ish, «Билмаганларим» boshida; tayyor-lugat-qiyin)
+ 'k5b': "Ko'p xato qilingan so'zning |bo'sh chiziqlari qizarib turadi |va u «Bilmaganlarim»ning boshiga chiqadi.",
  # S6 — Луғатdagi ikki belgi
  'k6': "«Lug'at»da har so'z yonida ikki belgi bor. |Aniq bilgan so'zingizga |«bilaman» belgisini bosing — |so'z darhol «bilaman» bo'ladi. |Unutgan so'zingizga |«bilmayman» belgisini bosing — |so'z yo'lni boshidan o'tadi.",
  # S7 — мустаҳкам
  'k7': "Mustahkam so'z |boshqa so'ralmaydi |va «Reyting»da hisoblanadi.",
  # S8 — xulosa
- 'k8': "Xatosiz ishlasangiz: |birinchi, |ikkinchi, |uchinchi, |o'ninchi |va o'ttiz birinchi kun. |Atigi besh savol — |va so'z bir oyda mustahkam. |Har kuni ozgina — |so'zlar sizniki.",
+ 'k8': "Xatosiz: |birinchi, |ikkinchi, |uchinchi, |o'ninchi |va o'ttiz birinchi kun. |Atigi besh savol — |va so'z bir oyda mustahkam bo'ladi. |Har kuni ozgina — |so'zlar sizniki.",   # foydalanuvchi (23.11.2026): «Xatosiz ishlasangiz» emas — «Xatosiz»; «mustahkam bo'ladi»
 }
 SEQ = [
  ('S1', [('lead', 0.5), 'k1', ('gap', 0.9)]),
  ('S2', [('lead', 0.5), 'k2', ('gap', 0.9)]),
  ('S3', [('lead', 0.5), 'k3a', ('gap', 0.6), 'k3b', ('gap', 0.9)]),
  ('S4', [('lead', 0.5), 'k4', ('gap', 1.0)]),
- ('S5', [('lead', 0.5), 'k5', ('gap', 1.0)]),
+ ('S5', [('lead', 0.5), 'k5', ('gap', 0.6), 'k5b', ('gap', 1.0)]),
  ('S6', [('lead', 0.5), 'k6', ('gap', 1.0)]),
  ('S7', [('lead', 0.5), 'k7', ('gap', 1.0)]),
  ('S8', [('lead', 0.5), 'k8', ('gap', 2.2)]),
@@ -60,7 +62,7 @@ DRAFT = set()
 def toza(t): return t.replace('|', '')
 
 
-def eleven(t): return re.sub(r"\b(" + '|'.join(IPA) + r")\b", lambda m: IPA[m.group(1).lower()], toza(t), flags=re.I)
+def eleven(t): return toza(t) if not IPA else re.sub(r"\b(" + '|'.join(IPA) + r")\b", lambda m: IPA[m.group(1).lower()], toza(t), flags=re.I)
 
 
 def load(n):

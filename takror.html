@@ -227,7 +227,14 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .top.mq-top .mq-ht{margin-top:-4px;padding-top:11px;padding-bottom:11px}
 .mq-ht b{font-size:24px}
 .mq-ht .mq-go{height:46px;padding:0 18px;font-size:16px;background:#fff;color:#0c3d29}
-/* ⓘ — йўриқнома ўйнаткичи (qollanma.js): яшил тасмада ва «Луғат» сарлавҳасида; .mq-yn — янги ўқувчига бир қаторли эслатма */
+/* ⓘ — йўриқнома (qollanma.js): «Луғат» сарлавҳасида; .mq-yn — янги ўқувчига бир қаторли эслатма.
+   23.11.2026 (foydalanuvchi: «tepada ham, pastda ham yo'riqnoma turibdi»): «Машқ»da bitta ⓘ — sarlavha yonida, kichik (.mq-hi);
+   oxirigacha ko'rilmaguncha yonida sariq nuqta (.mq-nq) */
+.mq-h1{display:flex;align-items:center;gap:4px}
+.mq-hi{position:relative;flex-shrink:0;width:32px;height:32px;margin:-4px 0;padding:0;border:0;background:none;color:rgba(255,255,255,.72);display:inline-flex;align-items:center;justify-content:center}
+.mq-hi::after{content:"";position:absolute;inset:-8px}
+.mq-hi svg{width:20px;height:20px}
+.mq-nq{position:absolute;top:4px;right:3px;width:8px;height:8px;border-radius:50%;background:#f2c14e;box-shadow:0 0 0 2px var(--em2,#0c5e3f)}
 .mq-h span{display:flex;align-items:center;gap:8px}
 .mq-i{position:relative;flex-shrink:0;width:28px;height:28px;margin:-6px 0;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;display:inline-flex;align-items:center;justify-content:center}
 .mq-i::after{content:"";position:absolute;inset:-8px}
@@ -309,10 +316,18 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .tq-ib{position:relative;width:28px;height:28px;margin:-6px 0;padding:0;border:0;border-radius:50%;background:none;color:var(--mu);display:inline-flex;align-items:center;justify-content:center}
 .tq-ib::after{content:"";position:absolute;inset:-8px}
 .tq-ib svg{width:19px;height:19px}
-/* «Сўз йўли» videosi (23.11.2026, foydalanuvchi: «Статистика» ⓘ bosilsa video ochilsin; manba src/video/sozyoli, docs/texnik.md 21) */
-.vo{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.94);display:flex;align-items:center;justify-content:center}
-.vo video{display:block;max-width:100vw;max-height:100vh;max-height:100dvh;width:auto;height:100%;background:#000}
-.vo-x{position:absolute;top:calc(12px + env(safe-area-inset-top));right:12px;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.18);color:#fff;font-size:22px;line-height:44px;padding:0}
+/* «Сўз йўли» videosi (manba src/video/sozyoli, docs/texnik.md 21). 23.11.2026 (foydalanuvchi: «ekran to'liq ochiladigan emas — oyna bo'lib,
+   bo'sh joyni bosib chiqib ketsa bo'ladi»): pastdan chiqadigan oyna — bo'sh joy, ✕, chiziqni pastga surish yoki «Орқага» (tg.js OYNA «#vo») yopadi */
+.vo{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.5);display:flex;align-items:flex-end;justify-content:center;opacity:0;transition:opacity .25s}
+.vo.on{opacity:1}
+.vo-v{width:100%;max-width:520px;height:84%;display:flex;flex-direction:column;background:#0b2a1f;color:#f4eeda;border-radius:22px 22px 0 0;padding:0 14px calc(14px + env(safe-area-inset-bottom,0px));transform:translateY(100%);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.vo.on .vo-v{transform:none}
+.vo-tut{flex-shrink:0;height:20px;display:flex;align-items:center;justify-content:center;touch-action:none;cursor:grab}
+.vo-tut::before{content:"";width:40px;height:4px;border-radius:2px;background:rgba(255,255,255,.35)}
+.vo-hd{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 0 10px 2px}
+.vo-hd b{font-size:17px}
+.vo-x{width:38px;height:38px;border:0;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;font-size:18px;line-height:38px;padding:0}
+.vo video{flex:1;min-height:0;width:100%;border-radius:16px;background:#000;object-fit:contain}
 .tq-ib[aria-expanded="true"]{color:var(--ac);background:var(--tint)}
 .tq-iz{margin:10px 0 0;padding:10px 12px;border-radius:12px;background:var(--tint);font-size:14px;line-height:1.5}
 .tq-iz a{color:var(--ac);font-weight:700}
@@ -487,11 +502,12 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     var et = E.ertaga(t);
     var qism = function (b) { return (b.soz ? b.soz + ' сўз' : '') + (b.soz && b.savol ? ' · ' : '') + (b.savol ? b.savol + ' савол' : ''); };
     var bolim = function (k, nom, b, ert, bosh_, yoq) {
-      return '<div class="mq-h mq-' + k + '"><div><span>' + nom + (k === 'ho' ? qi('takror', '') : '') + '</span>' + (b.jami
+      return '<div class="mq-h mq-' + k + '"><div><span>' + nom + '</span>' + (b.jami
         ? '<b>' + b.jami + ' та</b><em>' + qism(b) + '</em></div><button class="mq-go" id="' + bosh_ + '">Бошлаш</button></div>'
         : '<b>' + yoq + '</b><em>' + (ert ? 'эртага ' + ert + ' та' : k !== 'ht' ? 'эртага йўқ' : bg.nT ? 'кейингиси ' + bg.nT + ' кундан кейин' : 'биламан бўлган сўзлар ' + KUT + ' кундан кейин шу ерда') + '</em></div></div>');
     };
-    return '<div class="top mq-top"><div><small>' + dnom() + '</small><h1>Машқ</h1></div>' +
+    return '<div class="top mq-top"><div><small>' + dnom() + '</small><h1 class="mq-h1">Машқ<button class="mq-hi" data-yo aria-label="Қандай ишлатилади — кўрсатма">' +
+      INF + (L(KQO) !== '2' ? '<i class="mq-nq"></i>' : '') + '</button></h1></div>' +
       bolim('ho', 'Ўрганиш', bg.o, et.o, 'go', 'Бугунга тамом') + bolim('ht', 'Такрор', bg.t, et.t, 'gt', 'Бугун йўқ') + '</div>';
   }
   var HN5 = { m: 'Мустаҳкам', g: 'Биламан', o: 'Ўрганяпман', b: 'Билмайман', n: 'Ҳали ўтилмаган' };
@@ -539,27 +555,50 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     return { men: men, c: c, qy: qy };
   }
   /* Йўриқнома ўйнаткичи (qollanma.js; docs/texnik.md 20): [data-qol] босилса — скрипт биринчи марта юкланади, кейин мавзу очилади */
-  function qolOch(k) {
-    var o = { bildi: BILDI, must: KUT, must2: KUT2 };
+  function qolOch(k, tugadi) {
+    var o = { bildi: BILDI, must: KUT, must2: KUT2, varaq: true, tugadi: tugadi };   /* varaq — pastdan chiqadigan oyna (23.11.2026) */
     if (window.Qollanma) { Qollanma.och(k, o); return; }
     var s = document.createElement('script'); s.src = 'qollanma.js'; s.onload = function () { Qollanma.och(k, o); }; document.head.appendChild(s);
   }
   document.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[data-qol]'); if (b) { e.preventDefault(); qolOch(b.getAttribute('data-qol')); } });
-  /* «Сўз йўли» videosi — faqat o'zbekchada (ovozi o'zbekcha; ruschada ⓘ — avvalgi ko'rsatma). Butun ekranda, ✕ / fon / «Орқага» (tg.js OYNA «#vo») — yopadi */
+  /* «Машқ» ⓘ (23.11.2026): o'zbekchada — «Сўз йўли» videosi (ovozi o'zbekcha), ruschada — «Сўзлар ва поғоналар» ko'rsatmasi; ikkalasi ham pastdan
+     chiqadigan oynada. KQO: yo'q — hali ochilmagan (birinchi kirishda bir marta o'zi ochiladi), '1' — ochilgan, '2' — oxirigacha ko'rilgan
+     (nuqta yo'qoladi). Akkauntga ham yoziladi (tg.js/baza.js GEN «takror-qol»; birlashtirishda kattasi) — qayta o'rnatilganda ham chiqmaydi */
   var VSOZ = (window.Profil ? Profil.til : 'uz') !== 'ru' ? { mp4: 'vsoz-1104bdea.mp4', p: 'vsoz-ae2268c7.jpg' } : null;
-  function vidOch() {
+  function yoTamom() {
+    if (L(KQO) !== '2') LS(KQO, '2');
+    [].forEach.call(document.querySelectorAll('.mq-nq'), function (n) { n.remove(); });
+  }
+  function yoOch(avto) {
+    if (!L(KQO)) LS(KQO, '1');
+    if (VSOZ) vidOch(avto); else qolOch('soz', yoTamom);
+  }
+  function vidOch(avto) {
     if (!VSOZ || document.getElementById('vo')) return;
     var o = document.createElement('div'); o.className = 'vo'; o.id = 'vo';
-    o.innerHTML = '<video src="' + VSOZ.mp4 + '" poster="' + VSOZ.p + '" controls playsinline autoplay title="Сўз йўли"></video><button class="vo-x" aria-label="Ёпиш">✕</button>';
-    var yop = function () { var v = o.querySelector('video'); try { v.pause(); } catch (x) {} o.remove(); };
+    o.innerHTML = '<div class="vo-v" role="dialog" aria-modal="true" aria-label="Сўз йўли"><div class="vo-tut"></div><div class="vo-hd"><b>Сўз йўли</b><button class="vo-x" aria-label="Ёпиш">✕</button></div>' +
+      '<video src="' + VSOZ.mp4 + '" poster="' + VSOZ.p + '" controls playsinline preload="metadata"' + (avto ? '' : ' autoplay') + ' title="Сўз йўли"></video></div>';
+    var v = o.querySelector('video'), ic = o.querySelector('.vo-v'), tu = o.querySelector('.vo-tut');
+    var yop = function () {                            /* o'zi ochilganda (avto) video o'zi boshlanmaydi — ▶ bosiladi */
+      if (!o.id) return; o.id = ''; try { v.pause(); } catch (x) {}
+      o.classList.remove('on'); setTimeout(function () { o.remove(); }, 300);
+    };
+    v.addEventListener('ended', yoTamom);
+    v.addEventListener('timeupdate', function () { if (v.duration && v.currentTime >= v.duration - 1.5) yoTamom(); });
     o.querySelector('.vo-x').onclick = yop;
     o.onclick = function (e) { if (e.target === o) yop(); };
+    var y0 = null, dy = 0;                              /* tepadagi chiziqni pastga surish — yopadi */
+    tu.addEventListener('pointerdown', function (e) { y0 = e.clientY; dy = 0; ic.style.transition = 'none'; try { tu.setPointerCapture(e.pointerId); } catch (x) {} });
+    tu.addEventListener('pointermove', function (e) { if (y0 === null) return; dy = Math.max(0, e.clientY - y0); ic.style.transform = 'translateY(' + dy + 'px)'; });
+    var qo = function () { if (y0 === null) return; y0 = null; ic.style.transition = ''; if (dy > 80) { ic.style.transform = 'translateY(100%)'; yop(); } else ic.style.transform = ''; };
+    tu.addEventListener('pointerup', qo); tu.addEventListener('pointercancel', qo);
     document.body.appendChild(o);
+    requestAnimationFrame(function () { requestAnimationFrame(function () { o.classList.add('on'); }); });
   }
-  document.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[data-vid]'); if (b) { e.preventDefault(); vidOch(); } });
+  document.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[data-yo]'); if (b) { e.preventDefault(); yoOch(false); } });
   document.addEventListener('keydown', function (e) { var o = document.getElementById('vo'); if (o && e.key === 'Escape') o.querySelector('.vo-x').click(); });
   /* «Сўзлар бу ерга қандай тушади?» matnli kartasi o'rnida «Сўзлар ва поғоналар» ko'rsatmasi (14.11.2026, foydalanuvchi: karta chalkash; 15.11 — ruschada ham):
-     «Машқ»ga birinchi kirishda bir marta o'zi ochiladi (KQO), keyin «Статистика» ⓘ bilan */
+     «Машқ»ga birinchi kirishda bir marta o'zi ochiladi (KQO), keyin sarlavha yonidagi ⓘ bilan (23.11.2026: «Статистика» va «Ўрганиш» ⓘ olib tashlandi) */
   var KQO = SINOV ? 'takror-sinov-qol' : 'takror-qol';
   /* o'tilgan darslar (15.11.2026, foydalanuvchi: «нечта дарс ўтилмаган» — kitob bo'yicha, ikkala tilda): bosh sahifa hisobi — yol.html «yol-xulosa».ot
      («Машқ» 80% yoki bob/kitob imtihoni; bosh sahifa ochilganda yoziladi); u hali bo'lmasa — so'zlari Луғатga tushgan darslar (W.s).
@@ -612,7 +651,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
       kt5.sort(function (a, b) { return a - b; });
       app.innerHTML = tepa(S, false, bg, t) + sinovQ + (saralangan ? '' : '<p class="lg-yn mq-yn">Ҳозирча 1-дарс сўзлари кўрсатиляпти. Дарс «Машқ»ини тугатсангиз, унинг сўзлари ўзи қўшилади.</p>') +
         '<a class="q-rw mq-lg" href="#lugat"><span class="q-ib">' + KITOB + '</span><span class="t">Луғат<small>Исм · Феъл · Ҳарф · қидирув' + (ca.b ? ' · Билмаганларим ' + ca.b : '') + '</small></span>' + CHV + '</a>' +
-        '<section class="tq-c"><div class="tq-h">Статистика · жами ' + JJ + ' сўз<button class="tq-ib" id="bi" ' + (VSOZ ? 'data-vid="soz" aria-label="Сўз йўли — видео">' : 'data-qol="soz" aria-label="Сўзлар ва поғоналар — кўрсатма">') + '' + INF + '</button></div>' +
+        '<section class="tq-c"><div class="tq-h">Статистика · жами ' + JJ + ' сўз</div>' +
         '<div class="mq-dt"><div class="mq-dz">' + doira(JA, JJ) + '<div><b>' + Math.round((JA.m + JA.g) * 100 / (JJ || 1)) + '%</b><span>' + (JA.m + JA.g) + ' / ' + JJ + ' сўз</span></div></div></div>' +
         '<div class="mq-5" role="group" aria-label="Ҳолат бўйича">' + ['m', 'g', 'o', 'b'].map(function (k) {
           return '<button class="mq-c ' + k + '" data-h="' + k + '"><i></i><span><b>' + JA[k] + '</b>' + HN5[k] + '</span></button>'; }).join('') + '</div>' +
@@ -634,8 +673,8 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
       /* 14.11.2026 (foydalanuvchi): «Сўзлар ва поғоналар» ko'rsatmasi boshida bir marta o'zi chiqadi, keyin faqat ⓘ bilan
          (avtomat brauzerda — tekshiruv va rasm olishda — hamda kirish oynasi ustida chiqmaydi) */
       if (!L(KQO) && !navigator.webdriver) setTimeout(function () {
-        if (L(KQO) || document.getElementById('kr-d') || document.querySelector('.qs') || document.body.classList.contains('tq-ses') || location.hash === '#lugat') return;
-        LS(KQO, '1'); qolOch('soz');
+        if (L(KQO) || document.getElementById('kr-d') || document.querySelector('.qs') || document.getElementById('vo') || document.body.classList.contains('tq-ses') || location.hash === '#lugat') return;
+        yoOch(true);
       }, 700);
       var go = document.getElementById('go'); if (go) go.onclick = function () { boshla('o'); };
       var gt = document.getElementById('gt'); if (gt) gt.onclick = function () { boshla('t'); };

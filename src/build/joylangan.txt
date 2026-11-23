@@ -28,6 +28,7 @@ tayyor-kitob-oxiri e3ad5e422288993b14584790cfa5758726e63bac
 tayyor-korish-tartib ca9dacb900bfa669a4a37abbe9ac38456b344ac2
 tayyor-lugat-92 0819ccac48d523cdb52746ac0018195c89e08d90
 tayyor-lugat-97 8f003bfa8ac8f59ceed8fe4580d178843f253cde
+tayyor-lugat-fel93 f0e90b64f64bc5ed885f1e8eb00004e8075868c7
 tayyor-lugat-hamma 31be011437caac88ec1e8b13db1daaf35e4ad8c9
 tayyor-lugat-korinish 6de616c387d23f31592221e8104cf148d02ba2c0
 tayyor-lugat-qiyin bcea160397866211d78633cf69412077c5fc49bb
@@ -73,4 +74,5 @@ tayyor-video-kana47 ebd1c507b8405d088ebf076b9b5891d6c3b51e72
 tayyor-video-soz 9f445f57fde56dc89a02e4cd916d68e07e484cdb
 tayyor-video-soz2 b78c9f4dc70ed7ae3420057a15949ad3ce7ed9ff
 tayyor-yoriqnoma d36923579e00c385741f200722996be6ae2d491d
+tayyor-yoriqnoma-oyna 2c03ac5b50834aa7bd45e75b88f1056a69e6115e
 tayyor-zamir-ramka ad411919098ec9a84d0facc947f815c7a932756e

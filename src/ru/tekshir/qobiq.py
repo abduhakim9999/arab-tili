@@ -163,7 +163,7 @@ with sync_playwright() as p:
     # ---- Луғат ----
     # 14.11.2026: takror.html — «Машқ» (bosh ko'rinish) va «Луғат» (#lugat, ro'yxat)
     och('takror.html'); scan('takror')
-    bos('#bi'); scan('takror-yoriq'); bos('#bi')
+    bos('[data-yo]'); pg.wait_for_timeout(400); scan('takror-yoriq'); pg.keyboard.press('Escape')   # 23.11.2026: «Машқ»da bitta ⓘ (sarlavha yonida)
     och('takror.html#lugat'); scan('takror-lugat')
     for sel in ('[data-t]', '[data-h]'):
         n = pg.evaluate("s=>document.querySelectorAll(s).length", sel)

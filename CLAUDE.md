@@ -11,7 +11,7 @@ Claude Code bu faylni har sessiyada o'zi o'qiydi. Bu yerda faqat asosiy qoidalar
 | `docs/texnik.md` | **Texnika**: sayt, yig'ish, Eshitish, ovozlar (vaqf qoidasi), bot | hamma; yagona manba |
 | `src/manba/grammatika/` | **Grammatika kitobi** matni: yangi nashr 1–53 (`kitob-1-53.md`), eski nashr 54–94 (`eski-54-94/`) | grammatika, video darslar |
 | claude.ai `claude/grammatika-pleyer-reja.md` | «Грамматика» bo'limi (video darslar) va «Эшитиш» pleyeri **rejasi** (19.11.2026) | shu ishlarda |
-| `docs/mavzular-hisobi.md` | **Mavzular hisobi** — «Татбиқ» sahifalari: qaysi mavzu qaysi darsga ko'chgan, va'dalar, nima qolgan (videolarniki — claude.ai `claude/kana-video-reja.md` 1a) | Татбиқ darsidan oldin va keyin |
+| `docs/mavzular-hisobi.md` | **Mavzular hisobi** — «Татбиқ» sahifalari va grammatika videolari birga, dars bo'yicha: qaysi mavzu qaysi darsga ko'chgan, va'dalar, nima qolgan (23.11.2026 dan; videolarniki `claude/kana-video-reja.md` 1a dan ko'chirildi) | Татбиқ darsi va video ishidan oldin va keyin |
 | `docs/tarkib-korinishi.md` | **Tarkib ko'rinishi** (yangi tizim, sinov): ranglar, bosganda chiqadiganlar, yashirin foil; namunalar | hamma; yagona manba |
 | `src/video/` | **Grammatika videolari** manbasi (ovoz, sahnalar, yig'ish; `docs/texnik.md` 21); reja — claude.ai `claude/kana-video-reja.md` | video ishida |
 | `CLAUDE.md` (shu fayl) | Kirish, qoidalar, xarita, darslar holati | Claude Code, repo ulangan chatlar |

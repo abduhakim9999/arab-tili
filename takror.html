@@ -578,7 +578,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     clearTimeout(tmq); toxta(); cur = null; mash(0);
     document.body.classList.remove('tq-ses');
     if (QAYTA) qur();
-    var S = sozlar(), H = menHisob(S), M = H.men, lv = {}, nom = {};
+    var S = sozlar(), H = menHisob(S), M = H.men, lv = {};
     var MT_ = LT ? M.filter(function (x) { return turi(x.r) === LT; }) : M, c = { m: 0, g: 0, o: 0, b: 0 };   /* sonlar — tanlangan tur ichida */
     MT_.forEach(function (x) { c[x.st]++; });
     /* kitob ranglari (yol.html KR bilan bir xil) va kitob bo'yicha darslar — «Машқ» statistikasi uchun (darsH; 15.11.2026: ishlatilmay qolgan
@@ -587,7 +587,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     var TN = { i: 0, f: 0, h: 0 }; M.forEach(function (x) { TN[turi(x.r)]++; });
     var t = hozir(), bg = E.bugun(t), dt = new Date(t);
     if (LF !== 'h' && !c[LF]) LF = 'h';
-    D.d.forEach(function (d) { if (d.lv) lv[d.n] = d.lv; nom[d.n] = d.uz; });
+    D.d.forEach(function (d) { if (d.lv) lv[d.n] = d.lv; });
     var saralangan = Object.keys(W.s || {}).length > 0;   /* hech bir dars so'zi qo'shilmagan bo'lsa — bir qatorli eslatma (.mq-yn) */
     var sinovQ = SINOV ? '<div class="tq-sn"><span>🧪 Синов · бугун ' + ('0' + dt.getDate()).slice(-2) + '.' + ('0' + (dt.getMonth() + 1)).slice(-2) + '</span><button id="s1">+1 кун</button><button id="s0">Тозалаш</button></div>' : '';
     var lv3 = function (cc) { return '<div class="lg-3" role="group" aria-label="Ҳолат бўйича">' + HT4.map(function (k) {
@@ -678,20 +678,22 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
         (ab ? '<button class="lg-ab" data-id="' + r.id + '" aria-pressed="' + (x.st === 'g' ? 'true' : 'false') + '" aria-label="«Биламан» деб белгилаш">' + AB + '</button>' : '<span class="lg-sp"></span>') +
         '<button class="lg-bm" data-id="' + r.id + '" aria-pressed="' + (x.st === 'b' ? 'true' : 'false') + '" aria-label="«Билмайман» деб белгилаш">' + BM + '</button></div>';
     }
+    /* 23.11.2026 (foydalanuvchi: «bilmaydiganlar teparoqda, pastga qarab», «hammasida ham qilaver — qidirish tizimi bor»): ro'yxat darslar
+       bo'yicha emas, bilish darajasi bo'yicha — eng zaifi tepada. Guruhlar: Билмаганларим (қийин → билмайман → ўрганяпман 0/3 → 1/3 → 2/3),
+       Биламан, Мустаҳкам; bir xil darajada — dars tartibida (sort barqaror). Qidiruv, tur va daraja filtrlarida ham shu tartib */
+    function zaif(x) { return (x.st === 'b' || x.st === 'o' ? (x.qy ? 0 : 10) + (x.st === 'b' ? 0 : 1 + x.dr) : x.st === 'g' ? 20 : 30) * 1e4 + x.r.d; }
     function royxat() {
-      var q = plain(LQ.trim()).toLowerCase(), h = '', dars = 0, n = 0, qism = '', bil = [], bn = 0;
-      function yop() { if (qism) h += '<h3 class="lg-d">' + dars + '-дарс · ' + esc(nom[dars] || '') + '<span>' + n + ' сўз</span></h3><div class="lg-l">' + qism + '</div>'; qism = ''; n = 0; }
-      MT_.slice().sort(function (a, b) { return a.st === 'b' && b.st !== 'b' ? -1 : b.st === 'b' && a.st !== 'b' ? 1 : 0; }).forEach(function (x) {
+      var q = plain(LQ.trim()).toLowerCase(), h = '', g = { bo: [], g: [], m: [] };
+      MT_.slice().sort(function (a, b) { return zaif(a) - zaif(b); }).forEach(function (x) {
         var r = x.r;
         if (LF !== 'h' && x.st !== LF) return;
         if (q && plain(r.ar).indexOf(q) < 0 && r.uz.join(' ').toLowerCase().indexOf(q) < 0) return;
-        if (LF === 'h' && !q && (x.st === 'b' || x.st === 'o')) { bil.push(x); bn++; return; }      /* «Ҳаммаси»: hali bilinmaganlar eng tepada, alohida guruh */
-        if (r.d !== dars) { yop(); dars = r.d; }
-        n++; qism += qator(x);
+        g[x.st === 'b' || x.st === 'o' ? 'bo' : x.st].push(x);
       });
-      yop();
-      /* 23.11.2026 (foydalanuvchi: «qiyinlikni bildirib turadigan bir narsa bo'lsin»): qiyin so'zlar guruh tepasida (sort barqaror) */
-      if (bn) h = '<h3 class="lg-d no">Билмаганларим<span>' + bn + ' сўз</span></h3><div class="lg-l">' + bil.sort(function (a, b) { return (b.qy ? 1 : 0) - (a.qy ? 1 : 0); }).map(qator).join('') + '</div>' + h;
+      [['bo', LF === 'h' ? 'Билмаганларим' : HN5[LF], ' no'], ['g', 'Биламан', ''], ['m', 'Мустаҳкам', '']].forEach(function (k) {
+        var l = g[k[0]];
+        if (l.length) h += '<h3 class="lg-d' + k[2] + '">' + k[1] + '<span>' + l.length + ' сўз</span></h3><div class="lg-l">' + l.map(qator).join('') + '</div>';
+      });
       lr.innerHTML = h || '<div class="lg-e">' + (LF === 'b' && !q ? 'Билмаган сўз йўқ. Билмаган сўзингизни шу ерда белгиланг.' : 'Ҳеч нарса топилмади.') + '</div>';
     }
     royxat();

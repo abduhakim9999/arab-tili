@@ -35,7 +35,7 @@ function tozaIsm(n) {
 }
 
 // «Сўзлар» ro'yxati — faqat «мустаҳкам» so'zlar (23.11.2026, foydalanuvchi qarori: «Биламан» tugmasi bilan reytingga chiqib bo'lmasin —
-// so'z «Такрор»da 7 kundan keyin tekshirilgach sanaladi). Holat — takror.js Takror.holatlar (sahifa bilan bir xil qoida; kun — Toshkent vaqti)
+// so'z «Такрор»da 7 + 21 kundan keyin ikki tekshiruvdan o'tgach sanaladi). Holat — takror.js Takror.holatlar (sahifa bilan bir xil qoida; kun — Toshkent vaqti)
 function bilgan(d) {
   const W = d.soz || {}, H = Takror.holatlar(Array.isArray(d.j) ? d.j : [], { a: W.a || {}, b: W.b || {} }, -Takror.REY.TZ / 60000, LUG.map(function (r) { return String(r.id); }));
   let c = 0;

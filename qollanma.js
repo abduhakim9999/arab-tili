@@ -2,9 +2,9 @@
    Ҳақиқий экран расми аввал бутун кўринади, камера керакли жойга яқинлашади, бармоқ босади, кейин босилгандан сўнг очиладиган экран кўрсатилади.
    Маълумот: Qollanma.qosh(калит, { nom, keyingi, ekran: { экран: { нишон: [x, y, w, h] } }, qadam: [...] }) — координата 0..1 (расм ва координатани src/build/qollanma.py олади).
    Қадам: s — экран; t — нишон (ёки рўйхат); a — 'tap' | 'look'; f — камера қарайдиган жой (бўлмаса t); go — босилгандан кейинги экран;
-          n — 'ok' | 'no' (поғона картаси); c — изоҳ («…» ичи ажратиб кўрсатилади, {B} — «биламан» учун кунлар сони, {M} — «мустаҳкам» учун).
-   Чизма қадами (экран расмисиз): ch — 'tush' (дарс сўзлари «ўрганяпман»га тушади) | 'bildi' ({B} кун → «биламан») | 'must' ({M} кун → «мустаҳкам») | 'xato' (→ «билмайман»).
-   Очиш: Qollanma.och(калит, { bildi: 3, must: 7 }) — мавзулар ва расмлар биринчи очилганда юкланади: ўзбекча — qol/mavzu.js, qol/<тема>-<экран>.webp;
+          n — 'ok' | 'no' (поғона картаси); c — изоҳ («…» ичи ажратиб кўрсатилади, {B} — «биламан» учун кунлар сони, {M} / {M2} — «мустаҳкам» учун 1- ва 2-текширувгача кун).
+   Чизма қадами (экран расмисиз): ch — 'tush' (дарс сўзлари «ўрганяпман»га тушади) | 'bildi' ({B} кун → «биламан») | 'must' ({M} кун ✓, яна {M2} кун ✓ → «мустаҳкам») | 'xato' («биламан» ✕ → «ўрганяпман» 2/3).
+   Очиш: Qollanma.och(калит, { bildi: 3, must: 7, must2: 21 }) — мавзулар ва расмлар биринчи очилганда юкланади: ўзбекча — qol/mavzu.js, qol/<тема>-<экран>.webp;
    русча (window.TIL === 'ru', 15.11.2026) — qol/mavzu-ru.js, qol/ru-<тема>-<экран>.webp; ўйнаткич ёзувлари — TX жадвалида (ru.js уларга тегмайди: data-ru-yoq).
    Телефоннинг «орқага» тугмаси ўйнаткични ёпади (history.pushState). Батафсил — docs/texnik.md 20. */
 (function () {
@@ -122,12 +122,12 @@
   var TX = {
     uz: { yuk: 'Юкланяпти…', xato: 'Расмлар юкланмади. Интернетни текшириб, қайта очинг.', tamom: 'Тамом ✓', key: 'Кейингиси: ', tush: 'Тушунарли', qayta: '↻ Қайта кўриш',
           yop: 'Ёпиш', old: 'Олдинги', keyi: 'Кейинги', tox: 'Тўхтатиш', dav: 'Давом этиш', tema: 'Кундузги / тунги', ok: '✓ Билдим', no: '✕ Билмадим',
-          lv: ['билмайман', 'ўрганяпман', 'биламан', 'мустаҳкам'], nok: function (k) { return k + ' кетма-кет тўғри топсангиз — <b>биламан</b>'; }, nno: 'Сўз <b>билмайман</b>га тушади',
+          lv: ['билмайман', 'ўрганяпман', 'биламан', 'мустаҳкам'], nok: function (k) { return k + ' кетма-кет тўғри топсангиз — <b>биламан</b>'; }, nno: 'Сўз <b>ўрганяпман</b>да қолади, ҳисоб бошидан',
           dars: '📖 1-дарс', mashq: 'Машқ', kun: function (i) { return i + '-кун'; }, otdi: '📅 <b>0</b> кун ўтди', soz: ['дарс', 'исм', 'бир'],
           kunlar: function (n) { return n + ' кун'; } },
     ru: { yuk: 'Загрузка…', xato: 'Картинки не загрузились. Проверьте интернет и откройте снова.', tamom: 'Готово ✓', key: 'Дальше: ', tush: 'Понятно', qayta: '↻ Посмотреть снова',
           yop: 'Закрыть', old: 'Назад', keyi: 'Далее', tox: 'Пауза', dav: 'Продолжить', tema: 'Светлая / тёмная', ok: '✓ Помню', no: '✕ Не помню',
-          lv: ['не знаю', 'учу', 'знаю', 'прочно'], nok: function (k) { return k + ' подряд правильно — <b>знаю</b>'; }, nno: 'Слово переходит в <b>не знаю</b>',
+          lv: ['не знаю', 'учу', 'знаю', 'прочно'], nok: function (k) { return k + ' подряд правильно — <b>знаю</b>'; }, nno: 'Слово остаётся на <b>учу</b>, счёт заново',
           dars: '📖 Урок 1', mashq: 'Упражнение', kun: function (i) { return 'День ' + i; }, otdi: '📅 прошло дней: <b>0</b>', soz: ['урок', 'имя', 'один'],
           kunlar: function (n) { var d = n % 10, h = n % 100; return n + ' ' + (d === 1 && h !== 11 ? 'день' : d >= 2 && d <= 4 && (h < 12 || h > 14) ? 'дня' : 'дней'); } }
   };
@@ -151,7 +151,7 @@
       return null;
     }
     o = o || {}; if (joriy) joriy.yop(true); uslub();
-    var T = o.tema || tema(), P = o.papka || PAPKA, B = o.bildi || 3, MU = o.must || 7, ND = Math.min(B, 5), Q = M.qadam, n = Q.length, i, seg = '', kun = '';
+    var T = o.tema || tema(), P = o.papka || PAPKA, B = o.bildi || 3, MU = o.must || 7, MU2 = o.must2 || 21, ND = Math.min(B, 5), Q = M.qadam, n = Q.length, i, seg = '', kun = '';
     var SOZ = [['دَرْسٌ', X.soz[0]], ['اِسْمٌ', X.soz[1]], ['وَاحِدٌ', X.soz[2]]];        /* чизмадаги намуна сўзлар (1-дарс луғатидан) */
     for (i = 1; i <= ND; i++) kun += '<span>' + X.kun(i) + '</span>';
     var KN = M.keyingi && MV[M.keyingi] ? MV[M.keyingi].nom : '';
@@ -243,10 +243,10 @@
       at(RM ? 0 : 560, function () {
         var lv = ts.querySelector('.qs-lv');
         if (tur === 'ok') lv.classList.add('d1');
-        else { lv.children[1].classList.remove('on'); lv.children[0].classList.add('on'); }
+        /* xato — «ўрганяпман»da qoladi, nuqtalar 0 (23.11.2026; oldin «билмайман»ga tushardi) */
       });
     }
-    function matn(c) { return c.replace('{Bk}', X.kunlar(B)).replace('{Mk}', X.kunlar(MU)).replace('{B}', B).replace('{M}', MU).replace(/«[^»]+»/g, function (m) { return '<b>' + m + '</b>'; }); }
+    function matn(c) { return c.replace('{Bk}', X.kunlar(B)).replace('{M2k}', X.kunlar(MU2)).replace('{Mk}', X.kunlar(MU)).replace('{B}', B).replace('{M2}', MU2).replace('{M}', MU).replace(/«[^»]+»/g, function (m) { return '<b>' + m + '</b>'; }); }
     /* ---- чизма: сўз карточкаси (j) жойи: 'ls' — дарс картаси ортида (яширин), 0..3 — поғона устида (q — устма-уст тартиб), null — йўқ */
     function dJoy(j, x, q) {
       var w = dw[j], b = w.firstChild;
@@ -285,16 +285,20 @@
         at(300 + ND * 780 + 850, function () { dHolat({ ls: 0, dy: ND, mo: -1, on: 2 }); dSakra(2); });
         return 300 + ND * 780 + 850 + 2300;
       }
-      if (ch === 'must') {
+      if (ch === 'must') {                             /* 23.11.2026: ikki tekshiruv — MU kun ✓, yana MU2 kun ✓ → «мустаҳкам» */
+        var sana = function (gacha) { var t0 = performance.now(); (function f(t) { var k = Math.min(1, (t - t0) / 1300); dmb.textContent = Math.round(k * gacha); if (k < 1) raf = requestAnimationFrame(f); })(t0); };
         dTez(function () { dHolat({ ls: 0, dy: -1, mo: 0, on: 2 }); dJoy(0, 2); dJoy(1, null); dJoy(2, null); });
-        at(400, function () { var t0 = performance.now(); (function f(t) { var k = Math.min(1, (t - t0) / 1300); dmb.textContent = Math.round(k * MU); if (k < 1) raf = requestAnimationFrame(f); })(t0); });
+        at(400, function () { sana(MU); });
         at(2000, function () { dBelgi('ok'); });
-        at(2650, function () { dHolat({ ls: 0, dy: -1, mo: MU, on: 3 }); dSakra(3); });
-        return 5200;
+        at(2700, function () { dmb.textContent = 0; sana(MU2); });
+        at(4300, function () { dBelgi('ok'); });
+        at(4950, function () { dHolat({ ls: 0, dy: -1, mo: MU2, on: 3 }); dSakra(3); });
+        return 7500;
       }
-      dTez(function () { dHolat({ ls: 0, dy: -1, mo: -1, on: 3 }); dJoy(0, 3); dJoy(1, null); dJoy(2, null); });   /* xato */
+      /* xato (23.11.2026): «биламан» so'z ✕ → «ўрганяпман» 2/3 («билмайман»ga faqat o'quvchi belgisi bilan tushadi) */
+      dTez(function () { dHolat({ ls: 0, dy: -1, mo: -1, on: 2 }); dJoy(0, 2); dJoy(1, null); dJoy(2, null); });
       at(900, function () { dBelgi('no'); });
-      at(1650, function () { dHolat({ ls: 0, dy: -1, mo: -1, on: 0 }); dw[0].classList.add('tu'); dJoy(0, 0); });
+      at(1650, function () { dHolat({ ls: 0, dy: Math.min(B - 1, ND), mo: -1, on: 1 }); dw[0].classList.add('tu'); dJoy(0, 1); });
       return 4800;
     }
     function segm(k, dur) {

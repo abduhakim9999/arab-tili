@@ -9,9 +9,12 @@
    FSRS jadvali o'rniga aniq yo'l — har so'z (va har mashq savoli) bitta «birlik»:
      билмайман / ўрганяпман → «Ўрганиш»: kuniga bir marta; turli kunlarda ketma-ket BILDI (3) marta to'g'ri → «биламан»;
      «Биламан» tugmasi → darhol «биламан»;
-     биламан → KUTISH (7) kundan keyin «Такрор»da bir marta so'raladi: to'g'ri → «мустаҳкам» (boshqa hech qayerda so'ralmaydi),
-     xato → «билмайман» («Ўрганиш»ga qaytadi);
-     «Билмайман» belgisi (istalgan pog'onada) → «билмайман», yo'l boshidan. */
+     биламан → KUTISH (7) kundan keyin «Такрор»da 1-tekshiruv, to'g'ri bo'lsa yana KUTISH2 (21) kundan keyin 2-tekshiruv:
+     to'g'ri → «мустаҳкам» (boshqa hech qayerda so'ralmaydi); jami ~1 oy (xatosiz — 1, 2, 3, 10, 31-kun);
+     «Билмайман» belgisi (istalgan pog'onada) → «билмайман», yo'l boshidan.
+   23.11.2026 kech (foydalanuvchi: «bitta xato hammasini ortga qaytarishi to'g'rimi?» → taklif, «ha shunday qil»; Anki/Leitner'dagi kabi
+   yumshoq): xato «билмайман»ga tushirmaydi — ўрганяпманda xato → 0/3 (ўрганяпманda qoladi); биламан (yoki мустаҳкам) da xato →
+   ўрганяпман 2/3 (shu kun sanalmaydi — ertasi to'g'ri bo'lsa yana биламан, tekshiruvlar yana 7 + 21). «Билмайман» — faqat o'quvchi belgisi. */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory();
   else root.Takror = factory();
@@ -22,36 +25,48 @@
     yangi: 10,        // kuniga yangi so'z («Созламалар» → 10 / 15 / 20)
     yangiQ: 5,        // kuniga yangi mashq savoli
     bildi: 3,         // «биламан»: turli kunlarda ketma-ket shuncha to'g'ri javob
-    kutish: 7         // «биламан»dan keyin «Такрор»da so'ralguncha kun
+    kutish: 7,        // «биламан»dan keyin «Такрор»da 1-tekshiruvgacha kun
+    kutish2: 21       // 1-tekshiruvdan keyin 2-tekshiruvgacha kun (to'g'ri → «мустаҳкам»)
   };
 
   /* Birlik holati (so'z yoki mashq savoli). evs — shu birlik javoblari [kartaId, t, baho], a / b — «Биламан» / «Билмайман» bosilgan
      vaqt (eski yozuvlarda 1 — eng boshida), kun — vaqt → kun raqami. Natija:
      st — 'b' билмайман | 'o' ўрганяпман | 'g' биламан | 'm' мустаҳкам; d — ketma-ket to'g'ri kunlar (0..); g — «биламан» bo'lgan vaqt;
-     m — «мустаҳкам» bo'lgan vaqt; ok / no — to'g'ri / xato javoblar soni; n — javoblar soni; t0 — birinchi javob vaqti;
-     lt / lb — oxirgi javob vaqti va bahosi. */
+     h — 1-tekshiruvdan o'tgan vaqt (0 — hali); m — «мустаҳкам» bo'lgan vaqt; ok / no — to'g'ri / xato javoblar soni; n — javoblar soni;
+     t0 — birinchi javob vaqti; lt / lb — oxirgi javob vaqti va bahosi; bl — «Билмайман» belgisi (to'g'ri javobgacha). */
   function birlik(evs, a, b, kun, cfg) {
     cfg = cfg || SOZ;
-    var x = { st: 'o', d: 0, k: null, g: 0, m: 0, ok: 0, no: 0, n: 0, t0: 0, lt: 0, lb: 0, bl: false };
+    var x = { st: 'o', d: 0, k: null, g: 0, h: 0, m: 0, ok: 0, no: 0, n: 0, t0: 0, lt: 0, lb: 0, bl: false };
     var e = (evs || []).slice(), i;
     if (b) e.push([null, +b || 1, 'B']);
     if (a) e.push([null, +a || 1, 'A']);
     e.sort(function (p, q) { return p[1] - q[1]; });
     for (i = 0; i < e.length; i++) {
       var t = e[i][1], v = e[i][2];
-      if (v === 'B') { x.d = 0; x.k = null; x.g = 0; x.m = 0; x.bl = true; continue; }
-      if (v === 'A') { if (!x.g && !x.m) { x.g = t; x.bl = false; } continue; }
+      if (v === 'B') { x.d = 0; x.k = null; x.g = 0; x.h = 0; x.m = 0; x.bl = true; continue; }
+      if (v === 'A') { if (!x.g && !x.m) { x.g = t; x.h = 0; x.bl = false; } continue; }
       x.n++; if (!x.t0) x.t0 = t; x.lt = t; x.lb = v;
-      if (v === 1) { x.no++; x.d = 0; x.k = null; x.g = 0; x.m = 0; x.bl = true; continue; }
-      x.ok++;
+      if (v === 1) {
+        x.no++;
+        if (x.g || x.m) { x.d = cfg.bildi - 1; x.k = kun(t); x.g = 0; x.h = 0; x.m = 0; }   // биламан/мустаҳкам → ўрганяпман 2/3
+        else { x.d = 0; x.k = null; }                                                       // ўрганяпман → 0/3 (belgi bo'lsa — билмайман)
+        continue;
+      }
+      x.ok++; x.bl = false;
       if (x.m) continue;
-      if (x.g) { if (kun(t) >= kun(x.g) + cfg.kutish) x.m = t; continue; }
+      if (x.g) {
+        if (!x.h) { if (kun(t) >= kun(x.g) + cfg.kutish) x.h = t; }
+        else if (kun(t) >= kun(x.h) + cfg.kutish2) x.m = t;
+        continue;
+      }
       var dk = kun(t); if (dk !== x.k) { x.k = dk; x.d++; }
-      if (x.d >= cfg.bildi) { x.g = t; x.bl = false; }
+      if (x.d >= cfg.bildi) { x.g = t; x.h = 0; }
     }
     x.st = x.m ? 'm' : x.g ? 'g' : x.bl && !x.d ? 'b' : 'o';
     return x;
   }
+  /* «биламан» birlik «Такрор»da qaysi kuni so'raladi (kun raqami): 1-tekshiruv — g + kutish, 2-si — h + kutish2 */
+  function muddat(x, kun, cfg) { cfg = cfg || SOZ; return x.h ? kun(x.h) + cfg.kutish2 : kun(x.g) + cfg.kutish; }
   /* jurnal kartasi → birlik kaliti: w12a / w12u / w12o / w12s → w12; q5 → q5 */
   function bKalit(id) { var m = /^(w\d+)[auos]$/.exec(id); return m ? m[1] : /^q\d+$/.test(id) ? id : null; }
   /* butun jurnal → {birlik: [javoblar]} (vaqt tartibida) */
@@ -175,21 +190,21 @@ function yarat(o) {
 
     /* Bugungi ikki navbat. «Ўрганиш»: билмайман / ўрганяпман birliklari — bugun hali to'g'ri topilmaganlari (kuniga bir marta;
        bugun xato topilgani — oxirida yana), yangilari kunlik chegara bilan (avval «Йўл»/belgi xatolari — u). «Такрор»: биламан
-       bo'lganiga KUTISH kun to'lganlari. Мустаҳкам — hech qayerda. */
+       bo'lganiga KUTISH kun (1-tekshiruv) yoki 1-tekshiruvga KUTISH2 kun (2-tekshiruv) to'lganlari. Мустаҳкам — hech qayerda. */
     function holat(t) {
       var bug = kun(t), L1 = [], L2 = [], YW = [], YQ = [], T = [], yW = 0, yQ = 0, nT = 0;
       UL.forEach(function (u) {
         var x = hol(u.nk); u.x = x;
         if (x.t0 && kun(x.t0) === bug) { if (u.w) yW++; else yQ++; }
         if (x.st === 'm') return;
-        if (x.st === 'g') { var q = kun(x.g) + soz.kutish - bug; if (q <= 0) T.push(u); else if (!nT || q < nT) nT = q; return; }
+        if (x.st === 'g') { var q = muddat(x, kun, soz) - bug; if (q <= 0) T.push(u); else if (!nT || q < nT) nT = q; return; }
         if (!x.n) { (u.w ? YW : YQ).push(u); return; }
         if (kun(x.lt) < bug) L1.push(u);
         else if (x.lb === 1) L2.push(u);                    // bugun xato topilgan — navbat oxirida yana
       });
       var vq = function (a, b) { return a.x.lt - b.x.lt; };
       L1.sort(vq); L2.sort(vq);
-      T.sort(function (a, b) { return a.x.g - b.x.g; });
+      T.sort(function (a, b) { return muddat(a.x, kun, soz) - muddat(b.x, kun, soz) || a.x.g - b.x.g; });
       YW.sort(function (a, b) { return b.u - a.u; }); YQ.sort(function (a, b) { return b.u - a.u; });   // xatolar birinchi (sort barqaror)
       YW = YW.slice(0, Math.max(0, soz.yangi - yW));
       YQ = YQ.slice(0, Math.max(0, soz.yangiQ - yQ));
@@ -286,5 +301,5 @@ function yarat(o) {
     return jami;
   }
 
-  return { yarat: yarat, SOZ: SOZ, VER: 2, ball: ball, haftaBoshi: haftaBoshi, REY: REY, manosiz: manosiz, birlik: birlik, holatlar: holatlar };
+  return { yarat: yarat, SOZ: SOZ, VER: 2, muddat: muddat, ball: ball, haftaBoshi: haftaBoshi, REY: REY, manosiz: manosiz, birlik: birlik, holatlar: holatlar };
 });

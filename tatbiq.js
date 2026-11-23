@@ -148,7 +148,11 @@
     '.tb-tc .op{display:none}.tb-tc.on .op{display:block}.tb-tc.on .q{display:none}' +
     '.tb-tk .sv{text-align:center;padding:5px 12px 3px;border-bottom:1px dashed var(--bd);color:var(--mu)}.tb .tb-tk .sv .ar{font-size:21px;line-height:1.7;white-space:normal;color:var(--tx)}.tb-tk .sv small{display:block;font-size:13px}' +
     '.tb-oi small.tz{color:var(--tx);opacity:.85;border-top:1px dotted var(--bd);padding-top:3px}.tb .tb-oi small.tz .ar{display:inline;font-size:1.3em;line-height:1}' +
-    '.tb-tl th,.tb-tl td small{direction:ltr}';
+    '.tb-tl th,.tb-tl td small{direction:ltr}' +
+    /* jadval tarjimasi yashirin, «Таржима» tugmasi bilan ochiladi (23.11.2026, foydalanuvchi: tarjima arabchaga qo'shilib, bitta matndek ko'rinardi) */
+    '.tb-tw .tb-tl small.tj{display:none}.tb-tw.tj .tb-tl small.tj{display:block}' +
+    '.tb-tjr{display:flex;justify-content:flex-end;margin:2px 0 2px}.tb .tb-tj{font:600 12px system-ui,-apple-system,"Segoe UI",sans-serif;border:1.5px solid var(--bd);background:var(--cd);color:var(--mu);border-radius:999px;padding:4px 12px;cursor:pointer}' +
+    '.tb .tb-tj[aria-pressed="true"]{border-color:var(--ac);color:var(--ac)}';
 
   /* arabcha ichida rang: [r]…[/] raf, [s] nasb, [g] kaana, [n] muannaslik «т»si, [h] harf (46-darsdan) */
   function E(s) { return String(s).replace(/\[([rsgnh])\]/g, '<span class="e-$1">').replace(/\[\/\]/g, '</span>'); }
@@ -254,7 +258,10 @@
       return '<div class="tb-qd">' + x[1].map(function (r) { return '<div class="r c-' + (r[3] || 'n') + '"><b>' + r[0] + '</b><span class="tx">' + A(r[1]) + '</span>' + ar(r[2]) + '</div>'; }).join('') + '</div>';
     },
     /* tuslanish jadvali (48-darsdan): x[1] — ustunlar, x[2] — qatorlar */
-    tsl: function (x) { return tslH(x[1]); }
+    tsl: function (x) {
+      var tj = x[1].r.some(function (r) { return r[1].some(function (c) { return c && c[1] && c[0] !== '—'; }); });
+      return tj ? '<div class="tb-tw"><div class="tb-tjr"><button class="tb-tj" type="button" aria-pressed="false">Таржима</button></div>' + tslH(x[1]) + '</div>' : tslH(x[1]);
+    }
   };
   /* kitobdagidek (23.11.2026, foydalanuvchi: «kitobdagidek yaxshi emasmi»): ustun — shaxs va jins (III shaxs eng o'ngda), qator — son.
      t = {h1: [[shaxs, ustunlar soni]], h2: [[jins, rang]], r: [[son, [katak × ustun]]]}; katak: [arabcha, tarjima, 'r2' | 'c2'] yoki 0
@@ -265,7 +272,7 @@
       t.h2.map(function (h) { return '<th class="h2' + (h[1] ? ' c-' + h[1] : '') + '">' + h[0] + '</th>'; }).join('') + '</tr>' + t.r.map(function (r) {
         return '<tr><th class="rh">' + r[0] + '</th>' + r[1].map(function (c) {
           if (!c) return '';
-          var ic = (c[0] === '—' ? '<span class="dh">—</span>' : ar(c[0])) + (c[1] ? '<small>' + A(c[1]) + '</small>' : '');
+          var ic = (c[0] === '—' ? '<span class="dh">—</span>' : ar(c[0])) + (c[1] ? '<small' + (c[0] === '—' ? '' : ' class="tj"') + '>' + A(c[1]) + '</small>' : '');
           return '<td' + (c[2] === 'r2' ? ' rowspan="2"' : c[2] === 'c2' ? ' colspan="2"' : '') + '>' +
             (yop ? '<button class="tb-tc" type="button"><span class="q">?</span><span class="op">' + ic + '</span></button>' : ic) + '</td>';
         }).join('') + '</tr>';
@@ -345,6 +352,7 @@
     if (el._tbB) return; el._tbB = 1;
     el.addEventListener('click', function (e) {
       var b = e.target.closest('button'); if (!b) return;
+      if (b.classList.contains('tb-tj')) { var tw = b.closest('.tb-tw'), on = tw.classList.toggle('tj'); b.setAttribute('aria-pressed', on ? 'true' : 'false'); return; }
       var li = b.closest('.tb-mq>li'), d = el._tbD; if (!li || !d) return;
       var q = d.m[+li.getAttribute('data-k')], xb = li.querySelector('.tb-xb'); if (!q) return;
       if (b.classList.contains('tb-jb')) { var j = b.nextElementSibling; j.hidden = !j.hidden; b.textContent = j.hidden ? 'Жавобни кўриш' : 'Яшириш'; return; }

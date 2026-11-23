@@ -11,12 +11,12 @@
 <script>
 /* «Рейтинг» (14.11.2026, foydalanuvchi qarori; dizayn — 2-variant, shohsupasiz: bitta ro'yxat; docs/texnik.md 19) — qobiqning beshinchi bo'limi.
    Ikki ro'yxat: «Ҳафта» — shu hafta bali (dushanba 00:00, Toshkent vaqti, 0 dan; takror.js Takror.ball) va «Сўзлар» — jami biladigan so'z
-   (Машқ dagi «N сўзни биламан», takror-xulosa.bilgan). Ism — o'quvchi o'zi yozgani («Яна» → Аккаунт, localStorage «ism»).
+   (23.11.2026 dan — faqat «мустаҳкам» so'zlar: takror-xulosa.must; server — api/_rey.js bilgan(), «Такрор»da tekshirilgan so'zlar). Ism — o'quvchi o'zi yozgani («Яна» → Аккаунт, localStorage «ism»).
    Boshqalar ro'yxati — server (/api/reyting, keyingi bosqich). Server javob bermasa: ko'rish/sinov manzilida — namuna ro'yxat (belgisi bilan),
    asosiy saytda — faqat o'quvchining o'zi va «тез орада» yozuvi. */
 var SN = /\/sinov-[^\/]*$/.test(location.pathname) ? 'sinov-' : '';
 document.write('<script src="tg.js" data-key="" data-home="' + SN + 'yol.html"><\/script>' + (SN ? '' : '<script src="baza.js"><\/script>') +
-  '<script src="fsrs.js"><\/script><script src="' + SN + 'takror.js"><\/script><script src="' + SN + 'qobiq.js"><\/script>');
+  '<script src="' + SN + 'takror.js"><\/script><script src="' + SN + 'qobiq.js"><\/script>');
 </script>
 <style>
 body{margin:0;background-color:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-tap-highlight-color:transparent}
@@ -94,7 +94,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
     var j = (J(SN ? 'takror-sinov-j' : 'takror-j', {}) || {}).j || [], x = J(SN ? 'takror-sinov-xulosa' : 'takror-xulosa', null);
     var hb = window.Takror && Takror.haftaBoshi ? Takror.haftaBoshi(Date.now()) : 0;
     var ism = (J('ism', null) || {}).n || '';
-    return { n: ism, h: window.Takror && Takror.ball ? Takror.ball(j, hb) : 0, s: (x && x.bilgan) || 0, hb: hb };
+    return { n: ism, h: window.Takror && Takror.ball ? Takror.ball(j, hb) : 0, s: (x && x.must) || 0, hb: hb };   /* «Сўзлар» — мустаҳкам so'zlar (23.11.2026) */
   }
   function vaqt(hb) {                                  /* «Янгиланишига N кун» — keyingi dushanba 00:00 gacha */
     var q = hb + 7 * 864e5 - Date.now(); if (q <= 0) return '';
@@ -103,7 +103,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
   function chiz() {
     var m = men(), bir = T === 'h' ? 'балл' : 'сўз', rows, nm = '';
     $('sub').textContent = T === 'h' ? 'Бу ҳафта' : 'Жами сўзлар';
-    $('vq').textContent = T === 'h' ? vaqt(m.hb) : 'Ким нечта сўз билади';
+    $('vq').textContent = T === 'h' ? vaqt(m.hb) : 'Ким нечта сўзни мустаҳкам билади';
     [].forEach.call(document.querySelectorAll('.r-sg button'), function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-t') === T)); });
     var me = { n: m.n || 'Сиз', b: m[T], men: true };
     var sv = SERV && SERV.hb === m.hb ? SERV : (SERV && T === 's' ? SERV : null);   /* o'tgan haftaniki «Ҳафта»da ko'rsatilmaydi */
@@ -141,7 +141,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
     else if (oz > 0) { var ol = rows[oz - 1]; izoh = (oz) + '-ўринга ' + (ol.b - me.b + 1) + ' ' + bir + ' қолди'; }
     else if (so && so.ol != null) izoh = (so.o - 1) + '-ўринга ' + Math.max(1, so.ol - me.b + 1) + ' ' + bir + ' қолди';
     else if (oz === 0) izoh = 'Биринчи ўриндасиз!';
-    else izoh = T === 'h' ? 'Тўғри жавоб — балл' : 'Билган сўзларингиз';
+    else izoh = T === 'h' ? 'Тўғри жавоб — балл' : 'Мустаҳкам сўзларингиз';
     $('me').innerHTML = '<span class="o">' + (oz > -1 ? oz + 1 : so ? so.o : '–') + '</span><span class="av a0" aria-hidden="true">' + esc(bosh(me.n)) + '</span>' +
       '<span class="t"><b>' + (m.n ? esc(m.n) + '⁣' : 'Сиз') + '</b><small>' + izoh + '</small></span><span class="s">' + me.b + ' <small>' + bir + '</small></span>';
   }

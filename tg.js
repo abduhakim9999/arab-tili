@@ -280,7 +280,8 @@
     ['#yp', ESC],                                                                                         /* yol.html: dars, imtihon, kitob oynasi */
     ['#bd.on', ESC],                                                                                      /* yol.html: boblar ro'yxati */
     ['.hpop.on', function (e) { e.classList.remove('on'); var q = document.querySelector('.dh .q'); if (q) q.classList.remove('on'); }],
-    ['.spm.on', function (e) { e.classList.remove('on'); }]                                              /* pleyer tezligi */
+    ['.spm.on', function (e) { e.classList.remove('on'); }],                                             /* pleyer tezligi */
+    ['#tqd', function (e) { e.click(); }]                                                                 /* takror.html: oldingi kartani ko'rish → «Давом этиш» */
   ];
   function ochiqOyna(hammasi) {
     for (var i = 0; i < OYNA.length; i++) {

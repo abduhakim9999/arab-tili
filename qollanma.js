@@ -4,7 +4,7 @@
    Қадам: s — экран; t — нишон (ёки рўйхат); a — 'tap' | 'look'; f — камера қарайдиган жой (бўлмаса t); go — босилгандан кейинги экран;
           n — 'ok' | 'no' (поғона картаси); c — изоҳ («…» ичи ажратиб кўрсатилади, {B} — «биламан» учун кунлар сони, {M} — «мустаҳкам» учун).
    Чизма қадами (экран расмисиз): ch — 'tush' (дарс сўзлари «ўрганяпман»га тушади) | 'bildi' ({B} кун → «биламан») | 'must' ({M} кун → «мустаҳкам») | 'xato' (→ «билмайман»).
-   Очиш: Qollanma.och(калит, { bildi: 3, must: 30 }) — мавзулар ва расмлар биринчи очилганда юкланади: ўзбекча — qol/mavzu.js, qol/<тема>-<экран>.webp;
+   Очиш: Qollanma.och(калит, { bildi: 3, must: 7 }) — мавзулар ва расмлар биринчи очилганда юкланади: ўзбекча — qol/mavzu.js, qol/<тема>-<экран>.webp;
    русча (window.TIL === 'ru', 15.11.2026) — qol/mavzu-ru.js, qol/ru-<тема>-<экран>.webp; ўйнаткич ёзувлари — TX жадвалида (ru.js уларга тегмайди: data-ru-yoq).
    Телефоннинг «орқага» тугмаси ўйнаткични ёпади (history.pushState). Батафсил — docs/texnik.md 20. */
 (function () {
@@ -151,7 +151,7 @@
       return null;
     }
     o = o || {}; if (joriy) joriy.yop(true); uslub();
-    var T = o.tema || tema(), P = o.papka || PAPKA, B = o.bildi || 3, MU = o.must || 30, ND = Math.min(B, 5), Q = M.qadam, n = Q.length, i, seg = '', kun = '';
+    var T = o.tema || tema(), P = o.papka || PAPKA, B = o.bildi || 3, MU = o.must || 7, ND = Math.min(B, 5), Q = M.qadam, n = Q.length, i, seg = '', kun = '';
     var SOZ = [['دَرْسٌ', X.soz[0]], ['اِسْمٌ', X.soz[1]], ['وَاحِدٌ', X.soz[2]]];        /* чизмадаги намуна сўзлар (1-дарс луғатидан) */
     for (i = 1; i <= ND; i++) kun += '<span>' + X.kun(i) + '</span>';
     var KN = M.keyingi && MV[M.keyingi] ? MV[M.keyingi].nom : '';

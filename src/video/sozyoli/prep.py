@@ -14,7 +14,7 @@ HOP = int(SR * 0.01)
 # Qoida kodda: takror.js birlik() (tayyor-takror-21). Matn oddiy lotinchada; «|» — ekrandagi qadam joyi (qoralamada vaqti matn uzunligiga
 # qarab taxmin qilinadi, haqiqiy ovozdan keyin cue.json ga aniq vaqtlar). Ovoz (rejada): Farruh — foydalanuvchi ruxsati bilan; hozircha qoralama.
 import re
-IPA = {'xatosiz': '/χatoˈsiz/'}   # gap boshida yolg'iz «Xatosiz:» «Zatosiz» bo'lib o'qildi (foydalanuvchi eshitdi, 23.11.2026); kirill «Хатосиз» ham x bilan chiqdi, IPA aniqroq
+IPA = {'xatosiz': 'Хатосиз'}   # gap boshida yolg'iz «Xatosiz:» «Zatosiz» bo'lib o'qildi; IPA /χatoˈsiz/ da «i» yumshoq chiqdi — kirill yozuv olindi (foydalanuvchi eshitib tanladi, 23.11.2026)
 TXT = {
  # S1 — to'rt pog'ona
  'k1': "So'z qanday yodlanadi? |Har bir so'z |to'rt pog'onadan o'tadi: |«bilmayman», |«o'rganyapman», |«bilaman» |va «mustahkam».",

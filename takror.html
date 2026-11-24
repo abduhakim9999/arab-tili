@@ -763,7 +763,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
   var HT = ['насб ва масдар ҳарфи', 'жар ҳарфи', 'атф ҳарфи', 'истифҳом ҳарфи', 'жавоб ҳарфи', 'нидо ҳарфи', 'жазм ҳарфи', 'таъкид ҳарфи', 'масдар ҳарфи'];   /* lug'at izohidagi nomlar; boshqasi so'ralmaydi */
   function harfTuri(r) { if (r.tur !== 'harf') return ''; var u = (r.uzA || r.uz).join(' ');   /* uzA — ruscha rejimda asl o'zbekcha ma'no (ru.js): tur nomi o'shandan */ for (var i = 0; i < HT.length; i++) if (u.indexOf(HT[i]) > -1) return HT[i]; return ''; }
   function shaklTuri(r) { return r.tur === 'fel' ? '' :   /* fe'l shakllari kartasi yo'q — shakllar Сарфнинг o'z mashqida (23.11.2026, foydalanuvchi); «Маъноси?»da shakllar boshidanoq ko'rinadi */
-     r.tur === 'harf' ? (harfTuri(r) ? 't' : '') : (r.jam && r.jam.length ? 'j' : ''); }
+     r.tur === 'harf' ? (harfTuri(r) ? 't' : '') : ''; }   /* ko'plik kartasi («Кўплиги?», 'j') ham yo'q (24.11.2026, foydalanuvchi: «jam topish mashqi kerak emas — jam matnda keladi, ma'nosini topsa jamini ham biladi»); ko'plik kartada «ج» bilan ko'rinib turadi */
   /* 14.11.2026 (foydalanuvchi: fe'l mashqi tushunarsiz): fe'l shakllari nomi bilan; harf turi ham «Билдим / Билмадим» bilan (4 variant o'rniga) */
   var FN = ['Ўтган замон · мозий', 'Ҳозирги замон · музореъ', 'Буйруқ · амр', 'Масдар'];
   function shaklMatn(r, t) {

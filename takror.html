@@ -49,6 +49,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .tq-st .tq-pr{height:10px;border-radius:5px}
 .tq-st .tq-pr i{border-radius:5px}
 .tq-c .tq-pr{margin:0 0 10px}
+.tq-k.tq-bo:not(.och){cursor:pointer;-webkit-tap-highlight-color:transparent}
 .tq-sn{display:flex;align-items:center;gap:8px;margin:0 0 12px;padding:8px 10px 8px 12px;border:1px dashed var(--bd);border-radius:12px;font-size:13.5px;color:var(--mu)}
 .tq-sn span{flex:1}
 .tq-sn button{height:36px;padding:0 12px;border-radius:10px;border:1px solid var(--bd);background:var(--cd);font-size:13.5px;font-weight:600}
@@ -1018,7 +1019,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     }).join('') + '</div>';
   }
   /* 21.11.2026 (foydalanuvchi: «мозий, музореъ, амр deb yozish shart emas, bir xil ko'rinishda»): so'z qatori o'ngdan chapga — so'ralgan so'z,
-     keyin fe'lning qolgan shakllari yoki ismning «ج» ko'pligi, «مؤ.» muannasi, «ال» bilan shakli — hammasi bir xil kattalikda, chiziqcha bilan.
+     keyin fe'lning qolgan shakllari yoki ismning «ال» bilan shakli (qavsda), «ج» ko'pligi, «مؤ.» muannasi — hammasi bir xil kattalikda, chiziqcha bilan.
      oc — qolganlari «Кўрсатиш»da ko'rinadi (joyi oldindan ajratilgan, so'z qimirlamaydi). Sig'masa — sigdir(). */
   /* «إِلَى alohidaroq tursin — ..га ma'nosi shundan» (21.11.2026): fe'l bilan keladigan harf oxirgi shakldan ajratiladi
      («تَأْدِيَةٌ إِلَى ..», «مُحَافَظَةٌ (عَلَى ..)» → «إِلَى ..»; 22.11.2026: «(هُ)», «(هُ مِنْ ..)» ham — maf'ul belgisi, gapda faqat harfi qidiriladi); kartada o'z rangida (.tq-pp) — ma'nodagi «..га» va gapdagi إِلَيْهِ ham shu rangda. */
@@ -1033,9 +1034,9 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     var si = sila(r), f = si ? si.f : (r.fel && r.fel.length > 1 ? r.fel : null), q = [];
     if (f) f.slice(1).forEach(function (x) { q.push(['', x]); });
     else {
+      if (r.al) q.push(['', '(' + r.al + ')']);   /* «ال» shakli so'zning o'zi yonida, muannasdan oldin (24.11.2026, foydalanuvchi: «muzakkarning ikki ko'rinishi yonma-yon» — oxirida muannasniki bo'lib ko'rinardi: ثَانٍ … ثَانِيَةٌ (اَلثَّانِي)); dars «Луғат»idagi yozuv tartibi ham shunday */
       if (r.jam && r.jam.length) q.push(['ج', r.jam.join('، ')]);
       if (r.mn) q.push(['مؤ.', r.mn]);
-      if (r.al) q.push(['', '(' + r.al + ')']);
     }
     return '<div class="tq-wq ar" lang="ar" dir="rtl"><span class="tq-sf">' + esc(r.ar) + '</span>' + q.map(function (x) {
       return '<span class="tq-sf' + (oc ? ' tq-oc' : '') + '"><i>–</i>' + (x[0] ? '<small>' + x[0] + '</small>' : '') + esc(x[1]) + '</span>';
@@ -1162,18 +1163,43 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     tugma('<button class="tq-b tq-b1" id="ko">Кўрсатиш</button>');
     sigdir(); if (document.fonts && document.fonts.ready) document.fonts.ready.then(sigdir);
     if (t === 'o') { document.getElementById('pl').onclick = function () { ovoz(n.au); }; ovoz(n.au); }
+    var kk = document.getElementById('kk'), ochildi = false;
     var och = function () {
-      var kk = document.getElementById('kk');
-      if (!kk || kk.classList.contains('och')) return;
-      document.getElementById('rv').hidden = false; kk.classList.add('och'); sigdir();
-      tugma('<button class="tq-b" id="j0">Билмадим</button><button class="tq-b tq-b1" id="j1">Билдим</button>', true);
-      document.getElementById('j0').onclick = function () { javob(false); };
-      document.getElementById('j1').onclick = function () { javob(true); };
-      var sp = document.getElementById('sp');
-      if (sp) { sp.hidden = false; sp.onclick = function () { ovoz(n.au); }; ovoz(n.au); }
+      if (ochildi || kk.classList.contains('och')) return;
+      ochildi = true;
+      aylan(kk, function () {
+        document.getElementById('rv').hidden = false; kk.classList.add('och'); sigdir();
+        tugma('<button class="tq-b" id="j0">Билмадим</button><button class="tq-b tq-b1" id="j1">Билдим</button>', true);
+        document.getElementById('j0').onclick = function () { javob(false); };
+        document.getElementById('j1').onclick = function () { javob(true); };
+        var sp = document.getElementById('sp');
+        if (sp) { sp.hidden = false; sp.onclick = function () { ovoz(n.au); }; ovoz(n.au); }
+      }, sigdir);
     };
     document.getElementById('ko').onclick = och;
-    var jq = document.getElementById('jq'); if (jq) jq.onclick = och;   /* javob qutisini bosish ham ochadi */
+    kartaBos(kk, och);                                   /* kartaning istalgan joyini bosish ham ochadi (javob qutisi ham shu ichida) */
+  }
+
+  /* 24.11.2026 (foydalanuvchi: «faqat tagidagi tugma emas, kartaning o'zini bosib ham ochsa — motion qo'sh, kartalar aylanadi»):
+     karta bosilsa ochiladi (ichidagi tugmalar — ovoz va h.k. — o'z ishini qiladi); baho faqat pastdagi «Билмадим / Билдим» bilan.
+     Ochilishda karta Y o'qi atrofida aylanadi: 0 → 90° (yonboshdan — ko'rinmay qoladi), shu lahzada javob ochiladi, −90° → 0.
+     «Ҳаракатни камайтириш» yoqilgan telefonda yoki Web Animations yo'q bo'lsa — aylanmasdan darhol ochiladi. */
+  function kartaBos(k, och) {
+    if (!k) return;
+    k.classList.add('tq-bo');
+    k.addEventListener('click', function (e) { if (!e.target.closest('button,a,input')) och(); });
+  }
+  function aylan(k, f, keyin) {
+    var kam = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!k || !k.animate || kam) { f(); if (keyin) keyin(); return; }
+    var P = 'perspective(1400px) ';
+    var a = k.animate([{ transform: P + 'rotateY(0deg)' }, { transform: P + 'rotateY(90deg)' }], { duration: 170, easing: 'cubic-bezier(.4,0,1,1)', fill: 'forwards' });
+    a.onfinish = function () {
+      f();
+      var b = k.animate([{ transform: P + 'rotateY(-90deg)' }, { transform: P + 'rotateY(0deg)' }], { duration: 240, easing: 'cubic-bezier(0,0,.2,1)' });
+      a.cancel();
+      b.onfinish = function () { if (keyin) keyin(); };
+    };
   }
 
   /* shakl kartasi (takror.js `w…s`): ko'pligi / fe'l shakllari — eslab ko'rib o'zini baholash; harf turi — 4 variant */
@@ -1183,12 +1209,19 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     if (t !== 't' || harfTuri(r)) {
       app.innerHTML = bosh_ + '<section class="tq-c tq-k">' + lbl + '<div class="tq-f">' + soz_ + '<div class="mq-s">' + esc(t === 't' ? manoT(r) : mano1(r)) + '</div><div class="tq-hn">' + shaklSorov(r, t) + '</div></div><div class="tq-r" id="rv" hidden>' + shaklMatn(r, t) + '</div></section>';
       tugma('<button class="tq-b tq-b1" id="ko">Кўрсатиш</button>');
-      document.getElementById('ko').onclick = function () {
-        document.getElementById('rv').hidden = false;
-        tugma('<button class="tq-b" id="j0">Билмадим</button><button class="tq-b tq-b1" id="j1">Билдим</button>', true);
-        document.getElementById('j0').onclick = function () { javob(false); };
-        document.getElementById('j1').onclick = function () { javob(true); };
+      var sk = app.querySelector('section.tq-c'), ochildi = false;
+      var och = function () {
+        if (ochildi) return;
+        ochildi = true;
+        aylan(sk, function () {
+          document.getElementById('rv').hidden = false; sk.classList.add('och');
+          tugma('<button class="tq-b" id="j0">Билмадим</button><button class="tq-b tq-b1" id="j1">Билдим</button>', true);
+          document.getElementById('j0').onclick = function () { javob(false); };
+          document.getElementById('j1').onclick = function () { javob(true); };
+        });
       };
+      document.getElementById('ko').onclick = och;
+      kartaBos(sk, och);                                 /* kartaning o'zini bosish ham ochadi (24.11.2026) */
       return;
     }
     var ops = harfVar(r), ht = harfTuri(r), bajarildi = false;

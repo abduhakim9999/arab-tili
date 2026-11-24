@@ -124,12 +124,21 @@ var D="@@DATA@@";
 </html>
 """
 
-AUD_JS = ('<script>/*fqAudioDec 24.11.2026: shifrlangan ustoz audiosi — kalit qurilmada (fq-k)*/(function(){var a=document.getElementById("au"),'
-  'u=a&&a.getAttribute("data-fq"),k;try{k=localStorage.getItem("fq-k")}catch(e){}if(!u||!k)return;'
+AUD_JS = ('<script>/*fqAudioDec 24.11.2026: shifrlangan ustoz audiosi — kalit qurilmada (fq-k). Fayl to\'liq yuklanib ochiladi: '
+  'tayyor bo\'lguncha ▶ bosilsa — foiz ko\'rsatiladi, tayyor bo\'lgach o\'zi boshlanadi (telefon ruxsat bermasa — «▶ ни босинг»)*/'
+  '(function(){var a=document.getElementById("au"),u=a&&a.getAttribute("data-fq"),k,want=false,ready=false,box=null,pc="";'
+  'try{k=localStorage.getItem("fq-k")}catch(e){}if(!u||!k)return;'
+  'function msg(t){if(!box){box=document.createElement("div");box.setAttribute("role","status");box.style.cssText="position:fixed;left:50%;top:calc(10px + env(safe-area-inset-top));transform:translateX(-50%);z-index:101;background:var(--cd,#fff);color:var(--tx,#1e2a26);border:1px solid var(--bd,#e0dccf);border-radius:999px;padding:6px 14px;font:600 13.5px/1.3 system-ui,-apple-system,sans-serif;box-shadow:0 4px 14px rgba(0,0,0,.15);white-space:nowrap";document.body.appendChild(box)}box.textContent=t;box.style.display=t?"block":"none"}'
+  'a.addEventListener("play",function(){if(!ready){want=true;a.pause();msg("⏳ Аудио тайёрланяпти…"+pc)}else msg("")});'
+  'a.addEventListener("playing",function(){msg("")});'
   'var r=Uint8Array.from(atob(k),function(c){return c.charCodeAt(0)});'
-  'Promise.all([fetch(u).then(function(x){if(!x.ok)throw new Error(x.status);return x.arrayBuffer()}),crypto.subtle.importKey("raw",r,"AES-GCM",false,["decrypt"])])'
-  '.then(function(z){var d=new Uint8Array(z[0]);return crypto.subtle.decrypt({name:"AES-GCM",iv:d.slice(0,12)},z[1],d.slice(12))})'
-  '.then(function(b){a.src=URL.createObjectURL(new Blob([b],{type:"audio/mpeg"}))}).catch(function(e){console.log("fq audio",e)})})();</script>')
+  'fetch(u).then(function(x){if(!x.ok)throw new Error(x.status);var n=+x.headers.get("content-length")||0;if(!x.body||!x.body.getReader||!n)return x.arrayBuffer();'
+  'var rd=x.body.getReader(),got=0,parts=[];function step(){return rd.read().then(function(z){if(z.done){var o=new Uint8Array(got),q=0;parts.forEach(function(c){o.set(c,q);q+=c.length});return o.buffer}'
+  'parts.push(z.value);got+=z.value.length;pc=" "+Math.min(99,Math.floor(got/n*100))+"%";if(want)msg("⏳ Аудио тайёрланяпти…"+pc);return step()})}return step()})'
+  '.then(function(buf){return crypto.subtle.importKey("raw",r,"AES-GCM",false,["decrypt"]).then(function(key){var d=new Uint8Array(buf);return crypto.subtle.decrypt({name:"AES-GCM",iv:d.slice(0,12)},key,d.slice(12))})})'
+  '.then(function(b){a.src=URL.createObjectURL(new Blob([b],{type:"audio/mpeg"}));ready=true;'
+  'if(want){var p=a.play();if(p&&p.then)p.then(function(){msg("")},function(){msg("✅ Аудио тайёр — ▶ ни босинг")});else msg("")}})'
+  '.catch(function(e){msg(want?"⚠️ Аудио очилмади — саҳифани янгиланг":"");console.log("fq audio",e)})})();</script>')
 AUD_RE = re.compile(r'<audio id="au" src="(af\d+-[0-9a-f]+)\.mp3"')
 def audio_yop(html):
     html = AUD_RE.sub(r'<audio id="au" data-fq="\1.bin"', html)

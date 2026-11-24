@@ -10,7 +10,7 @@ D = os.path.dirname(os.path.abspath(__file__))
 SR = 44100
 HOP = int(SR * 0.01)
 
-# kana0 — kirish videosi: «كَانَ билан танишув» (turkumning 0-videosi; reja — claude.ai claude/kana-video-reja.md 1-bo'lim).
+# kana0 — kirish videosi: «كَانَ билан танишув» (turkumning 0-videosi; reja — docs/kana-video-reja.md 1-bo'lim).
 # Matn oddiy lotinchada yoziladi; «|» — ekrandagi qadam joyi (qoralamada vaqti matn uzunligiga qarab taxmin qilinadi,
 # haqiqiy ovozdan keyin cue.json ga aniq vaqtlar yoziladi — tekshir.py --zich). ElevenLabs matni: python3 prep.py matn
 # (arabcha so'zlar talaffuz ro'yxati bo'yicha tovush belgisiga almashadi).

@@ -6,7 +6,7 @@
 set -e
 M="$1"; O=_vercel
 rm -rf "$O"; mkdir -p "$O"
-FQ='^(fiqh|fkitob|f[0-9]+)\.html$|^af[0-9]+-.*\.mp3$|^fiqh-.*|^fiqh\.webmanifest$'
+FQ='^(fiqh|fkitob|f[0-9]+)\.html$|^af[0-9]+-.*\.(mp3|bin)$|^fiqh-.*|^fiqh\.webmanifest$'
 NO='^(vercel-build\.sh|CLAUDE\.md|_config\.yml|b2\.txt|\.gitignore|\.vercelignore|sinov-.*|shell-s\..*|tg-s\.js)$'
 ls -A | while read -r f; do
   [ -f "$f" ] || continue

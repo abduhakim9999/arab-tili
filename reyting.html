@@ -85,7 +85,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
   var T = 'h'; try { T = sessionStorage.getItem('reyting-t') === 's' ? 's' : 'h'; } catch (e) {}
   /* server ro'yxati (15.11.2026; api/reyting.js, docs/texnik.md 19): {hb, h: {top, o, b, ol}, s: {...}}; oxirgisi telefonda ham turadi —
      sahifa darhol ochilsin, internet yo'q bo'lsa ham ko'rinsin */
-  var SERV = null, KK = 'reyting-kesh';
+  var SERV = null, KK = 'reyting-kesh2';   /* 24.11.2026: «2» — eski keshda 23.11 gacha qoida bilan «Сўзлар» raqamlari qolgan */
   try { var kx = JSON.parse(L(KK) || 'null'); if (kx && kx.d && kx.d.hb) SERV = kx.d; } catch (e) {}
   var kirgan = !!(L('baza-tg') || (window.Telegram && Telegram.WebApp && Telegram.WebApp.initData));
 
@@ -134,7 +134,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
       return '<div class="r-r' + (r.men ? ' men' : '') + (k === 0 ? ' p1' : '') + '"><span class="o' + (k < 3 ? ' t t' + (k + 1) : '') + '">' + (k + 1) + '</span><span class="av ' + (r.men ? 'a0' : rang(r.n)) + '" aria-hidden="true">' + esc(bosh(r.n)) + '</span>' +
         '<span class="n"><span>' + esc(r.n) + '⁣</span>' + (k === 0 ? TOJ : '') + '</span><span class="s">' + r.b + ' <small>' + bir + '</small></span></div>';
     }).join('');
-    $('ls').innerHTML = h || '<div class="r-bs">' + (rows.length ? 'Ҳозирча шулар' : 'Ҳали ҳеч ким йўқ') + '</div>';
+    $('ls').innerHTML = h || '<div class="r-bs">' + (rows.length ? 'Ҳозирча шулар' : T === 's' ? 'Ҳали ҳеч кимда мустаҳкам сўз йўқ' : 'Ҳали ҳеч ким йўқ') + '</div>';
     /* o'z qatori — pastda doim ko'rinadi */
     var izoh;
     if (!kirgan && !SN && !window.KORISH) izoh = '<a href="' + SN + 'yana.html">Telegram орқали киринг</a> — рейтингга қўшиласиз';
@@ -157,7 +157,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
     olT = Date.now();
     var kod = kirgan ? L('baza-kod') || '' : '';
     var so = kod ? { kod: kod } : {};
-    if (window.Profil && Profil.til === 'ru') so.til = 'ru';   /* ruscha profil — o'z ro'yxati (21.11.2026); kesh «reyting-kesh» ham profilniki (tg.js) */
+    if (window.Profil && Profil.til === 'ru') so.til = 'ru';   /* ruscha profil — o'z ro'yxati (21.11.2026); kesh «reyting-kesh2» ham profilniki (tg.js) */
     fetch(API, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(so) })
       .then(function (r) { return r.json(); })
       .then(function (j) {

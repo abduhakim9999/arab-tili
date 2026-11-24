@@ -2,9 +2,11 @@
 // api/soz.js (har saqlashda yangilaydi) va api/reyting.js (ro'yxatni beradi) ishlatadi.
 // Ombor: Upstash Redis (Vercel Marketplace orqali «arab-tili» loyihasiga ulanadi; env KV_REST_API_URL / KV_REST_API_TOKEN
 // yoki UPSTASH_REDIS_REST_URL / UPSTASH_REDIS_REST_TOKEN — o'zi qo'yiladi). Ulanmagan bo'lsa — hech narsa qilmaydi (sayt ishlayveradi).
-// Kalitlar: rey:h:<hafta boshi ms> — haftalik ball (ZSET, 3 hafta saqlanadi); rey:s — bilgan so'zlar (ZSET); rey:ism — ism (HASH).
+// Kalitlar: rey:h:<hafta boshi ms> — haftalik ball (ZSET, 3 hafta saqlanadi); rey:m — мустаҳкам so'zlar (ZSET); rey:ism — ism (HASH).
+// 24.11.2026: «Сўзлар» kaliti rey:s → rey:m (rey:ru:s → rey:ru:m). rey:s da 23.11 gacha qoida (биламан ham) bilan yozilgan raqamlar
+// qolib, o'shandan beri saqlamagan o'quvchilarda «219 сўз» kabi chiqib turardi; hozir hammaniki 0 — yangi kalit yo'qotishsiz. Eski kalit o'qilmaydi.
 // Ruscha profil (21.11.2026, foydalanuvchi: ruschada reyting alohida — ruscha o'qiyotganlar o'zaro): hujjatning «ru» qismidan,
-// kalitlar rey:ru:h:<hb>, rey:ru:s; ism umumiy (rey:ism). Ikkala tilda o'qigan o'quvchi ikkala ro'yxatda alohida ball bilan.
+// kalitlar rey:ru:h:<hb>, rey:ru:m; ism umumiy (rey:ism). Ikkala tilda o'qigan o'quvchi ikkala ro'yxatda alohida ball bilan.
 // O'quvchi raqami — sha256("rey:" + kod) boshidagi 20 belgi: koddan topib bo'lmaydi, kod ko'rinmaydi.
 // Ball va so'z soni — serverda, o'quvchi hujjatidagi takror jurnalidan (takror.js Takror.ball — sahifa bilan bir xil qoida).
 const crypto = require('crypto');
@@ -18,7 +20,7 @@ const HAFTA_SAQLA = 21 * 86400;                         // haftalik ro'yxat shun
 function bor() { return !!(RURL && TOKEN); }
 function id(kod) { return crypto.createHash('sha256').update('rey:' + kod).digest('hex').slice(0, 20); }
 function hk(hb, til) { return (til === 'ru' ? 'rey:ru:h:' : 'rey:h:') + hb; }
-function sk(til) { return til === 'ru' ? 'rey:ru:s' : 'rey:s'; }
+function sk(til) { return til === 'ru' ? 'rey:ru:m' : 'rey:m'; }
 
 async function redis(cmds) {                            // pipeline: [[cmd, ...args], ...] → [natija, ...]
   const r = await fetch(RURL.replace(/\/$/, '') + '/pipeline', {
@@ -56,7 +58,7 @@ async function yangila(kod, d) {
   const q = [
     x.h > 0 ? ['ZADD', H, x.h, i] : ['ZREM', H, i],
     ['EXPIRE', H, HAFTA_SAQLA],
-    x.s > 0 ? ['ZADD', 'rey:s', x.s, i] : ['ZREM', 'rey:s', i],
+    x.s > 0 ? ['ZADD', sk(), x.s, i] : ['ZREM', sk(), i],
     ['HSET', 'rey:ism', i, x.n]                          // bo'sh ism ham yoziladi — «bu o'quvchi hisoblangan» belgisi
   ];
   const ru = d && d.ru && typeof d.ru === 'object' && !Array.isArray(d.ru) ? d.ru : null;   // ruscha profil — faqat ruschada o'qiganda

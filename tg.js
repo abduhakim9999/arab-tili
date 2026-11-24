@@ -8,7 +8,7 @@
      boshqa sahifalar — «til» bo'yicha. Ko'rish sahifasida (korish-shim.js, «korish:<nom>:» oldi) ham ishlaydi. Serverga — baza.js (hujjatda «ru»). */
   try {
     var PK = { 'soz': 1, 'takror-j': 1, 'takror-xulosa': 1, 'takror-mashgulot': 1, 'yol': 1, 'yol-t': 1, 'yol-xato': 1, 'yol-kitob': 1, 'yol-xulosa': 1,
-      'reyting-kesh': 1, 'oxirgi-dars': 1, 'baza-eski': 1, 'baza-r': 1, 'baza-rk': 1 };
+      'reyting-kesh2': 1, 'oxirgi-dars': 1, 'baza-eski': 1, 'baza-r': 1, 'baza-rk': 1 };
     var PRE = /^dars\d+-holat(-t)?$/, KOR = /^(korish:[^:]*:)?([\s\S]*)$/;
     var pRU = false, pth = location.pathname;
     if (/(^|[\/-])ru\d+\.html$/.test(pth)) pRU = true;

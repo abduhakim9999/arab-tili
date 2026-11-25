@@ -19,7 +19,14 @@ self.addEventListener('install', function (e) {
     old.sort(function (x, y) { return +y.split('-v')[1] - +x.split('-v')[1]; });
     return (old.length ? caches.open(old[0]) : Promise.resolve(null)).then(function (o) {
       return (o ? o.match(HK).then(function (r) { return r ? r.json() : {}; }).catch(function () { return {}; }) : Promise.resolve({})).then(function (oh) {
-        var got = {};
+        var got = {}, jami = 0, bitdi = 0, xAt = 0;
+        /* 25.11.2026: ochiq sahifaga o'rnatish foizi («Янги версия юкланмоқда… N%», tg.js) */
+        function xabar(oxir) {
+          if (!oxir && Date.now() - xAt < 300) return; xAt = Date.now();
+          self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(function (cs) {
+            cs.forEach(function (cl) { cl.postMessage({ t: 'upd', k: bitdi, n: jami }); });
+          }).catch(function () {});
+        }
         function fromOld(f) {
           if (!o) return Promise.resolve(false);
           return o.match(f, { ignoreSearch: true }).then(function (r) { if (!r) return false; got[f] = oh[f] || ''; return c.put(f, r).then(function () { return true; }); });
@@ -27,9 +34,12 @@ self.addEventListener('install', function (e) {
         function fromNet(f) {
           return fetch(new Request(f, { cache: 'no-cache' })).then(function (r) { if (!r.ok) throw new Error(r.status); got[f] = H[f] || ''; return c.put(f, r); });
         }
-        return Promise.all(FILES.filter(function (f) { return !/\.mp3$/i.test(f); }).map(function (f) {
-          var p = (H[f] && oh[f] === H[f]) ? fromOld(f).then(function (ok) { if (!ok) return fromNet(f); }) : fromNet(f);
-          return p.catch(function () { return fromOld(f); }).catch(function () {});
+        var fl = FILES.filter(function (f) { return !/\.mp3$/i.test(f); });
+        jami = fl.filter(function (f) { return !(H[f] && oh[f] === H[f]); }).length;
+        return Promise.all(fl.map(function (f) {
+          var yangi = !(H[f] && oh[f] === H[f]);
+          var p = yangi ? fromNet(f) : fromOld(f).then(function (ok) { if (!ok) return fromNet(f); });
+          return p.catch(function () { return fromOld(f); }).catch(function () {}).then(function () { if (yangi) { bitdi++; xabar(bitdi === jami); } });
         })).then(function () { return c.put(HK, new Response(JSON.stringify(got), { headers: { 'Content-Type': 'application/json' } })); });
       });
     });
@@ -165,9 +175,13 @@ self.addEventListener('message', function (e) {
   }));
 });
 
+/* 25.11.2026: ilova ochilganda yangi versiyani darhol so'rash — brauzer o'zi sahifa fayllari yuklanib bo'lgach (bir necha soniya kechikib)
+   so'raydi; shu kechikishda eski versiya ko'rinib turardi. Ko'pi bilan 30 s da bir (sw.js ≈15 KB) */
+var soradi = 0;
 self.addEventListener('fetch', function (e) {
   var r = e.request;
   if (r.method !== 'GET') return;
+  if (r.mode === 'navigate' && Date.now() - soradi > 30000) { soradi = Date.now(); try { self.registration.update().catch(function () {}); } catch (x) {} }
   var same = new URL(r.url).origin === location.origin;
   if (!same && r.url !== TG) return;
   /* 21.11.2026: video (mp4) — keshlanmaydi, brauzer o'zi bo'laklab oladi (katta fayl) */

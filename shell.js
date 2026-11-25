@@ -463,6 +463,7 @@
       if (!mm) return;
       el.setAttribute('data-a', '1');
       var a = +mm[1], n = +mm[2];
+      natija80(el, a, n);
       if (RM || !a) return;
       var t0 = 0, dur = Math.min(1400, 350 + a * 45);
       function step(ts) {
@@ -474,6 +475,25 @@
       el.textContent = '0 / ' + n;
       requestAnimationFrame(step);
     }).observe(p3, { childList: true });
+  }
+  /* 25.11.2026 (foydalanuvchi: «80% o'tgandan keyin lug'atlari tushishi kerak», «olib tashlanadi», «qil»): natija ostida qator — dars so'zlari
+     «Машқ» bo'limiga faqat 80% dan keyin tushadi (yol.html yigish, takror.html otganlar). Ilgari 80% olingan bo'lsa (yol R.d[n].b) — ham «ўтилди».
+     Ruscha profilda `yol` → `ru-yol` (tg.js Profil); matn ruschaga lugat-qobiq.txt orqali */
+  function natija80(el, a, n) {
+    var sc = document.querySelector('script[data-key]'), dn = sc ? +((sc.getAttribute('data-key') || '').match(/^dars(\d+)-holat$/) || [0, 0])[1] : 0;
+    if (!dn || !n) return;
+    var b = 0, sn = /\/sinov-[^\/]*$/.test(location.pathname), R = null;
+    try { R = JSON.parse(localStorage.getItem(sn ? 'yol-sinov' : 'yol') || 'null'); } catch (e) {}
+    if (R && R.d && R.d[dn]) b = +R.d[dn].b || 0;
+    var ok = Math.max(Math.round(a * 100 / n), b) >= 80, q = document.createElement('p');
+    if (!document.getElementById('q80css')) {
+      var st = document.createElement('style'); st.id = 'q80css';
+      st.textContent = '.q80{margin:0 0 12px;text-align:center;font-size:14px;line-height:1.45;color:var(--mu)}.q80.ok{color:var(--ac);font-weight:600}';
+      document.head.appendChild(st);
+    }
+    q.className = 'q80' + (ok ? ' ok' : '');
+    q.textContent = ok ? 'Дарс ўтилди ✓ Сўзлари «Машқ» бўлимига қўшилади.' : '80% олсангиз, дарс ўтилади ва сўзлари «Машқ» бўлимига қўшилади.';
+    el.parentNode.insertBefore(q, el.nextSibling);
   }
   function stars(el) {
     if (!el.animate) return;

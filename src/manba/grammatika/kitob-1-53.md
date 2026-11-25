@@ -1,6 +1,6 @@
 # Grammatika kitobi — yangi nashr (1–53-darslar)
 
-Foydalanuvchi 19.11.2026 da yuborgan yangi nashr: 1-qism (1–24) va 2-qism (25–53). «Грамматика» bo'limidagi video darslar shu kitob tartibida qilinadi (reja: `claude/grammatika-pleyer-reja.md`).
+Foydalanuvchi 19.11.2026 da yuborgan yangi nashr: 1-qism (1–24) va 2-qism (25–53). «Грамматика» bo'limidagi video darslar shu kitob tartibida qilinadi (reja: `docs/grammatika-pleyer-reja.md`).
 
 **Eski nashrdan farqi:** 1–12 va 24–53-darslar raqami bir xil. 13–23 tartibi o'zgargan: eski 20–23 (исм ишора, замирлар) → yangi 13–16; eski 13–15 (феъл 2–4) → yangi 17–19; eski 16 (амр ясалиши) → yangi 20; eski 17–19 (мабний феъллар) → yangi 21–23. `claude/kitob-konspekti.md` (va repodagi `docs/kitob-konspekti.md`) dagi raqamlar 19.11.2026 da yangi nashrga moslandi. Eski nashrning 54–94-darslari: `eski-54-94/`.
 

@@ -10,7 +10,7 @@ D = os.path.dirname(os.path.abspath(__file__))
 SR = 44100
 HOP = int(SR * 0.01)
 
-# sozyoli — «Сўз йўли»: so'z 4 pog'onadan qanday o'tadi (Машқ yo'riqnoma videosi; matn va jadvallar — claude.ai claude/soz-yoli-video.md, 23.11.2026).
+# sozyoli — «Сўз йўли»: so'z 4 pog'onadan qanday o'tadi (Машқ yo'riqnoma videosi; matn va jadvallar — docs/soz-yoli-video.md, 23.11.2026).
 # Qoida kodda: takror.js birlik() (tayyor-takror-21). Matn oddiy lotinchada; «|» — ekrandagi qadam joyi (qoralamada vaqti matn uzunligiga
 # qarab taxmin qilinadi, haqiqiy ovozdan keyin cue.json ga aniq vaqtlar). Ovoz (rejada): Farruh — foydalanuvchi ruxsati bilan; hozircha qoralama.
 import re

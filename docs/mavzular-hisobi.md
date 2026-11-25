@@ -1,6 +1,6 @@
 # Mavzular hisobi — «Татбиқ» sahifalari va grammatika videolari (23.11.2026)
 
-Foydalanuvchi: «hech bir mavzu qolib ketmasin; qaysi mavzu qaysi darsga kirishi ma'lum bo'lsin» (21.11.2026, videolar); kitobda bir mavzu tushib qolib boshqa darsda o'tsa yoki keyingi darsda o'tilgan narsa oldingi darsda qolib ketsa — bilinib tursin; har darsda nima qolgani, nima qo'shilgani va qaysi darsga borishi bir joyda (23.11.2026, sahifalar). 23.11.2026 dan sahifalar va videolar hisobi **shu faylda birga** (videolarniki claude.ai `claude/kana-video-reja.md` 1a-bo'limidan ko'chirildi; video rejasi — sahnalar, ovoz, qarorlar — o'sha hujjatda qoladi).
+Foydalanuvchi: «hech bir mavzu qolib ketmasin; qaysi mavzu qaysi darsga kirishi ma'lum bo'lsin» (21.11.2026, videolar); kitobda bir mavzu tushib qolib boshqa darsda o'tsa yoki keyingi darsda o'tilgan narsa oldingi darsda qolib ketsa — bilinib tursin; har darsda nima qolgani, nima qo'shilgani va qaysi darsga borishi bir joyda (23.11.2026, sahifalar). 23.11.2026 dan sahifalar va videolar hisobi **shu faylda birga** (videolarniki `docs/kana-video-reja.md` 1a-bo'limidan ko'chirildi; video rejasi — sahnalar, ovoz, qarorlar — o'sha hujjatda qoladi).
 
 ## Ish tartibi
 

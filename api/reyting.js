@@ -7,22 +7,13 @@
 // Kod hech qachon javobda qaytmaydi; boshqa o'quvchilardan faqat ism va ball ko'rinadi.
 const crypto = require('crypto');
 const Rey = require('./_rey.js');
+const Ombor = require('./_ombor.js');                   // 24.11.2026: hujjat Redis'da (eski Blob — zaxira)
 const RUXSAT = ['https://nurut-tolib.vercel.app', 'https://abduhakim9999.github.io'];
 const KODRE = /^[a-z0-9]{20,64}$/;
 const TOP = 50;
-const TOK = process.env.BLOB_READ_WRITE_TOKEN || '';
-const STORE = TOK.split('_')[3] || '';
 
 // hali hisoblanmagan o'quvchi (reyting ulanishidan oldin saqlagan) — hujjatini bir marta o'qib, ro'yxatga qo'shamiz
-async function hujjat(kod) {
-  if (!TOK || !STORE) return null;
-  const f = 'baza/' + crypto.createHash('sha256').update('baza:' + kod).digest('hex') + '.json';
-  const r = await fetch('https://' + STORE.toLowerCase() + '.private.blob.vercel-storage.com/' + f + '?t=' + Date.now(),
-    { headers: { authorization: 'Bearer ' + TOK }, cache: 'no-store' });
-  if (r.status === 404) return null;
-  if (!r.ok) throw new Error('ol ' + r.status);
-  return JSON.parse(await r.text());
-}
+async function hujjat(kod) { return Ombor.ol('baza', kod); }
 
 function juft(a) { const o = []; for (let i = 0; i + 1 < (a || []).length; i += 2) o.push([a[i], +a[i + 1]]); return o; }
 
@@ -33,6 +24,7 @@ module.exports = async (req, res) => {
   if (req.method === 'OPTIONS') { res.setHeader('Access-Control-Allow-Methods', 'POST'); res.setHeader('Access-Control-Allow-Headers', 'content-type'); return res.status(204).end(); }
   if (req.method !== 'POST') return res.status(405).json({ ok: false, xato: 'faqat POST' });
   if (!Rey.bor()) return res.status(200).json({ ok: false, xato: 'ulanmagan' });
+  try { if (!(await Ombor.chegara('rey:' + Ombor.ip(req), 60))) return res.status(429).json({ ok: false, xato: 'kop' }); } catch (e) {}
   let b = req.body;
   try { if (typeof b === 'string') b = JSON.parse(b); } catch (e) { b = null; }
   const kod = b && typeof b.kod === 'string' && KODRE.test(b.kod) ? b.kod : '';

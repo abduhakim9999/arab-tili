@@ -11,11 +11,11 @@ if [ -z "$P" ] || ! git cat-file -e "$P^{commit}" 2>/dev/null; then
   echo "oldingi commit ($P) topilmadi — yig'iladi"; exit 1
 fi
 if [ "$M" = fiqh ]; then
-  git diff --quiet "$P" HEAD -- fiqh.html fkitob.html 'f[0-9]*.html' 'af*.mp3' 'fiqh-*' fiqh.webmanifest \
+  git diff --quiet "$P" HEAD -- fiqh.html fkitob.html 'f[0-9]*.html' 'af*.mp3' 'af*.bin' 'fiqh-*' fiqh.webmanifest \
     shell.css shell.js tg.js naskh.woff 'icon-*.png' vercel-build.sh vercel-ignore.sh
 else
   git diff --quiet "$P" HEAD -- . ':!docs' ':!src' ':!align' ':!CLAUDE.md' ':!WORKING.txt' \
-    ':!fiqh.html' ':!fkitob.html' ':!f[0-9]*.html' ':!af*.mp3' ':!fiqh-*' ':!fiqh.webmanifest'
+    ':!fiqh.html' ':!fkitob.html' ':!f[0-9]*.html' ':!af*.mp3' ':!af*.bin' ':!fiqh-*' ':!fiqh.webmanifest'
 fi
 R=$?; [ $R -eq 0 ] && echo "o'zgarish yo'q — yig'ilmaydi" || echo "o'zgarish bor — yig'iladi"
 [ $R -le 1 ] && exit $R || exit 1

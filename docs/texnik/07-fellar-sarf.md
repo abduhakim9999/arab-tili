@@ -1,0 +1,10 @@
+# Texnika — 7-bo'lim (asosiy fayl: `docs/texnik.md`)
+
+## 7. Феъллар ва Сарф
+
+- **«Феъллар» ilovadan olib tashlandi (14.11.2026, foydalanuvchi qarori):** ilova kitob atrofida (dars → Луғат → takror → kitob statistikasi), 200 fe'l esa kitobdan tashqari ro'yxat. «Қоидалар»da kartasi yo'q, `sw.js` FILES va `build.py` ro'yxatida yo'q; `feellar.html` va `fel.html` saytda qoladi (guruh/bot), eski natijalar (`fl200_*`) serverda saqlanadi. Rejadagi «200 fe'lni Луғатga» — bekor.
+- **Saqlangan (kelajak uchun):** `fq/verbs.json` — 200 fe'l (`m` moziy, `mu` muzore, `me` ma'no; tartib = ovoz raqami), `fq/v001–v200.mp3` — har fe'lning tayyor ovozi, `fq/d01–d40.mp3` — kunlik 5 talik. **Yangi dars lug'atida fe'l kelsa:** avval `fq/verbs.json` da harakatsiz yozuvi bo'yicha qidiriladi; bor bo'lsa — yangi generatsiya o'rniga `fq/vNNN.mp3` ishlatiladi (oldin eshitib, joriy Луғат ovoz qoidasiga — vaqfsiz, to'g'ri harakat — mosligi tekshiriladi; mos kelmasa — odatdagidek yasaladi). Ma'nosi ham solishtiriladi (dars hujjati asosiy manba).
+- feellar.html (фақат репода, build.py ясамайди): 200 феъл, 20 тадан 10 қисм, тест (маъно + сийға), юлдузлар, «↻ Хатолар», Луғат, Рейтинг (ўз Apps Script'и, Google Sheets). Исм Telegram'дан; натижа Telegram имзоси билан текширилади. 🔊 Луғатда ва «Маъноси» босқичида. «📅 Кунлик тест» → 40 кун → fel.html?k=N.
+- fel.html (гуруҳ Mini App): 5 тадан, маъно, овоз; «👥 Бугун ишлаганлар / ⏳ ишламаганлар»; хатолар localStorage fl200_mist, ишланган кун fel_done.
+- Луғатдаги феъл маъноси ўша шаклда (мозий — «ёзди», масдар — «ёзиш»).
+- sarf.html — сарф бўлими. Режа: «Мукаммал сарф дарслиги» (Бодарий), «Жаноҳ ут-толиб» ва катта китоблар асосида; тўлиқ тасриф (14 сийға); 4 босқич (сулосий/рубоий мужаррад/мазид); гуруҳга ҳар куни 1 сарф қоидаси + ~10 феъл.

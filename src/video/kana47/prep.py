@@ -10,7 +10,7 @@ D = os.path.dirname(os.path.abspath(__file__))
 SR = 44100
 HOP = int(SR * 0.01)
 
-# kana47 — 47-dars videosi: «كَانَ нинг исми ва хабари (2)» (reja — claude.ai claude/kana-video-reja.md 1-bo'lim, 2-qator; 1a-bo'lim — mavzular hisobi).
+# kana47 — 47-dars videosi: «كَانَ нинг исми ва хабари (2)» (reja — docs/kana-video-reja.md 1-bo'lim, 2-qator; 1a-bo'lim — mavzular hisobi).
 # Matn oddiy lotinchada; «|» — ekrandagi qadam joyi (qoralamada vaqti matn uzunligiga qarab taxmin qilinadi,
 # haqiqiy ovozdan keyin cue.json ga aniq vaqtlar yoziladi — cue.py). ElevenLabs matni: python3 prep.py matn
 # Ovoz: hamma o'zbekcha bo'lak (k*) — Farruh; arabcha (a* tayyor, b* yangi) — Abdullah; q1 — oyat qiroati (Maryam, 55; al-Minshoviy, murattal —

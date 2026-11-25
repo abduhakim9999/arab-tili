@@ -1,0 +1,15 @@
+# Texnika — 8-bo'lim (asosiy fayl: `docs/texnik.md`)
+
+## 8. Бот (@Arabtilihivar_bot)
+
+- **Guruh ishlari ilovadan ajratildi (14.11.2026, foydalanuvchi qarori: «bot tashlab turadigan narsalar — alohida ish»):** «Феъллар»dagi «📅 Кунлик тест» tugmasi olib tashlandi; `fel.html` (guruhdagi kunlik fe'l testi) ilova fayllarida yo'q (`sw.js` FILES), Telegram orqali kirish so'ralmaydi (`tg.js` Kirish), `fel_done` akkauntga saqlanmaydi (`GEN` — `tg.js`, `baza.js`). Fayl saytda qoladi: bot havolasi (`start_param fel_…` → `index.html` → `fel.html`), Ҳивар, natijalar — o'zgarmadi. **Bot o'zi ilovadan ketmaydi** — «Telegram орқали кириш» (`t.me/Arabtilihivar_bot/darslar`) va kod (Telegram bulutida, shu botniki) unga bog'liq. Feellardagi eski «🏆 Рейтинг» (Google Sheets) — yangi reyting serveri ishga tushganda olib tashlanadi (19-bo'lim).
+- Сайт статистикаси (`tg.js` `stat()` → Apps Script `STAT_URL`): автомат браузер (`navigator.webdriver`, Headless/bot) ва localhost ёзилмайди (05.11.2026) — Claude синовлари жадвалга «(браузер)» бўлиб тушмасин.
+- Vercel: api/tg.js → Google Apps Script (src/bot/eshitish.gs + appsscript.json; лойиҳа «jonatuvchi bot», жадвал «eshitish jadvali»).
+- Apps Script қўлда янгиланади: commit SHA ли raw ҳавола → Ctrl+A/Ctrl+V → 💾 → Управление развертываниями → ✏️ → Новая версия. /yangila ишламайди.
+- Vercel домени: …-theta.vercel.app (/api/tg?setup=1, ?info=1). 08.11.2026 дан Vercel сайтни ҳам беради (Build: `sh vercel-build.sh site`, Output: `_vercel`); api/ ўз жойида; vercel.json қўйилмасин. Joy tejash (bepul tarif — barcha nusxalarga jami 10 GB; sayt nusxasi ~110 MB): «Ignored Build Step» — sayt faqat sayt fayllari o'zgarganda (docs/src/align/CLAUDE.md/WORKING.txt/fiqh — hisobga olinmaydi), fiqh faqat fiqh fayllari o'zgarganda yig'iladi; buyruq — `sh vercel-ignore.sh site|fiqh` (09.11.2026: oldingi muvaffaqiyatli commit Vercel'ning sayoz nusxasida yo'q bo'lsa eski `git diff …` «bad object» bilan yiqilib, fiqh yig'ilmay qolgan edi — endi bunday holda yig'iladi; ro'yxat shu faylda); preview o'chiq; eski nusxalarni o'chirish muddati — Vercel panelida (Settings → Deployment Retention). Деплой ҳолати: gh api …/commits/SHA/statuses.
+- Google Sheets узун рақам ва вақтни бузади: созлама қийматлари матн (@), poll ID «'» билан; birPoll().
+- `BOT_TOKEN` фақат фойдаланувчи ўзи қўяди — сўралмайди, ҳеч қаерга ёзилмайди.
+- /panel (алоҳида чатда): 📋 Натижалар (Ҳисобот, Натижа юбориш, Натижа тури: фақат Ҳивар / фақат Кунлик феъл / иккаласи) · 🎧 Кунлик ҳивар (юбориш, навбат, ўчириш) · 🔤 Кунлик феъл · ⚙️ Созлама.
+- Гуруҳга ташланадиган дарс ёзувлари — «Ҳивар»; «Н1-3» = 1-китоб 3-ваҳда, ҳисоботда «3-ваҳда». Феъл тести — «Кунлик феъл» (буйруқ /fel).
+- «Эшитди» фақат сўровномада овоз бериш орқали (бир вариантли poll, 23:59 гача, 21:00 эслатма); эшитмаганлар → Қора рўйхат. Натижада фақат эшитди/эшитмади.
+- Натижалар ҳар Сешанба ва Жума 08:00: охирги 10 та ҳивар ва шу даврдаги феъл кунлари, алоҳида хабарлар; феъл ишламаганлар фақат кўрсатилади (қора рўйхатга тушмайди).

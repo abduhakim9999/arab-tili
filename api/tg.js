@@ -376,7 +376,13 @@ module.exports = async (req, res) => {
   if (req.method === 'GET') {
     if (req.query.setup) {
       const url = 'https://' + req.headers.host + '/api/tg';
-      const r = await tg('setWebhook', { url, secret_token: SECRET, drop_pending_updates: true, allowed_updates: ['message', 'callback_query', 'poll_answer'] });
+      const AU = ['message', 'callback_query', 'poll_answer'];
+      // 24.11.2026: havola ochiq — begona odam ishlayotgan botni qayta sozlab, kutayotgan xabarlarni o'chira olmasin:
+      // webhook allaqachon ishlab turgan bo'lsa (bizning /api/tg, xatosiz, shu allowed_updates) — hech narsa qilinmaydi.
+      const w = (await tg('getWebhookInfo', {})).result || {};
+      const ishlayapti = /\/api\/tg$/.test(w.url || '') && !w.last_error_message && AU.every(function (x) { return (w.allowed_updates || []).indexOf(x) > -1; });
+      if (ishlayapti) return res.status(200).json({ ok: true, holat: 'webhook allaqachon o\'rnatilgan' });
+      const r = await tg('setWebhook', { url, secret_token: SECRET, drop_pending_updates: !w.url, allowed_updates: AU });
       menuSet = false; await setMenu();
       return res.status(200).json({ ...r, admin: A ? 'bor' : 'ADMIN_ID qo\'yilmagan' });
     }

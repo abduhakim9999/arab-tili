@@ -5,6 +5,10 @@
   python3 src/build/fiqh_lock.py och PAROL   # repo ildizidagi shifrlangan *.html  ->  src/fiqh/*.html (tahrir uchun)
 
 src/fiqh/ — ochiq matn, .gitignore da (repo ochiq — commit qilinmaydi).
+24.11.2026: ustoz audiosi ham shifrlanadi. Ochiq mp3: src/fiqh/afN-….mp3 (dars) va src/fiqh/asl/*.mp3 (asl yozuv).
+  yop: afN-….mp3 → repo ildizida afN-….bin, asl/*.mp3 → align/in/fiqh-asl/*.bin (o'zgarmagan audio qayta shifrlanmaydi);
+       sahifadagi <audio id="au" src="afN-….mp3"> → data-fq="afN-….bin" + brauzerda ochuvchi skript (kalit — localStorage «fq-k»).
+  och: .bin → src/fiqh/ (mp3), sahifa yana src="….mp3" ko'rinishiga qaytadi.
 Parol repoga yozilmaydi (claude.ai loyihasidagi fiqh-konspekti.md da).
 Brauzerda: PBKDF2-SHA256 (150 000) -> AES-GCM; to'g'ri kalit localStorage «fq-k» da.
 19.11.2026 (foydalanuvchi qarori): umumiy kod qurilmada faqat birinchi marta so'raladi (har kungi so'rash olib tashlandi).
@@ -120,17 +124,56 @@ var D="@@DATA@@";
 </html>
 """
 
+AUD_JS = ('<script>/*fqAudioDec 24.11.2026: shifrlangan ustoz audiosi — kalit qurilmada (fq-k). Fayl to\'liq yuklanib ochiladi: '
+  'tayyor bo\'lguncha ▶ bosilsa — foiz ko\'rsatiladi, tayyor bo\'lgach o\'zi boshlanadi (telefon ruxsat bermasa — «▶ ни босинг»)*/'
+  '(function(){var a=document.getElementById("au"),u=a&&a.getAttribute("data-fq"),k,want=false,ready=false,box=null,pc="";'
+  'try{k=localStorage.getItem("fq-k")}catch(e){}if(!u||!k)return;'
+  'function msg(t){if(!box){box=document.createElement("div");box.setAttribute("role","status");box.style.cssText="position:fixed;left:50%;top:calc(10px + env(safe-area-inset-top));transform:translateX(-50%);z-index:101;background:var(--cd,#fff);color:var(--tx,#1e2a26);border:1px solid var(--bd,#e0dccf);border-radius:999px;padding:6px 14px;font:600 13.5px/1.3 system-ui,-apple-system,sans-serif;box-shadow:0 4px 14px rgba(0,0,0,.15);white-space:nowrap";document.body.appendChild(box)}box.textContent=t;box.style.display=t?"block":"none"}'
+  'a.addEventListener("play",function(){if(!ready){want=true;a.pause();msg("⏳ Аудио тайёрланяпти…"+pc)}else msg("")});'
+  'a.addEventListener("playing",function(){msg("")});'
+  'var r=Uint8Array.from(atob(k),function(c){return c.charCodeAt(0)});'
+  'fetch(u).then(function(x){if(!x.ok)throw new Error(x.status);var n=+x.headers.get("content-length")||0;if(!x.body||!x.body.getReader||!n)return x.arrayBuffer();'
+  'var rd=x.body.getReader(),got=0,parts=[];function step(){return rd.read().then(function(z){if(z.done){var o=new Uint8Array(got),q=0;parts.forEach(function(c){o.set(c,q);q+=c.length});return o.buffer}'
+  'parts.push(z.value);got+=z.value.length;pc=" "+Math.min(99,Math.floor(got/n*100))+"%";if(want)msg("⏳ Аудио тайёрланяпти…"+pc);return step()})}return step()})'
+  '.then(function(buf){return crypto.subtle.importKey("raw",r,"AES-GCM",false,["decrypt"]).then(function(key){var d=new Uint8Array(buf);return crypto.subtle.decrypt({name:"AES-GCM",iv:d.slice(0,12)},key,d.slice(12))})})'
+  '.then(function(b){a.src=URL.createObjectURL(new Blob([b],{type:"audio/mpeg"}));ready=true;'
+  'if(want){var p=a.play();if(p&&p.then)p.then(function(){msg("")},function(){msg("✅ Аудио тайёр — ▶ ни босинг")});else msg("")}})'
+  '.catch(function(e){msg(want?"⚠️ Аудио очилмади — саҳифани янгиланг":"");console.log("fq audio",e)})})();</script>')
+AUD_RE = re.compile(r'<audio id="au" src="(af\d+-[0-9a-f]+)\.mp3"')
+def audio_yop(html):
+    html = AUD_RE.sub(r'<audio id="au" data-fq="\1.bin"', html)
+    if 'data-fq=' in html and 'fqAudioDec' not in html:
+        i = html.find('</audio>', html.find('data-fq='))
+        if i > -1: html = html[:i + 8] + AUD_JS + html[i + 8:]
+    return html
+def audio_och(html):
+    html = re.sub(r'<audio id="au" data-fq="(af\d+-[0-9a-f]+)\.bin"', r'<audio id="au" src="\1.mp3"', html)
+    return re.sub(r'<script>/\*fqAudioDec.*?</script>', '', html, flags=re.S)
+def shifr(k, src, dst):
+    if os.path.exists(dst):
+        d = open(dst, "rb").read()
+        try:
+            if k.decrypt(d[:12], d[12:], None) == src: return False
+        except Exception: pass
+    iv = os.urandom(12); open(dst, "wb").write(iv + k.encrypt(iv, src, None)); return True
+def ochir(k, src, dst):
+    d = open(src, "rb").read(); open(dst, "wb").write(k.decrypt(d[:12], d[12:], None))
+AUD_JUFT = [("src/fiqh/", "", "af[0-9]*.mp3"), ("src/fiqh/asl/", "align/in/fiqh-asl/", "*.mp3")]
 def kdf(pw): return hashlib.pbkdf2_hmac("sha256", pw.encode(), SALT, IT, 32)
 
 def yop(pw):
     k = AESGCM(kdf(pw))
     for n in FILES:
-        src = open("src/fiqh/" + n, "rb").read()
+        src = audio_yop(open("src/fiqh/" + n, encoding="utf-8").read()).encode()
         iv = os.urandom(12)
         data = base64.b64encode(iv + k.encrypt(iv, src, None)).decode()
         out = SHELL.replace("@@DATA@@", data).replace("@@SALT@@", SALT.decode()).replace("@@IT@@", str(IT))
         open(n, "w", encoding="utf-8").write(out)
         print("yopildi:", n)
+    for a, b, g in AUD_JUFT:
+        for f in sorted(glob.glob(a + g)):
+            dst = b + os.path.basename(f)[:-4] + ".bin"
+            print(("yopildi: " if shifr(k, open(f, "rb").read(), dst) else "o'zgarmagan: ") + dst)
 
 def och(pw):
     k = AESGCM(kdf(pw)); os.makedirs("src/fiqh", exist_ok=True)
@@ -139,8 +182,12 @@ def och(pw):
         m = re.search(r'var D="([^"]+)"', open(n, encoding="utf-8").read())
         if not m: continue
         d = base64.b64decode(m.group(1))
-        open("src/fiqh/" + n, "wb").write(k.decrypt(d[:12], d[12:], None))
+        open("src/fiqh/" + n, "w", encoding="utf-8").write(audio_och(k.decrypt(d[:12], d[12:], None).decode()))
         print("ochildi:", "src/fiqh/" + n)
+    for a, b, g in AUD_JUFT:
+        os.makedirs(a, exist_ok=True)
+        for f in sorted(glob.glob(b + g[:-4] + ".bin")):
+            dst = a + os.path.basename(f)[:-4] + ".mp3"; ochir(k, f, dst); print("ochildi:", dst)
 
 if __name__ == "__main__":
     if len(sys.argv) != 3 or sys.argv[1] not in ("yop", "och"):

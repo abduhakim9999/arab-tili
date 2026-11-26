@@ -455,11 +455,13 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
       if (!tola || !jami) return;
       /* 14.11.2026 (foydalanuvchi: «Сўзларни саралаш» ko'zni chalg'itadi — olib tashlandi): «Машқ» tugagach dars so'zlari Луғатga o'zi
          tushadi (W.s — faol dars; belgisiz so'z «ўрганяпман», bilmasligini takrorning o'zi aniqlaydi) */
-      if (W && W.s && !W.s[d.n] && (LG[d.n] || []).length) { W.s[d.n] = Date.now(); wo = true; }
       var p = Math.round(tog * 100 / jami), r = R.d[d.n] || {};
       if (r.s !== p || r.j !== jami || r.b == null || p > r.b) {
         R.d[d.n] = { b: Math.max(r.b || 0, p), s: p, j: jami, t: Date.now() }; o = true;
       }
+      /* 25.11.2026 (foydalanuvchi: «80% o'tgandan keyin lug'atlari tushishi kerak emasmi mashqqa?», «olib tashlanadi»): so'zlar faqat eng yaxshi
+         natija OTISH% bo'lganda tushadi; ilgari 80% siz tushganlari takror.html da (otganlar) ko'rinmaydi, belgilari o'chmaydi */
+      if (W && W.s && !W.s[d.n] && R.d[d.n].b >= OTISH && (LG[d.n] || []).length) { W.s[d.n] = Date.now(); wo = true; }
       xato = xato.concat(xx);
     });
     if (o) yoz();

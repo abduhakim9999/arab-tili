@@ -1,8 +1,8 @@
 // «Рейтинг» ro'yxati (15.11.2026; docs/texnik.md 19). Hisob — api/_rey.js (har saqlashda api/soz.js yangilaydi).
 // So'rov:  POST /api/reyting  {"kod": "...", "til": "ru"}  (kod — ixtiyoriy; bo'lsa o'quvchining o'z o'rni ham beriladi;
 //          til: "ru" — ruscha profil ro'yxati, 21.11.2026; bo'lmasa — o'zbekcha)
-// Javob:   {"ok": true, "hb": <hafta boshi ms>, "h": {"top": [{"n", "b", "men"?}], "o", "b", "ol"}, "s": {...}}
-//          top — 50 tagacha; o — o'quvchi o'rni (1 dan; 0 — ro'yxatda yo'q), b — bali, ol — bitta yuqoridagi kishining bali.
+// Javob:   {"ok": true, "hb": <hafta boshi ms>, "h": {"top": [{"n", "b", "men"?}], "o", "b", "ol"}, "s": {...}, "b": {...}}
+//          h — «Ҳафта», s — «Сўзлар · Мустаҳкам», b — «Сўзлар · Билган» (26.11.2026); top — 50 tagacha; o — o'quvchi o'rni (1 dan; 0 — ro'yxatda yo'q), b — bali, ol — bitta yuqoridagi kishining bali.
 //          Ombor ulanmagan bo'lsa: {"ok": false, "xato": "ulanmagan"} — sahifa faqat o'quvchining o'zini ko'rsatadi.
 // Kod hech qachon javobda qaytmaydi; boshqa o'quvchilardan faqat ism va ball ko'rinadi.
 const crypto = require('crypto');
@@ -30,22 +30,27 @@ module.exports = async (req, res) => {
   const kod = b && typeof b.kod === 'string' && KODRE.test(b.kod) ? b.kod : '';
   const til = b && b.til === 'ru' ? 'ru' : '';
   try {
-    const hb = Rey.hisob(null).hb, H = Rey.hk(hb, til), SK = Rey.sk(til), i = kod ? Rey.id(kod) : '';
+    const hb = Rey.hisob(null).hb, i = kod ? Rey.id(kod) : '';
+    const K = { h: Rey.hk(hb, til), s: Rey.sk(til), b: Rey.bk(til) }, T = ['h', 's', 'b'];
     if (kod) {
-      const [bor] = await Rey.redis([['HEXISTS', 'rey:ism', i]]);
-      if (!bor) { const d = await hujjat(kod).catch(function () { return null; }); if (d && d.v === 1) await Rey.yangila(kod, d); }
+      // rey:bx — «Билган» ro'yxati (26.11.2026) qo'shilgandan beri bu o'quvchi hisoblanganmi: yo'q bo'lsa, saqlashni kutmay bir marta hisoblaymiz
+      const [bor, bx] = await Rey.redis([['HEXISTS', 'rey:ism', i], ['HEXISTS', 'rey:bx', i]]);
+      if (!bor || !bx) {
+        const d = await hujjat(kod).catch(function () { return null; });
+        if (d && d.v === 1) { await Rey.yangila(kod, d); await Rey.redis([['HSET', 'rey:bx', i, 1]]); }
+      }
     }
-    const q = [['ZREVRANGE', H, 0, TOP - 1, 'WITHSCORES'], ['ZREVRANGE', SK, 0, TOP - 1, 'WITHSCORES']];
-    if (kod) q.push(['ZREVRANK', H, i], ['ZSCORE', H, i], ['ZREVRANK', SK, i], ['ZSCORE', SK, i]);
+    const q = T.map(function (t) { return ['ZREVRANGE', K[t], 0, TOP - 1, 'WITHSCORES']; });
+    if (kod) T.forEach(function (t) { q.push(['ZREVRANK', K[t], i], ['ZSCORE', K[t], i]); });
     const r = await Rey.redis(q);
-    const L = { h: juft(r[0]), s: juft(r[1]) };
-    const M = { h: { o: r[2] == null ? 0 : +r[2] + 1, b: +(r[3] || 0) }, s: { o: r[4] == null ? 0 : +r[4] + 1, b: +(r[5] || 0) } };
+    const L = {}, M = {};
+    T.forEach(function (t, k) { L[t] = juft(r[k]); M[t] = { o: r[3 + 2 * k] == null ? 0 : +r[3 + 2 * k] + 1, b: +(r[4 + 2 * k] || 0) }; });
     // ismlar va (ro'yxatdan tashqaridagi o'quvchi uchun) bitta yuqoridagining bali
-    const ids = {}; L.h.concat(L.s).forEach(function (x) { ids[x[0]] = 1; });
+    const ids = {}; T.forEach(function (t) { L[t].forEach(function (x) { ids[x[0]] = 1; }); });
     const ro = Object.keys(ids), q2 = [];
     if (ro.length) q2.push(['HMGET', 'rey:ism'].concat(ro));
     const tash = [];
-    if (kod) [['h', H], ['s', SK]].forEach(function (x) { const m = M[x[0]]; if (m.o > TOP) { tash.push(x[0]); q2.push(['ZREVRANGE', x[1], m.o - 2, m.o - 2, 'WITHSCORES']); } });
+    if (kod) T.forEach(function (t) { const m = M[t]; if (m.o > TOP) { tash.push(t); q2.push(['ZREVRANGE', K[t], m.o - 2, m.o - 2, 'WITHSCORES']); } });
     const r2 = q2.length ? await Rey.redis(q2) : [];
     const ism = {}; if (ro.length) ro.forEach(function (x, k) { ism[x] = r2[0][k] || ''; });
     tash.forEach(function (t, k) { const a = juft(r2[(ro.length ? 1 : 0) + k]); M[t].ol = a.length ? a[0][1] : 0; });
@@ -56,7 +61,7 @@ module.exports = async (req, res) => {
         return e;
       });
     };
-    return res.status(200).json({ ok: true, hb: hb, h: Object.assign({ top: top('h') }, M.h), s: Object.assign({ top: top('s') }, M.s) });
+    return res.status(200).json({ ok: true, hb: hb, h: Object.assign({ top: top('h') }, M.h), s: Object.assign({ top: top('s') }, M.s), b: Object.assign({ top: top('b') }, M.b) });
   } catch (e) {
     return res.status(502).json({ ok: false, xato: 'ombor' });
   }

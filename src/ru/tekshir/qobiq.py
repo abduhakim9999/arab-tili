@@ -184,7 +184,8 @@ with sync_playwright() as p:
         scan('takror-oxiri')
     # ---- Қоидалар, Яна, Созламалар, Наҳв ----
     och('reyting.html'); scan('reyting')
-    bos('.r-sg button', 1); scan('reyting-s')
+    bos('.r-sg button', 1); scan('reyting-b')
+    bos('.r-s2 button', 1); scan('reyting-s')
     och('qoidalar.html'); scan('qoidalar')
     och('yana.html'); scan('yana')
     och('sozlamalar.html'); scan('sozlamalar')

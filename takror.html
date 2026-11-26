@@ -270,7 +270,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .mq-kb .q{color:color-mix(in srgb,var(--kr) 60%,var(--tx));font-size:14px;font-weight:700}
 .mq-kb i.ds{gap:3px;background:none;border-radius:0}
 .mq-kb i.ds u{flex:1;border-radius:5px;background:color-mix(in srgb,var(--kr) 22%,transparent)}
-.mq-kb u.y{background:var(--kr)}
+.mq-kb u.y,.mq-kb i.ds u.y{background:var(--kr)}   /* 25.11.2026: i.ds u (och) o'tilgan bo'lakni bosib ketardi — specificity */
 .mq-kb small{font-size:13px;color:var(--mu)}
 .mq-kb u{display:block;height:100%}.mq-kb .m{background:#3a73cc}.mq-kb .g{background:#2fa36f}.mq-kb .o{background:#d9a23a}.mq-kb .b{background:var(--tq-no)}
 .mq-tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0 0}
@@ -404,6 +404,19 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     for (i in W.k) { if (!W.b[i] && !W.a[i]) W.a[i] = t; delete W.k[i]; ozg = true; }
     if (ozg && D) wYoz();
   }
+  /* 25.11.2026 (foydalanuvchi: «80% o'tgandan keyin lug'atlari tushishi kerak emasmi mashqqa?», «olib tashlanadi»): «Машқ», «Луғат» va
+     statistikada faqat O'TILGAN darslar so'zlari — dars «Машқ»idan OTISH% (yol.html R.d[n].b) yoki eski bob/kitob imtihoni bilan (yol-xulosa .ot).
+     80% ga yetmagan darsning so'zlari va belgilari (W.s, W.b, W.a, jurnal) O'CHIRILMAYDI (baza.js W.s ni birlashtirib qaytarardi) —
+     faqat ko'rinmaydi; dars o'tilgach o'sha holatida qaytadi */
+  var OTISH = 80, OTD = {}, SAR = false;
+  function otganlar() {
+    var o = {}, k = SINOV ? 'yol-sinov' : 'yol', R = null, x = null, n;
+    try { R = JSON.parse(L(k) || 'null'); } catch (e) {}
+    if (R && R.d) for (n in R.d) if (R.d[n] && R.d[n].b >= OTISH) o[n] = 1;
+    try { x = JSON.parse(L(k + '-xulosa') || 'null'); } catch (e) {}
+    if (x && x.ot) x.ot.forEach(function (d) { o[d] = 1; });
+    return o;
+  }
   function wYoz() { W.t = Date.now(); var a = W.a, bor = false, i; for (i in a) { bor = true; break; } if (!bor) delete W.a; LS(KB, JSON.stringify(W)); W.a = a || {}; }   /* t — baza.js birlashtirishi uchun; bo'sh «a» yozilmaydi (hujjat avvalgidek qolsin) */
   function mano(r) { var u = r.uz.join('; '); return (u.match(/(^|[\s;,])\d+\./g) || []).length > 1 ? u : u.replace(/^\d+\.\s*/, ''); }
   function siljish() { return SINOV ? (+L(KS) || 0) : 0; }
@@ -435,9 +448,15 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     var ust = [];                                       /* «Йўл»dagi xatolar (yol.html) — yangi mashq savollari ichida birinchi */
     try { ust = JSON.parse(L(SINOV ? 'yol-sinov-xato' : 'yol-xato') || '[]') || []; } catch (e) {}
     wOl();
-    var usz = [], fa = [], k;                           /* «bilmayman» so'zlar — yangi so'zlar ichida birinchi; darsi saralanmagan bo'lsa ham kiradi */
-    for (k in W.b) usz.push(+k);
-    for (k in W.s) fa.push(+k);
+    OTD = otganlar();
+    var dL = {}, dM = {};
+    D.l.forEach(function (r) { dL[r.id] = r.d; });
+    D.m.forEach(function (q) { dM[q.id] = q.d; });
+    ust = ust.filter(function (i) { return OTD[dM[i]]; });   /* 25.11.2026: o'tilmagan dars xatolari ham ko'rinmaydi */
+    var usz = [], fa = [], k;                           /* «bilmayman» so'zlar — yangi so'zlar ichida birinchi; 25.11.2026 dan faqat o'tilgan darsniki */
+    for (k in W.b) if (OTD[dL[k]]) usz.push(+k);
+    for (k in W.s) if (OTD[k]) fa.push(+k);
+    SAR = fa.length > 0;
     FAOL = fa.length ? fa.sort(function (a, b) { return a - b; }) : [1];
     AKT = {};                                           /* 22.11.2026: faol darsdagi eski so'z (`ay`) — o'sha yozuv ham «mening so'zlarim»da */
     D.l.forEach(function (r) { if (r.ay && FAOL.indexOf(r.d) > -1) AKT[r.ay] = 1; });
@@ -551,7 +570,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
   function menHisob(S) {
     var f = {}, men, c = { m: 0, g: 0, o: 0, b: 0 }, qy = 0;
     FAOL.forEach(function (d) { f[d] = 1; });
-    men = S.filter(function (x) { return f[x.r.d] || AKT[x.r.id] || W.b[x.r.id] || W.a[x.r.id] || x.ok + x.no > 0; });
+    men = S.filter(function (x) { return f[x.r.d] || AKT[x.r.id] || OTD[x.r.d] && (W.b[x.r.id] || W.a[x.r.id] || x.ok + x.no > 0); });   /* 25.11.2026: o'tilmagan dars so'zi — yo'q */
     men.forEach(function (x) { c[x.st]++; if (x.qy) qy++; });
     return { men: men, c: c, qy: qy };
   }
@@ -601,14 +620,10 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
   /* «Сўзлар бу ерга қандай тушади?» matnli kartasi o'rnida «Сўзлар ва поғоналар» ko'rsatmasi (14.11.2026, foydalanuvchi: karta chalkash; 15.11 — ruschada ham):
      «Машқ»ga birinchi kirishda bir marta o'zi ochiladi (KQO), keyin sarlavha yonidagi ⓘ bilan (23.11.2026: «Статистика» va «Ўрганиш» ⓘ olib tashlandi) */
   var KQO = SINOV ? 'takror-sinov-qol' : 'takror-qol';
-  /* o'tilgan darslar (15.11.2026, foydalanuvchi: «нечта дарс ўтилмаган» — kitob bo'yicha, ikkala tilda): bosh sahifa hisobi — yol.html «yol-xulosa».ot
-     («Машқ» 80% yoki bob/kitob imtihoni; bosh sahifa ochilganda yoziladi); u hali bo'lmasa — so'zlari Луғатga tushgan darslar (W.s).
-     Ruschasi yo'q («тез орада») dars sanalmaydi */
-  var KYX = (SINOV ? 'yol-sinov' : 'yol') + '-xulosa';
+  /* o'tilgan darslar (15.11.2026, foydalanuvchi: «нечта дарс ўтилмаган» — kitob bo'yicha, ikkala tilda): otganlar() — «Машқ» 80% yoki eski
+     bob/kitob imtihoni (25.11.2026 gacha: yol-xulosa .ot, u bo'lmasa W.s). Ruschasi yo'q («тез орада») dars sanalmaydi */
   function darsH() {
-    var OT = null, x = null;
-    try { x = JSON.parse(L(KYX) || 'null'); } catch (e) {}
-    if (x && x.ot) { OT = {}; x.ot.forEach(function (n) { OT[n] = 1; }); } else OT = W.s || {};
+    var OT = otganlar();   /* 25.11.2026: «Машқ» 80% (R.d) + eski imtihon (yol-xulosa .ot) — so'zlar ko'rinishi bilan bir xil hisob */
     var K = {}, kq = [], q = 0;
     D.d.forEach(function (d) { if (d.tez) return; var k = K[d.kitob]; if (!k) { k = K[d.kitob] = { d: [], o: 0 }; kq.push(d.kitob); } k.d.push(d.n); if (OT[d.n]) k.o++; else q++; });
     kq.sort(function (a, b) { return a - b; });
@@ -628,7 +643,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     var t = hozir(), bg = E.bugun(t), dt = new Date(t);
     if (LF !== 'h' && !c[LF]) LF = 'h';
     D.d.forEach(function (d) { if (d.lv) lv[d.n] = d.lv; });
-    var saralangan = Object.keys(W.s || {}).length > 0;   /* hech bir dars so'zi qo'shilmagan bo'lsa — bir qatorli eslatma (.mq-yn) */
+    var saralangan = SAR;   /* 25.11.2026: faqat o'tilgan (80%) darslar */   /* hech bir dars so'zi qo'shilmagan bo'lsa — bir qatorli eslatma (.mq-yn) */
     var sinovQ = SINOV ? '<div class="tq-sn"><span>🧪 Синов · бугун ' + ('0' + dt.getDate()).slice(-2) + '.' + ('0' + (dt.getMonth() + 1)).slice(-2) + '</span><button id="s1">+1 кун</button><button id="s0">Тозалаш</button></div>' : '';
     var lv3 = function (cc) { return '<div class="lg-3" role="group" aria-label="Ҳолат бўйича">' + HT4.map(function (k) {
         return '<button class="lg-hb ' + k + '" data-h="' + k + '" aria-pressed="' + (LF === k) + '"><b>' + cc[k] + '</b><span><i></i>' + HN[k][0].toUpperCase() + HN[k].slice(1) + '</span></button>'; }).join('') + '</div>'; };
@@ -650,7 +665,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
         JA[st]++; JJ++; o[st]++; o.j++;
       });
       kt5.sort(function (a, b) { return a - b; });
-      app.innerHTML = tepa(S, false, bg, t) + sinovQ + (saralangan ? '' : '<p class="lg-yn mq-yn">Ҳозирча 1-дарс сўзлари кўрсатиляпти. Дарс «Машқ»ини тугатсангиз, унинг сўзлари ўзи қўшилади.</p>') +
+      app.innerHTML = tepa(S, false, bg, t) + sinovQ + (saralangan ? '' : '<p class="lg-yn mq-yn">Ҳозирча 1-дарс сўзлари кўрсатиляпти. Дарс «Машқ»идан 80% олсангиз, унинг сўзлари ўзи қўшилади.</p>') +
         '<a class="q-rw mq-lg" href="#lugat"><span class="q-ib">' + KITOB + '</span><span class="t">Луғат<small>Исм · Феъл · Ҳарф · қидирув' + (ca.b ? ' · Билмаганларим ' + ca.b : '') + '</small></span>' + CHV + '</a>' +
         '<section class="tq-c"><div class="tq-h">Статистика · жами ' + JJ + ' сўз</div>' +
         '<div class="mq-dt"><div class="mq-dz">' + doira(JA, JJ) + '<div><b>' + Math.round((JA.m + JA.g) * 100 / (JJ || 1)) + '%</b><span>' + (JA.m + JA.g) + ' / ' + JJ + ' сўз</span></div></div></div>' +

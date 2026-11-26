@@ -214,6 +214,46 @@
         chkAt = Date.now();
         navigator.serviceWorker.getRegistration().then(function (r) { if (r) return r.update(); }).catch(function () {});
       };
+      /* 25.11.2026 (foydalanuvchi: «ochganda eski versiyasi ko'rinib qolyapti, keyin yana qayta olyapti»): yangi versiya ilova endi
+         ochilganda yoki orqa fondan qaytganda (12 s ichida, hali hech narsa bosilmagan) topilsa — eski sahifa ustida «Янги версия
+         юкланмоқда… N%» pardasi, tayyor bo'lishi bilan darhol yangilanadi. 25 s da tugamasa yoki o'rnatish buzilsa — parda yo'qoladi,
+         eski versiyada davom etadi (keyin avvalgidek). Ishlatib turgan paytda topilsa — avvalgidek, pardasiz. Foiz — sw.js install xabari. */
+      var ochAt = Date.now(), tegdi = false, parda = null, pT = 0;
+      ['pointerdown', 'touchstart', 'keydown'].forEach(function (t) { document.addEventListener(t, function () { if (!parda) tegdi = true; }, true); });
+      document.addEventListener('visibilitychange', function () { if (!document.hidden) { ochAt = Date.now(); tegdi = false; } });
+      var pardaYop = function () { clearTimeout(pT); if (parda) { try { parda.remove(); } catch (x) {} parda = null; } };
+      var pardaOch = function () {
+        if (parda || upd || tegdi || document.hidden || busy() || Date.now() - ochAt > 12000 || !document.body) return;
+        var ru = window.Profil && Profil.til === 'ru', bs = getComputedStyle(document.body), fon = bs.backgroundColor;
+        if (!fon || /rgba\(0, 0, 0, 0\)|transparent/.test(fon)) fon = matchMedia('(prefers-color-scheme: dark)').matches ? '#15171a' : '#fbf8f1';
+        parda = document.createElement('div'); parda.className = 'upd-parda';
+        parda.style.cssText = 'position:fixed;inset:0;z-index:2147483001;display:flex;flex-direction:column;align-items:center;justify-content:center;' +
+          'gap:14px;background:' + fon + ';color:' + bs.color + ';font:600 16px/1.3 system-ui,-apple-system,sans-serif;text-align:center;padding:24px';
+        var sp = document.createElement('div');
+        sp.style.cssText = 'width:38px;height:38px;border-radius:50%;border:4px solid rgba(22,122,79,.2);border-top-color:#167a4f';
+        var tx = document.createElement('div'); tx.textContent = ru ? 'Загружается новая версия…' : 'Янги версия юкланмоқда…';
+        var n = document.createElement('div'); n.className = 'upd-n'; n.style.cssText = 'font-size:14px;opacity:.7;min-height:18px';
+        parda.appendChild(sp); parda.appendChild(tx); parda.appendChild(n);
+        document.body.appendChild(parda);
+        try { sp.animate([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], { duration: 900, iterations: Infinity }); } catch (x) {}
+        pT = setTimeout(pardaYop, 25000);
+      };
+      var kuzat = function (w) {
+        if (!w || w === navigator.serviceWorker.controller) return;
+        pardaOch();
+        w.addEventListener('statechange', function () { if (w.state === 'redundant') pardaYop(); });
+      };
+      navigator.serviceWorker.getRegistration().then(function (r) {
+        if (!r) return;
+        kuzat(r.installing || r.waiting);
+        r.addEventListener('updatefound', function () { kuzat(r.installing); });
+      }).catch(function () {});
+      navigator.serviceWorker.addEventListener('message', function (ev) {
+        var d = ev.data || {};
+        if (d.t !== 'upd' || !parda || !d.n) return;
+        var el = parda.querySelector('.upd-n'); if (el) el.textContent = Math.min(100, Math.round(d.k * 100 / d.n)) + '%';
+      });
+      try { navigator.serviceWorker.startMessages(); } catch (x) {}
       navigator.serviceWorker.addEventListener('controllerchange', function () { upd = true; rel(); });
       window.addEventListener('online', function () { rel(); check(); });
       window.addEventListener('focus', check);

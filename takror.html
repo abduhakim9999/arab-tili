@@ -420,7 +420,6 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     app.innerHTML = '';
     Promise.all([f('lugat.json'), f('mashq.json'), f('darslar.json')]).then(function (a) {
       D = { l: a[0].s, m: a[1].s, d: a[2].s };
-      if (location.hash === '#harflar') LT = 'h';        /* «Наҳв» sahifasidagi «Ҳарфлар машқи» havolasi — harflar ro'yxati bilan ochiladi */
       qur();
       var mr = mash(); REJ = mr === 't' ? 't' : 'o';
       if (mr && E.keyingi(hozir(), REJ)) { document.body.classList.add('tq-ses'); keyingi(); } else bosh();
@@ -520,7 +519,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     });
     return '<svg viewBox="0 0 120 120" aria-hidden="true"><circle class="n" cx="60" cy="60" r="50"/>' + q + '</svg>';
   }
-  function lugKor() { return /^#(lugat|harflar)/.test(location.hash); }
+  function lugKor() { return /^#lugat/.test(location.hash); }
 
   /* ---- «Луғат»: so'z bazasi (14.11.2026, foydalanuvchi: sodda bo'lsin — faqat 3 holat) ----
      b билмайман — o'zi belgilagan, hali to'g'ri topilmagan; o ўрганяпман — to'g'ri topa boshlagan (BILDI kundan kam), xato qilgan yoki hali ko'rilmagan;

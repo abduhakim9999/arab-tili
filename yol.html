@@ -744,7 +744,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
   }
   function mashqE() {
     if (!window.Takror || !LUG || !MQ) return null;
-    var OT = {}, n, x = null, dL = {}, dM = {}, k, usz = [], fa = [], yn = +SZ.yangi || 0;
+    var OT = {}, n, x = null, dL = {}, dM = {}, k, usz = [], fa = [];
     for (n in R.d) if (R.d[n] && R.d[n].b >= OTISH) OT[n] = 1;
     try { x = JSON.parse(L(KY + '-xulosa') || 'null'); } catch (e) {}
     if (x && x.ot) x.ot.forEach(function (d) { OT[d] = 1; });
@@ -752,10 +752,9 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
     MQ.forEach(function (q) { dM[q.id] = q.d; });
     for (k in W.b) if (OT[dL[k]]) usz.push(+k);
     for (k in W.s) if (OT[k]) fa.push(+k);
-    var qo = null; try { qo = JSON.parse(L(SINOV ? 'takror-sinov-qosh' : 'takror-qosh') || 'null'); } catch (e) {}   /* «Яна N та сўз» (takror.html) */
     try {
       return Takror.yarat({ lugat: LUG, barcha: LUG, mashq: [], darslar: D,   /* 26.11.2026: «Машқ»da faqat so'z (takror.html bilan bir xil) */ faol: fa.length ? fa.sort(function (a, b) { return a - b; }) : [1],
-        jurnal: jurnalOl(), ustun: [], ustunSoz: usz, sozlama: yn ? { yangi: yn } : null, qosh: qo,
+        jurnal: jurnalOl(), ustun: [], ustunSoz: usz,   /* yangi so'zlarga kunlik chegara yo'q (26.11.2026, takror.js) */
         belgi: function (id) { return { a: W.a[id], b: W.b[id] }; } });
     } catch (e) { return null; }
   }

@@ -8,7 +8,6 @@
   |---|---|---|
   | Ўқиш тезлиги (Секин 0.75 / Оддий 1 / Тез 1.25) | `dars-tezlik` | `shell.js` pleyeri (mavjud kalit) |
   | Ўзбекча таржима овози | `dars-uz` («1»/«0») | `shell.js` «ЎЗ» (mavjud kalit) |
-  | Кунлик янги сўзлар (10 / 15 / 20) | `sozlama.yangi` | `takror.html` → `Takror.yarat({sozlama:{yangi}})` |
   | Товуш ва тебраниш | `sozlama.tovush` (`false` — o'chiq) | `yol.html` `sado()` |
   | Эркин режим | `sozlama.erkin` | `yol.html` `hisobla()` |
   | Тил | `til` («uz»/«ru») | hamma sahifa (12-bo'lim); o'zgarsa sahifa qayta yuklanadi |

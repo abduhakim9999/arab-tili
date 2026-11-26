@@ -22,8 +22,8 @@
   'use strict';
   var KUN = 86400000;
   var SOZ = {
-    yangi: 10,        // kuniga yangi so'z («Созламалар» → 10 / 15 / 20)
-    yangiQ: 5,        // kuniga yangi mashq savoli
+    yangiQ: 5,        // kuniga yangi mashq savoli. Yangi SO'Z chegarasi yo'q (26.11.2026, foydalanuvchi: «konkretniy bo'laversin» — dars 80% bo'lgan
+                      // kuni uning hamma yangi so'zi «Машқ»ga tushadi; avvalgi 10 / 15 / 20 va «Яна N та сўз» olib tashlandi)
     bildi: 3,         // «биламан»: turli kunlarda ketma-ket shuncha to'g'ri javob
     kutish: 7,        // «биламан»dan keyin «Такрор»da 1-tekshiruvgacha kun
     kutish2: 21       // 1-tekshiruvdan keyin 2-tekshiruvgacha kun (to'g'ri → «мустаҳкам»)
@@ -170,8 +170,7 @@ function yarat(o) {
       if (!u) { u = U[c.nk] = { nk: c.nk, w: c.tur !== 'q', id: c.n ? c.n.id : c.s.id, n: c.n || null, k: {}, u: c.u || 0 }; UL.push(u); }
       u.k[c.tur] = c;
     });
-    var bel = o.belgi || function () { return null; };
-    var qo = o.qosh || null;                                 /* 26.11.2026: «Яна N та сўз» — shu kunga qo'shimcha yangi so'z {kun, n} (takror.html) */       /* id → {a, b} — «Биламан» / «Билмайман» bosilgan vaqt (takror.html W) */
+    var bel = o.belgi || function () { return null; };   /* id → {a, b} — «Биламан» / «Билмайман» bosilgan vaqt (takror.html W) */
 
     /* ---- jurnal → holat ---- */
     var J = [], EV = {};
@@ -190,13 +189,16 @@ function yarat(o) {
     }
 
     /* Bugungi ikki navbat. «Ўрганиш»: билмайман / ўрганяпман birliklari — bugun hali to'g'ri topilmaganlari (kuniga bir marta;
-       bugun xato topilgani — oxirida yana), yangilari kunlik chegara bilan (avval «Йўл»/belgi xatolari — u). «Такрор»: биламан
+       bugun xato topilgani — oxirida yana), yangilari — hammasi, chegarasiz (26.11.2026; avval «Йўл»/belgi xatolari — u). «Такрор»: биламан
        bo'lganiga KUTISH kun (1-tekshiruv) yoki 1-tekshiruvga KUTISH2 kun (2-tekshiruv) to'lganlari. Мустаҳкам — hech qayerda. */
     function holat(t) {
-      var bug = kun(t), L1 = [], L2 = [], YW = [], YQ = [], T = [], yW = 0, yQ = 0, nT = 0, kW = 0;
+      var bug = kun(t), L1 = [], L2 = [], YW = [], YQ = [], T = [], yW = 0, yQ = 0, nT = 0;
       UL.forEach(function (u) {
         var x = hol(u.nk); u.x = x;
-        if (x.t0 && kun(x.t0) === bug) { if (u.w) yW++; else yQ++; }
+        /* bugun birinchi marta so'ralgan = bugungi yangi (savol chegarasi va «2 so'zga 1 savol» uchun). 26.11.2026: «Биламан» deb oldin belgilangan so'z (7 kunlik
+           tekshiruvda birinchi marta so'raladi) yangi sanalmaydi — aks holda kartadagi «Янги сўзлар» soni mashq ichida kamayib qolardi */
+        var bA = u.w ? bel(u.nk.slice(1)) : null;
+        if (x.t0 && kun(x.t0) === bug && !(bA && bA.a && +bA.a < x.t0)) { if (u.w) yW++; else yQ++; }
         if (x.st === 'm') return;
         if (x.st === 'g') { var q = muddat(x, kun, soz) - bug; if (q <= 0) T.push(u); else if (!nT || q < nT) nT = q; return; }
         if (!x.n) { (u.w ? YW : YQ).push(u); return; }
@@ -205,13 +207,13 @@ function yarat(o) {
       });
       var vq = function (a, b) { return a.x.lt - b.x.lt; };
       L1.sort(vq); L2.sort(vq);
-      T.sort(function (a, b) { return muddat(a.x, kun, soz) - muddat(b.x, kun, soz) || a.x.g - b.x.g; });
+      /* 26.11.2026 (foydalanuvchi: «birinchi … mustahkamga chiqadigan so'zlar, keyin bilaman, oxiri o'rganyapman»): 2-tekshiruv (x.h —
+         to'g'ri topilsa мустаҳкам) 1-tekshiruvdan (7 kunlik) oldin */
+      T.sort(function (a, b) { return (b.x.h ? 1 : 0) - (a.x.h ? 1 : 0) || muddat(a.x, kun, soz) - muddat(b.x, kun, soz) || a.x.g - b.x.g; });
       YW.sort(function (a, b) { return b.u - a.u; }); YQ.sort(function (a, b) { return b.u - a.u; });   // xatolar birinchi (sort barqaror)
-      var cheg = Math.max(0, soz.yangi + (qo && qo.kun === bug ? +qo.n || 0 : 0) - yW);   // kunlik chegara (+ «Яна N та сўз» — faqat o'sha kuni)
-      kW = Math.max(0, YW.length - cheg);                    // chegaradan tashqarida kutayotgan yangi so'zlar
-      YW = YW.slice(0, cheg);
+      /* yangi so'zlarga kunlik chegara yo'q (26.11.2026): darsi o'tilganlarning hammasi bugun — eng oxirida (L1 → YW → L2) */
       YQ = YQ.slice(0, Math.max(0, soz.yangiQ - yQ));
-      return { bug: bug, L1: L1, L2: L2, YW: YW, YQ: YQ, T: T, yW: yW, yQ: yQ, nT: nT, kW: kW };   /* nT — keyingi «Такрор»gacha kun (0 — «биламан» so'z yo'q) */
+      return { bug: bug, L1: L1, L2: L2, YW: YW, YQ: YQ, T: T, yW: yW, yQ: yQ, nT: nT };   /* nT — keyingi «Такрор»gacha kun (0 — «биламан» so'z yo'q) */
     }
 
     /* birlikning bugungi kartasi: «Ўрганиш»da kun sayin almashadi (arabcha → ma'no, ma'no → arabcha, ovoz, shakl — borlari);
@@ -239,14 +241,18 @@ function yarat(o) {
       }
       if (!x) return null;
       var o2 = rej === 't' ? h.T : navbatO(h);
-      return { k: karta(x, rej), u: x, yangi: !x.x.n, qoldi: o2.length };
+      return { k: karta(x, rej), u: x, yangi: !x.x.n && rej !== 't', qoldi: o2.length, gr: guruhi(x, rej) };   /* «янги» belgisi — «Биламан» tekshiruvida emas (26.11.2026) */
     }
 
     /* «N та» — birliklar: so'zlar va savollar soni */
     function sanoq(a) { var s = 0, q = 0; a.forEach(function (u) { if (u.w) s++; else q++; }); return { soz: s, savol: q, jami: s + q }; }
+    /* «Бугунги машқ» guruhlari (26.11.2026): m — мустаҳкамга чиқади (2-tekshiruv), g — биламан текшируви (7 kunlik), o — ўрганяпман
+       (avval ko'rilgan, bugun xato topilgani ham), y — янги сўзлар. Navbat ham shu tartibda (T — m oldin; L1 → YW → L2) */
+    function guruhi(u, rej) { return rej === 't' ? (u.x.h ? 'm' : 'g') : u.x.n ? 'o' : 'y'; }
     function bugun(t) {
-      var h = holat(t), o_ = sanoq(navbatO(h)), t_ = sanoq(h.T);
-      return { o: o_, t: t_, jami: o_.jami + t_.jami, soz: o_.soz + t_.soz, savol: o_.savol + t_.savol, nT: h.nT, kW: h.kW };
+      var h = holat(t), o_ = sanoq(navbatO(h)), t_ = sanoq(h.T), gr = { m: 0, g: 0, o: h.L1.length + h.L2.length, y: h.YW.length + h.YQ.length };
+      h.T.forEach(function (u) { gr[u.x.h ? 'm' : 'g']++; });
+      return { o: o_, t: t_, jami: o_.jami + t_.jami, soz: o_.soz + t_.soz, savol: o_.savol + t_.savol, nT: h.nT, gr: gr };
     }
 
     /* bugungi ish tugagan deb: ertaga nechta («Ўрганиш»da bugun to'g'ri topilganlar ertaga yana chiqadi) */

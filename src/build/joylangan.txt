@@ -7,6 +7,7 @@ tayyor-ball dfa81cf1e531833353bc6320f660b6d081abf0da
 tayyor-bir-bosish 012aff06f651e1ddc03cd174f056e8305c4e992c
 tayyor-bob-panel 9a6d93d13a930f70eb7a6cbd71097f01915bad5d
 tayyor-bob8-sila 433076457b23ca61cf2ea3b6b9cd99f1cb2c3d02
+tayyor-chegarasiz f0da2b33cc3e59228914cea20cf5e23931ae3be5
 tayyor-dars-11-12 1df77d2f81fa44121e3362400cc40a1245534acc
 tayyor-feel-moziy f94d4bbf06bff9b123801d837bbe7c58c3df445d
 tayyor-fiqh-1 99bf54368875c441d16295968e4aad9c41541787
@@ -44,6 +45,7 @@ tayyor-lugat-fel93 f0e90b64f64bc5ed885f1e8eb00004e8075868c7
 tayyor-lugat-guruh c78a621772ca14a53758254b791b36ce57a1b55e
 tayyor-lugat-hamma 31be011437caac88ec1e8b13db1daaf35e4ad8c9
 tayyor-lugat-korinish 6de616c387d23f31592221e8104cf148d02ba2c0
+tayyor-lugat-kun 451a5eda717fa3de6a623c5fd6293f880cc840c6
 tayyor-lugat-qiyin bcea160397866211d78633cf69412077c5fc49bb
 tayyor-lugat-qolgan 9d4576c709a5c066c560dd105e58872697827e44
 tayyor-lugat-sila efc9407dad9a03357c1842c7da35bc6db5a38c10
@@ -52,6 +54,7 @@ tayyor-lugat-tartib 2b01ca0322e45642b0ff0fef8a4541283f9606ac
 tayyor-mano-qator 2cfab993f88db04331de32b64cb69371f60e7693
 tayyor-mashq-80 8cc75486a27cc8fa0e6d21528e794ca567321474
 tayyor-mashq-darslar b37e14b901ec4e9f905ca26b0cd134f2bf66eb8e
+tayyor-mashq-guruh 3e340c958214d3ef2799bcfca7f437c5a9979fa1
 tayyor-mashq-reyting b3ce6026fdd5ad61c3a488b7c500d1dafa9e1ac6
 tayyor-mashq-statistika 338184089fc6346a7dd4a5bfefc1b488cf76047b
 tayyor-mashq-turlar 1a89118a5977d367ab42a83ae921cfb308485cb5

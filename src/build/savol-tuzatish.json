@@ -1,0 +1,379 @@
+{
+  "_izoh": "Dars «Машқ» savollariga qo'lda qilingan qarorlar (docs/texnik/23-savollar.md). Har yozuvda — nima qilingani va NIMA UCHUN (har savol alohida o'ylangan). Qo'llash: python3 src/build/savol_tuzat.py (NN.html dagi QUR/TRK/QOV ga yozadi; qayta ishga tushirilsa o'zgarmaydi). Dars sahifasi qayta yasalsa — shu skript yana ishga tushiriladi. qur — savol «Машқ»dan chiqariladi (matn, Таркиб, izoh joyida qoladi); trk — izoh matni almashadi; qov — variantlar almashadi. qoldi — tekshiruv (savol_tekshir.py) ko'rsatgan, lekin o'ylab QOLDIRILGAN savol (sababi bilan; tekshiruv endi uni ko'rsatmaydi). _kutadi — faqat yangi savol turlari bilan hal bo'ladigan darslar (3-bosqich).",
+  "_kutadi": {
+    "1": "Suhbat darsi: so'raladigan so'zlarning deyarli hammasi yodlangan ibora yoki raf; 1–6-darslarda bir xil salomlashuv savollari. Faqat harakat savoli bilan yaxshi savol bo'lmaydi — yangi turlar («Ҳолати?», «Нима учун?», «Сабабчини топ») bilan qayta tuziladi.",
+    "2": "Suhbat darsi: so'raladigan so'zlarning deyarli hammasi yodlangan ibora yoki raf; 1–6-darslarda bir xil salomlashuv savollari. Faqat harakat savoli bilan yaxshi savol bo'lmaydi — yangi turlar («Ҳолати?», «Нима учун?», «Сабабчини топ») bilan qayta tuziladi.",
+    "3": "Suhbat darsi: so'raladigan so'zlarning deyarli hammasi yodlangan ibora yoki raf; 1–6-darslarda bir xil salomlashuv savollari. Faqat harakat savoli bilan yaxshi savol bo'lmaydi — yangi turlar («Ҳолати?», «Нима учун?», «Сабабчини топ») bilan qayta tuziladi.",
+    "4": "Suhbat darsi: so'raladigan so'zlarning deyarli hammasi yodlangan ibora yoki raf; 1–6-darslarda bir xil salomlashuv savollari. Faqat harakat savoli bilan yaxshi savol bo'lmaydi — yangi turlar («Ҳолати?», «Нима учун?», «Сабабчини топ») bilan qayta tuziladi.",
+    "5": "Suhbat darsi: so'raladigan so'zlarning deyarli hammasi yodlangan ibora yoki raf; 1–6-darslarda bir xil salomlashuv savollari. Faqat harakat savoli bilan yaxshi savol bo'lmaydi — yangi turlar («Ҳолати?», «Нима учун?», «Сабабчини топ») bilan qayta tuziladi.",
+    "6": "Suhbat darsi: so'raladigan so'zlarning deyarli hammasi yodlangan ibora yoki raf; 1–6-darslarda bir xil salomlashuv savollari. Faqat harakat savoli bilan yaxshi savol bo'lmaydi — yangi turlar («Ҳолати?», «Нима учун?», «Сабабчини топ») bilan qayta tuziladi.",
+    "7": "Suhbat darsi: so'raladigan so'zlarning deyarli hammasi yodlangan ibora yoki raf; 1–6-darslarda bir xil salomlashuv savollari. Faqat harakat savoli bilan yaxshi savol bo'lmaydi — yangi turlar («Ҳолати?», «Нима учун?», «Сабабчини топ») bilan qayta tuziladi.",
+    "8": "4 ta savol qoldi (كُلْثُومَ chiqarildi) — yangi turlar bilan to'ldiriladi.",
+    "12": "Hamma savol «أُرِيدُ …» maf'uli — doim fatha bosilsa 80%; yangi turlar bilan aralashtiriladi."
+  },
+  "1": {
+    "qur": {
+      "7-1": "Shu darsning 6-1 savoli bilan aynan bir xil (اَلْحَمْدُ — мубтадо).",
+      "7-2": "Shu darsning 6-2 savoli bilan aynan bir xil (لِلَّهِ — жар)."
+    }
+  },
+  "2": {
+    "qur": {
+      "7-1": "Shu darsning 6-1 savoli bilan aynan bir xil.",
+      "7-2": "Shu darsning 6-2 savoli bilan aynan bir xil."
+    }
+  },
+  "3": {
+    "qov": {
+      "4-2": {
+        "v": [
+          {
+            "w": "بَاكِسْتَانُ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
+            "w": "بَاكِسْتَانَ",
+            "c": "N",
+            "lb": "фатҳа"
+          },
+          {
+            "w": "بَاكِسْتَانِ",
+            "c": "J",
+            "lb": "касра"
+          }
+        ],
+        "sabab": "c — harakat belgisi: fatha varianti «J» deb yozilgan edi (ikki variant bir xil belgida). Ko'rinishi o'zgarmaydi."
+      }
+    }
+  },
+  "4": {
+    "qov": {
+      "4-2": {
+        "v": [
+          {
+            "w": "مِصْرُ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
+            "w": "مِصْرَ",
+            "c": "N",
+            "lb": "фатҳа"
+          },
+          {
+            "w": "مِصْرِ",
+            "c": "J",
+            "lb": "касра"
+          }
+        ],
+        "sabab": "3-darsdagi kabi: fatha varianti «J» belgisida edi."
+      }
+    }
+  },
+  "5": {
+    "qur": {
+      "7-0": "مَعَ доим фатҳа билан айтилади, مَعُ / مَعِ шакли йўқ — савол ҳеч нарса ўргатмайди (ёдланган ибора)."
+    },
+    "trk": {
+      "4-1": {
+        "v": [
+          "4-0",
+          "سَهْلاً — маҳзуф феъл бўлмиш وَطِئْتَ (босдинг) нинг мафъулун биҳи, шунинг учун насб қилинган."
+        ],
+        "sabab": "Izoh «أَهْلاً га маътуф» va «o'z mahzuf fe'lining maf'uli»ni birga aytardi — bir-biriga zid; dars matnidagi tahlil (Маҳзуф феълнинг мафъулун биҳи) va 3-dars izohi bilan bir xil qilindi."
+      }
+    }
+  },
+  "6": {
+    "qur": {
+      "7-0": "5-darsdagi kabi: مَعَ ning harakati o'zgarmaydi."
+    },
+    "trk": {
+      "4-1": {
+        "v": [
+          "4-0",
+          "سَهْلاً — маҳзуф феъл бўлмиш وَطِئْتَ (босдинг) нинг мафъулун биҳи, шунинг учун насб қилинган."
+        ],
+        "sabab": "5-darsdagi kabi."
+      }
+    }
+  },
+  "8": {
+    "qur": {
+      "13-3": "أُمُّ كُلْثُومَ — ғайри мунсариф деб ўргатилади, лекин куняда бу исм кўпинча танвин билан (كُلْثُومٍ) ўқилади — шубҳали мисол синов савол бўлмайди. Матн ўзгармади (китобдагидек)."
+    }
+  },
+  "9": {
+    "qov": {
+      "8-3": {
+        "v": [
+          {
+            "w": "سَعْدُ",
+            "c": "B",
+            "lb": "замма"
+          },
+          {
+            "w": "سَعْداً",
+            "c": "N",
+            "lb": "танвинли фатҳа"
+          },
+          {
+            "w": "سَعْدٌ",
+            "c": "R",
+            "lb": "танвинли замма"
+          }
+        ],
+        "sabab": "Yorliqlar boshqa savollardagi kabi («замма (танвинсиз)» o'rniga «замма»)."
+      }
+    }
+  },
+  "12": {
+    "qur": {
+      "11-4": "11-darsdagi «أُرِيدُ مُشَاهَدَةَ الشَّقَّةِ» savoli bilan bir xil (أُرِيدُ нинг мафъули)."
+    }
+  },
+  "70": {
+    "qur": {
+      "13-1": "سُبْحَانَ اللَّهِ — ёдланган ибора, ҳаракати доим бир хил; «Нима учун?» турида сўралади (3-босқич).",
+      "17-1": "الْآنَ — ҳаракати ҳеч қачон ўзгармайди (кўпчилик китобларда фатҳага мабний; дарс ҳужжатида иккала фикр бор) — ҳаракат саволи бўлмайди.",
+      "19-2": "جَزَاكَ اللَّهُ خَيْراً — ёдланган ибора; 72, 98-дарсларда ҳам такрорланарди."
+    }
+  },
+  "71": {
+    "qoldi": {
+      "14-12": "الْفَوَاكِهُ — ه o'zak harfi (فَاكِهَةٌ), olmosh emas: variant shakllari to'g'ri."
+    }
+  },
+  "72": {
+    "qur": {
+      "21-2": "جَزَاكَ اللَّهُ خَيْراً — ёдланган ибора (70-дарсда ҳам бор эди)."
+    },
+    "qov": {
+      "4-3": {
+        "v": [
+          {
+            "w": "تَتَّبِعُ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
+            "w": "تَتَّبِعَ",
+            "c": "N",
+            "lb": "фатҳа"
+          },
+          {
+            "w": "تَتَّبِعِ",
+            "c": "Z",
+            "lb": "касра"
+          }
+        ],
+        "sabab": "Yorliq «жазм (2 сукун учун касра)» faqat to'g'ri variantda edi — javobni ochib qo'yardi. Sababi javobdan keyin izohda chiqadi."
+      },
+      "6-3": {
+        "v": [
+          {
+            "w": "تُمَارِسُ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
+            "w": "تُمَارِسَ",
+            "c": "N",
+            "lb": "фатҳа"
+          },
+          {
+            "w": "تُمَارِسِ",
+            "c": "Z",
+            "lb": "касра"
+          }
+        ],
+        "sabab": "4-3 dagi kabi."
+      }
+    }
+  },
+  "73": {
+    "qov": {
+      "11-1": {
+        "v": [
+          {
+            "w": "تَأْكُلُ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
+            "w": "تَأْكُلَ",
+            "c": "N",
+            "lb": "фатҳа"
+          },
+          {
+            "w": "تَأْكُلِ",
+            "c": "Z",
+            "lb": "касра"
+          }
+        ],
+        "sabab": "72-darsdagi kabi: yorliq javobni ochib qo'yardi."
+      }
+    }
+  },
+  "74": {
+    "qur": {
+      "2-0": "اَلْحَمْدُ لِلَّهِ — ёдланган ибора, 1–2-дарсларда ҳам бор.",
+      "3-0": "شُكْراً — ёдланган ибора, ҳаракати доим бир хил.",
+      "13-4": "Shu darsning 11-4 savoli bilan bir xil (حَيَاتُكَ / حَيَاتِي كُلُّهَا عَمَلٌ — хабар)."
+    }
+  },
+  "91": {
+    "qur": {
+      "12-6": "«أَنْ تَعْمَلَ» shu darsda 4 marta so'ralardi — birinchisi (11-5) qoldi.",
+      "13-0": "«وَفَرِيقٍ … маътуф» 12-0 bilan bir xil.",
+      "19-15": "«أَنْ تَعْمَلَ» takrori.",
+      "19-20": "«أَنْ تَعْمَلَ» takrori."
+    },
+    "qov": {
+      "12-1": {
+        "v": [
+          {
+            "w": "آخَرُ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
+            "w": "آخَرَ",
+            "c": "N",
+            "lb": "фатҳа"
+          },
+          {
+            "w": "آخَرٍ",
+            "c": "J",
+            "lb": "танвинли касра"
+          }
+        ],
+        "sabab": "Yorliqlarda holat va qoida yozilgan edi («фатҳа — жар (ғайри мунсариф)») — javobni ochib qo'yardi."
+      }
+    }
+  },
+  "92": {
+    "qur": {
+      "12-2": "شُكْراً — ёдланган ибора (74-дарсда ҳам бор эди)."
+    },
+    "qov": {
+      "9-4": {
+        "v": [
+          {
+            "w": "وَثَقَافَتُهُمْ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
+            "w": "وَثَقَافَتَهُمْ",
+            "c": "N",
+            "lb": "фатҳа"
+          },
+          {
+            "w": "وَثَقَافَتِهِمْ",
+            "c": "J",
+            "lb": "касра"
+          }
+        ],
+        "sabab": "Variantlar sahifa kodida avtomatik yasalardi va olmosh harakati moslanmagan edi: «ثَقَافَتُهِمْ», «ثَقَافَتَهِمْ» — arabchada yo'q shakl (هِمْ faqat kasra yoki ي dan keyin). To'g'risi: …تُهُمْ, …تَهُمْ."
+      },
+      "9-5": {
+        "v": [
+          {
+            "w": "وَلُغَتُهُمْ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
+            "w": "وَلُغَتَهُمْ",
+            "c": "N",
+            "lb": "фатҳа"
+          },
+          {
+            "w": "وَلُغَتِهِمْ",
+            "c": "J",
+            "lb": "касра"
+          }
+        ],
+        "sabab": "9-4 dagi kabi: «لُغَتُهِمْ», «لُغَتَهِمْ» — yo'q shakl."
+      }
+    }
+  },
+  "94": {
+    "qur": {
+      "15-6": "إِنْ شَاءَ اللَّهُ — ёдланган ибора."
+    },
+    "qov": {
+      "13-9": {
+        "v": [
+          {
+            "w": "وَالطَّالِبَاتُ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
+            "w": "وَالطَّالِبَاتِ",
+            "c": "J",
+            "lb": "касра"
+          }
+        ],
+        "sabab": "Ikki tugma bir xil ko'rinardi (farqi faqat yorliqda — «касра (фатҳа ўрнида)»). Jam'i muannasda nasb ham kasra — bu holat savoli, «Ҳолати?» turida so'raladi (3-bosqich)."
+      }
+    }
+  },
+  "95": {
+    "qov": {
+      "10-3": {
+        "v": [
+          {
+            "w": "لَهَجَاتٌ",
+            "c": "R",
+            "lb": "танвинли замма"
+          },
+          {
+            "w": "لَهَجَاتٍ",
+            "c": "J",
+            "lb": "танвинли касра"
+          }
+        ],
+        "sabab": "94-darsdagi kabi: ikki tugma bir xil ko'rinardi."
+      },
+      "11-5": {
+        "v": [
+          {
+            "w": "اللَّهَجَاتُ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
+            "w": "اللَّهَجَاتِ",
+            "c": "J",
+            "lb": "касра"
+          }
+        ],
+        "sabab": "94-darsdagi kabi."
+      }
+    }
+  },
+  "96": {
+    "qur": {
+      "8-8": "«كُلِّيَّةِ — جَامِعَةِ дан бадал» 5-7 bilan bir xil.",
+      "13-0": "عَفْواً — ёдланган ибора."
+    }
+  },
+  "97": {
+    "qoldi": {
+      "8-3": "«لُغَةً — كَانَتْ нинг хабари». Darsning mavzusi — كَانَ va opa-singillari; 9-2 (muzof, tanvinsiz) va 27-2 (أَصْبَحَ) har biri boshqa narsani o'rgatadi — uchalasi qoldi.",
+      "9-2": "8-3 dagi sabab.",
+      "27-2": "8-3 dagi sabab."
+    }
+  },
+  "98": {
+    "qur": {
+      "7-3": "جِدًّا — ёдланган сўз, ҳаракати доим бир хил; «Нима учун?» турида сўралади.",
+      "12-6": "جَزَاكُمَا اللَّهُ خَيْراً — ёдланган ибора.",
+      "13-3": "أَيْضاً — ёдланган сўз, ҳаракати доим бир хил."
+    }
+  }
+}

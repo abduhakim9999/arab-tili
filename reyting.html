@@ -102,7 +102,9 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
     var j = (J(SN ? 'takror-sinov-j' : 'takror-j', {}) || {}).j || [], x = J(SN ? 'takror-sinov-xulosa' : 'takror-xulosa', null);
     var hb = window.Takror && Takror.haftaBoshi ? Takror.haftaBoshi(Date.now()) : 0;
     var ism = (J('ism', null) || {}).n || '';
-    return { n: ism, h: window.Takror && Takror.ball ? Takror.ball(j, hb) : 0, s: (x && x.must) || 0, b: (x && x.bilgan) || 0, hb: hb };   /* s — мустаҳкам (23.11.2026), b — билган (26.11.2026) */
+    var R = J(SN ? 'yol-sinov' : 'yol', null), RD = (R && R.d) || {};   /* «dars o'tildi» bonusi faqat o'tilgan darsga (server — api/_rey.js otgan, 26.11.2026) */
+    var opt = { otgan: function (n) { return !!(RD[n] && +RD[n].b >= 80); } };
+    return { n: ism, h: window.Takror && Takror.ball ? Takror.ball(j, hb, 0, opt) : 0, s: (x && x.must) || 0, b: (x && x.bilgan) || 0, hb: hb };   /* s — мустаҳкам (23.11.2026), b — билган (26.11.2026) */
   }
   function vaqt(hb) {                                  /* «Янгиланишига N кун» — keyingi dushanba 00:00 gacha */
     var q = hb + 7 * 864e5 - Date.now(); if (q <= 0) return '';
@@ -151,7 +153,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
     else if (oz > 0) { var ol = rows[oz - 1]; izoh = (oz) + '-ўринга ' + (ol.b - me.b + 1) + ' ' + bir + ' қолди'; }
     else if (so && so.ol != null) izoh = (so.o - 1) + '-ўринга ' + Math.max(1, so.ol - me.b + 1) + ' ' + bir + ' қолди';
     else if (oz === 0) izoh = 'Биринчи ўриндасиз!';
-    else izoh = T === 'h' ? 'Тўғри жавоб — балл' : T === 'b' ? 'Билган сўзларингиз' : 'Мустаҳкам сўзларингиз';
+    else izoh = T === 'h' ? (window.Takror && Takror.REY && Takror.REY.DAN && Date.now() >= Takror.REY.DAN ? 'Тўғри жавоблар ва тинглаш — балл' : 'Тўғри жавоб — балл') : T === 'b' ? 'Билган сўзларингиз' : 'Мустаҳкам сўзларингиз';
     $('me').innerHTML = '<span class="o">' + (oz > -1 ? oz + 1 : so ? so.o : '–') + '</span><span class="av a0" aria-hidden="true">' + esc(bosh(me.n)) + '</span>' +
       '<span class="t"><b>' + (m.n ? esc(m.n) + '⁣' : 'Сиз') + '</b><small>' + izoh + '</small></span><span class="s">' + me.b + ' <small>' + bir + '</small></span>';
   }

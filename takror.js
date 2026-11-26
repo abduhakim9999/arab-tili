@@ -278,17 +278,37 @@ function yarat(o) {
     };
   }
 
-  /* REYTING BALLI (14.11.2026, foydalanuvchi qarori; docs/texnik.md 19). Ekransiz — keyin server ham aynan shu funksiya bilan hisoblaydi.
-     To'g'ri javob — 1 ball (bitta karta kuniga bir marta); so'z «биламан»ga yetsa (turli kunlarda ketma-ket BILDI marta to'g'ri, takror.html
-     kunlar() bilan bir xil) — +5 (har so'zga bir marta); kuniga ko'pi bilan KUN_MAX; juda tez javob (< TEZ ms) ball bermaydi; xato — minus yo'q.
-     Kun va hafta — Toshkent vaqti (UTC+5) hamma uchun bir xil; hafta dushanba 00:00 dan. */
-  var REY = { TZ: 5 * 3600000, KUN_MAX: 200, TEZ: 700, BILDI: 3, YANGI: 5 };
+  /* REYTING BALLI (14.11.2026, foydalanuvchi qarori; docs/texnik.md 19). Ekransiz — server ham aynan shu funksiyalar bilan hisoblaydi (api/_rey.js).
+     Kun va hafta — Toshkent vaqti (UTC+5) hamma uchun bir xil; hafta dushanba 00:00 dan.
+
+     ESKI QOIDA (YANGI gacha bo'lgan haftalar, ballEski): to'g'ri javob — 1 ball (bitta karta kuniga bir marta); so'z «биламан»ga yetsa
+     (turli kunlarda ketma-ket BILDI marta to'g'ri) — +5 (har so'zga bir marta); kuniga ko'pi bilan KUN_MAX (200); < TEZ ms javob — ball yo'q.
+
+     YANGI QOIDA (26.11.2026, foydalanuvchi: «ball qancha ko'p foydalansa, shu ilovadan shug'ullansa, o'sha odam olishi kerak»; kunlik
+     chegara — «1» (olib tashlash), ballar 10 baravar, kunlik seriya — «ha qil»; 30.11.2026 dushanbadan — hafta o'rtasida aralashmasin):
+     - to'g'ri javob — B (10): «Машқ» kartalari (w…, q…), dars ichidagi «Машқ» (xd<dars>:<savol>), Сарф (xs<savol>),
+       «Қўшимча такрор» (x + karta id — daraja va takror kuniga ta'sir qilmaydi, bKalit ularni tanimaydi); bitta kalit kuniga bir marta;
+       < TEZ ms javob va xato — ball yo'q, minus yo'q;
+     - so'z «биламан»ga yetsa — BILAN (50), har so'zga bir marta (eskisidagi kabi hisob);
+     - dars «Машқ»i birinchi marta 80% dan o'tsa — OTDI (100): yozuv xo<dars>, darsga bir marta (opt.otgan berilsa — faqat haqiqatan
+       o'tilgan dars, serverda yol.d[n].b >= 80);
+     - «Эшитиш» (tinglash.html va dars audiosi): har 5 daqiqa tinglash — yozuv xe, ESH (10), kuniga ko'pi bilan ESH_MAX (20 ta = 200 ball);
+     - umumiy kunlik chegara YO'Q;
+     - kunlik seriya: kunida kamida SER (200) ball yig'ilgan kun — +SER_B (50); ketma-ket shunday kunlar — «🔥 N кун» (seriya()).
+     Yozuvlar takror jurnalida (takror-j; baza.js bilan serverga — birlashtirish, tozalash, ruscha profil avvalgidek). */
+  var REY = { TZ: 5 * 3600000, KUN_MAX: 200, TEZ: 700, BILDI: 3, YANGI: 5,
+    DAN: 1795978800000,                                    /* 30.11.2026 00:00 (Toshkent) — yangi qoida shu haftadan */
+    B: 10, BILAN: 50, OTDI: 100, ESH: 10, ESH_MAX: 20, SER: 200, SER_B: 50 };
   function tkun(t) { return Math.floor((t + REY.TZ) / 86400000); }
   function haftaBoshi(t) { var d = tkun(t); return (d - ((d + 3) % 7)) * 86400000 - REY.TZ; }   /* 01.01.1970 — payshanba */
-  function ball(jurnal, dan, gacha) {
-    var j = (jurnal || []).slice().sort(function (a, b) { return a[1] - b[1]; }), kb = {}, kn = {}, W = {}, jami = 0;
+  function saralangan(jurnal) {
+    return (jurnal || []).filter(function (e) { return e && typeof e[0] === 'string' && typeof e[1] === 'number'; }).sort(function (a, b) { return a[1] - b[1]; });
+  }
+  function ballEski(jurnal, dan, gacha) {
+    var j = saralangan(jurnal), kb = {}, kn = {}, W = {}, jami = 0;
     gacha = gacha || Infinity;
     j.forEach(function (e) {
+      if (e[0].charAt(0) === 'x') return;                  /* yangi qoida yozuvlari — eski haftalarga kirmaydi */
       var d = tkun(e[1]), ichida = e[1] >= dan && e[1] < gacha, b = 0, m = /^w(\d+)[auos]$/.exec(e[0]);
       if (m) {                                             /* so'z hisobi — ichida bo'lmasa ham yuritiladi (ketma-ketlik oldindan boshlangan bo'lishi mumkin) */
         var x = W[m[1]] = W[m[1]] || { d: 0, k: null, bor: false };
@@ -303,6 +323,48 @@ function yarat(o) {
     });
     return jami;
   }
+  /* yangi qoida: har kun (Toshkent kun raqami) → ball (DAN dan boshlab; seriya bonusisiz). opt.otgan(n) — dars o'tilganmi (ixtiyoriy);
+     opt.dan — DAN o'rniga (faqat ko'rish/sinov sahifalarida «+10» va seriyani hozirdan ko'rsatish uchun; reyting — doim DAN) */
+  function boshi(opt) { return opt && opt.dan != null ? opt.dan : REY.DAN; }
+  function kunBallari(jurnal, opt) {
+    var j = saralangan(jurnal), kb = {}, W = {}, xo = {}, ec = {}, K = {}, otg = opt && opt.otgan, dan = boshi(opt);
+    j.forEach(function (e) {
+      var k = e[0], t = e[1], d = tkun(t), b = 0, m = /^w(\d+)[auos]$/.exec(k);
+      if (m) {
+        var x = W[m[1]] = W[m[1]] || { d: 0, k: null, bor: false };
+        if (e[2] === 1) { x.d = 0; x.k = null; }
+        else { if (d !== x.k) { x.k = d; x.d++; } if (x.d >= REY.BILDI && !x.bor) { x.bor = true; b += REY.BILAN; } }
+      }
+      if (k.slice(0, 2) === 'xo') {                         /* dars birinchi marta o'tildi */
+        var n = k.slice(2);
+        if (!xo[n]) { xo[n] = 1; if (!otg || otg(n)) b += REY.OTDI; }
+      } else if (k === 'xe') {                              /* 5 daqiqa tinglash */
+        if ((ec[d] || 0) < REY.ESH_MAX) { ec[d] = (ec[d] || 0) + 1; b += REY.ESH; }
+      } else if (e[2] === 3 && !(e[3] != null && e[3] > 0 && e[3] < REY.TEZ) && !kb[k + '|' + d]) { kb[k + '|' + d] = 1; b += REY.B; }
+      if (b && t >= dan) K[d] = (K[d] || 0) + b;
+    });
+    return K;
+  }
+  function yangiBall(K, dan, gacha) {
+    var jami = 0, d0 = tkun(Math.max(dan, REY.DAN)), d1 = gacha === Infinity ? Infinity : tkun(gacha - 1);
+    for (var d in K) { d = +d; if (d < d0 || d > d1) continue; jami += K[d] + (K[d] >= REY.SER ? REY.SER_B : 0); }
+    return jami;
+  }
+  /* hafta (yoki istalgan oraliq) bali: DAN dan oldingi qismi — eski qoida, keyingisi — yangi */
+  function ball(jurnal, dan, gacha, opt) {
+    dan = dan || 0; gacha = gacha || Infinity;
+    var jami = 0;
+    if (dan < REY.DAN) jami += ballEski(jurnal, dan, Math.min(gacha, REY.DAN));
+    if (gacha > REY.DAN) jami += yangiBall(kunBallari(jurnal, opt && opt.otgan ? { otgan: opt.otgan } : null), dan, gacha);
+    return jami;
+  }
+  /* bugungi ball (seriya bonusisiz) va seriya: kamida SER ball yig'ilgan ketma-ket kunlar; bugun hali SER ga yetmagan bo'lsa — kechagacha.
+     → { bugun, seriya, chegara } (DAN dan oldin — ikkalasi 0) */
+  function kunlik(jurnal, t, opt) {
+    var K = kunBallari(jurnal, opt), d = tkun(t || Date.now()), bug = K[d] || 0, n = 0, i = bug >= REY.SER ? d : d - 1, d0 = tkun(boshi(opt));
+    while (i >= d0 && (K[i] || 0) >= REY.SER) { n++; i--; }
+    return { bugun: bug, seriya: n, chegara: REY.SER };
+  }
 
-  return { yarat: yarat, SOZ: SOZ, VER: 2, muddat: muddat, ball: ball, haftaBoshi: haftaBoshi, REY: REY, manosiz: manosiz, birlik: birlik, holatlar: holatlar };
+  return { yarat: yarat, SOZ: SOZ, VER: 2, muddat: muddat, ball: ball, kunlik: kunlik, haftaBoshi: haftaBoshi, REY: REY, manosiz: manosiz, birlik: birlik, holatlar: holatlar };
 });

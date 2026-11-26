@@ -471,8 +471,10 @@ function mashq(el){
     (p.best!=null?'<p>Энг яхши натижа: <b>'+p.best+'%</b></p>':'')+'<button class="sbtn full" id="qst">Бошлаш</button></div>';
   $('#qst').onclick=function(){Q={qs:mkQ(),i:0,ok:0,mis:[]};qshow(el)};
 }
+/* BALL (26.11.2026; tg.js Ball, takror.js REY): har javob takror jurnaliga — xs<savol kodi>; to'g'ri — 10 ball, bitta savol kuniga bir marta */
+function qkod(q){var x=(CUR&&CUR.id)+'|'+q.t+'|'+q.a+'|'+q.s,h=5381;for(var i=0;i<x.length;i++)h=((h<<5)+h+x.charCodeAt(i))|0;return (h>>>0).toString(36)}
 function qshow(el){
-  var q=Q.qs[Q.i];
+  var q=Q.qs[Q.i];Q.t0=Date.now();
   var h='<div class="card q"><div class="pr"><i style="width:'+(Q.i*100/Q.qs.length)+'%"></i></div><div class="qt">'+(Q.i+1)+' / '+Q.qs.length+(q.rv?' · ↻ такрор':'')+' · '+q.t+'</div>'+
     '<div class="qa ar">'+q.a+'</div><div class="qs">'+(/[؀-ۿ]/.test(q.s)?arw(esc(q.s)):esc(q.s))+'</div>'+
     '<div class="op">'+q.o.map(function(o,i){return '<button data-i="'+i+'">'+o.h+'</button>'}).join('')+'</div><div id="qx"></div></div>';
@@ -483,6 +485,7 @@ function qshow(el){
     if(key){var at=-1;E.forEach(function(e,j){if(e.join('|')==key)at=j});
       if(ok&&at>=0)E.splice(at,1);if(!ok&&at<0)E.push(q.e);save()}
     if(!ok){b.classList.add('no');Q.mis.push(q)}else Q.ok++;
+    if(window.Ball)Ball.yoz('xs'+qkod(q),ok,Date.now()-(Q.t0||Date.now()),b);
     $('#qx').innerHTML='<div class="ex">'+(ok?'✓ Тўғри. ':'✗ Нотўғри. ')+q.x+'</div><button class="sbtn full" style="margin-top:10px" id="qn">'+(Q.i+1<Q.qs.length?'Кейинги ›':'Натижа')+'</button>';
     $('#qn').onclick=function(){Q.i++;if(Q.i<Q.qs.length)qshow(el);else qres(el)};
   }});

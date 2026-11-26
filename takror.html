@@ -143,13 +143,6 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .tq-sl .tq-vb .tq-m{font-size:28px;line-height:1.35;font-weight:700}
 .tq-ta.och .tq-sl .tq-vb .tq-m,.tq-to.och .tq-sl .tq-vb .tq-m{color:var(--ac)}
 .tq-to .tq-sl .tq-vb .tq-wq{font-size:34px}
-.tq-fe .tq-gx{margin:0 0 22px}
-.tq-fe .tq-gx::before{display:none}
-.tq-fe .tq-gx::after{content:'';display:block;width:44px;height:2px;border-radius:1px;background:currentColor;opacity:.14;margin:14px auto 0}
-.tq-fe .tq-gx .tq-gp{font-size:25px}
-.tq-fe .tq-gx .tq-gt{font-size:17px}
-.tq-fe .tq-gx.tq-gu .tq-gp{font-size:20px}
-.tq-fe .tq-gx.tq-gu .tq-gt{font-size:15px}
 .tq-sx{width:34px;height:2px;border-radius:1px;background:currentColor;opacity:.16;margin:10px auto 12px}
 .tq-ex{margin-top:12px;padding:10px 12px;border-radius:12px;background:var(--cd);font-size:14.5px;color:var(--mu)}
 .tq-ex .ar{display:block;font-size:22px;line-height:1.8;color:var(--tx)}
@@ -444,7 +437,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
   function LS(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} }
   function mash(v) { try { if (v == null) return sessionStorage.getItem(KM); v ? sessionStorage.setItem(KM, v) : sessionStorage.removeItem(KM); } catch (e) {} return null; }
   var REJ = 'b';                                       /* ketayotgan mashg'ulot: 'b' — «Бугунги машқ» (avval «Такрор», keyin «Ўрганиш» kartalari), 'q' — qo'shimcha takror */
-  function boshla(r) { REJ = r; mash(r === 'q' ? 0 : r); qD = 0; qT = 0; qW = 0; if (r === 'q') qxYig(); document.body.classList.add('tq-ses'); keyingi(); }
+  function boshla(r) { REJ = r; mash(r === 'q' ? 0 : r); qD = 0; qT = 0; qW = 0; GRS = {}; if (r === 'q') qxYig(); document.body.classList.add('tq-ses'); keyingi(); }
   /* 26.11.2026 (foydalanuvchi: «mashqlar ko'payib ketdi … tartibga keltirsa bo'ladimi», «bitta qil»): «Ўрганиш» va «Такрор» — bitta
      «Бугунги машқ» (23.11 dagi ikki bo'lim o'rniga). Ichki hisob o'zgarmadi (takror.js holat(): L1/YW/YQ/L2 va T); navbat — avval «Такрор»
      (muddati kelgan «биламан» so'zlar), keyin «Ўрганиш». Bugungi ish tugagach — «Яна 10 та сўз»: билган сўзлар qo'shimcha takrori ('q', daraja o'zgarmaydi).
@@ -454,7 +447,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     return E.keyingi(hozir(), 't') || E.keyingi(hozir(), 'o');
   }
   /* «Бугунги машқ» guruhlari — kartada ham, mashq ichida ham shu tartibda (takror.js bugun().gr, keyingi().gr) */
-  var GRN = { m: 'Мустаҳкамга чиқади', g: 'Биламан текшируви', o: 'Ўрганяпман', y: 'Янги сўзлар' }, GR = { k: '', n: 0, d: 0 };
+  var GRN = { m: 'Мустаҳкамга чиқади', g: 'Биламан текшируви', o: 'Ўрганяпман', y: 'Янги сўзлар' }, GRS = {};   /* guruh sanoqlari: { g: { n, d } } — mashg'ulot boshida tozalanadi (26.11.2026) */
   function yana() {                                    /* «Яна 10 та сўз» — qo'shimcha takror ('q') yoki yo'q ('') */
     return qxHovuz().length ? 'q' : '';
   }
@@ -1063,7 +1056,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
   /* 13.11.2026 (foydalanuvchi qarori): «Такрор» va «Луғат» — bitta joy. Bilmagan so'zlar lug'atga tushadi, takror ham shu yerdan boshlanadi. */
   function bosh() {
     if (document.body.classList.contains('tq-ses')) yubor();
-    clearTimeout(tmq); toxta(); cur = null; qD = 0; qT = 0; qW = 0; mash(0); TAR = []; TK = -1; SAQ = null;
+    clearTimeout(tmq); toxta(); cur = null; qD = 0; qT = 0; qW = 0; GRS = {}; mash(0); TAR = []; TK = -1; SAQ = null;
     document.body.classList.remove('tq-ses');
     if (QAYTA) qur();                                   /* «аниқ биламан» belgisi o'zgargan — kartalar qayta yig'iladi */
     lugat();
@@ -1091,9 +1084,11 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     var g = bgx && x.gr;
     if (g) {
       var gq = bgx.gr[g] || 0;
-      if (g !== GR.k) GR = { k: g, n: gq, d: 0 };
-      GR.d = Math.max(GR.d, GR.n - gq); if (GR.d + gq > GR.n) GR.n = GR.d + gq;
-      bosh_ += '<div class="tq-gr ' + g + '"><i aria-hidden="true"></i><span>' + GRN[g] + '</span><em>' + GR.d + ' / ' + GR.n + '</em></div>';
+      /* 26.11.2026: har guruh o'z sanog'ini saqlaydi — oxirgi qaytariqlarda guruhlar almashib kelsa ham «0 / N»dan boshlanmaydi;
+         avval GR mashg'ulotlar orasida tozalanmasdi (yangi mashg'ulotda eski son qolardi) */
+      var G = GRS[g] = GRS[g] || { n: gq, d: 0 };
+      G.d = Math.max(G.d, G.n - gq); if (G.d + gq > G.n) G.n = G.d + gq;
+      bosh_ += '<div class="tq-gr ' + g + '"><i aria-hidden="true"></i><span>' + GRN[g] + '</span><em>' + G.d + ' / ' + G.n + '</em></div>';
     }
     if (cur.tur === 'q') savol(bosh_, x); else if (cur.tur === 's') shaklK(bosh_, x); else soz(bosh_, x);
     document.getElementById('yop').onclick = bosh;
@@ -1340,12 +1335,15 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
      (katta), tagida qisqa chiziq va gap / tarjimasi (kichikroq, qutisiz). 23.11 dagi «avval matn, keyin so'z» tartibi o'rniga.
      Fe'l (o'sha kuni, foydalanuvchi: «matnda kelgan ma'noni toping deb kelsa va matn, keyin pastida fe'lning o'zi 3 ko'rinishi, orqasida matndagi
      tarjima va fe'lning o'z tarjimasi», «qil»; faqat fe'l — Claude taklifi): dars gapi bo'lsa savol «Матндаги маъноси?», tepada gap (kattaroq), chiziq,
-     tagida 3 shakl va harfi; orqada — gap o'rnida tarjimasi, shakllar o'rnida fe'lning o'z ma'nosi. «Арабчаси?» va «Эшитинг»da ham gap tepada (.tq-fe). */
+     tagida 3 shakl va harfi; orqada — gap o'rnida tarjimasi, shakllar o'rnida fe'lning o'z ma'nosi.
+     O'sha kuni kechroq (foydalanuvchi: «matndagi ma'nosini topish bo'lsa ham, tepada birinchi o'rinda o'sha so'zning o'zi bo'lishi kerak … keyin
+     matnda kelishi», «qil»): fe'l kartasi ham boshqalaridek — tepada 3 shakl (katta), chiziq, tagida gap (kichikroq); sarlavha «Матндаги маъноси?»
+     qoladi. Avvalgi «gap tepada» (.tq-fe) olib tashlandi — «Арабчаси?» va «Эшитинг»da ham. */
   var AYL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 9A8.5 8.5 0 0 0 5 6.3L3 8.5"/><path d="M3 3.5v5h5"/><path d="M3.5 15A8.5 8.5 0 0 0 19 17.7l2-2.2"/><path d="M21 20.5v-5h-5"/></svg>';
   function qat(a, b) { return '<div class="tq-2"><div class="tq-va">' + a + '</div><div class="tq-vb">' + b + '</div></div>'; }
   function soz(bosh_, x) {
     var n = cur.n, r = n.r, t = cur.tur;
-    var s = gapS(r), fe = r.tur === 'fel' && !!s;          /* fe'l + dars gapi — gap tepada (pastdagi izoh) */
+    var s = gapS(r), fe = r.tur === 'fel' && !!s;          /* fe'l + dars gapi — savol «Матндаги маъноси?» (tepadagi izoh) */
     var sorov = { a: Takror.manosiz(n) ? 'Вазифаси?' : fe ? 'Матндаги маъноси?' : 'Маъноси?', u: 'Арабчаси?', o: 'Эшитинг' }[t];   /* «маъносиз» harf — vazifasi so'raladi (19.11.2026) */
     /* fe'lning harfi (21.11, 23.11.2026): shakllar tagidagi belgi, gapdagi harf va ma'nodagi «..га» bir rangda; «Арабчаси?» savolida — belgisiz */
     var si = sila(r), p = si && si.p, q = t === 'u' ? 0 : p;
@@ -1361,8 +1359,8 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     var sp = n.au ? '<button class="tq-au" id="sp" aria-label="Қайта эшитиш" hidden>' + KARNAY + '</button>' : '';
     var yon = t === 'u' ? 'b' : 'a';                    /* old tomon */
     var sl = '<div class="tq-sl">' + qat(sA, sB) + '</div>';
-    app.innerHTML = bosh_ + '<section class="tq-c tq-k tq-kt tq-t' + t + ' tq-s' + yon + (fe ? ' tq-fe' : '') + '" id="kk"><div class="tq-l"><span class="tq-q">' + sorov + '</span>' +
-      (x.yangi ? '<em>янги</em>' : '') + sp + '</div><div class="tq-f">' + (fe ? pan + sl : sl + pan) + '</div><div class="tq-ay">' + AYL + '</div></section>';
+    app.innerHTML = bosh_ + '<section class="tq-c tq-k tq-kt tq-t' + t + ' tq-s' + yon + '" id="kk"><div class="tq-l"><span class="tq-q">' + sorov + '</span>' +
+      (x.yangi ? '<em>янги</em>' : '') + sp + '</div><div class="tq-f">' + sl + pan + '</div><div class="tq-ay">' + AYL + '</div></section>';
     tugma('<button class="tq-b tq-b1" id="ko">Кўрсатиш</button>');
     sigdir(); if (document.fonts && document.fonts.ready) document.fonts.ready.then(sigdir);
     if (t === 'o') { document.getElementById('pl').onclick = function () { ovoz(n.au); }; ovoz(n.au); }

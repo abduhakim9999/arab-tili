@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="shell.css">
 <script>
 /* Sozlamalar (13.11.2026; docs/texnik.md 16). Saqlanadigan joylar:
-   «sozlama» — {yangi, tovush, erkin, kor} (Telegram bulutiga ham, tg.js); «dars-tezlik», «dars-uz», «til» — darslar ishlatadigan mavjud kalitlar. */
+   «sozlama» — {tovush, erkin, kor} («yangi» — 26.11.2026 dan ishlatilmaydi: yangi so'zlarga kunlik chegara yo'q) (Telegram bulutiga ham, tg.js); «dars-tezlik», «dars-uz», «til» — darslar ishlatadigan mavjud kalitlar. */
 var SN = /\/sinov-[^\/]*$/.test(location.pathname) ? 'sinov-' : '';
 function korQoy() { try { var k = JSON.parse(localStorage.getItem('sozlama') || '{}').kor, e = document.documentElement; if (k === 'yorug' || k === 'tungi') e.setAttribute('data-theme', k === 'tungi' ? 'dark' : 'light'); else e.removeAttribute('data-theme'); } catch (x) {} }
 korQoy();
@@ -114,7 +114,6 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
 
   <h2>МАШҚ ВА ТАКРОР</h2>
   <div class="s-c">
-    <div class="s-r sg"><span class="t">Кунлик янги сўзлар</span><div class="s-sg" data-k="yangi" role="group" aria-label="Кунлик янги сўзлар"><button data-v="10">10</button><button data-v="15">15</button><button data-v="20">20</button></div></div>
     <button class="s-r" role="switch" data-k="tovush"><span class="t">Товуш ва тебраниш<small>Имтиҳонда тўғри ва хато жавобда</small></span><span class="s-sw" aria-hidden="true"></span></button>
     <button class="s-r" role="switch" data-k="erkin" style="min-height:76px"><span class="t">Эркин режим<small>Ҳамма дарслар қулфсиз очилади. Устоз билан ўқийдиганлар учун</small></span><span class="s-sw" aria-hidden="true"></span></button>
   </div>
@@ -162,7 +161,6 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
     if (k === 'tezlik') return String(parseFloat(L('dars-tezlik')) || 1);
     if (k === 'uz') return L('dars-uz') === '1';
     if (k === 'til') return L('til') === 'ru' ? 'ru' : 'uz';
-    if (k === 'yangi') return String(SZ.yangi || 10);
     if (k === 'kor') return SZ.kor || 'avto';
     if (k === 'tovush' || k === 'oflayn') return SZ[k] !== false;   /* sukut — yoqilgan */
     if (k === 'tarjima') return !!pref().t;            /* darslardagi «Таржима» tugmasi bilan bitta joy: «fe-pref» (shell.js). Harakat — sozlama.harakat (sukut o'chiq) */
@@ -176,7 +174,7 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
     else if (k === 'til') { if (L('til') !== v) { LS('til', v); setTimeout(function () { location.reload(); }, 250); } }   /* til qatlami sahifa ochilganda ulanadi */
     else if (k === 'tarjima') { var p = pref(); p.t = v ? 1 : 0; LS('fe-pref', JSON.stringify(p)); }
     else {
-      SZ[k] = k === 'yangi' ? +v : v;
+      SZ[k] = v;
       if (k === 'yozuv') SZ.oqT = Date.now();          /* yozuv kattaligi o'zgardi — shell.js har darsga bir marta qo'llaydi */
       saqla();
       if (k === 'kor') korQoy();

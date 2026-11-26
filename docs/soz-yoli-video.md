@@ -51,7 +51,7 @@ Har so'z 4 pog'onadan o'tadi. O'quvchi xatosiz ishlasa, so'z **31 kunda, 5 ta sa
 | 🔖 Билмайман | istalgan pog'onadan (Мустаҳкам ham) — Билмайман, yo'l boshidan |
 
 ## 6. Bilish kerak bo'lgan mayda narsalar
-- «Ўрганиш»ga kuniga 10 ta yangi so'z qo'shiladi («Созламалар»da 15 yoki 20).
+- Kunlik chegara yo'q (26.11.2026): dars 80% bo'lgan kuni uning hamma yangi so'zi «Бугунги машқ»ga tushadi; tartib — Мустаҳкамга чиқади → Биламан текшируви → Ўрганяпман → Янги сўзлар.
 - «Такрор» bo'sh bo'lsa — «кейингиси N кундан кейин» yozuvi chiqadi.
 - «Луғат» qatorida «N кундан кейин «Такрор»да сўралади» — keyingi tekshiruvgacha qolgan kun (1-tekshiruvdan keyin 21 dan sanaydi).
 - «Рейтинг» → «Сўзлар» — faqat Мустаҳкам so'zlar sanaladi.

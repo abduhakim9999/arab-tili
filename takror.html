@@ -436,16 +436,16 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
   function boshla(r) { REJ = r; mash(r === 'q' ? 0 : r); qD = 0; qT = 0; qW = 0; if (r === 'q') qxYig(); document.body.classList.add('tq-ses'); keyingi(); }
   /* 26.11.2026 (foydalanuvchi: «mashqlar ko'payib ketdi … tartibga keltirsa bo'ladimi», «bitta qil»): «Ўрганиш» va «Такрор» — bitta
      «Бугунги машқ» (23.11 dagi ikki bo'lim o'rniga). Ichki hisob o'zgarmadi (takror.js holat(): L1/YW/YQ/L2 va T); navbat — avval «Такрор»
-     (muddati kelgan «биламан» so'zlar), keyin «Ўрганиш». Bugungi ish tugagach — bitta «Яна 10 та сўз»: chegaradan tashqarida yangi so'z
-     kutayotgan bo'lsa — yangilari (yanaQosh, avvalgidek), bo'lmasa — билган сўзлар qo'shimcha takrori ('q', daraja o'zgarmaydi). */
+     (muddati kelgan «биламан» so'zlar), keyin «Ўрганиш». Bugungi ish tugagach — «Яна 10 та сўз»: билган сўзлар qo'shimcha takrori ('q', daraja o'zgarmaydi).
+     Yangi so'zlarga kunlik chegara yo'q (26.11.2026, foydalanuvchi: «konkretniy bo'laversin») — «Яна»ning yangi so'z yo'li olib tashlandi. */
   function navbat() {
     if (REJ === 'q') return QX[QXi] ? { k: QX[QXi], yangi: false, qoldi: QX.length - QXi } : null;
     return E.keyingi(hozir(), 't') || E.keyingi(hozir(), 'o');
   }
   /* «Бугунги машқ» guruhlari — kartada ham, mashq ichida ham shu tartibda (takror.js bugun().gr, keyingi().gr) */
   var GRN = { m: 'Мустаҳкамга чиқади', g: 'Биламан текшируви', o: 'Ўрганяпман', y: 'Янги сўзлар' }, GR = { k: '', n: 0, d: 0 };
-  function yana(bg) {                                  /* «Яна 10 та сўз» nimani boshlaydi: 'y' — yangi so'zlar, 'q' — qo'shimcha takror, '' — yo'q */
-    return bg.kW ? 'y' : qxHovuz().length ? 'q' : '';
+  function yana() {                                    /* «Яна 10 та сўз» — qo'shimcha takror ('q') yoki yo'q ('') */
+    return qxHovuz().length ? 'q' : '';
   }
   /* Qo'shimcha takror (26.11.2026, foydalanuvchi: ball ko'proq shug'ullangan odamga — «ha, qil»; alohida qatori o'sha kuni «bitta qil» bilan
      olib tashlandi — endi «Бугунги машқ» tugagach «Яна 10 та сўз», kutayotgan yangi so'z bo'lmasa): биламан / мустаҳкам so'zlarni yana takrorlash (10 tadan). Javob jurnalga «x» + karta id bilan yoziladi — takror.js bKalit uni tanimaydi:
@@ -471,18 +471,8 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     E.javob(id, ok, Date.now() - t0, t);
     if (ok && window.Ball) { var b = Takror.kunlik(E.jurnal, t, o).bugun - b0; if (b > 0) Ball.uch(b); }
   }
-  /* «Яна N та сўз» (26.11.2026, foydalanuvchi: 200 ta so'z tushsa hammasi so'ralsa yaxshi emasmi → Claude: kunlik chegara qolsin, xohlagan o'quvchiga
-     tugma; «1», «qil»): «Ўрганиш» bugunga tugagach va chegaradan tashqarida yangi so'z kutayotgan bo'lsa (E.bugun().kW) — tugma. Bosilsa shu kunga
-     «Созламалар»dagi son (10 / 15 / 20) qadar yangi so'z qo'shiladi (KQ: {kun, n}; takror.js qosh — faqat o'sha kuni, ertangi hisobga ta'sir qilmaydi),
-     darhol «Ўрганиш» boshlanadi. Istalgancha bosish mumkin; mashq savollari chegarasi (kuniga 5) o'zgarmaydi. */
-  var KQ = SINOV ? 'takror-sinov-qosh' : 'takror-qosh';
-  function yangiN() { var n = 0; try { n = +JSON.parse(L('sozlama') || '{}').yangi || 0; } catch (e) {} return n || Takror.SOZ.yangi; }
-  function yanaQosh() {
-    var k = E.kun(hozir()), qo = null;
-    try { qo = JSON.parse(L(KQ) || 'null'); } catch (e) {}
-    LS(KQ, JSON.stringify({ kun: k, n: (qo && qo.kun === k ? +qo.n || 0 : 0) + yangiN() }));
-    qur(); boshla('b');
-  }
+  /* 26.11.2026: «Яна N та сўз» (yangi so'z qo'shish, «Созламалар» 10 / 15 / 20) olib tashlandi — foydalanuvchi: «nechta so'z bo'lsa shuncha
+     chiqsin»; dars 80% bo'lgan kuni hamma yangi so'zi «Бугунги машқ»da (takror.js holat). Eski «takror-qosh» kaliti endi o'qilmaydi. */
   var QAYTA = false;                                   /* kartalarni qayta yig'ish kerak (mashqda «аниқ биламан» so'z xato topildi) */
   /* so'z belgilari: b — «Билмайман», a — «Биламан» (bosilgan vaqt; 7 kundan keyin «Такрор»da so'raladi — takror.js), k — eski «biladi deb
      o'tgan» (saralash, imtihon). Bitta so'zda b ustun. 23.11.2026 (foydalanuvchi: «Биламан»ni bossa — 7 kundan keyin so'raladi): qiymat — vaqt;
@@ -549,12 +539,8 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     FAOL = fa.length ? fa.sort(function (a, b) { return a - b; }) : [1];
     AKT = {};                                           /* 22.11.2026: faol darsdagi eski so'z (`ay`) — o'sha yozuv ham «mening so'zlarim»da */
     D.l.forEach(function (r) { if (r.ay && FAOL.indexOf(r.d) > -1) AKT[r.ay] = 1; });
-    var qo = null;                                     /* 26.11.2026: «Яна N та сўз» bosilgani — {kun, n} (shu kunga qo'shimcha yangi so'z) */
-    try { qo = JSON.parse(L(KQ) || 'null'); } catch (e) {}
-    var yn = 0;                                        /* «Созламалар» → кунлик янги сўзлар (10 / 15 / 20) */
-    try { yn = +JSON.parse(L('sozlama') || '{}').yangi || 0; } catch (e) {}
     QAYTA = false;
-    E = Takror.yarat({ shakl: shaklTuri, lugat: D.l, barcha: D.l, mashq: [], darslar: D.d, faol: FAOL, jurnal: j, ustun: [],   /* 26.11.2026: grammatika savollari — dars «Эъроб»ида va «Боб якуни»da (yol.html); bu yerda faqat so'z */ ustunSoz: usz, sozlama: yn ? { yangi: yn } : null, qosh: qo,
+    E = Takror.yarat({ shakl: shaklTuri, lugat: D.l, barcha: D.l, mashq: [], darslar: D.d, faol: FAOL, jurnal: j, ustun: [],   /* 26.11.2026: grammatika savollari — dars «Эъроб»ида va «Боб якуни»da (yol.html); bu yerda faqat so'z */ ustunSoz: usz,
       belgi: function (id) { return { a: W.a[id], b: W.b[id] }; } });
     tozala();
   }
@@ -617,9 +603,9 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     xul(S); if (window.Qobiq) Qobiq.nav('takror');     /* pastki tugmalar: ustidagi son — bugungi savollar (xulosadan) */
     if (lv) return '<div class="top"><a href="#" id="lgq" aria-label="Машқ">‹</a><div><small>' + dnom() + '</small><h1>Луғат</h1></div>' + qi('lugat', ' mq-i2') + '</div>';
     /* 26.11.2026: bitta karta «Бугунги машқ» (23.11 dagi ikki bo'lim — «Ўрганиш» va «Такрор» — birlashdi; navbat() — avval takror,
-       keyin o'rganish); tugagach — «Бугунга тамом» + «Яна 10 та сўз» (yana()) */
+       keyin o'rganish); tugagach — «Бугунга тамом» + «Яна 10 та сўз» (qo'shimcha takror, yana()) */
     var et = E.ertaga(t);
-    var ya = bg.jami ? '' : yana(bg), ert = et.o + et.t;
+    var ya = bg.jami ? '' : yana(), ert = et.o + et.t;
     /* 26.11.2026 (A chizma): sarlavha + «N та сўз», guruhlar chizig'i, har guruh qatori (bo'sh guruh ko'rinmaydi), «Бошлаш» — to'liq kenglikda */
     var gk = ['m', 'g', 'o', 'y'].filter(function (k) { return bg.gr && bg.gr[k]; });
     var karta = bg.jami
@@ -628,7 +614,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
         gk.map(function (k) { return '<p class="mq-gr ' + k + '"><i aria-hidden="true"></i>' + GRN[k] + '<b>' + bg.gr[k] + '</b></p>'; }).join('') +
         '<button class="mq-go" id="go">Бошлаш</button></div>'
       : '<div class="mq-h mq-ho"><div><span>Бугунги машқ</span><b>Бугунга тамом</b><em>' + (ert ? 'эртага ' + ert + ' та' : bg.nT ? 'кейингиси ' + bg.nT + ' кундан кейин' : 'эртага йўқ') + '</em></div>' +
-        (ya ? '<button class="mq-go mq-ya" id="gy">Яна ' + (ya === 'y' ? Math.min(yangiN(), bg.kW) : Math.min(10, qxHovuz().length)) + ' та сўз</button>' : '') + '</div>';
+        (ya ? '<button class="mq-go mq-ya" id="gy">Яна ' + Math.min(10, qxHovuz().length) + ' та сўз</button>' : '') + '</div>';
     return '<div class="top mq-top"><div class="mq-t1"><div><small>' + dnom() + '</small><h1 class="mq-h1">Машқ<button class="mq-hi" data-yo aria-label="Қандай ишлатилади — кўрсатма">' +
       INF + (L(KQO) !== '2' ? '<i class="mq-nq"></i>' : '') + '</button></h1></div>' + seriya(t) + '</div>' + karta + '</div>';
   }
@@ -802,7 +788,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
         yoOch(true);
       }, 700);
       var go = document.getElementById('go'); if (go) go.onclick = function () { boshla('b'); };
-      var gy = document.getElementById('gy'); if (gy) gy.onclick = function () { if (yana(E.bugun(hozir())) === 'y') yanaQosh(); else boshla('q'); };
+      var gy = document.getElementById('gy'); if (gy) gy.onclick = function () { boshla('q'); };
       if (SINOV) {
         document.getElementById('s1').onclick = function () { LS(KS, String(siljish() + 1)); bosh(); };
         document.getElementById('s0').onclick = function () { if (confirm('Синов натижалари ўчирилсинми?')) { LS(KJ, null); LS(KS, null); LS(KB, null); qur(); bosh(); } };

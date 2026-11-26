@@ -170,7 +170,8 @@ function yarat(o) {
       if (!u) { u = U[c.nk] = { nk: c.nk, w: c.tur !== 'q', id: c.n ? c.n.id : c.s.id, n: c.n || null, k: {}, u: c.u || 0 }; UL.push(u); }
       u.k[c.tur] = c;
     });
-    var bel = o.belgi || function () { return null; };       /* id → {a, b} — «Биламан» / «Билмайман» bosilgan vaqt (takror.html W) */
+    var bel = o.belgi || function () { return null; };
+    var qo = o.qosh || null;                                 /* 26.11.2026: «Яна N та сўз» — shu kunga qo'shimcha yangi so'z {kun, n} (takror.html) */       /* id → {a, b} — «Биламан» / «Билмайман» bosilgan vaqt (takror.html W) */
 
     /* ---- jurnal → holat ---- */
     var J = [], EV = {};
@@ -192,7 +193,7 @@ function yarat(o) {
        bugun xato topilgani — oxirida yana), yangilari kunlik chegara bilan (avval «Йўл»/belgi xatolari — u). «Такрор»: биламан
        bo'lganiga KUTISH kun (1-tekshiruv) yoki 1-tekshiruvga KUTISH2 kun (2-tekshiruv) to'lganlari. Мустаҳкам — hech qayerda. */
     function holat(t) {
-      var bug = kun(t), L1 = [], L2 = [], YW = [], YQ = [], T = [], yW = 0, yQ = 0, nT = 0;
+      var bug = kun(t), L1 = [], L2 = [], YW = [], YQ = [], T = [], yW = 0, yQ = 0, nT = 0, kW = 0;
       UL.forEach(function (u) {
         var x = hol(u.nk); u.x = x;
         if (x.t0 && kun(x.t0) === bug) { if (u.w) yW++; else yQ++; }
@@ -206,9 +207,11 @@ function yarat(o) {
       L1.sort(vq); L2.sort(vq);
       T.sort(function (a, b) { return muddat(a.x, kun, soz) - muddat(b.x, kun, soz) || a.x.g - b.x.g; });
       YW.sort(function (a, b) { return b.u - a.u; }); YQ.sort(function (a, b) { return b.u - a.u; });   // xatolar birinchi (sort barqaror)
-      YW = YW.slice(0, Math.max(0, soz.yangi - yW));
+      var cheg = Math.max(0, soz.yangi + (qo && qo.kun === bug ? +qo.n || 0 : 0) - yW);   // kunlik chegara (+ «Яна N та сўз» — faqat o'sha kuni)
+      kW = Math.max(0, YW.length - cheg);                    // chegaradan tashqarida kutayotgan yangi so'zlar
+      YW = YW.slice(0, cheg);
       YQ = YQ.slice(0, Math.max(0, soz.yangiQ - yQ));
-      return { bug: bug, L1: L1, L2: L2, YW: YW, YQ: YQ, T: T, yW: yW, yQ: yQ, nT: nT };   /* nT — keyingi «Такрор»gacha kun (0 — «биламан» so'z yo'q) */
+      return { bug: bug, L1: L1, L2: L2, YW: YW, YQ: YQ, T: T, yW: yW, yQ: yQ, nT: nT, kW: kW };   /* nT — keyingi «Такрор»gacha kun (0 — «биламан» so'z yo'q) */
     }
 
     /* birlikning bugungi kartasi: «Ўрганиш»da kun sayin almashadi (arabcha → ma'no, ma'no → arabcha, ovoz, shakl — borlari);
@@ -243,7 +246,7 @@ function yarat(o) {
     function sanoq(a) { var s = 0, q = 0; a.forEach(function (u) { if (u.w) s++; else q++; }); return { soz: s, savol: q, jami: s + q }; }
     function bugun(t) {
       var h = holat(t), o_ = sanoq(navbatO(h)), t_ = sanoq(h.T);
-      return { o: o_, t: t_, jami: o_.jami + t_.jami, soz: o_.soz + t_.soz, savol: o_.savol + t_.savol, nT: h.nT };
+      return { o: o_, t: t_, jami: o_.jami + t_.jami, soz: o_.soz + t_.soz, savol: o_.savol + t_.savol, nT: h.nT, kW: h.kW };
     }
 
     /* bugungi ish tugagan deb: ertaga nechta («Ўрганиш»da bugun to'g'ri topilganlar ertaga yana chiqadi) */

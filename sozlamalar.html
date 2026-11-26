@@ -248,7 +248,7 @@ h2{margin:20px 4px 8px;font-size:12px;font-weight:700;letter-spacing:.08em;color
      2) o'chirishdan oldingi nusxa 30 kun turadi: telefonda KE kalitida, serverda (baza.js eskiYoz) — «Қайтариш» tugmasi.
      O'chadiganlari: yo'l natijalari, xatolar ro'yxati, so'z bazasi (belgilar, takror jurnali), darslardagi mashq javoblari. */
   var p = SN ? 'yol-sinov' : 'yol', KE = SN ? 'baza-sinov-eski' : 'baza-eski', KUN30 = 30 * 864e5;
-  var KAL = [p, p + '-t', p + '-xato', p + '-kitob', SN ? 'soz-sinov' : 'soz', SN ? 'takror-sinov-j' : 'takror-j', SN ? 'takror-sinov-xulosa' : 'takror-xulosa'];
+  var KAL = [p, p + '-t', p + '-xato', p + '-kitob', SN ? 'soz-sinov' : 'soz', SN ? 'takror-sinov-j' : 'takror-j', SN ? 'takror-sinov-xulosa' : 'takror-xulosa', SN ? 'takror-sinov-qosh' : 'takror-qosh'];   /* 26.11.2026: «Яна N та сўз» */
   var $ = function (i) { return document.getElementById(i); };
   function G(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   /* joriy til profilidagi dars holati kalitlari (21.11.2026: ruscha profil — «ru-…», tg.js Profil; f ga mantiqiy kalit beriladi) */

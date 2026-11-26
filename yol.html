@@ -725,9 +725,10 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
     MQ.forEach(function (q) { dM[q.id] = q.d; });
     for (k in W.b) if (OT[dL[k]]) usz.push(+k);
     for (k in W.s) if (OT[k]) fa.push(+k);
+    var qo = null; try { qo = JSON.parse(L(SINOV ? 'takror-sinov-qosh' : 'takror-qosh') || 'null'); } catch (e) {}   /* «Яна N та сўз» (takror.html) */
     try {
       return Takror.yarat({ lugat: LUG, barcha: LUG, mashq: MQ, darslar: D, faol: fa.length ? fa.sort(function (a, b) { return a - b; }) : [1],
-        jurnal: jurnalOl(), ustun: xatolar().filter(function (i) { return OT[dM[i]]; }), ustunSoz: usz, sozlama: yn ? { yangi: yn } : null,
+        jurnal: jurnalOl(), ustun: xatolar().filter(function (i) { return OT[dM[i]]; }), ustunSoz: usz, sozlama: yn ? { yangi: yn } : null, qosh: qo,
         belgi: function (id) { return { a: W.a[id], b: W.b[id] }; } });
     } catch (e) { return null; }
   }

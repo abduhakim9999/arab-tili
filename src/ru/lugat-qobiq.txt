@@ -919,6 +919,9 @@ Telegram орқали киринг
 = Упражнение на сегодня: 51 → 64
 Бугунги машқ: 64 та
 = Упражнение на сегодня: 64
+# «Яна N та сўз» (takror.html yanaQosh, 26.11.2026)
+Яна 10 та сўз
+= Ещё 10 {слово|слова|слов}
 # Yo'riqnoma ko'rsatmalari tugmalari (ⓘ; o'ynatkichning o'zi — qollanma.js TX, qol/mavzu-ru.js)
 Қандай ишлатилади — кўрсатма
 = Как пользоваться — подсказка

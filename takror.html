@@ -213,8 +213,10 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .lg-w{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:0;padding:4px 0;border:0;background:none;text-align:left}
 .lg-w b{font-size:24px;line-height:1.55;font-weight:400}
 .lg-w span{font-size:14px;line-height:1.3;color:var(--mu)}
-.lg-w b span{font-size:18px;line-height:1.5;color:var(--tx)}
-.lg-w b{text-align:start}
+.lg-w b span{font-size:inherit;line-height:inherit;color:var(--tx)}   /* 26.11.2026 (foydalanuvchi): fe'l shakllari bir xil kattalikda */
+.lg-w b{text-align:left}   /* uzun qator bo'linsa ham chapda — ma'no bilan bir ustunda */
+/* 26.11.2026: ko'plik / muannas — dars «Луғат»idagidek (shell.js .la-j): .75em, so'z rangida (19.11.2026: kulrang shart emas) */
+.ar .lg-j{font-size:.75em;white-space:nowrap;color:var(--tx)}.ar .lg-j i{font-style:normal}
 .lg-w small,.mq-x small,.tq-s small{display:block;font-size:12.5px;line-height:1.5;color:var(--mu)}
 .lg-w small .ar,.mq-x small .ar,.tq-s small .ar{font-size:19px;line-height:1.5;color:var(--tx)}
 .lg-s{flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:3px;font-size:11.5px;color:var(--mu);white-space:nowrap}
@@ -839,7 +841,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     }
     function qator(x) {
       var r = x.r, q = x.st === 'g' ? qachon(x.x) : -1, ab = x.st === 'b' || x.st === 'o' || (x.st === 'g' && W.a[r.id]);
-      return '<div class="lg-r ' + x.st + (x.qy ? ' qy' : '') + (q >= 0 ? ' kt' : '') + '"><button class="lg-w"' + (r.au && lv[r.d] ? ' data-au="' + r.id + '"' : '') + '><span class="lg-a"><b class="ar" lang="ar">' + felQ(r) + '</b>' + (shakllar(r) ? '<small>' + shakllar(r) + '</small>' : '') + '</span><span>' + jinsH(mano(r)) + '</span>' +   /* 26.11.2026 (foydalanuvchi): mufradi yonida jami, keyin ma'nosi */
+      return '<div class="lg-r ' + x.st + (x.qy ? ' qy' : '') + (q >= 0 ? ' kt' : '') + '"><button class="lg-w"' + (r.au && lv[r.d] ? ' data-au="' + r.id + '"' : '') + '><span class="lg-a"><b class="ar" lang="ar">' + felQ(r) + shakllar(r) + '</b></span><span>' + jinsH(mano(r)) + '</span>' +   /* 26.11.2026 (foydalanuvchi): mufradi yonida jami, keyin ma'nosi */
         '</button>' +
         /* 26.11.2026 (foydalanuvchi: tagidagi yashil «N кундан кейин «Такрор»да сўралади» «биламан» yashili bilan g'alati; tavsiya, «ko'rinishini ko'rsat»):
            биламан qatorida o'ngdagi «биламан» o'rniga — qisqa kulrang kun (sarlavha «Биламан» bor): «бугун» / «эртага» / «N кундан кейин» */
@@ -924,12 +926,16 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     return 'Эсланг: кўплик шакли';
   }
   var SHS = { j: 'Кўплиги?', k: 'Феъл шакллари?', t: 'Бу қандай ҳарф?' };
-  /* ko'pligi va muannasi (faqat lug'atda yozilgani): ro'yxatlarda va javobdan keyin ko'rsatiladi; savolning o'zida va variantlarda — yo'q */
+  /* ko'pligi va muannasi (faqat lug'atda yozilgani): ro'yxatlarda va javobdan keyin ko'rsatiladi; savolning o'zida va variantlarda — yo'q.
+     26.11.2026 (foydalanuvchi: «birinchi mufrad yoziladi … jamini ج qilib keyin yonidan», «muannas bo'lsa ham arabcha مؤ», «bir xil ko'rinish»):
+     kirillcha «жам» / «муаннас» o'rniga — so'zning o'zi bilan bitta arabcha qator, o'ngdan chapga (dars «Луғат»idagidek):
+     so'z · «(مؤ.)» («ة»siz muannas ot, mq) · «ج» ko'plik · «مؤ.» muannas shakli. Natija so'z bilan bitta .ar ichiga qo'shiladi */
   function shakllar(r) {
-    var p = [];
-    if (r.jam && r.jam.length) p.push('жам <bdi class="ar" lang="ar">' + esc(r.jam.join('، ')) + '</bdi>');
-    if (r.mn) p.push('муаннас <bdi class="ar" lang="ar">' + esc(r.mn) + '</bdi>');
-    return p.join(' · ');
+    var p = '';
+    if (r.mq) p += ' <span class="lg-j"><i>(مؤ.)</i></span>';
+    if (r.jam && r.jam.length) p += ' <span class="lg-j"><i>ج</i> ' + esc(r.jam.join('، ')) + '</span>';
+    if (r.mn) p += ' <span class="lg-j"><i>مؤ.</i> ' + esc(r.mn) + '</span>';
+    return p;
   }
   function mano1(r) { var u = (r.mz || r.uz)[0] || '';   /* test/karta: fe'l — o'tgan zamon ma'nosi (mz, 18.11.2026); Луғат ro'yxati — «-моқ» (mano) */
     return (u.match(/(^|[\s;,])\d+\./g) || []).length > 1 ? u : u.replace(/^\d+\.\s*/, ''); }
@@ -1034,7 +1040,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
             if (togri(q.ops[k])) y.classList.add('ok'); else if (k === n) y.classList.add('no');
             y.disabled = true;
           });
-          document.getElementById('qs').innerHTML = '<bdi class="ar tq-ai" lang="ar">' + esc(r.ar) + '</bdi> — ' + jinsH(mano1(r)) + (shakllar(r) ? '<small>' + shakllar(r) + '</small>' : '');
+          document.getElementById('qs').innerHTML = '<bdi class="ar tq-ai" lang="ar">' + esc(r.ar) + shakllar(r) + '</bdi> — ' + jinsH(mano1(r));
           mqYoz(q, ok);
           tugma('<button class="tq-b tq-b1" id="kn">' + (MQ.i >= MQ.s.length ? 'Натижа' : 'Кейинги') + '</button>');
           document.getElementById('kn').onclick = mqSavol;
@@ -1050,7 +1056,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
       '<section class="tq-c mq-n"><div class="bg"' + (MQ.tog * 100 >= MQ.s.length * 80 ? '' : ' style="color:var(--tx)"') + '>' + MQ.tog + ' / ' + MQ.s.length + '</div><p class="tq-mu">' + (MQ.xato.length ? 'Хато қилинганлари «Билмаганларим»га қўшилди.' : 'Ҳаммаси тўғри.') + '</p></section>';
     if (MQ.xato.length) {
       h += '<section class="tq-c"><div class="tq-h">Хато қилинган сўзлар</div>';
-      MQ.xato.forEach(function (q) { h += '<div class="mq-x"><span>' + jinsH(mano1(q.r)) + (shakllar(q.r) ? '<small>' + shakllar(q.r) + '</small>' : '') + '</span><b class="ar" lang="ar">' + esc(q.r.ar) + '</b></div>'; });
+      MQ.xato.forEach(function (q) { h += '<div class="mq-x"><span>' + jinsH(mano1(q.r)) + '</span><b class="ar" lang="ar">' + esc(q.r.ar) + shakllar(q.r) + '</b></div>'; });
       h += '</section>';
     }
     app.innerHTML = h;
@@ -1223,7 +1229,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
       if (r.jam && r.jam.length) q.push(['ج', r.jam.join('، ')]);
       if (r.mn) q.push(['مؤ.', r.mn]);
     }
-    return '<div class="tq-wq ar" lang="ar" dir="rtl"><span class="tq-sf">' + esc(r.ar) + '</span>' + q.map(function (x) {
+    return '<div class="tq-wq ar" lang="ar" dir="rtl"><span class="tq-sf">' + esc(r.ar) + '</span>' + (r.mq && !f ? '<span class="tq-sf' + (oc ? ' tq-oc' : '') + '"><small>(مؤ.)</small></span>' : '') + q.map(function (x) {
       return '<span class="tq-sf' + (oc ? ' tq-oc' : '') + '"><i>–</i>' + (x[0] ? '<small>' + x[0] + '</small>' : '') + esc(x[1]) + '</span>';
     }).join('') + '</div>';
   }

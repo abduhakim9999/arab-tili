@@ -246,6 +246,8 @@ def main():
             r.update({k: t[k] for k in t if k != 'izoh'})
             bk = ('D.' if r['ar'].lstrip().startswith('.') else 'D:') + re.sub(r'[.\u0640\s]', '', r['ar']) if '.' in r['ar'] else r['ar']   # «..كَ» (zamir) va «كَ..» (harf) — boshqa so'z   # 19.11.2026: «بِ..», «بِ...», «بِـ...» — bitta so'z
             e4 = v[4] if len(v) > 4 and isinstance(v[4], dict) else {}
+            if e4.get('mq'):
+                r['mq'] = 1                           # 26.11.2026: «ة»siz muannas ot (أَرْضٌ، يَدٌ، أُمٌّ…) — so'z yonida «(مؤ.)» (sahifa VOC 5-qismida "mq": 1)
             if e4.get('ay') or e4.get('asl'):         # 22.11.2026: darsning hamma so'zi lug'atda — eski so'z aniq bog'lanadi (docs/texnik.md 14)
                 if e4.get('ay'):
                     r['ay'] = e4['ay']                # aynan shu ma'noli yozuv: o'z kartasi yo'q, holati o'shaniki

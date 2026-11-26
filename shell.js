@@ -1008,7 +1008,7 @@ document.addEventListener('click', function (e) {
       var qs = ar.innerHTML.split(/\s+(مؤ\.|ج)\s+/), w = document.createElement('div'), f = '';
       w.className = 'la-w';
       for (var i = 1; i + 1 < qs.length; i += 2) f += ' <span class="la-j">' + qs[i] + ' ' + qs[i + 1] + '</span>';
-      ar.innerHTML = bosh(qs[0]) + f;
+      ar.innerHTML = bosh(qs[0]) + (e && e.mq ? ' <span class="la-j la-mq">(مؤ.)</span>' : '') + f;   /* 26.11.2026 (foydalanuvchi): «ة»siz muannas ot — so'z yonida «(مؤ.)» (VOC 5-qismi "mq") */
       hd.insertBefore(w, ar); w.appendChild(ar);
       var q = VOC[hamma.indexOf(g)] || [];
       [].forEach.call(g.querySelectorAll('.eb'), function (eb) {

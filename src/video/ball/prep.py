@@ -14,7 +14,7 @@ HOP = int(SR * 0.01)
 # Qoida kodda: takror.js REY / kunBallari / kunlik, tg.js Ball. 26.11.2026 (13:37 joylashidan keyin): dars «Машқ»i endi «Эъроб» — matn moslandi. Matn oddiy lotinchada; «|» — ekrandagi qadam joyi (qoralamada vaqti matn
 # uzunligiga qarab taxmin qilinadi, haqiqiy ovozdan keyin cue.json ga aniq vaqtlar). Ovoz (rejada): Farruh — foydalanuvchi ruxsati bilan.
 import re
-IPA = {}
+IPA = {'xullas': 'Хуллас'}   # gap boshida yolg'iz «X…» so'zi ElevenLabs'da «z» bo'lib ketadi — kirillcha yoziladi (docs/texnik/21: «Сўз йўли», «Xatosiz»)
 TXT = {
  # S1 — savol
  'k1': "Reytingda yuqoriga qanday chiqiladi? |Siri bitta: |qancha ko'p shug'ullansangiz — |shuncha ko'p ball.",

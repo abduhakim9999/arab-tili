@@ -1,6 +1,6 @@
 # «Баллар ва рейтинг» — video yo'riqnoma uchun matn va jadvallar
 
-26.11.2026. Qoida kodda: `takror.js` (`REY`, `kunBallari`, `kunlik`), `tg.js` (`Ball`), server `api/_rey.js`; hujjati — `docs/texnik/19-mashq-reyting.md`. Turkum rejasi — `docs/yoriqnoma-video-reja.md` (7-video). Holat: ovozsiz qoralama tayyor (26.11.2026, foydalanuvchi matnga «qil» dedi; o'sha kuni 13:37 dagi joylashdan keyin moslandi — dars «Машқ»i endi «Эъроб», so'z kartasi ikki tomonli, «Бугунги машқ» faqat so'z) — `src/video/ball/`, 1:49; keyingi qadam — izohlar, so'ng Farruh ovozi (ruxsat bilan).
+26.11.2026. Qoida kodda: `takror.js` (`REY`, `kunBallari`, `kunlik`), `tg.js` (`Ball`), server `api/_rey.js`; hujjati — `docs/texnik/19-mashq-reyting.md`. Turkum rejasi — `docs/yoriqnoma-video-reja.md` (7-video). Holat: **Farruh ovozi bilan tayyor** (26.11.2026, foydalanuvchi: «Ovozichi endi»; 1:43; asosiy saytda hali yashirin — `tg.js` `Vid.R.ball.q`, foydalanuvchi eshitib tasdiqlagach olinadi). Oldin: ovozsiz qoralama (foydalanuvchi matnga «qil» dedi; o'sha kuni 13:37 dagi joylashdan keyin moslandi — dars «Машқ»i endi «Эъроб», so'z kartasi ikki tomonli, «Бугунги машқ» faqat so'z) — `src/video/ball/`, 1:49; keyingi qadam — izohlar, so'ng Farruh ovozi (ruxsat bilan).
 
 ## 1. Qisqacha
 
@@ -62,6 +62,8 @@ Xato javob — 0 (ball ayrilmaydi). Umumiy kunlik chegara yo'q.
 - `video.html` — sahnalar: `#dev` — ekran rasmi, `cam()` kattalashtirish, `spot()` yoritish, `tapD()` barmoq, `fly()` «+10» (ilovadagi `.ball-uch` ko'rinishida).
 - `render.py test <soniyalar>` → kadrlar; `render.py all` → `out.mp4` (1080×1920). Papkada bir marta: `naskh.ttf`, `gsap.min.js`, `package/` (Inter) — `docs/texnik/21-grammatika-video.md`.
 - Ssenariydan farqi (qoralamada): 3-sahnada «1-кун · 2-кун · 3-кун» belgilari; 6-sahnada to'rt kunlik qator (uch kun 200 🔥, to'rtinchi kun 0 — olov o'chadi); 2-sahnada «Машқ · Эъроб · Сарф» yorliqlari; 4-sahnada yirik «+100».
+
+- **Ovoz (26.11.2026):** 11 bo'lak — Farruh `9TwIsobDB8LwfbmaVTlt`, `eleven_v4`, flow `iHL5kXqeJ7HZc78R4CRs`, bittadan nusxa, jami **1289 kredit**; `ovoz/k*.mp3` (imzoli URL `curl` bilan); «Xullas:» — kirillcha «Хуллас» (`prep.py IPA`; gap boshidagi yolg'iz «X…» z bo'lib ketmasin), `tekshir.py`: k9 «xullas», k2b «xato» — x bilan; «E'rob» — «erob». Qadam vaqtlari — `cue.py` → `cue.json`. Ilovada `vball-fc3d63cd.mp4` (720p, CRF 25), rasm `vball-1864be68.jpg` (1,2-soniya).
 
 ## 9. Ochiq
 

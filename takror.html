@@ -71,6 +71,10 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .tq-w{font-size:46px;line-height:1.7}
 .tq-m{font-size:21px;line-height:1.4;font-weight:600}
 .tq-m div+div{margin-top:2px}
+/* 26.11.2026: za'kar / muannas — so'zdan ajralgan kichik kulrang yorliq (jinsAj); kartada ma'no tagida, ro'yxat va testda ma'no oxirida */
+.jn,.tq-jn{display:inline-block;font-size:11.5px;line-height:1.5;font-weight:600;letter-spacing:.02em;color:var(--mu);background:color-mix(in srgb,var(--mu) 11%,transparent);border-radius:999px;padding:0 8px;white-space:nowrap;vertical-align:1px;margin-left:2px}
+.tq-jn{display:table;font-size:13px;padding:2px 11px;margin:10px auto 2px;vertical-align:0}
+.tq-jn+div{margin-top:14px}
 /* 23.11.2026: bitta ma'noning variantlari — har biri o'z qatorida, orasida qisqa chiziq (bitta gapga o'xshamasin); misol tarjimasi ham */
 .tq-mv>div+div::before,.tq-tv>span+span::before{content:'';display:block;width:26px;height:2px;border-radius:1px;background:currentColor;opacity:.22;margin:7px auto 6px}
 .tq-tv>span{display:block}
@@ -827,7 +831,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     }
     function qator(x) {
       var r = x.r, q = x.st === 'g' ? qachon(x.x) : -1, ab = x.st === 'b' || x.st === 'o' || (x.st === 'g' && W.a[r.id]);
-      return '<div class="lg-r ' + x.st + (x.qy ? ' qy' : '') + '"><button class="lg-w"' + (r.au && lv[r.d] ? ' data-au="' + r.id + '"' : '') + '><b class="ar" lang="ar">' + felQ(r) + '</b><span>' + esc(mano(r)) + '</span>' + (shakllar(r) ? '<small>' + shakllar(r) + '</small>' : '') +
+      return '<div class="lg-r ' + x.st + (x.qy ? ' qy' : '') + '"><button class="lg-w"' + (r.au && lv[r.d] ? ' data-au="' + r.id + '"' : '') + '><b class="ar" lang="ar">' + felQ(r) + '</b><span>' + jinsH(mano(r)) + '</span>' + (shakllar(r) ? '<small>' + shakllar(r) + '</small>' : '') +
         (q > 0 ? '<small class="lg-kq">' + q + ' кундан кейин «Такрор»да сўралади</small>' : q === 0 ? '<small class="lg-kq">бугун «Такрор»да сўралади</small>' : '') + '</button>' +
         '<div class="lg-s"><span class="lg-p d' + x.dr + '" aria-hidden="true">' + (x.st === 'g' || x.st === 'm' ? '' : '<i></i><i></i><i></i>') + '</span><span>' + HN[x.st] + '</span></div>' +
         (ab ? '<button class="lg-ab" data-id="' + r.id + '" aria-pressed="' + (x.st === 'g' ? 'true' : 'false') + '" aria-label="«Биламан» деб белгилаш">' + AB + '</button>' : '<span class="lg-sp"></span>') +
@@ -902,6 +906,28 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
   }
   function mano1(r) { var u = (r.mz || r.uz)[0] || '';   /* test/karta: fe'l — o'tgan zamon ma'nosi (mz, 18.11.2026); Луғат ro'yxati — «-моқ» (mano) */
     return (u.match(/(^|[\s;,])\d+\./g) || []).length > 1 ? u : u.replace(/^\d+\.\s*/, ''); }
+  /* 26.11.2026 (foydalanuvchi: «za'kar va muannasni ... biroz ochib yozsa bo'lmaydimi? Xuddi o'qilayotganga ulanib ketgandek», «o'zing o'ylab
+     ko'rib, eng yaxshisini qil»): ma'nodagi «(мз)» / «(мн)» (ruschada «(м.)» / «(ж.)») so'zga yopishib, uning bir qismidek o'qilardi.
+     Endi belgi matndan olinadi va alohida kichik kulrang yorliq bo'ladi — «музаккар» / «муаннас» (to'liq, qisqartmasiz; ruschada «м. р.» / «ж. р.»).
+     Har raqamli ma'noga o'zi: bir xil jins bo'lsa — bitta yorliq ma'no oxirida (kartada — ma'no tagida); bitta ma'noda ikki xil jins bo'lsa — joyida. */
+  var JNR = /(\s*)\(((?:[^()]*?[.\s,])??)(мз|мн|м\.|ж\.)(?:\s*,\s*(мн|ж\.))?\)/g;   /* «(мз)», «(га.мз)», «(мз, мн)», ruscha «(м.)», «(м., ж.)» */
+  function jnO(s, f) {                                 /* har belgi o'rniga f(jins); qavsdagi boshqa so'z («(га.мз)» → «(га)») qoladi */
+    return s.replace(JNR, function (z, w, p, a, b) { p = p.replace(/[\s.,]+$/, ''); return (p ? w + '(' + p + ')' : '') + f(b ? 'ik' : a === 'мз' || a === 'м.' ? 'мз' : 'мн'); });
+  }
+  function jnC(g, c) { return '<span class="' + (c || 'jn') + '">' + { 'мз': 'музаккар', 'мн': 'муаннас', ik: 'музаккар ва муаннас' }[g] + '</span>'; }
+  function jinsAj(s) {                                 /* {t: belgisiz matn, g: 'мз' | 'мн' | 'ik' | '', x: ikki xil belgi} */
+    var g = {}, t = jnO(String(s), function (k) { g[k] = 1; return ''; }), k = Object.keys(g);
+    return { t: t.replace(/\s+([;,])/g, '$1'), g: k.length === 1 ? k[0] : '', x: k.length > 1 };
+  }
+  function jinsH(s) {                                  /* ro'yxat / test: escape + yorliq ma'no oxirida (tinish belgisidan oldin) */
+    return String(s).split(/(?=\s\d+\.\s?[^\d\s.])/).map(function (p) {
+      var j = jinsAj(p), m;
+      if (j.x) return jnO(esc(p), function (k) { return ' ' + jnC(k); });
+      if (!j.g) return esc(p);
+      m = /[\s;,⁣]*$/.exec(j.t);
+      return esc(j.t.slice(0, m.index)) + ' ' + jnC(j.g) + esc(m[0]);
+    }).join('');
+  }
   function manoT(r) { return mano1(r).replace(/\s*\([^()]*(?:ҳарфи|частица)[^()]*\)/g, '').replace(/\s*-\s*[^()]*(?:ҳарфи|частица).*$/, ''); }   /* harf ma'nosi — turi yozilmagan holda (ruschada «(частица джарр)») */
   function yalang(x) { return plain(x).replace(/[.\sـ؟?]/g, ''); }
   function sof(x) { return x.replace(/\((мз|мн)\)/g, '').replace(/\s+/g, ' ').trim().toLowerCase(); }
@@ -949,7 +975,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     var old;
     t0 = Date.now();
     if (t === 'j' || t === 'k') {                      /* eslab ko'rish → ko'rsatish → o'zini baholash */
-      app.innerHTML = bosh_ + '<section class="tq-c tq-k"><div class="tq-l"><span>' + NOM[turi(r)] + '</span><em>' + r.d + '-дарс</em></div><div class="tq-f">' + soz_ + '<div class="mq-s">' + esc(mano1(r)) + '</div><div class="tq-tr" style="margin-top:14px">' + sorov + '</div></div>' +
+      app.innerHTML = bosh_ + '<section class="tq-c tq-k"><div class="tq-l"><span>' + NOM[turi(r)] + '</span><em>' + r.d + '-дарс</em></div><div class="tq-f">' + soz_ + '<div class="mq-s">' + jinsH(mano1(r)) + '</div><div class="tq-tr" style="margin-top:14px">' + sorov + '</div></div>' +
         '<div class="tq-r" id="rv" hidden>' + shaklMatn(r, t) + '</div></section>';
       tugma('<button class="tq-b tq-b1" id="ko">Кўрсатиш</button>');
       document.getElementById('ko').onclick = function () {
@@ -960,11 +986,11 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
       };
     } else {
       if (t === 'a') old = soz_;
-      else if (t === 'u') old = '<div class="tq-m">' + esc(mano1(r)) + '</div>';
+      else if (t === 'u') old = '<div class="tq-m">' + jinsH(mano1(r)) + '</div>';
       else if (t === 'o') old = '<button class="tq-pl" id="pl" aria-label="Қайта тинглаш">▶</button>';
-      else old = soz_ + '<div class="mq-s">' + esc(manoT(r)) + '</div>';
+      else old = soz_ + '<div class="mq-s">' + jinsH(manoT(r)) + '</div>';
       app.innerHTML = bosh_ + '<section class="tq-c tq-k"><div class="tq-l"><span>' + NOM[turi(r)] + '</span><em>' + r.d + '-дарс</em></div><div class="tq-f" style="flex:none;padding-bottom:6px">' + old + '</div><div class="tq-tr">' + sorov + '</div>' +
-        '<div class="tq-o">' + q.ops.map(function (o, n) { return '<button data-n="' + n + '">' + (t === 't' ? '<span class="uz">' + esc(o) + '</span>' : t === 'u' ? '<b class="ar" lang="ar">' + esc(o.ar) + '</b>' : '<span class="uz">' + esc(mano1(o)) + '</span>') + '</button>'; }).join('') +
+        '<div class="tq-o">' + q.ops.map(function (o, n) { return '<button data-n="' + n + '">' + (t === 't' ? '<span class="uz">' + esc(o) + '</span>' : t === 'u' ? '<b class="ar" lang="ar">' + esc(o.ar) + '</b>' : '<span class="uz">' + jinsH(mano1(o)) + '</span>') + '</button>'; }).join('') +
         '</div><div class="tq-s" id="qs" aria-live="polite"></div></section>';
       bar.hidden = true; bar.innerHTML = '';
       if (t === 'o') { var a = { f: MQ.lv[r.d], s: r.au[0], e: r.au[1] }; document.getElementById('pl').onclick = function () { ovoz(a); }; ovoz(a); }
@@ -979,7 +1005,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
             if (togri(q.ops[k])) y.classList.add('ok'); else if (k === n) y.classList.add('no');
             y.disabled = true;
           });
-          document.getElementById('qs').innerHTML = '<bdi class="ar tq-ai" lang="ar">' + esc(r.ar) + '</bdi> — ' + esc(mano1(r)) + (shakllar(r) ? '<small>' + shakllar(r) + '</small>' : '');
+          document.getElementById('qs').innerHTML = '<bdi class="ar tq-ai" lang="ar">' + esc(r.ar) + '</bdi> — ' + jinsH(mano1(r)) + (shakllar(r) ? '<small>' + shakllar(r) + '</small>' : '');
           mqYoz(q, ok);
           tugma('<button class="tq-b tq-b1" id="kn">' + (MQ.i >= MQ.s.length ? 'Натижа' : 'Кейинги') + '</button>');
           document.getElementById('kn').onclick = mqSavol;
@@ -995,7 +1021,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
       '<section class="tq-c mq-n"><div class="bg"' + (MQ.tog * 100 >= MQ.s.length * 80 ? '' : ' style="color:var(--tx)"') + '>' + MQ.tog + ' / ' + MQ.s.length + '</div><p class="tq-mu">' + (MQ.xato.length ? 'Хато қилинганлари «Билмаганларим»га қўшилди.' : 'Ҳаммаси тўғри.') + '</p></section>';
     if (MQ.xato.length) {
       h += '<section class="tq-c"><div class="tq-h">Хато қилинган сўзлар</div>';
-      MQ.xato.forEach(function (q) { h += '<div class="mq-x"><span>' + esc(mano1(q.r)) + (shakllar(q.r) ? '<small>' + shakllar(q.r) + '</small>' : '') + '</span><b class="ar" lang="ar">' + esc(q.r.ar) + '</b></div>'; });
+      MQ.xato.forEach(function (q) { h += '<div class="mq-x"><span>' + jinsH(mano1(q.r)) + (shakllar(q.r) ? '<small>' + shakllar(q.r) + '</small>' : '') + '</span><b class="ar" lang="ar">' + esc(q.r.ar) + '</b></div>'; });
       h += '</section>';
     }
     app.innerHTML = h;
@@ -1125,6 +1151,8 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     if (a.length === 1) a[0] = a[0].replace(/^\d+\.\s*/, '');
     var M = '⁣';   /* ko'rinmas belgi — ruscha qatlam bo'lingan ma'noni o'girmaydi (trBelgi kabi) */
     return '<div class="tq-m">' + a.map(function (p) {
+      var jn = jinsAj(p), jb = jn.g ? jnC(jn.g, 'tq-jn') : '';   /* za'kar/muannas — ma'no tagida alohida yorliq (26.11.2026, yuqorida jinsAj) */
+      if (jn.g) p = jn.t.replace(/[\s;,]+$/, '');
       var nm = /^(\d+)\.\s*/.exec(p), q = variant(nm ? p.slice(nm[0].length) : p), topdi = false;
       var h = q.map(function (v, i) {
         var x = (i === 0 && nm ? nm[1] + '. ' : '') + esc(v);
@@ -1132,7 +1160,8 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
         return q.length > 1 ? M + x + M : x;
       });
       if (topdi) bor = true;
-      return q.length > 1 ? '<div class="tq-mv">' + h.map(function (x) { return '<div>' + x + '</div>'; }).join('') + '</div>' : '<div>' + h[0] + '</div>';
+      if (jn.x) h = h.map(function (x) { return jnO(x, function (k) { return ' ' + jnC(k); }); });   /* bitta ma'noda ikki xil jins — joyida */
+      return (q.length > 1 ? '<div class="tq-mv">' + h.map(function (x) { return '<div>' + x + '</div>'; }).join('') + '</div>' : '<div>' + h[0] + '</div>') + jb;
     }).join('') + '</div>';
   }
   /* 21.11.2026 (foydalanuvchi: «мозий, музореъ, амр deb yozish shart emas, bir xil ko'rinishda»): so'z qatori o'ngdan chapga — so'ralgan so'z,
@@ -1352,7 +1381,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     var n = cur.n, r = n.r, t = cur.sh, soz_ = '<div class="ar tq-w" lang="ar">' + esc(r.ar) + '</div>';
     var lbl = '<div class="tq-l"><span>' + SHS[t] + '</span>' + (x.yangi ? '<em>янги</em>' : '') + '</div>';
     if (t !== 't' || harfTuri(r)) {
-      app.innerHTML = bosh_ + '<section class="tq-c tq-k">' + lbl + '<div class="tq-f">' + soz_ + '<div class="mq-s">' + esc(t === 't' ? manoT(r) : mano1(r)) + '</div><div class="tq-hn">' + shaklSorov(r, t) + '</div></div><div class="tq-r" id="rv" hidden>' + shaklMatn(r, t) + '</div></section>';
+      app.innerHTML = bosh_ + '<section class="tq-c tq-k">' + lbl + '<div class="tq-f">' + soz_ + '<div class="mq-s">' + jinsH(t === 't' ? manoT(r) : mano1(r)) + '</div><div class="tq-hn">' + shaklSorov(r, t) + '</div></div><div class="tq-r" id="rv" hidden>' + shaklMatn(r, t) + '</div></section>';
       tugma('<button class="tq-b tq-b1" id="ko">Кўрсатиш</button>');
       var sk = app.querySelector('section.tq-c'), ochildi = false;
       var och = function () {
@@ -1370,7 +1399,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
       return;
     }
     var ops = harfVar(r), ht = harfTuri(r), bajarildi = false;
-    app.innerHTML = bosh_ + '<section class="tq-c tq-k">' + lbl + '<div class="tq-f" style="flex:none;padding-bottom:6px">' + soz_ + '<div class="mq-s">' + esc(manoT(r)) + '</div></div>' +
+    app.innerHTML = bosh_ + '<section class="tq-c tq-k">' + lbl + '<div class="tq-f" style="flex:none;padding-bottom:6px">' + soz_ + '<div class="mq-s">' + jinsH(manoT(r)) + '</div></div>' +
       '<div class="tq-o">' + ops.map(function (o, i) { return '<button data-n="' + i + '"><span class="uz">' + esc(o) + '</span></button>'; }).join('') + '</div></section>';
     bar.hidden = true; bar.innerHTML = '';
     [].forEach.call(app.querySelectorAll('.tq-o button'), function (b) {

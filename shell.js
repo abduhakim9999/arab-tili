@@ -1152,3 +1152,35 @@ document.addEventListener('click', function (e) {
   Q[K] = Z.oqT;
   try { localStorage.setItem('sozlama-q', JSON.stringify(Q)); } catch (e) {}
 })();
+
+/* --- Za'kar / muannas yorlig'i darsning «Луғат» yorlig'ida (26.11.2026; foydalanuvchi: «za'kar va muannasni ... biroz ochib yozsa
+   bo'lmaydimi? Xuddi o'qilayotganga ulanib ketgandek», «eng yaxshisini qil»; takror.html jinsAj bilan bir xil qoida):
+   ma'nodagi «(мз)» / «(мн)» (ruscha darsda «(м.)» / «(ж.)») so'zga yopishib o'qilardi — matndan olinadi, ma'no oxirida alohida kichik
+   kulrang yorliq «музаккар» / «муаннас» (ruscha «м. р.» / «ж. р.»). Har raqamli ma'noga o'zi; bitta ma'noda ikki xil jins bo'lsa — joyida.
+   gl() qayta chizsa ham (MutationObserver) qo'yiladi. */
+(function () {
+  var p2 = document.getElementById('p2');
+  if (!p2 || typeof VOC === 'undefined') return;
+  var JNR = /(\s*)\(((?:[^()]*?[.\s,])??)(мз|мн|м\.|ж\.)(?:\s*,\s*(мн|ж\.))?\)/g,   /* «(мз)», «(га.мз)», «(мз, мн)», ruscha «(м.)», «(м., ж.)» */
+    BOR = /\((?:[^()]*?[.\s,])?(?:мз|мн|м\.|ж\.)(?:\s*,\s*(?:мн|ж\.))?\)/, RU = document.documentElement.lang === 'ru';
+  var css = document.createElement('style');
+  css.textContent = '#p2 .jn{display:inline-block;font-size:11.5px;line-height:1.5;font-weight:600;letter-spacing:.02em;color:var(--mu);background:color-mix(in srgb,var(--mu) 11%,transparent);border-radius:999px;padding:0 8px;margin-left:2px;white-space:nowrap;vertical-align:1px}';
+  document.head.appendChild(css);
+  var NOM = RU ? { 'мз': 'м. р.', 'мн': 'ж. р.', ik: 'м. и ж. р.' } : { 'мз': 'музаккар', 'мн': 'муаннас', ik: 'музаккар ва муаннас' };
+  function jnO(s, f) { return s.replace(JNR, function (z, w, p, a, b) { p = p.replace(/[\s.,]+$/, ''); return (p ? w + '(' + p + ')' : '') + f(b ? 'ik' : a === 'мз' || a === 'м.' ? 'мз' : 'мн'); }); }
+  function nom(k) { return '<span class="jn">' + NOM[k] + '</span>'; }
+  function jins(h) {
+    return h.split(/(?=\s\d+\.\s?[^\d\s.<])/).map(function (p) {
+      var g = {}, t = jnO(p, function (k) { g[k] = 1; return ''; }), k = Object.keys(g), m;
+      if (!k.length) return p;
+      if (k.length > 1) return jnO(p, function (q) { return ' ' + nom(q); });
+      t = t.replace(/\s+([;,])/g, '$1'); m = /[\s;,\u2063]*$/.exec(t);
+      return t.slice(0, m.index) + ' ' + nom(k[0]) + m[0];
+    }).join('');
+  }
+  function hammasi() {
+    [].forEach.call(p2.querySelectorAll('.mn > div:not(.vno), .la-yi'), function (d) { if (BOR.test(d.innerHTML)) d.innerHTML = jins(d.innerHTML); });
+  }
+  hammasi();
+  if (window.MutationObserver) new MutationObserver(hammasi).observe(p2, { childList: true, subtree: true });
+})();

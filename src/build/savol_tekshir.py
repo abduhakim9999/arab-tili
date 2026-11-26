@@ -95,6 +95,13 @@ def main():
             yoq = [str(x) for x in range(1, 6) if x not in bor]
             if yoq:
                 yoz(d, 'DIQQAT', 'qolip: %s-bosqich savoli yo\'q' % ', '.join(yoq))
+            qat = collections.defaultdict(list)          # «Бўш жой» / «Хатони топ» qatorida boshqa savol bo'lmasin (javobni ko'rsatadi)
+            for q in L + TL:
+                qat[q['k'].split('-')[0]].append(q)
+            for l, qs in qat.items():
+                bx = [q for q in qs if q.get('t') in ('b', 'x') and 'var' not in q]
+                if bx and len(qs) > 1:
+                    yoz(d, 'DIQQAT', 'qolip: %s-qatorda «%s» bilan yana %d savol (javobni ochadi)' % (l, bx[0]['k'], len(qs) - 1))
             for q in TL:
                 if q['t'] in ('f', 'x') and len(q.get('ok', [])) < 4:
                     yoz(d, 'DIQQAT', '%s (%s): gapda %d so\'z — taxmin oson' % (q['k'], q['t'], len(q.get('ok', []))))
@@ -122,7 +129,7 @@ def main():
         for q in TL:
             if not 0 <= q['to'] < len(q['o']):
                 yoz(d, 'XATO', '%s (%s): to\'g\'ri javob yo\'q' % (q['k'], q['t']))
-            if q['t'] != 's' and len(set(q['o'])) < len(q['o']):
+            if q['t'] not in ('s', 'f', 'x') and len(set(q['o'])) < len(q['o']):   # so'z bosiladigan turda bir xil so'z ikki joyda bo'lishi mumkin
                 yoz(d, 'XATO', '%s (%s): variant takror' % (q['k'], q['t']))
             if len(q['o']) < 2:
                 yoz(d, 'XATO', '%s (%s): variant kam' % (q['k'], q['t']))

@@ -65,3 +65,9 @@ Quyidagi tartib — **yo'l-yo'riq, qaror emas**. Har savol alohida o'ylanadi. Ta
   - Ball — `Ball.yoz('xd' + dars + ':' + k, …)` (dars «Эъроб»idagi kalit; birinchi javob). Bob/kitob «+100» bonusi yo'q (server o'zgarishi kerak).
   - Ruscha: matnlar `lugat-qobiq.txt`; turli savol tarjimasi — `build.py ru_data` endi `"t"` ni ham `RU_Q` ga qo'shadi, `ru.js` `FIX.mashq` `j.t` ni ham almashtiradi.
   - Sinov (26.11.2026): kod qulfi tufayli `yol.html` to'liq ochilmadi — funksiyalar alohida sinov sahifasida (Playwright, uz/ru): qator holatlari, dars xatolari → tuzatish → imtihon (yiqildi 65%) → imtihon xatolari → davom ettirish → 100%; `yigish` xatolari (harakat + turli, tuzatilgani qaytmaydi, yangi urinish almashtiradi); MISS 0, sahifa xatosi 0. `qobiq.py` MISS 0, `harvest.py` ru1/7/12 MISS 0.
+
+## Savol ko'rinishi (26.11.2026; foydalanuvchi: «savol kattaroq bo'lib ko'rinib turishi kerak. Ajralib ... eng tepada», «qil»)
+- Hamma savol oynasida tartib: kichik kulrang qator (bob / dars) → **savol matni — tepada, katta, qalin** → arabcha gap → tarjima → javoblar. Tur belgisi («Ҳолати?» va h.k.) chiqmaydi — savolning o'zi aytadi.
+- Harakat savolida (ilgari matnsiz) ham savol bor: «Белгиланган сўз қандай ўқилади?» (ruschasi `lugat-umumiy.txt`).
+- Joylari: dars «Эъроб» — sahifa `qshow` + `.qsv` (26 dars) va `savol.js show`; «Боб якуни» / «Хатолар устида ишлаш» — `yol.html yakSavol` `.y-q`; `takror.html` — so'z kartasi yorlig'i `.tq-q`, «Қўшимча машқ» `.tq-qs`. Yangi savol oynasi ham shu tartibda.
+

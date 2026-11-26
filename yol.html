@@ -328,7 +328,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
 .y-uc{position:fixed;z-index:40;left:0;top:0;width:11px;height:11px;margin:-5.5px 0 0 -5.5px;border-radius:50%;pointer-events:none;background:var(--c)}
 .y-uc.m{--c:#3a73cc}.y-uc.g{--c:#2fa36f}.y-uc.o{--c:#d9a23a}.y-uc.b{--c:var(--y-no)}
 /* «Боб якуни» va «Хатолар устида ишлаш» (26.11.2026; docs/texnik/23-savollar.md) */
-.y-sv{text-align:center;font-size:15px;margin:-6px 0 14px}
+.y-q{font-size:21px;font-weight:700;line-height:1.35;color:var(--tx);margin:12px 0 0}
 .y-tu{display:inline-block;font-size:12px;padding:1px 9px;border-radius:9px;border:1px solid var(--bd);color:var(--ac);margin-left:4px}
 .y-o button .uz{font-size:16px;color:var(--tx);font-weight:500}
 .y-o button.ok .uz{color:var(--y-ok)}.y-o button.no .uz{color:var(--y-no)}
@@ -1277,7 +1277,8 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
     if (IM.i >= IM.s.length) { yakNatija(); return; }
     var k = IM.s[IM.i], q = qmap()[k], tur = k[0] === 't' ? q.t : 'e', bajarildi = false, h, ops = null, cand = null;
     var nom = IM.yak === 'x' ? 'Хатолар устида ишлаш' : bobTop(IM.kalit).raq + '-боб якуни';
-    var bosh = '<div class="y-l"><span>' + nom + '</span><em>' + q.d + '-дарс' + (tur !== 'e' ? '<span class="y-tu">' + TURN[tur] + '</span>' : '') + (IM.qy[IM.i] ? ' · қайта' : '') + '</em></div>';
+    var bosh = '<div class="y-l"><span>' + nom + '</span><em>' + q.d + '-дарс' + (IM.qy[IM.i] ? ' · қайта' : '') + '</em></div>' +
+      '<div class="y-q">' + (tur === 'e' ? 'Белгиланган сўз қандай ўқилади?' : esc(q.s)) + '</div>';   /* savol — tepada, katta (26.11.2026) */
     if (tur === 'e') {
       var ql = +q.k.split('-')[0], togri = q.gap[q.w][0], hk = q.hk || [-1, -1];
       ops = aralash(q['var'].slice());
@@ -1293,7 +1294,6 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
         cand = q.ok.map(function (x) { var p = x.split('-'); return +p[0] === ql2 ? +p[1] : -1; });   /* nomzodlar shu qatorda (ajrat.py) */
       }
       h = bosh + '<div class="y-g ar" lang="ar">' + qatorT(q.gap, q.w, cand, false) + '</div>' + (q.tr ? '<div class="y-tr">' + esc(q.tr) + '</div>' : '') +
-        '<div class="y-sv">' + esc(q.s) + '</div>' +
         (tur === 's' ? '' : '<div class="y-o">' + q.o.map(function (o, n) { return '<button data-n="' + n + '"><span class="uz">' + mix(o) + '</span></button>'; }).join('') + '</div>');
     }
     app.innerHTML = '<div class="y-in">' + imBosh() + '<section class="y-c y-k">' + h + '<div class="y-s" id="qs" aria-live="polite"></div></section></div>';

@@ -116,6 +116,8 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .tq-kt{box-sizing:border-box;padding:14px 16px 12px;border-radius:22px;min-height:46vh;min-height:min(calc(100dvh - 204px - env(safe-area-inset-bottom,0px)),700px)}
 .tq-kt.tq-bo{cursor:pointer}
 .tq-kt .tq-l{min-height:42px}
+.tq-l .tq-q{font-size:20px;font-weight:700;letter-spacing:0;text-transform:none;color:var(--tx)}
+.tq-qs{font-size:20px;font-weight:700;line-height:1.35;color:var(--tx);margin:10px 0 0}
 .tq-kt>.tq-f{padding:10px 0 8px}
 .tq-2{display:grid;width:100%;align-items:center}
 .tq-2>div{grid-area:1/1;min-width:0}
@@ -949,7 +951,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     var old;
     t0 = Date.now();
     if (t === 'j' || t === 'k') {                      /* eslab ko'rish → ko'rsatish → o'zini baholash */
-      app.innerHTML = bosh_ + '<section class="tq-c tq-k"><div class="tq-l"><span>' + NOM[turi(r)] + '</span><em>' + r.d + '-дарс</em></div><div class="tq-f">' + soz_ + '<div class="mq-s">' + esc(mano1(r)) + '</div><div class="tq-tr" style="margin-top:14px">' + sorov + '</div></div>' +
+      app.innerHTML = bosh_ + '<section class="tq-c tq-k"><div class="tq-l"><span>' + NOM[turi(r)] + '</span><em>' + r.d + '-дарс</em></div><div class="tq-qs">' + sorov + '</div><div class="tq-f">' + soz_ + '<div class="mq-s">' + esc(mano1(r)) + '</div></div>' +
         '<div class="tq-r" id="rv" hidden>' + shaklMatn(r, t) + '</div></section>';
       tugma('<button class="tq-b tq-b1" id="ko">Кўрсатиш</button>');
       document.getElementById('ko').onclick = function () {
@@ -963,7 +965,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
       else if (t === 'u') old = '<div class="tq-m">' + esc(mano1(r)) + '</div>';
       else if (t === 'o') old = '<button class="tq-pl" id="pl" aria-label="Қайта тинглаш">▶</button>';
       else old = soz_ + '<div class="mq-s">' + esc(manoT(r)) + '</div>';
-      app.innerHTML = bosh_ + '<section class="tq-c tq-k"><div class="tq-l"><span>' + NOM[turi(r)] + '</span><em>' + r.d + '-дарс</em></div><div class="tq-f" style="flex:none;padding-bottom:6px">' + old + '</div><div class="tq-tr">' + sorov + '</div>' +
+      app.innerHTML = bosh_ + '<section class="tq-c tq-k"><div class="tq-l"><span>' + NOM[turi(r)] + '</span><em>' + r.d + '-дарс</em></div><div class="tq-qs">' + sorov + '</div><div class="tq-f" style="flex:none;padding-bottom:6px">' + old + '</div>' +
         '<div class="tq-o">' + q.ops.map(function (o, n) { return '<button data-n="' + n + '">' + (t === 't' ? '<span class="uz">' + esc(o) + '</span>' : t === 'u' ? '<b class="ar" lang="ar">' + esc(o.ar) + '</b>' : '<span class="uz">' + esc(mano1(o)) + '</span>') + '</button>'; }).join('') +
         '</div><div class="tq-s" id="qs" aria-live="polite"></div></section>';
       bar.hidden = true; bar.innerHTML = '';
@@ -1295,7 +1297,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     var sp = n.au ? '<button class="tq-au" id="sp" aria-label="Қайта эшитиш" hidden>' + KARNAY + '</button>' : '';
     var yon = t === 'u' ? 'b' : 'a';                    /* old tomon */
     var sl = '<div class="tq-sl">' + qat(sA, sB) + '</div>';
-    app.innerHTML = bosh_ + '<section class="tq-c tq-k tq-kt tq-t' + t + ' tq-s' + yon + (fe ? ' tq-fe' : '') + '" id="kk"><div class="tq-l"><span>' + sorov + '</span>' +
+    app.innerHTML = bosh_ + '<section class="tq-c tq-k tq-kt tq-t' + t + ' tq-s' + yon + (fe ? ' tq-fe' : '') + '" id="kk"><div class="tq-l"><span class="tq-q">' + sorov + '</span>' +
       (x.yangi ? '<em>янги</em>' : '') + sp + '</div><div class="tq-f">' + (fe ? pan + sl : sl + pan) + '</div><div class="tq-ay">' + AYL + '</div></section>';
     tugma('<button class="tq-b tq-b1" id="ko">Кўрсатиш</button>');
     sigdir(); if (document.fonts && document.fonts.ready) document.fonts.ready.then(sigdir);
@@ -1350,7 +1352,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
   /* shakl kartasi (takror.js `w…s`): ko'pligi / fe'l shakllari — eslab ko'rib o'zini baholash; harf turi — 4 variant */
   function shaklK(bosh_, x) {
     var n = cur.n, r = n.r, t = cur.sh, soz_ = '<div class="ar tq-w" lang="ar">' + esc(r.ar) + '</div>';
-    var lbl = '<div class="tq-l"><span>' + SHS[t] + '</span>' + (x.yangi ? '<em>янги</em>' : '') + '</div>';
+    var lbl = '<div class="tq-l"><span class="tq-q">' + SHS[t] + '</span>' + (x.yangi ? '<em>янги</em>' : '') + '</div>';
     if (t !== 't' || harfTuri(r)) {
       app.innerHTML = bosh_ + '<section class="tq-c tq-k">' + lbl + '<div class="tq-f">' + soz_ + '<div class="mq-s">' + esc(t === 't' ? manoT(r) : mano1(r)) + '</div><div class="tq-hn">' + shaklSorov(r, t) + '</div></div><div class="tq-r" id="rv" hidden>' + shaklMatn(r, t) + '</div></section>';
       tugma('<button class="tq-b tq-b1" id="ko">Кўрсатиш</button>');

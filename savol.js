@@ -18,7 +18,7 @@
   if (!document.getElementById('qtx-css')) {
     var st = document.createElement('style'); st.id = 'qtx-css';
     st.textContent = '.qtur{display:inline-block;font-size:12px;padding:2px 10px;border-radius:10px;border:1px solid var(--bd);color:var(--ac)}' +
-      '.qsv{font-size:15px;line-height:1.5;margin:10px 0 10px;color:var(--tx)}' +
+      '.qsv{font-size:19px;font-weight:700;line-height:1.4;color:var(--tx);margin:2px 0 10px}' +
       '.qo.qk1{grid-template-columns:1fr}.qo.qk2{grid-template-columns:1fr 1fr}' +
       '.qo button b.qtx{font-family:inherit;font-size:16px;line-height:1.45;font-weight:500;padding:4px 2px}' +
       '.qs .qw{cursor:pointer;border-bottom:2px dashed var(--bd);border-radius:6px;padding:0 3px}' +
@@ -91,8 +91,8 @@
     }
     var tr = TR[l].map(function (t) { return t[0]; }).join(' ');
     var nv = '<div class="qnv"><button onclick="qgo(-1)"' + (qi == 0 ? ' disabled' : '') + '>‹</button><span>Савол ' + (qi + 1) + ' / ' + QZ.length + '</span><button onclick="qgo(1)">›</button></div>';
-    document.getElementById('p3').innerHTML = '<div class="qbox">' + nv + '<div class="qhd"><span class="qtur">' + TUR[q.t] + '</span><span>Тўғри: ' + qsc + '</span></div>' +
-      ctx + qator(l, q.w, '', tap) + '<div class="qtr">' + tr + '</div><div class="qsv">' + savol(q) + '</div>' + tg +
+    document.getElementById('p3').innerHTML = '<div class="qbox">' + nv + '<div class="qhd"><span></span><span>Тўғри: ' + qsc + '</span></div><div class="qsv">' + savol(q) + '</div>' +
+      ctx + qator(l, q.w, '', tap) + '<div class="qtr">' + tr + '</div>' + tg +
       '<div class="qf" id="qf"></div><div class="qb hide" id="qb"><button class="pr" onclick="qgo(1)">' + (qi == QZ.length - 1 ? 'Натижа' : 'Кейинги') + '</button></div></div>';
     if (q.ch != null) fb(q);
   }

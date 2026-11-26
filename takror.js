@@ -298,7 +298,7 @@ function yarat(o) {
      YANGI QOIDA (26.11.2026, foydalanuvchi: «ball qancha ko'p foydalansa, shu ilovadan shug'ullansa, o'sha odam olishi kerak»; kunlik
      chegara — «1» (olib tashlash), ballar 10 baravar, kunlik seriya — «ha qil»; 30.11.2026 dushanbadan — hafta o'rtasida aralashmasin):
      - to'g'ri javob — B (10): «Машқ» kartalari (w…, q…), dars ichidagi «Машқ» (xd<dars>:<savol>), Сарф (xs<savol>),
-       «Қўшимча такрор» (x + karta id — daraja va takror kuniga ta'sir qilmaydi, bKalit ularni tanimaydi); bitta kalit kuniga bir marta;
+       «Қўшимча такрор» (x + karta id — daraja va takror kuniga ta'sir qilmaydi, bKalit ularni tanimaydi; 26.11.2026 da olib tashlandi, eski yozuvlar hisoblanaveradi); bitta kalit kuniga bir marta;
        < TEZ ms javob va xato — ball yo'q, minus yo'q;
      - so'z «биламан»ga yetsa — BILAN (50), har so'zga bir marta (eskisidagi kabi hisob);
      - dars «Машқ»i birinchi marta 80% dan o'tsa — OTDI (100): yozuv xo<dars>, darsga bir marta (opt.otgan berilsa — faqat haqiqatan

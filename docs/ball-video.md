@@ -10,7 +10,7 @@ Qancha ko'p shug'ullansa — shuncha ko'p ball. Yangi qoida **30.11.2026 dushanb
 
 | Ish | Ball | Izoh |
 |---|---|---|
-| To'g'ri javob | 10 | «Машқ» kartalari, dars «Эъроб»i (va «Боб якуни» — o'sha savollar, o'sha kalit), «Сарф» mashqi, «Яна 10 та сўз»; bitta karta yoki savol kuniga bir marta ball beradi |
+| To'g'ri javob | 10 | «Машқ» kartalari, dars «Эъроб»i (va «Боб якуни» — o'sha savollar, o'sha kalit), «Сарф» mashqi; bitta karta yoki savol kuniga bir marta ball beradi |
 | So'z «биламан»ga ko'tarilsa | +50 | turli kunlarda 3 marta to'g'ri topilgan; har so'zga bir marta |
 | Dars «Эъроб»i birinchi marta 80% | +100 | har darsga bir marta |
 | Tinglash, har 5 daqiqa | 10 | «Эшитиш» va dars audiosi; kuniga 20 marta, ya'ni 200 ballgacha |

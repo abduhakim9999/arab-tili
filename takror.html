@@ -931,7 +931,8 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     if (r.mn) p.push('муаннас <bdi class="ar" lang="ar">' + esc(r.mn) + '</bdi>');
     return p.join(' · ');
   }
-  function mano1(r) { var u = (r.mz || r.uz)[0] || '';   /* test/karta: fe'l — o'tgan zamon ma'nosi (mz, 18.11.2026); Луғат ro'yxati — «-моқ» (mano) */
+  /* 26.11.2026 (foydalanuvchi: «matndagi ma'noni yozish kerak emasmi?», «qil»): km — kartadagi gapga mos ma'no (olmosh: «сизлар(дан)»), lugat-tuzatish.json dan; bo'lmasa mz / uz */
+  function mano1(r) { var u = (r.km || r.mz || r.uz)[0] || '';   /* test/karta: fe'l — o'tgan zamon ma'nosi (mz, 18.11.2026); Луғат ro'yxati — «-моқ» (mano) */
     return (u.match(/(^|[\s;,])\d+\./g) || []).length > 1 ? u : u.replace(/^\d+\.\s*/, ''); }
   /* 26.11.2026 (foydalanuvchi: «za'kar va muannasni ... biroz ochib yozsa bo'lmaydimi? Xuddi o'qilayotganga ulanib ketgandek», «o'zing o'ylab
      ko'rib, eng yaxshisini qil»): ma'nodagi «(мз)» / «(мн)» (ruschada «(м.)» / «(ж.)») so'zga yopishib, uning bir qismidek o'qilardi.
@@ -1184,7 +1185,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
   }
   function manolar(n, ph, mas) {                       /* mas — fe'l kartasi: ma'no masdar shaklida («-моқ»; 26.11.2026, pastda) */                            /* ph — fe'lning harfi bor: ma'nodagi «..га» / «(...ни)» o'sha rangda (har variant qatorida) */
     var a = [], bor = !ph;
-    n.m.forEach(function (r) { (mas ? r.uz : r.mz || r.uz).forEach(function (u) { u.split(RAQ).forEach(function (p) { a.push(p); }); }); });
+    n.m.forEach(function (r) { (mas ? r.uz : r.km || r.mz || r.uz).forEach(function (u) { u.split(RAQ).forEach(function (p) { a.push(p); }); }); });
     if (a.length === 1) a[0] = a[0].replace(/^\d+\.\s*/, '');
     var M = '⁣';   /* ko'rinmas belgi — ruscha qatlam bo'lingan ma'noni o'girmaydi (trBelgi kabi) */
     return '<div class="tq-m">' + a.map(function (p) {
@@ -1247,7 +1248,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     return w.length > 3 && /и$/.test(w) && k.indexOf(w.slice(0, -1)) === 0 && QN.test(k.slice(w.length - 1));   /* «тили» → «тиллари» */
   }
   function trBelgi(r, tr, p) {                         /* p — fe'lning harfi: yashil so'z yonidagi «..га» qo'shimchali so'z («шунга») sariq */
-    var u0 = ((r.mz || r.uz || [])[0] || ''), qs = p ? /\.{2,3}([а-яёўқғҳ]+)/i.exec(u0) : null, u = u0.replace(/^\d+\.\s*/, '').replace(/\([^()]*\)/g, ' ').split(RAQ)[0];
+    var u0 = ((r.km || r.mz || r.uz || [])[0] || ''), qs = p ? /\.{2,3}([а-яёўқғҳ]+)/i.exec(u0) : null, u = u0.replace(/^\d+\.\s*/, '').replace(/\([^()]*\)/g, ' ').split(RAQ)[0];
     var oz = u.toLowerCase().split(/\s+/).map(function (w) { return w.replace(/[^а-яёўқғҳ]/g, ''); }).filter(function (w) { return w; }), n = 0;
     var M = '\u2063';   /* ko'rinmas belgi: ruscha qatlam (ru.js) bo'lakni tayyor matn deb biladi — gap bo'linsa ham o'girmaydi */
     tr = tr.split('\u2063').join('');
@@ -1269,7 +1270,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
   /* 23.11.2026: ma'no variantlarga bo'lingan bo'lsa (variant()) va misol tarjimasi ham vergul bilan o'shancha bo'lakdan iborat bo'lib, har bo'lak
      o'z variantiga mos kelsa («шунга олиб келади, шунга сабаб бўлади») — tarjima ham qatorlarga bo'linadi. Oddiy gapdagi vergul tegilmaydi. */
   function trQism(r, tr) {
-    var u0 = ((r.mz || r.uz || [])[0] || '').replace(/^\d+\.\s*/, '').split(RAQ)[0], v = variant(u0), t, i;
+    var u0 = ((r.km || r.mz || r.uz || [])[0] || '').replace(/^\d+\.\s*/, '').split(RAQ)[0], v = variant(u0), t, i;
     if (v.length < 2) return null;
     t = tr.split('\u2063').join('').split(/[,;]\s+/).map(function (x) { return x.trim(); }).filter(function (x) { return x; });
     if (t.length !== v.length || /[.!?]\s/.test(tr.replace(/\([^()]*\)/g, ''))) return null;   /* ichida gap tugasa — ikki gap, variant emas */

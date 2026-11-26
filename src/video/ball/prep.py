@@ -18,7 +18,7 @@ import re
 IPA = {'xullas': 'Хуллас', 'ball': 'балл', 'ballar': 'баллар', 'ballni': 'баллни', 'ballingiz': 'баллингиз', 'ballgacha': 'баллгача'}   # 26.11.2026: lotincha «ball» hamma joyda «boll» eshitildi (foydalanuvchi) — hamma shakl kirillcha   # gap boshida yolg'iz «X…» so'zi ElevenLabs'da «z» bo'lib ketadi — kirillcha yoziladi (docs/texnik/21: «Сўз йўли», «Xatosiz»)
 TXT = {
  # S1 — savol
- 'k1': "Reytingda yuqoriga qanday chiqiladi? |Siri bitta: |qancha ko'p shug'ullansangiz — |shuncha ko'p ball.",
+ 'k1': "Reytingda yuqoriga qanday chiqiladi? |Javob oddiy: |qancha ko'p shug'ullansangiz — |shuncha ko'p ball.",
  # S2 — to'g'ri javob 10
  'k2a': "Har bir to'g'ri javob — o'n ball: |«Mashq»da ham, |darsdagi «E'rob»da ham, |«Sarf»da ham. |To'g'ri topsangiz, ekranda «plyus o'n» uchadi.",
  'k2b': "Xato qilsangiz, ball ayrilmaydi. |Lekin bitta savol kuniga faqat bir marta ball beradi.",   # 26.11.2026: «Faqat bitta savol…» ikki xil tushunilardi

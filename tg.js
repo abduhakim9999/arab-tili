@@ -760,7 +760,7 @@
   var SN = /\/sinov-[^\/]*$/.test(location.pathname);
   var R = {
     soz: { mp4: 'vsoz-1104bdea.mp4', p: 'vsoz-ae2268c7.jpg', nom: 'Сўз йўли', iz: 'Сўз 4 поғонадан қандай ўтади', v: '1:50' },
-    ball: { mp4: 'vball-63ccb4ca.mp4', p: 'vball-1864be68.jpg', nom: 'Баллар ва рейтинг', iz: 'Нимага қанча балл, 🔥 олов, «Рейтинг»', v: '1:43', q: 1,   /* Farruh ovozi bilan (26.11.2026); q — foydalanuvchi eshitib «bo'ldi» deguncha */
+    ball: { mp4: 'vball-9ab751b3.mp4', p: 'vball-1864be68.jpg', nom: 'Баллар ва рейтинг', iz: 'Нимага қанча балл, 🔥 олов, «Рейтинг»', v: '1:44', q: 1,   /* Farruh ovozi bilan (26.11.2026); q — foydalanuvchi eshitib «bo'ldi» deguncha */
       kq: SN ? 'reyting-sinov-qol' : 'reyting-qol' }
   };
   var LS = null; try { LS = window.localStorage; } catch (e) {}

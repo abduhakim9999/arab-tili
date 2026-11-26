@@ -7,8 +7,9 @@
     python3 src/build/savol_tuzat.py --tekshir  # yozmaydi, faqat nima o'zgarishini aytadi
 
 Manba — src/build/savol-tuzatish.json (har qaror sababi bilan). NN.html dagi
-`var QUR=` (savol «Машқ»dan chiqadi), `var TRK=` (izoh), `var QOV=` (variantlar) ga yozadi.
-Faqat shu uch JSON qiymati almashadi, sahifaning qolgani tegilmaydi. Qayta ishga tushirilsa — o'zgarish yo'q.
+`var QUR=` (savol «Машқ»dan chiqadi), `var TRK=` (izoh), `var QOV=` (variantlar), `var QTUR=` (yangi savol turlari) ga yozadi.
+Darsda `tur` bo'lsa — `savol.js` ulanadi va «Машқ» kodiga ilgaklar qo'yiladi (KOD ro'yxati, aniq matn bo'yicha).
+Boshqa joyi tegilmaydi. Qayta ishga tushirilsa — o'zgarish yo'q.
 Dars sahifasi generator bilan qayta yasalsa — shu skript yana ishga tushiriladi.
 Keyin: python3 src/build/ajrat.py --ochir (data/mashq.json) va python3 src/build/savol_tekshir.py.
 Batafsil: docs/texnik/23-savollar.md.
@@ -56,11 +57,58 @@ def yop(s, i):
     raise SystemExit('qavs yopilmadi')
 
 
+# Yangi savol turlari (savol.js) uchun sahifa kodidagi ilgaklar. «Машқ» kodi 26 darsda bir xil (26.11.2026 tekshirildi),
+# shuning uchun aniq matn almashtiriladi; topilmasa — to'xtaydi (sahifa kodi o'zgargan: ilgakni qo'lda moslang).
+KOD = [
+    ('qstart', 'QZ.forEach(function(q){q.o=qends(q.l+"-"+q.w);q.ch=null;q.ok=false});qi=0;',
+               'QZ.forEach(function(q){q.o=qends(q.l+"-"+q.w);q.ch=null;q.ok=false});if(window.QTX)QZ=QTX.plan(QZ);qi=0;'),
+    ('qshow', 'function qshow(){\n  var q=QZ[qi]',
+              'function qshow(){\n  if(window.QTX&&QZ[qi].t){QTX.show();return}\n  var q=QZ[qi]'),
+    ('qans', 'function qans(b){\n  var q=QZ[qi];',
+             'function qans(b){\n  if(window.QTX&&QZ[qi].t){QTX.ans(b);return}\n  var q=QZ[qi];'),
+    ('qfb', 'function qfb(q){\n  var k=',
+            'function qfb(q){\n  if(window.QTX&&q.t){QTX.fb(q);return}\n  var k='),
+    ('qres', "'+(am?arw(am[1]):mainLine(k))+'",
+             "'+(q.t&&window.QTX?arw(QTX.iz(q)):(am?arw(am[1]):mainLine(k)))+'"),
+    ('saveQ', 'S.q={o:QZ.map(function(q){return [q.l,q.w]}),',
+              'S.q={o:QZ.map(function(q){return q.t?[q.l,q.w,q.t]:[q.l,q.w]}),'),
+    ('tiklash', 'var k=x[0]+"-"+x[1],o=TRK[k]&&!QUR[k]?qends(k):null;if(!o){okAll=false;return}var c=S.q.ch[i];Z.push({l:x[0],w:x[1],o:o,ch:(c==null?null:c),ok:c!=null&&o[c]&&o[c].w==get(k).v})});\n      if(okAll&&Z.length){',
+                'var k=x[0]+"-"+x[1],t=x[2],o=t?(window.QTX?QTX.ops(k,t):null):(TRK[k]&&!QUR[k]&&!(window.QTUR&&QTUR[k])?qends(k):null);if(!o){okAll=false;return}var c=S.q.ch[i];Z.push({l:x[0],w:x[1],t:t,o:o,ch:(c==null?null:c),ok:c!=null&&!!o[c]&&(t?!!o[c].ok:o[c].w==get(k).v)})});\n      if(okAll&&window.QTX&&!QTX.mos(Z))okAll=false;\n      if(okAll&&Z.length){'),
+]
+
+
+def kod(s, ish):
+    for nom, eski, yangi in KOD:
+        if yangi in s:
+            continue
+        if s.count(eski) != 1:
+            raise SystemExit('ilgak «%s»: sahifa kodida %d marta topildi (1 bo\'lishi kerak)' % (nom, s.count(eski)))
+        s = s.replace(eski, yangi)
+        ish.append('kod ' + nom)
+    if '<script src="savol.js"></script>' not in s:
+        i = s.index('var D=[')
+        j = s.rindex('<script>', 0, i)
+        s = s[:j] + '<script src="savol.js"></script>\n' + s[j:]
+        ish.append('kod savol.js')
+    return s
+
+
 def qolla(n, t, tekshir):
     p = os.path.join(ROOT, '%s.html' % n)
     s = open(p, encoding='utf-8').read()
     asl = s
     ish = []
+    if t.get('tur'):
+        s = kod(s, ish)
+        if not re.search(r'var\s+QTUR\s*=', s):
+            a, b, _ = joy(s, 'QUR')
+            e = s.index(';', b) + 1
+            s = s[:e] + '\nvar QTUR={};' + s[e:]
+        a, b, obj = joy(s, 'QTUR')
+        yangi = {k: {x: v[x] for x in ('t', 's', 'o', 'j', 'iz') if x in v} for k, v in t['tur'].items()}
+        if obj != yangi:
+            s = s[:a] + json.dumps(yangi, ensure_ascii=False) + s[b:]
+            ish.append('QTUR %d' % len(yangi))
     for name, kalit in (('QUR', 'qur'), ('TRK', 'trk'), ('QOV', 'qov')):
         if kalit not in t:
             continue
@@ -75,8 +123,8 @@ def qolla(n, t, tekshir):
                     ish.append('QUR +' + k)
             else:
                 yangi = v['v']
-                if name == 'TRK' and k not in obj:
-                    raise SystemExit('%s: %s — TRK da yo\'q' % (n, k))
+                if name == 'TRK' and k not in obj and not v.get('yangi'):
+                    raise SystemExit('%s: %s — TRK da yo\'q (yangi savol bo\'lsa — "yangi": true)' % (n, k))
                 if obj.get(k) != yangi:
                     obj[k] = yangi
                     ish.append(name + ' ' + k)

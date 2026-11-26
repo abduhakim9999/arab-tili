@@ -1,26 +1,146 @@
 {
-  "_izoh": "Dars «Машқ» savollariga qo'lda qilingan qarorlar (docs/texnik/23-savollar.md). Har yozuvda — nima qilingani va NIMA UCHUN (har savol alohida o'ylangan). Qo'llash: python3 src/build/savol_tuzat.py (NN.html dagi QUR/TRK/QOV ga yozadi; qayta ishga tushirilsa o'zgarmaydi). Dars sahifasi qayta yasalsa — shu skript yana ishga tushiriladi. qur — savol «Машқ»dan chiqariladi (matn, Таркиб, izoh joyida qoladi); trk — izoh matni almashadi; qov — variantlar almashadi. qoldi — tekshiruv (savol_tekshir.py) ko'rsatgan, lekin o'ylab QOLDIRILGAN savol (sababi bilan; tekshiruv endi uni ko'rsatmaydi). _kutadi — faqat yangi savol turlari bilan hal bo'ladigan darslar (3-bosqich).",
-  "_kutadi": {
-    "1": "Suhbat darsi: so'raladigan so'zlarning deyarli hammasi yodlangan ibora yoki raf; 1–6-darslarda bir xil salomlashuv savollari. Faqat harakat savoli bilan yaxshi savol bo'lmaydi — yangi turlar («Ҳолати?», «Нима учун?», «Сабабчини топ») bilan qayta tuziladi.",
-    "2": "Suhbat darsi: so'raladigan so'zlarning deyarli hammasi yodlangan ibora yoki raf; 1–6-darslarda bir xil salomlashuv savollari. Faqat harakat savoli bilan yaxshi savol bo'lmaydi — yangi turlar («Ҳолати?», «Нима учун?», «Сабабчини топ») bilan qayta tuziladi.",
-    "3": "Suhbat darsi: so'raladigan so'zlarning deyarli hammasi yodlangan ibora yoki raf; 1–6-darslarda bir xil salomlashuv savollari. Faqat harakat savoli bilan yaxshi savol bo'lmaydi — yangi turlar («Ҳолати?», «Нима учун?», «Сабабчини топ») bilan qayta tuziladi.",
-    "4": "Suhbat darsi: so'raladigan so'zlarning deyarli hammasi yodlangan ibora yoki raf; 1–6-darslarda bir xil salomlashuv savollari. Faqat harakat savoli bilan yaxshi savol bo'lmaydi — yangi turlar («Ҳолати?», «Нима учун?», «Сабабчини топ») bilan qayta tuziladi.",
-    "5": "Suhbat darsi: so'raladigan so'zlarning deyarli hammasi yodlangan ibora yoki raf; 1–6-darslarda bir xil salomlashuv savollari. Faqat harakat savoli bilan yaxshi savol bo'lmaydi — yangi turlar («Ҳолати?», «Нима учун?», «Сабабчини топ») bilan qayta tuziladi.",
-    "6": "Suhbat darsi: so'raladigan so'zlarning deyarli hammasi yodlangan ibora yoki raf; 1–6-darslarda bir xil salomlashuv savollari. Faqat harakat savoli bilan yaxshi savol bo'lmaydi — yangi turlar («Ҳолати?», «Нима учун?», «Сабабчини топ») bilan qayta tuziladi.",
-    "7": "Suhbat darsi: so'raladigan so'zlarning deyarli hammasi yodlangan ibora yoki raf; 1–6-darslarda bir xil salomlashuv savollari. Faqat harakat savoli bilan yaxshi savol bo'lmaydi — yangi turlar («Ҳолати?», «Нима учун?», «Сабабчини топ») bilan qayta tuziladi.",
-    "8": "4 ta savol qoldi (كُلْثُومَ chiqarildi) — yangi turlar bilan to'ldiriladi.",
-    "12": "Hamma savol «أُرِيدُ …» maf'uli — doim fatha bosilsa 80%; yangi turlar bilan aralashtiriladi."
-  },
+  "_izoh": "Dars «Машқ» savollariga qo'lda qilingan qarorlar (docs/texnik/23-savollar.md). Har yozuvda — nima qilingani va NIMA UCHUN (har savol alohida o'ylangan). Qo'llash: python3 src/build/savol_tuzat.py (NN.html dagi QUR/TRK/QOV ga yozadi; qayta ishga tushirilsa o'zgarmaydi). Dars sahifasi qayta yasalsa — shu skript yana ishga tushiriladi. qur — savol «Машқ»dan chiqariladi (matn, Таркиб, izoh joyida qoladi); trk — izoh matni almashadi; qov — variantlar almashadi. qoldi — tekshiruv (savol_tekshir.py) ko'rsatgan, lekin o'ylab QOLDIRILGAN savol (sababi bilan; tekshiruv endi uni ko'rsatmaydi). _kutadi — faqat yangi savol turlari bilan hal bo'ladigan darslar (3-bosqich). tur — yangi savol turlari (savol.js; t: h «Ҳолати?» / v «Нима учун?» / s «Сабабчини топ»; s — savol matni, o — variantlar, j — to'g'risi, iz — javobdan keyingi izoh, sabab — nima uchun shunday tuzilgani, sahifaga yozilmaydi).",
+  "_kutadi": {},
   "1": {
     "qur": {
       "7-1": "Shu darsning 6-1 savoli bilan aynan bir xil (اَلْحَمْدُ — мубтадо).",
-      "7-2": "Shu darsning 6-2 savoli bilan aynan bir xil (لِلَّهِ — жар)."
+      "7-2": "Shu darsning 6-2 savoli bilan aynan bir xil (لِلَّهِ — жар).",
+      "1-0": "اَلسَّلَامُ — ёдланган салом: ҳаракат саволи ўйлатмайди; мубтадо 5-1 (حَالُكَ) да сўралади.",
+      "2-1": "السَّلَامُ — ёдланган жавоб; «мубтадо муаххар» 2-дарсда «Нима учун?» билан сўралади.",
+      "4-1": "خَلِيلٌ — 3-1 (خَالِدٌ) билан бир хил намуна.",
+      "6-1": "اَلْحَمْدُ — ёдланган ибора."
+    },
+    "qov": {
+      "3-1": {
+        "v": [
+          {
+            "w": "خَالِدٌ",
+            "c": "R",
+            "lb": "танвинли замма"
+          },
+          {
+            "w": "خَالِدُ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
+            "w": "خَالِداً",
+            "c": "N",
+            "lb": "танвинли фатҳа"
+          }
+        ],
+        "sabab": "Chalg'ituvchi — haqiqiy xato: erkak ismini tanvinsiz o'qish (2-darsdagi خَوْلَةُ bilan aralashtirish). خَالِدٌ — munsarif."
+      }
+    },
+    "tur": {
+      "3-2": {
+        "t": "h",
+        "j": "Раф",
+        "iz": "مَا — сукунга мабний; мубтадо: раф ўринда. Мабний сўзнинг охири ўзгармайди.",
+        "sabab": "Birinchi mabniy so'z: harakat savoli bo'lmaydi, holat — o'rni bo'yicha."
+      },
+      "5-0": {
+        "t": "h",
+        "j": "Раф",
+        "iz": "كَيْفَ — фатҳага мабний; хабар муқаддам: раф ўринда. Бу фатҳа насб белгиси эмас.",
+        "sabab": "Tuzoq: fatha ko'rinadi, holat — raf. Harakat ≠ holat."
+      },
+      "3-3": {
+        "t": "s",
+        "sabab": "اسْمُكَ — مَا ning xabari (TRK): xabarni mubtado raf qiladi. Gapda اِسْمِي ham mubtado (boshqa gap) — o'quvchi qaysi gapga tegishlisini ajratadi."
+      },
+      "5-1": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун раф?",
+        "o": [
+          "Мубтадо",
+          "Хабар",
+          "Фоил"
+        ],
+        "j": "Мубтадо",
+        "sabab": "Gap boshida كَيْفَ (xabar muqaddam) turgani uchun o'quvchi حَالُكَ ni xabar deb o'ylaydi — aynan shu tuzoq. Foil — gapda fe'l yo'q."
+      },
+      "6-2": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун жар?",
+        "o": [
+          "لِ жар ҳарфидан кейин келгани учун",
+          "Музофун илайҳ бўлгани учун",
+          "Хабар бўлгани учун"
+        ],
+        "j": "لِ жар ҳарфидан кейин келгани учун",
+        "sabab": "Ibora yodlangan, lekin sababi (jar harfi) — darsning birinchi jar holati. Muzofun ilayh — keyingi darslardagi jarning boshqa sababi, chalg'ituvchi sifatida mos."
+      }
     }
   },
   "2": {
     "qur": {
       "7-1": "Shu darsning 6-1 savoli bilan aynan bir xil.",
-      "7-2": "Shu darsning 6-2 savoli bilan aynan bir xil."
+      "7-2": "Shu darsning 6-2 savoli bilan aynan bir xil.",
+      "1-0": "Салом — 1-дарсда ҳам, ёдланган.",
+      "5-1": "حَالُكِ — 1-дарсдаги حَالُكَ саволи (мубтадо муаххар) билан бир хил.",
+      "6-1": "1-дарсда бор (ёдланган ибора).",
+      "6-2": "1-дарсда «Нима учун жар?» бор."
+    },
+    "qov": {
+      "3-1": {
+        "v": [
+          {
+            "w": "خَوْلَةُ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
+            "w": "خَوْلَةٌ",
+            "c": "R",
+            "lb": "танвинли замма"
+          },
+          {
+            "w": "خَوْلَةَ",
+            "c": "N",
+            "lb": "фатҳа"
+          }
+        ],
+        "sabab": "Ғайри мунсариф ayol ismi: asosiy xato — tanvin qo'yish (1-darsdagi خَالِدٌ kabi)."
+      }
+    },
+    "tur": {
+      "2-1": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун раф?",
+        "o": [
+          "Мубтадо",
+          "Хабар",
+          "Фоил"
+        ],
+        "j": "Мубтадо",
+        "iz": "السَّلَامُ — мубтадо муаххар: хабари (وَعَلَيْكُمُ) олдинга ўтган, лекин у барибир мубтадо, шунинг учун раф.",
+        "sabab": "So'z gap oxirida — o'quvchi xabar deb o'ylaydi; tartib o'zgarsa ham vazifa o'zgarmasligini o'rgatadi (1-darsda so'ralmadi)."
+      },
+      "4-1": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун танвинсиз?",
+        "o": [
+          "Музоф бўлгани учун",
+          "Ғайри мунсариф бўлгани учун",
+          "ال билан келгани учун"
+        ],
+        "j": "Ғайри мунсариф бўлгани учун",
+        "iz": "خَدِيجَةُ — аёл исми (атоқли от ва муаннас): ғайри мунсариф, танвин олмайди. Раф — اِسْمِي нинг хабари.",
+        "sabab": "Darsning yangi qoidasi: ayol ismi tanvin olmaydi. Chalg'ituvchilar — tanvinsizlikning boshqa sabablari, bu so'zda yo'q."
+      },
+      "5-0": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун доим фатҳа билан?",
+        "o": [
+          "Мабний бўлгани учун",
+          "Насб бўлгани учун",
+          "Ғайри мунсариф бўлгани учун"
+        ],
+        "j": "Мабний бўлгани учун",
+        "iz": "كَيْفَ — фатҳага мабний: охири ҳеч қачон ўзгармайди. Ўрни — хабар муқаддам (раф ўринда), фатҳаси насб белгиси эмас.",
+        "sabab": "1-darsda «Ҳолати?» so'ralgan; bu yerda boshqa savol — sababi (mabniy). Takror emas, chuqurlashtirish."
+      }
     }
   },
   "3": {
@@ -28,22 +148,77 @@
       "4-2": {
         "v": [
           {
-            "w": "بَاكِسْتَانُ",
-            "c": "R",
-            "lb": "замма"
+            "w": "بَاكِسْتَانِ",
+            "c": "J",
+            "lb": "касра"
+          },
+          {
+            "w": "بَاكِسْتَانٍ",
+            "c": "J",
+            "lb": "танвинли касра"
           },
           {
             "w": "بَاكِسْتَانَ",
             "c": "N",
             "lb": "фатҳа"
-          },
-          {
-            "w": "بَاكِسْتَانِ",
-            "c": "J",
-            "lb": "касра"
           }
         ],
-        "sabab": "c — harakat belgisi: fatha varianti «J» deb yozilgan edi (ikki variant bir xil belgida). Ko'rinishi o'zgarmaydi."
+        "sabab": "مِنْ dan keyin o'quvchi kasra yoki tanvinli kasra qo'yadi — ikkala xato ham chalg'ituvchi; ғайри мунсариф jarri — fatha."
+      },
+      "7-1": {
+        "v": [
+          {
+            "w": "تُرْكِيٌّ",
+            "c": "R",
+            "lb": "танвинли замма"
+          },
+          {
+            "w": "تُرْكِيُّ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
+            "w": "تُرْكِيًّا",
+            "c": "N",
+            "lb": "танвинли фатҳа"
+          }
+        ],
+        "sabab": "Nisbiy sifat tanvin oladi (davlat nomi تُرْكِيَا — olmaydi): tuzoq — tanvinsiz."
+      }
+    },
+    "qur": {
+      "1-0": "Салом — 1–2-дарсларда.",
+      "2-1": "2-дарсда сўралган.",
+      "6-2": "5-2 (بَاكِسْتَانِيٌّ — хабар) билан бир хил.",
+      "8-1": "8-0 (أَهْلاً) билан бир хил сабаб."
+    },
+    "tur": {
+      "3-1": {
+        "t": "h",
+        "j": "Жар",
+        "iz": "أَيْنَ — фатҳага мабний; مِنْ дан кейин келгани учун жар ўринда. Бу фатҳа насб белгиси эмас.",
+        "sabab": "Mabniy so'z jar o'rnida — fatha ko'rinadi, holat jar: harakat ≠ holat."
+      },
+      "5-2": {
+        "t": "s",
+        "sabab": "Nomzodlar هَلْ va أَنْتَ: savol harfi hech narsani raf qilmaydi — xabarni mubtado (أَنْتَ) raf qiladi."
+      },
+      "7-4": {
+        "t": "s",
+        "j": "7-3",
+        "iz": "تُرْكِيَا — مِنْ жар ҳарфидан кейин келгани учун мажрур. Ғайри мунсариф, охири алиф: жар аломати кўринмайди (тақдирий).",
+        "sabab": "Oxiri hech qachon ko'rinmaydigan so'z — harakat savoli bo'lmaydi; jar harfini topish."
+      },
+      "8-0": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун насб?",
+        "o": [
+          "Маҳзуф феълнинг мафъули бўлгани учун",
+          "Хабар бўлгани учун",
+          "Музоф бўлгани учун"
+        ],
+        "j": "Маҳзуф феълнинг мафъули бўлгани учун",
+        "sabab": "Ibora yodlangan — harakat so'ralmaydi; lekin fe'lsiz gapda nima uchun nasb — haqiqiy o'ylash (yashirin fe'l)."
       }
     }
   },
@@ -68,12 +243,73 @@
           }
         ],
         "sabab": "3-darsdagi kabi: fatha varianti «J» belgisida edi."
+      },
+      "5-2": {
+        "v": [
+          {
+            "w": "مِصْرِيَّةٌ",
+            "c": "R",
+            "lb": "танвинли замма"
+          },
+          {
+            "w": "مِصْرِيَّةُ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
+            "w": "مِصْرِيَّةً",
+            "c": "N",
+            "lb": "танвинли фатҳа"
+          }
+        ],
+        "sabab": "Davlat nomi مِصْرَ tanvinsiz, sifat مِصْرِيَّةٌ tanvinli — tuzoq tanvinsiz shakl."
+      }
+    },
+    "qur": {
+      "1-0": "Салом — 1–2-дарсларда.",
+      "2-1": "2-дарсда сўралган.",
+      "6-2": "5-2 билан бир хил.",
+      "7-1": "سُورِيَّةٌ — 5-2 (مِصْرِيَّةٌ) билан бир хил намуна.",
+      "8-0": "3-дарсда сўралган.",
+      "8-1": "3-дарсда сўралган."
+    },
+    "tur": {
+      "3-2": {
+        "t": "h",
+        "j": "Раф",
+        "iz": "أَنْتِ — касрага мабний; мубтадо муаххар: раф ўринда. Бу касра жар белгиси эмас.",
+        "sabab": "Kasra ko'rinadi, holat — raf (3-darsdagi أَيْنَ ning teskarisi)."
+      },
+      "4-2": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун фатҳа билан?",
+        "o": [
+          "Ғайри мунсариф бўлгани учун",
+          "Насб бўлгани учун",
+          "Мабний бўлгани учун"
+        ],
+        "j": "Ғайри мунсариф бўлгани учун",
+        "sabab": "3-darsda بَاكِسْتَانَ harakati so'ralgan; bu yerda sababi. «Насб» — eng ko'p uchraydigan xato fikr."
+      },
+      "6-4": {
+        "t": "s",
+        "sabab": "جِنْسِيَّتُكِ — مَا ning xabari (TRK). 3-darsda shu so'z harakat savoli bo'lgan — bu yerda boshqa tur."
+      },
+      "7-4": {
+        "t": "h",
+        "j": "Жар",
+        "iz": "سُورِيَا — مِنْ жар ҳарфидан кейин келгани учун жар. Ғайри мунсариф, охири алиф: аломати кўринмайди (тақдирий).",
+        "sabab": "Oxiri ko'rinmaydigan so'z: holat jar harfidan topiladi (3-darsdagi تُرْكِيَا — «Сабабчини топ»)."
       }
     }
   },
   "5": {
     "qur": {
-      "7-0": "مَعَ доим фатҳа билан айтилади, مَعُ / مَعِ шакли йўқ — савол ҳеч нарса ўргатмайди (ёдланган ибора)."
+      "7-0": "مَعَ доим фатҳа билан айтилади, مَعُ / مَعِ шакли йўқ — савол ҳеч нарса ўргатмайди (ёдланган ибора).",
+      "2-1": "2-дарсда сўралган.",
+      "4-0": "3-дарсда сўралган.",
+      "4-1": "3-дарсда сўралган.",
+      "5-3": "مُهَنْدِسٌ — 7-дарсда «Сабабчини топ» билан сўралади; бу дарсда шу намуна مُدَرِّسٌ да."
     },
     "trk": {
       "4-1": {
@@ -83,11 +319,56 @@
         ],
         "sabab": "Izoh «أَهْلاً га маътуф» va «o'z mahzuf fe'lining maf'uli»ni birga aytardi — bir-biriga zid; dars matnidagi tahlil (Маҳзуф феълнинг мафъулун биҳи) va 3-dars izohi bilan bir xil qilindi."
       }
+    },
+    "tur": {
+      "3-0": {
+        "t": "h",
+        "j": "Раф",
+        "iz": "هَذَا — сукунга мабний; мубтадо: раф ўринда.",
+        "sabab": "Birinchi ism ishora: mabniy, holat o'rni bo'yicha."
+      },
+      "3-1": {
+        "t": "h",
+        "j": "Раф",
+        "iz": "أَخِي — هَذَا нинг хабари, шунинг учун раф. ي олмоши қўшилгани учун раф аломати кўринмайди (тақдирий).",
+        "sabab": "Kasra ko'rinadi (ي oldidagi), holat — raf: tuzoq."
+      },
+      "3-3": {
+        "t": "s",
+        "sabab": "مُدَرِّسٌ — هُوَ ning xabari (TRK). Gapda هَذَا ham mubtado — qaysi gapga tegishli ekanini ajratish."
+      },
+      "5-1": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун раф?",
+        "o": [
+          "Мубтадо",
+          "Хабар",
+          "Фоил"
+        ],
+        "j": "Хабар",
+        "iz": "صَدِيقِي — هَذَا нинг хабари, шунинг учун раф (аломати ي олмоши туфайли кўринмайди).",
+        "sabab": "Vazifani topish (3-1 da — holat). Foil — fe'l yo'q, mubtado — هَذَا."
+      },
+      "7-1": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун жар?",
+        "o": [
+          "Музофун илайҳ бўлгани учун",
+          "Жар ҳарфидан кейин келгани учун",
+          "Мубтадо бўлгани учун"
+        ],
+        "j": "Музофун илайҳ бўлгани учун",
+        "iz": "السَّلَامَةِ — مَعَ нинг музофун илайҳи, шунинг учун жар. مَعَ — жар ҳарфи эмас, зарф (исм).",
+        "sabab": "Ko'p o'quvchi مَعَ ni jar harfi deb o'ylaydi — aynan shu farqni o'rgatadi."
+      }
     }
   },
   "6": {
     "qur": {
-      "7-0": "5-darsdagi kabi: مَعَ ning harakati o'zgarmaydi."
+      "7-0": "5-darsdagi kabi: مَعَ ning harakati o'zgarmaydi.",
+      "2-1": "2-дарсда сўралган.",
+      "4-0": "3-дарсда сўралган.",
+      "4-1": "3-дарсда сўралган."
     },
     "trk": {
       "4-1": {
@@ -97,11 +378,281 @@
         ],
         "sabab": "5-darsdagi kabi."
       }
+    },
+    "qov": {
+      "5-3": {
+        "v": [
+          {
+            "w": "طَالِبَةٌ",
+            "c": "R",
+            "lb": "танвинли замма"
+          },
+          {
+            "w": "طَالِبَةُ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
+            "w": "طَالِبَةً",
+            "c": "N",
+            "lb": "танвинли фатҳа"
+          }
+        ],
+        "sabab": "Noaniq xabar tanvin oladi; ayol ismlari (ғайри мунсариф) bilan aralashtirib tanvinsiz o'qish — tuzoq."
+      }
+    },
+    "tur": {
+      "3-2": {
+        "t": "h",
+        "j": "Раф",
+        "iz": "هِيَ — фатҳага мабний; мубтадо: раф ўринда. Бу фатҳа насб белгиси эмас.",
+        "sabab": "Fatha ko'rinadi, holat — raf (7-darsdagi هَذِهِ bilan takrorlanmasin — bu yerda هِيَ)."
+      },
+      "3-1": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун раф?",
+        "o": [
+          "Мубтадо",
+          "Хабар",
+          "Фоил"
+        ],
+        "j": "Хабар",
+        "iz": "أُخْتِي — هَذِهِ нинг хабари, шунинг учун раф. ي олмоши қўшилгани учун аломати кўринмайди (тақдирий).",
+        "sabab": "5-darsda أَخِي — holat, صَدِيقِي — vazifa; bu yerda teskarisi (turlar almashgan)."
+      },
+      "3-3": {
+        "t": "s",
+        "sabab": "طَبِيبَةٌ — هِيَ ning xabari (TRK). 7-darsda shu so'z chiqarilgan (bu yerda bor)."
+      },
+      "5-1": {
+        "t": "h",
+        "j": "Раф",
+        "iz": "صَدِيقَتِي — هَذِهِ нинг хабари, шунинг учун раф. Аломати ي олмоши туфайли кўринмайди (тақдирий).",
+        "sabab": "Kasra ko'rinadi, holat — raf."
+      },
+      "7-1": {
+        "t": "h",
+        "j": "Жар",
+        "sabab": "5-darsda «Нима учун жар?»; bu yerda holat — kasra → jar bog'lanishi (darsdagi yagona raf bo'lmagan javob)."
+      }
+    }
+  },
+  "7": {
+    "qur": {
+      "7-4": "طَبِيبَةٌ — «هِيَ … хабари» намунаси 6-дарсда айнан шу сўз билан бор; бу дарсда мубтадо–хабар боғланиши مُهَنْدِسٌ («Сабабчини топ») да сўралади.",
+      "9-4": "طَالِبٌ — «هُوَ … хабари» намунаси учинчи марта; мубтадо–хабар مُهَنْدِسٌ саволида.",
+      "11-4": "مُعَلِّمَةٌ — шу намуна тўртинчи марта."
+    },
+    "qov": {
+      "3-1": {
+        "v": [
+          {
+            "w": "صُورَةُ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
+            "w": "صُورَةٌ",
+            "c": "R",
+            "lb": "танвинли замма"
+          },
+          {
+            "w": "صُورَةِ",
+            "c": "J",
+            "lb": "касра"
+          }
+        ],
+        "sabab": "Chalg'ituvchi — haqiqiy xato: muzof so'zga tanvin qo'yish (صُورَةٌ). Avvalgi fatha varianti hech kim adashmaydigan shakl edi."
+      },
+      "7-2": {
+        "v": [
+          {
+            "w": "سَعِيدَةُ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
+            "w": "سَعِيدَةٌ",
+            "c": "R",
+            "lb": "танвинли замма"
+          },
+          {
+            "w": "سَعِيدَةَ",
+            "c": "N",
+            "lb": "фатҳа"
+          }
+        ],
+        "sabab": "Ғайри мунсариф ayol ismida asosiy xato — tanvin qo'yish (سَعِيدَةٌ); kasrali variant o'rniga shu."
+      }
+    },
+    "tur": {
+      "3-0": {
+        "t": "h",
+        "j": "Раф",
+        "iz": "هَذِهِ — мубтадо, раф ўринда. Касрага мабний: охири ҳеч қачон ўзгармайди, бу касра жар белгиси эмас.",
+        "sabab": "Harakati (kasra) holatini ko'rsatmaydigan mabniy so'z — o'quvchi kasrani ko'rib «жар» deb adashadi; harakat savoli bo'la olmaydi, holat savoli — aynan shu tuzoq."
+      },
+      "3-2": {
+        "t": "h",
+        "j": "Жар",
+        "iz": "أُسْرَتِي — صُورَةُ нинг музофун илайҳи, шунинг учун жар. ي олмоши қўшилгани учун жар аломати кўринмайди (тақдирий).",
+        "sabab": "Oxiri ko'rinmaydigan so'z — holat vazifasidan topiladi; darsdagi yagona raf bo'lmagan javob."
+      },
+      "4-2": {
+        "t": "s",
+        "sabab": "اللَّهُ ni raf qilgan so'z — fe'l شَاءَ: fe'l → foil bog'lanishini ko'rish. Ibora yodlangan bo'lsa ham bu savol o'ylatadi (harakat savoli o'ylatmas edi)."
+      },
+      "5-2": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун раф?",
+        "o": [
+          "Мубтадо",
+          "Бадал",
+          "Фоил",
+          "Сифат"
+        ],
+        "j": "Бадал",
+        "sabab": "Chalg'ituvchilar aniq noto'g'ri: mubtado — هَذَا, gapda fe'l yo'q (foil emas), atoqli ot sifat bo'lmaydi. «Хабар» va «Атфи баён» qo'yilmadi — ba'zi kitoblarda shunday tahlil ham bor."
+      },
+      "5-4": {
+        "t": "s",
+        "sabab": "مُهَنْدِسٌ ni raf qilgan so'z — mubtado هُوَ (dars tahlilidagi bog'lanish, TRK). Gapda هَذَا ham mubtado — o'quvchi qaysi gapga tegishli ekanini ajratadi."
+      },
+      "9-2": {
+        "t": "h",
+        "j": "Раф",
+        "iz": "عِيسَى — أَخِي дан бадал, шунинг учун раф. Охири алиф (ى) бўлгани учун замма кўринмайди (тақдирий).",
+        "sabab": "Oxiri hech qachon ko'rinmaydigan so'z (alif maqsura) — harakat savoli bo'lmaydi, holat savoli bo'ladi."
+      },
+      "11-2": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун танвинсиз?",
+        "o": [
+          "Музоф бўлгани учун",
+          "Ғайри мунсариф бўлгани учун",
+          "ال билан келгани учун"
+        ],
+        "j": "Ғайри мунсариф бўлгани учун",
+        "iz": "عَبْلَةُ — аёл исми (атоқли от ва муаннас): ғайри мунсариф, танвин олмайди. Раф — أُخْتِي дан бадал.",
+        "sabab": "Darsning yangi qoidasi — ayol ismi tanvin olmaydi. Chalg'ituvchilar — tanvinsizlikning boshqa sabablari, bu so'zda yo'q."
+      }
     }
   },
   "8": {
     "qur": {
-      "13-3": "أُمُّ كُلْثُومَ — ғайри мунсариф деб ўргатилади, лекин куняда бу исм кўпинча танвин билан (كُلْثُومٍ) ўқилади — шубҳали мисол синов савол бўлмайди. Матн ўзгармади (китобдагидек)."
+      "13-3": "أُمُّ كُلْثُومَ — ғайри мунсариф деб ўргатилади, лекин куняда бу исм кўпинча танвин билан (كُلْثُومٍ) ўқилади — шубҳали мисол синов савол бўлмайди. Матн ўзгармади (китобдагидек).",
+      "3-1": "صَلَّى اللَّهُ — ёдланган ибора; феъл → фоил 7-дарсда («Сабабчини топ»).",
+      "5-2": "آمِنَةُ — аёл исми ғайри мунсариф 2, 7-дарсларда; бу дарсда танвинсизликнинг бошқа сабаблари (ال, ة ли эркак исми)."
+    },
+    "trk": {
+      "4-1": {
+        "v": [
+          "4-0",
+          "وَالِدُهُ — هَذَا нинг хабари, шунинг учун раф қилинган."
+        ],
+        "yangi": true,
+        "sabab": "Yangi savol: olmosh هُ / هِ harakati oldingi harfga moslashadi (…دُهُ / …دَهُ / …دِهِ) — darsning yangi narsasi."
+      },
+      "4-2": {
+        "v": [
+          "4-1",
+          "عَبْدُ — وَالِدُهُ дан бадал, шунинг учун раф қилинган (музоф бўлгани учун танвинсиз)."
+        ],
+        "yangi": true,
+        "sabab": "Yangi savol: muzof ism tanvin olmaydi (عَبْدُ اللَّهِ)."
+      }
+    },
+    "qov": {
+      "4-1": {
+        "v": [
+          {
+            "w": "وَالِدُهُ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
+            "w": "وَالِدَهُ",
+            "c": "N",
+            "lb": "фатҳа"
+          },
+          {
+            "w": "وَالِدِهِ",
+            "c": "J",
+            "lb": "касра"
+          }
+        ],
+        "sabab": "Har variantda olmosh harakati to'g'ri moslangan (هُ / هُ / هِ)."
+      },
+      "4-2": {
+        "v": [
+          {
+            "w": "عَبْدُ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
+            "w": "عَبْدٌ",
+            "c": "R",
+            "lb": "танвинли замма"
+          },
+          {
+            "w": "عَبْدِ",
+            "c": "J",
+            "lb": "касра"
+          }
+        ],
+        "sabab": "Tuzoq — muzofga tanvin."
+      },
+      "10-2": {
+        "v": [
+          {
+            "w": "إِبْرَاهِيمُ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
+            "w": "إِبْرَاهِيمٌ",
+            "c": "R",
+            "lb": "танвинли замма"
+          },
+          {
+            "w": "إِبْرَاهِيمَ",
+            "c": "N",
+            "lb": "фатҳа"
+          }
+        ],
+        "sabab": "Ajamiy ism — ғайри мунсариф: tuzoq tanvin."
+      }
+    },
+    "tur": {
+      "2-5": {
+        "t": "s",
+        "sabab": "الرَّسُولِ ni jar qilgan — muzof أُسْرَةُ (TRK): jar harfi yo'q joyda jar sababi."
+      },
+      "7-2": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун танвинсиз?",
+        "o": [
+          "ال билан келгани учун",
+          "Ғайри мунсариф бўлгани учун",
+          "Музоф бўлгани учун"
+        ],
+        "j": "ال билан келгани учун",
+        "iz": "الْعَبَّاسُ — ال билан келгани учун танвин олмайди (у ғайри мунсариф эмас). Раф — عَمُّهُ дан бадал.",
+        "sabab": "Tanvinsizlikning yana bir sababi — ال; ғайри мунсариф ismlar orasida ajratish."
+      },
+      "8-2": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун танвинсиз?",
+        "o": [
+          "Музоф бўлгани учун",
+          "Ғайри мунсариф бўлгани учун",
+          "ال билан келгани учун"
+        ],
+        "j": "Ғайри мунсариф бўлгани учун",
+        "iz": "حَمْزَةُ — эркак исми, лекин охирида ة бор: атоқли от + муаннаслик белгиси — ғайри мунсариф, танвин олмайди. Раф — عَمُّهُ дан бадал.",
+        "sabab": "Erkak ismi bo'lsa ham ғайри мунсариф (ة) — kutilmagan holat, o'ylatadi."
+      }
     }
   },
   "9": {
@@ -130,7 +681,80 @@
   },
   "12": {
     "qur": {
-      "11-4": "11-darsdagi «أُرِيدُ مُشَاهَدَةَ الشَّقَّةِ» savoli bilan bir xil (أُرِيدُ нинг мафъули)."
+      "11-4": "11-darsdagi «أُرِيدُ مُشَاهَدَةَ الشَّقَّةِ» savoli bilan bir xil (أُرِيدُ нинг мафъули).",
+      "9-2": "وَثَلَّاجَةً — маътуф: 5-2 (وَسِتَارَةً) билан бир хил."
+    },
+    "qov": {
+      "3-1": {
+        "v": [
+          {
+            "w": "بَعْضَ",
+            "c": "N",
+            "lb": "фатҳа"
+          },
+          {
+            "w": "بَعْضاً",
+            "c": "N",
+            "lb": "танвинли фатҳа"
+          },
+          {
+            "w": "بَعْضُ",
+            "c": "R",
+            "lb": "замма"
+          }
+        ],
+        "sabab": "Tuzoq — muzofga tanvin (بَعْضاً); mafʼul ekani — fatha."
+      }
+    },
+    "tur": {
+      "2-2": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун насб?",
+        "o": [
+          "Маҳзуф феълнинг мафъули бўлгани учун",
+          "Мубтадо бўлгани учун",
+          "Жар ҳарфидан кейин келгани учун"
+        ],
+        "j": "Маҳзуф феълнинг мафъули бўлгани учун",
+        "iz": "أَيَّ — маҳзуф феълнинг мафъулун биҳи, шунинг учун насб. Савол сўзлари ичида أَيّ — мўъраб: ҳаракати ўзгаради.",
+        "sabab": "Savol so'zlari odatda mabniy (مَاذَا) — أَيّ mu'rab: farqni o'rgatadi."
+      },
+      "3-2": {
+        "t": "s",
+        "sabab": "الْأَثَاثِ ni jar qilgan — muzof بَعْضَ (TRK), fe'l emas: nomzodlar أُرِيدُ va بَعْضَ."
+      },
+      "4-0": {
+        "t": "h",
+        "j": "Насб",
+        "iz": "مَاذَا — сукунга мабний; تُرِيدُ нинг мафъули: насб ўринда.",
+        "sabab": "Mabniy savol so'zi nasb o'rnida — sukun ko'rinadi, holat nasb."
+      },
+      "4-1": {
+        "t": "h",
+        "o": [
+          "Раф",
+          "Насб",
+          "Жазм"
+        ],
+        "j": "Раф",
+        "iz": "تُرِيدُ — феъли музориъ: уни насб ёки жазм қилувчи сўз йўқ, шунинг учун раф (замма).",
+        "sabab": "Fe'lning holati (raf / nasb / jazm) — darsda birinchi marta; fe'l uchun variantlar boshqa."
+      },
+      "5-1": {
+        "t": "s",
+        "sabab": "سَرِيراً ni nasb qilgan — fe'l أُرِيدُ (TRK). Nomzodlar أُرِيدُ va وَسِتَارَةً."
+      },
+      "5-2": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун насб?",
+        "o": [
+          "Маътуф бўлгани учун",
+          "Хабар бўлгани учун",
+          "Музофун илайҳ бўлгани учун"
+        ],
+        "j": "Маътуф бўлгани учун",
+        "sabab": "Ma'tuf o'zi mafʼul emas — oldingi so'zga ergashadi: buni harakat savoli o'rgatmaydi."
+      }
     }
   },
   "70": {

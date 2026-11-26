@@ -288,7 +288,7 @@ def ru_data(ready):
     Manba: data/lugat.json, data/mashq.json (ajrat.py) + dNN.json (voc, tr). Repo ildizidan ishga tushiriladi."""
     W, Q = {}, {}
     L = json.load(open('data/lugat.json', encoding='utf-8'))['s']
-    M = json.load(open('data/mashq.json', encoding='utf-8'))['s']
+    M = json.load(open('data/mashq.json', encoding='utf-8')); M = M['s'] + M.get('t', [])   # t — turli savollar («Боб якуни», 26.11.2026); id umumiy
     for n in ready:
         d = json.load(open(os.path.join(HERE, 'd%02d.json' % n), encoding='utf-8'))
         voc, tr = d.get('voc', {}), d.get('tr', [])

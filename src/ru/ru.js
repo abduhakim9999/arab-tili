@@ -58,7 +58,7 @@
           if (r.g && r.g.tr != null && w[3]) r.g.tr = w[3];   /* takror kartasidagi dars gapi tarjimasi (19.11.2026) */
         });
       },
-      mashq: function (j) { (j.s || []).forEach(function (q) { if (RQ[q.id] != null) q.tr = RQ[q.id]; }); }
+      mashq: function (j) { (j.s || []).concat(j.t || []).forEach(function (q) { if (RQ[q.id] != null) q.tr = RQ[q.id]; }); }   /* t — turli savollar (26.11.2026) */
     };
     window.fetch = function (u) {
       var m = typeof u === 'string' && /(?:^|\/)data\/(darslar|lugat|mashq)\.json(?:[?#]|$)/.exec(u);

@@ -31,4 +31,4 @@ Yangi texnik qoida — tegishli bo'lim fayliga (bitta joyga). Yangi mavzu — ya
 | 20 | Yo'riqnoma o'ynatkichi — «Кўрсатмалар» (14.11.2026, foydalanuvchi qarori; saytda — 15.11.2026) | [`docs/texnik/20-yoriqnoma.md`](texnik/20-yoriqnoma.md) | 7 KB |
 | 21 | Grammatika videolari (19.11.2026, foydalanuvchi qarori: «kerak bo'lsa ElevenLabs va video AI ham — eng yaxshi deb o'ylaganingni») | [`docs/texnik/21-grammatika-video.md`](texnik/21-grammatika-video.md) | 39 KB |
 | 22 | Сайтга кириш коди (26.11.2026, foydalanuvchi qarori; vaqtinchalik, pullik versiyagacha) | [`docs/texnik/22-kirish-kodi.md`](texnik/22-kirish-kodi.md) | 2 KB |
-| 23 | Dars «Машқ» savollari — tuzish tartibi, qarorlar fayli, tekshiruv (26.11.2026, foydalanuvchi qarori) | [`docs/texnik/23-savollar.md`](texnik/23-savollar.md) | 6 KB |
+| 23 | Dars «Эъроб» (avval «Машқ») savollari — tuzish tartibi, qarorlar fayli, tekshiruv; yangi savol turlari (`savol.js`); «Боб якуни» va «Хатолар устида ишлаш» (`yol.html`; 26.11.2026, foydalanuvchi qarori) | [`docs/texnik/23-savollar.md`](texnik/23-savollar.md) | 13 KB |

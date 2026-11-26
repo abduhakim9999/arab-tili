@@ -519,9 +519,9 @@ var TRK={"3-5": ["3-4", "التَّالِيَةِ — الْأَسْئِلَةِ
 var ANS={};
 function qlast(o){var hk=o.e[1].replace(/[^ً-ِ]/g,"");return hk.charAt(hk.length-1)}
 /* ---- mashq: so'z oxiri harakatini topish (bitta umumiy mashq) ---- */
-var QUR={};
+var QUR={"12-6": 1, "13-0": 1, "19-15": 1, "19-20": 1};
 function qsh(A){for(var a=A.length-1;a>0;a--){var b=Math.floor(Math.random()*(a+1)),t=A[a];A[a]=A[b];A[b]=t}return A}
-var QOV={"12-1": [{"w": "آخَرُ", "c": "R", "lb": "замма — раф"}, {"w": "آخَرَ", "c": "J", "lb": "фатҳа — жар (ғайри мунсариф)"}, {"w": "آخَرٍ", "c": "J", "lb": "касра — оддий жар"}], "19-10": [{"w": "الْأَسَاسِيُّ", "c": "R"}, {"w": "الْأَسَاسِيَّ", "c": "N"}, {"w": "الْأَسَاسِيِّ", "c": "J"}]};
+var QOV={"12-1": [{"w": "آخَرُ", "c": "R", "lb": "замма"}, {"w": "آخَرَ", "c": "N", "lb": "фатҳа"}, {"w": "آخَرٍ", "c": "J", "lb": "танвинли касра"}], "19-10": [{"w": "الْأَسَاسِيُّ", "c": "R"}, {"w": "الْأَسَاسِيَّ", "c": "N"}, {"w": "الْأَسَاسِيِّ", "c": "J"}]};
 function qends(k){
   if(QOV[k])return QOV[k];
   var o=get(k),ir=irb(k),c=qcase(o);if(!c)return null;

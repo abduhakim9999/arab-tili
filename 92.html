@@ -517,9 +517,9 @@ var TRK={"3-4":["3-3","جَيِّدٌ — رَاتِبُ нинг хабари, 
 var ANS={};
 function qlast(o){var hk=o.e[1].replace(/[^ً-ِ]/g,"");return hk.charAt(hk.length-1)}
 /* ---- mashq: so'z oxiri harakatini topish (bitta umumiy mashq) ---- */
-var QUR={};for(var qj=8;qj<=21;qj++)QUR["6-"+qj]=1;
+var QUR={"12-2": 1};for(var qj=8;qj<=21;qj++)QUR["6-"+qj]=1;
 function qsh(A){for(var a=A.length-1;a>0;a--){var b=Math.floor(Math.random()*(a+1)),t=A[a];A[a]=A[b];A[b]=t}return A}
-var QOV={"8-6":[{w:"مَرَّتَانِ",c:"R",lb:"ا — раф"},{w:"مَرَّتَيْنِ",c:"N",lb:"ي — насб"}]};
+var QOV={"8-6": [{"w": "مَرَّتَانِ", "c": "R", "lb": "ا — раф"}, {"w": "مَرَّتَيْنِ", "c": "N", "lb": "ي — насб"}], "9-4": [{"w": "وَثَقَافَتُهُمْ", "c": "R", "lb": "замма"}, {"w": "وَثَقَافَتَهُمْ", "c": "N", "lb": "фатҳа"}, {"w": "وَثَقَافَتِهِمْ", "c": "J", "lb": "касра"}], "9-5": [{"w": "وَلُغَتُهُمْ", "c": "R", "lb": "замма"}, {"w": "وَلُغَتَهُمْ", "c": "N", "lb": "фатҳа"}, {"w": "وَلُغَتِهِمْ", "c": "J", "lb": "касра"}]};
 function qends(k){
   if(QOV[k])return QOV[k];
   var o=get(k),ir=irb(k),c=qcase(o);if(!c)return null;

@@ -36,18 +36,17 @@
   /* ko'rinish: «Созламалар» → Кўриниш (yorug / tungi; avto — telefon sozlamasi). docs/texnik.md 16 */
   try { var _k = JSON.parse(localStorage.getItem('sozlama') || '{}').kor; if (_k === 'yorug' || _k === 'tungi') document.documentElement.setAttribute('data-theme', _k === 'tungi' ? 'dark' : 'light'); } catch (e) {}
   /* KIRISH KODI (26.11.2026, foydalanuvchi: «hozircha hamma ishlatmasligi uchun kodli qilib qo'yamiz», «oddiy bitta parolli, 4 xonali»,
-     «butun sayt yopiladi», «bir kunda bir marta so'ralsa bo'ladi»; docs/texnik/22-kirish-kodi.md). Ikkala tilda, Telegramda ham.
-     Kod to'g'ri bo'lsa — shu qurilmada Toshkent vaqti bilan kun oxirigacha ochiq («kirish-ok» = KX:kun); ertasi kuni yoki kod almashsa — yana so'raladi
-     (orqa fondan qaytganda ham tekshiriladi). Kodning o'zi yozilmaydi — faqat KX; almashtirish: `node src/build/kirish-kod.js 1234`.
+     «butun sayt yopiladi»; 26.11.2026: «kodi bir marta teriladigan bo'lsin, har kuni so'raydigan emas»; docs/texnik/22-kirish-kodi.md). Ikkala tilda, Telegramda ham.
+     Kod to'g'ri bo'lsa — shu qurilmada doimiy ochiq («kirish-ok» = KX); faqat kod almashsa (yoki brauzer tozalansa) — yana bir marta so'raladi
+     (eski «KX:kun» yozuvi ham qabul qilinib, «KX» ga o'tkaziladi). Kodning o'zi yozilmaydi — faqat KX; almashtirish: `node src/build/kirish-kod.js 1234`.
      5 xatodan keyin 30 s kutish. Bu «eshik qulfi»: tekshiruv brauzerda (repo ochiq) — haqiqiy himoya pullik versiyada, server bilan. */
   try {
     (function () {
       var KX = 'eed39e36', H = document.documentElement;
       function xesh(s) { var h = 0x811c9dc5; s = 'nurut-tolib:' + s; for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; } return ('0000000' + h.toString(16)).slice(-8); }
-      function kun() { return new Date(Date.now() + 5 * 3600e3).toISOString().slice(0, 10); }   /* Toshkent (UTC+5) */
       function G(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
       function S(k, v) { try { if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) {} }
-      function ochiq() { return G('kirish-ok') === KX + ':' + kun(); }
+      function ochiq() { var o = G('kirish-ok'); if (o === KX) return true; if (o && o.indexOf(KX + ':') === 0) { S('kirish-ok', KX); return true; } return false; }
       var ru = window.Profil ? Profil.til === 'ru' : G('til') === 'ru';
       var T = ru ? { b: 'Код доступа', s: 'Введите 4-значный код', x: 'Неверный код', k: 'Слишком много попыток. Через ', kk: ' с', o: 'Удалить' }
         : { b: 'Кириш коди', s: '4 хонали кодни киритинг', x: 'Нотўғри код', k: 'Кўп марта хато. ', kk: ' сониядан кейин', o: 'Ўчириш' };
@@ -88,7 +87,7 @@
       }
       function tekshir() {
         band = true;
-        if (xesh(v) === KX) { S('kirish-ok', KX + ':' + kun()); S('kirish-xato', null); S('kirish-kut', null); nuqta(); setTimeout(ochil, 150); return; }
+        if (xesh(v) === KX) { S('kirish-ok', KX); S('kirish-xato', null); S('kirish-kut', null); nuqta(); setTimeout(ochil, 150); return; }
         var n = +(G('kirish-xato') || 0) + 1;
         if (n >= 5) { S('kirish-kut', String(Date.now() + 30000)); n = 0; }
         S('kirish-xato', String(n)); silkit();

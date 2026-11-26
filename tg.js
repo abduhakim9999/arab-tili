@@ -410,7 +410,8 @@
     ['#bd.on', ESC],                                                                                      /* yol.html: boblar ro'yxati */
     ['.hpop.on', function (e) { e.classList.remove('on'); var q = document.querySelector('.dh .q'); if (q) q.classList.remove('on'); }],
     ['.spm.on', function (e) { e.classList.remove('on'); }],                                             /* pleyer tezligi */
-    ['#tqd', function (e) { e.click(); }]                                                                 /* takror.html: oldingi kartani ko'rish → «Давом этиш» */
+    ['#tqd', function (e) { e.click(); }],                                                                /* takror.html: oldingi kartani ko'rish → «Давом этиш» */
+    ['body.tq-ses #yop, body.tq-ses #mq0', function (e) { e.click(); }]                                  /* takror.html: mashg'ulot (✕ kabi yopiladi, «Машқ» qoladi; javoblar har kartada saqlangan). 26.11.2026 */
   ];
   function ochiqOyna(hammasi) {
     for (var i = 0; i < OYNA.length; i++) {

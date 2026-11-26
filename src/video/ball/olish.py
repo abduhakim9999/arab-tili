@@ -126,7 +126,7 @@ def main():
         # ---- «Эшитиш»
         pg = sahifa()
         pg.goto(U + 'tinglash.html?d=1'); pg.wait_for_timeout(2500)
-        ol(pg, 'esh', {}, 300)
+        ol(pg, 'esh', {'play': '#bpl'}, 300)
         pg.context.close()
         br.close()
     assert not xato, 'sahifa xatosi: %s' % xato[:5]

@@ -12,15 +12,16 @@ HOP = int(SR * 0.01)
 
 # ball — «Баллар ва рейтинг»: ball nimaga beriladi, 🔥 seriya, «Рейтинг» (yo'riqnoma videosi; matn va jadvallar — docs/ball-video.md, 26.11.2026).
 # Qoida kodda: takror.js REY / kunBallari / kunlik, tg.js Ball. 26.11.2026 (13:37 joylashidan keyin): dars «Машқ»i endi «Эъроб» — matn moslandi. Matn oddiy lotinchada; «|» — ekrandagi qadam joyi (qoralamada vaqti matn
+# «ball» — kirillcha «балл» (26.11.2026, foydalanuvchi: «balni noto'g'ri talaffuz qilyapti» — lotinchasi ba'zan inglizcha «bo'l»; sinovda «балл» va «bal» ikkalasi yaxshi).
 # uzunligiga qarab taxmin qilinadi, haqiqiy ovozdan keyin cue.json ga aniq vaqtlar). Ovoz (rejada): Farruh — foydalanuvchi ruxsati bilan.
 import re
-IPA = {'xullas': 'Хуллас'}   # gap boshida yolg'iz «X…» so'zi ElevenLabs'da «z» bo'lib ketadi — kirillcha yoziladi (docs/texnik/21: «Сўз йўли», «Xatosiz»)
+IPA = {'xullas': 'Хуллас', 'ball': 'балл'}   # gap boshida yolg'iz «X…» so'zi ElevenLabs'da «z» bo'lib ketadi — kirillcha yoziladi (docs/texnik/21: «Сўз йўли», «Xatosiz»)
 TXT = {
  # S1 — savol
  'k1': "Reytingda yuqoriga qanday chiqiladi? |Siri bitta: |qancha ko'p shug'ullansangiz — |shuncha ko'p ball.",
  # S2 — to'g'ri javob 10
  'k2a': "Har bir to'g'ri javob — o'n ball: |«Mashq»da ham, |darsdagi «E'rob»da ham, |«Sarf»da ham. |To'g'ri topsangiz, ekranda «plyus o'n» uchadi.",
- 'k2b': "Xato qilsangiz, ball ayrilmaydi. |Faqat bitta savol kuniga bir marta ball beradi.",
+ 'k2b': "Xato qilsangiz, ball ayrilmaydi. |Lekin bitta savol kuniga faqat bir marta ball beradi.",   # 26.11.2026: «Faqat bitta savol…» ikki xil tushunilardi
  # S3 — so'z «биламан» +50
  'k3': "So'zni uch kun to'g'ri topsangiz, |u «bilaman» pog'onasiga ko'tariladi. |Mukofoti — yana ellik ball.",
  # S4 — dars 80% +100

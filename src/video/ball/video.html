@@ -90,7 +90,7 @@ i{font-style:normal}
 <div class="big h" id="a3" style="top:960px;font-size:112px;color:var(--gold)">шунча кўп балл</div>
 
 <!-- S2 -->
-<div class="big h" id="p10" style="top:1180px;font-size:210px;color:#f59e0b;text-shadow:0 6px 0 rgba(0,0,0,.25),0 0 40px rgba(255,255,255,.55)">+10</div>
+<div class="big h" id="p10" style="top:860px;font-size:230px;color:#f59e0b;text-shadow:0 6px 0 rgba(0,0,0,.25),0 0 40px rgba(255,255,255,.55)">+10</div>
 <div class="big h" id="p100" style="top:1270px;font-size:190px;color:#f59e0b;text-shadow:0 6px 0 rgba(0,0,0,.18),0 0 40px rgba(255,255,255,.7)">+100</div>
 <div class="note h" id="x1" style="top:840px"><span class="chip b" style="font-size:46px">хато жавоб — балл айрилмайди</span></div>
 <div class="note h" id="x2" style="top:970px"><span class="chip y" style="font-size:46px">бир савол — кунига бир марта</span></div>
@@ -108,7 +108,6 @@ i{font-style:normal}
   <div class="stp m h" id="P3" style="left:720px;height:600px">Мустаҳкам</div>
 </div>
 <div class="h" id="p50" style="position:absolute;left:60px;top:716px;width:470px;text-align:center;font-size:170px;font-weight:800;color:var(--gold);text-shadow:0 6px 0 rgba(0,0,0,.25);z-index:6">+50</div>
-<div class="h" id="n60" style="position:absolute;left:40px;top:918px;width:510px;text-align:center;z-index:6"><span class="chip k" style="font-size:32px">экранда: +60 (10 + 50)</span></div>
 
 <!-- S5: tinglash soati -->
 <div class="h" id="rg" style="position:absolute;left:340px;top:640px;width:400px;height:400px;z-index:6">
@@ -121,7 +120,7 @@ i{font-style:normal}
 <div class="note h" id="g200" style="top:1230px"><span class="chip k" style="font-size:44px">кунига 200 баллгача</span></div>
 
 <!-- S6: olov -->
-<div class="note h" id="o50" style="top:820px"><span class="chip y" style="font-size:64px;padding:10px 40px">яна +50 балл</span></div>
+<div class="note h" id="o50" style="top:930px"><span class="chip y" style="font-size:64px;padding:10px 40px">яна +50 балл</span></div>
 <div class="h" id="fl" style="position:absolute;left:400px;top:500px;width:280px;height:280px;z-index:6;transform-origin:50% 90%">
   <svg viewBox="0 0 100 100" width="280" height="280"><defs><linearGradient id="fg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF6A1A"/><stop offset="1" stop-color="#FFC233"/></linearGradient></defs>
   <path d="M50 4 C57 27 84 40 84 68 C84 88 69 99 50 99 C31 99 16 88 16 68 C16 52 27 44 33 33 C35 45 41 50 46 50 C40 34 44 18 50 4 Z" fill="url(#fg1)"/>
@@ -270,7 +269,7 @@ function build() {
   pop('#h2', c[2] - .05, .4, .5); to('#h2', { borderColor: '#F4D27A', backgroundColor: 'rgba(244,210,122,.22)', color: '#F4D27A' }, c[2] - .05, .3);
   tapD(ctr(E.dq1.ok), c[2] + 1.0); scr('dq2', c[2] + 1.1, .2); fly(10, ctr(E.dq1.ok)[0], E.dq1.ok[1] + 6, c[2] + 1.12);
   pop('#h3', c[3] - .05, .4, .5); to('#h3', { borderColor: '#F4D27A', backgroundColor: 'rgba(244,210,122,.22)', color: '#F4D27A' }, c[3] - .05, .3);
-  pop('#p10', c[4] + .25, .5, 0); sfx('chime', c[4] + .25, .6); pulse('#p10', c[4] + 1.6, 1.1, .6);
+  dim(c[4] + .05, .12); pop('#p10', c[4] + .25, .5, 0); sfx('chime', c[4] + .25, .6); pulse('#p10', c[4] + 1.6, 1.1, .6);
   c = C.k2b.c; hide('#p10', c[0] - .35, .25); dim(c[0] - .2, .1);
   pop('#x1', c[0] + .1, .5, .6); pop('#x2', c[1] + .1, .5, .6);
 
@@ -282,10 +281,10 @@ function build() {
   M.fromTo(tk, { autoAlpha: 0, scale: .4 }, { autoAlpha: 1, scale: 1, duration: .5, ease: 'back.out(2)', immediateRender: false }, t + .45);
   ['#d1', '#d2', '#d3'].forEach((d, k) => { const tt = c[0] + .15 + k * .7; pop(d, tt, .45, 0); sfx('tick', tt + .1); });
   hop(tk, 1, 2, c[1] + .1, .7);
-  pop('#p50', c[2] + .2, .55, 0); sfx('chime', c[2] + .2, .8); rise('#n60', c[2] + 1.0, .4, 20);
+  pop('#p50', c[2] + .2, .55, 0); sfx('chime', c[2] + .2, .8);
 
   /* ================= S4: dars o'tildi — +100 ================= */
-  t = S('S4'); M.to(['#stairs', '#days3', '#p50', '#n60'], { autoAlpha: 0, y: '-=40', duration: .28, ease: 'power2.in' }, t - .3);
+  t = S('S4'); M.to(['#stairs', '#days3', '#p50'], { autoAlpha: 0, y: '-=40', duration: .28, ease: 'power2.in' }, t - .3);
   c = C.k4.c; title('#T4', t + .1);
   cutTo('dres', [0, 40, 390, 360], t);
   spot(E.dres.sc, c[0] + .45, c[1] - .1, 12, 2);
@@ -297,7 +296,7 @@ function build() {
   t = S('S5'); hide(['#h4', '#p100'], t - .3, .25);
   c = C.k5.c; title('#T5', t + .1);
   cutTo('esh', null, t);
-  spot([155, 571, 80, 80], c[0] + .2, c[1] - .3, 40, 4);                        // ▶ tugmasi
+  spot(E.esh.play, c[0] + .2, c[1] - .3, 40, 4);                                // ▶ tugmasi (olish.py: #bpl)
   dim(c[1] - .3, .2);
   pop('#rg', c[1] - .15, .5, 0); M.to('#rgp', { strokeDashoffset: 0, duration: 1.5, ease: 'none' }, c[1] + .15);
   const cn = { v: 0 }; M.to(cn, { v: 300, duration: 1.5, ease: 'none', onUpdate: () => { const s = Math.round(cn.v / 5) * 5; $('#rgt').textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); } }, c[1] + .15);
@@ -313,8 +312,8 @@ function build() {
   cam(SR, c[1] - .15, .8, 60, 4.2); spot(SR, c[1] + .55, c[4] + 1.9, 14, 1);
   scr('mq200', c[2] + .55, .5);                                                 // 200 ga yetdi — olov yondi
   halo(SR, c[3] + .05, 14, 2); sfx('shimmer', c[3] + .05, .8);
-  pop('#o50', c[4] + .1, .5, 0); sfx('chime', c[4] + .1, .7);
-  c = C.k6b.c; hide('#o50', c[0] - .45, .25); dim(c[0] - .3, .04);
+  dim(c[4] - .05, .18); pop('#o50', c[4] + .1, .5, 0); sfx('chime', c[4] + .1, .7);
+  c = C.k6b.c; hide('#o50', c[0] - .45, .25); M.to('#vp', { autoAlpha: 0, duration: .35, ease: 'power2.in' }, c[0] - .3);
   pop('#fl', c[0] + .05, .6, 0); pop('#c0', c[0] + .5, .4, 0); rise('#dcs', c[1] - .5, .45, 30);
   let pc = '#c0';
   [1, 2, 3].forEach(k => { const tt = c[1] + .25 + (k - 1) * .8, e = '#e' + k;
@@ -349,8 +348,9 @@ function build() {
   /* ================= S9: xulosa ================= */
   t = S('S9'); hide('#h8', t - .3, .25); M.to('#vp', { autoAlpha: 0, y: -40, duration: .3, ease: 'power2.in' }, t - .32);
   c = C.k9.c; title('#T9', t + .1);
-  ['#r1', '#r2', '#r3', '#r4'].forEach((r, k) => { rise(r, c[1 + k] - .08, .45, 40); sfx('pop', c[1 + k] - .08, .5); });
-  pop('#r5', c[5] + .05, .5, .6);
+  ['#r1', '#r2', '#r3', '#r4', '#r5'].forEach((r, k) => M.fromTo(r, { autoAlpha: 0, y: 30 }, { autoAlpha: .3, y: 0, duration: .4, immediateRender: false }, t + .35 + k * .07));
+  ['#r1', '#r2', '#r3', '#r4'].forEach((r, k) => { to(r, { autoAlpha: 1 }, c[1 + k] - .08, .3); pulse(r, c[1 + k] - .08, 1.04, .4); sfx('pop', c[1 + k] - .08, .5); });
+  to('#r5', { autoAlpha: 1 }, c[5] + .05, .3); pulse('#r5', c[5] + .05, 1.05, .45); sfx('pop', c[5] + .05, .6);
   rise('#f3', c[6] + .05, .55, 40);
   rise('#f4', c[7] + .4, .6, 30); sfx('shimmer', c[7] + .4, .8);
   window.READY = true;

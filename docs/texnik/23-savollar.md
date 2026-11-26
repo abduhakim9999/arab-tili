@@ -5,6 +5,32 @@
 ## Asosiy tamoyil
 Quyidagi tartib — **yo'l-yo'riq, qaror emas**. Har savol alohida o'ylanadi. Tartibga to'g'ri kelmaydigan holatda eng to'g'ri yo'l tanlanadi va qaror sababi bilan `src/build/savol-tuzatish.json` ga yoziladi (keyingi chat nima uchun shunday qilinganini bilsin). Tekshiruv dasturi faqat yordamchi: u topmagani «to'g'ri» degani emas.
 
+## Qolip — hamma darsda 5 bosqich (26.11.2026; foydalanuvchi: «bitta qolipga moslashishimiz kerak hamma darsga, mukammal bir yo'nalish topib shu yo'nalishda ketamiz», «Tatbiqni o'qib, darslarni o'qib … har xil yo'nalishlarni topib, kelajakda boshqa so'zlar kelib qolsa o'shanga moslashib tuzib ketaveriladi», 70-dars namunasini ko'rib «qil»; `tayyor-erob-qolip`)
+Dars «Эъроб»i faqat grammatika so'raydi: so'z ma'nosi — pastdagi «Машқ»da, fe'l shakllari (tuslash, amr yasash) — «Сарф»da. Yo'nalishlar «Татбиқ» kitobi (`src/manba/grammatika/kitob-1-53.md`) mashqlaridan olingan: «тўғри ўқинг», «ажратинг / топинг», «таркиб қилинг», «нуқталар ўрнини тўлдиринг», «كَانَ ни қўшиб чиқинг», «мажҳулга айлантиринг».
+
+| Bosqich | Yo'nalish (savol matni) | `tur.t` | Qachon |
+|---|---|---|---|
+| 1. O'qish | «Ҳаракати қандай?» | — (harakat savoli, `TRK`) | oxiri ko'rinadigan mu'rab so'z; chalg'ituvchi — rostdan qilinadigan xato |
+| 2. Tanish | «Ҳолати қандай?» | `h` | harakat holatni ko'rsatmasa (mabniy, taqdiriy, olmoshli, maqsur, asmoi xamsa…) |
+| | «Гапдаги … ни топинг» | `f` | gapda o'sha vazifadagi so'z **bitta** bo'lsa (foil, maf'ul, mabniy so'z, zamir…); tuzoq — shu harakatli boshqa so'z |
+| 3. Sabab | «Нима учун раф / насб / танвинсиз …?» | `v` | darsning yangi qoidasi, vazifa muhim joy |
+| 4. Bog'lanish | «Сабабчини топ» (ta'sir qilgan so'z) | `s` | fe'l → foil/maf'ul, jar harfi, muzof, mubtado → xabar; tuzoq — boshqa fe'l/ism |
+| | «Жуфтини топ» (sifat → mavsuf, ma'tuf → ma'tuf alayh, badal → mubdal minh, xabar → mubtado) | `s` + `j` + `s` matni | gapda yana shunday harakatli so'z bo'lsa (tuzoq) |
+| 5. Qo'llash | «Бўш жойга мосини қўйинг» | `b` | moslashuv (jins, son, sifat, ishora, zamir) yoki amil tanlash; tarjima javobni ochib qo'ymasin |
+| | «… қўшилса / ўрнига … қўйилса, қандай бўлади?» | `v` + `bq: 5` | darsda o'tilgan amil (لَمْ، لَا، أَنْ، كَانَ، إِنَّ…) yoki majhul |
+| | «Гапда битта ҳаракат хато. Топинг» | `x` (`x` — xato shakl) | uzun gap (4+ so'z); xato — rostdan qilinadigan xato |
+
+**Qoidalar:**
+1. Har bosqichdan kamida 1 savol. Savollar dars «Эъроб»ida **bosqich tartibida** chiqadi (bosqich ichida — matn tartibida); «Боб якуни» / «Китоб якуни»da — aralash.
+2. Darsning yangi qoidasi matnda necha joyda bo'lsa, har joyda **boshqa yo'nalishda** so'raladi (bir xil namuna takrorlanmaydi); qolgani — avvalgi qoidalar takrori.
+3. Soni — takror namunalar chiqarilgach: 1-kitobda odatda 5–7, 2-kitobda 10–15 (qat'iy chegara emas).
+4. Faqat dars tahlilida (Таркиб, `IRB`/`TRK`) bor narsa so'raladi; atamalar — konspekt atamalari.
+5. **Bir gap — bitta savol** (aralash imtihonda bir savol boshqasining javobini ochmasin). Istisno: savol boshqasining javobini ko'rsatmasa (masalan, bir gapda «Нима учун сукун?» va boshqa so'zning «Сабабчини топ»i).
+6. Oyat, hadis, duo va muqaddas nomlarda xato harakat ko'rsatilmaydi («Хатони топ» u yerda bo'lmaydi, xato boshqa so'zga qo'yiladi).
+7. «…ни топ» / «Хатони топ» da javob gapda **bitta**; ixtilofli tahlil (ikki fikr bor) — so'ralmaydi.
+8. **Moslashish:** yangi dars yoki so'z kelsa — matn va tahlil o'qiladi, har qiyin joyning belgilari yoziladi (holati, vazifasi, sababchisi, jufti, amil kirsa o'zgarishi), yo'nalish jadvaldan tanlanadi. Hech biriga tushmasa — eng to'g'ri yo'l tanlanadi, sababi `savol-tuzatish.json` ga; bir necha darsda takrorlansa — shu jadvalga yangi yo'nalish bo'lib qo'shiladi.
+9. Bosqich `tur.bq` bilan aniq beriladi; berilmasa — turdan: harakat 1, `h`/`f` 2, `v` 3, `s` 4, `b`/`x` 5.
+
 ## Tartib
 1. **Bitta sinov:** «Bu savol nimani o'rgatadi?» Aniq javob bo'lmasa — savol qo'yilmaydi.
 2. **So'ralmaydi (harakat savoli sifatida):**
@@ -12,7 +38,7 @@ Quyidagi tartib — **yo'l-yo'riq, qaror emas**. Har savol alohida o'ylanadi. Ta
    - yodlangan ibora (جَزَاكَ اللَّهُ خَيْراً، اَلْحَمْدُ لِلَّهِ، إِنْ شَاءَ اللَّهُ، أَهْلاً وَسَهْلاً…) — o'quvchi o'ylamay topadi; bunday so'z «Нима учун?» turida so'ralishi mumkin;
    - shu darsda yoki oldingi darsda aynan so'ralgan savol (bir xil so'z, harakat va vazifa). Darsning mavzusi bo'lsa va har biri boshqa narsani o'rgatsa (masalan, 97-dars: كَانَ — tanvinli / muzof / أَصْبَحَ) — qoladi;
    - shubhali (ixtilofli yoki manbasi aniq bo'lmagan) misol — matn kitobdagidek qoladi, faqat sinov savoli bo'lmaydi.
-3. **Tur so'zga qarab** (yangi turlar — 3-bosqich, quyida):
+3. **Tur so'zga qarab** (to'liq ro'yxat — yuqoridagi «Qolip» jadvali):
    - oddiy mu'rab so'z — «Ҳаракати?» (hozirgi tur: so'z oxiri harakati);
    - harakat holatni ko'rsatmasa (jam'i muannas nasbi, ғайри мунсариф jarri, асмои хамса, мусанно, jam'i muzakkar) — «Ҳолати?»;
    - so'zning vazifasi muhim bo'lsa — «Нима учун?»;

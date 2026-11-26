@@ -105,7 +105,7 @@ def qolla(n, t, tekshir):
             e = s.index(';', b) + 1
             s = s[:e] + '\nvar QTUR={};' + s[e:]
         a, b, obj = joy(s, 'QTUR')
-        yangi = {k: {x: v[x] for x in ('t', 's', 'o', 'j', 'iz') if x in v} for k, v in t['tur'].items()}
+        yangi = {k: {x: v[x] for x in ('t', 's', 'o', 'j', 'iz', 'x', 'bq') if x in v} for k, v in t['tur'].items()}
         if obj != yangi:
             s = s[:a] + json.dumps(yangi, ensure_ascii=False) + s[b:]
             ish.append('QTUR %d' % len(yangi))

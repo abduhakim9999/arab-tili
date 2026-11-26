@@ -123,8 +123,8 @@ def qolla(n, t, tekshir):
                     ish.append('QUR +' + k)
             else:
                 yangi = v['v']
-                if name == 'TRK' and k not in obj:
-                    raise SystemExit('%s: %s — TRK da yo\'q' % (n, k))
+                if name == 'TRK' and k not in obj and not v.get('yangi'):
+                    raise SystemExit('%s: %s — TRK da yo\'q (yangi savol bo\'lsa — "yangi": true)' % (n, k))
                 if obj.get(k) != yangi:
                     obj[k] = yangi
                     ish.append(name + ' ' + k)

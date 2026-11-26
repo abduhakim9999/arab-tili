@@ -65,7 +65,11 @@
     var d = T()[kk(q)] || {};
     if (d.s) return d.s;
     if (q.t === 'h') return 'Белгиланган сўз қайси ҳолатда?';
-    if (q.t === 's') return 'Белгиланган сўзни ' + (HN[qcase(get(kk(q)))] || 'шундай') + ' қилган сўзни гапдан босинг';
+    if (q.t === 's') {
+      /* holat: so'z ma'lumotidan; olmoshli so'zda (M) yo'q bo'lsa — izohdagi «шунинг учун раф/насб/жар/жазм» dan */
+      var hl = HN[qcase(get(kk(q)))], m = !hl && iz(q).match(/(раф|насб|жар|жазм)/);
+      return 'Белгиланган сўзни ' + (hl || (m && m[1]) || 'шундай') + ' қилган сўзни гапдан босинг';
+    }
     return 'Белгиланган сўз нима учун шундай?';
   }
   function qator(l, tw, cls, tap) {

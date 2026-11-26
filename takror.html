@@ -96,6 +96,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .tq-pp{display:inline-block;font-size:24px;line-height:1.5;padding:0 12px 3px;border-radius:10px;background:var(--tq-phb);color:var(--tq-ph)}
 .tq-ph{background:var(--tq-phb);color:var(--tq-ph);border-radius:6px;padding:0 3px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 .tq-pa{margin:2px 0 4px}
+.tq-pm{font-size:14px;color:var(--mu);margin-top:4px}
 .tq-gp .tq-ph.tq-pq{padding:0}
 .tq-th{color:var(--ac);background:var(--tint);border-radius:5px;padding:0 2px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 /* boshqa shakllar — kichik yorliqlar */
@@ -1227,7 +1228,8 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
       return '<span class="tq-sf' + (oc ? ' tq-oc' : '') + '"><i>–</i>' + (x[0] ? '<small>' + x[0] + '</small>' : '') + esc(x[1]) + '</span>';
     }).join('') + '</div>';
   }
-  function silaB(p, oc) { return p ? '<div class="tq-pa' + (oc ? ' tq-oc' : '') + '"><span class="tq-pp ar" lang="ar">' + esc(p) + '</span></div>' : ''; }
+  /* 26.11.2026 (foydalanuvchi: «ikkita maf'ul deb yozib qo'ygan yaxshimi? rang bilan bezash shart emas, alohida tursa bo'ldi», «qil»): «(هُ هُ)» belgisi ostida oddiy kulrang yozuv — faqat ikki maf'ulli fe'llarda */
+  function silaB(p, oc) { return p ? '<div class="tq-pa' + (oc ? ' tq-oc' : '') + '"><span class="tq-pp ar" lang="ar">' + esc(p) + '</span>' + (/^\u0647\u064F\s+\u0647\u064F$/.test(p) ? '<div class="tq-pm">икки мафъул олади</div>' : '') + '</div>' : ''; }
   /* 21.11.2026 (foydalanuvchi: «tarjimadagi qaysi joy shu so'zga to'g'ri kelayotgani ko'rsatilsin»): gap tarjimasida ma'noga mos so'zlar yashil.
      Ma'noning birinchi satridagi so'zlar bilan solishtiriladi: 4+ harfli — o'zagi («келди» → «кел…», «қисм» → «қис…»: «-моқ/-ди/-ти» yoki
      oxirgi harf tushadi), qisqasi — o'zi yoki o'zi + qo'shimcha («сиз» → «Сизга», «уй» → «уйда»); ko'pi bilan 4 so'z; topilmasa — belgisiz. */

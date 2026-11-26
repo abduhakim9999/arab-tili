@@ -198,7 +198,8 @@ function yarat(o) {
         /* bugun birinchi marta so'ralgan = bugungi yangi (savol chegarasi va «2 so'zga 1 savol» uchun). 26.11.2026: «Биламан» deb oldin belgilangan so'z (7 kunlik
            tekshiruvda birinchi marta so'raladi) yangi sanalmaydi — aks holda kartadagi «Янги сўзлар» soni mashq ichida kamayib qolardi */
         var bA = u.w ? bel(u.nk.slice(1)) : null;
-        if (x.t0 && kun(x.t0) === bug && !(bA && bA.a && +bA.a < x.t0)) { if (u.w) yW++; else yQ++; }
+        u.yb = !!(x.t0 && kun(x.t0) === bug && !(bA && bA.a && +bA.a < x.t0));   /* bugungi yangi — «Янги сўзлар» guruhida qoladi (guruhi()) */
+        if (u.yb) { if (u.w) yW++; else yQ++; }
         if (x.st === 'm') return;
         if (x.st === 'g') { var q = muddat(x, kun, soz) - bug; if (q <= 0) T.push(u); else if (!nT || q < nT) nT = q; return; }
         if (!x.n) { (u.w ? YW : YQ).push(u); return; }
@@ -248,9 +249,13 @@ function yarat(o) {
     function sanoq(a) { var s = 0, q = 0; a.forEach(function (u) { if (u.w) s++; else q++; }); return { soz: s, savol: q, jami: s + q }; }
     /* «Бугунги машқ» guruhlari (26.11.2026): m — мустаҳкамга чиқади (2-tekshiruv), g — биламан текшируви (7 kunlik), o — ўрганяпман
        (avval ko'rilgan, bugun xato topilgani ham), y — янги сўзлар. Navbat ham shu tartibda (T — m oldin; L1 → YW → L2) */
-    function guruhi(u, rej) { return rej === 't' ? (u.x.h ? 'm' : 'g') : u.x.n ? 'o' : 'y'; }
+    /* 26.11.2026 (foydalanuvchi skrinshoti: tepada «5 / 20», guruhda «8 / 20»): bugun birinchi ko'rilgan so'z «Билмадим»dan keyin ham (L2 —
+       oxirida yana) «Янги сўзлар»da qoladi — guruh sanog'i ham tepadagidek faqat tugagan so'zni sanaydi (avval xato topilgani 'o'ga o'tib,
+       «Янги»dan bajarilgandek chiqib ketardi) */
+    function guruhi(u, rej) { return rej === 't' ? (u.x.h ? 'm' : 'g') : u.x.n && !u.yb ? 'o' : 'y'; }
     function bugun(t) {
-      var h = holat(t), o_ = sanoq(navbatO(h)), t_ = sanoq(h.T), gr = { m: 0, g: 0, o: h.L1.length + h.L2.length, y: h.YW.length + h.YQ.length };
+      var h = holat(t), o_ = sanoq(navbatO(h)), t_ = sanoq(h.T), gr = { m: 0, g: 0, o: h.L1.length, y: h.YW.length + h.YQ.length };
+      h.L2.forEach(function (u) { gr[u.yb ? 'y' : 'o']++; });
       h.T.forEach(function (u) { gr[u.x.h ? 'm' : 'g']++; });
       return { o: o_, t: t_, jami: o_.jami + t_.jami, soz: o_.soz + t_.soz, savol: o_.savol + t_.savol, nT: h.nT, gr: gr };
     }

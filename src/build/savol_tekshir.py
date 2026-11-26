@@ -99,6 +99,15 @@ def main():
         foiz = round(100 * eng / jami) if jami else 0
         if foiz >= OTISH:
             yoz(d, 'BOSQICH3', 'doim «%s» bosilsa %d%% — taxmin bilan o\'tadi' % ({'R': 'замма / Раф', 'N': 'фатҳа / Насб', 'J': 'касра / Жар', 'Z': 'сукун'}.get(top, top), foiz))
+        # 26.11.2026 (2-tekshiruv): doim bir xil o'rindagi tugmani bosish (1-dars: doim 1-tugma 83% edi — qo'lda yozilgan
+        # variantlarda to'g'ri javob ko'pincha birinchi turardi). «Сабабчини топ» — tasodif (1/so'z).
+        for N in range(3):
+            b = sum(1 for q in L if N < len(q['var']) and q['var'][N][0] == q['gap'][q['w']][0])
+            b += sum(1 for q in TL if q['t'] != 's' and q['to'] == N)
+            b += sum(1.0 / max(1, len(q.get('ok') or q['gap']) ) for q in TL if q['t'] == 's')
+            foiz = round(100 * b / jami) if jami else 0
+            if foiz >= OTISH:
+                yoz(d, 'BOSQICH3', 'doim %d-tugma bosilsa %d%% — taxmin bilan o\'tadi' % (N + 1, foiz))
         for q in TL:
             if not 0 <= q['to'] < len(q['o']):
                 yoz(d, 'XATO', '%s (%s): to\'g\'ri javob yo\'q' % (q['k'], q['t']))

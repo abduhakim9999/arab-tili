@@ -75,11 +75,12 @@ mark{background:rgba(234,88,12,.25);color:inherit;border-radius:4px;padding:0 3p
 #tt.on{background:var(--ac);color:var(--bg);border-color:var(--ac)}
 .lt button.lp.on{background:var(--hl);border-color:var(--hl);color:var(--bg)}
 .qbox{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:14px}
-.qhd{display:flex;justify-content:space-between;font-size:13px;color:var(--mu);margin-bottom:8px}
+.qhd{display:flex;flex-direction:column;align-items:center;line-height:1.3}.qhd span:last-child{font-size:12.5px;color:var(--mu)}
 .qs{direction:rtl;font-family:"DarsNaskh","Noto Naskh Arabic","Geeza Pro","Traditional Arabic",serif;font-size:var(--fs,24px);line-height:2;text-align:right}
 .qs .qt{background:rgba(234,88,12,.25);border-radius:8px;padding:0 4px}
 .qtr{font-size:14px;color:var(--mu);margin:6px 0 10px;border-top:1px dashed var(--bd);padding-top:6px}
 .qq{font-size:15px;margin:6px 0 10px}
+.qsv{font-size:19px;font-weight:700;line-height:1.4;color:var(--tx);margin:6px 0 10px}
 .qo{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
 .qo button{font:inherit;padding:10px 4px;border-radius:12px;border:2px solid var(--bd);background:var(--cd);color:var(--tx);cursor:pointer}
 .qo button b{display:block;font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:34px;line-height:1.5;font-weight:400}
@@ -199,6 +200,7 @@ mark{background:rgba(234,88,12,.25);color:inherit;border-radius:4px;padding:0 3p
 <div id="p3" class="hide"></div>
 </div>
 <div id="sh" onclick="cl(event)"><div class="sheet" id="sb"></div></div>
+<script src="savol.js"></script>
 <script>
 var D=[
 ["",`حِوَارٌ|R|[[Исм]]. Маҳзуф мубтадонинг хабари|суҳбат, диалог`],
@@ -507,13 +509,14 @@ function qhk(ir){var h=ir.mid.replace(/[^ً-ِ]/g,"");return h.charAt(h.length-1
 var QZ=[],qi=0,qsc=0,qmis=[],qdone=false,qmode="m";
 var QV={R:["ُ","ٌ","замма"],N:["َ","ً","фатҳа"],J:["ِ","ٍ","касра"],Z:["ْ","","сукун"]};
 /* qiyin joylar: kalit -> [ta'sir qilgan so'z, sababi] */
-var TRK={"4-2": ["4-1", "حَيِّ — فِي сабаб жар қилинган; музоф бўлгани учун танвин олмайди."], "4-3": ["4-2", "الْمَطَارِ — حَيِّ нинг музофун илайҳи, шунинг учун жар қилинган."], "9-1": ["9-0", "رَقْمُ — مَا нинг хабари, шунинг учун раф қилинган."], "10-0": ["10-0", "خَمْسَةٌ — маҳзуф мубтадо (رَقْمُ شَقَّتِي) нинг хабари, шунинг учун раф қилинган."], "11-0": ["11-0", "تِسْعَةٌ — маҳзуф мубтадо (رَقْمُ بَيْتِي) нинг хабари, шунинг учун раф қилинган."]};
+var TRK={"4-2": ["4-1", "حَيِّ — فِي сабаб жар қилинган; музоф бўлгани учун танвин олмайди."], "4-3": ["4-2", "الْمَطَارِ — حَيِّ нинг музофун илайҳи, шунинг учун жар қилинган."], "9-1": ["9-0", "رَقْمُ — مَا нинг хабари, шунинг учун раф қилинган."], "10-0": ["10-0", "خَمْسَةٌ — маҳзуф мубтадо (رَقْمُ شَقَّتِي) нинг хабари, шунинг учун раф қилинган."], "11-0": ["11-0", "تِسْعَةٌ — маҳзуф мубтадо (رَقْمُ بَيْتِي) нинг хабари, шунинг учун раф қилинган."], "6-3": ["6-2", "بَيْتٍ — فِي сабаб жар қилинган; накра (музоф эмас) — танвинли."]};
 var ANS={};
 function qlast(o){var hk=o.e[1].replace(/[^ً-ِ]/g,"");return hk.charAt(hk.length-1)}
 /* ---- mashq: so'z oxiri harakatini topish (bitta umumiy mashq) ---- */
-var QUR={};
+var QUR={"11-0": 1};
+var QTUR={"6-1": {"t": "v", "s": "Белгиланган феъл нима учун раф?", "o": ["Насб ёки жазм қилувчи йўқлиги учун", "Савол ҳарфидан кейин келгани учун", "Феъл доим раф бўлгани учун"], "j": "Насб ёки жазм қилувчи йўқлиги учун", "iz": "تَسْكُنُ — феъли музориъ: уни насб ёки жазм қилувчи сўз йўқ, шунинг учун раф. هَلْ — истифҳом ҳарфи, эъробга таъсир қилмайди."}, "9-1": {"t": "v", "s": "Белгиланган сўз нима учун танвинсиз?", "o": ["Музоф бўлгани учун", "Ғайри мунсариф бўлгани учун", "ال билан келгани учун", "Мунодо бўлгани учун"], "j": "Музоф бўлгани учун", "iz": "رَقْمُ — музоф (شَقَّتِكَ га), шунинг учун танвин олмайди; ўзи — مَا нинг хабари, раф."}, "10-0": {"t": "v", "s": "Белгиланган сўз нима учун раф?", "o": ["Мубтадо", "Хабар", "Фоил"], "j": "Хабар", "iz": "خَمْسَةٌ — хабар; мубтадоси маҳзуф: (رَقْمُ شَقَّتِي) خَمْسَةٌ. Жавобда савол сўзлари такрорланмайди."}};
 function qsh(A){for(var a=A.length-1;a>0;a--){var b=Math.floor(Math.random()*(a+1)),t=A[a];A[a]=A[b];A[b]=t}return A}
-var QOV={"4-2": [{"w": "حَيُّ", "c": "R", "lb": "замма"}, {"w": "حَيَّ", "c": "N", "lb": "фатҳа"}, {"w": "حَيِّ", "c": "J", "lb": "касра"}], "4-3": [{"w": "الْمَطَارُ", "c": "R", "lb": "замма"}, {"w": "الْمَطَارَ", "c": "N", "lb": "фатҳа"}, {"w": "الْمَطَارِ", "c": "J", "lb": "касра"}], "9-1": [{"w": "رَقْمُ", "c": "R", "lb": "замма"}, {"w": "رَقْمَ", "c": "N", "lb": "фатҳа"}, {"w": "رَقْمِ", "c": "J", "lb": "касра"}], "10-0": [{"w": "خَمْسَةٌ", "c": "R", "lb": "замма"}, {"w": "خَمْسَةً", "c": "N", "lb": "фатҳа"}, {"w": "خَمْسَةٍ", "c": "J", "lb": "касра"}], "11-0": [{"w": "تِسْعَةٌ", "c": "R", "lb": "замма"}, {"w": "تِسْعَةً", "c": "N", "lb": "фатҳа"}, {"w": "تِسْعَةٍ", "c": "J", "lb": "касра"}]};
+var QOV={"4-2": [{"w": "حَيُّ", "c": "R", "lb": "замма"}, {"w": "حَيِّ", "c": "J", "lb": "касра"}, {"w": "حَيٍّ", "c": "J", "lb": "танвинли касра"}], "4-3": [{"w": "الْمَطَارُ", "c": "R", "lb": "замма"}, {"w": "الْمَطَارَ", "c": "N", "lb": "фатҳа"}, {"w": "الْمَطَارِ", "c": "J", "lb": "касра"}], "9-1": [{"w": "رَقْمُ", "c": "R", "lb": "замма"}, {"w": "رَقْمَ", "c": "N", "lb": "фатҳа"}, {"w": "رَقْمِ", "c": "J", "lb": "касра"}], "10-0": [{"w": "خَمْسَةٌ", "c": "R", "lb": "танвинли замма"}, {"w": "خَمْسَةً", "c": "N", "lb": "танвинли фатҳа"}, {"w": "خَمْسَةٍ", "c": "J", "lb": "танвинли касра"}], "11-0": [{"w": "تِسْعَةٌ", "c": "R", "lb": "танвинли замма"}, {"w": "تِسْعَةً", "c": "N", "lb": "танвинли фатҳа"}, {"w": "تِسْعَةٍ", "c": "J", "lb": "танвинли касра"}], "6-3": [{"w": "بَيْتَ", "c": "N", "lb": "фатҳа"}, {"w": "بَيْتِ", "c": "J", "lb": "касра"}, {"w": "بَيْتٍ", "c": "J", "lb": "танвинли касра"}]};
 function qends(k){
   if(QOV[k])return QOV[k];
   var o=get(k),ir=irb(k),c=qcase(o);if(!c)return null;
@@ -536,7 +539,7 @@ function qpool(){
   return P;
 }
 function qstart(){
-  clearTimeout(qtm);QZ=qsh(qpool());QZ.forEach(function(q){q.o=qends(q.l+"-"+q.w);q.ch=null;q.ok=false});qi=0;qsc=0;qshow();
+  clearTimeout(qtm);QZ=qsh(qpool());QZ.forEach(function(q){q.o=qends(q.l+"-"+q.w);q.ch=null;q.ok=false});if(window.QTX)QZ=QTX.plan(QZ);qi=0;qsc=0;qshow();
 }
 function qline(l,tw,cls){
   var h="";D[l][1].split("/").forEach(function(w,j){var x=info(w);
@@ -544,18 +547,20 @@ function qline(l,tw,cls){
   return '<div class="qs'+(cls?" "+cls:"")+'">'+h+'</div>';
 }
 function qshow(){
+  if(window.QTX&&QZ[qi].t){QTX.show();return}
   var q=QZ[qi],k=q.l+"-"+q.w,am=TRK[k],ctx="";
   if(am){var al=+am[0].split("-")[0];if(al!=q.l)ctx=qline(al,-1,"qc")}
   var tr=TR[q.l].map(function(t){return t[0]}).join(" ");
   var ops="";q.o.forEach(function(x,i){ops+='<button data-x="'+i+'" onclick="qans(this)"><b>'+x.w+'</b><span>'+(x.lb||QV[x.c][2])+'</span></button>'});
-  var nv='<div class="qnv"><button onclick="qgo(-1)"'+(qi==0?' disabled':'')+'>‹</button><span>Савол '+(qi+1)+' / '+QZ.length+''+'</span><button onclick="qgo(1)">›</button></div>';
-  document.getElementById("p3").innerHTML='<div class="qbox">'+nv+'<div class="qhd"><span></span><span>Тўғри: '+qsc+'</span></div>'+
+  var nv='<div class="qnv"><button onclick="qgo(-1)"'+(qi==0?' disabled':'')+'>‹</button><span class="qhd"><span>Савол '+(qi+1)+' / '+QZ.length+''+'</span><span>Тўғри: '+qsc+'</span></span><button onclick="qgo(1)">›</button></div>';
+  document.getElementById("p3").innerHTML='<div class="qbox">'+nv+'<div class="qsv">Белгиланган сўз қандай ўқилади?</div>'+
    ctx+qline(q.l,q.w)+'<div class="qtr">'+tr+'</div>'+
    '<div class="qo">'+ops+'</div><div class="qf" id="qf"></div>'+
    '<div class="qb hide" id="qb"><button class="pr" onclick="qgo(1)">'+(qi==QZ.length-1?'Натижа':'Кейинги')+'</button></div></div>';
   if(q.ch!=null)qfb(q);
 }
 function qans(b){
+  if(window.QTX&&QZ[qi].t){QTX.ans(b);return}
   var q=QZ[qi];if(q.ch!=null)return;
   var k=q.l+"-"+q.w,o=get(k),i=+b.getAttribute("data-x");
   q.ch=i;q.ok=q.o[i].w==o.v;if(q.ok)qsc++;
@@ -565,6 +570,7 @@ function qans(b){
 }
 var qtm=null;
 function qfb(q){
+  if(window.QTX&&q.t){QTX.fb(q);return}
   var k=q.l+"-"+q.w,o=get(k),am=TRK[k],ok=q.ok;
   document.querySelectorAll(".qo button").forEach(function(x){var j=+x.getAttribute("data-x");if(q.o[j].w==o.v)x.classList.add("ok");else if(j==q.ch)x.classList.add("no")});
   var t=document.querySelector('.qs [data-q="'+k+'"]');if(t)t.textContent=o.v;
@@ -587,7 +593,7 @@ function qnext(){qgo(1)}
 function qres(){
   var qmis=QZ.filter(function(q){return !q.ok});
   var h='<div class="qbox"><div class="qhd"><span>Натижа</span></div><div class="qsc">'+qsc+' / '+QZ.length+'</div>';
-  if(qmis.length){h+='<div class="qq">Хато қилинган сўзлар:</div>';qmis.forEach(function(q){var k=q.l+"-"+q.w,o=get(k),am=TRK[k];h+='<div class="g"><div class="hd"><span class="ar vw">'+o.v+'</span><div class="mn"><div>'+(am?arw(am[1]):mainLine(k))+'</div></div></div></div>'})}
+  if(qmis.length){h+='<div class="qq">Хато қилинган сўзлар:</div>';qmis.forEach(function(q){var k=q.l+"-"+q.w,o=get(k),am=TRK[k];h+='<div class="g"><div class="hd"><span class="ar vw">'+o.v+'</span><div class="mn"><div>'+(q.t&&window.QTX?arw(QTX.iz(q)):(am?arw(am[1]):mainLine(k)))+'</div></div></div></div>'})}
   h+='<div class="qb"><button onclick="qi=QZ.length-1;qshow()">‹ Саволларга қайтиш</button><button class="pr" onclick="qstart()">Қайтадан</button></div></div>';
   document.getElementById("p3").innerHTML=h;
 }
@@ -630,7 +636,7 @@ if(au){
   /* audio */
   if(au){var la=0;au.addEventListener("timeupdate",function(){var n=Date.now();if(n-la>2000){la=n;S.at=Math.round(au.currentTime*10)/10;sv()}});au.addEventListener("pause",function(){S.at=Math.round(au.currentTime*10)/10;sv()})}
   /* mashq */
-  function saveQ(){S.q={o:QZ.map(function(q){return [q.l,q.w]}),ch:QZ.map(function(q){return q.ch}),qi:qi};sv()}
+  function saveQ(){S.q={o:QZ.map(function(q){return q.t?[q.l,q.w,q.t]:[q.l,q.w]}),ch:QZ.map(function(q){return q.ch}),qi:qi};sv()}
   var _qshow=qshow;qshow=function(){_qshow();S.qr=0;saveQ()};
   var _qans=qans;qans=function(b){_qans(b);saveQ()};
   var _qres=qres;qres=function(){_qres();S.qr=1;saveQ()};
@@ -642,7 +648,8 @@ if(au){
     if(S.htr)ttr();
     if(S.q&&S.q.o&&S.q.o.length){
       var Z=[],okAll=true;
-      S.q.o.forEach(function(x,i){var k=x[0]+"-"+x[1],o=TRK[k]&&!QUR[k]?qends(k):null;if(!o){okAll=false;return}var c=S.q.ch[i];Z.push({l:x[0],w:x[1],o:o,ch:(c==null?null:c),ok:c!=null&&o[c]&&o[c].w==get(k).v})});
+      S.q.o.forEach(function(x,i){var k=x[0]+"-"+x[1],t=x[2],o=t?(window.QTX?QTX.ops(k,t):null):(TRK[k]&&!QUR[k]&&!(window.QTUR&&QTUR[k])?qends(k):null);if(!o){okAll=false;return}var c=S.q.ch[i];Z.push({l:x[0],w:x[1],t:t,o:o,ch:(c==null?null:c),ok:c!=null&&!!o[c]&&(t?!!o[c].ok:o[c].w==get(k).v)})});
+      if(okAll&&window.QTX&&!QTX.mos(Z))okAll=false;
       if(okAll&&Z.length){QZ=Z;qi=Math.min(S.q.qi||0,Z.length-1);qsc=Z.filter(function(q){return q.ok}).length;if(S.qr)_qres();else _qshow()}
     }
     

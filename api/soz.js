@@ -16,6 +16,7 @@
 // So'rovlar chegarasi: bitta IP daqiqada 120 ta, bitta kod daqiqada 12 ta yozish.
 const crypto = require('crypto');
 const Rey = require('./_rey.js');                       // reyting (15.11.2026; docs/texnik.md 19)
+const Stat = require('./_stat.js');                     // savol statistikasi (26.11.2026; docs/texnik/23-savollar.md)
 const Ombor = require('./_ombor.js');                   // Redis + eski Blob (24.11.2026)
 const MAX = 1536 * 1024;                                 // bitta o'quvchi hujjati chegarasi (14.11.2026: 600 KB → 1,5 MB — dars holati va sozlamalar ham qo'shildi; takror tarixini ixchamlash — docs/rejalar.md 0)
 const RUXSAT = ['https://nurut-tolib.vercel.app', 'https://abduhakim9999.github.io'];
@@ -82,7 +83,10 @@ module.exports = async (req, res) => {
       if (!(await Ombor.chegara('yoz:' + b.kod, 12))) return res.status(429).json({ ok: false, xato: 'kop' });
       await Ombor.yoz('baza', b.kod, matn);
       // reyting: ball va bilgan so'zlar shu hujjatdan qayta hisoblanadi; zaxira nusxa («kod + eski», ichida «ar») kirmaydi; xato saqlashni buzmaydi
-      if (b.d.ar === undefined && !(b.kod.length > 26 && /eski$/.test(b.kod))) { try { await Rey.yangila(b.kod, b.d); } catch (e) {} }
+      if (b.d.ar === undefined && !(b.kod.length > 26 && /eski$/.test(b.kod))) {
+        try { await Rey.yangila(b.kod, b.d); } catch (e) {}
+        try { await Stat.yangila(b.kod, b.d); } catch (e) {}   // «Эъроб» savollari statistikasi — xato saqlashni buzmaydi
+      }
       return res.status(200).json({ ok: true });
     }
     return res.status(400).json({ ok: false, xato: 'amal' });

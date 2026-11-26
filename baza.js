@@ -24,7 +24,7 @@
   if (!LSs || !window.fetch) return;
   var set0 = Storage.prototype.setItem, rem0 = Storage.prototype.removeItem;      /* tg.js o'ragan bo'lishi mumkin — zanjir saqlanadi */
   var KEYS = { 'soz': 1, 'takror-j': 1, 'yol': 1, 'yol-xato': 1, 'ism': 1 }, KODRE = /^[a-z0-9]{20,64}$/;
-  var GEN = /^(dars\d+-holat|sarf-holat|fl200_(best|mist|t)|sozlama|sozlama-q|til|dars-uz|dars-tezlik|izoh-til|tinglash-(opt|mode|dars)|fe-pref|fe-tour|takror-qol|oxirgi-dars)$/;   /* tg.js bilan bir xil */
+  var GEN = /^(dars\d+-holat|sarf-holat|fl200_(best|mist|t)|sozlama|sozlama-q|til|dars-uz|dars-tezlik|izoh-til|tinglash-(opt|mode|dars)|fe-pref|fe-tour|takror-qol|reyting-qol|oxirgi-dars)$/;   /* tg.js bilan bir xil */
   var PGEN = /^(dars\d+-holat|oxirgi-dars)$/;          /* ruscha profilning «ls» qismi (tg.js Profil ajratadigan GEN kalitlari) */
   var XOM = window.Profil && window.Profil.xom;         /* haqiqiy kalitlar bilan — ikkala profil («…» va «ru-…») bir vaqtda o'qiladi */
   function PR() { return window.Profil ? window.Profil.p() : ''; }      /* joriy profil oldi: '' | 'ru-' */
@@ -114,8 +114,10 @@
     var lsR = Math.max(a.lsR || 0, b.lsR || 0), ls = {};      /* sozlama va dars holati: har kalitda yangisi (teng bo'lsa — telefondagisi) */
     [b.ls || {}, a.ls || {}].forEach(function (m, n) { for (var k in m) { var x = m[k]; if (!x || !G.test(k) || (x.t || 0) < lsR) continue;
       if (!ls[k] || (x.t || 0) > (ls[k].t || 0) || (n === 1 && (x.t || 0) === (ls[k].t || 0))) ls[k] = { v: x.v == null ? null : String(x.v), t: x.t || 0 }; } });
-    var q = 'takror-qol', qa = (a.ls || {})[q], qb = (b.ls || {})[q];   /* «Машқ» yo'riqnomasi belgisi: kattasi ustun ('2' — oxirigacha ko'rilgan; 23.11.2026) */
-    if (ls[q] && qa && qb && qa.v != null && qb.v != null && (qa.t || 0) >= lsR && (qb.t || 0) >= lsR) { var qk = +qa.v >= +qb.v ? qa : qb; ls[q] = { v: String(qk.v), t: Math.max(qa.t || 0, qb.t || 0) }; }
+    ['takror-qol', 'reyting-qol'].forEach(function (q) {   /* yo'riqnoma videosi belgisi: kattasi ustun ('2' — oxirigacha ko'rilgan; 23.11.2026; «Рейтинг» — 26.11.2026) */
+      var qa = (a.ls || {})[q], qb = (b.ls || {})[q];
+      if (ls[q] && qa && qb && qa.v != null && qb.v != null && (qa.t || 0) >= lsR && (qb.t || 0) >= lsR) { var qk = +qa.v >= +qb.v ? qa : qb; ls[q] = { v: String(qk.v), t: Math.max(qa.t || 0, qb.t || 0) }; }
+    });
     o.ls = ls; if (lsR) o.lsR = lsR;
     return o;
   }

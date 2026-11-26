@@ -47,11 +47,16 @@ body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-app
 .qv{display:flex;align-items:center;gap:12px;width:100%;padding:9px 0;border:0;border-top:1px dashed var(--bd);background:none;color:var(--tx);font:inherit;text-align:left;cursor:pointer}
 .qv i{flex:none;width:40px;height:40px;border-radius:50%;background:var(--ac);color:var(--bg);font-style:normal;font-size:14px;display:flex;align-items:center;justify-content:center;padding-left:3px}
 .qv b{display:block;font-size:15.5px}.qv small{font-size:13px;color:var(--mu)}
+#videolar[hidden]{display:none}
 </style>
 </head>
 <body>
 <div class="w">
 <div class="top"><a href="./" id="orqa" aria-label="Орқага">‹</a><h1>Йўриқнома</h1></div>
+<div class="c" id="videolar" hidden><h2>🎬 Видеолар</h2>
+<p class="t" style="margin:0 0 6px">Ҳар бир бўлимнинг ўз видеоси бор — у ердаги ⓘ ни босинг. Ҳаммаси шу ерда ҳам.</p>
+<div id="vlr"></div>
+</div>
 <div class="c" id="korsatma"><h2>▶️ Кўрсатмалар</h2>
 <p class="t" style="margin:0 0 6px">Қаерни босиш кераклиги экраннинг ўзида кўрсатилади.</p>
 <button class="qv" data-qol="soz"><i>▶</i><span><b>Сўзлар ва поғоналар</b><small>Сўз қаердан келади, қандай кўтарилади · 30 сония</small></span></button>
@@ -136,6 +141,13 @@ body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-app
 if (/\/sinov-[^\/]*$/.test(location.pathname)) document.getElementById('orqa').href = 'sinov-yana.html';
 /* кўрсатмалар: [data-qol] — йўриқнома ўйнаткичи (qollanma.js; docs/texnik.md 20) */
 document.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[data-qol]'); if (b && window.Qollanma) Qollanma.och(b.getAttribute('data-qol')); });
+/* видеолар (26.11.2026; tg.js Vid — har bo'limdagi ⓘ videolari bitta ro'yxatda; bosilsa [data-vid] — tg.js o'zi ochadi) */
+(function () {
+  if (!window.Vid) return;
+  var h = '';
+  for (var k in Vid.R) if (Vid.bor(k)) { var x = Vid.R[k]; h += '<button class="qv" data-vid="' + k + '"><i>▶</i><span><b>' + x.nom + '</b><small>' + x.iz + ' · ' + x.v + '</small></span></button>'; }
+  if (h) { document.getElementById('vlr').innerHTML = h; document.getElementById('videolar').hidden = false; }
+})();
 </script>
 <script src="qollanma.js" defer></script>
 </body>

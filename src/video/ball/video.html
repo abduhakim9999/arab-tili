@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="uz"><head><meta charset="utf-8"><title>Баллар ва рейтинг — йўриқнома видеоси</title>
+<link rel="stylesheet" href="package/wght.css">
+<style>
+/* «Баллар ва рейтинг» (1080×1920, 30 fps): ball nimaga beriladi, 🔥 seriya, «Рейтинг». Matn — docs/ball-video.md; qoida — takror.js REY.
+   Qolip — «Сўз йўли» (src/video/sozyoli). Yangi: #vp/#dev — ilovaning HAQIQIY ekran rasmi (ekran/*.jpg, olish.py), kamera (cam), yoritish (spot),
+   barmoq (tapD), «+10» (fly — ilovadagi .ball-uch ko'rinishida). Vaqt — tl.js (prep.py); kadrlar — render.py (seek(t)); effektlar — window.SFX.
+   Pastki 20% (subtitr) bo'sh. */
+@font-face{font-family:Naskh;src:url(naskh.ttf);font-weight:400 700}
+:root{--m:#4a86e0;--g:#2fa36f;--o:#e0a63c;--b:#d0453b;--cream:#FFF8E6;--gold:#F4D27A;--mut:#A9CDBB;--ink:#1c2b24;--ink2:#66776e}
+html,body{margin:0;background:#000}
+#st{position:relative;width:1080px;height:1920px;overflow:hidden;color:var(--cream);font-family:"Inter Variable",sans-serif;
+  background:radial-gradient(ellipse 100% 65% at 50% 40%,#16744F 0%,#0C5137 58%,#07311F 100%)}
+#pt{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.045' stroke-width='2'%3E%3Crect x='30' y='30' width='60' height='60'/%3E%3Crect x='30' y='30' width='60' height='60' transform='rotate(45 60 60)'/%3E%3C/g%3E%3C/svg%3E")}
+#glow{position:absolute;left:140px;top:380px;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(244,210,122,.13),rgba(244,210,122,0) 68%)}
+.ar{font-family:Naskh,serif;direction:rtl;unicode-bidi:isolate;font-weight:500}
+i{font-style:normal}
+.h{opacity:0;visibility:hidden}
+#seg{position:absolute;top:112px;left:70px;right:70px;display:flex;gap:10px;z-index:9}
+#seg b{flex:1;height:8px;border-radius:4px;background:rgba(255,255,255,.2);overflow:hidden}
+#seg b>i{display:block;height:100%;background:var(--gold);transform:scaleX(0);transform-origin:left}
+#hl{position:absolute;top:136px;left:70px;right:70px;display:flex;justify-content:space-between;align-items:center;font-size:28px;color:var(--mut);font-weight:600;z-index:9}
+#ttl{position:absolute;top:250px;left:0;right:0;height:80px;font-size:54px;font-weight:800;color:var(--gold);z-index:9}
+#ttl>span{position:absolute;left:0;right:0;text-align:center;white-space:nowrap}
+.chip{display:inline-flex;align-items:center;gap:12px;padding:8px 28px;border-radius:999px;font-size:36px;font-weight:700;border:2px solid rgba(255,255,255,.35);background:rgba(255,255,255,.1);line-height:1.35;white-space:nowrap;color:var(--cream)}
+.chip.g{border-color:rgba(47,163,111,.9);background:rgba(47,163,111,.28)}
+.chip.b{border-color:rgba(208,69,59,.95);background:rgba(150,40,34,.82);color:#fff}
+.chip.y{border-color:rgba(244,210,122,.85);background:rgba(60,48,12,.78);color:var(--gold)}
+.chip.k{border-color:rgba(255,255,255,.3);background:rgba(6,40,27,.8)}
+.chip.on{border-color:var(--gold);background:rgba(244,210,122,.22);color:var(--gold)}
+#hrow{position:absolute;top:346px;left:0;right:0;height:70px;z-index:9}
+#hrow>div{position:absolute;left:0;right:0;top:0;display:flex;justify-content:center;gap:16px}
+#hrow .chip{font-size:34px}
+/* ilova ekrani */
+#vp{position:absolute;left:70px;top:430px;width:940px;height:1110px;overflow:hidden;border-radius:44px;z-index:3;transform-origin:50% 50%}
+#dev{position:absolute;left:0;top:0;width:390px;height:844px;transform-origin:0 0;overflow:hidden;border-radius:16px;background:#F4F1E8;box-shadow:0 8px 30px rgba(0,0,0,.4)}
+#dev img{position:absolute;left:0;top:0;width:390px;display:block}
+.spot{position:absolute;box-shadow:0 0 0 1500px rgba(4,26,17,.56);outline:2.5px solid #F4D27A;outline-offset:1px;z-index:50}
+.halo{position:absolute;z-index:51}
+#fg{position:absolute;left:0;top:0;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:rgba(18,40,30,.5);border:2.5px solid #fff;box-sizing:border-box;box-shadow:0 3px 9px rgba(0,0,0,.35);z-index:60}
+#fgr{position:absolute;left:0;top:0;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;border:2.5px solid #F4D27A;box-sizing:border-box;z-index:60}
+.fly{position:absolute;left:0;top:0;font:800 32px/1 "Inter Variable",sans-serif;color:#f59e0b;text-shadow:0 1px 2px rgba(0,0,0,.25),0 0 6px rgba(255,255,255,.9);white-space:nowrap;z-index:61}
+/* zinapoya (S3) */
+#stairs{position:absolute;left:60px;top:760px;width:960px;height:600px;z-index:3}
+.stp{position:absolute;bottom:0;width:228px;border-radius:30px 30px 10px 10px;transform-origin:50% 100%;box-sizing:border-box;padding-top:20px;text-align:center;font-size:34px;font-weight:800;color:#fff;letter-spacing:-.3px}
+.stp.b{background:linear-gradient(180deg,#DD5248,#B23229)}.stp.o{background:linear-gradient(180deg,#EDB24A,#C98B21)}
+.stp.g{background:linear-gradient(180deg,#3BB57D,#22875A)}.stp.m{background:linear-gradient(180deg,#5A94EA,#3168BF)}
+.tok{position:absolute;left:0;top:0;z-index:4;height:104px;line-height:104px;padding:0 30px;border-radius:52px;background:#fff;color:var(--ink);border:6px solid var(--o);font-size:66px;white-space:nowrap;box-shadow:0 10px 26px rgba(0,0,0,.28)}
+.day{position:absolute;top:0;width:280px;height:210px;border-radius:34px;background:rgba(255,255,255,.1);border:3px solid rgba(255,255,255,.22);box-sizing:border-box;text-align:center}
+.day b{display:block;font-size:46px;font-weight:800;margin-top:26px}
+.day .ck{width:84px;height:84px;margin:14px auto 0;color:#7BE3AE}
+.ck svg{width:100%;height:100%}
+.note{position:absolute;left:0;right:0;text-align:center;z-index:6}
+.big{position:absolute;left:40px;right:40px;text-align:center;font-weight:800;z-index:6}
+/* S6: gulxan kunlari */
+.dc{position:absolute;top:0;width:215px;height:190px;border-radius:30px;background:rgba(255,255,255,.08);border:3px solid rgba(255,255,255,.2);box-sizing:border-box;text-align:center}
+.dc b{display:block;font-size:38px;font-weight:700;margin-top:24px;color:#dfeee6}
+.dc span{position:absolute;left:0;right:0;top:92px;font-size:50px;font-weight:800;white-space:nowrap}
+/* S9: xulosa qatorlari */
+.sr{position:absolute;left:90px;right:90px;height:116px;border-radius:32px;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.22);box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;padding:0 26px 0 40px;font-size:44px;font-weight:700;z-index:6}
+.sr em{font-style:normal;min-width:170px;text-align:center;padding:10px 22px;border-radius:24px;background:rgba(244,210,122,.2);border:2px solid rgba(244,210,122,.8);color:var(--gold);font-size:50px;font-weight:800;box-sizing:border-box}
+#sub{position:absolute;top:1584px;left:50px;right:50px;font-size:40px;font-weight:600;line-height:1.35;color:#fff;text-shadow:0 2px 10px #000,0 0 3px #000;z-index:9}
+.sb{position:absolute;left:0;right:0;top:0;text-align:center;opacity:0;visibility:hidden}
+#wm{position:absolute;top:34px;left:0;right:0;text-align:center;z-index:9}
+#wm .chip{font-size:30px;border-color:rgba(255,163,199,.6);background:rgba(255,163,199,.14)}
+</style></head>
+<body>
+<div id="st">
+<div id="pt"></div><div id="glow"></div>
+
+<!-- ilova ekrani: hamma rasm ustma-ust, kamera #dev ni siljitadi -->
+<div id="vp" class="h"><div id="dev">
+  <img class="h" id="i_rey" src="ekran/rey.jpg"><img class="h" id="i_reys" src="ekran/reys.jpg">
+  <img class="h" id="i_karta1" src="ekran/karta1.jpg"><img class="h" id="i_karta2" src="ekran/karta2.jpg"><img class="h" id="i_karta3" src="ekran/karta3.jpg">
+  <img class="h" id="i_dq1" src="ekran/dq1.jpg"><img class="h" id="i_dq2" src="ekran/dq2.jpg"><img class="h" id="i_dres" src="ekran/dres.jpg">
+  <img class="h" id="i_esh" src="ekran/esh.jpg"><img class="h" id="i_mq150" src="ekran/mq150.jpg"><img class="h" id="i_mq200" src="ekran/mq200.jpg">
+  <div id="fg" class="h"></div><div id="fgr" class="h"></div>
+</div></div>
+
+<!-- sarlavha ostidagi yorliqlar qatori -->
+<div id="hrow">
+  <div><span class="chip h" id="h1">Машқ</span><span class="chip h" id="h2">Эъроб</span><span class="chip h" id="h3">Сарф</span></div>
+  <div><span class="chip y h" id="h4">биринчи марта · 80% ва ундан юқори</span></div>
+  <div><span class="chip y h" id="h8">душанбада ўчмайди</span></div>
+</div>
+
+<!-- S1 -->
+<div class="big h" id="a1" style="top:740px;font-size:60px;color:var(--mut)">Жавоб оддий:</div>
+<div class="big h" id="a2" style="top:856px;font-size:56px;color:#fff">қанча кўп шуғуллансангиз —</div>
+<div class="big h" id="a3" style="top:960px;font-size:112px;color:var(--gold)">шунча кўп балл</div>
+
+<!-- S2 -->
+<div class="big h" id="p10" style="top:860px;font-size:230px;color:#f59e0b;text-shadow:0 6px 0 rgba(0,0,0,.25),0 0 40px rgba(255,255,255,.55)">+10</div>
+<div class="big h" id="p100" style="top:1270px;font-size:190px;color:#f59e0b;text-shadow:0 6px 0 rgba(0,0,0,.18),0 0 40px rgba(255,255,255,.7)">+100</div>
+<div class="note h" id="x1" style="top:840px"><span class="chip b" style="font-size:46px">хато жавоб — балл айрилмайди</span></div>
+<div class="note h" id="x2" style="top:970px"><span class="chip y" style="font-size:46px">бир савол — кунига бир марта</span></div>
+
+<!-- S3: zinapoya va kunlar -->
+<div id="days3" style="position:absolute;left:90px;top:430px;width:900px;height:210px;z-index:4">
+  <div class="day h" id="d1" style="left:0"><b>1-кун</b><div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.4l2.8 2.8 5.2-5.6"/></svg></div></div>
+  <div class="day h" id="d2" style="left:310px"><b>2-кун</b><div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.4l2.8 2.8 5.2-5.6"/></svg></div></div>
+  <div class="day h" id="d3" style="left:620px"><b>3-кун</b><div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.4l2.8 2.8 5.2-5.6"/></svg></div></div>
+</div>
+<div id="stairs">
+  <div class="stp b h" id="P0" style="left:0;height:150px">Билмайман</div>
+  <div class="stp o h" id="P1" style="left:240px;height:300px">Ўрганяпман</div>
+  <div class="stp g h" id="P2" style="left:480px;height:450px">Биламан</div>
+  <div class="stp m h" id="P3" style="left:720px;height:600px">Мустаҳкам</div>
+</div>
+<div class="h" id="p50" style="position:absolute;left:60px;top:716px;width:470px;text-align:center;font-size:170px;font-weight:800;color:var(--gold);text-shadow:0 6px 0 rgba(0,0,0,.25);z-index:6">+50</div>
+
+<!-- S5: tinglash soati -->
+<div class="h" id="rg" style="position:absolute;left:340px;top:640px;width:400px;height:400px;z-index:6">
+  <svg viewBox="0 0 400 400" width="400" height="400"><circle cx="200" cy="200" r="168" fill="rgba(6,40,27,.82)" stroke="rgba(255,255,255,.2)" stroke-width="24"/>
+  <circle id="rgp" cx="200" cy="200" r="168" fill="none" stroke="#F4D27A" stroke-width="24" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" transform="rotate(-90 200 200)"/></svg>
+  <div style="position:absolute;left:0;right:0;top:112px;text-align:center;font-size:112px;font-weight:800;color:#fff;line-height:1" id="rgt">0:00</div>
+  <div style="position:absolute;left:0;right:0;top:238px;text-align:center;font-size:38px;font-weight:700;color:var(--mut)">тинглаш</div>
+</div>
+<div class="note h" id="g10" style="top:1080px"><span class="chip y" style="font-size:70px;padding:10px 44px">10 балл</span></div>
+<div class="note h" id="g200" style="top:1230px"><span class="chip k" style="font-size:44px">кунига 200 баллгача</span></div>
+
+<!-- S6: olov -->
+<div class="note h" id="o50" style="top:930px"><span class="chip y" style="font-size:64px;padding:10px 40px">яна +50 балл</span></div>
+<div class="h" id="fl" style="position:absolute;left:400px;top:500px;width:280px;height:280px;z-index:6;transform-origin:50% 90%">
+  <svg viewBox="0 0 100 100" width="280" height="280"><defs><linearGradient id="fg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF6A1A"/><stop offset="1" stop-color="#FFC233"/></linearGradient></defs>
+  <path d="M50 4 C57 27 84 40 84 68 C84 88 69 99 50 99 C31 99 16 88 16 68 C16 52 27 44 33 33 C35 45 41 50 46 50 C40 34 44 18 50 4 Z" fill="url(#fg1)"/>
+  <path d="M50 50 C56 61 65 67 65 80 C65 90 58 96 50 96 C42 96 35 90 35 80 C35 70 44 63 50 50 Z" fill="#FFE596"/></svg>
+</div>
+<div class="note" id="cnt" style="top:820px;height:80px">
+  <span class="chip k h" id="c0" style="position:absolute;left:50%;font-size:52px">🔥 0 кун</span>
+  <span class="chip y h" id="c1" style="position:absolute;left:50%;font-size:52px">🔥 1 кун</span>
+  <span class="chip y h" id="c2" style="position:absolute;left:50%;font-size:52px">🔥 2 кун</span>
+  <span class="chip y h" id="c3" style="position:absolute;left:50%;font-size:52px">🔥 3 кун</span>
+  <span class="chip k h" id="c4" style="position:absolute;left:50%;font-size:52px;color:#b9c9c1">🔥 0 кун</span>
+</div>
+<div id="dcs" class="h" style="position:absolute;left:80px;top:960px;width:920px;height:190px;z-index:6">
+  <div class="dc" id="e1" style="left:0"><b>1-кун</b><span class="v0">—</span><span class="v1 h" style="color:#F4D27A">200 🔥</span></div>
+  <div class="dc" id="e2" style="left:235px"><b>2-кун</b><span class="v0">—</span><span class="v1 h" style="color:#F4D27A">200 🔥</span></div>
+  <div class="dc" id="e3" style="left:470px"><b>3-кун</b><span class="v0">—</span><span class="v1 h" style="color:#F4D27A">200 🔥</span></div>
+  <div class="dc" id="e4" style="left:705px"><b>4-кун</b><span class="v0">—</span><span class="v1 h" style="color:#F1A199">0</span></div>
+</div>
+<div class="note h" id="ot" style="top:1220px"><span class="chip y" style="font-size:50px">ўтини — кунига 200 балл</span></div>
+
+<!-- S9: xulosa -->
+<div class="sr h" id="r1" style="top:390px"><span>Тўғри жавоб</span><em>10</em></div>
+<div class="sr h" id="r2" style="top:524px"><span>Сўз «биламан» бўлса</span><em>+50</em></div>
+<div class="sr h" id="r3" style="top:658px"><span>Дарс «Эъроб»и 80%</span><em>+100</em></div>
+<div class="sr h" id="r4" style="top:792px"><span>5 дақиқа тинглаш</span><em>10</em></div>
+<div class="sr h" id="r5" style="top:926px;border-color:rgba(244,210,122,.75);background:rgba(244,210,122,.14)"><span>Кунига 200 балл 🔥</span><em>+50</em></div>
+<div class="big h" id="f3" style="top:1096px;font-size:68px;color:#fff;line-height:1.25">Ҳар куни озгина —<br><span style="color:var(--gold)">олов ўчмайди</span></div>
+<div class="note h" id="f4" style="top:1300px"><span class="ar" style="font-size:92px;color:var(--gold)">نُورُ الطَّالِبِ</span><div style="font-size:32px;font-weight:700;color:var(--mut);margin-top:2px">Машқ · Рейтинг</div></div>
+
+<div id="ttl"><span class="h" id="T1">Балл қандай йиғилади?</span><span class="h" id="T2">Тўғри жавоб — 10 балл</span><span class="h" id="T3">Сўз «биламан» бўлса — яна 50</span><span class="h" id="T4">Дарс ўтилди — 100 балл</span><span class="h" id="T5">Тинглаш — ҳар 5 дақиқада 10</span><span class="h" id="T6">Олов — кунига 200 балл</span><span class="h" id="T7">Рейтинг · Ҳафта</span><span class="h" id="T8">Рейтинг · Сўзлар</span><span class="h" id="T9">Хулоса</span></div>
+<div id="seg"></div>
+<div id="hl"><span>Нур ут-толиб · Рейтинг</span><span>Баллар</span></div>
+<div id="wm" class="h"><span class="chip">ҚОРАЛАМА · овозсиз (айтиладиган матн пастда)</span></div>
+<div id="sub"></div>
+</div>
+<script src="tl.js"></script>
+<script src="ekran.js"></script>
+<script src="gsap.min.js"></script>
+<script>
+gsap.config({ force3D: false });
+const TL = window.TL, C = TL.clips, E = window.EK, SFX = window.SFX = [];
+const $ = s => typeof s === 'string' ? document.querySelector(s) : s;
+const sc = id => TL.scenes.find(s => s.id === id);
+const M = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } });
+const sfx = (n, t, k = 1) => SFX.push([n, Math.round(t * 1000) / 1000, k]);
+const COL = { b: '#d0453b', o: '#e0a63c', g: '#2fa36f', m: '#4a86e0' };
+/* ---- yordamchilar (mutlaq vaqt) ---- */
+const to = (el, v, t, d = .5) => M.to(el, Object.assign({ duration: d }, v), t);
+const show = (el, t, d = .35) => to(el, { autoAlpha: 1 }, t, d);
+const hide = (el, t, d = .3) => to(el, { autoAlpha: 0, ease: 'power2.in' }, t, d);
+const rise = (el, t, d = .55, y = 44) => M.fromTo(el, { autoAlpha: 0, y }, { autoAlpha: 1, y: 0, duration: d, immediateRender: false }, t);
+const sink = (el, t, d = .35, y = -44) => to(el, { autoAlpha: 0, y: '+=' + y, ease: 'power2.in' }, t, d);
+const pop = (el, t, d = .5, s = 1) => { M.fromTo(el, { autoAlpha: 0, scale: .4 }, { autoAlpha: 1, scale: 1, duration: d, ease: 'back.out(2.4)', immediateRender: false }, t); if (s) sfx('pop', t, s); };
+const pulse = (el, t, s = 1.1, d = .5) => M.to(el, { scale: s, duration: d / 2, ease: 'sine.inOut', yoyo: true, repeat: 1 }, t);
+let curT = null;
+function title(id, t) { if (curT) to(curT, { autoAlpha: 0, y: -30, ease: 'power2.in' }, t, .26); M.fromTo(id, { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: .45, immediateRender: false }, t + .3); curT = id; }
+/* ---- ilova ekrani: kamera, rasm almashtirish, yoritish, barmoq, «+N» ---- */
+const VW = 940, VH = 1110, SW = 390;
+let HH = 844, cur = null, zi = 1;
+const ctr = r => [r[0] + r[2] / 2, r[1] + r[3] / 2];
+function camOf(r, h, pad = 36, maxS = 3) {                                     // r — ekran ichidagi to'rtburchak (CSS px); yo'q bo'lsa — butun ekran
+  const s0 = Math.min(VH / h, VW / SW);
+  if (!r) return { scale: s0, x: (VW - SW * s0) / 2, y: 0 };
+  const s = Math.max(s0, Math.min((VW - 2 * pad) / r[2], (VH - 2 * pad) / r[3], maxS));
+  let x = VW / 2 - (r[0] + r[2] / 2) * s, y = VH / 2 - (r[1] + r[3] / 2) * s;
+  x = SW * s >= VW ? Math.min(0, Math.max(VW - SW * s, x)) : (VW - SW * s) / 2;
+  y = h * s >= VH ? Math.min(0, Math.max(VH - h * s, y)) : 0;
+  return { scale: s, x, y };
+}
+function cam(r, t, d = .8, pad, maxS) { const c = camOf(r, HH, pad, maxS); M.to('#dev', { x: c.x, y: c.y, scale: c.scale, duration: d, ease: 'power2.inOut' }, t); }
+function scr(name, t, d = .25) {                                               // ekran rasmi almashadi (ustidan ochiladi)
+  const el = $('#i_' + name); HH = E[name]._h;
+  M.set('#dev', { height: HH }, t); M.set(el, { zIndex: ++zi }, t);
+  M.to(el, { autoAlpha: 1, duration: d, ease: 'none' }, t);
+  if (cur && cur !== el) M.set(cur, { autoAlpha: 0 }, t + d + .01);
+  cur = el;
+}
+function cutTo(name, r, t, pad, maxS) {                                        // sahna almashganda: ekran so'nadi → yangi rasm va kamera → qaytadi
+  M.to('#vp', { autoAlpha: 0, duration: .22, ease: 'power1.in' }, t - .3);
+  scr(name, t - .07, .01); const c = camOf(r, HH, pad, maxS);
+  M.set('#dev', { x: c.x, y: c.y, scale: c.scale }, t - .05);
+  M.fromTo('#vp', { autoAlpha: 0, scale: .97, y: 30 }, { autoAlpha: 1, scale: 1, y: 0, duration: .45, ease: 'power2.out', immediateRender: false }, t);
+}
+const dim = (t, o = .22) => M.to('#vp', { autoAlpha: o, scale: .96, duration: .45, ease: 'power2.inOut' }, t);
+function mk(cls, r, rad, p = 0) { const d = document.createElement('div'); d.className = cls + ' h';
+  d.style.cssText = `left:${r[0] - p}px;top:${r[1] - p}px;width:${r[2] + 2 * p}px;height:${r[3] + 2 * p}px;border-radius:${rad}px`; $('#dev').appendChild(d); return d; }
+function spot(r, t0, t1, rad = 12, p = 3) { const d = mk('spot', r, rad, p); show(d, t0, .3); hide(d, t1, .25); return d; }      // shu joy yorug', qolgani xira
+function halo(r, t, rad = 12, n = 3) { const d = mk('halo', r, rad, 3); M.set(d, { autoAlpha: 1 }, t);
+  M.fromTo(d, { boxShadow: '0 0 0px 0px rgba(244,210,122,0)' }, { boxShadow: '0 0 22px 7px rgba(244,210,122,.95)', duration: .32, ease: 'sine.inOut', yoyo: true, repeat: 2 * n - 1, immediateRender: false }, t);
+  M.set(d, { autoAlpha: 0 }, t + .32 * 2 * n + .02); }
+function tapD(p, t, from) {                                                    // barmoq keladi, bosadi, halqa tarqaladi (ekran koordinatasida)
+  const [x, y] = p, f = from || [x + 46, y + 96];
+  M.fromTo('#fg', { x: f[0], y: f[1], autoAlpha: 0, scale: 1 }, { x, y, autoAlpha: 1, scale: 1, duration: .5, ease: 'power2.out', immediateRender: false }, t - .55);
+  M.to('#fg', { scale: .7, duration: .12, yoyo: true, repeat: 1, ease: 'power2.out' }, t);
+  M.fromTo('#fgr', { x, y, scale: .6, autoAlpha: .95 }, { x, y, scale: 2.5, autoAlpha: 0, duration: .55, ease: 'power2.out', immediateRender: false }, t);
+  M.to('#fg', { autoAlpha: 0, duration: .15 }, t + .3); sfx('tick', t, 1.2);
+}
+function fly(n, x, y, t, k = 1) {                                              // ilovadagi «+10» uchishi (tg.js .ball-uch): pastdan chiqib, yuqoriga so'nadi
+  const d = document.createElement('div'); d.className = 'fly h'; d.textContent = '+' + n; $('#dev').appendChild(d);
+  gsap.set(d, { xPercent: -50, yPercent: -100, transformOrigin: '50% 100%' });
+  M.fromTo(d, { x, y: y + 12, autoAlpha: 0, scale: .5 * k }, { x, y: y - 10, autoAlpha: 1, scale: 1.18 * k, duration: .22, ease: 'power2.out', immediateRender: false }, t);
+  M.to(d, { scale: k, duration: .15 }, t + .22);
+  M.to(d, { y: y - 74, duration: 1.0, ease: 'power1.in' }, t + .45); M.to(d, { autoAlpha: 0, duration: .45, ease: 'power1.in' }, t + 1.0);
+  sfx('chime', t, .7);
+}
+/* ---- zinapoya (S3) ---- */
+const SX = i => i * 240 + 114, SY = i => 600 - 150 * (i + 1);
+function mkTok(word) { const d = document.createElement('div'); d.className = 'tok ar'; d.textContent = word; $('#stairs').appendChild(d); gsap.set(d, { xPercent: -50, yPercent: -100, autoAlpha: 0 }); return d; }
+function hop(tok, from, i, t, d = .7) {
+  const top = Math.min(SY(from), SY(i)) - 120;
+  M.to(tok, { x: SX(i), duration: d, ease: 'power2.inOut' }, t);
+  M.to(tok, { y: top, duration: d * .45, ease: 'power2.out' }, t); M.to(tok, { y: SY(i) - 8, duration: d * .55, ease: 'bounce.out' }, t + d * .45);
+  M.to(tok, { borderColor: COL['bogm'[i]], duration: .3 }, t + d * .5); sfx('thud', t + d * .6, .6);
+  M.fromTo('#P' + i, { filter: 'brightness(1)' }, { filter: 'brightness(1.45)', duration: .35, yoyo: true, repeat: 1, ease: 'sine.inOut', immediateRender: false }, t + d * .55);
+}
+const swapc = (a, b, t) => { if (a) to(a, { autoAlpha: 0, y: -14 }, t, .2); M.fromTo(b, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: .3, immediateRender: false }, t + .15); };
+
+function build() {
+  const D = TL.dur; M.to({}, { duration: D }, 0);
+  M.to('#glow', { x: 150, y: -120, duration: 23, ease: 'sine.inOut', yoyo: true, repeat: Math.ceil(D / 23) }, 0);
+  const S = id => sc(id).s, SB = TL.scenes.map(s => s.s).concat([D]);
+  SB.slice(0, -1).forEach((x, i) => { const b = document.createElement('b'), f = document.createElement('i'); b.appendChild(f); $('#seg').appendChild(b); M.to(f, { scaleX: 1, duration: SB[i + 1] - x, ease: 'none' }, x); });
+  if (TL.draft && TL.draft.length) { gsap.set('#wm', { autoAlpha: 1 });
+    TL.subs.forEach(([s, e, x]) => { const d = document.createElement('div'); d.className = 'sb'; d.textContent = x; $('#sub').appendChild(d); M.set(d, { autoAlpha: 1 }, s); M.set(d, { autoAlpha: 0 }, e - .02); }); }
+  ['#c0', '#c1', '#c2', '#c3', '#c4'].forEach(e => gsap.set(e, { xPercent: -50 }));
+  gsap.set('#fl', { filter: 'grayscale(0) brightness(1)' });                    // boshlang'ich qiymat aniq bo'lmasa, o'chish payti qora bo'lib qoladi
+  let c, t;
+
+  /* ================= S1: savol ================= */
+  c = C.k1.c; title('#T1', .15);
+  scr('rey', 0, .01); gsap.set('#dev', camOf(null, 844));
+  M.fromTo('#vp', { autoAlpha: 0, y: 90 }, { autoAlpha: 1, y: 0, duration: .7, immediateRender: false }, .15);
+  cam(E.rey.men, c[0] + .15, .8, 40, 2.41);                                     // o'z qatori va undan yuqoridagilar
+  spot(E.rey.men, c[0] + .85, c[1] - .25, 18, 2); halo(E.rey.men, c[0] + 1.05, 18, 2);
+  dim(c[1] - .15, .07);
+  rise('#a1', c[1], .45, 30); rise('#a2', c[2] - .05, .5, 36); pop('#a3', c[3] - .05, .55, 0); sfx('chime', c[3], .7);
+
+  /* ================= S2: to'g'ri javob — 10 ================= */
+  t = S('S2'); sink(['#a1', '#a2', '#a3'], t - .3, .28, -50);
+  c = C.k2a.c; title('#T2', t + .1);
+  cutTo('karta1', null, t);
+  tapD(ctr(E.karta1.ko), c[0] + .6); scr('karta2', c[0] + .7, .2);
+  tapD(ctr(E.karta2.j1), c[0] + 1.75); fly(10, ctr(E.karta2.j1)[0], E.karta2.j1[1] + 4, c[0] + 1.8); scr('karta3', c[0] + 2.05, .25);
+  pop('#h1', c[1] - .05, .4, .5); to('#h1', { borderColor: '#F4D27A', backgroundColor: 'rgba(244,210,122,.22)', color: '#F4D27A' }, c[1] - .05, .3);
+  scr('dq1', c[2] - .3, .3); cam([0, 0, 390, 500], c[2] - .3, .6);            // dars «Эъроб»i
+  pop('#h2', c[2] - .05, .4, .5); to('#h2', { borderColor: '#F4D27A', backgroundColor: 'rgba(244,210,122,.22)', color: '#F4D27A' }, c[2] - .05, .3);
+  tapD(ctr(E.dq1.ok), c[2] + 1.0); scr('dq2', c[2] + 1.1, .2); fly(10, ctr(E.dq1.ok)[0], E.dq1.ok[1] + 6, c[2] + 1.12);
+  pop('#h3', c[3] - .05, .4, .5); to('#h3', { borderColor: '#F4D27A', backgroundColor: 'rgba(244,210,122,.22)', color: '#F4D27A' }, c[3] - .05, .3);
+  dim(c[4] + .05, .12); pop('#p10', c[4] + .25, .5, 0); sfx('chime', c[4] + .25, .6); pulse('#p10', c[4] + 1.6, 1.1, .6);
+  c = C.k2b.c; hide('#p10', c[0] - .35, .25); dim(c[0] - .2, .1);
+  pop('#x1', c[0] + .1, .5, .6); pop('#x2', c[1] + .1, .5, .6);
+
+  /* ================= S3: so'z «биламан» — +50 ================= */
+  t = S('S3'); sink(['#x1', '#x2'], t - .3, .28, -40); hide(['#h1', '#h2', '#h3'], t - .3, .25); M.to('#vp', { autoAlpha: 0, duration: .25 }, t - .3);
+  c = C.k3.c; title('#T3', t + .1);
+  ['#P0', '#P1', '#P2', '#P3'].forEach((p, i) => M.fromTo(p, { autoAlpha: 0, scaleY: 0 }, { autoAlpha: 1, scaleY: 1, duration: .5, ease: 'back.out(1.6)', immediateRender: false }, t + .1 + i * .07));
+  const tk = mkTok('دَرْسٌ'); M.set(tk, { x: SX(1), y: SY(1) - 8 }, t + .1);
+  M.fromTo(tk, { autoAlpha: 0, scale: .4 }, { autoAlpha: 1, scale: 1, duration: .5, ease: 'back.out(2)', immediateRender: false }, t + .45);
+  ['#d1', '#d2', '#d3'].forEach((d, k) => { const tt = c[0] + .15 + k * .7; pop(d, tt, .45, 0); sfx('tick', tt + .1); });
+  hop(tk, 1, 2, c[1] + .1, .7);
+  pop('#p50', c[2] + .2, .55, 0); sfx('chime', c[2] + .2, .8);
+
+  /* ================= S4: dars o'tildi — +100 ================= */
+  t = S('S4'); M.to(['#stairs', '#days3', '#p50'], { autoAlpha: 0, y: '-=40', duration: .28, ease: 'power2.in' }, t - .3);
+  c = C.k4.c; title('#T4', t + .1);
+  cutTo('dres', [0, 40, 390, 360], t);
+  spot(E.dres.sc, c[0] + .45, c[1] - .1, 12, 2);
+  pop('#h4', c[1], .45, .5); spot(E.dres.q80, c[1] + .15, c[2] - .1, 10, 4);
+  fly(100, ctr(E.dres.sc)[0], E.dres.sc[1] + 6, c[2] + .15, 1.25); halo(E.dres.box, c[2] + .15, 16, 2);
+  pop('#p100', c[2] + .55, .5, 0);
+
+  /* ================= S5: tinglash ================= */
+  t = S('S5'); hide(['#h4', '#p100'], t - .3, .25);
+  c = C.k5.c; title('#T5', t + .1);
+  cutTo('esh', null, t);
+  spot(E.esh.play, c[0] + .2, c[1] - .3, 40, 4);                                // ▶ tugmasi (olish.py: #bpl)
+  dim(c[1] - .3, .2);
+  pop('#rg', c[1] - .15, .5, 0); M.to('#rgp', { strokeDashoffset: 0, duration: 1.5, ease: 'none' }, c[1] + .15);
+  const cn = { v: 0 }; M.to(cn, { v: 300, duration: 1.5, ease: 'none', onUpdate: () => { const s = Math.round(cn.v / 5) * 5; $('#rgt').textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); } }, c[1] + .15);
+  pop('#g10', c[2] + .05, .5, 0); sfx('chime', c[2] + .05, .7);
+  pop('#g200', c[3] + .15, .45, .5);
+
+  /* ================= S6: olov ================= */
+  t = S('S6'); sink(['#rg', '#g10', '#g200'], t - .3, .28, -40);
+  c = C.k6a.c; title('#T6', t + .1);
+  cutTo('mq150', null, t);
+  const SR = [257, 8, 118, 69];
+  cam([0, 0, 390, 430], c[0], .85);
+  cam(SR, c[1] - .15, .8, 60, 4.2); spot(SR, c[1] + .55, c[4] + 1.9, 14, 1);
+  scr('mq200', c[2] + .55, .5);                                                 // 200 ga yetdi — olov yondi
+  halo(SR, c[3] + .05, 14, 2); sfx('shimmer', c[3] + .05, .8);
+  dim(c[4] - .05, .18); pop('#o50', c[4] + .1, .5, 0); sfx('chime', c[4] + .1, .7);
+  c = C.k6b.c; hide('#o50', c[0] - .45, .25); M.to('#vp', { autoAlpha: 0, duration: .35, ease: 'power2.in' }, c[0] - .3);
+  pop('#fl', c[0] + .05, .6, 0); pop('#c0', c[0] + .5, .4, 0); rise('#dcs', c[1] - .5, .45, 30);
+  let pc = '#c0';
+  [1, 2, 3].forEach(k => { const tt = c[1] + .25 + (k - 1) * .8, e = '#e' + k;
+    to(e, { backgroundColor: 'rgba(244,210,122,.2)', borderColor: 'rgba(244,210,122,.85)' }, tt, .3);
+    M.set(e + ' .v0', { autoAlpha: 0 }, tt); M.set(e + ' .v1', { autoAlpha: 1 }, tt); pulse(e, tt, 1.08, .4); sfx('tick', tt);
+    swapc(pc, '#c' + k, tt); pc = '#c' + k; M.to('#fl', { scale: 1 + k * .07, duration: .4 }, tt); });
+  t = c[2] + .35;
+  to('#e4', { backgroundColor: 'rgba(208,69,59,.22)', borderColor: 'rgba(208,69,59,.8)' }, t, .3); M.set('#e4 .v0', { autoAlpha: 0 }, t); M.set('#e4 .v1', { autoAlpha: 1 }, t); sfx('thud', t, .8);
+  M.to('#fl', { filter: 'grayscale(1) brightness(.6)', scale: .78, duration: .6, ease: 'power2.inOut' }, t + .5); swapc(pc, '#c4', t + .6);
+  pop('#ot', c[3] + .15, .5, .6);
+
+  /* ================= S7: Рейтинг · Ҳафта ================= */
+  t = S('S7'); sink(['#fl', '#cnt', '#dcs', '#ot'], t - .3, .28, -40);
+  c = C.k7.c; title('#T7', t + .1);
+  cutTo('mq200', null, t);
+  cam([0, 600, 390, 244], c[0] - .1, .7, 0, 2.41);                              // pastki menyu
+  tapD(ctr(E.mq200.navrey), c[0] + 1.0); scr('rey', c[0] + 1.12, .25); cam([0, 0, 390, 330], c[0] + 1.3, .7);
+  spot(E.rey.hafta, c[1] - .05, c[2] - .2, 20, 2);
+  spot(E.rey.vq, c[2], c[3] - .2, 10, 5);
+  spot(E.rey.bir, c[3], c[4] - .45, 14, 1);
+  cam(E.rey.men, c[4] - .35, .75, 40, 2.41); spot(E.rey.men, c[4] + .4, C.k7.e + .35, 18, 2);
+  halo(E.rey.men, c[5] + .3, 18, 3);
+
+  /* ================= S8: Рейтинг · Сўзлар ================= */
+  t = S('S8'); cam([0, 0, 390, 330], t - .1, .7);
+  c = C.k8.c; title('#T8', t + .1);
+  tapD(ctr(E.rey.sozlar), c[0] + .75); scr('reys', c[0] + .87, .25);
+  spot(E.reys.s2, c[1], c[2] - .2, 14, 3);
+  pop('#h8', c[2] + .05, .45, .5);
+  cam(E.reys.men, c[3] - .35, .75, 40, 2.41); spot(E.reys.men, c[3] + .4, C.k8.e + .3, 18, 2);
+
+  /* ================= S9: xulosa ================= */
+  t = S('S9'); hide('#h8', t - .3, .25); M.to('#vp', { autoAlpha: 0, y: -40, duration: .3, ease: 'power2.in' }, t - .32);
+  c = C.k9.c; title('#T9', t + .1);
+  ['#r1', '#r2', '#r3', '#r4', '#r5'].forEach((r, k) => M.fromTo(r, { autoAlpha: 0, y: 30 }, { autoAlpha: .3, y: 0, duration: .4, immediateRender: false }, t + .35 + k * .07));
+  ['#r1', '#r2', '#r3', '#r4'].forEach((r, k) => { to(r, { autoAlpha: 1 }, c[1 + k] - .08, .3); pulse(r, c[1 + k] - .08, 1.04, .4); sfx('pop', c[1 + k] - .08, .5); });
+  to('#r5', { autoAlpha: 1 }, c[5] + .05, .3); pulse('#r5', c[5] + .05, 1.05, .45); sfx('pop', c[5] + .05, .6);
+  rise('#f3', c[6] + .05, .55, 40);
+  rise('#f4', c[7] + .4, .6, 30); sfx('shimmer', c[7] + .4, .8);
+  window.READY = true;
+}
+window.seek = t => { M.time(Math.max(0, Math.min(TL.dur, t)), false); };
+Promise.all([document.fonts.ready].concat([...document.images].map(i => i.decode().catch(() => {})))).then(() => { build(); M.time(TL.dur); M.time(0); });
+</script>
+</body></html>

@@ -75,11 +75,12 @@ mark{background:rgba(234,88,12,.25);color:inherit;border-radius:4px;padding:0 3p
 #tt.on{background:var(--ac);color:var(--bg);border-color:var(--ac)}
 .lt button.lp.on{background:var(--hl);border-color:var(--hl);color:var(--bg)}
 .qbox{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:14px}
-.qhd{display:flex;justify-content:space-between;font-size:13px;color:var(--mu);margin-bottom:8px}
+.qhd{display:flex;flex-direction:column;align-items:center;line-height:1.3}.qhd span:last-child{font-size:12.5px;color:var(--mu)}
 .qs{direction:rtl;font-family:"DarsNaskh","Noto Naskh Arabic","Geeza Pro","Traditional Arabic",serif;font-size:var(--fs,24px);line-height:2;text-align:right}
 .qs .qt{background:rgba(234,88,12,.25);border-radius:8px;padding:0 4px}
 .qtr{font-size:14px;color:var(--mu);margin:6px 0 10px;border-top:1px dashed var(--bd);padding-top:6px}
 .qq{font-size:15px;margin:6px 0 10px}
+.qsv{font-size:19px;font-weight:700;line-height:1.4;color:var(--tx);margin:6px 0 10px}
 .qo{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
 .qo button{font:inherit;padding:10px 4px;border-radius:12px;border:2px solid var(--bd);background:var(--cd);color:var(--tx);cursor:pointer}
 .qo button b{display:block;font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:34px;line-height:1.5;font-weight:400}
@@ -551,8 +552,8 @@ function qshow(){
   if(am){var al=+am[0].split("-")[0];if(al!=q.l)ctx=qline(al,-1,"qc")}
   var tr=TR[q.l].map(function(t){return t[0]}).join(" ");
   var ops="";q.o.forEach(function(x,i){ops+='<button data-x="'+i+'" onclick="qans(this)"><b>'+x.w+'</b><span>'+(x.lb||QV[x.c][2])+'</span></button>'});
-  var nv='<div class="qnv"><button onclick="qgo(-1)"'+(qi==0?' disabled':'')+'>‹</button><span>Савол '+(qi+1)+' / '+QZ.length+''+'</span><button onclick="qgo(1)">›</button></div>';
-  document.getElementById("p3").innerHTML='<div class="qbox">'+nv+'<div class="qhd"><span></span><span>Тўғри: '+qsc+'</span></div>'+
+  var nv='<div class="qnv"><button onclick="qgo(-1)"'+(qi==0?' disabled':'')+'>‹</button><span class="qhd"><span>Савол '+(qi+1)+' / '+QZ.length+''+'</span><span>Тўғри: '+qsc+'</span></span><button onclick="qgo(1)">›</button></div>';
+  document.getElementById("p3").innerHTML='<div class="qbox">'+nv+'<div class="qsv">Белгиланган сўз қандай ўқилади?</div>'+
    ctx+qline(q.l,q.w)+'<div class="qtr">'+tr+'</div>'+
    '<div class="qo">'+ops+'</div><div class="qf" id="qf"></div>'+
    '<div class="qb hide" id="qb"><button class="pr" onclick="qgo(1)">'+(qi==QZ.length-1?'Натижа':'Кейинги')+'</button></div></div>';

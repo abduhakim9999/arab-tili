@@ -75,11 +75,12 @@ mark{background:rgba(234,88,12,.25);color:inherit;border-radius:4px;padding:0 3p
 #tt.on{background:var(--ac);color:var(--bg);border-color:var(--ac)}
 .lt button.lp.on{background:var(--hl);border-color:var(--hl);color:var(--bg)}
 .qbox{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:14px}
-.qhd{display:flex;justify-content:space-between;font-size:13px;color:var(--mu);margin-bottom:8px}
+.qhd{display:flex;flex-direction:column;align-items:center;line-height:1.3}.qhd span:last-child{font-size:12.5px;color:var(--mu)}
 .qs{direction:rtl;font-family:"DarsNaskh","Noto Naskh Arabic","Geeza Pro","Traditional Arabic",serif;font-size:var(--fs,24px);line-height:2;text-align:right}
 .qs .qt{background:rgba(234,88,12,.25);border-radius:8px;padding:0 4px}
 .qtr{font-size:14px;color:var(--mu);margin:6px 0 10px;border-top:1px dashed var(--bd);padding-top:6px}
 .qq{font-size:15px;margin:6px 0 10px}
+.qsv{font-size:19px;font-weight:700;line-height:1.4;color:var(--tx);margin:6px 0 10px}
 .qo{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
 .qo button{font:inherit;padding:10px 4px;border-radius:12px;border:2px solid var(--bd);background:var(--cd);color:var(--tx);cursor:pointer}
 .qo button b{display:block;font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:34px;line-height:1.5;font-weight:400}
@@ -509,9 +510,9 @@ var ANS={};
 function qlast(o){var hk=o.e[1].replace(/[^ً-ِ]/g,"");return hk.charAt(hk.length-1)}
 /* ---- mashq: so'z oxiri harakatini topish (bitta umumiy mashq) ---- */
 var QUR={"7-1": 1, "7-2": 1, "1-0": 1, "2-1": 1, "4-1": 1, "6-1": 1};
-var QTUR={"3-2": {"t": "h", "j": "Раф", "iz": "مَا — сукунга мабний; мубтадо: раф ўринда. Мабний сўзнинг охири ўзгармайди."}, "5-0": {"t": "h", "j": "Раф", "iz": "كَيْفَ — фатҳага мабний; хабар муқаддам: раф ўринда. Бу фатҳа насб белгиси эмас."}, "3-3": {"t": "s"}, "5-1": {"t": "v", "s": "Белгиланган сўз нима учун раф?", "o": ["Мубтадо", "Хабар", "Фоил"], "j": "Мубтадо"}, "6-2": {"t": "v", "s": "Белгиланган сўз нима учун жар?", "o": ["لِ жар ҳарфидан кейин келгани учун", "Музофун илайҳ бўлгани учун", "Хабар бўлгани учун"], "j": "لِ жар ҳарфидан кейин келгани учун"}};
+var QTUR={"3-2": {"t": "h", "j": "Раф", "iz": "مَا — сукунга мабний; мубтадо: раф ўринда. Мабний сўзнинг охири ўзгармайди."}, "5-0": {"t": "h", "j": "Раф", "iz": "كَيْفَ — фатҳага мабний; хабар муқаддам: раф ўринда. Бу фатҳа насб белгиси эмас."}, "3-3": {"t": "s"}, "5-1": {"t": "v", "s": "Белгиланган сўз нима учун раф?", "o": ["Мубтадо", "Хабар", "Фоил"], "j": "Мубтадо"}, "6-2": {"t": "v", "s": "Белгиланган сўз нима учун жар?", "o": ["Музофун илайҳ бўлгани учун", "Хабар бўлгани учун", "Жар ҳарфидан кейин келгани учун"], "j": "Жар ҳарфидан кейин келгани учун"}};
 function qsh(A){for(var a=A.length-1;a>0;a--){var b=Math.floor(Math.random()*(a+1)),t=A[a];A[a]=A[b];A[b]=t}return A}
-var QOV={"1-0": [{"w": "اَلسَّلَامُ", "c": "R", "lb": "замма"}, {"w": "اَلسَّلَامَ", "c": "N", "lb": "фатҳа"}, {"w": "اَلسَّلَامِ", "c": "J", "lb": "касра"}], "2-1": [{"w": "السَّلَامُ", "c": "R", "lb": "замма"}, {"w": "السَّلَامَ", "c": "N", "lb": "фатҳа"}, {"w": "السَّلَامِ", "c": "J", "lb": "касра"}], "3-1": [{"w": "خَالِدٌ", "c": "R", "lb": "танвинли замма"}, {"w": "خَالِدُ", "c": "R", "lb": "замма"}, {"w": "خَالِداً", "c": "N", "lb": "танвинли фатҳа"}], "3-3": [{"w": "اسْمُكَ", "c": "R", "lb": "замма"}, {"w": "اسْمَكَ", "c": "N", "lb": "фатҳа"}, {"w": "اسْمِكَ", "c": "J", "lb": "касра"}], "4-1": [{"w": "خَلِيلٌ", "c": "R", "lb": "танвинли замма"}, {"w": "خَلِيلاً", "c": "N", "lb": "танвинли фатҳа"}, {"w": "خَلِيلٍ", "c": "J", "lb": "танвинли касра"}], "5-1": [{"w": "حَالُكَ", "c": "R", "lb": "замма"}, {"w": "حَالَكَ", "c": "N", "lb": "фатҳа"}, {"w": "حَالِكَ", "c": "J", "lb": "касра"}], "6-1": [{"w": "وَالْحَمْدُ", "c": "R", "lb": "замма"}, {"w": "وَالْحَمْدَ", "c": "N", "lb": "фатҳа"}, {"w": "وَالْحَمْدِ", "c": "J", "lb": "касра"}], "6-2": [{"w": "لِلَّهُ", "c": "R", "lb": "замма"}, {"w": "لِلَّهَ", "c": "N", "lb": "фатҳа"}, {"w": "لِلَّهِ", "c": "J", "lb": "касра"}], "7-1": [{"w": "وَالْحَمْدُ", "c": "R", "lb": "замма"}, {"w": "وَالْحَمْدَ", "c": "N", "lb": "фатҳа"}, {"w": "وَالْحَمْدِ", "c": "J", "lb": "касра"}], "7-2": [{"w": "لِلَّهُ", "c": "R", "lb": "замма"}, {"w": "لِلَّهَ", "c": "N", "lb": "фатҳа"}, {"w": "لِلَّهِ", "c": "J", "lb": "касра"}]};
+var QOV={"1-0": [{"w": "اَلسَّلَامُ", "c": "R", "lb": "замма"}, {"w": "اَلسَّلَامَ", "c": "N", "lb": "фатҳа"}, {"w": "اَلسَّلَامِ", "c": "J", "lb": "касра"}], "2-1": [{"w": "السَّلَامُ", "c": "R", "lb": "замма"}, {"w": "السَّلَامَ", "c": "N", "lb": "фатҳа"}, {"w": "السَّلَامِ", "c": "J", "lb": "касра"}], "3-1": [{"w": "خَالِدُ", "c": "R", "lb": "замма"}, {"w": "خَالِدٌ", "c": "R", "lb": "танвинли замма"}, {"w": "خَالِداً", "c": "N", "lb": "танвинли фатҳа"}], "3-3": [{"w": "اسْمُكَ", "c": "R", "lb": "замма"}, {"w": "اسْمَكَ", "c": "N", "lb": "фатҳа"}, {"w": "اسْمِكَ", "c": "J", "lb": "касра"}], "4-1": [{"w": "خَلِيلٌ", "c": "R", "lb": "танвинли замма"}, {"w": "خَلِيلاً", "c": "N", "lb": "танвинли фатҳа"}, {"w": "خَلِيلٍ", "c": "J", "lb": "танвинли касра"}], "5-1": [{"w": "حَالُكَ", "c": "R", "lb": "замма"}, {"w": "حَالَكَ", "c": "N", "lb": "фатҳа"}, {"w": "حَالِكَ", "c": "J", "lb": "касра"}], "6-1": [{"w": "وَالْحَمْدُ", "c": "R", "lb": "замма"}, {"w": "وَالْحَمْدَ", "c": "N", "lb": "фатҳа"}, {"w": "وَالْحَمْدِ", "c": "J", "lb": "касра"}], "6-2": [{"w": "لِلَّهُ", "c": "R", "lb": "замма"}, {"w": "لِلَّهَ", "c": "N", "lb": "фатҳа"}, {"w": "لِلَّهِ", "c": "J", "lb": "касра"}], "7-1": [{"w": "وَالْحَمْدُ", "c": "R", "lb": "замма"}, {"w": "وَالْحَمْدَ", "c": "N", "lb": "фатҳа"}, {"w": "وَالْحَمْدِ", "c": "J", "lb": "касра"}], "7-2": [{"w": "لِلَّهُ", "c": "R", "lb": "замма"}, {"w": "لِلَّهَ", "c": "N", "lb": "фатҳа"}, {"w": "لِلَّهِ", "c": "J", "lb": "касра"}]};
 function qends(k){
   if(QOV[k])return QOV[k];
   var o=get(k),ir=irb(k),c=qcase(o);if(!c)return null;
@@ -547,8 +548,8 @@ function qshow(){
   if(am){var al=+am[0].split("-")[0];if(al!=q.l)ctx=qline(al,-1,"qc")}
   var tr=TR[q.l].map(function(t){return t[0]}).join(" ");
   var ops="";q.o.forEach(function(x,i){ops+='<button data-x="'+i+'" onclick="qans(this)"><b>'+x.w+'</b><span>'+(x.lb||QV[x.c][2])+'</span></button>'});
-  var nv='<div class="qnv"><button onclick="qgo(-1)"'+(qi==0?' disabled':'')+'>‹</button><span>Савол '+(qi+1)+' / '+QZ.length+''+'</span><button onclick="qgo(1)">›</button></div>';
-  document.getElementById("p3").innerHTML='<div class="qbox">'+nv+'<div class="qhd"><span></span><span>Тўғри: '+qsc+'</span></div>'+
+  var nv='<div class="qnv"><button onclick="qgo(-1)"'+(qi==0?' disabled':'')+'>‹</button><span class="qhd"><span>Савол '+(qi+1)+' / '+QZ.length+''+'</span><span>Тўғри: '+qsc+'</span></span><button onclick="qgo(1)">›</button></div>';
+  document.getElementById("p3").innerHTML='<div class="qbox">'+nv+'<div class="qsv">Белгиланган сўз қандай ўқилади?</div>'+
    ctx+qline(q.l,q.w)+'<div class="qtr">'+tr+'</div>'+
    '<div class="qo">'+ops+'</div><div class="qf" id="qf"></div>'+
    '<div class="qb hide" id="qb"><button class="pr" onclick="qgo(1)">'+(qi==QZ.length-1?'Натижа':'Кейинги')+'</button></div></div>';

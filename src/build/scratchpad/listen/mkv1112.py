@@ -8,6 +8,7 @@ T = H + '/tmpf' + N; os.makedirs(T, exist_ok=True)
 run = lambda a: subprocess.run(a, check=True, capture_output=True)
 run(['ffmpeg', '-v', 'error', '-y', '-f', 'lavfi', '-i', 'anullsrc=r=44100:cl=mono', '-t', '0.6', T + '/s.wav'])
 for i, forms in enumerate(F):
+    if not forms: continue   # 26.11.2026: harf yozuvi (OQIMAYDI) — tinglashda o'qilmaydi
     fs = [H + '/u%s/v/f/a%02d_%d.mp3' % (N, i, k) for k in range(len(forms))]
     assert all(os.path.exists(f) for f in fs), fs
     parts = []

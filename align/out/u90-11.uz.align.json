@@ -1,52 +1,52 @@
 [
 {
 "text": "Biz",
-"start": 0.06,
+"start": 0.08,
 "end": 0.22
 },
 {
 "text": "bunday",
 "start": 0.3,
-"end": 0.6
+"end": 0.58
 },
 {
 "text": "gapni",
-"start": 0.64,
-"end": 0.94
+"start": 0.62,
+"end": 0.92
 },
 {
 "text": "koʻp",
-"start": 1.02,
-"end": 1.22
+"start": 1.0,
+"end": 1.2
 },
 {
 "text": "eshitganmiz.",
-"start": 1.3,
-"end": 1.9
+"start": 1.28,
+"end": 1.86
 },
 {
 "text": "Bizga",
-"start": 2.4,
-"end": 2.7
+"start": 2.34,
+"end": 2.62
 },
 {
 "text": "ish",
-"start": 2.9,
-"end": 3.02
+"start": 2.82,
+"end": 2.94
 },
 {
 "text": "kerak,",
-"start": 3.08,
-"end": 3.42
+"start": 3.0,
+"end": 3.34
 },
 {
-"text": "soʻzlarni",
-"start": 3.76,
-"end": 4.24
+"text": "soʻzlar",
+"start": 3.66,
+"end": 4.02
 },
 {
 "text": "emas.",
-"start": 4.3,
-"end": 4.84
+"start": 4.08,
+"end": 4.6
 }
 ]

@@ -29,8 +29,13 @@ Q = [  # (kalit, sabab-so'z kaliti, izoh) — faqat qiyin joylar
  ('15-6', '15-5', 'اللَّهُ — شَاءَ нинг фоили, шунинг учун раф қилинган.'),
 ]
 TRK = {k: [r, t] for k, r, t in Q}
+# 26.11.2026: f3 shadda/tanvin/olmosh qo'shilgan so'zlarda buzuq variant berardi (نَبِيًُّ, مَرَّةُ, أَحَدُكُمُ) — bu kalitlar aniq yozildi (sahifadagi matn bilan aynan bir xil)
+FIX = {"7-2": [{"w": "مَرَّةٌ", "c": "R", "lb": "танвинли замма"}, {"w": "مَرَّةً", "c": "N", "lb": "танвинли фатҳа"}, {"w": "مَرَّةٍ", "c": "J", "lb": "танвинли касра"}], "7-3": [{"w": "ثَانِيَةٌ", "c": "R", "lb": "танвинли замма"}, {"w": "ثَانِيَةً", "c": "N", "lb": "танвинли фатҳа"}, {"w": "ثَانِيَةٍ", "c": "J", "lb": "танвинли касра"}]}
 QOV = {}
 for k, r, t in Q:
+    if k in FIX:
+        QOV[k] = FIX[k]
+        continue
     li, wi = map(int, k.split('-'))
     v = L[li][1][wi]['v']
     if k == '8-4': QOV[k] = o3('وَالْقَوَاعِدُ', 'وَالْقَوَاعِدَ', 'وَالْقَوَاعِدِ', 'R', 'N', 'J', 'замма', 'фатҳа', 'касра'); continue

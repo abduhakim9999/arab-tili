@@ -311,6 +311,22 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
 .y-pn .y-li .k{flex:1;min-width:0;min-height:62px;box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:8px 10px 11px;border-radius:16px;border:1.5px solid var(--bd);background:var(--cd);box-shadow:inset 0 -3px 0 var(--bd);transition:transform .06s,box-shadow .06s}
 .y-pn .y-li:active .k{transform:translateY(2px);box-shadow:inset 0 -1px 0 var(--bd)}
 .y-pn .y-li.hz .k{border-color:#E0B95A;box-shadow:inset 0 -3px 0 #E0B95A}
+/* «Машқ»га тушди картаси (26.11.2026; docs/texnik.md 15) — dars 80% ga yetganda; ranglar «Машқ» statistikasi bilan bir xil */
+.y-tc{text-align:center;padding:2px 0 0}
+.y-tc .ok{width:54px;height:54px;margin:4px auto 8px;border-radius:50%;background:var(--y-okb);color:var(--y-ok);display:flex;align-items:center;justify-content:center}
+.y-tc .ok svg{width:28px;height:28px}
+.y-tc small{display:block;font-size:13.5px;font-weight:700;color:var(--mu)}
+.y-sb .y-tc h2{margin:4px 0 14px;font-size:21px}
+.y-tc .m{--c:#3a73cc}.y-tc .g{--c:#2fa36f}.y-tc .o{--c:#d9a23a}.y-tc .b{--c:var(--y-no)}
+.y-tl{display:flex;height:10px;border-radius:5px;overflow:hidden;margin:0 0 12px}
+.y-tl u{display:block;height:100%;background:var(--c)}
+.y-tg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;text-align:left}
+.y-tg div{border-radius:14px;padding:8px 12px;background:color-mix(in srgb,var(--c) 14%,transparent)}
+.y-tg b{display:block;font-size:22px;line-height:1.25;color:var(--c)}
+.y-tg span{font-size:13.5px;color:var(--mu)}
+.y-sb .y-tc p{margin:12px 0 14px;font-size:14.5px;font-weight:700;color:var(--tx)}
+.y-uc{position:fixed;z-index:40;left:0;top:0;width:11px;height:11px;margin:-5.5px 0 0 -5.5px;border-radius:50%;pointer-events:none;background:var(--c)}
+.y-uc.m{--c:#3a73cc}.y-uc.g{--c:#2fa36f}.y-uc.o{--c:#d9a23a}.y-uc.b{--c:var(--y-no)}
 </style>
 </head>
 <body>
@@ -395,7 +411,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
   function yukla() {
     var f = function (n) { return fetch('data/' + n).then(function (r) { if (!r.ok) throw 0; return r.json(); }); };
     Promise.all([f('darslar.json'), f('mashq.json'), f('ikonka.json').catch(function () { return {}; }), f('lugat.json')]).then(function (a) {
-      D = a[0].s; Q = {}; IK = a[2] || {}; LG = {}; LV = {};
+      D = a[0].s; Q = {}; IK = a[2] || {}; LG = {}; LV = {}; MQ = a[1].s; LUG = a[3].s;
       a[1].s.forEach(function (q) { (Q[q.d] = Q[q.d] || []).push(q); });
       D.forEach(function (d) { if (d.lv) LV[d.n] = d.lv; });
       a[3].s.forEach(function (r) { if (r.tk) (LG[r.d] = LG[r.d] || []).push(r); });   /* «Такрорлаш»dagi kabi: atoqli ot, harf, olmosh kirmaydi */
@@ -462,11 +478,13 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
       /* 25.11.2026 (foydalanuvchi: «80% o'tgandan keyin lug'atlari tushishi kerak emasmi mashqqa?», «olib tashlanadi»): so'zlar faqat eng yaxshi
          natija OTISH% bo'lganda tushadi; ilgari 80% siz tushganlari takror.html da (otganlar) ko'rinmaydi, belgilari o'chmaydi */
       if (W && W.s && !W.s[d.n] && R.d[d.n].b >= OTISH && (LG[d.n] || []).length) { W.s[d.n] = Date.now(); wo = true; }
+      if ((r.b || 0) < OTISH && R.d[d.n].b >= OTISH && (LG[d.n] || []).length && TUSH.indexOf(d.n) < 0) TUSH.push(d.n);   /* «Машқ»га тушди картаси (tushdi) */
       xato = xato.concat(xx);
     });
     if (o) yoz();
     if (wo) wYoz();
     xatoQosh(xato);
+    if (TUSH.length) setTimeout(tushdi, 400);
   }
 
   /* ---- holat: nima ochiq, nima o'tilgan ---- */
@@ -683,8 +701,89 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
     setTimeout(function () { yop(); if (keyin) keyin(); }, tez ? 0 : 230);
   }
 
+  /* ---- «Машқ»га тушди (26.11.2026, foydalanuvchi: «qaysi dars tugasa, shuni hammasi so'zi mashqqa tushganini bildirib turadigan bo'lish kerak»;
+     ko'rsatilgan variantlardan «1 2 yoqdi», «qil»): dars «Машқ»i 80% ga yetgan payt (yigish — eng yaxshi natija chegaradan o'tdi; har dars bir marta)
+     bosh sahifada pastdan karta: «N та сўз «Машқ»га тушди», darajalar bo'yicha bo'linishi va «Машқ» tugmasidagi son (bugungi mashq) eski → yangi.
+     Hisob — takror.js, takror.html qur() bilan bir xil (shakl kartasi sanoqqa ta'sir qilmaydi). Yangi son takror-xulosa ga yoziladi —
+     «Машқ» ochilmasa ham tugmadagi son to'g'ri. Yopilganda nuqtalar «Машқ» tugmasiga uchadi, son yangilanadi. takror.js yuklanmasa —
+     darajalar belgilar bo'yicha (W.b / W.a), son qatori yo'q. */
+  var TUSH = [], LUG = null, MQ = null, YOPDA = null;
+  var DRN = { m: 'Мустаҳкам', g: 'Биламан', o: 'Ўрганяпман', b: 'Билмайман' };
+  function takrorOl(f) {
+    if (window.Takror) { f(); return; }
+    var s = document.createElement('script'); s.src = SN + 'takror.js';
+    s.onload = s.onerror = function () { f(); };
+    document.head.appendChild(s);
+  }
+  function mashqE() {
+    if (!window.Takror || !LUG || !MQ) return null;
+    var OT = {}, n, x = null, dL = {}, dM = {}, k, usz = [], fa = [], yn = +SZ.yangi || 0;
+    for (n in R.d) if (R.d[n] && R.d[n].b >= OTISH) OT[n] = 1;
+    try { x = JSON.parse(L(KY + '-xulosa') || 'null'); } catch (e) {}
+    if (x && x.ot) x.ot.forEach(function (d) { OT[d] = 1; });
+    LUG.forEach(function (r) { dL[r.id] = r.d; });
+    MQ.forEach(function (q) { dM[q.id] = q.d; });
+    for (k in W.b) if (OT[dL[k]]) usz.push(+k);
+    for (k in W.s) if (OT[k]) fa.push(+k);
+    var qo = null; try { qo = JSON.parse(L(SINOV ? 'takror-sinov-qosh' : 'takror-qosh') || 'null'); } catch (e) {}   /* «Яна N та сўз» (takror.html) */
+    try {
+      return Takror.yarat({ lugat: LUG, barcha: LUG, mashq: MQ, darslar: D, faol: fa.length ? fa.sort(function (a, b) { return a - b; }) : [1],
+        jurnal: jurnalOl(), ustun: xatolar().filter(function (i) { return OT[dM[i]]; }), ustunSoz: usz, sozlama: yn ? { yangi: yn } : null, qosh: qo,
+        belgi: function (id) { return { a: W.a[id], b: W.b[id] }; } });
+    } catch (e) { return null; }
+  }
+  function tushdi() {
+    if (!TUSH.length || IM || !sh.hidden) return;
+    var ns = TUSH.splice(0);
+    takrorOl(function () {
+      var E = mashqE(), c = { m: 0, g: 0, o: 0, b: 0 }, j = 0, yangi = null, nb = document.querySelector('#q-nav a[data-q="takror"] .i b'), eski = nb ? +nb.textContent || 0 : 0;
+      ns.forEach(function (n) { (LG[n] || []).forEach(function (r) { c[E ? E.soz(r.id).st : W.b[r.id] ? 'b' : W.a[r.id] ? 'g' : 'o']++; j++; }); });
+      if (!j) return;
+      if (E) try {
+        var xk = SINOV ? 'takror-sinov-xulosa' : 'takror-xulosa', ox = null, nx = E.xulosa(hozir());
+        try { ox = JSON.parse(L(xk) || 'null'); } catch (e) {}
+        if (ox && ox.v === 1) { nx.bilgan = ox.bilgan; nx.must = ox.must; nx.jami = ox.jami; }   /* bular — takror.html hisobi (menHisob), u ochilganda yangilanadi */
+        LS(xk, JSON.stringify(nx)); yangi = nx.qoldi;
+      } catch (e) {}
+      var d = ns.length === 1 ? D.filter(function (x) { return x.n === ns[0]; })[0] : null, HT = ['m', 'g', 'o', 'b'];
+      var h = '<div class="y-tc"><div class="ok">' + IC.ok + '</div>' +
+        '<small>' + (d ? d.n + '-дарс ўтилди · ' + R.d[d.n].b + '%' : ns.length + ' та дарс ўтилди') + '</small>' +
+        '<h2>' + j + ' та сўз «Машқ»га тушди</h2>' +
+        '<div class="y-tl" aria-hidden="true">' + HT.map(function (k) { return c[k] ? '<u class="' + k + '" style="flex:' + c[k] + '"></u>' : ''; }).join('') + '</div>' +
+        '<div class="y-tg">' + HT.map(function (k) { return c[k] ? '<div class="' + k + '"><b>' + c[k] + '</b><span>' + DRN[k] + '</span></div>' : ''; }).join('') + '</div>' +
+        (yangi ? '<p>' + (eski && yangi > eski ? 'Бугунги машқ: ' + eski + ' → ' + yangi + ' та' : 'Бугунги машқ: ' + yangi + ' та') + '</p>' : '<p></p>') +
+        '<button class="y-b y-b1" id="tq">Тушунарли</button></div>';
+      ochVaraq(h);
+      YOPDA = function () { uchir(c); };
+      document.getElementById('tq').onclick = yop;
+    });
+  }
+  /* yopilganda: so'zlar (nuqtalar, darajasi rangida) «Машқ» tugmasiga uchadi, keyin tugma qayta chiziladi (yangi son) va son sakraydi */
+  function uchir(c) {
+    var t = document.querySelector('#q-nav a[data-q="takror"] .i'), RMq = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var tugadi = function () {
+      navChiz();
+      var b = document.querySelector('#q-nav a[data-q="takror"] .i b');
+      if (b && b.animate && !RMq) b.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.5)' }, { transform: 'scale(1)' }], { duration: 420, easing: 'ease-out' });
+    };
+    if (!t || !document.body.animate || RMq) { tugadi(); return; }
+    var tr = t.getBoundingClientRect(), x1 = tr.left + tr.width / 2, y1 = tr.top + tr.height / 2, x0 = innerWidth / 2, y0 = innerHeight * 0.62;
+    var rr = [], k; for (k in c) for (var i = 0; i < Math.min(c[k], 4); i++) rr.push(k);
+    rr = rr.slice(0, 12); var qoldi = rr.length;
+    rr.forEach(function (k, i) {
+      var u = document.createElement('span'); u.className = 'y-uc ' + k; document.body.appendChild(u);
+      var dx = (Math.random() - 0.5) * 120, dy = (Math.random() - 0.5) * 60;
+      u.animate([
+        { transform: 'translate(' + (x0 + dx) + 'px,' + (y0 + dy) + 'px) scale(.4)', opacity: 0 },
+        { transform: 'translate(' + (x0 + dx) + 'px,' + (y0 + dy) + 'px) scale(1)', opacity: 1, offset: 0.2 },
+        { transform: 'translate(' + x1 + 'px,' + y1 + 'px) scale(.5)', opacity: 0.9 }
+      ], { duration: 650, delay: i * 45, easing: 'cubic-bezier(.5,0,.3,1)', fill: 'forwards' }).onfinish = function () { u.remove(); if (!--qoldi) tugadi(); };
+    });
+    if (!qoldi) tugadi();
+  }
+
   /* ---- pastdan ochiladigan oyna ---- */
-  function yop() { sh.hidden = true; sb.innerHTML = ''; sh.classList.remove('kt', 'ket'); }
+  function yop() { sh.hidden = true; sb.innerHTML = ''; sh.classList.remove('kt', 'ket'); if (YOPDA) { var f = YOPDA; YOPDA = null; f(); } }
   sh.onclick = function (e) { if (e.target === sh) yop(); };
   function ochVaraq(h) {
     sb.innerHTML = '<div class="gr" aria-hidden="true"></div><button class="y-x" id="yp" aria-label="Ёпиш">' + IC.x + '</button>' + h;

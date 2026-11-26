@@ -7,7 +7,7 @@
      Umumiy qoladi: akkaunt (baza-kod, baza-tg, ism), til, sozlamalar, yo'riqnoma belgilari. Profil: ruN.html — ruscha, N.html — o'zbekcha,
      boshqa sahifalar — «til» bo'yicha. Ko'rish sahifasida (korish-shim.js, «korish:<nom>:» oldi) ham ishlaydi. Serverga — baza.js (hujjatda «ru»). */
   try {
-    var PK = { 'soz': 1, 'takror-j': 1, 'takror-xulosa': 1, 'takror-mashgulot': 1, 'yol': 1, 'yol-t': 1, 'yol-xato': 1, 'yol-kitob': 1, 'yol-xulosa': 1,
+    var PK = { 'soz': 1, 'takror-j': 1, 'takror-xulosa': 1, 'takror-mashgulot': 1, 'takror-qosh': 1, 'yol': 1, 'yol-t': 1, 'yol-xato': 1, 'yol-kitob': 1, 'yol-xulosa': 1,
       'reyting-kesh2': 1, 'oxirgi-dars': 1, 'baza-eski': 1, 'baza-r': 1, 'baza-rk': 1 };
     var PRE = /^dars\d+-holat(-t)?$/, KOR = /^(korish:[^:]*:)?([\s\S]*)$/;
     var pRU = false, pth = location.pathname;
@@ -35,6 +35,95 @@
   } catch (e) {}
   /* ko'rinish: «Созламалар» → Кўриниш (yorug / tungi; avto — telefon sozlamasi). docs/texnik.md 16 */
   try { var _k = JSON.parse(localStorage.getItem('sozlama') || '{}').kor; if (_k === 'yorug' || _k === 'tungi') document.documentElement.setAttribute('data-theme', _k === 'tungi' ? 'dark' : 'light'); } catch (e) {}
+  /* KIRISH KODI (26.11.2026, foydalanuvchi: «hozircha hamma ishlatmasligi uchun kodli qilib qo'yamiz», «oddiy bitta parolli, 4 xonali»,
+     «butun sayt yopiladi», «bir kunda bir marta so'ralsa bo'ladi»; docs/texnik/22-kirish-kodi.md). Ikkala tilda, Telegramda ham.
+     Kod to'g'ri bo'lsa — shu qurilmada Toshkent vaqti bilan kun oxirigacha ochiq («kirish-ok» = KX:kun); ertasi kuni yoki kod almashsa — yana so'raladi
+     (orqa fondan qaytganda ham tekshiriladi). Kodning o'zi yozilmaydi — faqat KX; almashtirish: `node src/build/kirish-kod.js 1234`.
+     5 xatodan keyin 30 s kutish. Bu «eshik qulfi»: tekshiruv brauzerda (repo ochiq) — haqiqiy himoya pullik versiyada, server bilan. */
+  try {
+    (function () {
+      var KX = 'eed39e36', H = document.documentElement;
+      function xesh(s) { var h = 0x811c9dc5; s = 'nurut-tolib:' + s; for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; } return ('0000000' + h.toString(16)).slice(-8); }
+      function kun() { return new Date(Date.now() + 5 * 3600e3).toISOString().slice(0, 10); }   /* Toshkent (UTC+5) */
+      function G(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+      function S(k, v) { try { if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) {} }
+      function ochiq() { return G('kirish-ok') === KX + ':' + kun(); }
+      var ru = window.Profil ? Profil.til === 'ru' : G('til') === 'ru';
+      var T = ru ? { b: 'Код доступа', s: 'Введите 4-значный код', x: 'Неверный код', k: 'Слишком много попыток. Через ', kk: ' с', o: 'Удалить' }
+        : { b: 'Кириш коди', s: '4 хонали кодни киритинг', x: 'Нотўғри код', k: 'Кўп марта хато. ', kk: ' сониядан кейин', o: 'Ўчириш' };
+      var st = null, d = null, v = '', band = false;
+      function css() {
+        if (st) return;
+        st = document.createElement('style');
+        st.textContent = 'html.kq-yopiq{overflow:hidden}html.kq-yopiq body{visibility:hidden}' +
+          '.kq{position:fixed;inset:0;z-index:2147483647;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;' +
+          'padding:calc(20px + env(safe-area-inset-top)) 20px calc(20px + env(safe-area-inset-bottom));box-sizing:border-box;overflow-y:auto;' +
+          'background:#fbf8f1;color:#1f2a24;font:17px/1.4 system-ui,-apple-system,sans-serif;-webkit-user-select:none;user-select:none}' +
+          '.kq-i{width:76px;height:76px;border-radius:18px;box-shadow:0 6px 18px rgba(0,0,0,.18)}' +
+          '.kq-b{font-size:20px;font-weight:700}.kq-m{margin:0;min-height:1.4em;text-align:center;font-size:15px;color:#6b6f66}' +
+          '.kq-d{display:flex;gap:18px;margin:2px 0 10px}.kq-d i{width:14px;height:14px;border-radius:50%;border:2px solid #167a4f;transition:background .12s}' +
+          '.kq-d i.on{background:#167a4f}.kq-d.bad{animation:kqsh .35s}@keyframes kqsh{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}' +
+          '.kq-k{display:grid;grid-template-columns:repeat(3,68px);gap:12px 22px}' +
+          '.kq-k button{width:68px;height:68px;padding:0;border-radius:50%;border:1px solid #e3dccb;background:#fff;color:inherit;' +
+          'font:500 26px system-ui,-apple-system,sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent}' +
+          '.kq-k button:active{background:#e3dccb}.kq-k button.kq-x{border:0;background:none;font-size:24px}' +
+          'html[data-theme="dark"] .kq{background:#06281d;color:#f1e9d4}html[data-theme="dark"] .kq-m{color:#a6b7a8}' +
+          'html[data-theme="dark"] .kq-d i{border-color:#dcb460}html[data-theme="dark"] .kq-d i.on{background:#dcb460}' +
+          'html[data-theme="dark"] .kq-k button{background:#0c3527;border-color:#1b4a38}html[data-theme="dark"] .kq-k button.kq-x{background:none}' +
+          '@media (prefers-color-scheme:dark){html:not([data-theme="light"]) .kq{background:#06281d;color:#f1e9d4}html:not([data-theme="light"]) .kq-m{color:#a6b7a8}' +
+          'html:not([data-theme="light"]) .kq-d i{border-color:#dcb460}html:not([data-theme="light"]) .kq-d i.on{background:#dcb460}' +
+          'html:not([data-theme="light"]) .kq-k button{background:#0c3527;border-color:#1b4a38}html:not([data-theme="light"]) .kq-k button.kq-x{background:none}}' +
+          '@media (max-height:540px){.kq-i{display:none}.kq-k{gap:8px 18px}.kq-k button{width:56px;height:56px;font-size:22px}}';
+        (document.head || H).appendChild(st);
+      }
+      function kutish() { var t = +(G('kirish-kut') || 0) - Date.now(); return t > 0 ? t : 0; }
+      function yoz(t) { var m = d && d.querySelector('.kq-m'); if (m) m.textContent = t; }
+      function nuqta() { if (!d) return; var n = d.querySelectorAll('.kq-d i'); for (var i = 0; i < n.length; i++) n[i].className = i < v.length ? 'on' : ''; }
+      function sana() { var w = kutish(); if (!d) return; if (!w) { yoz(T.s); return; } yoz(T.k + Math.ceil(w / 1000) + T.kk); setTimeout(sana, 1000); }
+      function silkit() { var b = d.querySelector('.kq-d'); b.classList.remove('bad'); void b.offsetWidth; b.classList.add('bad'); }
+      function ochil() {
+        band = false; v = ''; H.classList.remove('kq-yopiq');
+        if (d && d.parentNode) d.parentNode.removeChild(d);
+        d = null; document.removeEventListener('keydown', tug, true);
+      }
+      function tekshir() {
+        band = true;
+        if (xesh(v) === KX) { S('kirish-ok', KX + ':' + kun()); S('kirish-xato', null); S('kirish-kut', null); nuqta(); setTimeout(ochil, 150); return; }
+        var n = +(G('kirish-xato') || 0) + 1;
+        if (n >= 5) { S('kirish-kut', String(Date.now() + 30000)); n = 0; }
+        S('kirish-xato', String(n)); silkit();
+        setTimeout(function () { band = false; v = ''; nuqta(); if (kutish()) sana(); else yoz(T.x); }, 400);
+      }
+      function bos(x) {
+        if (band || !d) return;
+        if (x === 'x') { v = v.slice(0, -1); nuqta(); return; }
+        if (kutish() || v.length >= 4) return;
+        v += x; nuqta(); if (v.length === 4) tekshir();
+      }
+      function tug(e) {
+        if (!d) return;
+        if (/^[0-9]$/.test(e.key)) bos(e.key); else if (e.key === 'Backspace') bos('x'); else return;
+        e.preventDefault(); e.stopPropagation();
+      }
+      function yop() {
+        if (d || ochiq()) return;
+        css(); H.classList.add('kq-yopiq');
+        d = document.createElement('div'); d.className = 'kq'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-label', T.b);
+        var h = '<img class="kq-i" src="icon-192.png" alt="" onerror="this.remove()"><b class="kq-b">' + T.b + '</b><p class="kq-m">' + T.s + '</p>' +
+          '<div class="kq-d"><i></i><i></i><i></i><i></i></div><div class="kq-k">';
+        ['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', 'x'].forEach(function (k) {
+          h += k === '' ? '<span></span>' : k === 'x' ? '<button type="button" class="kq-x" data-k="x" aria-label="' + T.o + '">⌫</button>' : '<button type="button" data-k="' + k + '">' + k + '</button>';
+        });
+        d.innerHTML = h + '</div>';
+        d.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('button[data-k]'); if (b) bos(b.getAttribute('data-k')); });
+        H.appendChild(d);                       /* body hali yo'q bo'lishi mumkin — <html> ga; body yopiq (ko'rinmaydi) */
+        document.addEventListener('keydown', tug, true);
+        if (kutish()) sana();
+      }
+      document.addEventListener('visibilitychange', function () { if (!document.hidden) yop(); });
+      yop();
+    })();
+  } catch (e) {}
   /* «Офлайн сақлаш» o'chirilgan bo'lsa — saqlangan dars ovozlari (sw.js keshi) har sahifa ochilganda tozalanadi: telefonda yig'ilib qolmaydi */
   try { if (JSON.parse(localStorage.getItem('sozlama') || '{}').oflayn === false && window.caches) caches.delete('arab-tili-audio'); } catch (e) {}
   /* «baza-vt» (14.11.2026, foydalanuvchi: kerakli hamma narsa akkaunt orqali saqlansin): serverga ham ketadigan sozlama va dars holati

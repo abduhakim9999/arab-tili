@@ -2,41 +2,56 @@
 {
 "text": "Menga",
 "start": 0.06,
-"end": 0.34
+"end": 0.32
 },
 {
-"text": "isitgich",
-"start": 0.48,
-"end": 0.94
+"text": "kotyol,",
+"start": 0.42,
+"end": 0.92
+},
+{
+"text": "suv",
+"start": 1.26,
+"end": 1.42
+},
+{
+"text": "isitgich,",
+"start": 1.5,
+"end": 2.02
 },
 {
 "text": "va",
-"start": 1.08,
-"end": 1.18
+"start": 2.3,
+"end": 2.4
 },
 {
-"text": "oyna",
-"start": 1.44,
-"end": 1.66
+"text": "oyna,",
+"start": 2.7,
+"end": 3.02
+},
+{
+"text": "koʻzgu,",
+"start": 3.36,
+"end": 3.76
 },
 {
 "text": "kerak.",
-"start": 1.72,
-"end": 2.04
+"start": 3.88,
+"end": 4.18
 },
 {
 "text": "Mebellarni",
-"start": 2.5,
-"end": 3.1
+"start": 4.68,
+"end": 5.26
 },
 {
 "text": "koʻrishni",
-"start": 3.14,
-"end": 3.48
+"start": 5.3,
+"end": 5.68
 },
 {
 "text": "istayman.",
-"start": 3.52,
-"end": 4.18
+"start": 5.72,
+"end": 6.36
 }
 ]

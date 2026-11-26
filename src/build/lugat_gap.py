@@ -79,6 +79,8 @@ def ozaklar(w, fel=False):
                     b.add(y[:-1] + 'ة')
                 if y.endswith('ي'):
                     b.add(y[:-1] + 'ى')
+                if fel and sf in ('ون', 'وا', 'ين'):   # noqis fe'l: يُصَلُّونَ ← يُصَلِّي (26.11.2026: topilmay, 8-darsda 2-ma'noga
+                    b |= {y + 'ي', y + 'ى', y + 'و'}  # 1-ma'no gapi tushib qolgan edi — «صَلَّى اللَّهُ عَلَيْهِ» → «салавот айтди»)
     a |= b
     if fel:                                      # muzore' old harfi
         a |= {x[1:] for x in a if x[:1] in 'يتان' and len(x) > 3}

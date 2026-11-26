@@ -27,8 +27,13 @@ Q = [  # (kalit, sabab-so'z kaliti, izoh) — faqat qiyin joylar (oyat so'zlari 
  ('21-6', '21-6', 'مِثْلُ — маҳзуф мубтадонинг (هِيَ) хабари, шунинг учун раф қилинган.'),
 ]
 TRK = {k: [r, t] for k, r, t in Q}
+# 26.11.2026: f3 shadda/tanvin/olmosh qo'shilgan so'zlarda buzuq variant berardi (نَبِيًُّ, مَرَّةُ, أَحَدُكُمُ) — bu kalitlar aniq yozildi (sahifadagi matn bilan aynan bir xil)
+FIX = {"11-2": [{"w": "قَلِيلَةٌ", "c": "R", "lb": "танвинли замма"}, {"w": "قَلِيلَةً", "c": "N", "lb": "танвинли фатҳа"}, {"w": "قَلِيلَةٍ", "c": "J", "lb": "танвинли касра"}]}
 QOV = {}
 for k, r, t in Q:
+    if k in FIX:
+        QOV[k] = FIX[k]
+        continue
     li, wi = map(int, k.split('-'))
     v = L[li][1][wi]['v']
     if k == '9-2': QOV[k] = o3('قَبَائِلُ', 'قَبَائِلَ', 'قَبَائِلِ', 'R', 'N', 'J', 'замма', 'фатҳа', 'касра'); continue

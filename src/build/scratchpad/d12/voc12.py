@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# 26.11.2026: ESKI qoralama (V) — endi faqat idlar kalitini ko'chirish tarixi uchun (lq/kitob1112.py). Sahifa lug'ati va Eshitish
+# «Луғат» yo'lagi — kitob lug'ati: lq/k12.py BOOK (pastdagi VOC). lug12.py endi ishlatilmaydi.
 # 12-dars lug'ati — darsning HAMMA so'zi (22.11.2026 qoidasi; docs/texnik.md 14; namuna a94/voc94.py).
 # VOC — Eshitish «Луғат» yo'lagi uchun faqat YANGI so'zlar (ay/asl siz), kitob qolipida.
 # Sahifaga yozish (repo ildizidan): python3 src/build/scratchpad/d12/lug12.py  (11-dars lugat.json da bo'lgandan keyin)
@@ -44,5 +46,8 @@ V = [
  ("تَفَضَّلَ – يَتَفَضَّلُ – تَفَضَّلْ – تَفَضُّلٌ", ["марҳамат қилмоқ"], [(12, 0)],
   dict(ay='11:تَفَضَّلَ', uzm="{Марҳамат} (кўринг)", mz=["марҳамат қилди"])),
 ]
-VOC = [[str(k), v[0], v[1], []] for k, v in enumerate(V, 1) if not ({'ay', 'asl'} & set(v[3]))]
-OVOZ = {}
+import os as _os
+_k = {}; exec(open(_os.path.join((_os.path.dirname(_os.path.abspath(__file__)) if '__file__' in globals() else '/tmp/claude-0/-home-claude/d13da55d-9a5a-5fc0-96fe-93eeb8284943/scratchpad/d12'), '..', 'lq', 'k12.py'), encoding='utf-8').read(), _k)
+VOC = [b[:4] for b in _k['BOOK']]
+OVOZ = {7: 'Baʼzi, ayrim.', 8: 'Mebel.', 10: 'Nimani? Nima?', 15: 'Divan, oʻtirish va yonboshlash divani.', 22: 'Jizzax viloyati.'}   # Eshitish «Луғат» o'zbekchasi (VOC tartibi)
+OQIMAYDI = [11]   # harf yozuvi («..») — tinglashda o'qilmaydi (lugat2.py qoidasi)

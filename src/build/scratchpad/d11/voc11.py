@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# 26.11.2026: ESKI qoralama (V) — endi faqat idlar kalitini ko'chirish tarixi uchun (lq/kitob1112.py). Sahifa lug'ati va Eshitish
+# «Луғат» yo'lagi — kitob lug'ati: lq/k11.py BOOK (pastdagi VOC). lug11.py endi ishlatilmaydi.
 # 11-dars lug'ati — darsning HAMMA so'zi (22.11.2026 qoidasi; docs/texnik.md 14; namuna a94/voc94.py).
 # V — (yozuv, [matndagi ma'no], o'rinlar [(qator, so'z[, qism])], qo'shimcha: ay/asl/y/uzm/ex/exw/mz).
 # VOC — Eshitish «Луғат» yo'lagi uchun faqat YANGI so'zlar (ay/asl siz), kitob qolipida.
@@ -40,5 +42,8 @@ V = [
  ("هَذِهِ", ["бу, шу (мн)"], [(10, 1), (11, 0)], dict(ay=97, uzm="Мана ({бу})")),
  ("هِيَ", ["ўша (ажратиш замири.мн)"], [(10, 2)], dict(ay=193)),
 ]
-VOC = [[str(k), v[0], v[1], []] for k, v in enumerate(V, 1) if not ({'ay', 'asl'} & set(v[3]))]
-OVOZ = {6: 'Oldida, huzurida.', 8: 'Nechta? Qancha?'}
+import os as _os
+_k = {}; exec(open(_os.path.join((_os.path.dirname(_os.path.abspath(__file__)) if '__file__' in globals() else '/tmp/claude-0/-home-claude/d13da55d-9a5a-5fc0-96fe-93eeb8284943/scratchpad/d11'), '..', 'lq', 'k11.py'), encoding='utf-8').read(), _k)
+VOC = [b[:4] for b in _k['BOOK']]
+OVOZ = {8: 'Oldida, huzurida.', 12: 'Nechta? Qancha?', 14: 'Qaysi? Nechanchi?', 17: 'Sirdaryo viloyati.'}   # Eshitish «Луғат» o'zbekchasi (VOC tartibi)
+OQIMAYDI = [7]   # harf yozuvi («..») — tinglashda o'qilmaydi (lugat2.py qoidasi)

@@ -17,9 +17,9 @@ SAY = {8: {2: 'Ha, bu shajara. Bu paygʻambarning, sollallohu alayhi va sallam, 
        98: {5: 'Qurʼoni Karim boʻyicha mukofotga, Paygʻambarimiz sollallohu alayhi vasallamning siyratlari boʻyicha mukofotga va umumiy maʼlumotlar boʻyicha mukofotga sazovor boʻldim.'},
        11: {5: 'Oʻsha kvartirada nechta xona bor?', 6: 'Oʻsha kvartirada besh ta xona bor.', 7: 'Oʻsha kvartira qaysi qavatda?',
             8: 'Oʻsha kvartira beshin chi qavatda.', 9: 'Oʻsha kvartirani koʻrmoqchiman.', 10: 'Marhamat, koʻring! Mana bu oʻsha kvartira.'},
-       12: {11: 'Menga isitgich va oyna kerak. Mebellarni koʻrishni istayman.', 12: 'Marhamat, koʻring!'}}.get(N, {})
+       12: {11: 'Menga kotyol, suv isitgich, va oyna, koʻzgu, kerak. Mebellarni koʻrishni istayman.', 12: 'Marhamat, koʻring!'}}.get(N, {})
 SKIP = {90: {6: [0]}, 8: {2: [5, 6, 7, 8]}, 97: {29: [4], 30: [1]}, 98: {5: [5, 6, 7]},
-        11: {5: [0], 6: [0], 7: [0], 8: [0], 9: [0], 10: [1, 3]}, 12: {12: [1]}}.get(N, {})   # 90: «(Ўзингга)» ovozda o'qiladi, sahifada qavsda; qavsdagi (с.а.в.) — ovozda o'qiladi, sahifada qavsda: so'z ro'yxatiga kirmaydi; 97: «6-тил», «200 млн.дан» — ovozda ikki so'z, ekranda bitta
+        11: {5: [0], 6: [0], 7: [0], 8: [0], 9: [0], 10: [1, 3]}, 12: {11: [2, 3, 6], 12: [1]}}.get(N, {})   # 90: «(Ўзингга)» ovozda o'qiladi, sahifada qavsda; qavsdagi (с.а.в.) — ovozda o'qiladi, sahifada qavsda: so'z ro'yxatiga kirmaydi; 97: «6-тил», «200 млн.дан» — ovozda ikki so'z, ekranda bitta
 def txt(li):
     if li in SAY: return SAY[li]
     t = re.sub(r'\s*\([^)]*\)', '', J['l'][str(li)][1])

@@ -7,11 +7,11 @@
   "4": "Yotoqxona uchun sizga nima kerak?",
   "5": "Menga karavot va parda kerak.",
   "6": "Zal, mehmon kutish xonasi, uchun-chi, sizga nima kerak?",
-  "7": "Menga divan va gilam kerak.",
+  "7": "Menga divan va gilamcha kerak.",
   "8": "Oshxona uchun-chi, sizga nima kerak?",
   "9": "Menga pech va muzlatgich, xolodilnik, kerak.",
   "10": "Hammom, vanna, uchun-chi, sizga nima kerak?",
-  "11": "Menga kotyol, isitgich, va oyna, koʻzgu, kerak. Mebellarni koʻrishni istayman.",
+  "11": "Menga kotyol, suv isitgich, va oyna, koʻzgu, kerak. Mebellarni koʻrishni istayman.",
   "12": "Marhamat, koʻring!"
  },
  "lugat": [
@@ -22,83 +22,118 @@
   },
   {
    "i": 1,
-   "ar": "ثَانِيَ عَشَرَ، ثَانِيَةَ عَشْرَةَ",
+   "ar": "ثَانِي عَشَرَ، ثَانِيَةَ عَشْرَةَ",
    "uz": "Oʻn ikkinchi."
   },
   {
    "i": 2,
    "ar": "مُشْتَرِنْ، مُشْتَرُونَ",
-   "uz": "Xaridor, sotib oluvchi."
+   "uz": "Xaridor."
   },
   {
    "i": 3,
-   "ar": "بَائِعُنْ، بَاعَتُنْ",
-   "uz": "Sotuvchi."
+   "ar": "مُشْتَرِيَتُنْ، مُشْتَرِيَاتُنْ",
+   "uz": "Xaridor."
   },
   {
    "i": 4,
-   "ar": "خِدْمَتُنْ، خِدْمَاتُنْ",
-   "uz": "Xizmat."
+   "ar": "بَائِعُنْ، بَائِعُونَ، بَاعَتُنْ",
+   "uz": "Sotuvchi."
   },
   {
    "i": 5,
-   "ar": "أَثَاثُنْ",
-   "uz": "Mebel, uy jihozi."
+   "ar": "بَائِعَتُنْ، بَائِعَاتُنْ",
+   "uz": "Sotuvchi."
   },
   {
    "i": 6,
-   "ar": "نَوْمُنْ",
-   "uz": "Uyqu."
+   "ar": "خِدْمَتُنْ، خِدَمُنْ، خِدَمَاتُنْ",
+   "uz": "Xizmat."
   },
   {
    "i": 7,
-   "ar": "سَرِيرُنْ، أَسِرَّتُنْ",
-   "uz": "Karavot."
+   "ar": "بَعْضُنْ",
+   "uz": "Baʼzi, ayrim."
   },
   {
    "i": 8,
+   "ar": "أَثَاثُنْ",
+   "uz": "Mebel."
+  },
+  {
+   "i": 9,
+   "ar": "نَوْمُنْ",
+   "uz": "Uxlash, uyqu."
+  },
+  {
+   "i": 10,
+   "ar": "مَاذَا",
+   "uz": "Nimani? Nima?"
+  },
+  {
+   "i": 12,
+   "ar": "سَرِيرُنْ، سُرُرُنْ، أَسِرَّتُنْ",
+   "uz": "Karavot, yotoq joy, yotoq divan."
+  },
+  {
+   "i": 13,
    "ar": "سِتَارَتُنْ، سَتَائِرُ",
    "uz": "Parda."
   },
   {
-   "i": 9,
+   "i": 14,
    "ar": "جُلُوسُنْ",
    "uz": "Oʻtirish."
   },
   {
-   "i": 10,
+   "i": 15,
    "ar": "أَرِيكَتُنْ، أَرَائِكُ",
-   "uz": "Divan."
+   "uz": "Divan, oʻtirish va yonboshlash divani."
   },
   {
-   "i": 11,
+   "i": 16,
    "ar": "سَجَّادَتُنْ، سَجَاجِيدُ",
-   "uz": "Gilam."
+   "uz": "Gilamcha, joynamoz."
   },
   {
-   "i": 12,
+   "i": 17,
    "ar": "مَطْبَخُنْ، مَطَابِخُ",
    "uz": "Oshxona."
   },
   {
-   "i": 13,
+   "i": 18,
    "ar": "فُرْنُنْ، أَفْرَانُنْ",
-   "uz": "Pech, duxovka."
+   "uz": "Pech, duxovka, pishiradigan joy."
   },
   {
-   "i": 14,
+   "i": 19,
    "ar": "ثَلَّاجَتُنْ، ثَلَّاجَاتُنْ",
-   "uz": "Muzlatgich, xolodilnik."
+   "uz": "Xolodilnik, muzlatgich."
   },
   {
-   "i": 15,
-   "ar": "سَخَّانُنْ، سَخَّانَاتُنْ",
+   "i": 20,
+   "ar": "سَخَّانُنْ، سَخَّانَتُنْ، سَخَّانَاتُنْ",
    "uz": "Suv isitgich, kotyol."
   },
   {
-   "i": 16,
+   "i": 21,
    "ar": "مِرْآتُنْ، مَرَايَا",
-   "uz": "Oyna, koʻzgu."
+   "uz": "Koʻzgu, oyna."
+  },
+  {
+   "i": 22,
+   "ar": "جِزَّاخُ",
+   "uz": "Jizzax viloyati."
+  },
+  {
+   "i": 23,
+   "ar": "جِزَّاخِيُّنْ، جِزَّاخِيُّونَ",
+   "uz": "Jizzaxlik, jizzaxcha."
+  },
+  {
+   "i": 24,
+   "ar": "جِزَّاخِيَّتُنْ، جِزَّاخِيَّاتُنْ",
+   "uz": "Jizzaxlik, jizzaxcha."
   }
  ]
 }

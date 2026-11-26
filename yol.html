@@ -362,7 +362,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
     k2b8: { r: '#2E8C74', kr: 'k-mukofot', uz: 'Мукофотлар' }
   };
   var app = document.getElementById('app'), bar = document.getElementById('bar'), sh = document.getElementById('sh'), sb = document.getElementById('sb'), cta = document.getElementById('cta');
-  var D = null, R = null, Q = {}, IK = {}, TUZ = null, P = null, KT = 0, SZ = {};
+  var D = null, R = null, Q = {}, QTU = {}, IK = {}, TUZ = null, P = null, KT = 0, SZ = {};
   var W = null, KOR = null;                           /* W — so'z bazasi belgilari; KOR — jurnalda javobi bor so'zlar */
   var LG = {}, LV = {};                               /* LG[dars] — sinovga kiradigan so'zlar (lugat.json, tk); LV[dars] — lug'at ovozi fayli */
   var au = document.getElementById('au'), auF = '', auT = null;
@@ -413,6 +413,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
     Promise.all([f('darslar.json'), f('mashq.json'), f('ikonka.json').catch(function () { return {}; }), f('lugat.json')]).then(function (a) {
       D = a[0].s; Q = {}; IK = a[2] || {}; LG = {}; LV = {}; MQ = a[1].s; LUG = a[3].s;
       a[1].s.forEach(function (q) { (Q[q.d] = Q[q.d] || []).push(q); });
+      QTU = {}; (a[1].t || []).forEach(function (q) { (QTU[q.d] = QTU[q.d] || []).push(q); });   /* yangi savol turlari (savol.js, 26.11.2026) */
       D.forEach(function (d) { if (d.lv) LV[d.n] = d.lv; });
       a[3].s.forEach(function (r) { if (r.tk) (LG[r.d] = LG[r.d] || []).push(r); });   /* «Такрорлаш»dagi kabi: atoqli ot, harf, olmosh kirmaydi */
       tuzilma(); sozOl(); yigish(); kitobTanla(); xarita(true);
@@ -443,7 +444,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
   function tuzilma() {
     var K = [], km = {};
     D.forEach(function (d) {
-      if (!(Q[d.n] || []).length) return;          /* savoli yo'q dars — yo'lda yo'q */
+      if (!(Q[d.n] || []).length && !(QTU[d.n] || []).length) return;          /* savoli yo'q dars — yo'lda yo'q */
       var k = km[d.kitob]; if (!k) { k = km[d.kitob] = { n: d.kitob, b: [] }; K.push(k); }
       var b = k.b[k.b.length - 1];
       if (!b || b.k !== d.bob) { b = { k: d.bob, nom: d.bobnom, raq: +(d.bob.match(/b(\d+)/) || [0, 0])[1], d: [] }; k.b.push(b); }
@@ -460,15 +461,18 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
       var S; try { S = JSON.parse(L(d.holat) || 'null'); } catch (e) { S = null; }
       if (!S || !S.q || !S.q.o || !S.q.o.length) return;
       var qm = {}; (Q[d.n] || []).forEach(function (q) { qm[q.k] = q; });
-      var jami = 0, tog = 0, tola = true, xx = [];
+      var qt = {}; (QTU[d.n] || []).forEach(function (q) { qt[q.k + q.t] = q; });   /* turli savol: sahifa [qator, so'z, tur] saqlaydi */
+      var jami = 0, tog = 0, tola = true, xx = [], eski = false;
       S.q.o.forEach(function (x, i) {
-        var q = qm[x[0] + '-' + x[1]]; if (!q) return;
+        var q = x[2] ? qt[x[0] + '-' + x[1] + x[2]] : qm[x[0] + '-' + x[1]]; if (!q) { eski = true; return; }
         var c = S.q.ch ? S.q.ch[i] : null;
         if (c == null) { tola = false; return; }
         jami++;
-        if (q['var'][c] && q['var'][c][0] === q.gap[q.w][0]) tog++; else xx.push(q.id);
+        if (x[2] ? c === q.to : (q['var'][c] && q['var'][c][0] === q.gap[q.w][0])) tog++; else if (!x[2]) xx.push(q.id);
       });
-      if (!tola || !jami) return;
+      /* 26.11.2026 (savollar qayta ko'rildi, docs/texnik/23-savollar.md): saqlangan javoblarda hozir yo'q savol bo'lsa — bu eski to'plam;
+         qolganidan foiz hisoblanmaydi (bir-ikki savoldan «o'tdi» chiqmasin), avvalgi natija (R.d) o'zgarmaydi; dars ochilganda «Машқ» qaytadan boshlanadi */
+      if (eski || !tola || !jami) return;
       /* 14.11.2026 (foydalanuvchi: «Сўзларни саралаш» ko'zni chalg'itadi — olib tashlandi): «Машқ» tugagach dars so'zlari Луғатga o'zi
          tushadi (W.s — faol dars; belgisiz so'z «ўрганяпман», bilmasligini takrorning o'zi aniqlaydi) */
       var p = Math.round(tog * 100 / jami), r = R.d[d.n] || {};

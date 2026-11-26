@@ -58,7 +58,11 @@ def vazifa(q):
 
 def main():
     tanla = {int(x) for x in sys.argv[1:] if x.isdigit()}
-    S = json.load(open(os.path.join(ROOT, 'data', 'mashq.json'), encoding='utf-8'))['s']
+    MJ = json.load(open(os.path.join(ROOT, 'data', 'mashq.json'), encoding='utf-8'))
+    S, TT = MJ['s'], MJ.get('t', [])      # t — yangi savol turlari (savol.js)
+    turli = collections.defaultdict(list)
+    for q in TT:
+        turli[q['d']].append(q)
     tf = os.path.join(ROOT, 'src', 'build', 'savol-tuzatish.json')
     T = json.load(open(tf, encoding='utf-8')) if os.path.exists(tf) else {}
     kutadi = {int(k) for k in T.get('_kutadi', {})}
@@ -76,16 +80,34 @@ def main():
             tur = 'KUTADI'
         natija[d].append((tur, matn))
 
-    for d, L in sorted(dars.items()):
+    for d in sorted(set(dars) | set(turli)):
+        L, TL = dars.get(d, []), turli.get(d, [])
         if tanla and d not in tanla:
             continue
-        if len(L) < KAM:
-            yoz(d, 'DIQQAT', '%d ta savol (kamida %d bo\'lsin)' % (len(L), KAM))
-        c = collections.Counter(javob(q) for q in L)
-        top, n = c.most_common(1)[0]
-        foiz = round(100 * n / len(L))
+        jami = len(L) + len(TL)
+        if jami < KAM:
+            yoz(d, 'DIQQAT', '%d ta savol (kamida %d bo\'lsin)' % (jami, KAM))
+        # taxmin: doim bitta harakat / holatni bosish (zamma ↔ Раф, fatha ↔ Насб, kasra ↔ Жар); boshqa turda — tasodif (1/variant)
+        HOLAT = {'R': 'Раф', 'N': 'Насб', 'J': 'Жар'}
+        eng, top = 0, 'R'
+        for X in ('R', 'N', 'J', 'Z'):
+            b = sum(1 for q in L if javob(q) == X)
+            b += sum(1 for q in TL if q['t'] == 'h' and q['o'][q['to']] == HOLAT.get(X))
+            b += sum(1.0 / len(q['o']) for q in TL if q['t'] != 'h')
+            if b > eng:
+                eng, top = b, X
+        foiz = round(100 * eng / jami) if jami else 0
         if foiz >= OTISH:
-            yoz(d, 'BOSQICH3', 'doim «%s» bosilsa %d%% — taxmin bilan o\'tadi' % ({'R': 'замма', 'N': 'фатҳа', 'J': 'касра', 'Z': 'сукун'}.get(top, top), foiz))
+            yoz(d, 'BOSQICH3', 'doim «%s» bosilsa %d%% — taxmin bilan o\'tadi' % ({'R': 'замма / Раф', 'N': 'фатҳа / Насб', 'J': 'касра / Жар', 'Z': 'сукун'}.get(top, top), foiz))
+        for q in TL:
+            if not 0 <= q['to'] < len(q['o']):
+                yoz(d, 'XATO', '%s (%s): to\'g\'ri javob yo\'q' % (q['k'], q['t']))
+            if q['t'] != 's' and len(set(q['o'])) < len(q['o']):
+                yoz(d, 'XATO', '%s (%s): variant takror' % (q['k'], q['t']))
+            if len(q['o']) < 2:
+                yoz(d, 'XATO', '%s (%s): variant kam' % (q['k'], q['t']))
+            if not q.get('iz'):
+                yoz(d, 'DIQQAT', '%s (%s): javobdan keyin izoh yo\'q' % (q['k'], q['t']))
         bir = collections.defaultdict(list)
         for q in L:
             G, w = q['gap'], q['w']
@@ -132,12 +154,13 @@ def main():
 
     jami = collections.Counter()
     for d in sorted(natija):
-        print('— %s-dars (%d savol)' % (d, len(dars[d])))
+        print('— %s-dars (%d savol%s)' % (d, len(dars.get(d, [])) + len(turli.get(d, [])), ', shundan %d turli' % len(turli[d]) if turli.get(d) else ''))
         for tur, matn in natija[d]:
             jami[tur] += 1
             print('  %-8s %s' % (tur, matn))
     print('Jami: %d savol, %d dars · XATO %d · DIQQAT %d · BOSQICH3 %d · KUTADI %d' % (
-        sum(len(dars[d]) for d in dars if not tanla or d in tanla), len([d for d in dars if not tanla or d in tanla]),
+        sum(len(dars[d]) for d in dars if not tanla or d in tanla) + sum(len(turli[d]) for d in turli if not tanla or d in tanla),
+        len([d for d in set(dars) | set(turli) if not tanla or d in tanla]),
         jami['XATO'], jami['DIQQAT'], jami['BOSQICH3'], jami['KUTADI']))
     sys.exit(1 if jami['XATO'] else 0)
 

@@ -117,13 +117,21 @@ JS = """() => {
             trc: (typeof TR !== 'undefined' && TR[i]) || [],
             tr: ((typeof TR !== 'undefined' && TR[i]) || []).map(function(t){return t[0]}).join(' ')};
   });
-  var q = qpool().map(function(p){
+  var TU = (typeof QTUR !== 'undefined' && window.QTX) ? QTUR : {};
+  var q = qpool().filter(function(p){ return !TU[p.l + '-' + p.w]; }).map(function(p){
     var k = p.l + '-' + p.w, o = get(k), ops = qends(k);
     return {k: k, l: p.l, w: p.w, v: o.v,
             ops: ops.map(function(x){return [x.w, x.c, x.lb || QV[x.c][2]]}),
             am: TRK[k] || null, qm: (typeof QMP !== 'undefined' && QMP[k]) || []};
   });
-  return {lines: lines, q: q};
+  /* yangi savol turlari (savol.js, 26.11.2026): sahifaning o'z QTX.ops bilan — variant tartibi sahifadagidek */
+  var t = Object.keys(TU).map(function(k){
+    var p = k.split('-'), d = TU[k], o = QTX.ops(k, d.t) || [];
+    return {k: k, l: +p[0], w: +p[1], t: d.t, s: QTX.savol({l: +p[0], w: +p[1], t: d.t}),
+            o: o.map(function(x){ return x.w; }), ok: o.map(function(x){ return x.k || ''; }),
+            to: o.map(function(x){ return !!x.ok; }).indexOf(true), iz: QTX.iz({l: +p[0], w: +p[1]}), v: get(k).v};
+  });
+  return {lines: lines, q: q, t: t};
 }"""
 
 
@@ -198,7 +206,7 @@ def main():
 
     seen_w, seen_q = set(), set()
     OGOH = []
-    lug, msh, drs = [], [], []
+    lug, msh, drs, msht = [], [], [], []
     QT, QTsrc, QTfarq = {}, {}, {}
     bosh_id = {}
     BOG = []                                          # aniq bog'langan yozuvlar (ay / asl) — oxirida tekshiriladi
@@ -274,7 +282,7 @@ def main():
         # --- mashq
         P = sah[n]
         lines = P['lines']
-        nq = 0
+        nq = nqt = 0
         cq = {}
         for q in P['q']:
             ln = lines[q['l']]
@@ -305,6 +313,27 @@ def main():
                 r['q'] = q['qm']
             msh.append(r)
             nq += 1
+        # --- yangi savol turlari (savol.js; docs/texnik/23-savollar.md): «t» ro'yxati — yol.html dars natijasini shu bilan baholaydi
+        for q in P.get('t', []):
+            ln = lines[q['l']]
+            lp = ' '.join(plain(w[0]) for w in ln['w'])
+            key = 'T|%d|%s|%d|%s' % (n, lp, q['w'], q['t'])
+            qid = idber('q', key)
+            seen_q.add(key)
+            if q['to'] < 0 or (len(set(q['o'])) < len(q['o']) and q['t'] != 's'):
+                OGOH.append("%d-dars %s (%s): turli savolda to'g'ri javob yo'q yoki variant takror — olinmadi" % (n, q['k'], q['t']))
+                continue
+            r = {'id': qid, 'd': n, 'k': q['k'], 't': q['t'], 's': q['s'], 'gap': ln['w'], 'w': q['w'], 'o': q['o'], 'to': q['to']}
+            if q['t'] == 's':
+                r['ok'] = q['ok']
+            if q['iz']:
+                r['iz'] = q['iz']
+            if ln['sp']:
+                r['sp'] = ln['sp']
+            if ln['tr']:
+                r['tr'] = ln['tr']
+            msht.append(r)
+            nqt += 1
         # --- takror kartasidagi gap (19.11.2026; lugat_gap.py): kitob misoli yoki dars matnidagi gap
         for r in lug[voc0:]:
             if r['tur'] != 'atoqli':
@@ -320,7 +349,7 @@ def main():
         # --- dars
         aud = re.search(r'a%d-[0-9a-f]+\.mp3' % n, s)
         d = {'n': n, 'kitob': int(U[4]), 'bob': L['u'], 'bobnom': U[1], 'uz': L['uz'], 'ar': L['ar'],
-             'sahifa': '%d.html' % n, 'holat': L['key'], 'lugat': len(VOC), 'mashq': nq,
+             'sahifa': '%d.html' % n, 'holat': L['key'], 'lugat': len(VOC), 'mashq': nq + nqt,
              'eshitish': 1 if n in ESH else 0, 'h': manba_xesh(s)}
         if aud:
             d['audio'] = aud.group(0)
@@ -374,15 +403,15 @@ def main():
             print("TO'XTA: %d-dars lug'at %s: asl bosh yozuv emas (id %s)" % (r['d'], r['kn'], r['asl']))
             sys.exit(2)
     yoz('lugat.json', '{"v":1,"s":[', lug, ']}')
-    yoz('mashq.json', '{"v":1,"s":[', msh, ']}')
+    yoz('mashq.json', '{"v":1,"s":[', msh, '],"t":[\n' + ',\n'.join(json.dumps(r, ensure_ascii=False, separators=(',', ':')) for r in msht) + '\n]}')
     yoz('qoida.json', '{"v":1,"guruh":%s,"s":[' % json.dumps(GUR['_guruh'], ensure_ascii=False), qrows, ']}')
     yoz('darslar.json', '{"v":1,"s":[', drs, ']}')
     with open(lock_p, 'w', encoding='utf-8') as f:
         json.dump(LOCK, f, ensure_ascii=False, indent=0, sort_keys=True)
         f.write('\n')
     tk = sum(1 for r in lug if r['tk'])
-    print("lug'at: %d yozuv (takrorga %d) · mashq: %d savol · qoida: %d · dars: %d"
-          % (len(lug), tk, len(msh), len(qrows), len(drs)))
+    print("lug'at: %d yozuv (takrorga %d) · mashq: %d savol (+%d turli) · qoida: %d · dars: %d"
+          % (len(lug), tk, len(msh), len(msht), len(qrows), len(drs)))
     for o in OGOH:
         print('OGOHLANTIRISH:', o)
     if QTfarq:

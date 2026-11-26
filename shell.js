@@ -494,7 +494,23 @@
     q.className = 'q80' + (ok ? ' ok' : '');
     q.textContent = ok ? 'Дарс ўтилди ✓ Сўзлари «Машқ» бўлимига қўшилади.' : '80% олсангиз, дарс ўтилади ва сўзлари «Машқ» бўлимига қўшилади.';
     el.parentNode.insertBefore(q, el.nextSibling);
+    /* BALL (26.11.2026; takror.js REY): dars birinchi marta 80% dan o'tsa — +100 (xo<dars>, darsga bir marta; ilgari o'tilgan bo'lsa — yo'q) */
+    if (Math.round(a * 100 / n) >= 80 && b < 80 && window.Ball) Ball.bonus('xo' + dn, 100, el);
   }
+  /* BALL (26.11.2026, foydalanuvchi: «qancha ko'p shug'ullansa, shuncha ball»): dars «Машқ»idagi har javob takror jurnaliga —
+     xd<dars>:<savol> (tg.js Ball.yoz; to'g'ri — 10 ball, bitta savol kuniga bir marta). Savol kodi dars sahifasining o'zida (qans/qshow). */
+  (function () {
+    var sc = document.querySelector('script[data-key]'), dn = sc ? +(((sc.getAttribute('data-key') || '').match(/^dars(\d+)-holat$/) || [0, 0])[1]) : 0;
+    if (!dn || !window.Ball || typeof window.qans !== 'function' || typeof window.qshow !== 'function') return;
+    var q0 = window.qans, s0 = window.qshow, t0 = Date.now();
+    window.qshow = function () { t0 = Date.now(); return s0.apply(this, arguments); };
+    window.qans = function (b) {
+      var q = window.QZ && window.QZ[window.qi], yangi = !!q && q.ch == null, r = q0.apply(this, arguments);
+      if (yangi && q.ch != null) Ball.yoz('xd' + dn + ':' + q.l + '-' + q.w, !!q.ok, Date.now() - t0, b);
+      return r;
+    };
+  })();
+  if (au && window.Ball && /^dars\d+-holat$/.test((document.querySelector('script[data-key]') || { getAttribute: function () { return ''; } }).getAttribute('data-key') || '')) Ball.eshit(au);   /* dars audiosini tinglash ham «Эшитиш» bali (har 5 daqiqa; fiqh — yo'q) */
   function stars(el) {
     if (!el.animate) return;
     for (var i = 0; i < 10; i++) {

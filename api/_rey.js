@@ -50,11 +50,17 @@ function bilgan(d) {
   return { m: m, b: b };
 }
 
+// dars «Машқ»i 80% dan o'tilganmi (yol.d[n].b — yol.html yozadi) — «dars o'tildi» bonusi (xo<dars>) faqat shunda (26.11.2026; takror.js REY)
+function otgan(d) {
+  const y = d && d.yol && d.yol.d && typeof d.yol.d === 'object' ? d.yol.d : {};
+  return function (n) { const x = y[n]; return !!(x && +x.b >= 80); };
+}
+
 function hisob(d, t) {
   const hb = Takror.haftaBoshi(t || Date.now());
   const j = Array.isArray(d && d.j) ? d.j.filter(function (e) { return Array.isArray(e) && typeof e[0] === 'string' && typeof e[1] === 'number'; }) : [];
   const c = d ? bilgan(Object.assign({}, d, { j: j })) : { m: 0, b: 0 };
-  return { hb: hb, h: Takror.ball(j, hb), s: c.m, b: c.b, n: tozaIsm(d && d.ism && d.ism.n) };
+  return { hb: hb, h: Takror.ball(j, hb, 0, { otgan: otgan(d) }), s: c.m, b: c.b, n: tozaIsm(d && d.ism && d.ism.n) };
 }
 
 // o'quvchi hujjati saqlanganda — ro'yxatlarni yangilash

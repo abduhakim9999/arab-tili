@@ -127,6 +127,7 @@ A.addEventListener('ended',function(){
   show(-1);
 });
 A.addEventListener('loadedmetadata',function(){A.playbackRate=O.sp});
+if(window.Ball)Ball.eshit(A);   /* BALL (26.11.2026): har 5 daqiqa tinglash — 10 ball, kuniga 200 gacha (tg.js) */
 A.addEventListener('play',function(){$('ipl').innerHTML='<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>'});
 A.addEventListener('pause',function(){$('ipl').innerHTML='<path d="M8 5v14l11-7z"/>'});
 $('bpl').onclick=function(){if(A.paused)A.play().catch(function(){});else A.pause()};

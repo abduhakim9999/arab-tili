@@ -272,6 +272,9 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .mq-kb i.ds u{flex:1;border-radius:5px;background:color-mix(in srgb,var(--kr) 22%,transparent)}
 .mq-kb u.y,.mq-kb i.ds u.y{background:var(--kr)}   /* 25.11.2026: i.ds u (och) o'tilgan bo'lakni bosib ketardi — specificity */
 .mq-kb small{font-size:13px;color:var(--mu)}
+.mq-kb i.lv{height:6px;gap:0;border-radius:3px;margin-top:-1px}.mq-kb i.lv u{flex:none}
+.mq-kb .lg{display:flex;flex-wrap:wrap;gap:2px 14px;margin-top:-3px}.mq-kb .lg span{font-size:12.5px;text-align:left}
+.mq-kb .lg em{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}
 .mq-kb u{display:block;height:100%}.mq-kb .m{background:#3a73cc}.mq-kb .g{background:#2fa36f}.mq-kb .o{background:#d9a23a}.mq-kb .b{background:var(--tq-no)}
 .mq-tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0 0}
 .mq-tr button{display:flex;flex-direction:column;align-items:center;padding:8px 6px;border-radius:12px;border:1.5px solid var(--bd);background:var(--cd)}
@@ -672,11 +675,16 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
         '<div class="mq-5" role="group" aria-label="Ҳолат бўйича">' + ['m', 'g', 'o', 'b'].map(function (k) {
           return '<button class="mq-c ' + k + '" data-h="' + k + '"><i></i><span><b>' + JA[k] + '</b>' + HN5[k] + '</span></button>'; }).join('') + '</div>' +
         '<div class="mq-hl"></div>' + DH.kq.map(function (k) {   /* kitob qatori: «N та дарс ўтилмаган», har dars — bo'lak (30 tadan ko'p bo'lsa — bitta chiziq), ostida so'zlar */
-          var o = KT5[k] || { m: 0, g: 0, j: 0 }, d = DH.k[k], q = d.d.length - d.o;
+          var o = KT5[k] || { m: 0, g: 0, o: 0, b: 0, n: 0, j: 0 }, d = DH.k[k], q = d.d.length - d.o, mq = o.j - o.n;
           return '<div class="mq-kb" style="--kr:' + (KRG[k] || '#1f8f5c') + '"><div><b>' + k + '-китоб</b><span class="q">' + (q ? q + ' та дарс ўтилмаган' : 'Ҳаммаси ўтилди ✓') + '</span></div>' +
             (d.d.length <= 30 ? '<i class="ds">' + d.d.map(function (n) { return DH.ot[n] ? '<u class="y"></u>' : '<u></u>'; }).join('') + '</i>'
               : '<i><u class="y" style="width:' + (d.o * 100 / d.d.length).toFixed(1) + '%"></u></i>') +
-            '<small>' + d.d.length + ' дарсдан ' + d.o + ' таси ўтилди · ' + (o.m + o.g) + ' / ' + o.j + ' сўз</small></div>'; }).join('') +
+            /* 26.11.2026 (foydalanuvchi: o'tilgan darslar so'zlari «Машқ»ga tushgani ko'rinsin; variant 2, «93 таси дарсда» kerak emas — kulrang qism
+               yozuvsiz qoladi, «A qil»): bo'laklar ostida ingichka chiziq — darajalar rangida, qolgani kulrang (hali «Машқ»da emas); yozuv «N сўздан M таси
+               «Машқ»да» (oldingi «9 дарсдан 3 таси ўтилди · b / j сўз» o'rnida — o'tilmagan darslar soni sarlavhada bor), ostida darajalar soni */
+            '<i class="lv" aria-hidden="true">' + ['m', 'g', 'o', 'b'].map(function (s) { return o[s] ? '<u class="' + s + '" style="width:' + (o[s] * 100 / (o.j || 1)).toFixed(2) + '%"></u>' : ''; }).join('') + '</i>' +
+            '<small>' + (mq ? o.j + ' сўздан ' + mq + ' таси «Машқ»да' : o.j + ' сўз') + '</small>' +
+            (mq ? '<span class="lg">' + ['m', 'g', 'o', 'b'].map(function (s) { return o[s] ? '<span><em class="' + s + '"></em>' + o[s] + ' <span>' + HN[s] + '</span></span>' : ''; }).join('') + '</span>' : '') + '</div>'; }).join('') +
         '<div class="mq-tr" role="group" aria-label="Турлар бўйича билган сўзлар">' + [['i', 'Исмлар'], ['f', 'Феъллар'], ['h', 'Ҳарфлар']].map(function (f) {
           return '<button data-lt="' + f[0] + '"><b>' + KT[f[0]] + '</b><span>' + f[1] + '</span></button>'; }).join('') + '</div>' +
         '</section>';   /* «Рейтинг» qatori olib tashlandi (19.11.2026, foydalanuvchi: pastki menyuda bor — takror) */

@@ -1068,14 +1068,24 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     if (s.length >= 3 && w.length > 3) return k.indexOf(s) === 0;
     return k.indexOf(w) === 0 && QQ.test(k.slice(w.length));
   }
+  /* 26.11.2026 (foydalanuvchi: 9-darsda «намоз» qidirilganda «намозхонада» ham yashil bo'lgan): ot o'zagi bo'yicha (oxirgi harfsiz)
+     boshqa so'z ham tushadi («намозхона»). Gapda shu ma'no so'zining o'zi (+ oddiy qo'shimcha) ham bo'lsa — faqat o'shalar belgilanadi. */
+  var QN = /^(ли)?(лар)?(и|им|инг|имиз|ингиз|си|м|нг|миз|нгиз)?(да|га|ка|қа|ни|нинг|дан|ча|дир|даги|гача|дек)?(ми)?$/;
+  function kuchli(k, w) {
+    if (w.length > 3 && w.replace(/(моқ|ди|ти)$/, '') !== w) return true;   /* fe'l — o'zak bo'yicha, avvalgidek */
+    if (k.indexOf(w) === 0 && QN.test(k.slice(w.length))) return true;
+    return w.length > 3 && /и$/.test(w) && k.indexOf(w.slice(0, -1)) === 0 && QN.test(k.slice(w.length - 1));   /* «тили» → «тиллари» */
+  }
   function trBelgi(r, tr, p) {                         /* p — fe'lning harfi: yashil so'z yonidagi «..га» qo'shimchali so'z («шунга») sariq */
     var u0 = ((r.mz || r.uz || [])[0] || ''), qs = p ? /\.{2,3}([а-яёўқғҳ]+)/i.exec(u0) : null, u = u0.replace(/^\d+\.\s*/, '').replace(/\([^()]*\)/g, ' ').split(RAQ)[0];
     var oz = u.toLowerCase().split(/\s+/).map(function (w) { return w.replace(/[^а-яёўқғҳ]/g, ''); }).filter(function (w) { return w; }), n = 0;
     var M = '\u2063';   /* ko'rinmas belgi: ruscha qatlam (ru.js) bo'lakni tayyor matn deb biladi — gap bo'linsa ham o'girmaydi */
     tr = tr.split('\u2063').join('');
-    var T = tr.split(/(\s+)/), Y = T.map(function (t) {
-      var k = t.toLowerCase().replace(/[^а-яёўқғҳ]/g, '');
-      var ok = k && n < 4 && oz.some(function (w) { return mos(k, w); });
+    var T = tr.split(/(\s+)/), K = T.map(function (t) { return t.toLowerCase().replace(/[^а-яёўқғҳ]/g, ''); });
+    var bor = oz.map(function (w) { return K.some(function (k) { return k && mos(k, w) && kuchli(k, w); }); });
+    var Y = T.map(function (t, i) {
+      var k = K[i];
+      var ok = k && n < 4 && oz.some(function (w, j) { return mos(k, w) && (!bor[j] || kuchli(k, w)); });
       if (ok) n++;
       return ok;
     });

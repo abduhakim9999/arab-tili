@@ -14,6 +14,10 @@ HDR = S + '/hdr/h90.mp3'
 TGT = -18.0
 page = open('/mnt/user-data/outputs/lesson90/index.html', encoding='utf-8').read()
 TM = json.JSONDecoder().raw_decode(page[page.find('TM=[[') + 3:])[0]
+# 26.11.2026: sahifa audiosi (a90-*.mp3) = bosh qism (h90) + dars audiosi — TM o'sha vaqtda; dars audiosi (dlg90) vaqtiga o'tkaziladi
+_A = [f for f in os.listdir(R) if re.match(r'a%d-[0-9a-f]{8}\.mp3$' % N, f)][0]
+SH = dur(R + '/' + _A) - dur(AUD)
+TM = [[li, wi, a - SH, t3 - SH, b - SH] for li, wi, a, t3, b in TM]
 seg = {}
 for li, wi, a, t3, b in TM:
     if li == 0: continue

@@ -639,7 +639,6 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     /* kitob ranglari (yol.html KR bilan bir xil) va kitob bo'yicha darslar — «Машқ» statistikasi uchun (darsH; 15.11.2026: ishlatilmay qolgan
        «Луғат» kitob xulosasi va undagi «сараланмаган» qatori olib tashlandi) */
     var KRG = { 1: '#E07A1F', 2: '#5FA332' }, DH = darsH();
-    var TN = { i: 0, f: 0, h: 0 }; M.forEach(function (x) { TN[turi(x.r)]++; });
     var t = hozir(), bg = E.bugun(t), dt = new Date(t);
     if (LF !== 'h' && !c[LF]) LF = 'h';
     D.d.forEach(function (d) { if (d.lv) lv[d.n] = d.lv; });
@@ -701,10 +700,15 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
       return;
     }
     /* «ЛУҒАТ» — so'zlar ro'yxati (qidiruv, turlar, daraja filtri) */
+    /* 26.11.2026 (foydalanuvchi: «Ўрганяпман» tanlanganda «Ҳаммаси · 142» uning ichidagidek tuyuldi; tavsiya A+B, «qil»): tur tugmalaridagi
+       sonlar tanlangan daraja ichidan sanaladi (daraja kartalari esa tanlangan tur ichidan — ikkalasi bir-biriga mos); «Ҳаммаси» → «Ҳамма тур».
+       Tanlangan daraja kartasi qayta bosilsa — filtr yechiladi (hamma so'z) */
+    var ML = LF === 'h' ? M : M.filter(function (x) { return x.st === LF; }), TN = { i: 0, f: 0, h: 0 };
+    ML.forEach(function (x) { TN[turi(x.r)]++; });
     app.innerHTML = tepa(S, true, bg, t) + sinovQ + lv3(c) +
       '<input class="lg-q" id="lq" type="search" inputmode="search" autocomplete="off" placeholder="Қидириш: арабча ёки ўзбекча" aria-label="Қидириш" value="' + esc(LQ) + '">' +
       /* turlar (kalima uch qism; olmoshlar — ism) */
-      '<div class="lg-ch" role="group" aria-label="Турлар">' + [['', 'Ҳаммаси', M.length], ['i', 'Исм', TN.i], ['f', 'Феъл', TN.f], ['h', 'Ҳарф', TN.h]].filter(function (f) { return f[2] || !f[0]; }).map(function (f) {
+      '<div class="lg-ch" role="group" aria-label="Турлар">' + [['', 'Ҳамма тур', ML.length], ['i', 'Исм', TN.i], ['f', 'Феъл', TN.f], ['h', 'Ҳарф', TN.h]].filter(function (f) { return f[2] || !f[0]; }).map(function (f) {
         return '<button data-t="' + f[0] + '" aria-pressed="' + (LT === f[0]) + '">' + f[1] + ' · ' + f[2] + '</button>'; }).join('') + '</div>' +
       '<p class="lg-hn"><span>' + AB + 'биламан</span><span>' + BM + 'билмайман</span></p>' +
       (LF === 'm' ? '<p class="lg-mh">' + BM + '<span>Бу сўзлар энди сўралмайди. Унутганини белгиласангиз, «Ўрганиш»га қайтади.</span></p>' : '') + '<div id="lr"></div><div class="lg-ts" id="lts" role="status" aria-live="polite" hidden></div>';

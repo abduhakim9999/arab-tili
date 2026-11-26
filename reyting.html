@@ -28,7 +28,10 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
 .r-in{max-width:528px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
 .r-tt{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;min-height:48px}
 .r-tt small{display:block;font-size:12px;font-weight:700;letter-spacing:.08em;color:#f6dc94;text-transform:uppercase}
-.r-tt h1{margin:0;font-size:24px;line-height:1.15;font-weight:700}
+.r-tt h1{margin:0;font-size:24px;line-height:1.15;font-weight:700;display:flex;align-items:center;gap:2px}
+/* «Баллар ва рейтинг» videosi (26.11.2026; tg.js Vid; «Машқ» ⓘ qolipida) */
+.r-hi{position:relative;flex-shrink:0;width:32px;height:32px;margin:-4px 0;padding:0;border:0;background:none;color:rgba(255,255,255,.72);display:inline-flex;align-items:center;justify-content:center}
+.r-hi[hidden]{display:none}.r-hi svg{width:20px;height:20px}
 .r-tt span{padding-bottom:3px;font-size:12.5px;color:#cfe3d8;text-align:right}
 .r-sg{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border-radius:14px;background:rgba(0,0,0,.18)}
 .r-sg button{height:40px;border:0;border-radius:11px;background:none;color:#e3efe8;font-size:15px;font-weight:600}
@@ -68,7 +71,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
 </head>
 <body>
 <header class="r-hd"><div class="r-in">
-  <div class="r-tt"><div><small id="sub">Бу ҳафта</small><h1>Рейтинг</h1></div><span id="vq"></span></div>
+  <div class="r-tt"><div><small id="sub">Бу ҳафта</small><h1>Рейтинг<button class="r-hi" id="rhi" type="button" data-vid="ball" aria-label="Баллар қандай йиғилади — видео" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5"/><circle cx="12" cy="7.7" r=".7" fill="currentColor"/></svg></button></h1></div><span id="vq"></span></div>
   <div class="r-sg" role="group" aria-label="Рўйхат"><button data-t="h" aria-pressed="true">Ҳафта</button><button data-t="w" aria-pressed="false">Сўзлар</button></div>
 </div></header>
 <main class="r-w"><div class="r-s2" id="s2" role="group" aria-label="Сўзлар" hidden><button data-s="b" aria-pressed="true">Билган</button><button data-s="s" aria-pressed="false">Мустаҳкам</button></div><div id="nm"></div><div class="r-ls" id="ls"></div></main>
@@ -183,6 +186,14 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
   }
   ol();
   document.addEventListener('visibilitychange', function () { if (!document.hidden) ol(); });
+  /* ⓘ — «Баллар ва рейтинг» videosi (26.11.2026, foydalanuvchi: «har bir joyda o'zini ko'rsatadigan videosi», «yaxshi variantni qil»):
+     birinchi kirishda bir marta o'zi ochiladi (Vid.birMarta), oxirigacha ko'rilmaguncha ⓘ yonida sariq nuqta. Ruscha profilda va qoralama
+     asosiy saytda — ⓘ yo'q (Vid.bor) */
+  if (window.Vid && Vid.bor('ball')) {
+    var hi = $('rhi'); hi.hidden = false; Vid.css();
+    if (!Vid.korgan('ball')) { var nq = document.createElement('i'); nq.className = 'vd-nq'; nq.setAttribute('data-vid', 'ball'); hi.appendChild(nq); }
+    Vid.birMarta('ball');
+  }
 })();
 </script>
 </body>

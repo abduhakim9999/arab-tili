@@ -129,7 +129,7 @@
      kalitlarining o'zgargan vaqti (baza.js birlashtirishda yangisini tanlaydi; ro'yxat — baza.js GEN bilan bir xil) va «baza-oz» (yuborilmagan
      o'zgarish bor). Hamma sahifada — baza.js yo'q sahifada (dars, Сарф, Феъллар) ham. baza.js serverdan yozganda (BAZA_ICHKI) belgilanmaydi. */
   try {
-    var GEN = /^(dars\d+-holat|sarf-holat|fl200_(best|mist|t)|sozlama|sozlama-q|til|dars-uz|dars-tezlik|izoh-til|tinglash-(opt|mode|dars)|fe-pref|fe-tour|takror-qol|oxirgi-dars)$/;
+    var GEN = /^(dars\d+-holat|sarf-holat|fl200_(best|mist|t)|sozlama|sozlama-q|til|dars-uz|dars-tezlik|izoh-til|tinglash-(opt|mode|dars)|fe-pref|fe-tour|takror-qol|reyting-qol|oxirgi-dars)$/;
     var s0 = Storage.prototype.setItem, r0 = Storage.prototype.removeItem;
     var belgi = function (st, k) {
       if (window.BAZA_ICHKI || !GEN.test(k)) return;
@@ -403,7 +403,7 @@
   var ESC = function () { document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); };
   var OYNA = [
     ['.qs', function () { if (window.Qollanma) Qollanma.yop(); }, 1],
-    ['#vo', function (e) { e.querySelector('.vo-x').click(); }],                                     /* takror.html: «Сўз йўли» videosi */
+    ['#vo', function (e) { e.querySelector('.vo-x').click(); }],                                     /* yo'riqnoma videosi (Vid.och, shu faylning oxirida) */
     ['.tour', function (e) { var x = e.querySelector('.tx'); if (x) x.click(); else e.remove(); }],   /* dars turi */
     ['#sh.on', function (e) { e.classList.remove('on'); }],                                              /* dars: so'z / izoh oynasi */
     ['#yp', ESC],                                                                                         /* yol.html: dars, imtihon, kitob oynasi */
@@ -747,4 +747,94 @@
     }, 5000);
   }
   window.Ball = { yoz: yoz, bonus: bonus, eshit: eshit, uch: uch, olsa: olsa, faol: faol, B: B };
+})();
+
+/* VIDEO YO'RIQNOMA (26.11.2026; foydalanuvchi: «har bir joyda o'zini ko'rsatadigan videosi bo'lgani yaxshimi yo hammasini bir joyda?» → Claude:
+   ikkalasi — har bo'limda o'z videosi (sarlavha yonidagi ⓘ, birinchi kirishda bir marta o'zi ochiladi), hammasi «Йўриқнома»da ham ro'yxat;
+   «yaxshi variantni o'ylab, o'shani qil»). Pastdan chiqadigan oyna — 23.11.2026 dagi «Сўз йўли» oynasi (takror.html dan shu yerga ko'chdi):
+   bo'sh joy, ✕, tepadagi chiziqni pastga surish, Escape yoki «Орқага» (OYNA «#vo») yopadi. Fayl nomlari faqat shu yerda (Vid.R).
+   q — qoralama: asosiy saytda (nurut-tolib.vercel.app) ko'rinmaydi, faqat ko'rish/sinov manzillarida — ovozli nusxa qo'yilgach q olib tashlanadi.
+   kq — «ko'rdi» belgisi: yo'q — hali ochilmagan, '1' — ochilgan, '2' — oxirigacha ko'rilgan (ⓘ yonidagi sariq nuqta .vd-nq yo'qoladi).
+   Videolar hozircha faqat o'zbekcha (ruscha profilda — yo'q). Reja — docs/yoriqnoma-video-reja.md; texnika — docs/texnik.md 20. */
+(function () {
+  var SN = /\/sinov-[^\/]*$/.test(location.pathname);
+  var R = {
+    soz: { mp4: 'vsoz-1104bdea.mp4', p: 'vsoz-ae2268c7.jpg', nom: 'Сўз йўли', iz: 'Сўз 4 поғонадан қандай ўтади', v: '1:50' },
+    ball: { mp4: 'vball-9d95714a.mp4', p: 'vball-1b41ed37.jpg', nom: 'Баллар ва рейтинг', iz: 'Нимага қанча балл, 🔥 олов, «Рейтинг»', v: '1:48', q: 1,
+      kq: SN ? 'reyting-sinov-qol' : 'reyting-qol' }
+  };
+  var LS = null; try { LS = window.localStorage; } catch (e) {}
+  function L(k) { try { return LS ? LS.getItem(k) : null; } catch (e) { return null; } }
+  function S(k, v) { try { if (LS) LS.setItem(k, v); } catch (e) {} }
+  function bor(k) {
+    var x = R[k];
+    if (!x || (window.Profil ? Profil.til : 'uz') === 'ru') return false;
+    return !x.q || !/(^|\.)nurut-tolib\.vercel\.app$/.test(location.hostname);
+  }
+  function korgan(k) { var x = R[k]; return !x || !x.kq || L(x.kq) === '2'; }
+  function tamom(k) {
+    var x = R[k]; if (x && x.kq && L(x.kq) !== '2') S(x.kq, '2');
+    [].forEach.call(document.querySelectorAll('.vd-nq[data-vid="' + k + '"]'), function (n) { n.remove(); });
+  }
+  function css() {
+    if (document.getElementById('vo-css')) return;
+    var s = document.createElement('style'); s.id = 'vo-css';
+    s.textContent = '.vo{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.5);display:flex;align-items:flex-end;justify-content:center;opacity:0;transition:opacity .25s}' +
+      '.vo.on{opacity:1}' +
+      '.vo-v{width:100%;max-width:520px;height:84%;display:flex;flex-direction:column;background:#0b2a1f;color:#f4eeda;border-radius:22px 22px 0 0;padding:0 14px calc(14px + env(safe-area-inset-bottom,0px));box-sizing:border-box;transform:translateY(100%);transition:transform .3s cubic-bezier(.2,.8,.2,1)}' +
+      '.vo.on .vo-v{transform:none}' +
+      '.vo-tut{flex-shrink:0;height:20px;display:flex;align-items:center;justify-content:center;touch-action:none;cursor:grab}' +
+      '.vo-tut::before{content:"";width:40px;height:4px;border-radius:2px;background:rgba(255,255,255,.35)}' +
+      '.vo-hd{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 0 10px 2px}' +
+      '.vo-hd b{font-size:17px}' +
+      '.vo-x{width:38px;height:38px;border:0;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;font-size:18px;line-height:38px;padding:0}' +
+      '.vo video{flex:1;min-height:0;width:100%;border-radius:16px;background:#000;object-fit:contain}' +
+      '.vd-nq{position:absolute;top:4px;right:3px;width:8px;height:8px;border-radius:50%;background:#f2c14e;box-shadow:0 0 0 2px var(--em2,#0c5e3f)}';
+    (document.head || document.documentElement).appendChild(s);
+  }
+  /* o.avto — o'zi ochilganda video o'zi boshlanmaydi (▶ bosiladi); o.tamom — oxirigacha ko'rilganda (sahifaning o'z belgisi uchun) */
+  function och(k, o) {
+    o = o || {};
+    var x = R[k];
+    if (!x || !bor(k) || document.getElementById('vo') || !document.body) return false;
+    css();
+    if (x.kq && !L(x.kq)) S(x.kq, '1');
+    var d = document.createElement('div'); d.className = 'vo'; d.id = 'vo';
+    d.innerHTML = '<div class="vo-v" role="dialog" aria-modal="true" aria-label="' + x.nom + '"><div class="vo-tut"></div><div class="vo-hd"><b>' + x.nom + '</b><button class="vo-x" aria-label="Ёпиш">✕</button></div>' +
+      '<video src="' + x.mp4 + '" poster="' + x.p + '" controls playsinline preload="metadata"' + (o.avto ? '' : ' autoplay') + ' title="' + x.nom + '"></video></div>';
+    var v = d.querySelector('video'), ic = d.querySelector('.vo-v'), tu = d.querySelector('.vo-tut'), bitdi = false;
+    var tug = function () { if (bitdi) return; bitdi = true; tamom(k); if (o.tamom) o.tamom(); };
+    var yop = function () {
+      if (!d.id) return; d.id = ''; try { v.pause(); } catch (e) {}
+      d.classList.remove('on'); setTimeout(function () { d.remove(); }, 300);
+    };
+    v.addEventListener('ended', tug);
+    v.addEventListener('timeupdate', function () { if (v.duration && v.currentTime >= v.duration - 1.5) tug(); });
+    d.querySelector('.vo-x').onclick = yop;
+    d.onclick = function (e) { if (e.target === d) yop(); };
+    var y0 = null, dy = 0;                              /* tepadagi chiziqni pastga surish — yopadi */
+    tu.addEventListener('pointerdown', function (e) { y0 = e.clientY; dy = 0; ic.style.transition = 'none'; try { tu.setPointerCapture(e.pointerId); } catch (x) {} });
+    tu.addEventListener('pointermove', function (e) { if (y0 === null) return; dy = Math.max(0, e.clientY - y0); ic.style.transform = 'translateY(' + dy + 'px)'; });
+    var qo = function () { if (y0 === null) return; y0 = null; ic.style.transition = ''; if (dy > 80) { ic.style.transform = 'translateY(100%)'; yop(); } else ic.style.transform = ''; };
+    tu.addEventListener('pointerup', qo); tu.addEventListener('pointercancel', qo);
+    document.body.appendChild(d);
+    requestAnimationFrame(function () { requestAnimationFrame(function () { d.classList.add('on'); }); });
+    return true;
+  }
+  /* birinchi kirishda bir marta (kirish kodi / kirish oynasi / yo'riqnoma ochiq bo'lsa va avtomat brauzerda — yo'q) */
+  function birMarta(k, kut) {
+    var x = R[k];
+    if (!x || !x.kq || L(x.kq) || !bor(k) || navigator.webdriver) return;
+    setTimeout(function () {
+      if (L(x.kq) || document.documentElement.classList.contains('kq-yopiq') || document.getElementById('kr-d') || document.querySelector('.qs') || document.getElementById('vo')) return;
+      och(k, { avto: true });
+    }, kut || 700);
+  }
+  /* [data-vid] bosilsa — o'sha video (ⓘ, «🔥 N кун», «Йўриқнома» ro'yxati) */
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-vid]');
+    if (b && !b.classList.contains('vd-nq') && och(b.getAttribute('data-vid'))) e.preventDefault();
+  });
+  document.addEventListener('keydown', function (e) { var d = document.getElementById('vo'); if (d && e.key === 'Escape') d.querySelector('.vo-x').click(); });
+  window.Vid = { R: R, bor: bor, och: och, korgan: korgan, birMarta: birMarta, css: css };
 })();

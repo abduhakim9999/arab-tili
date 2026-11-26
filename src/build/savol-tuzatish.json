@@ -1,5 +1,5 @@
 {
-  "_izoh": "Dars «Машқ» savollariga qo'lda qilingan qarorlar (docs/texnik/23-savollar.md). Har yozuvda — nima qilingani va NIMA UCHUN (har savol alohida o'ylangan). Qo'llash: python3 src/build/savol_tuzat.py (NN.html dagi QUR/TRK/QOV ga yozadi; qayta ishga tushirilsa o'zgarmaydi). Dars sahifasi qayta yasalsa — shu skript yana ishga tushiriladi. qur — savol «Машқ»dan chiqariladi (matn, Таркиб, izoh joyida qoladi); trk — izoh matni almashadi; qov — variantlar almashadi. qoldi — tekshiruv (savol_tekshir.py) ko'rsatgan, lekin o'ylab QOLDIRILGAN savol (sababi bilan; tekshiruv endi uni ko'rsatmaydi). _kutadi — faqat yangi savol turlari bilan hal bo'ladigan darslar (3-bosqich).",
+  "_izoh": "Dars «Машқ» savollariga qo'lda qilingan qarorlar (docs/texnik/23-savollar.md). Har yozuvda — nima qilingani va NIMA UCHUN (har savol alohida o'ylangan). Qo'llash: python3 src/build/savol_tuzat.py (NN.html dagi QUR/TRK/QOV ga yozadi; qayta ishga tushirilsa o'zgarmaydi). Dars sahifasi qayta yasalsa — shu skript yana ishga tushiriladi. qur — savol «Машқ»dan chiqariladi (matn, Таркиб, izoh joyida qoladi); trk — izoh matni almashadi; qov — variantlar almashadi. qoldi — tekshiruv (savol_tekshir.py) ko'rsatgan, lekin o'ylab QOLDIRILGAN savol (sababi bilan; tekshiruv endi uni ko'rsatmaydi). _kutadi — faqat yangi savol turlari bilan hal bo'ladigan darslar (3-bosqich). tur — yangi savol turlari (savol.js; t: h «Ҳолати?» / v «Нима учун?» / s «Сабабчини топ»; s — savol matni, o — variantlar, j — to'g'risi, iz — javobdan keyingi izoh, sabab — nima uchun shunday tuzilgani, sahifaga yozilmaydi).",
   "_kutadi": {
     "1": "Suhbat darsi: so'raladigan so'zlarning deyarli hammasi yodlangan ibora yoki raf; 1–6-darslarda bir xil salomlashuv savollari. Faqat harakat savoli bilan yaxshi savol bo'lmaydi — yangi turlar («Ҳолати?», «Нима учун?», «Сабабчини топ») bilan qayta tuziladi.",
     "2": "Suhbat darsi: so'raladigan so'zlarning deyarli hammasi yodlangan ibora yoki raf; 1–6-darslarda bir xil salomlashuv savollari. Faqat harakat savoli bilan yaxshi savol bo'lmaydi — yangi turlar («Ҳолати?», «Нима учун?», «Сабабчини топ») bilan qayta tuziladi.",
@@ -7,7 +7,6 @@
     "4": "Suhbat darsi: so'raladigan so'zlarning deyarli hammasi yodlangan ibora yoki raf; 1–6-darslarda bir xil salomlashuv savollari. Faqat harakat savoli bilan yaxshi savol bo'lmaydi — yangi turlar («Ҳолати?», «Нима учун?», «Сабабчини топ») bilan qayta tuziladi.",
     "5": "Suhbat darsi: so'raladigan so'zlarning deyarli hammasi yodlangan ibora yoki raf; 1–6-darslarda bir xil salomlashuv savollari. Faqat harakat savoli bilan yaxshi savol bo'lmaydi — yangi turlar («Ҳолати?», «Нима учун?», «Сабабчини топ») bilan qayta tuziladi.",
     "6": "Suhbat darsi: so'raladigan so'zlarning deyarli hammasi yodlangan ibora yoki raf; 1–6-darslarda bir xil salomlashuv savollari. Faqat harakat savoli bilan yaxshi savol bo'lmaydi — yangi turlar («Ҳолати?», «Нима учун?», «Сабабчини топ») bilan qayta tuziladi.",
-    "7": "Suhbat darsi: so'raladigan so'zlarning deyarli hammasi yodlangan ibora yoki raf; 1–6-darslarda bir xil salomlashuv savollari. Faqat harakat savoli bilan yaxshi savol bo'lmaydi — yangi turlar («Ҳолати?», «Нима учун?», «Сабабчини топ») bilan qayta tuziladi.",
     "8": "4 ta savol qoldi (كُلْثُومَ chiqarildi) — yangi turlar bilan to'ldiriladi.",
     "12": "Hamma savol «أُرِيدُ …» maf'uli — doim fatha bosilsa 80%; yangi turlar bilan aralashtiriladi."
   },
@@ -96,6 +95,107 @@
           "سَهْلاً — маҳзуф феъл бўлмиш وَطِئْتَ (босдинг) нинг мафъулун биҳи, шунинг учун насб қилинган."
         ],
         "sabab": "5-darsdagi kabi."
+      }
+    }
+  },
+  "7": {
+    "qur": {
+      "7-4": "طَبِيبَةٌ — «هِيَ … хабари» намунаси 6-дарсда айнан шу сўз билан бор; бу дарсда мубтадо–хабар боғланиши مُهَنْدِسٌ («Сабабчини топ») да сўралади.",
+      "9-4": "طَالِبٌ — «هُوَ … хабари» намунаси учинчи марта; мубтадо–хабар مُهَنْدِسٌ саволида.",
+      "11-4": "مُعَلِّمَةٌ — шу намуна тўртинчи марта."
+    },
+    "qov": {
+      "3-1": {
+        "v": [
+          {
+            "w": "صُورَةُ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
+            "w": "صُورَةٌ",
+            "c": "R",
+            "lb": "танвинли замма"
+          },
+          {
+            "w": "صُورَةِ",
+            "c": "J",
+            "lb": "касра"
+          }
+        ],
+        "sabab": "Chalg'ituvchi — haqiqiy xato: muzof so'zga tanvin qo'yish (صُورَةٌ). Avvalgi fatha varianti hech kim adashmaydigan shakl edi."
+      },
+      "7-2": {
+        "v": [
+          {
+            "w": "سَعِيدَةُ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
+            "w": "سَعِيدَةٌ",
+            "c": "R",
+            "lb": "танвинли замма"
+          },
+          {
+            "w": "سَعِيدَةَ",
+            "c": "N",
+            "lb": "фатҳа"
+          }
+        ],
+        "sabab": "Ғайри мунсариф ayol ismida asosiy xato — tanvin qo'yish (سَعِيدَةٌ); kasrali variant o'rniga shu."
+      }
+    },
+    "tur": {
+      "3-0": {
+        "t": "h",
+        "j": "Раф",
+        "iz": "هَذِهِ — мубтадо, раф ўринда. Касрага мабний: охири ҳеч қачон ўзгармайди, бу касра жар белгиси эмас.",
+        "sabab": "Harakati (kasra) holatini ko'rsatmaydigan mabniy so'z — o'quvchi kasrani ko'rib «жар» deb adashadi; harakat savoli bo'la olmaydi, holat savoli — aynan shu tuzoq."
+      },
+      "3-2": {
+        "t": "h",
+        "j": "Жар",
+        "iz": "أُسْرَتِي — صُورَةُ нинг музофун илайҳи, шунинг учун жар. ي олмоши қўшилгани учун жар аломати кўринмайди (тақдирий).",
+        "sabab": "Oxiri ko'rinmaydigan so'z — holat vazifasidan topiladi; darsdagi yagona raf bo'lmagan javob."
+      },
+      "4-2": {
+        "t": "s",
+        "sabab": "اللَّهُ ni raf qilgan so'z — fe'l شَاءَ: fe'l → foil bog'lanishini ko'rish. Ibora yodlangan bo'lsa ham bu savol o'ylatadi (harakat savoli o'ylatmas edi)."
+      },
+      "5-2": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун раф?",
+        "o": [
+          "Мубтадо",
+          "Бадал",
+          "Фоил",
+          "Сифат"
+        ],
+        "j": "Бадал",
+        "sabab": "Chalg'ituvchilar aniq noto'g'ri: mubtado — هَذَا, gapda fe'l yo'q (foil emas), atoqli ot sifat bo'lmaydi. «Хабар» va «Атфи баён» qo'yilmadi — ba'zi kitoblarda shunday tahlil ham bor."
+      },
+      "5-4": {
+        "t": "s",
+        "sabab": "مُهَنْدِسٌ ni raf qilgan so'z — mubtado هُوَ (dars tahlilidagi bog'lanish, TRK). Gapda هَذَا ham mubtado — o'quvchi qaysi gapga tegishli ekanini ajratadi."
+      },
+      "9-2": {
+        "t": "h",
+        "j": "Раф",
+        "iz": "عِيسَى — أَخِي дан бадал, шунинг учун раф. Охири алиф (ى) бўлгани учун замма кўринмайди (тақдирий).",
+        "sabab": "Oxiri hech qachon ko'rinmaydigan so'z (alif maqsura) — harakat savoli bo'lmaydi, holat savoli bo'ladi."
+      },
+      "11-2": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун танвинсиз?",
+        "o": [
+          "Музоф бўлгани учун",
+          "Ғайри мунсариф бўлгани учун",
+          "ال билан келгани учун"
+        ],
+        "j": "Ғайри мунсариф бўлгани учун",
+        "iz": "عَبْلَةُ — аёл исми (атоқли от ва муаннас): ғайри мунсариф, танвин олмайди. Раф — أُخْتِي дан бадал.",
+        "sabab": "Darsning yangi qoidasi — ayol ismi tanvin olmaydi. Chalg'ituvchilar — tanvinsizlikning boshqa sabablari, bu so'zda yo'q."
       }
     }
   },

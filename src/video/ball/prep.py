@@ -15,7 +15,7 @@ HOP = int(SR * 0.01)
 # «ball» — kirillcha «балл» (26.11.2026, foydalanuvchi: «balni noto'g'ri talaffuz qilyapti» — lotinchasi ba'zan inglizcha «bo'l»; sinovda «балл» va «bal» ikkalasi yaxshi).
 # uzunligiga qarab taxmin qilinadi, haqiqiy ovozdan keyin cue.json ga aniq vaqtlar). Ovoz (rejada): Farruh — foydalanuvchi ruxsati bilan.
 import re
-IPA = {'xullas': 'Хуллас', 'ball': 'балл'}   # gap boshida yolg'iz «X…» so'zi ElevenLabs'da «z» bo'lib ketadi — kirillcha yoziladi (docs/texnik/21: «Сўз йўли», «Xatosiz»)
+IPA = {'xullas': 'Хуллас', 'ball': 'балл', 'ballar': 'баллар', 'ballni': 'баллни', 'ballingiz': 'баллингиз', 'ballgacha': 'баллгача'}   # 26.11.2026: lotincha «ball» hamma joyda «boll» eshitildi (foydalanuvchi) — hamma shakl kirillcha   # gap boshida yolg'iz «X…» so'zi ElevenLabs'da «z» bo'lib ketadi — kirillcha yoziladi (docs/texnik/21: «Сўз йўли», «Xatosiz»)
 TXT = {
  # S1 — savol
  'k1': "Reytingda yuqoriga qanday chiqiladi? |Siri bitta: |qancha ko'p shug'ullansangiz — |shuncha ko'p ball.",

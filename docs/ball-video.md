@@ -1,6 +1,6 @@
 # «Баллар ва рейтинг» — video yo'riqnoma uchun matn va jadvallar
 
-26.11.2026. Qoida kodda: `takror.js` (`REY`, `kunBallari`, `kunlik`), `tg.js` (`Ball`), server `api/_rey.js`; hujjati — `docs/texnik/19-mashq-reyting.md`. Turkum rejasi — `docs/yoriqnoma-video-reja.md` (7-video). Holat: **Farruh ovozi bilan tayyor** (26.11.2026, foydalanuvchi: «Ovozichi endi»; 1:43; asosiy saytda hali yashirin — `tg.js` `Vid.R.ball.q`, foydalanuvchi eshitib tasdiqlagach olinadi). Oldin: ovozsiz qoralama (foydalanuvchi matnga «qil» dedi; o'sha kuni 13:37 dagi joylashdan keyin moslandi — dars «Машқ»i endi «Эъроб», so'z kartasi ikki tomonli, «Бугунги машқ» faqat so'z) — `src/video/ball/`, 1:49; keyingi qadam — izohlar, so'ng Farruh ovozi (ruxsat bilan).
+26.11.2026. Qoida kodda: `takror.js` (`REY`, `kunBallari`, `kunlik`), `tg.js` (`Ball`), server `api/_rey.js`; hujjati — `docs/texnik/19-mashq-reyting.md`. Turkum rejasi — `docs/yoriqnoma-video-reja.md` (7-video). Holat: **Farruh ovozi bilan tayyor** (26.11.2026, foydalanuvchi: «Ovozichi endi»; 1:43; 26.11.2026 kech foydalanuvchi eshitib «hammasini joyla» dedi — `q` olib tashlandi, saytda). Oldin: ovozsiz qoralama (foydalanuvchi matnga «qil» dedi; o'sha kuni 13:37 dagi joylashdan keyin moslandi — dars «Машқ»i endi «Эъроб», so'z kartasi ikki tomonli, «Бугунги машқ» faqat so'z) — `src/video/ball/`, 1:49; keyingi qadam — izohlar, so'ng Farruh ovozi (ruxsat bilan).
 
 ## 1. Qisqacha
 

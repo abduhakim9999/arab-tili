@@ -243,6 +243,22 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .mq-h em{font-style:normal;font-size:14px;color:#f6dc94}
 .mq-go{flex-shrink:0;height:52px;padding:0 22px;border:0;border-radius:14px;background:#f6dc94;color:#0c3d29;font-size:17px;font-weight:800;box-shadow:inset 0 -4px 0 rgba(0,0,0,.18);transition:transform .06s,box-shadow .06s}
 .mq-go:active{transform:translateY(2px);box-shadow:inset 0 -2px 0 rgba(0,0,0,.18)}
+/* «Бугунги машқ» guruhlari (26.11.2026, foydalanuvchi: «Бошлаш»dan oldin bugun nechta so'z — mustahkamga chiqadigan, bilaman, o'rganyapman; A + C chizma, «qil») */
+.mq-hr{flex-direction:column;align-items:stretch;gap:0}
+.mq-h>.mq-hb{flex-direction:row;align-items:baseline;justify-content:space-between;gap:10px}
+.mq-hb em{font-size:15px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
+.mq-gb{display:flex;gap:2px;height:6px;margin:10px 0 4px;border-radius:3px;overflow:hidden}
+.mq-gb u{display:block;min-width:4px}
+.mq-gr{display:flex;align-items:center;gap:10px;margin:0;padding:8px 0;border-top:1px solid rgba(255,255,255,.12);font-size:15px;color:#fff}
+.mq-gr i{flex-shrink:0;width:10px;height:10px;border-radius:50%}
+.mq-h .mq-gr b{margin-left:auto;font-size:16px;font-weight:800;font-variant-numeric:tabular-nums}
+.mq-gb .m,.mq-gr.m i{background:#7fb0f5}.mq-gb .g,.mq-gr.g i{background:#6fd6a0}.mq-gb .o,.mq-gr.o i{background:#f2c14e}.mq-gb .y,.mq-gr.y i{background:rgba(255,255,255,.55)}
+.mq-hr .mq-go{width:100%;margin-top:10px}
+.tq-gr{display:flex;align-items:center;gap:8px;margin:-6px 2px 10px;font-size:13.5px;font-weight:700;color:var(--tx)}
+.tq-gr i{flex-shrink:0;width:9px;height:9px;border-radius:50%}
+.tq-gr.m i{background:#3a73cc}.tq-gr.g i{background:#2fa36f}.tq-gr.o i{background:#d9a23a}.tq-gr.y i{background:color-mix(in srgb,var(--mu) 50%,transparent)}
+.tq-gr em{margin-left:auto;font-style:normal;font-weight:600;color:var(--mu);font-variant-numeric:tabular-nums}
+.tq-gr+.tq-kt{min-height:46vh;min-height:min(calc(100dvh - 228px - env(safe-area-inset-bottom,0px)),700px)}
 .mq-go.mq-ya{height:46px;padding:0 14px;font-size:15px;white-space:nowrap;background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.3)}   /* «Яна N та сўз» — ikkinchi darajali */
 /* ⓘ — йўриқнома (qollanma.js): «Луғат» сарлавҳасида; .mq-yn — янги ўқувчига бир қаторли эслатма.
    23.11.2026 (foydalanuvchi: «tepada ham, pastda ham yo'riqnoma turibdi»): «Машқ»da bitta ⓘ — sarlavha yonida, kichik (.mq-hi);
@@ -426,6 +442,8 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     if (REJ === 'q') return QX[QXi] ? { k: QX[QXi], yangi: false, qoldi: QX.length - QXi } : null;
     return E.keyingi(hozir(), 't') || E.keyingi(hozir(), 'o');
   }
+  /* «Бугунги машқ» guruhlari — kartada ham, mashq ichida ham shu tartibda (takror.js bugun().gr, keyingi().gr) */
+  var GRN = { m: 'Мустаҳкамга чиқади', g: 'Биламан текшируви', o: 'Ўрганяпман', y: 'Янги сўзлар' }, GR = { k: '', n: 0, d: 0 };
   function yana(bg) {                                  /* «Яна 10 та сўз» nimani boshlaydi: 'y' — yangi so'zlar, 'q' — qo'shimcha takror, '' — yo'q */
     return bg.kW ? 'y' : qxHovuz().length ? 'q' : '';
   }
@@ -601,12 +619,16 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     /* 26.11.2026: bitta karta «Бугунги машқ» (23.11 dagi ikki bo'lim — «Ўрганиш» va «Такрор» — birlashdi; navbat() — avval takror,
        keyin o'rganish); tugagach — «Бугунга тамом» + «Яна 10 та сўз» (yana()) */
     var et = E.ertaga(t);
-    var qism = function (b) { return (b.soz ? b.soz + ' сўз' : '') + (b.soz && b.savol ? ' · ' : '') + (b.savol ? b.savol + ' савол' : ''); };
     var ya = bg.jami ? '' : yana(bg), ert = et.o + et.t;
-    var karta = '<div class="mq-h mq-ho"><div><span>Бугунги машқ</span>' + (bg.jami
-      ? '<b>' + bg.jami + ' та</b><em>' + qism(bg) + '</em></div><button class="mq-go" id="go">Бошлаш</button></div>'
-      : '<b>Бугунга тамом</b><em>' + (ert ? 'эртага ' + ert + ' та' : bg.nT ? 'кейингиси ' + bg.nT + ' кундан кейин' : 'эртага йўқ') + '</em></div>' +
-        (ya ? '<button class="mq-go mq-ya" id="gy">Яна ' + (ya === 'y' ? Math.min(yangiN(), bg.kW) : Math.min(10, qxHovuz().length)) + ' та сўз</button>' : '') + '</div>');
+    /* 26.11.2026 (A chizma): sarlavha + «N та сўз», guruhlar chizig'i, har guruh qatori (bo'sh guruh ko'rinmaydi), «Бошлаш» — to'liq kenglikda */
+    var gk = ['m', 'g', 'o', 'y'].filter(function (k) { return bg.gr && bg.gr[k]; });
+    var karta = bg.jami
+      ? '<div class="mq-h mq-ho mq-hr"><div class="mq-hb"><span>Бугунги машқ</span><em>' + bg.jami + ' та сўз</em></div>' +
+        '<i class="mq-gb" aria-hidden="true">' + gk.map(function (k) { return '<u class="' + k + '" style="flex:' + bg.gr[k] + '"></u>'; }).join('') + '</i>' +
+        gk.map(function (k) { return '<p class="mq-gr ' + k + '"><i aria-hidden="true"></i>' + GRN[k] + '<b>' + bg.gr[k] + '</b></p>'; }).join('') +
+        '<button class="mq-go" id="go">Бошлаш</button></div>'
+      : '<div class="mq-h mq-ho"><div><span>Бугунги машқ</span><b>Бугунга тамом</b><em>' + (ert ? 'эртага ' + ert + ' та' : bg.nT ? 'кейингиси ' + bg.nT + ' кундан кейин' : 'эртага йўқ') + '</em></div>' +
+        (ya ? '<button class="mq-go mq-ya" id="gy">Яна ' + (ya === 'y' ? Math.min(yangiN(), bg.kW) : Math.min(10, qxHovuz().length)) + ' та сўз</button>' : '') + '</div>';
     return '<div class="top mq-top"><div class="mq-t1"><div><small>' + dnom() + '</small><h1 class="mq-h1">Машқ<button class="mq-hi" data-yo aria-label="Қандай ишлатилади — кўрсатма">' +
       INF + (L(KQO) !== '2' ? '<i class="mq-nq"></i>' : '') + '</button></h1></div>' + seriya(t) + '</div>' + karta + '</div>';
   }
@@ -1025,13 +1047,21 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
        («12 / 39»). Bir so'z bugungi hamma kartasi tugagandagina sanaladi (E.bugun().jami kamayadi); yangi karta endi bir marta so'raladi
        (takror.js learning_steps), shuning uchun har to'g'ri javob odatda bittaga oshiradi. Noto'g'ri javobda son ham, chiziq ham joyida;
        jami o'ssa (kamdan-kam) qT o'sadi — orqaga qaytmaydi. Oldin (13.11) qadamlar sanalardi: yangi karta = 2 qadam («39 та» → ichkarida 66). */
-    var qol = REJ === 'q' ? QX.length - QXi : E.bugun(hozir()).jami, eski = qW;
+    var bgx = REJ === 'q' ? null : E.bugun(hozir()), qol = bgx ? bgx.jami : QX.length - QXi, eski = qW;
     qD = Math.max(qD, qT - qol);
     if (qD + qol > qT) qT = qD + qol;
     qW = qT ? Math.round(qD * 100 / qT) : 0;
     var bosh_ = '<div class="tq-st"><button id="yop" aria-label="Ёпиш">✕</button><button id="orq" aria-label="Олдинги карта"' + (TAR.length ? '' : ' disabled') + '>' + ORQ + '</button>' +
       '<div class="tq-pr" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + qW +
       '"><i id="qpi" style="width:' + eski + '%"></i></div><span aria-label="Бажарилди">' + qD + ' / ' + qT + '</span></div>';
+    /* 26.11.2026 (C chizma): qaysi guruh ketayapti va undan nechtasi bajarildi; guruh almashsa sanoq yangidan (umumiy sanoq kabi orqaga qaytmaydi) */
+    var g = bgx && x.gr;
+    if (g) {
+      var gq = bgx.gr[g] || 0;
+      if (g !== GR.k) GR = { k: g, n: gq, d: 0 };
+      GR.d = Math.max(GR.d, GR.n - gq); if (GR.d + gq > GR.n) GR.n = GR.d + gq;
+      bosh_ += '<div class="tq-gr ' + g + '"><i aria-hidden="true"></i><span>' + GRN[g] + '</span><em>' + GR.d + ' / ' + GR.n + '</em></div>';
+    }
     if (cur.tur === 'q') savol(bosh_, x); else if (cur.tur === 's') shaklK(bosh_, x); else soz(bosh_, x);
     document.getElementById('yop').onclick = bosh;
     document.getElementById('orq').onclick = orqaga;

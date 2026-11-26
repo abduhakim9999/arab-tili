@@ -519,7 +519,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     var yn = 0;                                        /* «Созламалар» → кунлик янги сўзлар (10 / 15 / 20) */
     try { yn = +JSON.parse(L('sozlama') || '{}').yangi || 0; } catch (e) {}
     QAYTA = false;
-    E = Takror.yarat({ shakl: shaklTuri, lugat: D.l, barcha: D.l, mashq: D.m, darslar: D.d, faol: FAOL, jurnal: j, ustun: ust, ustunSoz: usz, sozlama: yn ? { yangi: yn } : null, qosh: qo,
+    E = Takror.yarat({ shakl: shaklTuri, lugat: D.l, barcha: D.l, mashq: [], darslar: D.d, faol: FAOL, jurnal: j, ustun: [],   /* 26.11.2026: grammatika savollari — dars «Эъроб»ида va «Боб якуни»da (yol.html); bu yerda faqat so'z */ ustunSoz: usz, sozlama: yn ? { yangi: yn } : null, qosh: qo,
       belgi: function (id) { return { a: W.a[id], b: W.b[id] }; } });
     tozala();
   }
@@ -735,7 +735,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
         JA[st]++; JJ++; o[st]++; o.j++;
       });
       kt5.sort(function (a, b) { return a - b; });
-      app.innerHTML = tepa(S, false, bg, t) + sinovQ + (saralangan ? '' : '<p class="lg-yn mq-yn">Ҳозирча 1-дарс сўзлари кўрсатиляпти. Дарс «Машқ»идан 80% олсангиз, унинг сўзлари ўзи қўшилади.</p>') +
+      app.innerHTML = tepa(S, false, bg, t) + sinovQ + (saralangan ? '' : '<p class="lg-yn mq-yn">Ҳозирча 1-дарс сўзлари кўрсатиляпти. Дарс «Эъроб»идан 80% олсангиз, унинг сўзлари ўзи қўшилади.</p>') +
         '<a class="q-rw mq-lg" href="#lugat"><span class="q-ib">' + KITOB + '</span><span class="t">Луғат<small>Исм · Феъл · Ҳарф · қидирув' + (ca.b ? ' · Билмаганларим ' + ca.b : '') + '</small></span>' + CHV + '</a>' +
         '<section class="tq-c"><div class="tq-h">Статистика · жами ' + JJ + ' сўз</div>' +
         '<div class="mq-dt"><div class="mq-dz">' + doira(JA, JJ) + '<div><b>' + Math.round((JA.m + JA.g) * 100 / (JJ || 1)) + '%</b><span>' + (JA.m + JA.g) + ' / ' + JJ + ' сўз</span></div></div></div>' +

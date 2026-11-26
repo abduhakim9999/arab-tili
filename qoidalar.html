@@ -66,6 +66,8 @@ a:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
 .tk-kt .yz{position:absolute;left:0;right:0;top:20px;z-index:1;display:flex;flex-direction:column;align-items:center;gap:2px}
 .tk-kt .yz .ar{font-size:19px;line-height:1.55;color:#F1D58A;text-shadow:0 2px 3px rgba(0,0,0,.45)}
 .tk-kt .yz b{font-size:13px;font-weight:800;letter-spacing:.32em;padding-left:.32em;color:#F7EBC8}
+/* jild (26.11.2026, foydalanuvchi: «2-jildi bor hali» — muqovada arabcha, kitob sahifasida «1-жилд») */
+.tk-kt .yz .jl{font-size:13px;line-height:1.5;margin-top:4px;color:#F1D58A;text-shadow:0 1px 3px rgba(0,0,0,.55)}
 /* muallif (26.11.2026, foydalanuvchi: muqovada arabcha, «تَأْلِيفُ» bilan) */
 .tk-kt .yz .mu{font-size:12.5px;line-height:1.5;margin-top:5px;color:#F7EBC8;text-shadow:0 1px 3px rgba(0,0,0,.55)}
 .tk-kn{font-size:20px;line-height:1.6;color:#E8CC8A}
@@ -124,7 +126,7 @@ a:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
 .g-bk[hidden]{display:none}.g-bk{display:flex;align-items:center;justify-content:center;width:36px;height:36px;margin-left:-8px;border:0;background:none;color:#fff;cursor:pointer}.g-bk svg{width:24px;height:24px}
 .g-yo{padding:18px 4px;color:var(--mu);text-align:center}
 .g-vk .kt{position:relative;flex-shrink:0;width:80px;height:120px}.g-vk .kt .tk-kt{position:absolute;left:0;top:0;transform:scale(.4);transform-origin:0 0}
-.g-vk .kt .tk-kt .yz .ar{font-size:23px;opacity:1}.g-vk .kt .tk-kt .yz b{font-size:17px}.g-vk .kt .tk-kt .yz .mu{font-size:16px}.g-vk .kt .tk-kt .m:after{border-width:2.5px}
+.g-vk .kt .tk-kt .yz .ar{font-size:23px;opacity:1}.g-vk .kt .tk-kt .yz b{font-size:17px}.g-vk .kt .tk-kt .yz .mu{font-size:16px}.g-vk .kt .tk-kt .yz .jl{font-size:16px}.g-vk .kt .tk-kt .m:after{border-width:2.5px}
 .g-vk .ar{display:block;font-size:17px;line-height:1.45;opacity:.92}
 .g-bl{flex-shrink:0;font-size:13px;font-weight:600;color:var(--ac)}.g-bl i{font-style:normal;margin-right:6px}
 /* bob kirish videosi (21.11.2026) */
@@ -204,7 +206,7 @@ a:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
   var KV = 'fon/tatbiq-fon.jpg', KN = 'عِلْمُ الصَّرْفِ وَالنَّحْوِ وَتَطْبِيقُهُمَا';
   /* muqova (buyumdek, nomi bilan) — kitob sahifasida ham, Грамматика kartasida ham bir xil (23.11.2026: kartada nom yo'q edi) */
   function muq() { return '<span class="tk-kt" aria-hidden="true"><i></i><i></i><span class="m"><img src="' + KV + '" alt="" width="400" height="600">' +
-    '<span class="yz"><span class="ar" lang="ar">عِلْمُ الصَّرْفِ وَالنَّحْوِ<br>وَتَطْبِيقُهُمَا</span><b>ТАТБИҚ</b><span class="ar mu" lang="ar">تَأْلِيفُ قَهْرَمَانَ بْنِ عِزَّةِ اللّٰهِ</span></span></span></span>'; }
+    '<span class="yz"><span class="ar" lang="ar">عِلْمُ الصَّرْفِ وَالنَّحْوِ<br>وَتَطْبِيقُهُمَا</span><b>ТАТБИҚ</b><span class="ar jl" lang="ar">الْجُزْءُ الْأَوَّلُ</span><span class="ar mu" lang="ar">تَأْلِيفُ قَهْرَمَانَ بْنِ عِزَّةِ اللّٰهِ</span></span></span></span>'; }
   /* progress ko'rsatilmaydi (23.11.2026, foydalanuvchi: kitob qayta-qayta o'qiladi) — faqat oxirgi ochilgan dars (xatcho'p) */
   function oxirgi() { var n = J('tb-oxirgi'); return typeof n === 'number' ? n : null; }
   function bobN(i) { return i === YI ? 'Якуний дарс' : (i + 1) + '-боб · ' + arb(B[i][0]); }
@@ -224,7 +226,7 @@ a:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
       '<div class="g-tl">' + karta(SARF, '') + karta(NAHV, '') + '</div>' + karta(ESH, 'g-es');
     if (RU) h += '<a class="q-rw" id="gru" style="margin-top:20px"><span class="t"><span class="n">Татбиқ</span></span>' + CH + '</a>';
     else h += '<div id="gnt" hidden></div><a class="g-vk" id="gvk" href="#v"><span class="kt">' + muq() + '</span>' +
-      '<span class="t"><b>Татбиқ</b><span class="ar" lang="ar">' + KN + '</span><small>Араб тили грамматикаси</small><small>' + YI + ' боб · ' + jami + ' дарс</small></span>' + CHV + '</a>';
+      '<span class="t"><b>Татбиқ</b><span class="ar" lang="ar">' + KN + '</span><small>Араб тили грамматикаси</small><small>1-жилд · ' + YI + ' боб · ' + jami + ' дарс</small></span>' + CHV + '</a>';
     app.innerHTML = h;
     if (RU) { [].forEach.call(app.querySelectorAll('.k-c, #gru'), function (a) { if (!/nahv\.html$/.test(a.getAttribute('href') || '')) Qobiq.tez(a); }); return; }
     /* qidiruv: mavzu nomi yoki dars raqami bo'yicha; natija — ro'yxat, video kartasi o'rnida */
@@ -246,7 +248,7 @@ a:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
     else for (k = 0; k < ROY.length; k++) if (ochiq(ROY[k][0])) { dv = ROY[k]; break; }
     var y = B[YI][1][0], yo = ochiq(y[0]);
     app.innerHTML = '<div class="tk-hr"><div class="tk-hb"><span class="tk-ko">' + muq() + '</span><div class="tk-hm">' +
-      '<div class="tk-kn ar" lang="ar">' + KN + '</div><div class="tk-ks">Араб тили грамматикаси</div>' +
+      '<div class="tk-kn ar" lang="ar">' + KN + '</div><div class="tk-ks">Араб тили грамматикаси · 1-жилд</div>' +
       '<div class="tk-mu"><small>Муаллиф</small><b>Қаҳрамон ибн Иззатуллоҳ</b></div></div></div>' +
       (dv ? '<a class="tk-dv" href="#d' + dv[0] + '">' + BM + (ox != null && dv[0] === ox ? 'Давом эттириш' : 'Бошлаш') + ' · ' + dv[0] + '-дарс</a>' : '') + '</div>' +
       '<div class="tk-ich"><div class="tk-h"><h2>Мундарижа</h2><span>' + YI + ' боб · ' + jami + ' дарс</span></div>' +

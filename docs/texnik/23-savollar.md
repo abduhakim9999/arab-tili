@@ -69,5 +69,5 @@ Quyidagi tartib — **yo'l-yo'riq, qaror emas**. Har savol alohida o'ylanadi. Ta
 ## Savol ko'rinishi (26.11.2026; foydalanuvchi: «savol kattaroq bo'lib ko'rinib turishi kerak. Ajralib ... eng tepada», «qil»)
 - Hamma savol oynasida tartib: kichik kulrang qator (bob / dars) → **savol matni — tepada, katta, qalin** → arabcha gap → tarjima → javoblar. Tur belgisi («Ҳолати?» va h.k.) chiqmaydi — savolning o'zi aytadi.
 - Harakat savolida (ilgari matnsiz) ham savol bor: «Белгиланган сўз қандай ўқилади?» (ruschasi `lugat-umumiy.txt`).
-- Joylari: dars «Эъроб» — sahifa `qshow` + `.qsv` (26 dars) va `savol.js show`; «Боб якуни» / «Хатолар устида ишлаш» — `yol.html yakSavol` `.y-q`; `takror.html` — so'z kartasi yorlig'i `.tq-q`, «Қўшимча машқ» `.tq-qs`. Yangi savol oynasi ham shu tartibda.
+- Joylari: dars «Эъроб» — sahifa `qshow` + `.qsv` (26 dars) va `savol.js show`; «Боб якуни» / «Хатолар устида ишлаш» — `yol.html yakSavol` `.y-q`; `takror.html` — so'z kartasi yorlig'i `.tq-q`, «Қўшимча машқ» `.tq-qs`. Dars «Эъроб»da «Тўғри: N» alohida qator emas — «Савол N / M» tagida (`.qnv .qhd`). Yangi savol oynasi ham shu tartibda.
 

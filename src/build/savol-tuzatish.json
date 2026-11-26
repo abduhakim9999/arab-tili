@@ -14,14 +14,14 @@
       "3-1": {
         "v": [
           {
-            "w": "خَالِدٌ",
-            "c": "R",
-            "lb": "танвинли замма"
-          },
-          {
             "w": "خَالِدُ",
             "c": "R",
             "lb": "замма"
+          },
+          {
+            "w": "خَالِدٌ",
+            "c": "R",
+            "lb": "танвинли замма"
           },
           {
             "w": "خَالِداً",
@@ -29,7 +29,7 @@
             "lb": "танвинли фатҳа"
           }
         ],
-        "sabab": "Chalg'ituvchi — haqiqiy xato: erkak ismini tanvinsiz o'qish (2-darsdagi خَوْلَةُ bilan aralashtirish). خَالِدٌ — munsarif."
+        "sabab": "Chalg'ituvchi — haqiqiy xato: erkak ismini tanvinsiz o'qish (2-darsdagi خَوْلَةُ bilan aralashtirish). خَالِدٌ — munsarif. | 26.11.2026 (2-tekshiruv): to'g'ri javob doim 1-o'rinda edi (qo'lda yozilganda) — tabiiy tartibga (замма → танвинли замма → фатҳа …) qo'yildi."
       }
     },
     "tur": {
@@ -64,12 +64,12 @@
         "t": "v",
         "s": "Белгиланган сўз нима учун жар?",
         "o": [
-          "لِ жар ҳарфидан кейин келгани учун",
           "Музофун илайҳ бўлгани учун",
-          "Хабар бўлгани учун"
+          "Хабар бўлгани учун",
+          "Жар ҳарфидан кейин келгани учун"
         ],
-        "j": "لِ жар ҳарфидан кейин келгани учун",
-        "sabab": "Ibora yodlangan, lekin sababi (jar harfi) — darsning birinchi jar holati. Muzofun ilayh — keyingi darslardagi jarning boshqa sababi, chalg'ituvchi sifatida mos."
+        "j": "Жар ҳарфидан кейин келгани учун",
+        "sabab": "Ibora yodlangan, lekin sababi (jar harfi) — darsning birinchi jar holati. Muzofun ilayh — keyingi darslardagi jarning boshqa sababi, chalg'ituvchi sifatida mos. | 26.11.2026 (2-tekshiruv): to'g'ri javob doim 1-tugmada edi (1-dars: doim 1-tugmani bosgan 83% — o'tib ketardi); u eng uzun va yagona arabcha harfli (لِ) variant edi — ishora. Endi 3-o'rinda, arabcha harf izohda."
       }
     }
   },
@@ -133,13 +133,13 @@
         "t": "v",
         "s": "Белгиланган сўз нима учун доим фатҳа билан?",
         "o": [
-          "Мабний бўлгани учун",
           "Насб бўлгани учун",
-          "Ғайри мунсариф бўлгани учун"
+          "Ғайри мунсариф бўлгани учун",
+          "Мабний бўлгани учун"
         ],
         "j": "Мабний бўлгани учун",
         "iz": "كَيْفَ — фатҳага мабний: охири ҳеч қачон ўзгармайди. Ўрни — хабар муқаддам (раф ўринда), фатҳаси насб белгиси эмас.",
-        "sabab": "1-darsda «Ҳолати?» so'ralgan; bu yerda boshqa savol — sababi (mabniy). Takror emas, chuqurlashtirish."
+        "sabab": "1-darsda «Ҳолати?» so'ralgan; bu yerda boshqa savol — sababi (mabniy). Takror emas, chuqurlashtirish. | 26.11.2026 (2-tekshiruv): to'g'ri javob 1-tugmada edi (2-dars: doim 1-tugma 80% — o'tib ketardi). «Нима учун фатҳа?» uchun bir xil tartib: Насб | Ғайри мунсариф | Мабний (4-dars مِصْرَ bilan bir xil)."
       }
     }
   },
@@ -168,14 +168,14 @@
       "7-1": {
         "v": [
           {
-            "w": "تُرْكِيٌّ",
-            "c": "R",
-            "lb": "танвинли замма"
-          },
-          {
             "w": "تُرْكِيُّ",
             "c": "R",
             "lb": "замма"
+          },
+          {
+            "w": "تُرْكِيٌّ",
+            "c": "R",
+            "lb": "танвинли замма"
           },
           {
             "w": "تُرْكِيًّا",
@@ -183,7 +183,7 @@
             "lb": "танвинли фатҳа"
           }
         ],
-        "sabab": "Nisbiy sifat tanvin oladi (davlat nomi تُرْكِيَا — olmaydi): tuzoq — tanvinsiz."
+        "sabab": "Nisbiy sifat tanvin oladi (davlat nomi تُرْكِيَا — olmaydi): tuzoq — tanvinsiz. | 26.11.2026 (2-tekshiruv): to'g'ri javob doim 1-o'rinda edi (qo'lda yozilganda) — tabiiy tartibga (замма → танвинли замма → фатҳа …) qo'yildi."
       }
     },
     "qur": {
@@ -213,12 +213,12 @@
         "t": "v",
         "s": "Белгиланган сўз нима учун насб?",
         "o": [
-          "Маҳзуф феълнинг мафъули бўлгани учун",
           "Хабар бўлгани учун",
-          "Музоф бўлгани учун"
+          "Мафъулун биҳ бўлгани учун",
+          "Музофун илайҳ бўлгани учун"
         ],
-        "j": "Маҳзуф феълнинг мафъули бўлгани учун",
-        "sabab": "Ibora yodlangan — harakat so'ralmaydi; lekin fe'lsiz gapda nima uchun nasb — haqiqiy o'ylash (yashirin fe'l)."
+        "j": "Мафъулун биҳ бўлгани учун",
+        "sabab": "Ibora yodlangan — harakat so'ralmaydi; lekin fe'lsiz gapda nima uchun nasb — haqiqiy o'ylash (yashirin fe'l). | 26.11.2026 (2-tekshiruv): «Маҳзуф феълнинг мафъули» boshqalardan ancha uzun va aniqroq edi — taxmin bilan topilardi; «Музоф» hech qachon holat sababi emas — zaif chalg'ituvchi. Endi teng uzunlikda; yashirin fe'l izohda aytiladi."
       }
     }
   },
@@ -247,14 +247,14 @@
       "5-2": {
         "v": [
           {
-            "w": "مِصْرِيَّةٌ",
-            "c": "R",
-            "lb": "танвинли замма"
-          },
-          {
             "w": "مِصْرِيَّةُ",
             "c": "R",
             "lb": "замма"
+          },
+          {
+            "w": "مِصْرِيَّةٌ",
+            "c": "R",
+            "lb": "танвинли замма"
           },
           {
             "w": "مِصْرِيَّةً",
@@ -262,7 +262,7 @@
             "lb": "танвинли фатҳа"
           }
         ],
-        "sabab": "Davlat nomi مِصْرَ tanvinsiz, sifat مِصْرِيَّةٌ tanvinli — tuzoq tanvinsiz shakl."
+        "sabab": "Davlat nomi مِصْرَ tanvinsiz, sifat مِصْرِيَّةٌ tanvinli — tuzoq tanvinsiz shakl. | 26.11.2026 (2-tekshiruv): to'g'ri javob doim 1-o'rinda edi (qo'lda yozilganda) — tabiiy tartibga (замма → танвинли замма → фатҳа …) qo'yildi."
       }
     },
     "qur": {
@@ -284,12 +284,12 @@
         "t": "v",
         "s": "Белгиланган сўз нима учун фатҳа билан?",
         "o": [
-          "Ғайри мунсариф бўлгани учун",
           "Насб бўлгани учун",
+          "Ғайри мунсариф бўлгани учун",
           "Мабний бўлгани учун"
         ],
         "j": "Ғайри мунсариф бўлгани учун",
-        "sabab": "3-darsda بَاكِسْتَانَ harakati so'ralgan; bu yerda sababi. «Насб» — eng ko'p uchraydigan xato fikr."
+        "sabab": "3-darsda بَاكِسْتَانَ harakati so'ralgan; bu yerda sababi. «Насб» — eng ko'p uchraydigan xato fikr. | 26.11.2026 (2-tekshiruv): to'g'ri javob 1-tugmada edi; «Нима учун фатҳа?» uchun bir xil tartib (2-dars كَيْفَ bilan)."
       },
       "6-4": {
         "t": "s",
@@ -353,13 +353,13 @@
         "t": "v",
         "s": "Белгиланган сўз нима учун жар?",
         "o": [
-          "Музофун илайҳ бўлгани учун",
           "Жар ҳарфидан кейин келгани учун",
+          "Музофун илайҳ бўлгани учун",
           "Мубтадо бўлгани учун"
         ],
         "j": "Музофун илайҳ бўлгани учун",
         "iz": "السَّلَامَةِ — مَعَ нинг музофун илайҳи, шунинг учун жар. مَعَ — жар ҳарфи эмас, зарф (исм).",
-        "sabab": "Ko'p o'quvchi مَعَ ni jar harfi deb o'ylaydi — aynan shu farqni o'rgatadi."
+        "sabab": "Ko'p o'quvchi مَعَ ni jar harfi deb o'ylaydi — aynan shu farqni o'rgatadi. | 26.11.2026 (2-tekshiruv): to'g'ri javob 1-tugmada edi — 2-o'ringa."
       }
     }
   },
@@ -383,14 +383,14 @@
       "5-3": {
         "v": [
           {
-            "w": "طَالِبَةٌ",
-            "c": "R",
-            "lb": "танвинли замма"
-          },
-          {
             "w": "طَالِبَةُ",
             "c": "R",
             "lb": "замма"
+          },
+          {
+            "w": "طَالِبَةٌ",
+            "c": "R",
+            "lb": "танвинли замма"
           },
           {
             "w": "طَالِبَةً",
@@ -398,7 +398,7 @@
             "lb": "танвинли фатҳа"
           }
         ],
-        "sabab": "Noaniq xabar tanvin oladi; ayol ismlari (ғайри мунсариф) bilan aralashtirib tanvinsiz o'qish — tuzoq."
+        "sabab": "Noaniq xabar tanvin oladi; ayol ismlari (ғайри мунсариф) bilan aralashtirib tanvinsiz o'qish — tuzoq. | 26.11.2026 (2-tekshiruv): to'g'ri javob doim 1-o'rinda edi (qo'lda yozilganda) — tabiiy tartibga (замма → танвинли замма → фатҳа …) qo'yildi."
       }
     },
     "tur": {
@@ -633,13 +633,13 @@
         "t": "v",
         "s": "Белгиланган сўз нима учун танвинсиз?",
         "o": [
-          "ال билан келгани учун",
+          "Музоф бўлгани учун",
           "Ғайри мунсариф бўлгани учун",
-          "Музоф бўлгани учун"
+          "ال билан келгани учун"
         ],
         "j": "ال билан келгани учун",
         "iz": "الْعَبَّاسُ — ال билан келгани учун танвин олмайди (у ғайри мунсариф эмас). Раф — عَمُّهُ дан бадал.",
-        "sabab": "Tanvinsizlikning yana bir sababi — ال; ғайри мунсариф ismlar orasida ajratish."
+        "sabab": "Tanvinsizlikning yana bir sababi — ال; ғайри мунсариф ismlar orasida ajratish. | 26.11.2026 (2-tekshiruv): «Нима учун танвинсиз?» savollarining hammasida bir xil tartib (2, 7, 8-dars): Музоф | Ғайри мунсариф | ال; bu yerda to'g'ri javob 1-tugmada edi."
       },
       "8-2": {
         "t": "v",
@@ -676,6 +676,154 @@
           }
         ],
         "sabab": "Yorliqlar boshqa savollardagi kabi («замма (танвинсиз)» o'rniga «замма»)."
+      },
+      "2-1": {
+        "v": [
+          {
+            "w": "أَكْبَرُ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
+            "w": "أَكْبَرَ",
+            "c": "N",
+            "lb": "фатҳа"
+          },
+          {
+            "w": "أَكْبَرٍ",
+            "c": "J",
+            "lb": "танвинли касра"
+          }
+        ],
+        "sabab": "26.11.2026 (2-tekshiruv): yorliq tanvinli shaklda «замма/фатҳа/касра» edi — tugmadagi so'z bilan mos emas; «танвинли …» qilindi (tartib 4: yorliq — harakat nomi)."
+      }
+    }
+  },
+  "10": {
+    "qov": {
+      "10-0": {
+        "v": [
+          {
+            "w": "خَمْسَةٌ",
+            "c": "R",
+            "lb": "танвинли замма"
+          },
+          {
+            "w": "خَمْسَةً",
+            "c": "N",
+            "lb": "танвинли фатҳа"
+          },
+          {
+            "w": "خَمْسَةٍ",
+            "c": "J",
+            "lb": "танвинли касра"
+          }
+        ],
+        "sabab": "26.11.2026 (2-tekshiruv): yorliq tanvinli shaklda «замма/фатҳа/касра» edi — tugmadagi so'z bilan mos emas; «танвинли …» qilindi (tartib 4: yorliq — harakat nomi)."
+      },
+      "11-0": {
+        "v": [
+          {
+            "w": "تِسْعَةٌ",
+            "c": "R",
+            "lb": "танвинли замма"
+          },
+          {
+            "w": "تِسْعَةً",
+            "c": "N",
+            "lb": "танвинли фатҳа"
+          },
+          {
+            "w": "تِسْعَةٍ",
+            "c": "J",
+            "lb": "танвинли касра"
+          }
+        ],
+        "sabab": "26.11.2026 (2-tekshiruv): yorliq tanvinli shaklda «замма/фатҳа/касра» edi — tugmadagi so'z bilan mos emas; «танвинли …» qilindi (tartib 4: yorliq — harakat nomi)."
+      }
+    }
+  },
+  "11": {
+    "qov": {
+      "3-1": {
+        "v": [
+          {
+            "w": "شَقَّةٌ",
+            "c": "R",
+            "lb": "танвинли замма"
+          },
+          {
+            "w": "شَقَّةً",
+            "c": "N",
+            "lb": "танвинли фатҳа"
+          },
+          {
+            "w": "شَقَّةٍ",
+            "c": "J",
+            "lb": "танвинли касра"
+          }
+        ],
+        "sabab": "26.11.2026 (2-tekshiruv): yorliq tanvinli shaklda «замма/фатҳа/касра» edi — tugmadagi so'z bilan mos emas; «танвинли …» qilindi (tartib 4: yorliq — harakat nomi)."
+      },
+      "4-1": {
+        "v": [
+          {
+            "w": "شَقَّةٌ",
+            "c": "R",
+            "lb": "танвинли замма"
+          },
+          {
+            "w": "شَقَّةً",
+            "c": "N",
+            "lb": "танвинли фатҳа"
+          },
+          {
+            "w": "شَقَّةٍ",
+            "c": "J",
+            "lb": "танвинли касра"
+          }
+        ],
+        "sabab": "26.11.2026 (2-tekshiruv): yorliq tanvinli shaklda «замма/фатҳа/касра» edi — tugmadagi so'z bilan mos emas; «танвинли …» qilindi (tartib 4: yorliq — harakat nomi)."
+      },
+      "5-1": {
+        "v": [
+          {
+            "w": "غُرْفَةٌ",
+            "c": "R",
+            "lb": "танвинли замма"
+          },
+          {
+            "w": "غُرْفَةً",
+            "c": "N",
+            "lb": "танвинли фатҳа"
+          },
+          {
+            "w": "غُرْفَةٍ",
+            "c": "J",
+            "lb": "танвинли касра"
+          }
+        ],
+        "sabab": "26.11.2026 (2-tekshiruv): yorliq tanvinli shaklda «замма/фатҳа/касра» edi — tugmadagi so'z bilan mos emas; «танвинли …» qilindi (tartib 4: yorliq — harakat nomi)."
+      },
+      "6-3": {
+        "v": [
+          {
+            "w": "غُرَفٌ",
+            "c": "R",
+            "lb": "танвинли замма"
+          },
+          {
+            "w": "غُرَفاً",
+            "c": "N",
+            "lb": "танвинли фатҳа"
+          },
+          {
+            "w": "غُرَفٍ",
+            "c": "J",
+            "lb": "танвинли касра"
+          }
+        ],
+        "sabab": "26.11.2026 (2-tekshiruv): yorliq tanvinli shaklda «замма/фатҳа/касра» edi — tugmadagi so'z bilan mos emas; «танвинли …» qilindi (tartib 4: yorliq — harakat nomi)."
       }
     }
   },
@@ -688,6 +836,11 @@
       "3-1": {
         "v": [
           {
+            "w": "بَعْضُ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
             "w": "بَعْضَ",
             "c": "N",
             "lb": "фатҳа"
@@ -696,14 +849,9 @@
             "w": "بَعْضاً",
             "c": "N",
             "lb": "танвинли фатҳа"
-          },
-          {
-            "w": "بَعْضُ",
-            "c": "R",
-            "lb": "замма"
           }
         ],
-        "sabab": "Tuzoq — muzofga tanvin (بَعْضاً); mafʼul ekani — fatha."
+        "sabab": "Tuzoq — muzofga tanvin (بَعْضاً); mafʼul ekani — fatha. | 26.11.2026 (2-tekshiruv): to'g'ri javob doim 1-o'rinda edi (qo'lda yozilganda) — tabiiy tartibga (замма → танвинли замма → фатҳа …) qo'yildi."
       }
     },
     "tur": {
@@ -711,13 +859,13 @@
         "t": "v",
         "s": "Белгиланган сўз нима учун насб?",
         "o": [
-          "Маҳзуф феълнинг мафъули бўлгани учун",
           "Мубтадо бўлгани учун",
-          "Жар ҳарфидан кейин келгани учун"
+          "Жар ҳарфидан кейин келгани учун",
+          "Мафъулун биҳ бўлгани учун"
         ],
-        "j": "Маҳзуф феълнинг мафъули бўлгани учун",
+        "j": "Мафъулун биҳ бўлгани учун",
         "iz": "أَيَّ — маҳзуф феълнинг мафъулун биҳи, шунинг учун насб. Савол сўзлари ичида أَيّ — мўъраб: ҳаракати ўзгаради.",
-        "sabab": "Savol so'zlari odatda mabniy (مَاذَا) — أَيّ mu'rab: farqni o'rgatadi."
+        "sabab": "Savol so'zlari odatda mabniy (مَاذَا) — أَيّ mu'rab: farqni o'rgatadi. | 26.11.2026 (2-tekshiruv): «Маҳзуф феълнинг мафъули» eng uzun va aniq variant edi (3-dars أَهْلاً bilan bir xil ishora) va 1-tugmada; endi teng uzunlikda, 3-o'rinda."
       },
       "3-2": {
         "t": "s",

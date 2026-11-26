@@ -36,18 +36,17 @@
   /* ko'rinish: «Созламалар» → Кўриниш (yorug / tungi; avto — telefon sozlamasi). docs/texnik.md 16 */
   try { var _k = JSON.parse(localStorage.getItem('sozlama') || '{}').kor; if (_k === 'yorug' || _k === 'tungi') document.documentElement.setAttribute('data-theme', _k === 'tungi' ? 'dark' : 'light'); } catch (e) {}
   /* KIRISH KODI (26.11.2026, foydalanuvchi: «hozircha hamma ishlatmasligi uchun kodli qilib qo'yamiz», «oddiy bitta parolli, 4 xonali»,
-     «butun sayt yopiladi», «bir kunda bir marta so'ralsa bo'ladi»; docs/texnik/22-kirish-kodi.md). Ikkala tilda, Telegramda ham.
-     Kod to'g'ri bo'lsa — shu qurilmada Toshkent vaqti bilan kun oxirigacha ochiq («kirish-ok» = KX:kun); ertasi kuni yoki kod almashsa — yana so'raladi
-     (orqa fondan qaytganda ham tekshiriladi). Kodning o'zi yozilmaydi — faqat KX; almashtirish: `node src/build/kirish-kod.js 1234`.
+     «butun sayt yopiladi»; 26.11.2026: «kodi bir marta teriladigan bo'lsin, har kuni so'raydigan emas»; docs/texnik/22-kirish-kodi.md). Ikkala tilda, Telegramda ham.
+     Kod to'g'ri bo'lsa — shu qurilmada doimiy ochiq («kirish-ok» = KX); faqat kod almashsa (yoki brauzer tozalansa) — yana bir marta so'raladi
+     (eski «KX:kun» yozuvi ham qabul qilinib, «KX» ga o'tkaziladi). Kodning o'zi yozilmaydi — faqat KX; almashtirish: `node src/build/kirish-kod.js 1234`.
      5 xatodan keyin 30 s kutish. Bu «eshik qulfi»: tekshiruv brauzerda (repo ochiq) — haqiqiy himoya pullik versiyada, server bilan. */
   try {
     (function () {
       var KX = 'eed39e36', H = document.documentElement;
       function xesh(s) { var h = 0x811c9dc5; s = 'nurut-tolib:' + s; for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; } return ('0000000' + h.toString(16)).slice(-8); }
-      function kun() { return new Date(Date.now() + 5 * 3600e3).toISOString().slice(0, 10); }   /* Toshkent (UTC+5) */
       function G(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
       function S(k, v) { try { if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) {} }
-      function ochiq() { return G('kirish-ok') === KX + ':' + kun(); }
+      function ochiq() { var o = G('kirish-ok'); if (o === KX) return true; if (o && o.indexOf(KX + ':') === 0) { S('kirish-ok', KX); return true; } return false; }
       var ru = window.Profil ? Profil.til === 'ru' : G('til') === 'ru';
       var T = ru ? { b: 'Код доступа', s: 'Введите 4-значный код', x: 'Неверный код', k: 'Слишком много попыток. Через ', kk: ' с', o: 'Удалить' }
         : { b: 'Кириш коди', s: '4 хонали кодни киритинг', x: 'Нотўғри код', k: 'Кўп марта хато. ', kk: ' сониядан кейин', o: 'Ўчириш' };
@@ -88,7 +87,7 @@
       }
       function tekshir() {
         band = true;
-        if (xesh(v) === KX) { S('kirish-ok', KX + ':' + kun()); S('kirish-xato', null); S('kirish-kut', null); nuqta(); setTimeout(ochil, 150); return; }
+        if (xesh(v) === KX) { S('kirish-ok', KX); S('kirish-xato', null); S('kirish-kut', null); nuqta(); setTimeout(ochil, 150); return; }
         var n = +(G('kirish-xato') || 0) + 1;
         if (n >= 5) { S('kirish-kut', String(Date.now() + 30000)); n = 0; }
         S('kirish-xato', String(n)); silkit();
@@ -668,4 +667,84 @@
     if (!a.paused && !a.seeking && a.currentTime > t0 + 0.3 && a.readyState >= 3) hide(); else if (a.seeking || a.currentTime < t0) t0 = a.currentTime;
   }, true);
   window.addEventListener('online', function () { if (cur) { tried = false; tick(); } });
+})();
+
+/* BALL (26.11.2026, foydalanuvchi: «qancha ko'p foydalansa, shuncha ball»; qoida — takror.js REY, docs/texnik.md 19). takror.js'ni
+   yuklamaydigan sahifalar (dars, Сарф, Эшитиш) javobni shu yerdan takror jurnaliga yozadi; ball serverda va «Рейтинг»da jurnaldan
+   hisoblanadi. Shu yerda faqat: yozish (o'qib-qo'shib-yozish — boshqa sahifa yozganini o'chirmaydi), «+10» uchishi, tinglash vaqti. */
+(function () {
+  var DAN = 1795978800000, TZ = 5 * 3600000, TEZ = 700, B = 10, ESH = 300000, ESH_MAX = 20;   /* takror.js REY bilan bir xil */
+  var SN = /\/sinov-[^\/]*$/.test(location.pathname), KJ = SN ? 'takror-sinov-j' : 'takror-j', KE = SN ? 'ball-sinov-eshit' : 'ball-eshit';
+  var LS = null; try { LS = window.localStorage; } catch (e) {}
+  function kun(t) { return Math.floor((t + TZ) / 864e5); }
+  function ol() { try { return (JSON.parse(LS.getItem(KJ) || '{}') || {}).j || []; } catch (e) { return []; } }
+  function qosh(e) {
+    if (!LS) return;
+    try { var j = ol(); j.push(e); LS.setItem(KJ, JSON.stringify({ v: 1, j: j })); if (!LS.getItem('baza-oz')) LS.setItem('baza-oz', String(Date.now())); } catch (x) {}
+  }
+  /* yangi qoida kuchga kirganmi (30.11.2026); ko'rish va sinov manzillarida — hozirdan («+10» ko'rinsin) */
+  function faol() { return Date.now() >= DAN || !/(^|\.)nurut-tolib\.vercel\.app$/.test(location.hostname); }
+  /* shu javob ball beradimi: to'g'ri, TEZ dan sekin va bu kalit bugun hali ball bermagan */
+  function olsa(j, k, ms, t) {
+    if (ms > 0 && ms < TEZ) return 0;
+    var d = kun(t || Date.now());
+    for (var i = (j || []).length - 1; i >= 0; i--) { var e = j[i]; if (e && e[0] === k && e[2] === 3 && kun(e[1]) === d && !(e[3] > 0 && e[3] < TEZ)) return 0; }
+    return B;
+  }
+  var XY = null, XT = 0;                               /* oxirgi bosilgan joy — «+10» o'sha yerdan uchadi */
+  document.addEventListener('pointerdown', function (e) { XY = [e.clientX, e.clientY]; XT = Date.now(); }, true);
+  function css() {
+    if (document.getElementById('ball-css')) return;
+    var s = document.createElement('style'); s.id = 'ball-css';
+    s.textContent = '.ball-uch{position:fixed;z-index:2147483000;pointer-events:none;font:800 24px/1 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#f59e0b;' +
+      'text-shadow:0 1px 2px rgba(0,0,0,.22);white-space:nowrap;transform:translate(-50%,-100%);animation:ballUch 1.05s cubic-bezier(.2,.7,.3,1) forwards}' +
+      '@keyframes ballUch{0%{opacity:0;transform:translate(-50%,-60%) scale(.5)}18%{opacity:1;transform:translate(-50%,-110%) scale(1.15)}30%{transform:translate(-50%,-120%) scale(1)}100%{opacity:0;transform:translate(-50%,-330%) scale(1)}}' +
+      '@media (prefers-reduced-motion:reduce){.ball-uch{animation:ballUchR 1.05s linear forwards}@keyframes ballUchR{0%,65%{opacity:1}100%{opacity:0}}}';
+    (document.head || document.documentElement).appendChild(s);
+  }
+  function uch(n, el) {
+    if (!n || !faol() || !document.body) return;
+    css();
+    var r = el && el.getBoundingClientRect ? el.getBoundingClientRect() : null, x, y;
+    if (r && r.width) { x = r.left + r.width / 2; y = r.top + 4; }
+    else if (XY && Date.now() - XT < 2500) { x = XY[0]; y = XY[1] - 14; }
+    else { x = innerWidth / 2; y = innerHeight * 0.45; }
+    var d = document.createElement('div');
+    d.className = 'ball-uch'; d.setAttribute('aria-hidden', 'true'); d.textContent = '+' + n;
+    d.style.left = Math.max(30, Math.min(innerWidth - 30, x)) + 'px'; d.style.top = Math.max(40, y) + 'px';
+    document.body.appendChild(d);
+    setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, 1150);
+  }
+  /* javob: [kalit, vaqt, 3 | 1, ms]; → berilgan ball (ko'rsatish uchun) */
+  function yoz(k, ok, ms, el) {
+    var t = Date.now(), b = ok ? olsa(ol(), k, ms, t) : 0;
+    qosh([k, t, ok ? 3 : 1, Math.max(0, Math.min(60000, Math.round(ms || 0)))]);
+    if (b) uch(b, el);
+    return b;
+  }
+  /* bir martalik bonus (xo<dars> — dars birinchi marta o'tildi): jurnalda bo'lsa — yozilmaydi */
+  function bonus(k, n, el) {
+    var j = ol();
+    for (var i = 0; i < j.length; i++) if (j[i] && j[i][0] === k) return 0;
+    qosh([k, Date.now(), 0]); uch(n, el);
+    return n;
+  }
+  /* «Эшитиш»: audio haqiqatan o'ynayotgan vaqt (soat bo'yicha, tezlik ta'sir qilmaydi) yig'iladi; har 5 daqiqa — xe yozuvi, kuniga ESH_MAX ta */
+  function eshit(a) {
+    if (!a || a.__ball || !LS) return;
+    a.__ball = 1;
+    var oxir = 0;
+    setInterval(function () {
+      var t = Date.now(), ijro = !a.paused && !a.ended && a.readyState >= 3;
+      if (ijro && oxir) {
+        var s = null; try { s = JSON.parse(LS.getItem(KE) || 'null'); } catch (e) {}
+        if (!s || s.k !== kun(t)) s = { k: kun(t), s: 0, n: 0 };
+        s.s += Math.min(t - oxir, 70000);
+        if (s.s >= ESH) { s.s -= ESH; if (s.n < ESH_MAX) { s.n++; qosh(['xe', t, 0]); } }
+        try { LS.setItem(KE, JSON.stringify(s)); } catch (e) {}
+      }
+      oxir = ijro ? t : 0;
+    }, 5000);
+  }
+  window.Ball = { yoz: yoz, bonus: bonus, eshit: eshit, uch: uch, olsa: olsa, faol: faol, B: B };
 })();

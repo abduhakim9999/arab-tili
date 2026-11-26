@@ -30,3 +30,4 @@ Yangi texnik qoida — tegishli bo'lim fayliga (bitta joyga). Yangi mavzu — ya
 | 19 | «Машқ» va «Рейтинг» (14.11.2026, foydalanuvchi qarori; dizayn — ikkala bo'limda 2-variant: https://claude.ai/artifact/HptYYYpetUFM84qJyrHYa1; saytda 14.11.2026 dan) | [`docs/texnik/19-mashq-reyting.md`](texnik/19-mashq-reyting.md) | 9 KB |
 | 20 | Yo'riqnoma o'ynatkichi — «Кўрсатмалар» (14.11.2026, foydalanuvchi qarori; saytda — 15.11.2026) | [`docs/texnik/20-yoriqnoma.md`](texnik/20-yoriqnoma.md) | 7 KB |
 | 21 | Grammatika videolari (19.11.2026, foydalanuvchi qarori: «kerak bo'lsa ElevenLabs va video AI ham — eng yaxshi deb o'ylaganingni») | [`docs/texnik/21-grammatika-video.md`](texnik/21-grammatika-video.md) | 39 KB |
+| 22 | Сайтга кириш коди (26.11.2026, foydalanuvchi qarori; vaqtinchalik, pullik versiyagacha) | [`docs/texnik/22-kirish-kodi.md`](texnik/22-kirish-kodi.md) | 2 KB |

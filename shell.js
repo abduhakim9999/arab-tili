@@ -496,6 +496,27 @@
     el.parentNode.insertBefore(q, el.nextSibling);
     /* BALL (26.11.2026; takror.js REY): dars birinchi marta 80% dan o'tsa — +100 (xo<dars>, darsga bir marta; ilgari o'tilgan bo'lsa — yo'q) */
     if (Math.round(a * 100 / n) >= 80 && b < 80 && window.Ball) Ball.bonus('xo' + dn, 100, el);
+    otdiYoz(dn, Math.round(a * 100 / n), n, sn, R);
+  }
+  /* 26.11.2026 (foydalanuvchi: «O'zi … mashq ishlangandan keyin tushishi kerak edi-ku», «tekshirib tuzat»): dars o'tilgani va so'zlari
+     «Машқ»ga tushishi DARS SAHIFASINING O'ZIDA yoziladi — avval faqat bosh sahifa (yol.html yigish) yozardi: darsdan to'g'ri «Машқ»ga
+     o'tilsa so'zlar tushmasdi, savollar o'zgargach (eski to'plam) natija umuman hisoblanmasdi. 80% bo'lsa: R.d[dars] (yol, yol-t) va W.s[dars]
+     (soz) — yol.html yigish() bilan bir xil; R.tu — bosh sahifadagi «Машқ»га тушди kartasi (yigish o'qib, o'chiradi). Ruscha — tg.js Profil */
+  function otdiYoz(dn, p, n, sn, R) {
+    if (p < 80) return;
+    var ls = localStorage, ky = sn ? 'yol-sinov' : 'yol', kb = sn ? 'soz-sinov' : 'soz', W = null, t = Date.now();
+    try {
+      R = R && typeof R === 'object' ? R : {}; R.v = 1; R.d = R.d || {}; R.e = R.e || {};
+      var r = R.d[dn] || {};
+      if (r.s !== p || r.j !== n || r.b == null || p > r.b) {
+        if ((r.b || 0) < 80) { R.tu = R.tu || []; if (R.tu.indexOf(dn) < 0) R.tu.push(dn); }
+        R.d[dn] = { b: Math.max(r.b || 0, p), s: p, j: n, t: t };
+        ls.setItem(ky, JSON.stringify(R)); ls.setItem(ky + '-t', String(t));
+      }
+      try { W = JSON.parse(ls.getItem(kb) || 'null'); } catch (e) {}
+      W = W && typeof W === 'object' ? W : {}; W.v = 1; W.s = W.s || {};
+      if (!W.s[dn]) { W.s[dn] = t; W.t = t; ls.setItem(kb, JSON.stringify(W)); }
+    } catch (e) {}
   }
   /* BALL (26.11.2026, foydalanuvchi: «qancha ko'p shug'ullansa, shuncha ball»): dars «Машқ»idagi har javob takror jurnaliga —
      xd<dars>:<savol> (tg.js Ball.yoz; to'g'ri — 10 ball, bitta savol kuniga bir marta). Savol kodi dars sahifasining o'zida (qans/qshow). */

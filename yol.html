@@ -490,7 +490,10 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
       });
       /* 26.11.2026 (savollar qayta ko'rildi, docs/texnik/23-savollar.md): saqlangan javoblarda hozir yo'q savol bo'lsa — bu eski to'plam;
          qolganidan foiz hisoblanmaydi (bir-ikki savoldan «o'tdi» chiqmasin), avvalgi natija (R.d) o'zgarmaydi; dars ochilganda «Машқ» qaytadan boshlanadi */
-      if (eski || !tola || !jami) return;
+      /* 26.11.2026 (foydalanuvchi: 98-dars 92% bo'lgan, so'zlar tushmadi — eski 13 savoldan 3 tasi olib tashlangan edi): eski to'plamda hozirgi
+         to'plamning HAMMA savoliga javob berilgan bo'lsa — foiz shu hozirgi savollardan hisoblanadi (bir-ikki savoldan «o'tdi» chiqmaydi) */
+      if (eski && jami !== (Q[d.n] || []).length + (QTU[d.n] || []).length) return;
+      if (!tola || !jami) return;
       /* «Боб якуни» (26.11.2026): shu urinishdagi xatolar — «Хатолар устида ишлаш»ga. Urinish izi (g) o'zgarsa (dars qayta yechildi) — yangisi bilan
          almashadi; tuzatilgani (yakTuzatildi) ro'yxatdan chiqadi va shu urinish qayta qo'shilmaydi */
       var g = izi(JSON.stringify(S.q.o) + '|' + JSON.stringify(S.q.ch));
@@ -508,6 +511,11 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
       if ((r.b || 0) < OTISH && R.d[d.n].b >= OTISH && (LG[d.n] || []).length && TUSH.indexOf(d.n) < 0) TUSH.push(d.n);   /* «Машқ»га тушди картаси (tushdi) */
       xato = xato.concat(xx);
     });
+    /* dars sahifasi o'zi o'tgan deb yozgan darslar (shell.js otdiYoz, R.tu) — «Машқ»га тушди kartasi shu yerda bir marta */
+    if (R.tu) {
+      R.tu.forEach(function (n) { n = +n; if ((LG[n] || []).length && TUSH.indexOf(n) < 0) TUSH.push(n); if (W && W.s && !W.s[n] && R.d[n] && R.d[n].b >= OTISH && (LG[n] || []).length) { W.s[n] = Date.now(); wo = true; } });
+      delete R.tu; o = true;
+    }
     if (o) yoz();
     if (wo) wYoz();
     xatoQosh(xato);

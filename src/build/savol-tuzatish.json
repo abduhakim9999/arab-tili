@@ -697,6 +697,66 @@
         ],
         "sabab": "26.11.2026 (2-tekshiruv): yorliq tanvinli shaklda «замма/фатҳа/касра» edi — tugmadagi so'z bilan mos emas; «танвинли …» qilindi (tartib 4: yorliq — harakat nomi)."
       }
+    },
+    "qur": {
+      "2-1": "4-tekshiruv (26.11.2026, 9–11-darslar yangi turlar): اللَّهُ أَكْبَرُ — azon iborasi, yodlangan (tartib 2): harakatini o'quvchi o'ylamay topadi. Ғайри мунсариф sababi shu bobda 7-dars (عَبْلَةُ، سَعِيدَةُ) va 8-darsda so'ralgan — 4-marta takrorlanmaydi."
+    },
+    "tur": {
+      "7-2": {
+        "t": "h",
+        "j": "Жар",
+        "iz": "الْمُصَلَّى — فِي сабаб жар. Охири алиф (мақсур) — касра кўринмайди (тақдирий, таъаззур).",
+        "sabab": "4-tekshiruv (26.11.2026, 9–11-darslar yangi turlar): Harakat ko'rinmaydi — holatni faqat ta'sir qiluvchidan bilish mumkin; 7-dars عِيسَى (maqsur, Раф) dan keyin — maqsur majrur."
+      },
+      "7-3": {
+        "t": "h",
+        "o": [
+          "Раф",
+          "Насб",
+          "Жазм"
+        ],
+        "j": "Раф",
+        "iz": "تُصَلِّي — феъли музориъ: насб ёки жазм қилувчи йўқ, шунинг учун раф. Замма ي да оғир — талаффуз қилинмайди (тақдирий).",
+        "sabab": "4-tekshiruv (26.11.2026, 9–11-darslar yangi turlar): Fe'lda harakat ko'rinmaydi (harakat ≠ holat); 4-dars تُرِيدُ (zohiriy zamma) dan farqi — taqdiriy zamma."
+      },
+      "8-3": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун танвинсиз?",
+        "o": [
+          "Музоф бўлгани учун",
+          "Ғайри мунсариф бўлгани учун",
+          "ال билан келгани учун",
+          "Мунодо бўлгани учун"
+        ],
+        "j": "Мунодо бўлгани учун",
+        "iz": "سَعْدُ — мунодо (алам): танвинсиз заммага мабний, насб ўринда. Нидосиз келса — سَعْدٌ (танвинли).",
+        "sabab": "4-tekshiruv (26.11.2026, 9–11-darslar yangi turlar): Darsning yangi mavzusi — nido: 3-qatordagi سَعْدٌ (tanvinli) va يَا سَعْدُ farqi. Avval harakat savoli edi — sababini so'rash ko'proq o'rgatadi. «танвинсиз?» to'plamiga 9-darsdan 4-variant — Мунодо (oldingi 3 tasi o'sha tartibda); «Ғайри мунсариф» javobi ko'p bo'lib qolmasin."
+      },
+      "9-2": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун раф?",
+        "o": [
+          "Мубтадо",
+          "Хабар",
+          "Фоил",
+          "Сифат"
+        ],
+        "j": "Хабар",
+        "iz": "الْمِعْطَفُ — هَذَا нинг хабари, шунинг учун раф. Ораларидаги هُوَ — фасл замири: кейинги сўз сифат эмас, хабар эканини кўрсатади.",
+        "sabab": "4-tekshiruv (26.11.2026, 9–11-darslar yangi turlar): Darsning yangi mavzusi — fasl zamiri; chalg'ituvchi Сифат («бу пальто» deb o'qish). Rol to'plami 7-darsdagidek 4 ta. 11-qator (النَّظَّارَةُ) xuddi shunday — so'ralmaydi."
+      },
+      "9-4": {
+        "t": "h",
+        "j": "Насб",
+        "iz": "وَالِدِي — музоф мунодо, шунинг учун насб. Фатҳа кўринмайди: ي олдидаги ўрин касра билан банд (тақдирий).",
+        "sabab": "4-tekshiruv (26.11.2026, 9–11-darslar yangi turlar): Kasra ko'rinsa ham holat — nasb (muzof munodo; NIDA kartasi 2). 11-qator (يَا وَالِدِي) xuddi shunday — so'ralmaydi."
+      },
+      "10-3": {
+        "t": "h",
+        "j": "Насб",
+        "iz": "سَعِيدُ — мунодо (алам): заммага мабний, насб ўринда. Замма кўринса ҳам ҳолати — насб.",
+        "sabab": "4-tekshiruv (26.11.2026, 9–11-darslar yangi turlar): Mabniy munodo — zamma ko'rinadi, holat nasb (NIDA kartasi 1); 8-3 سَعْدُ (nima uchun tanvinsiz) bilan bir-birini to'ldiradi, bir xil savol emas."
+      }
     }
   },
   "10": {
@@ -740,7 +800,99 @@
           }
         ],
         "sabab": "26.11.2026 (2-tekshiruv): yorliq tanvinli shaklda «замма/фатҳа/касра» edi — tugmadagi so'z bilan mos emas; «танвинли …» qilindi (tartib 4: yorliq — harakat nomi)."
+      },
+      "4-2": {
+        "v": [
+          {
+            "w": "حَيُّ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
+            "w": "حَيِّ",
+            "c": "J",
+            "lb": "касра"
+          },
+          {
+            "w": "حَيٍّ",
+            "c": "J",
+            "lb": "танвинли касра"
+          }
+        ],
+        "sabab": "4-tekshiruv (26.11.2026, 9–11-darslar yangi turlar): Tuzoq — muzofga tanvin (حَيٍّ): TRK «музоф бўлгани учун танвин олмайди» deydi, eski to'plamda tanvinli shakl yo'q edi (فَتْحَة o'rniga). Tabiiy tartib."
+      },
+      "6-3": {
+        "v": [
+          {
+            "w": "بَيْتَ",
+            "c": "N",
+            "lb": "фатҳа"
+          },
+          {
+            "w": "بَيْتِ",
+            "c": "J",
+            "lb": "касра"
+          },
+          {
+            "w": "بَيْتٍ",
+            "c": "J",
+            "lb": "танвинли касра"
+          }
+        ],
+        "sabab": "4-tekshiruv (26.11.2026, 9–11-darslar yangi turlar): Tuzoq — tanvinsiz kasra (بَيْتِ, 4-2 حَيِّ ga qarab). Tabiiy tartib."
       }
+    },
+    "trk": {
+      "6-3": {
+        "v": [
+          "6-2",
+          "بَيْتٍ — فِي сабаб жар қилинган; накра (музоф эмас) — танвинли."
+        ],
+        "yangi": true,
+        "sabab": "4-tekshiruv (26.11.2026, 9–11-darslar yangi turlar): Yangi savol: 4-2 حَيِّ (muzof — tanvinsiz) bilan juft — nakra majrur tanvin oladi; o'quvchi «jar — tanvinsiz» deb umumlashtirmasin."
+      }
+    },
+    "tur": {
+      "6-1": {
+        "t": "v",
+        "s": "Белгиланган феъл нима учун раф?",
+        "o": [
+          "Насб ёки жазм қилувчи йўқлиги учун",
+          "Савол ҳарфидан кейин келгани учун",
+          "Феъл доим раф бўлгани учун"
+        ],
+        "j": "Насб ёки жазм қилувчи йўқлиги учун",
+        "iz": "تَسْكُنُ — феъли музориъ: уни насб ёки жазм қилувчи сўз йўқ, шунинг учун раф. هَلْ — истифҳом ҳарфи, эъробга таъсир қилмайди.",
+        "sabab": "4-tekshiruv (26.11.2026, 9–11-darslar yangi turlar): Darsning asosiy mavzusi — muzori' rafi (MUDRAF). Tuzoqlar: هَلْ ni ta'sir qiluvchi deb o'ylash va «fe'l doim raf». 4-dars تُرِيدُ («Ҳолати?») dan boshqa tur — sababi so'raladi."
+      },
+      "9-1": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун танвинсиз?",
+        "o": [
+          "Музоф бўлгани учун",
+          "Ғайри мунсариф бўлгани учун",
+          "ال билан келгани учун",
+          "Мунодо бўлгани учун"
+        ],
+        "j": "Музоф бўлгани учун",
+        "iz": "رَقْمُ — музоф (شَقَّتِكَ га), шунинг учун танвин олмайди; ўзи — مَا нинг хабари, раф.",
+        "sabab": "4-tekshiruv (26.11.2026, 9–11-darslar yangi turlar): «танвинсиз?» savollarida javob ko'pincha Ғайри мунсариф edi (2, 7, 8-darslar) — muzof sababi ham so'ralsin. Avval harakat savoli edi, tanvinli tuzoq yo'q edi."
+      },
+      "10-0": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун раф?",
+        "o": [
+          "Мубтадо",
+          "Хабар",
+          "Фоил"
+        ],
+        "j": "Хабар",
+        "iz": "خَمْسَةٌ — хабар; мубтадоси маҳзуф: (رَقْمُ شَقَّتِي) خَمْسَةٌ. Жавобда савол сўзлари такрорланмайди.",
+        "sabab": "4-tekshiruv (26.11.2026, 9–11-darslar yangi turlar): Yolg'iz so'z — o'quvchi uni mubtado deb o'ylaydi; mahzuf mubtadoni o'rgatadi. Harakat savoli (doim танвинли замма) kam o'ylatardi."
+      }
+    },
+    "qur": {
+      "11-0": "4-tekshiruv (26.11.2026, 9–11-darslar yangi turlar): تِسْعَةٌ — 10-0 خَمْسَةٌ bilan bir xil (mahzuf mubtadoning xabari) — dars ichida takror."
     }
   },
   "11": {
@@ -824,6 +976,102 @@
           }
         ],
         "sabab": "26.11.2026 (2-tekshiruv): yorliq tanvinli shaklda «замма/фатҳа/касра» edi — tugmadagi so'z bilan mos emas; «танвинли …» qilindi (tartib 4: yorliq — harakat nomi)."
+      },
+      "6-2": {
+        "v": [
+          {
+            "w": "خَمْسُ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
+            "w": "خَمْسٌ",
+            "c": "R",
+            "lb": "танвинли замма"
+          },
+          {
+            "w": "خَمْسَ",
+            "c": "N",
+            "lb": "фатҳа"
+          }
+        ],
+        "sabab": "4-tekshiruv (26.11.2026, 9–11-darslar yangi turlar): Tuzoq — muzofga tanvin (خَمْسٌ): TRK «музоф бўлгани учун танвин олмайди»; eski to'plamda tanvinli shakl yo'q edi (касра o'rniga). Tabiiy tartib."
+      },
+      "9-1": {
+        "v": [
+          {
+            "w": "مُشَاهَدَةُ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
+            "w": "مُشَاهَدَةَ",
+            "c": "N",
+            "lb": "фатҳа"
+          },
+          {
+            "w": "مُشَاهَدَةً",
+            "c": "N",
+            "lb": "танвинли фатҳа"
+          }
+        ],
+        "sabab": "4-tekshiruv (26.11.2026, 9–11-darslar yangi turlar): Tuzoq — muzofga tanvin (مُشَاهَدَةً): 3-1 شَقَّةً (tanvinli mafʼul) dan farqi aynan shu; eski to'plamda yo'q edi (касра o'rniga). Tabiiy tartib."
+      },
+      "7-1": {
+        "v": [
+          {
+            "w": "أَيُّ",
+            "c": "R",
+            "lb": "замма"
+          },
+          {
+            "w": "أَيَّ",
+            "c": "N",
+            "lb": "фатҳа"
+          },
+          {
+            "w": "أَيِّ",
+            "c": "J",
+            "lb": "касра"
+          }
+        ],
+        "sabab": "4-tekshiruv (26.11.2026, 9–11-darslar yangi turlar): Tuzoq — 2-darsdagi أَيَّ shakli (fatha). Tabiiy tartib."
+      }
+    },
+    "trk": {
+      "7-1": {
+        "v": [
+          "7-0",
+          "أَيِّ — فِي сабаб жар қилинган. Савол сўзлари ичида أَيّ — мўъраб: ҳаракати ўзгаради."
+        ],
+        "yangi": true,
+        "sabab": "4-tekshiruv (26.11.2026, 9–11-darslar yangi turlar): Yangi savol: savol so'zlari odatda mabniy, أَيّ — mu'rab; 2-dars أَيَّ (nasb) dan keyin — majrur shakli."
+      }
+    },
+    "tur": {
+      "4-1": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун раф?",
+        "o": [
+          "Мубтадо",
+          "Хабар",
+          "Фоил"
+        ],
+        "j": "Мубтадо",
+        "iz": "شَقَّةٌ — мубтадо муаххар: хабари (لَدَيْنَا) олдинга ўтган. Накра мубтадо бўлса, хабар олдинга ўтади.",
+        "sabab": "4-tekshiruv (26.11.2026, 9–11-darslar yangi turlar): Ikkinchi turgan nakra so'z — o'quvchi uni xabar deb o'ylaydi. 2-dars السَّلَامُ dan yangi nozik joy: nakra mubtado — xabar oldinga o'tishi vojib (MUBXAB 4)."
+      },
+      "5-1": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун насб?",
+        "o": [
+          "Мафъулун биҳ бўлгани учун",
+          "Тамйиз бўлгани учун",
+          "Зарф бўлгани учун"
+        ],
+        "j": "Тамйиз бўлгани учун",
+        "iz": "غُرْفَةً — сўроқ كَمْ нинг тамйизи: бирлик ва насб бўлади.",
+        "sabab": "4-tekshiruv (26.11.2026, 9–11-darslar yangi turlar): Darsning yangi mavzusi — كَمْ tamyizi (TAMYIZ). Chalg'ituvchilar: mafʼul (oldingi gap أُرِيدُ شَقَّةً) va zarf — ikkalasi ham nasb sababi. Avval harakat savoli edi."
       }
     }
   },

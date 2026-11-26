@@ -199,6 +199,7 @@ mark{background:rgba(234,88,12,.25);color:inherit;border-radius:4px;padding:0 3p
 <div id="p3" class="hide"></div>
 </div>
 <div id="sh" onclick="cl(event)"><div class="sheet" id="sb"></div></div>
+<script src="savol.js"></script>
 <script>
 var D=[
 ["",`حِوَارٌ|R|[[Исм]]. Маҳзуф мубтадонинг хабари|суҳбат, диалог`],
@@ -513,7 +514,8 @@ var TRK={"1-2": ["1-1", "الْفَجْرِ — أَذَانُ нинг музо
 var ANS={};
 function qlast(o){var hk=o.e[1].replace(/[^ً-ِ]/g,"");return hk.charAt(hk.length-1)}
 /* ---- mashq: so'z oxiri harakatini topish (bitta umumiy mashq) ---- */
-var QUR={};
+var QUR={"2-1": 1};
+var QTUR={"7-2": {"t": "h", "j": "Жар", "iz": "الْمُصَلَّى — فِي сабаб жар. Охири алиф (мақсур) — касра кўринмайди (тақдирий, таъаззур)."}, "7-3": {"t": "h", "o": ["Раф", "Насб", "Жазм"], "j": "Раф", "iz": "تُصَلِّي — феъли музориъ: насб ёки жазм қилувчи йўқ, шунинг учун раф. Замма ي да оғир — талаффуз қилинмайди (тақдирий)."}, "8-3": {"t": "v", "s": "Белгиланган сўз нима учун танвинсиз?", "o": ["Музоф бўлгани учун", "Ғайри мунсариф бўлгани учун", "ال билан келгани учун", "Мунодо бўлгани учун"], "j": "Мунодо бўлгани учун", "iz": "سَعْدُ — мунодо (алам): танвинсиз заммага мабний, насб ўринда. Нидосиз келса — سَعْدٌ (танвинли)."}, "9-2": {"t": "v", "s": "Белгиланган сўз нима учун раф?", "o": ["Мубтадо", "Хабар", "Фоил", "Сифат"], "j": "Хабар", "iz": "الْمِعْطَفُ — هَذَا нинг хабари, шунинг учун раф. Ораларидаги هُوَ — фасл замири: кейинги сўз сифат эмас, хабар эканини кўрсатади."}, "9-4": {"t": "h", "j": "Насб", "iz": "وَالِدِي — музоф мунодо, шунинг учун насб. Фатҳа кўринмайди: ي олдидаги ўрин касра билан банд (тақдирий)."}, "10-3": {"t": "h", "j": "Насб", "iz": "سَعِيدُ — мунодо (алам): заммага мабний, насб ўринда. Замма кўринса ҳам ҳолати — насб."}};
 function qsh(A){for(var a=A.length-1;a>0;a--){var b=Math.floor(Math.random()*(a+1)),t=A[a];A[a]=A[b];A[b]=t}return A}
 var QOV={"1-2": [{"w": "الْفَجْرُ", "c": "R", "lb": "замма"}, {"w": "الْفَجْرَ", "c": "N", "lb": "фатҳа"}, {"w": "الْفَجْرِ", "c": "J", "lb": "касра"}], "2-1": [{"w": "أَكْبَرُ", "c": "R", "lb": "замма"}, {"w": "أَكْبَرَ", "c": "N", "lb": "фатҳа"}, {"w": "أَكْبَرٍ", "c": "J", "lb": "танвинли касра"}], "5-4": [{"w": "الْقُرْآنُ", "c": "R", "lb": "замма"}, {"w": "الْقُرْآنَ", "c": "N", "lb": "фатҳа"}, {"w": "الْقُرْآنِ", "c": "J", "lb": "касра"}], "8-3": [{"w": "سَعْدُ", "c": "B", "lb": "замма"}, {"w": "سَعْداً", "c": "N", "lb": "танвинли фатҳа"}, {"w": "سَعْدٌ", "c": "R", "lb": "танвинли замма"}], "12-3": [{"w": "الْمَسْجِدُ", "c": "R", "lb": "замма"}, {"w": "الْمَسْجِدَ", "c": "N", "lb": "фатҳа"}, {"w": "الْمَسْجِدِ", "c": "J", "lb": "касра"}]};
 function qends(k){
@@ -538,7 +540,7 @@ function qpool(){
   return P;
 }
 function qstart(){
-  clearTimeout(qtm);QZ=qsh(qpool());QZ.forEach(function(q){q.o=qends(q.l+"-"+q.w);q.ch=null;q.ok=false});qi=0;qsc=0;qshow();
+  clearTimeout(qtm);QZ=qsh(qpool());QZ.forEach(function(q){q.o=qends(q.l+"-"+q.w);q.ch=null;q.ok=false});if(window.QTX)QZ=QTX.plan(QZ);qi=0;qsc=0;qshow();
 }
 function qline(l,tw,cls){
   var h="";D[l][1].split("/").forEach(function(w,j){var x=info(w);
@@ -546,6 +548,7 @@ function qline(l,tw,cls){
   return '<div class="qs'+(cls?" "+cls:"")+'">'+h+'</div>';
 }
 function qshow(){
+  if(window.QTX&&QZ[qi].t){QTX.show();return}
   var q=QZ[qi],k=q.l+"-"+q.w,am=TRK[k],ctx="";
   if(am){var al=+am[0].split("-")[0];if(al!=q.l)ctx=qline(al,-1,"qc")}
   var tr=TR[q.l].map(function(t){return t[0]}).join(" ");
@@ -558,6 +561,7 @@ function qshow(){
   if(q.ch!=null)qfb(q);
 }
 function qans(b){
+  if(window.QTX&&QZ[qi].t){QTX.ans(b);return}
   var q=QZ[qi];if(q.ch!=null)return;
   var k=q.l+"-"+q.w,o=get(k),i=+b.getAttribute("data-x");
   q.ch=i;q.ok=q.o[i].w==o.v;if(q.ok)qsc++;
@@ -567,6 +571,7 @@ function qans(b){
 }
 var qtm=null;
 function qfb(q){
+  if(window.QTX&&q.t){QTX.fb(q);return}
   var k=q.l+"-"+q.w,o=get(k),am=TRK[k],ok=q.ok;
   document.querySelectorAll(".qo button").forEach(function(x){var j=+x.getAttribute("data-x");if(q.o[j].w==o.v)x.classList.add("ok");else if(j==q.ch)x.classList.add("no")});
   var t=document.querySelector('.qs [data-q="'+k+'"]');if(t)t.textContent=o.v;
@@ -589,7 +594,7 @@ function qnext(){qgo(1)}
 function qres(){
   var qmis=QZ.filter(function(q){return !q.ok});
   var h='<div class="qbox"><div class="qhd"><span>Натижа</span></div><div class="qsc">'+qsc+' / '+QZ.length+'</div>';
-  if(qmis.length){h+='<div class="qq">Хато қилинган сўзлар:</div>';qmis.forEach(function(q){var k=q.l+"-"+q.w,o=get(k),am=TRK[k];h+='<div class="g"><div class="hd"><span class="ar vw">'+o.v+'</span><div class="mn"><div>'+(am?arw(am[1]):mainLine(k))+'</div></div></div></div>'})}
+  if(qmis.length){h+='<div class="qq">Хато қилинган сўзлар:</div>';qmis.forEach(function(q){var k=q.l+"-"+q.w,o=get(k),am=TRK[k];h+='<div class="g"><div class="hd"><span class="ar vw">'+o.v+'</span><div class="mn"><div>'+(q.t&&window.QTX?arw(QTX.iz(q)):(am?arw(am[1]):mainLine(k)))+'</div></div></div></div>'})}
   h+='<div class="qb"><button onclick="qi=QZ.length-1;qshow()">‹ Саволларга қайтиш</button><button class="pr" onclick="qstart()">Қайтадан</button></div></div>';
   document.getElementById("p3").innerHTML=h;
 }
@@ -632,7 +637,7 @@ if(au){
   /* audio */
   if(au){var la=0;au.addEventListener("timeupdate",function(){var n=Date.now();if(n-la>2000){la=n;S.at=Math.round(au.currentTime*10)/10;sv()}});au.addEventListener("pause",function(){S.at=Math.round(au.currentTime*10)/10;sv()})}
   /* mashq */
-  function saveQ(){S.q={o:QZ.map(function(q){return [q.l,q.w]}),ch:QZ.map(function(q){return q.ch}),qi:qi};sv()}
+  function saveQ(){S.q={o:QZ.map(function(q){return q.t?[q.l,q.w,q.t]:[q.l,q.w]}),ch:QZ.map(function(q){return q.ch}),qi:qi};sv()}
   var _qshow=qshow;qshow=function(){_qshow();S.qr=0;saveQ()};
   var _qans=qans;qans=function(b){_qans(b);saveQ()};
   var _qres=qres;qres=function(){_qres();S.qr=1;saveQ()};
@@ -644,7 +649,8 @@ if(au){
     if(S.htr)ttr();
     if(S.q&&S.q.o&&S.q.o.length){
       var Z=[],okAll=true;
-      S.q.o.forEach(function(x,i){var k=x[0]+"-"+x[1],o=TRK[k]&&!QUR[k]?qends(k):null;if(!o){okAll=false;return}var c=S.q.ch[i];Z.push({l:x[0],w:x[1],o:o,ch:(c==null?null:c),ok:c!=null&&o[c]&&o[c].w==get(k).v})});
+      S.q.o.forEach(function(x,i){var k=x[0]+"-"+x[1],t=x[2],o=t?(window.QTX?QTX.ops(k,t):null):(TRK[k]&&!QUR[k]&&!(window.QTUR&&QTUR[k])?qends(k):null);if(!o){okAll=false;return}var c=S.q.ch[i];Z.push({l:x[0],w:x[1],t:t,o:o,ch:(c==null?null:c),ok:c!=null&&!!o[c]&&(t?!!o[c].ok:o[c].w==get(k).v)})});
+      if(okAll&&window.QTX&&!QTX.mos(Z))okAll=false;
       if(okAll&&Z.length){QZ=Z;qi=Math.min(S.q.qi||0,Z.length-1);qsc=Z.filter(function(q){return q.ok}).length;if(S.qr)_qres();else _qshow()}
     }
     

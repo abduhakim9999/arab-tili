@@ -329,6 +329,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
 .y-uc.m{--c:#3a73cc}.y-uc.g{--c:#2fa36f}.y-uc.o{--c:#d9a23a}.y-uc.b{--c:var(--y-no)}
 /* «Боб якуни» va «Хатолар устида ишлаш» (26.11.2026; docs/texnik/23-savollar.md) */
 .y-sv{text-align:center;font-size:15px;margin:-6px 0 14px}
+.y-kyp{padding:6px}.y-kyp .y-li::before,.y-kyp .y-li::after{display:none}   /* «Китоб якуни» paneli — bitta qator, chiziqsiz */
 .y-tu{display:inline-block;font-size:12px;padding:1px 9px;border-radius:9px;border:1px solid var(--bd);color:var(--ac);margin-left:4px}
 .y-o button .uz{font-size:16px;color:var(--tx);font-weight:500}
 .y-o button.ok .uz{color:var(--y-ok)}.y-o button.no .uz{color:var(--y-no)}
@@ -701,8 +702,8 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
         '<span class="k"><span class="t"><b>' + (t === 'b' ? 'Боб имтиҳони' : 'Китоб имтиҳони') + '</b><span class="m">' + (x.tez ? 'тез орада' : savolSoni(t, i.slice(1)) + ' савол · ' + OTISH + '% — ўтиш') + '</span></span>' +
         (x.ot ? '<em class="ok">' + (x.r ? x.r.b + '%' : '') + IC.ok + '</em>' : x.r ? '<em>' + x.r.b + '%</em>' : '<em>' + IC.ong + '</em>') + '</span></button>';
     };
-    h += yakQator(b) + '</div>';                         /* eski bob/kitob imtihoni qatorlari olib tashlangan (23.11.2026) — imt() ishlatilmaydi; 26.11.2026 dan «Боб якуни» (yakQator) */
-    if (k.b[k.b.length - 1] === b) h += keyingiKitob(k);
+    h += yakQator(b.k) + '</div>';                       /* eski bob/kitob imtihoni qatorlari olib tashlangan (23.11.2026) — imt() ishlatilmaydi; 26.11.2026 dan «Боб якуни» (yakQator) */
+    if (k.b[k.b.length - 1] === b) h += yakKitob(k) + keyingiKitob(k);   /* «Китоб якуни» (26.11.2026) — oxirgi bobdan keyin */
     return h + '</section>';
   }
 
@@ -1202,7 +1203,30 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
      oldingi imtihon xatolari to'g'ri topilgan. Vaqt qulfi yo'q. So'z savoli yo'q (so'zlar «Машқ»da).
      R.y[bob] = {b, s, t}; R.xd[dars] = {g: urinish izi, x: ['s12', 't380']} (yigish); R.xb[bob] = imtihon xatolari; davom — KY + '-yak'. ==== */
   var YAK = 80, TURN = { h: 'Ҳолати?', v: 'Нима учун?', s: 'Сабабчини топ' };
-  var YAKB = { k1b1: 1 };   /* sinov (26.11.2026, foydalanuvchi: «avval 1-kitobning 1-bobida»): «Боб якуни» faqat shu boblarda; hammasiga — shu qatorni olib tashlash */
+  /* 26.11.2026 (4-tekshiruv; foydalanuvchi: «avval birinchi kitobni hammasini qilib olamiz», «bob mashqida o'sha bobdagi hamma savollar, faqat
+     aralashtirilgan», «kitob testida kitobdagi hamma mashqlar aralashtirib»): «Боб якуни» — YAKK dagi kitoblarning hamma boblarida (1-bob sinovi
+     YAKB o'rniga); «Китоб якуни» — kalit 'K' + kitob raqami: kitobdagi HAMMA «Эъроб» savoli aralash. Ochilishi — kitobning hamma «Боб якуни»
+     qabul qilingan va xatolar (dars, bob va kitob imtihonlari) tuzatilgan. Hamma kitobga — YAKK ga raqamini qo'shish. */
+  var YAKK = { 1: 1 };
+  function kitobi(kl) { var x = null; (TUZ || []).forEach(function (k) { if ('K' + k.n === kl || k.b.some(function (b) { return b.k === kl; })) x = k; }); return x; }
+  function yakBor(kl) { var k = kitobi(kl); return !!(k && YAKK[k.n]); }
+  function yakTop(kl) {                                /* bob — bobTop; kitob — hamma boblarining darslari bitta ro'yxatda */
+    if (kl.charAt(0) !== 'K') return bobTop(kl);
+    var k = kitobi(kl), d = [];
+    k.b.forEach(function (b) { d = d.concat(b.d); });
+    return { k: kl, kitob: k, raq: k.n, nom: KNOM[k.n] || '', d: d, b: k.b };
+  }
+  function yakNom(kl) { var t = yakTop(kl); return t.raq + (t.kitob ? '-китоб якуни' : '-боб якуни'); }
+  /* variant tartibi (26.11.2026, 4-tekshiruv; foydalanuvchi: qayta urinishda variantlar aralashsin): imtihonda va «Хатолар устида ишлаш»da har
+     savolning variantlari har safar aralashadi; to'g'ri javob dars «Эъроб»idagi (shu mashg'ulotda qayta chiqsa — oxirgi ko'rilgan) o'rnida
+     turmaydi — o'quvchi javobni o'rnidan eslab bosa olmasin. p — ko'rsatish tartibi (asl indekslar) */
+  function yakTartib(k, n, togri) {
+    var p = [], i, eski = IM.oxir && IM.oxir[k] != null ? IM.oxir[k] : togri;
+    for (i = 0; i < n; i++) p.push(i);
+    for (i = 0; i < 12; i++) { aralash(p); if (n < 2 || p.indexOf(togri) !== eski) break; }
+    (IM.oxir = IM.oxir || {})[k] = p.indexOf(togri);
+    return p;
+  }
   function izi(s) { var h = 0; for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); }
   function qmap() {
     if (!QMX) { QMX = {}; (MQ || []).forEach(function (q) { QMX['s' + q.id] = q; }); MTU.forEach(function (q) { QMX['t' + q.id] = q; }); }
@@ -1210,45 +1234,55 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
   }
   function yakSavollar(kl) {
     var out = [];
-    bobTop(kl).d.forEach(function (d) { (Q[d.n] || []).forEach(function (q) { out.push('s' + q.id); }); (QTU[d.n] || []).forEach(function (q) { out.push('t' + q.id); }); });
+    yakTop(kl).d.forEach(function (d) { (Q[d.n] || []).forEach(function (q) { out.push('s' + q.id); }); (QTU[d.n] || []).forEach(function (q) { out.push('t' + q.id); }); });
     return out;
   }
+  /* tuzatilmagan xatolar: darslar «Эъроб»i (R.xd) + shu imtihon (R.xb[kl]); kitobda — boblar imtihonlariniki ham («avval o'tilgan takrorlar») */
   function yakXato(kl) {
-    var m = qmap(), bor = {}, out = [];
+    var m = qmap(), bor = {}, out = [], t = yakTop(kl);
     function q(k) { if (m[k] && !bor[k]) { bor[k] = 1; out.push(k); } }
-    bobTop(kl).d.forEach(function (d) { ((R.xd || {})[d.n] || { x: [] }).x.forEach(q); });
+    t.d.forEach(function (d) { ((R.xd || {})[d.n] || { x: [] }).x.forEach(q); });
+    if (t.kitob) t.b.forEach(function (b) { ((R.xb || {})[b.k] || []).forEach(q); });
     ((R.xb || {})[kl] || []).forEach(q);
     return out;
   }
-  function yakTuzatildi(k, kl) {
-    bobTop(kl).d.forEach(function (d) { var e = (R.xd || {})[d.n]; if (e) e.x = e.x.filter(function (x) { return x !== k; }); });
-    if (R.xb && R.xb[kl]) R.xb[kl] = R.xb[kl].filter(function (x) { return x !== k; });
+  function yakTuzatildi(k, kl) {   /* tuzatilgan savol hamma ro'yxatdan chiqadi (bob va kitob imtihonlari xatolaridan ham) */
+    yakTop(kl).d.forEach(function (d) { var e = (R.xd || {})[d.n]; if (e) e.x = e.x.filter(function (x) { return x !== k; }); });
+    for (var z in (R.xb || {})) R.xb[z] = (R.xb[z] || []).filter(function (x) { return x !== k; });
     yoz();
   }
   function yakHolat(kl) {
-    var b = bobTop(kl);
-    return { tayyor: b.d.every(function (d) { return P.d[d.n] && P.d[d.n].ot; }), x: yakXato(kl).length, r: (R.y || {})[kl] || null, n: yakSavollar(kl).length };
+    var t = yakTop(kl), dars = t.d.every(function (d) { return P.d[d.n] && P.d[d.n].ot; }),
+        bob = !t.kitob || t.b.every(function (b) { var r = (R.y || {})[b.k]; return !!(r && r.b >= YAK); });
+    return { tayyor: dars && bob, dars: dars, bob: bob, x: yakXato(kl).length, r: (R.y || {})[kl] || null, n: yakSavollar(kl).length };
   }
-  function yakQator(b) {
-    if (!YAKB[b.k]) return '';
-    var y = yakHolat(b.k), m, qf = '';
+  function yakQator(kl) {
+    if (!yakBor(kl)) return '';
+    var t = yakTop(kl), y = yakHolat(kl), m, qf = '';
     if (!y.n) return '';
-    if (!y.tayyor) { m = 'Боб дарслари ўтилгач очилади'; qf = ' qf'; }
+    if (!y.dars) { m = (t.kitob ? 'Китоб' : 'Боб') + ' дарслари ўтилгач очилади'; qf = ' qf'; }
+    else if (!y.bob) { m = 'Ҳамма «Боб якуни» қабул қилингач очилади'; qf = ' qf'; }
     else if (y.x) m = 'Аввал ' + y.x + ' та хатони тузатинг';
     else m = y.n + ' савол · ' + YAK + '% — қабул';
-    return '<button class="y-li' + qf + '" data-i="y' + b.k + '"><span class="ic q">' + IC.qalqon + '</span><span class="k"><span class="t"><b>' + b.raq + '-боб якуни</b>' +
+    return '<button class="y-li' + qf + '" data-i="y' + kl + '"><span class="ic q">' + (t.kitob ? IC.kubok : IC.qalqon) + '</span><span class="k"><span class="t"><b>' + yakNom(kl) + '</b>' +
       '<span class="m">' + m + '</span></span>' + (y.r ? '<em' + (y.r.b >= YAK ? ' class="ok"' : '') + '>' + y.r.b + '%' + (y.r.b >= YAK ? IC.ok : '') + '</em>' : '<em>' + IC.ong + '</em>') + '</span></button>';
+  }
+  /* «Китоб якуни» qatori — kitobning oxirgi bobi panelidan keyin, kitob rangidagi alohida panelda */
+  function yakKitob(k) {
+    var q = yakQator('K' + k.n); if (!q) return '';
+    return '<div class="y-pn y-kyp" style="--br:' + (KR[k.n] || KR[1]).r + '">' + q + '</div>';
   }
   function yakSaqlangan(kl) { var x = null; try { x = JSON.parse(L(KY + '-yak') || 'null'); } catch (e) {} return x && x.kalit === kl && x.i < x.s.length ? x : null; }
   function yakSaqla() { if (IM.yak === 'y') LS(KY + '-yak', JSON.stringify({ kalit: IM.kalit, s: IM.s, i: IM.i, n: IM.n, tog: IM.tog, xato: IM.xato, dr: IM.dr })); }
   function yakVaraq(kl) {
-    var b = bobTop(kl), y = yakHolat(kl), sv = yakSaqlangan(kl), h,
-        iz = 'Бобдаги ҳамма дарсларнинг «Эъроб» саволлари аралаш берилади. Хато қилсангиз, тўғри жавоб ва изоҳ дарҳол чиқади; охирида умумий натижа, ' +
+    var b = yakTop(kl), y = yakHolat(kl), sv = yakSaqlangan(kl), h,
+        iz = (b.kitob ? 'Китобдаги' : 'Бобдаги') + ' ҳамма дарсларнинг «Эъроб» саволлари аралаш берилади. Хато қилсангиз, тўғри жавоб ва изоҳ дарҳол чиқади; охирида умумий натижа, ' +
              'дарслар бўйича натижа ва хатолар кўрсатилади. ' + YAK + '% — қабул. Сўз саволлари йўқ — сўзлар «Машқ» бўлимида.';
-    h = varaqBosh('<span class="y-md ex">' + IC.qalqon + '</span>', y.n + ' САВОЛ · ' + YAK + '% — ҚАБУЛ' + (y.r && y.r.b >= YAK ? yorliq('ok', IC.ok + 'Қабул қилинди', iz) : ''),
-      b.raq + '-боб якуни', esc(b.nom), iz);
+    h = varaqBosh('<span class="y-md ex">' + (b.kitob ? IC.kubok : IC.qalqon) + '</span>', y.n + ' САВОЛ · ' + YAK + '% — ҚАБУЛ' + (y.r && y.r.b >= YAK ? yorliq('ok', IC.ok + 'Қабул қилинди', iz) : ''),
+      yakNom(kl), esc(b.nom), iz);
     if (y.r) h += varaqNatija(y.r);
-    if (!y.tayyor) h += '<p>Аввал бобдаги ҳамма дарсларни ўтинг: ҳар бирининг «Эъроб»ида ' + OTISH + '%.</p>';
+    if (!y.dars) h += '<p>Аввал ' + (b.kitob ? 'китобдаги' : 'бобдаги') + ' ҳамма дарсларни ўтинг: ҳар бирининг «Эъроб»ида ' + OTISH + '%.</p>';
+    else if (!y.bob) h += '<p>Аввал ҳамма «Боб якуни»ни топширинг: ҳар бирида ' + YAK + '%.</p>';
     else if (y.x) h += '<p>' + (y.r && y.r.s < YAK ? 'Имтиҳондаги' : 'Дарслардаги') + ' ' + y.x + ' та хатони аввал тўғри топинг — кейин имтиҳон очилади.</p>' +
       '<button class="y-b y-b1" data-yx="' + kl + '">' + IC.takror + 'Хатолар устида ишлаш · ' + y.x + '</button>';
     else h += '<button class="y-b y-b1" data-yk="' + kl + '">' + (sv ? IC.oyin + 'Давом эттириш · ' + (sv.i + 1) + ' / ' + sv.s.length : y.r ? IC.takror + 'Қайта топшириш' : IC.oyin + 'Бошлаш') + '</button>';
@@ -1275,12 +1309,12 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
   function yakSavol() {
     clearTimeout(tmq); toxta();
     if (IM.i >= IM.s.length) { yakNatija(); return; }
-    var k = IM.s[IM.i], q = qmap()[k], tur = k[0] === 't' ? q.t : 'e', bajarildi = false, h, ops = null, cand = null;
-    var nom = IM.yak === 'x' ? 'Хатолар устида ишлаш' : bobTop(IM.kalit).raq + '-боб якуни';
+    var k = IM.s[IM.i], q = qmap()[k], tur = k[0] === 't' ? q.t : 'e', bajarildi = false, h, ops = null, cand = null, po = null;
+    var nom = IM.yak === 'x' ? 'Хатолар устида ишлаш' : yakNom(IM.kalit);
     var bosh = '<div class="y-l"><span>' + nom + '</span><em>' + q.d + '-дарс' + (tur !== 'e' ? '<span class="y-tu">' + TURN[tur] + '</span>' : '') + (IM.qy[IM.i] ? ' · қайта' : '') + '</em></div>';
     if (tur === 'e') {
       var ql = +q.k.split('-')[0], togri = q.gap[q.w][0], hk = q.hk || [-1, -1];
-      ops = aralash(q['var'].slice());
+      ops = yakTartib(k, q['var'].length, q['var'].map(function (v) { return v[0]; }).indexOf(togri)).map(function (i) { return q['var'][i]; });
       var chiz = function (ochiq) {
         return (q.oldgap ? '<div class="y-g og ar" lang="ar">' + qator(q.oldgap, -1, ochiq ? hk[1] : -1, false) + '</div>' : '') +
           '<div class="y-g ar" lang="ar">' + qator(q.gap, q.w, ochiq && hk[0] === ql && hk[1] !== q.w ? hk[1] : -1, ochiq) + '</div>';
@@ -1292,9 +1326,10 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
         var ql2 = +q.k.split('-')[0];
         cand = q.ok.map(function (x) { var p = x.split('-'); return +p[0] === ql2 ? +p[1] : -1; });   /* nomzodlar shu qatorda (ajrat.py) */
       }
+      else po = yakTartib(k, q.o.length, q.to);                                  /* «Ҳолати?» / «Нима учун?» — variantlar aralash */
       h = bosh + '<div class="y-g ar" lang="ar">' + qatorT(q.gap, q.w, cand, false) + '</div>' + (q.tr ? '<div class="y-tr">' + esc(q.tr) + '</div>' : '') +
         '<div class="y-sv">' + esc(q.s) + '</div>' +
-        (tur === 's' ? '' : '<div class="y-o">' + q.o.map(function (o, n) { return '<button data-n="' + n + '"><span class="uz">' + mix(o) + '</span></button>'; }).join('') + '</div>');
+        (tur === 's' ? '' : '<div class="y-o">' + po.map(function (i, n) { return '<button data-n="' + n + '"><span class="uz">' + mix(q.o[i]) + '</span></button>'; }).join('') + '</div>');
     }
     app.innerHTML = '<div class="y-in">' + imBosh() + '<section class="y-c y-k">' + h + '<div class="y-s" id="qs" aria-live="polite"></div></section></div>';
     bar.hidden = true; bar.innerHTML = ''; IM.t0 = Date.now();
@@ -1305,9 +1340,9 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
         bajarildi = true;
         var n = +b.getAttribute('data-n'), ok, javob;
         if (tur === 'e') { ok = ops[n][0] === q.gap[q.w][0]; javob = ops[n][0]; }
-        else { ok = n === q.to; javob = q.o[n]; }
+        else { ok = (po ? po[n] : n) === q.to; javob = q.o[po ? po[n] : n]; }
         [].forEach.call(app.querySelectorAll(tur === 's' ? '.y-g [data-n]' : '.y-o button'), function (y) {
-          var m = +y.getAttribute('data-n'), t = tur === 'e' ? ops[m][0] === q.gap[q.w][0] : m === q.to;
+          var m = +y.getAttribute('data-n'), t = tur === 'e' ? ops[m][0] === q.gap[q.w][0] : (po ? po[m] : m) === q.to;
           if (t) y.classList.add('ok'); else if (m === n) y.classList.add('no');
           if (y.tagName === 'BUTTON') y.disabled = true;
         });
@@ -1337,12 +1372,12 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
     if (ok) tmq = setTimeout(yakSavol, 1500);
   }
   function yakNatija() {
-    var kl = IM.kalit, b = bobTop(kl), h;
+    var kl = IM.kalit, b = yakTop(kl), h;
     if (IM.yak === 'x') {
       var qol = yakXato(kl).length;
-      h = '<div class="y-in"><div class="y-top"><button id="yq" aria-label="Йўлга қайтиш">‹</button><div><small>' + b.raq + '-боб</small><h1>Хатолар устида ишлаш</h1></div></div>' +
+      h = '<div class="y-in"><div class="y-top"><button id="yq" aria-label="Йўлга қайтиш">‹</button><div><small>' + b.raq + (b.kitob ? '-китоб' : '-боб') + '</small><h1>Хатолар устида ишлаш</h1></div></div>' +
         '<section class="y-c y-nt ok"><div class="bg">' + IC.ok + '</div><h2>' + (qol ? 'Яна ' + qol + ' та хато қолди' : 'Ҳамма хатолар тузатилди') + '</h2><p>' +
-        (qol ? 'Қолганларини ҳам тўғри топсангиз, имтиҳон очилади.' : '«' + b.raq + '-боб якуни» очиқ.') + '</p></section></div>';
+        (qol ? 'Қолганларини ҳам тўғри топсангиз, имтиҳон очилади.' : '«' + yakNom(kl) + '» очиқ.') + '</p></section></div>';
       app.innerHTML = h;
       tugma('<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><button class="y-b" id="yq2">Йўлга қайтиш</button><button class="y-b y-b1" id="yn">' +
         (qol ? 'Давом эттириш' : 'Имтиҳонни бошлаш') + '</button></div>');
@@ -1353,9 +1388,12 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
       R.y = R.y || {}; var r = R.y[kl] || {};
       R.y[kl] = { b: Math.max(r.b || 0, p), s: p, t: Date.now() };
       R.xb = R.xb || {}; R.xb[kl] = ok ? [] : IM.xato.map(function (x) { return x[0]; });
-      if (ok) b.d.forEach(function (d) { if (R.xd && R.xd[d.n]) R.xd[d.n].x = []; });   /* imtihon hamma savolni qayta tekshirdi */
+      if (ok) {                                         /* imtihon hamma savolni qayta tekshirdi; kitob — boblar imtihonlari xatolarini ham */
+        b.d.forEach(function (d) { if (R.xd && R.xd[d.n]) R.xd[d.n].x = []; });
+        if (b.kitob) b.b.forEach(function (x) { if (R.xb[x.k]) R.xb[x.k] = []; });
+      }
       yoz();
-      h = '<div class="y-in"><div class="y-top"><button id="yq" aria-label="Йўлга қайтиш">‹</button><div><small>' + b.raq + '-боб якуни</small><h1>Натижа</h1></div></div>' +
+      h = '<div class="y-in"><div class="y-top"><button id="yq" aria-label="Йўлга қайтиш">‹</button><div><small>' + yakNom(kl) + '</small><h1>Натижа</h1></div></div>' +
         '<section class="y-c y-nt ' + (ok ? 'ok' : 'no') + '"><div class="bg">' + p + '%</div><h2>' + (ok ? 'Қабул қилинди' : 'Ҳали қабул қилинмади') + '</h2><p>' +
         IM.tog + ' / ' + IM.n + ' тўғри · қабул — ' + YAK + '%</p>' + (ok ? '<div class="st">' + yulduz(p) + '</div>' : '<p>Хатоларни тўғри топсангиз, имтиҳонни қайта топширасиз.</p>') + '</section>';
       var zaif = null, zp = 101;

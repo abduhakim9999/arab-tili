@@ -353,6 +353,9 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .lg-hb.b[aria-pressed="true"]{border-color:var(--tq-no)}.lg-hb.o[aria-pressed="true"]{border-color:#d9a23a}.lg-hb.g[aria-pressed="true"]{border-color:#2fa36f}
 .lg-p.d1 i:nth-child(-n+1),.lg-p.d2 i:nth-child(-n+2){background:#d9a23a}
 .lg-r.g .lg-s>span:last-child{color:#1f8f5c;font-weight:600}
+.lg-r.kt{position:relative;min-height:70px}
+.lg-kt{position:absolute;top:7px;right:12px;font-size:11.5px;line-height:1.3;font-weight:400;color:var(--mu);white-space:nowrap;pointer-events:none}
+.lg-r.kt .lg-ab,.lg-r.kt .lg-bm,.lg-r.kt .lg-sp{align-self:flex-end}
 .lg-r.b .lg-s>span:last-child{color:var(--tq-no);font-weight:600}
 /* ⓘ — «Билган сўзларим» qoidasi (qisqa; batafsili yo'riqnomada) */
 .tq-h{display:flex;align-items:center;gap:6px}
@@ -828,9 +831,12 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     }
     function qator(x) {
       var r = x.r, q = x.st === 'g' ? qachon(x.x) : -1, ab = x.st === 'b' || x.st === 'o' || (x.st === 'g' && W.a[r.id]);
-      return '<div class="lg-r ' + x.st + (x.qy ? ' qy' : '') + '"><button class="lg-w"' + (r.au && lv[r.d] ? ' data-au="' + r.id + '"' : '') + '><span class="lg-a"><b class="ar" lang="ar">' + felQ(r) + '</b>' + (shakllar(r) ? '<small>' + shakllar(r) + '</small>' : '') + '</span><span>' + jinsH(mano(r)) + '</span>' +   /* 26.11.2026 (foydalanuvchi): mufradi yonida jami, keyin ma'nosi */
-        (q > 0 ? '<small class="lg-kq">' + q + ' кундан кейин «Такрор»да сўралади</small>' : q === 0 ? '<small class="lg-kq">бугун «Такрор»да сўралади</small>' : '') + '</button>' +
-        '<div class="lg-s"><span class="lg-p d' + x.dr + '" aria-hidden="true">' + (x.st === 'g' || x.st === 'm' ? '' : '<i></i><i></i><i></i>') + '</span><span>' + HN[x.st] + '</span></div>' +
+      return '<div class="lg-r ' + x.st + (x.qy ? ' qy' : '') + (q >= 0 ? ' kt' : '') + '"><button class="lg-w"' + (r.au && lv[r.d] ? ' data-au="' + r.id + '"' : '') + '><span class="lg-a"><b class="ar" lang="ar">' + felQ(r) + '</b>' + (shakllar(r) ? '<small>' + shakllar(r) + '</small>' : '') + '</span><span>' + jinsH(mano(r)) + '</span>' +   /* 26.11.2026 (foydalanuvchi): mufradi yonida jami, keyin ma'nosi */
+        '</button>' +
+        /* 26.11.2026 (foydalanuvchi: tagidagi yashil «N кундан кейин «Такрор»да сўралади» «биламан» yashili bilan g'alati; tavsiya, «ko'rinishini ko'rsat»):
+           биламан qatorida o'ngdagi «биламан» o'rniga — qisqa kulrang kun (sarlavha «Биламан» bor): «бугун» / «эртага» / «N кундан кейин» */
+        (q >= 0 ? '<span class="lg-kt" aria-label="«Такрор»да сўралади">' + (q === 0 ? 'бугун' : q === 1 ? 'эртага' : q + ' кундан кейин') + '</span>'   /* 26.11.2026 (foydalanuvchi: «oynasi ustiga ingichka qilib») — qator o'ng yuqori burchagida, ✓ 🔖 tepasida */
+          : '<div class="lg-s"><span class="lg-p d' + x.dr + '" aria-hidden="true">' + (x.st === 'm' ? '' : '<i></i><i></i><i></i>') + '</span><span>' + HN[x.st] + '</span></div>') +
         (ab ? '<button class="lg-ab" data-id="' + r.id + '" aria-pressed="' + (x.st === 'g' ? 'true' : 'false') + '" aria-label="«Биламан» деб белгилаш">' + AB + '</button>' : '<span class="lg-sp"></span>') +
         '<button class="lg-bm" data-id="' + r.id + '" aria-pressed="' + (x.st === 'b' ? 'true' : 'false') + '" aria-label="«Билмайман» деб белгилаш">' + BM + '</button></div>';
     }

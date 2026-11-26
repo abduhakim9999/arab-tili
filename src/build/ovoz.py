@@ -142,7 +142,8 @@ def cmd_matn(nn):
         if li == 0:
             continue
         lines[li] = uz_ovoz(' '.join(c[0] for c in tr))
-    voc = [{'i': i, 'ar': voc_ar(v[1]), 'uz': OV.get(i) or voc_uz(v)} for i, v in enumerate(VOC)]
+    SK = set(g.get('OQIMAYDI', []))   # 26.11.2026: tinglashda o'qilmaydigan yozuv (harf «..») — vocNN.py dagi OQIMAYDI
+    voc = [{'i': i, 'ar': voc_ar(v[1]), 'uz': OV.get(i) or voc_uz(v)} for i, v in enumerate(VOC) if i not in SK]
     out = {'raqam_uz': tartib(nn), 'gaplar_uz': lines, 'lugat': voc}
     od = os.path.join(S, 'listen', 'u%02d' % nn); os.makedirs(od, exist_ok=True)
     json.dump(out, open(os.path.join(od, 'matn.json'), 'w'), ensure_ascii=False, indent=1)

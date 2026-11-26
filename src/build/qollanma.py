@@ -41,25 +41,25 @@ MAVZU = [
        c='«Машқ»дан 80% олсангиз, дарс сўзлари ўзи «ўрганяпман» поғонасига тушади',
        r='Наберите 80% в «Упражнении» — слова урока сами попадут на ступень «учу»'),
   dict(ch='bildi',
-       c='Ҳар куни «Ўрганиш»ни ишланг. Сўзни {B} кун кетма-кет тўғри топсангиз — «биламан»га кўтарилади',
-       r='Каждый день проходите «Изучение». Угадали слово {Bk} подряд — оно поднимается на «знаю»'),
+       c='Ҳар куни «Бугунги машқ»ни ишланг. Сўзни {B} кун кетма-кет тўғри топсангиз — «биламан»га кўтарилади',
+       r='Каждый день проходите «Упражнение на сегодня». Угадали слово {Bk} подряд — оно поднимается на «знаю»'),
   dict(ch='must',
-       c='{M} кундан кейин ва яна {M2} кундан кейин «Такрор»да тўғри топсангиз — «мустаҳкам» бўлади ва бошқа сўралмайди',
-       r='Угадали его в «Повторении» через {Mk} и ещё раз через {M2k} — слово становится «прочно» и больше не спрашивается'),
+       c='{M} ва яна {M2} кундан кейин «Бугунги машқ»да ўзи сўралади. Тўғри топсангиз — «мустаҳкам» бўлади ва бошқа сўралмайди',
+       r='Через {Mk} и ещё раз через {M2k} оно само придёт в «Упражнение на сегодня». Угадали — слово становится «прочно» и больше не спрашивается'),
   dict(ch='xato',
        c='Хато топсангиз — «биламан» сўз «ўрганяпман» 2/3 га тушади, бошқаси 0/3 дан бошлайди',
        r='Ошиблись — слово из «знаю» возвращается на «учу» 2/3, остальные начинают с 0/3'),
   dict(s='mashq', t='go', f='band', a='look',
-       c='Ҳар куни «Машқ» бўлимида «Ўрганиш»ни, вақти келганда «Такрор»ни ишланг',
-       r='Каждый день в разделе «Упражнение» проходите «Изучение», а когда придёт время — «Повторение»'),
+       c='Ҳар куни «Машқ» бўлимида «Бугунги машқ»ни ишланг — керакли сўзлар ўзи шу ерга тушади',
+       r='Каждый день в разделе «Упражнение» проходите «Упражнение на сегодня» — нужные слова сами попадают сюда'),
  ])),
  ('takror', dict(nom='Такрорлаш', nomr='Повторение', keyingi='lugat', qadam=[
   dict(s='bosh', t='mashq', f='nav', a='tap', go='mashq',
        c='«Машқ»ни босинг. Устидаги сон — бугунги машқлар',
        r='Нажмите «Упражнение». Число над ним — задания на сегодня'),
   dict(s='mashq', t='go', f='band', a='tap', go='savol',
-       c='«Ўрганиш»даги «Бошлаш»ни босинг',
-       r='Нажмите «Начать» в «Изучении»'),
+       c='«Бугунги машқ»даги «Бошлаш»ни босинг',
+       r='Нажмите «Начать» в «Упражнении на сегодня»'),
   dict(s='savol', t='soz', a='look',
        c='Сўз чиқади. Маъносини ичингизда эслаб кўринг',
        r='Появится слово. Вспомните про себя, что оно значит'),
@@ -72,15 +72,8 @@ MAVZU = [
   dict(s='javob', t='j0', f=['mano', 'j0', 'j1'], a='tap', n='no',
        c='Эслай олмаган бўлсангиз — «Билмадим»',
        r='Если не вспомнили — «Не помню»'),
-  dict(s='oxir', t='to', f='kart', a='tap', go='oxir2',
-       c='Баъзан «Сўз охири?» сўралади. Тўғри ҳаракатни танланг — тўғри бўлса, яшил бўлади',
-       r='Иногда спрашивается «Окончание слова?». Выберите правильную огласовку — если верно, станет зелёной'),
-  dict(s='xato', t=['no', 'ok'], f='kart', a='look',
-       c='Хато бўлса: танлаганингиз — қизил, тўғриси — яшил. Пастда сабаби ёзилади',
-       r='Если ошиблись: ваш ответ — красный, правильный — зелёный. Ниже написано почему'),
-  dict(s='xato', t='kn', a='tap', go='tamom',
-       c='«Кейинги»ни босиб, давом этинг',
-       r='Нажмите «Далее» и продолжайте'),
+  # «Сўз охири?» va xato javob qadamlari olib tashlandi (26.11.2026): «Бугунги машқ»da endi faqat so'zlar — grammatika savollari
+  # dars «Эъроб»ida va «Боб якуни»da (takror.html mashq: [])
   dict(s='tamom', t='band', a='look',
        c='Ҳаммаси тугагач — «Бугунга тамом». Эртага яна шу ердан давом этасиз',
        r='Когда всё пройдено — «На сегодня всё». Завтра продолжите отсюда'),
@@ -96,8 +89,8 @@ MAVZU = [
        c='Сариқ чизиқлар — сўз неча кун тўғри топилгани: {B} таси тўлса — «биламан». Қизғиш чизиқлар — кўп хато қилинган сўз',
        r='Жёлтые полоски — сколько дней слово угадано: заполнятся все {B} — «знаю». Розоватые — трудное слово, много ошибок'),   # 23.11.2026: «· 1/3» va «қийин» qatordan olib tashlandi
   dict(s='lugat', t=['ab', 'bm'], f='row', a='look',
-       c='Ўзингиз ҳам белгилай оласиз: ✓ — биламан ({M} кундан кейин «Такрор»да сўралади), 🔖 — билмайман',
-       r='Можно отметить и самому: ✓ — знаю (спросим в «Повторении» через {Mk}), 🔖 — не знаю'),
+       c='Ўзингиз ҳам белгилай оласиз: ✓ — биламан ({M} кундан кейин «Бугунги машқ»да сўралади), 🔖 — билмайман',
+       r='Можно отметить и самому: ✓ — знаю (спросим в «Упражнении на сегодня» через {Mk}), 🔖 — не знаю'),
  ])),
 ]
 
@@ -115,9 +108,17 @@ BOSH = ("window.KORISH=true;(function(){var a=20261114;Math.random=function(){a|
         "t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};})();")
 
 
+def kirish():
+    """Sayt kirish kodi (26.11.2026, docs/texnik.md 22): sahifa ko'rinsin — tg.js dagi KX xeshi «kirish-ok» ga yoziladi (kodning o'zi emas)."""
+    m = re.search(r"KX = '([0-9a-f]+)'", open('tg.js', encoding='utf-8').read())
+    return "try{localStorage.setItem('kirish-ok','%s')}catch(e){}" % m.group(1) if m else ''
+
+
 def sahifa(br, tema, til):
     ctx = br.new_context(viewport={'width': W, 'height': H}, device_scale_factor=2, color_scheme=tema)
-    ctx.add_init_script(BOSH + ("try{localStorage.setItem('til','ru')}catch(e){}" if til == 'ru' else ''))
+    # 1-dars o'tilgan (80%+): 25.11.2026 dan dars so'zlari va savollari «Машқ»ga faqat shundan keyin tushadi — aks holda «Сўз охири?» chiqmaydi
+    yk = ('ru-' if til == 'ru' else '') + 'yol'
+    ctx.add_init_script(BOSH + kirish() + "try{if(!localStorage.getItem('%s'))localStorage.setItem('%s','{\"d\":{\"1\":{\"b\":90}}}')}catch(e){}" % (yk, yk) + ("try{localStorage.setItem('til','ru')}catch(e){}" if til == 'ru' else ''))
     ctx.route('**/api/**', lambda r: r.abort())
     return ctx.new_page()
 
@@ -127,27 +128,13 @@ def takror_ochish(pg, U):
     pg.evaluate('scrollTo(0,0)')
 
 
-def oxirgacha(pg):
-    """«Сўз охири?» savoli chiqquncha: so'z kartalariga «Кўрсатиш» → «Билдим»."""
-    for _ in range(80):
-        if pg.query_selector('.tq-o button'): return
-        if pg.query_selector('#ko'): pg.click('#ko'); pg.wait_for_timeout(120)
-        j = pg.query_selector('#j1')
-        if j: j.click(); pg.wait_for_timeout(180)
-    raise SystemExit("«Сўз охири?» savoli chiqmadi")
+def bos(pg, q, kut=2500):
+    """Bosadi; karta almashayotgan paytda (element «not stable» / DOMdan chiqdi) — o'tkazib yuboradi, sikl keyin qayta urinadi."""
+    try: pg.click(q, timeout=kut); return True
+    except Exception: return False
 
 
-def togri_variant(br, U, til):
-    """Birinchi «Сўз охири?» savolida to'g'ri variant raqami (o'ynatkichda barmoq to'g'risini bosadi)."""
-    pg = sahifa(br, 'light', til); takror_ochish(pg, U); pg.click('#go'); pg.wait_for_timeout(700); oxirgacha(pg)
-    pg.click('.tq-o button[data-n="0"]'); pg.wait_for_timeout(250)
-    k = pg.evaluate("[...document.querySelectorAll('.tq-o button')].findIndex(b => b.classList.contains('ok'))")
-    pg.context.close()
-    assert k >= 0, 'to`g`ri variant topilmadi'
-    return k
-
-
-def ssenariy(br, U, tema, k, ish, til):
+def ssenariy(br, U, tema, ish, til):
     pg = sahifa(br, tema, til); R = {}; xato = []; pref = TIL[til]['pref']
     pg.on('pageerror', lambda e: xato.append(str(e)[:200]))
 
@@ -161,32 +148,21 @@ def ssenariy(br, U, tema, k, ish, til):
     pg.goto(U + 'yol.html'); pg.wait_for_selector('.q-nav'); pg.wait_for_timeout(1200)
     ol('bosh', {'mashq': '.q-nav a[href$="takror.html"]', 'nav': '.q-nav', 'boshla': '.y-b'})
     takror_ochish(pg, U)
-    ol('mashq', {'go': '#go', 'band': '*.mq-h', 'lugat': '.mq-lg'})      # 23.11.2026: ikki bo'lim — «Ўрганиш» va «Такрор»
+    ol('mashq', {'go': '#go', 'band': '*.mq-h', 'lugat': '.mq-lg'})      # 26.11.2026: bitta «Бугунги машқ» (23.11 dagi «Ўрганиш» / «Такрор» birlashdi)
     pg.click('#go')
     ol('savol', {'soz': '.tq-c', 'ko': '#ko'})
     pg.click('#ko')
     ol('javob', {'mano': '.tq-m', 'j1': '#j1', 'j0': '#j0'})
-    oxirgacha(pg)
-    ol('oxir', {'to': '.tq-o button[data-n="%d"]' % k, 'kart': '.tq-c'})
-    pg.click('.tq-o button[data-n="%d"]' % k)
-    ol('oxir2', {'ok': '.tq-o button.ok', 'kart': '.tq-c'}, 250)      # to'g'ri javobdan 1 s keyin o'zi keyingisiga o'tadi
-    # mashg'ulot oxirigacha; birinchi xato javob — «xato» ekrani
+    # mashg'ulot oxirigacha — hamma kartaga «Кўрсатиш» → «Билдим»
     for _ in range(600):
         pg.wait_for_timeout(120)
-        if 'xato' not in R and pg.query_selector('.tq-o button.no'):
-            ol('xato', {'ok': '.tq-o button.ok', 'no': '.tq-o button.no', 'kn': '#kn', 'kart': '.tq-c'}, 0)
-        if pg.query_selector('#kn'): pg.click('#kn'); continue
-        o = pg.query_selector('.tq-o button:not([disabled])')
-        if o: o.click(); pg.wait_for_timeout(250); continue
-        if pg.query_selector('#ko'): pg.click('#ko'); pg.wait_for_timeout(120)
-        j = pg.query_selector('#j1')
-        if j: j.click(); continue
+        if pg.query_selector('#ko'): bos(pg, '#ko'); pg.wait_for_timeout(120)
+        if pg.query_selector('#j1'): bos(pg, '#j1'); continue
         if not pg.query_selector('#ko'): break
-    assert 'xato' in R, 'xato javob ekrani olinmadi (hamma savolda 1-variant to`g`ri chiqdi)'
     pg.wait_for_timeout(700); pg.evaluate('scrollTo(0,0)')
     ol('tamom', {'band': '.mq-h', 'lugat': '.mq-lg'})
     pg.click('.mq-lg'); pg.wait_for_timeout(1000); pg.evaluate('scrollTo(0,0)')
-    ol('lugat', {'sonlar': '*.lg-hb', 'sx': '.lg-r .lg-s', 'ab': '.lg-r .lg-ab', 'bm': '.lg-r .lg-bm', 'row': '.lg-r'})
+    ol('lugat', {'sonlar': '*.lg-hb', 'sx': '.lg-r .lg-p', 'ab': '.lg-r .lg-ab', 'bm': '.lg-r .lg-bm', 'row': '.lg-r'})
     # dars sahifasi (eng oxirida — takror holatiga ta'sir qilmasin): birinchi kirishdagi tur yopiladi
     pg.goto(U + TIL[til]['dars']); pg.wait_for_selector('#t3'); pg.wait_for_timeout(2500)
     if pg.query_selector('.tsk'): pg.click('.tsk'); pg.wait_for_timeout(500)
@@ -211,8 +187,7 @@ def bosib_chiq(ish, tillar):
     with sync_playwright() as p:
         br = p.chromium.launch(executable_path=chrome) if os.path.exists(chrome) else p.chromium.launch()
         for til in tillar:
-            k = togri_variant(br, U, til)
-            R = {t: ssenariy(br, U, t, k, ish, til) for t in TEMALAR}
+            R = {t: ssenariy(br, U, t, ish, til) for t in TEMALAR}
             if R['light'] != R['dark']: print('DIQQAT (%s): yorug` va tungi ko`rinishda koordinatalar farq qiladi — yorug`i olindi' % til)
             json.dump(R['light'], open(os.path.join(ish, 'rects-%s.json' % til), 'w'), ensure_ascii=False, indent=1)
         br.close()

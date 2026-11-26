@@ -50,6 +50,7 @@ tayyor-lugat-guruh c78a621772ca14a53758254b791b36ce57a1b55e
 tayyor-lugat-hamma 31be011437caac88ec1e8b13db1daaf35e4ad8c9
 tayyor-lugat-korinish 6de616c387d23f31592221e8104cf148d02ba2c0
 tayyor-lugat-kun 451a5eda717fa3de6a623c5fd6293f880cc840c6
+tayyor-lugat-qator 11237c08cd774527cca80c88465d0c52bfe8fc5b
 tayyor-lugat-qiyin bcea160397866211d78633cf69412077c5fc49bb
 tayyor-lugat-qolgan 9d4576c709a5c066c560dd105e58872697827e44
 tayyor-lugat-shakl 1ddcf3bf1d42e75ab057fc2f72056d9634035e73
@@ -118,3 +119,4 @@ tayyor-yangilanish acc2427c4c44d7d5e15e6eaae60f023ddd5bf869
 tayyor-yoriqnoma d36923579e00c385741f200722996be6ae2d491d
 tayyor-yoriqnoma-oyna 2c03ac5b50834aa7bd45e75b88f1056a69e6115e
 tayyor-zamir-ramka ad411919098ec9a84d0facc947f815c7a932756e
+tayyor-zina 8d13f6db9f51c3430e3c4c9e4db1c007e97866e8

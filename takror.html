@@ -197,23 +197,35 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .lg-d{display:flex;align-items:baseline;gap:8px;margin:16px 4px 6px;font-size:13px;font-weight:700;letter-spacing:.04em;color:var(--ac)}
 .lg-d span{margin-left:auto;font-weight:500;letter-spacing:0;color:var(--mu)}
 .lg-l{background:var(--cd);border:1px solid var(--bd);border-radius:16px;overflow:hidden}
-.lg-r{display:flex;align-items:center;gap:8px;min-height:60px;padding:4px 4px 4px 14px;border-top:1px solid var(--bd)}
+/* 26.11.2026 (foydalanuvchi: «jamlarini ham kattaligi bir xil … bitta qatorda», «tugmalar tepada ingichka … alohida ko'rinib tursa,
+   tarjima va ma'no alohida joyda», chizmani ko'rib «qil»): so'z kartasi 3 qavat — tepada ingichka tasma `.lg-tp` (daraja chiziqlari,
+   Биламан'da kun; o'ngda ✓ 🔖), o'rtada arabcha qator butun kenglikda, o'ngdan (birlik, ko'plik, muannas — bir xil kattalikda;
+   «ج» / «مؤ.» kichik kulrang), pastda ma'no, jins yorlig'i o'ng chetda. «ўрганяпман» kabi daraja yozuvi yo'q (chiziq rangi + sarlavha) */
+.lg-r{border-top:1px solid var(--bd)}
 .lg-r:first-child{border-top:0}
+.lg-tp{display:flex;align-items:center;gap:8px;height:32px;padding:0 4px 0 14px;border-bottom:1px solid color-mix(in srgb,var(--bd) 55%,transparent)}
+.lg-tp .lg-p{flex-shrink:0}
+.lg-kd{flex:1;min-width:0;font-size:12px;line-height:1.3;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lg-tp .lg-ab,.lg-tp .lg-bm{width:38px;height:32px;border-radius:8px}
+.lg-tp .lg-sp{width:38px}
+.lg-tp .lg-ab svg,.lg-tp .lg-bm svg{width:19px;height:19px}
 /* 26.11.2026: Биламан ichida kun guruhi sarlavhasi (Бугун / Эртага / Бир ҳафта ичида / Кейинроқ) */
 .lg-kn{display:flex;align-items:baseline;gap:8px;padding:9px 14px 7px;border-top:1px solid var(--bd);background:rgba(31,143,92,.07);font-size:12.5px;font-weight:700;color:#1f8f5c}
 .lg-kn:first-child{border-top:0}
 .lg-kn span{margin-left:auto;font-weight:500;color:var(--mu)}
 .lg-kn+.lg-r{border-top:0}
-.lg-w{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:0;padding:4px 0;border:0;background:none;text-align:left}
-.lg-w b{font-size:24px;line-height:1.55;font-weight:400}
+.lg-w{display:block;width:100%;box-sizing:border-box;padding:6px 14px 11px;border:0;background:none;text-align:left}
+.lg-w b{display:block;font-size:24px;line-height:1.6;font-weight:400;text-align:right}
 .lg-w span{font-size:14px;line-height:1.3;color:var(--mu)}
 .lg-w b span{font-size:inherit;line-height:inherit;color:var(--tx)}   /* 26.11.2026 (foydalanuvchi): fe'l shakllari bir xil kattalikda */
-.lg-w b{text-align:left}   /* uzun qator bo'linsa ham chapda — ma'no bilan bir ustunda */
-/* 26.11.2026: ko'plik / muannas — dars «Луғат»idagidek (shell.js .la-j): .75em, so'z rangida (19.11.2026: kulrang shart emas) */
+.lg-w .lg-mn{display:block;margin-top:1px;font-size:15.5px;line-height:1.4;color:var(--tx)}
+.lg-mn .jn{float:right;margin:2px 0 0 8px;font-size:12px}
+/* 26.11.2026: ko'plik / muannas — dars «Луғат»idagidek (shell.js .la-j): .75em, so'z rangida (19.11.2026: kulrang shart emas);
+   «Луғат» ro'yxatida — so'z bilan bir xil kattalikda (yuqoridagi 3 qavat), har ko'plik alohida bo'lak — sig'masa «،» dan keyin bo'linadi */
 .ar .lg-j{font-size:.75em;white-space:nowrap;color:var(--tx)}.ar .lg-j i{font-style:normal}
+.lg-w .ar .lg-j{font-size:1em}.lg-w .ar .lg-j i{font-size:.62em;color:var(--mu);margin:0 .3em}
 .lg-w small,.mq-x small,.tq-s small{display:block;font-size:12.5px;line-height:1.5;color:var(--mu)}
 .lg-w small .ar,.mq-x small .ar,.tq-s small .ar{font-size:19px;line-height:1.5;color:var(--tx)}
-.lg-s{flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:3px;font-size:11.5px;color:var(--mu);white-space:nowrap}
 .lg-p{display:flex;gap:2px}
 .lg-p i{width:7px;height:14px;border-radius:2px;background:var(--bd)}
 /* 23.11.2026: «қийин» so'zi o'rniga — kamida QIYIN marta xato qilingan, hali bilinmagan so'zda bo'sh chiziqlar qizg'ish */
@@ -290,25 +302,30 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .mq-i svg{width:18px;height:18px}
 .mq-i2{width:40px;height:40px;margin:0 0 0 auto}.mq-i2 svg{width:22px;height:22px}
 .lg-yn.mq-yn{margin:0 0 12px}
-/* 23.11.2026 (foydalanuvchi: «ortiqcha so'zlar kerak emas»): doira yolg'iz, o'rtada — o'ngdagi «N сўзни биламан», «шундан … мустаҳкам», «N та дарс ўтилмаган» olib tashlandi (pastdagi kartalar va kitob qatorlari takrorlardi) */
-.mq-dt{display:flex;align-items:center;justify-content:center;margin:10px 0 16px}
-.mq-dz{position:relative;width:168px;height:168px;flex-shrink:0}
-.mq-dz svg{width:100%;height:100%;transform:rotate(-90deg)}
-.mq-dz circle{fill:none;stroke-width:16}
-.mq-dz .m{stroke:#3a73cc}.mq-dz .g{stroke:#2fa36f}.mq-dz .o{stroke:#d9a23a}.mq-dz .b{stroke:var(--tq-no)}.mq-dz .n{stroke:color-mix(in srgb,var(--mu) 20%,transparent)}
-.mq-dz>div{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.mq-dz>div b{font-size:34px;line-height:1.05;font-weight:800;color:#1f8f5c}
-.mq-dz>div span{font-size:13.5px;color:var(--mu);font-variant-numeric:tabular-nums}
+/* Zina (26.11.2026, foydalanuvchi: «pog'onaga o'xshatib … bilmaydiganlarim pastda, mustahkam tepada»; chizmani ko'rib «qil»): doira va 4 katak o'rnida —
+   chapdan o'ngga ko'tariladi, tepada bayroqcha; 0 li pog'ona och, uzuq chiziqli; tagida «yer» — «N сўз ҳали ўтилмаган»; % sarlavhada.
+   So'z oldingi ko'rishdan beri yuqoriga chiqqan bo'lsa — nuqtacha pastki pog'onadan sakraydi va «+N» (bir marta; zinaSakra, KZ) */
+.mq-zf{margin-left:auto;font-size:20px;line-height:1;font-weight:800;letter-spacing:0;color:var(--tq-ok);font-variant-numeric:tabular-nums}
+.mq-zn{position:relative;display:flex;align-items:flex-end;gap:4px;height:196px;margin:14px 0 0}
+.mq-zk{flex:1 1 0;min-width:0;height:100%;display:flex;flex-direction:column;justify-content:flex-end}
+.mq-zp{box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:1px;width:100%;margin:0;padding:7px 3px 6px;border:0;border-top:4px solid var(--zr);border-radius:12px 12px 0 0;background:color-mix(in srgb,var(--zr) 18%,var(--cd));color:var(--zt);text-align:center;font:inherit;cursor:pointer}
+.mq-zp b{font-size:22px;line-height:1.1;font-weight:800;font-variant-numeric:tabular-nums}
+.mq-zp span{max-width:100%;font-size:12px;line-height:1.2;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:color-mix(in srgb,var(--zt) 78%,var(--tx))}
+.mq-zp.b{height:31%;--zr:var(--tq-no);--zt:var(--tq-no)}
+.mq-zp.o{height:50%;--zr:#d9a23a;--zt:var(--tq-ph)}
+.mq-zp.g{height:69%;--zr:#2fa36f;--zt:var(--tq-ok)}
+.mq-zp.m{height:88%;--zr:#3a73cc;--zt:var(--tq-an)}
+.mq-zp.z{background:color-mix(in srgb,var(--zr) 6%,var(--cd));border:1.5px dashed color-mix(in srgb,var(--zr) 55%,transparent);border-bottom:0}
+.mq-zp.z b{color:color-mix(in srgb,var(--zt) 70%,var(--cd))}
+.mq-zb{display:block;width:22px;height:22px;margin:0 auto 3px;color:#3a73cc;flex-shrink:0}
+.mq-zy{display:flex;align-items:center;gap:6px;min-height:16px;margin:0;padding:8px 0 0;border-top:2px solid color-mix(in srgb,var(--mu) 45%,transparent);font-size:13px;color:var(--mu)}
+.mq-zy svg{width:16px;height:16px;flex-shrink:0}
+.mq-zd{position:absolute;left:0;top:0;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;opacity:0;pointer-events:none;z-index:2}
+.mq-zq{position:absolute;z-index:3;padding:1px 7px;border-radius:9px;border:1.5px solid currentColor;background:var(--cd);font-size:13px;font-style:normal;font-weight:800;line-height:1.3;transform:translate(-50%,-115%);pointer-events:none}
+@media (prefers-reduced-motion:no-preference){.mq-zq{animation:mqzq 2.4s ease-out forwards}.mq-zp.ur b{animation:mqzu .55s ease-out}}
+@keyframes mqzq{0%{opacity:0;transform:translate(-50%,-60%)}15%{opacity:1;transform:translate(-50%,-115%)}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-140%)}}
+@keyframes mqzu{40%{transform:scale(1.25)}}
 /* o'tilmagan darslar (15.11.2026, A ko'rinish): kitob qatorida «N та дарс ўтилмаган», har dars bitta bo'lak */
-.mq-5{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.mq-c{display:flex;align-items:center;gap:10px;min-width:0;padding:9px 12px;border-radius:14px;border:0;background:var(--tint);text-align:left;color:var(--tx)}
-.mq-c.n{grid-column:1/-1;background:color-mix(in srgb,var(--mu) 9%,transparent)}
-.mq-c i{width:12px;height:12px;border-radius:50%;flex-shrink:0}
-.mq-c span{display:flex;flex-direction:column;font-size:12.5px;font-weight:600;color:var(--mu)}
-.mq-c b{font-size:21px;line-height:1.15;font-weight:800;font-variant-numeric:tabular-nums}
-.mq-c.m i{background:#3a73cc}.mq-c.m b{color:#2c63b8}.mq-c.g i{background:#2fa36f}.mq-c.g b{color:#1f8f5c}
-.mq-c.o i{background:#d9a23a}.mq-c.o b{color:#c98a1c}.mq-c.b i{background:var(--tq-no)}.mq-c.b b{color:var(--tq-no)}
-.mq-c.n i{border-radius:3px;background:color-mix(in srgb,var(--mu) 30%,transparent)}.mq-c.n b{color:var(--mu)}
 .mq-hl{height:1px;background:var(--bd);margin:14px 0 12px}
 .mq-kb{display:flex;flex-direction:column;gap:6px;margin:0 0 12px}
 .mq-kb>div{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
@@ -334,10 +351,20 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .lg-sg button:first-child{border-left:0}
 .lg-sg.o button[aria-pressed="true"]{background:color-mix(in srgb,#d9a23a 18%,transparent);color:#b07714}
 .lg-sg.g button[aria-pressed="true"]{background:color-mix(in srgb,#2fa36f 15%,transparent);color:#1f8f5c}
-.lg-w .lg-a{display:flex;flex-wrap:wrap;direction:ltr;align-items:baseline;column-gap:10px;max-width:100%;font-size:inherit;line-height:inherit;color:var(--tx)}
+.lg-w .lg-a{display:block;direction:rtl;text-align:right;font-size:inherit;line-height:inherit;color:var(--tx)}
 /* kartadagi uch tur: Исм · Феъл · Ҳарф (bosilsa — shu tur bo'yicha) va «Қўшимча машқ» */
 /* 3 ҳолат (14.11): катта сонлар — босилса рўйхат шу ҳолат бўйича */
-.lg-3{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 0}
+/* «Past zina» (26.11.2026, foydalanuvchi: «lug'at ichida ham bor» — Claude taklifi, «qil»): 2×2 kataklar o'rnida bir qator, «Машқ» zinasi tartibi va
+   ranglarida (chapda билмайман, o'ngda мустаҳкам), sal-sal ko'tariladi (52 → 73 px); tanlangani to'q, qolganlari och; 0 li — uzuq chiziqli */
+.lg-3{display:flex;align-items:flex-end;gap:4px;height:74px;margin:12px 0 0;border-bottom:2px solid color-mix(in srgb,var(--mu) 45%,transparent)}
+.lg-hb{flex:1 1 0;min-width:0;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3px 3px 4px;border:0;border-top:4px solid var(--zr);border-radius:10px 10px 0 0;background:color-mix(in srgb,var(--zr) 16%,var(--cd));color:var(--zt);text-align:center;font:inherit;cursor:pointer}
+.lg-hb b{font-size:19px;line-height:1.15;font-weight:800;font-variant-numeric:tabular-nums}
+.lg-hb span{max-width:100%;font-size:12px;line-height:1.2;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:color-mix(in srgb,var(--zt) 78%,var(--tx))}
+.lg-hb.b{height:52px;--zr:var(--tq-no);--zt:var(--tq-no)}.lg-hb.o{height:59px;--zr:#d9a23a;--zt:var(--tq-ph)}
+.lg-hb.g{height:66px;--zr:#2fa36f;--zt:var(--tq-ok)}.lg-hb.m{height:73px;--zr:#3a73cc;--zt:var(--tq-an)}
+.lg-hb.z{background:color-mix(in srgb,var(--zr) 6%,var(--cd));border:1.5px dashed color-mix(in srgb,var(--zr) 55%,transparent);border-bottom:0}
+.lg-3:has([aria-pressed="true"]) .lg-hb:not([aria-pressed="true"]):not(.z){background:color-mix(in srgb,var(--zr) 7%,var(--cd))}
+.lg-hb[aria-pressed="true"]{background:color-mix(in srgb,var(--zr) 32%,var(--cd));box-shadow:inset 2px 0 0 var(--zr),inset -2px 0 0 var(--zr)}
 .lg-bn{display:flex;align-items:baseline;gap:10px;margin:2px 0 0}
 .lg-kt{display:flex;flex-direction:column;gap:6px;margin:10px 0 2px}
 .lg-kr span::first-letter{text-transform:uppercase}
@@ -351,23 +378,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .lg-bn b{font-size:46px;line-height:1.05;font-weight:800;color:#1f8f5c;font-variant-numeric:tabular-nums}
 .lg-bn span{font-size:16px;line-height:1.35;color:var(--mu)}
 .lg-bn em{font-style:normal;font-weight:700;color:#2c63b8}
-.lg-hb.m b{color:#2c63b8}.lg-hb.m i{background:#3a73cc}.lg-hb.m[aria-pressed="true"]{border-color:#3a73cc}
-.lg-r.m .lg-s>span:last-child{color:#2c63b8;font-weight:600}
-.lg-hb{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:9px 12px 10px;border-radius:14px;border:1.5px solid transparent;background:var(--tint);color:var(--tx);text-align:left}
-.lg-hb b{font-size:28px;line-height:1.1;font-weight:800;font-variant-numeric:tabular-nums}
-.lg-hb span{display:flex;align-items:center;gap:5px;font-size:12.5px;font-weight:600;color:var(--mu);white-space:nowrap}
-.lg-hb i{width:9px;height:9px;border-radius:50%;flex-shrink:0}
-.lg-hb.b b{color:var(--tq-no)}.lg-hb.b i{background:var(--tq-no)}
-.lg-hb.o b{color:#c98a1c}.lg-hb.o i{background:#d9a23a}
-.lg-hb.g b{color:#1f8f5c}.lg-hb.g i{background:#2fa36f}
-.lg-hb[aria-pressed="true"]{border-color:currentColor;background:var(--cd)}
-.lg-hb.b[aria-pressed="true"]{border-color:var(--tq-no)}.lg-hb.o[aria-pressed="true"]{border-color:#d9a23a}.lg-hb.g[aria-pressed="true"]{border-color:#2fa36f}
 .lg-p.d1 i:nth-child(-n+1),.lg-p.d2 i:nth-child(-n+2){background:#d9a23a}
-.lg-r.g .lg-s>span:last-child{color:#1f8f5c;font-weight:600}
-.lg-r.kt{position:relative;min-height:70px}
-.lg-kt{position:absolute;top:7px;right:12px;font-size:11.5px;line-height:1.3;font-weight:400;color:var(--mu);white-space:nowrap;pointer-events:none}
-.lg-r.kt .lg-ab,.lg-r.kt .lg-bm,.lg-r.kt .lg-sp{align-self:flex-end}
-.lg-r.b .lg-s>span:last-child{color:var(--tq-no);font-weight:600}
 /* ⓘ — «Билган сўзларим» qoidasi (qisqa; batafsili yo'riqnomada) */
 .tq-h{display:flex;align-items:center;gap:6px}
 .tq-ib{position:relative;width:28px;height:28px;margin:-6px 0;padding:0;border:0;border-radius:50%;background:none;color:var(--mu);display:inline-flex;align-items:center;justify-content:center}
@@ -616,13 +627,50 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
       (ok ? '' : '<i class="mq-sl" aria-hidden="true"><u style="width:' + Math.round(k.bugun * 100 / k.chegara) + '%"></u></i>') + '</' + tg + '>';
   }
   var HN5 = { m: 'Мустаҳкам', g: 'Биламан', o: 'Ўрганяпман', b: 'Билмайман', n: 'Ҳали ўтилмаган' };
-  function doira(c, jami) {                            /* SVG halqa: m, g, o, b qismlari; qolgani (n) — kulrang asos */
-    var L = 2 * Math.PI * 50, of = 0, q = '';
-    ['m', 'g', 'o', 'b'].forEach(function (k) {
-      if (!c[k] || !jami) return; var l = L * c[k] / jami;
-      q += '<circle class="' + k + '" cx="60" cy="60" r="50" stroke-dasharray="' + Math.max(l - 1.5, 0.6).toFixed(2) + ' ' + L.toFixed(2) + '" stroke-dashoffset="' + (-of).toFixed(2) + '"/>'; of += l;
-    });
-    return '<svg viewBox="0 0 120 120" aria-hidden="true"><circle class="n" cx="60" cy="60" r="50"/>' + q + '</svg>';
+  /* Zina (26.11.2026; doira() o'rnida): c — {m, g, o, b, n}; pog'ona bosilsa — Луғат shu daraja bilan (lugat() dagi .mq-zp[data-h]) */
+  var ZN = ['b', 'o', 'g', 'm'];   /* pastdan tepaga */
+  var BAYROQ = '<svg class="mq-zb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4"/><path d="M5 4h12l-2.5 4 2.5 4H5"/></svg>';
+  var NIHOL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20v-8"/><path d="M12 13C12 9.7 9.8 8 6 8c0 3.3 2.2 5 6 5z"/><path d="M12 11c0-3.3 2.2-5 6-5 0 3.3-2.2 5-6 5z"/></svg>';
+  function zina(c) {
+    return '<div class="mq-zn" role="group" aria-label="Ҳолат бўйича">' + ZN.map(function (k) {
+      return '<div class="mq-zk">' + (k === 'm' ? BAYROQ : '') + '<button class="mq-zp ' + k + (c[k] ? '' : ' z') + '" data-h="' + k + '"><b>' + c[k] + '</b><span>' + HN5[k] + '</span></button></div>';
+    }).join('') + '</div><p class="mq-zy">' + (c.n ? NIHOL + '<span>' + c.n + ' сўз ҳали ўтилмаган</span>' : '') + '</p>';
+  }
+  function zinaSigdir(q) {   /* nom pog'onaga bir qatorda sig'masa (tor ekran: 360 px da ustun ~70 px) — to'rttasi birga kichrayadi, 12 → 9.5 px; q — «Луғат»da '.lg-hb span' */
+    var s = app.querySelectorAll(q || '.mq-zp span'), f = 12, i, ok;
+    do {
+      for (i = 0; i < s.length; i++) s[i].style.fontSize = f + 'px';
+      for (ok = true, i = 0; i < s.length; i++) if (s[i].scrollWidth > s[i].clientWidth + 0.5) ok = false;
+    } while (!ok && (f -= 0.5) >= 9.5);
+  }
+  /* So'z yuqoriga chiqqanini ko'rsatish: oxirgi ko'rilgan sonlar (KZ; ruscha profilda alohida — tg.js PK) bilan solishtiriladi; eng yuqori o'sgan pog'onaga (m, g yoki o)
+     nuqtacha pastdagisidan sakraydi («ўрганяпман»ga — «билмайман» kamaygan bo'lsa undan, aks holda yerdan, ya'ni yangi dars so'zlari) va «+N».
+     Birinchi ko'rishda va so'z faqat pastga tushganda — hech narsa. prefers-reduced-motion — sakrashsiz, faqat «+N» */
+  var KZ = SINOV ? 'takror-sinov-zina' : 'takror-zina';
+  function zinaSakra(c) {
+    var kk = KZ, old = null, i, k, d = 0, kim = 0;
+    try { old = JSON.parse(L(kk) || 'null'); } catch (e) {}
+    LS(kk, JSON.stringify({ m: c.m, g: c.g, o: c.o, b: c.b }));
+    if (!old) return;
+    for (i = ZN.length - 1; i >= 1; i--) { k = ZN[i]; if (c[k] > (old[k] || 0)) { kim = i; d = c[k] - (old[k] || 0); break; } }
+    var zn = app.querySelector('.mq-zn'); if (!kim || !zn) return;
+    var bt = zn.querySelectorAll('.mq-zp'), to = bt[kim], fr = kim > 1 || (old.b || 0) > c.b ? bt[kim - 1] : null;
+    var R = zn.getBoundingClientRect(), r1 = to.getBoundingClientRect(), r0 = (fr || bt[0]).getBoundingClientRect();
+    var x1 = r1.left - R.left + r1.width / 2, y1 = r1.top - R.top - 8, x0 = r0.left - R.left + r0.width / 2, y0 = fr ? r0.top - R.top - 8 : R.height + 4;
+    var rang = getComputedStyle(to).borderTopColor, kam = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var nuq = document.createElement('i'), q = document.createElement('em');
+    nuq.className = 'mq-zd'; nuq.style.background = rang;
+    q.className = 'mq-zq'; q.style.left = x1 + 'px'; q.style.top = y1 + 'px'; q.style.color = getComputedStyle(to).color; q.textContent = '+' + d;
+    function tr(x, y) { return 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)'; }
+    function yetdi() { nuq.remove(); if (!zn.isConnected) return; to.classList.add('ur'); zn.appendChild(q); setTimeout(function () { q.remove(); to.classList.remove('ur'); }, 2600); }
+    if (kam || !nuq.animate) { yetdi(); return; }
+    zn.appendChild(nuq);
+    setTimeout(function () {
+      if (!zn.isConnected) return;
+      nuq.animate([{ transform: tr(x0, y0), opacity: 0 }, { transform: tr(x0, y0), opacity: 1, offset: 0.12 },
+        { transform: tr((x0 + x1) / 2, Math.min(y0, y1) - 46), opacity: 1, offset: 0.56 }, { transform: tr(x1, y1), opacity: 1 }],
+        { duration: 950, easing: 'ease-in-out', fill: 'forwards' }).onfinish = yetdi;
+    }, 450);
   }
   function lugKor() { return /^#lugat/.test(location.hash); }
 
@@ -708,8 +756,8 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     D.d.forEach(function (d) { if (d.lv) lv[d.n] = d.lv; });
     var saralangan = SAR;   /* 25.11.2026: faqat o'tilgan (80%) darslar */   /* hech bir dars so'zi qo'shilmagan bo'lsa — bir qatorli eslatma (.mq-yn) */
     var sinovQ = SINOV ? '<div class="tq-sn"><span>🧪 Синов · бугун ' + ('0' + dt.getDate()).slice(-2) + '.' + ('0' + (dt.getMonth() + 1)).slice(-2) + '</span><button id="s1">+1 кун</button><button id="s0">Тозалаш</button></div>' : '';
-    var lv3 = function (cc) { return '<div class="lg-3" role="group" aria-label="Ҳолат бўйича">' + HT4.map(function (k) {
-        return '<button class="lg-hb ' + k + '" data-h="' + k + '" aria-pressed="' + (LF === k) + '"><b>' + cc[k] + '</b><span><i></i>' + HN[k][0].toUpperCase() + HN[k].slice(1) + '</span></button>'; }).join('') + '</div>'; };
+    var lv3 = function (cc) { return '<div class="lg-3" role="group" aria-label="Ҳолат бўйича">' + ZN.map(function (k) {   /* past zina (26.11.2026): «Машқ» zinasi tartibida */
+        return '<button class="lg-hb ' + k + (cc[k] ? '' : ' z') + '" data-h="' + k + '" aria-pressed="' + (LF === k) + '"><b>' + cc[k] + '</b><span>' + HN5[k] + '</span></button>'; }).join('') + '</div>'; };
     bar.hidden = true; bar.innerHTML = '';
     if (!lugKor()) {
       /* «МАШҚ» — bosh ko'rinish: statistika hamma so'zlar bo'yicha (tur filtri ta'sir qilmaydi) */
@@ -730,11 +778,9 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
       kt5.sort(function (a, b) { return a - b; });
       app.innerHTML = tepa(S, false, bg, t) + sinovQ + (saralangan ? '' : '<p class="lg-yn mq-yn">Ҳозирча 1-дарс сўзлари кўрсатиляпти. Дарс «Эъроб»идан 80% олсангиз, унинг сўзлари ўзи қўшилади.</p>') +
         '<a class="q-rw mq-lg" href="#lugat"><span class="q-ib">' + KITOB + '</span><span class="t">Луғат<small>Исм · Феъл · Ҳарф · қидирув' + (ca.b ? ' · Билмаганларим ' + ca.b : '') + '</small></span>' + CHV + '</a>' +
-        '<section class="tq-c"><div class="tq-h">Статистика · жами ' + JJ + ' сўз</div>' +
-        '<div class="mq-dt"><div class="mq-dz">' + doira(JA, JJ) + '<div><b>' + Math.round((JA.m + JA.g) * 100 / (JJ || 1)) + '%</b><span>' + (JA.m + JA.g) + ' / ' + JJ + ' сўз</span></div></div></div>' +
-        '<div class="mq-5" role="group" aria-label="Ҳолат бўйича">' + ['m', 'g', 'o', 'b'].map(function (k) {
-          return '<button class="mq-c ' + k + '" data-h="' + k + '"><i></i><span><b>' + JA[k] + '</b>' + HN5[k] + '</span></button>'; }).join('') + '</div>' +
-        '<div class="mq-hl"></div>' + DH.kq.map(function (k) {   /* kitob qatori: «N та дарс ўтилмаган», har dars — bo'lak (30 tadan ko'p bo'lsa — bitta chiziq), ostida so'zlar */
+        /* 26.11.2026: doira + 4 katak o'rnida zina (zina()); % — biladigan (биламан + мустаҳкам) / jami, sarlavhada */
+        '<section class="tq-c"><div class="tq-h"><span>Статистика · жами ' + JJ + ' сўз</span><b class="mq-zf">' + Math.round((JA.m + JA.g) * 100 / (JJ || 1)) + '%</b></div>' +
+        zina(JA) + '<div class="mq-hl"></div>' + DH.kq.map(function (k) {   /* kitob qatori: «N та дарс ўтилмаган», har dars — bo'lak (30 tadan ko'p bo'lsa — bitta chiziq), ostida so'zlar */
           var o = KT5[k] || { m: 0, g: 0, o: 0, b: 0, n: 0, j: 0 }, d = DH.k[k], q = d.d.length - d.o, mq = o.j - o.n;
           return '<div class="mq-kb" style="--kr:' + (KRG[k] || '#1f8f5c') + '"><div><b>' + k + '-китоб</b><span class="q">' + (q ? q + ' та дарс ўтилмаган' : 'Ҳаммаси ўтилди ✓') + '</span></div>' +
             (d.d.length <= 30 ? '<i class="ds">' + d.d.map(function (n) { return DH.ot[n] ? '<u class="y"></u>' : '<u></u>'; }).join('') + '</i>'
@@ -746,9 +792,11 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
             '<small>' + (mq ? o.j + ' сўздан ' + mq + ' таси «Машқ»да' : o.j + ' сўз') + '</small>' +
             (mq ? '<span class="lg">' + ['m', 'g', 'o', 'b'].map(function (s) { return o[s] ? '<span><em class="' + s + '"></em>' + o[s] + ' <span>' + HN[s] + '</span></span>' : ''; }).join('') + '</span>' : '') + '</div>'; }).join('') +
         '</section>';   /* «Исмлар / Феъллар / Ҳарфлар» kataklari olib tashlandi (26.11.2026, foydalanuvchi: «Луғат»ni turga ajratganda bor — takror). «Рейтинг» qatori olib tashlandi (19.11.2026, foydalanuvchi: pastki menyuda bor — takror) */
-      [].forEach.call(app.querySelectorAll('.mq-c[data-h]'), function (b) {   /* daraja bosilsa — Луғат shu daraja bilan */
+      [].forEach.call(app.querySelectorAll('.mq-zp[data-h]'), function (b) {   /* pog'ona bosilsa — Луғат shu daraja bilan */
         b.onclick = function () { LF = b.getAttribute('data-h'); LT = ''; location.hash = 'lugat'; };
       });
+      requestAnimationFrame(function () { zinaSigdir(); });   /* ru.js tarjimasidan keyin (MutationObserver — undan oldin) */
+      zinaSakra(JA);
       /* 14.11.2026 (foydalanuvchi): «Сўзлар ва поғоналар» ko'rsatmasi boshida bir marta o'zi chiqadi, keyin faqat ⓘ bilan
          (avtomat brauzerda — tekshiruv va rasm olishda — hamda kirish oynasi ustida chiqmaydi) */
       if (!L(KQO) && !navigator.webdriver) setTimeout(function () {
@@ -783,10 +831,11 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
       '<div class="lg-ch" role="group" aria-label="Турлар">' + [['', 'Ҳамма тур', ML.length], ['i', 'Исм', TN.i], ['f', 'Феъл', TN.f], ['h', 'Ҳарф', TN.h]].filter(function (f) { return f[2] || !f[0]; }).map(function (f) {
         return '<button data-t="' + f[0] + '" aria-pressed="' + (LT === f[0]) + '">' + f[1] + ' · ' + f[2] + '</button>'; }).join('') + '</div>' +
       '<p class="lg-hn"><span>' + AB + 'биламан</span><span>' + BM + 'билмайман</span></p>' +
-      (LF === 'm' ? '<p class="lg-mh">' + BM + '<span>Бу сўзлар энди сўралмайди. Унутганини белгиласангиз, «Ўрганиш»га қайтади.</span></p>' : '') + '<div id="lr"></div><div class="lg-ts" id="lts" role="status" aria-live="polite" hidden></div>';
+      (LF === 'm' ? '<p class="lg-mh">' + BM + '<span>Бу сўзлар энди сўралмайди. Унутганини белгиласангиз, «Бугунги машқ»га қайтади.</span></p>' : '') + '<div id="lr"></div><div class="lg-ts" id="lts" role="status" aria-live="polite" hidden></div>';
     [].forEach.call(app.querySelectorAll('.lg-ch button'), function (b) {
       b.onclick = function () { var y = window.pageYOffset; LT = b.getAttribute('data-t'); lugat(); window.scrollTo(0, y); };
     });
+    requestAnimationFrame(function () { zinaSigdir('.lg-hb span'); });
     [].forEach.call(app.querySelectorAll('.lg-hb'), function (b) {
       b.onclick = function () { var y = window.pageYOffset, k = b.getAttribute('data-h'); LF = LF === k ? 'h' : k; LG = null; lugat(); window.scrollTo(0, y); };
     });
@@ -814,14 +863,16 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     }
     function qator(x) {
       var r = x.r, q = x.st === 'g' ? qachon(x.x) : -1, ab = x.st === 'b' || x.st === 'o' || (x.st === 'g' && W.a[r.id]);
-      return '<div class="lg-r ' + x.st + (x.qy ? ' qy' : '') + (q >= 0 ? ' kt' : '') + '"><button class="lg-w"' + (r.au && lv[r.d] ? ' data-au="' + r.id + '"' : '') + '><span class="lg-a"><b class="ar" lang="ar">' + felQ(r) + shakllar(r) + '</b></span><span>' + jinsH(mano(r)) + '</span>' +   /* 26.11.2026 (foydalanuvchi): mufradi yonida jami, keyin ma'nosi */
-        '</button>' +
-        /* 26.11.2026 (foydalanuvchi: tagidagi yashil «N кундан кейин «Такрор»да сўралади» «биламан» yashili bilan g'alati; tavsiya, «ko'rinishini ko'rsat»):
-           биламан qatorida o'ngdagi «биламан» o'rniga — qisqa kulrang kun (sarlavha «Биламан» bor): «бугун» / «эртага» / «N кундан кейин» */
-        (q >= 0 ? '<span class="lg-kt" aria-label="«Такрор»да сўралади">' + (q === 0 ? 'бугун' : q === 1 ? 'эртага' : q + ' кундан кейин') + '</span>'   /* 26.11.2026 (foydalanuvchi: «oynasi ustiga ingichka qilib») — qator o'ng yuqori burchagida, ✓ 🔖 tepasida */
-          : '<div class="lg-s"><span class="lg-p d' + x.dr + '" aria-hidden="true">' + (x.st === 'm' ? '' : '<i></i><i></i><i></i>') + '</span><span>' + HN[x.st] + '</span></div>') +
+      /* 26.11.2026 (foydalanuvchi: «tugmalar tepada ingichka … alohida», «qil»): tepada tasma — daraja chiziqlari (мустаҳкам — to'q yashil
+         uchtasi), Биламан'da yonida kun («бугун» / «эртага» / «N кундан кейин» — avval qator o'ng yuqori burchagida edi), o'ngda ✓ 🔖;
+         daraja yozuvi («ўрганяпман» …) ko'rinmaydi — faqat ekran o'quvchi uchun aria-label */
+      return '<div class="lg-r ' + x.st + (x.qy ? ' qy' : '') + '"><div class="lg-tp">' +
+        '<span class="lg-p d' + (x.st === 'm' ? 4 : x.dr) + '" role="img" aria-label="' + HN[x.st] + '"><i></i><i></i><i></i></span>' +
+        '<span class="lg-kd"' + (q >= 0 ? ' aria-label="«Такрор»да сўралади">' + (q === 0 ? 'бугун' : q === 1 ? 'эртага' : q + ' кундан кейин') : '>') + '</span>' +
         (ab ? '<button class="lg-ab" data-id="' + r.id + '" aria-pressed="' + (x.st === 'g' ? 'true' : 'false') + '" aria-label="«Биламан» деб белгилаш">' + AB + '</button>' : '<span class="lg-sp"></span>') +
-        '<button class="lg-bm" data-id="' + r.id + '" aria-pressed="' + (x.st === 'b' ? 'true' : 'false') + '" aria-label="«Билмайман» деб белгилаш">' + BM + '</button></div>';
+        '<button class="lg-bm" data-id="' + r.id + '" aria-pressed="' + (x.st === 'b' ? 'true' : 'false') + '" aria-label="«Билмайман» деб белгилаш">' + BM + '</button></div>' +
+        '<button class="lg-w"' + (r.au && lv[r.d] ? ' data-au="' + r.id + '"' : '') + '><span class="lg-a"><b class="ar" lang="ar">' + felQ(r) + shakllar(r) + '</b></span><span class="lg-mn">' + jinsH(mano(r)) + '</span>' +   /* 26.11.2026 (foydalanuvchi): mufradi yonida jami, keyin ma'nosi */
+        '</button></div>';
     }
     /* 23.11.2026 (foydalanuvchi: «bilmaydiganlar teparoqda, pastga qarab», «hammasida ham qilaver — qidirish tizimi bor»): ro'yxat darslar
        bo'yicha emas, bilish darajasi bo'yicha — eng zaifi tepada. Guruhlar: Билмаганларим (қийин → билмайман → ўрганяпман 0/3 → 1/3 → 2/3),
@@ -906,7 +957,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
   function shakllar(r) {
     var p = '';
     if (r.mq) p += ' <span class="lg-j"><i>(مؤ.)</i></span>';
-    if (r.jam && r.jam.length) p += ' <span class="lg-j"><i>ج</i> ' + esc(r.jam.join('، ')) + '</span>';
+    if (r.jam && r.jam.length) p += ' <span class="lg-j"><i>ج</i> ' + r.jam.map(esc).join('،</span> <span class="lg-j">') + '</span>';   /* har ko'plik alohida bo'lak — sig'masa «،» dan keyin bo'linadi (26.11.2026) */
     if (r.mn) p += ' <span class="lg-j"><i>مؤ.</i> ' + esc(r.mn) + '</span>';
     return p;
   }

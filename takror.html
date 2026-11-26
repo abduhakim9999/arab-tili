@@ -226,16 +226,12 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .mq-h em{font-style:normal;font-size:14px;color:#f6dc94}
 .mq-go{flex-shrink:0;height:52px;padding:0 22px;border:0;border-radius:14px;background:#f6dc94;color:#0c3d29;font-size:17px;font-weight:800;box-shadow:inset 0 -4px 0 rgba(0,0,0,.18);transition:transform .06s,box-shadow .06s}
 .mq-go:active{transform:translateY(2px);box-shadow:inset 0 -2px 0 rgba(0,0,0,.18)}
-/* 23.11.2026: ikki bo'lim — «Ўрганиш» va «Такрор» (bir xil qolip, ikkinchisi biroz ixcham) */
-.top.mq-top .mq-ht{margin-top:-4px;padding-top:11px;padding-bottom:11px}
-.mq-ht b{font-size:24px}
-.mq-ht .mq-go{height:46px;padding:0 18px;font-size:16px;background:#fff;color:#0c3d29}
 .mq-go.mq-ya{height:46px;padding:0 14px;font-size:15px;white-space:nowrap;background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.3)}   /* «Яна N та сўз» — ikkinchi darajali */
 /* ⓘ — йўриқнома (qollanma.js): «Луғат» сарлавҳасида; .mq-yn — янги ўқувчига бир қаторли эслатма.
    23.11.2026 (foydalanuvchi: «tepada ham, pastda ham yo'riqnoma turibdi»): «Машқ»da bitta ⓘ — sarlavha yonida, kichik (.mq-hi);
    oxirigacha ko'rilmaguncha yonida sariq nuqta (.mq-nq) */
 .mq-h1{display:flex;align-items:center;gap:4px}
-/* 26.11.2026: kunlik seriya (sarlavha o'ngida) va «Қўшимча такрор» qatori */
+/* 26.11.2026: kunlik seriya (sarlavha o'ngida) */
 .mq-t1{display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
 .mq-t1>div:first-child{min-width:0}
 .mq-sr{flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:3px;min-width:92px;padding:7px 11px 8px;border-radius:14px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.16)}
@@ -245,7 +241,6 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .mq-sb{font-size:12px;font-weight:600;color:#f6dc94;white-space:nowrap}
 .mq-sl{display:block;width:100%;height:4px;border-radius:2px;background:rgba(255,255,255,.18);overflow:hidden}
 .mq-sl u{display:block;height:100%;border-radius:2px;background:#f6dc94}
-.top.mq-top .mq-hq b{font-size:22px}
 .mq-hi{position:relative;flex-shrink:0;width:32px;height:32px;margin:-4px 0;padding:0;border:0;background:none;color:rgba(255,255,255,.72);display:inline-flex;align-items:center;justify-content:center}
 .mq-hi::after{content:"";position:absolute;inset:-8px}
 .mq-hi svg{width:20px;height:20px}
@@ -408,10 +403,21 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
   function L(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function LS(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} }
   function mash(v) { try { if (v == null) return sessionStorage.getItem(KM); v ? sessionStorage.setItem(KM, v) : sessionStorage.removeItem(KM); } catch (e) {} return null; }
-  var REJ = 'o';                                       /* ketayotgan mashg'ulot: 'o' — «Ўрганиш», 't' — «Такрор» */
+  var REJ = 'b';                                       /* ketayotgan mashg'ulot: 'b' — «Бугунги машқ» (avval «Такрор», keyin «Ўрганиш» kartalari), 'q' — qo'shimcha takror */
   function boshla(r) { REJ = r; mash(r === 'q' ? 0 : r); qD = 0; qT = 0; qW = 0; if (r === 'q') qxYig(); document.body.classList.add('tq-ses'); keyingi(); }
-  /* «Қўшимча такрор» (26.11.2026, foydalanuvchi: ball ko'proq shug'ullangan odamga — «ha, qil»): «Ўрганиш» va «Такрор» bugunga tugagach,
-     биламан / мустаҳкам so'zlarni yana takrorlash (10 tadan). Javob jurnalga «x» + karta id bilan yoziladi — takror.js bKalit uni tanimaydi:
+  /* 26.11.2026 (foydalanuvchi: «mashqlar ko'payib ketdi … tartibga keltirsa bo'ladimi», «bitta qil»): «Ўрганиш» va «Такрор» — bitta
+     «Бугунги машқ» (23.11 dagi ikki bo'lim o'rniga). Ichki hisob o'zgarmadi (takror.js holat(): L1/YW/YQ/L2 va T); navbat — avval «Такрор»
+     (muddati kelgan «биламан» so'zlar), keyin «Ўрганиш». Bugungi ish tugagach — bitta «Яна 10 та сўз»: chegaradan tashqarida yangi so'z
+     kutayotgan bo'lsa — yangilari (yanaQosh, avvalgidek), bo'lmasa — билган сўзлар qo'shimcha takrori ('q', daraja o'zgarmaydi). */
+  function navbat() {
+    if (REJ === 'q') return QX[QXi] ? { k: QX[QXi], yangi: false, qoldi: QX.length - QXi } : null;
+    return E.keyingi(hozir(), 't') || E.keyingi(hozir(), 'o');
+  }
+  function yana(bg) {                                  /* «Яна 10 та сўз» nimani boshlaydi: 'y' — yangi so'zlar, 'q' — qo'shimcha takror, '' — yo'q */
+    return bg.kW ? 'y' : qxHovuz().length ? 'q' : '';
+  }
+  /* Qo'shimcha takror (26.11.2026, foydalanuvchi: ball ko'proq shug'ullangan odamga — «ha, qil»; alohida qatori o'sha kuni «bitta qil» bilan
+     olib tashlandi — endi «Бугунги машқ» tugagach «Яна 10 та сўз», kutayotgan yangi so'z bo'lmasa): биламан / мустаҳкам so'zlarni yana takrorlash (10 tadan). Javob jurnalga «x» + karta id bilan yoziladi — takror.js bKalit uni tanimaydi:
      so'z darajasi, «Такрор» kuni, «Билмайман» belgisi O'ZGARMAYDI; ball — oddiy javobdek (to'g'ri — 10, bitta karta kuniga bir marta).
      So'z kartasi — «Арабчаси?» (bo'lsa), aks holda «Маъноси?»; avval eng uzoq takrorlanmaganlari. */
   var QX = [], QXi = 0;
@@ -444,7 +450,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     var k = E.kun(hozir()), qo = null;
     try { qo = JSON.parse(L(KQ) || 'null'); } catch (e) {}
     LS(KQ, JSON.stringify({ kun: k, n: (qo && qo.kun === k ? +qo.n || 0 : 0) + yangiN() }));
-    qur(); boshla('o');
+    qur(); boshla('b');
   }
   var QAYTA = false;                                   /* kartalarni qayta yig'ish kerak (mashqda «аниқ биламан» so'z xato topildi) */
   /* so'z belgilari: b — «Билмайман», a — «Биламан» (bosilgan vaqt; 7 kundan keyin «Такрор»da so'raladi — takror.js), k — eski «biladi deb
@@ -487,8 +493,8 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     Promise.all([f('lugat.json'), f('mashq.json'), f('darslar.json')]).then(function (a) {
       D = { l: a[0].s, m: a[1].s, d: a[2].s };
       qur();
-      var mr = mash(); REJ = mr === 't' ? 't' : 'o';
-      if (mr && E.keyingi(hozir(), REJ)) { document.body.classList.add('tq-ses'); keyingi(); } else bosh();
+      var mr = mash(); REJ = 'b';
+      if (mr && navbat()) { document.body.classList.add('tq-ses'); keyingi(); } else bosh();
     }).catch(function () {
       app.innerHTML = '<div class="tq-er">Маълумот юкланмади. Интернетни текширинг.<br><button class="tq-b" id="qy">Қайта уриниш</button></div>';
       document.getElementById('qy').onclick = yukla;
@@ -579,22 +585,17 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
   function tepa(S, lv, bg, t) {
     xul(S); if (window.Qobiq) Qobiq.nav('takror');     /* pastki tugmalar: ustidagi son — bugungi savollar (xulosadan) */
     if (lv) return '<div class="top"><a href="#" id="lgq" aria-label="Машқ">‹</a><div><small>' + dnom() + '</small><h1>Луғат</h1></div>' + qi('lugat', ' mq-i2') + '</div>';
-    /* 23.11.2026 (foydalanuvchi: «o'rganayotgan so'zlarga alohida mashq, takror qiladiganlarga alohida»): ikki bo'lim — «Ўрганиш»
-       (билмайман, ўрганяпман) va «Такрор» (KUT kun oldin «биламан» bo'lgan so'zlar; to'g'ri → «мустаҳкам») */
+    /* 26.11.2026: bitta karta «Бугунги машқ» (23.11 dagi ikki bo'lim — «Ўрганиш» va «Такрор» — birlashdi; navbat() — avval takror,
+       keyin o'rganish); tugagach — «Бугунга тамом» + «Яна 10 та сўз» (yana()) */
     var et = E.ertaga(t);
     var qism = function (b) { return (b.soz ? b.soz + ' сўз' : '') + (b.soz && b.savol ? ' · ' : '') + (b.savol ? b.savol + ' савол' : ''); };
-    var bolim = function (k, nom, b, ert, bosh_, yoq) {
-      return '<div class="mq-h mq-' + k + '"><div><span>' + nom + '</span>' + (b.jami
-        ? '<b>' + b.jami + ' та</b><em>' + qism(b) + '</em></div><button class="mq-go" id="' + bosh_ + '">Бошлаш</button></div>'
-        : '<b>' + yoq + '</b><em>' + (ert ? 'эртага ' + ert + ' та' : k !== 'ht' ? 'эртага йўқ' : bg.nT ? 'кейингиси ' + bg.nT + ' кундан кейин' : 'биламан бўлган сўзлар ' + KUT + ' кундан кейин шу ерда') + '</em></div>' +
-          (k === 'ho' && bg.kW ? '<button class="mq-go mq-ya" id="gy">Яна ' + Math.min(yangiN(), bg.kW) + ' та сўз</button>' : '') + '</div>');   /* 26.11.2026: «Яна N та сўз» — yanaQosh */
-    };
-    /* «Қўшимча такрор» qatori — ikkala bo'lim bugunga tugagach, takrorlanadigan so'z bo'lsa (26.11.2026) */
-    var qx = !bg.o.jami && !bg.t.jami ? qxHovuz().length : 0;
-    var qxq = qx ? '<div class="mq-h mq-ht mq-hq"><div><span>Қўшимча такрор</span><b>' + qx + ' та</b><em>билган сўзлар · даража ўзгармайди</em></div><button class="mq-go" id="gq">Бошлаш</button></div>' : '';
+    var ya = bg.jami ? '' : yana(bg), ert = et.o + et.t;
+    var karta = '<div class="mq-h mq-ho"><div><span>Бугунги машқ</span>' + (bg.jami
+      ? '<b>' + bg.jami + ' та</b><em>' + qism(bg) + '</em></div><button class="mq-go" id="go">Бошлаш</button></div>'
+      : '<b>Бугунга тамом</b><em>' + (ert ? 'эртага ' + ert + ' та' : bg.nT ? 'кейингиси ' + bg.nT + ' кундан кейин' : 'эртага йўқ') + '</em></div>' +
+        (ya ? '<button class="mq-go mq-ya" id="gy">Яна ' + (ya === 'y' ? Math.min(yangiN(), bg.kW) : Math.min(10, qxHovuz().length)) + ' та сўз</button>' : '') + '</div>');
     return '<div class="top mq-top"><div class="mq-t1"><div><small>' + dnom() + '</small><h1 class="mq-h1">Машқ<button class="mq-hi" data-yo aria-label="Қандай ишлатилади — кўрсатма">' +
-      INF + (L(KQO) !== '2' ? '<i class="mq-nq"></i>' : '') + '</button></h1></div>' + seriya(t) + '</div>' +
-      bolim('ho', 'Ўрганиш', bg.o, et.o, 'go', 'Бугунга тамом') + bolim('ht', 'Такрор', bg.t, et.t, 'gt', 'Бугун йўқ') + qxq + '</div>';
+      INF + (L(KQO) !== '2' ? '<i class="mq-nq"></i>' : '') + '</button></h1></div>' + seriya(t) + '</div>' + karta + '</div>';
   }
   /* Kunlik seriya (26.11.2026, foydalanuvchi: «ha»): kunida kamida 200 ball — seriya davom etadi (+50, takror.js kunlik). «🔥 N кун» —
      bugun 200 ga yetmaguncha xira; ostida bugungi ball va 200 gacha chiziq. Yangi qoida kuchga kirgach (30.11.2026; ko'rish/sinovda — hozirdan). */
@@ -770,10 +771,8 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
         if (L(KQO) || document.getElementById('kr-d') || document.querySelector('.qs') || document.getElementById('vo') || document.body.classList.contains('tq-ses') || location.hash === '#lugat') return;
         yoOch(true);
       }, 700);
-      var go = document.getElementById('go'); if (go) go.onclick = function () { boshla('o'); };
-      var gt = document.getElementById('gt'); if (gt) gt.onclick = function () { boshla('t'); };
-      var gy = document.getElementById('gy'); if (gy) gy.onclick = yanaQosh;
-      var gq = document.getElementById('gq'); if (gq) gq.onclick = function () { boshla('q'); };
+      var go = document.getElementById('go'); if (go) go.onclick = function () { boshla('b'); };
+      var gy = document.getElementById('gy'); if (gy) gy.onclick = function () { if (yana(E.bugun(hozir())) === 'y') yanaQosh(); else boshla('q'); };
       if (SINOV) {
         document.getElementById('s1').onclick = function () { LS(KS, String(siljish() + 1)); bosh(); };
         document.getElementById('s0').onclick = function () { if (confirm('Синов натижалари ўчирилсинми?')) { LS(KJ, null); LS(KS, null); LS(KB, null); qur(); bosh(); } };
@@ -1011,14 +1010,14 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
   /* ---- mashg'ulot ---- */
   function keyingi() {
     clearTimeout(tmq); toxta();
-    var x = REJ === 'q' ? (QX[QXi] ? { k: QX[QXi], yangi: false, qoldi: QX.length - QXi } : null) : E.keyingi(hozir(), REJ);
+    var x = navbat();
     if (!x) { bosh(); return; }
     cur = x.k; t0 = Date.now();
     /* 21.11.2026 (foydalanuvchi qarori, A variant): o'ngdagi son — tashqaridagi «N та» bilan bir xil birlikda: tugagan so'z/savol / jami
        («12 / 39»). Bir so'z bugungi hamma kartasi tugagandagina sanaladi (E.bugun().jami kamayadi); yangi karta endi bir marta so'raladi
        (takror.js learning_steps), shuning uchun har to'g'ri javob odatda bittaga oshiradi. Noto'g'ri javobda son ham, chiziq ham joyida;
        jami o'ssa (kamdan-kam) qT o'sadi — orqaga qaytmaydi. Oldin (13.11) qadamlar sanalardi: yangi karta = 2 qadam («39 та» → ichkarida 66). */
-    var qol = REJ === 'q' ? QX.length - QXi : E.bugun(hozir())[REJ].jami, eski = qW;
+    var qol = REJ === 'q' ? QX.length - QXi : E.bugun(hozir()).jami, eski = qW;
     qD = Math.max(qD, qT - qol);
     if (qD + qol > qT) qT = qD + qol;
     qW = qT ? Math.round(qD * 100 / qT) : 0;

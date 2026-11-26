@@ -2,6 +2,9 @@
 
 Har sessiyada o'qilmaydi. Yangi yozuv avval CLAUDE.md ga yoziladi; u yerda faqat oxirgi 3 ta turadi — 4-si qo'shilganda eng eskisi shu yerga ko'chadi (yangisi tepada).
 
+- (25–26.11.2026):
+  - **Ochilganda eski versiya ko'rinmaydi** (25.11.2026; foydalanuvchi: «ochganda eski versiyasi ko'rinib qolyapti, keyin yana qayta olyapti — bug», «tekshirib tuzat»; `tayyor-yangilanish`; **saytda** — 26.11.2026, «joyla»): `sw.js` sahifa ochilishida yangi versiyani o'zi so'raydi va o'rnatish foizini yuboradi; `tg.js` ochilganda/qaytganda yangi versiya topilsa «Янги версия юкланмоқда… N%» pardasi, tayyor bo'lgach darhol yangilanadi. `docs/texnik/01-sayt-joylash.md`.
+
 - (24–25.11.2026):
   - **To'liq tekshiruv tuzatishlari** (24–25.11.2026; foydalanuvchi: «hammasini tuzat», fiqh audiosini telefonda sinab «ishladi», «joyla»; `tayyor-xavfsizlik`, `tayyor-tozalash`; **saytda** — 25.11.2026): o'quvchi hujjatlari Upstash Redis'da (`api/_ombor.js`; eski Blob — o'qish zaxirasi, birinchi o'qishda ko'chadi), so'rov chegarasi; fiqh ustozi audiosi shifrlangan (`afN-….bin`, `fiqh_lock.py`; tayyorlanish foizi, tayyor bo'lgach o'zi boshlanadi); `/api/tg?setup` himoyasi; `docs/texnik.md` → mundarija + `docs/texnik/NN-….md`; `CLAUDE.md` qisqardi (jurnal `docs/tarix.md` da); konspekt nusxasi — havola; video va pleyer rejalari `docs/` ga; `ruN.html` va `fsrs.js` oldindan yuklanmaydi; `ping.yml` olib tashlandi. Hisobot — claude.ai Docs «Arab Tili — to'liq tekshiruv».
   - **«Рейтинг» → «Сўзлар»: eski raqamlar olib tashlandi** (24.11.2026; foydalanuvchi: «birpasda qayerdan мустаҳкам bo'lib oldi?», «o'ylab to'g'rilaver», «joyla»; `tayyor-reyting-tozala`; **saytda** — 24.11.2026): 23.11 dan beri saqlamagan o'quvchilarda eski qoida (биламан ham) raqami («219 сўз») qolgan edi — kalit `rey:m`, kesh `reyting-kesh2`, bo'sh ro'yxatda «Ҳали ҳеч кимда мустаҳкам сўз йўқ» (`docs/texnik.md` 19).

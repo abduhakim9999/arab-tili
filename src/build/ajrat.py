@@ -61,8 +61,7 @@ def kengayt(bosh, j):
         return b + suf
     if suf.startswith('َات'):                      # َاتٌ
         b = re.sub('ة[ً-ِ]*$', '', b)              # ة va harakati
-        b = re.sub('َ$', '', b)
-        b = re.sub('َ(ّ)$', r'\1', b)
+        b = re.sub('[ً-ِ]*(ّ?)[ً-ِ]*$', r'\1', b)   # oxirgi harakat/tanvin (shadda qoladi) — 26.11.2026: «مُجْتَمَعٌ» → «مُجْتَمَعٌَاتٌ» xatosi (tanvin qolardi)
         return b + suf
     return j
 

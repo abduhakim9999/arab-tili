@@ -1,1 +1,39 @@
-{"_izoh": "Lugat yozuvlariga qolda tuzatish: kalit — id (data/lugat.json). tur: soz|fel|harf|zamir|atoqli; tk: 0 — takrorga kirmaydi. Masalan: {\"44\": {\"tur\": \"atoqli\", \"izoh\": \"davlat nomi\"}}"}
+{
+ "_izoh": "Lugat yozuvlariga qolda tuzatish: kalit — id (data/lugat.json). tur: soz|fel|harf|zamir|atoqli; tk: 0 — takrorga kirmaydi. Masalan: {\"44\": {\"tur\": \"atoqli\", \"izoh\": \"davlat nomi\"}}",
+ "146": {
+  "fel": [
+   "سَلَّمَ",
+   "يُسَلِّمُ",
+   "سَلِّمْ",
+   "تَسْلِيمٌ، سَلَامٌ (عَلَى ..)"
+  ],
+  "izoh": "26.11.2026: ikkinchi masdar (ism masdar, nahv kitoblaridagi mashhur misol) — faqat data/lugat.json da («Луғат» ro'yxati, karta); dars sahifasi va ovozi kitobdagidek"
+ },
+ "381": {
+  "fel": [
+   "أَدَّى",
+   "يُؤَدِّي",
+   "أَدِّ",
+   "تَأْدِيَةٌ، أَدَاءٌ (إِلَى ..)"
+  ],
+  "izoh": "26.11.2026: ikkinchi masdar (ism masdar, nahv kitoblaridagi mashhur misol) — faqat data/lugat.json da («Луғат» ro'yxati, karta); dars sahifasi va ovozi kitobdagidek"
+ },
+ "442": {
+  "fel": [
+   "أَعْطَى",
+   "يُعْطِي",
+   "أَعْطِ",
+   "إِعْطَاءٌ، عَطَاءٌ (هُ هُ)"
+  ],
+  "izoh": "26.11.2026: ikkinchi masdar (ism masdar, nahv kitoblaridagi mashhur misol) — faqat data/lugat.json da («Луғат» ro'yxati, karta); dars sahifasi va ovozi kitobdagidek"
+ },
+ "766": {
+  "fel": [
+   "أَقْرَضَ",
+   "يُقْرِضُ",
+   "أَقْرِضْ",
+   "إِقْرَاضٌ، قَرْضٌ (هُ هُ)"
+  ],
+  "izoh": "26.11.2026: ikkinchi masdar (ism masdar, nahv kitoblaridagi mashhur misol) — faqat data/lugat.json da («Луғат» ro'yxati, karta); dars sahifasi va ovozi kitobdagidek"
+ }
+}

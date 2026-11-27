@@ -16,6 +16,7 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 B = os.path.join(ROOT, 'src', 'build')
 HK = re.compile('[ً-ْٰ]')
 
+# OLIB — aslida «o'zgartirish»: boshqaruv olib tashlanadi yoki (2-bosqich) qo'shiladi.
 # (dars, kn): (yangi yozuv yoki None, yangi ma'no ro'yxati yoki None, yangi mz yoki None, {misol: (eski uz, yangi uz)})
 OLIB = {
     (70, '1501'): ('أَمَرَ – يَأْمُرُ – اُؤْمُرْ، مُرْ – أَمْرٌ', ['буюрмоқ, амр қилмоқ'], ['буюрди, амр қилди'], {}),
@@ -25,6 +26,11 @@ OLIB = {
                  {0: ('Мен{га} {ёрдам беринглар}', 'Менга {ёрдам беринглар}')}),
     (94, '51'): ('نَطَقَ – يَنْطِقُ – اِنْطِقْ – نُطْقٌ', ['талаффуз қилмоқ'], ['талаффуз қилди'], {}),
     (96, '42'): ('وَجَبَ – يَجِبُ – وُجُوبٌ', ['шарт (керак) бўлмоқ'], ['шарт (керак) бўлди'], {}),
+    # 27.11.2026, 2-bosqich: matnda jar harfi bilan kelgan, belgisi yo'q edi (qo'shildi)
+    (71, '1524'): ('تَشَابَهَ – يَتَشَابَهُ – تَشَابَهْ – تَشَابُهٌ (فِي ..)', ['(...да) бир-бирига (ўзаро) ўхшамоқ'], ['(...да) бир-бирига (ўзаро) ўхшади'], {}),
+    (93, '21'): ('غَدَا – يَغْدُو – اُغْدُ – غُدُوٌّ (إِلَى ..)', ['(...га) тонгда йўлга чиқмоқ'], ['(...га) тонгда йўлга чиқди'], {}),
+    (93, '48'): ('رَجَعَ – يَرْجِعُ – اِرْجِعْ – رُجُوعٌ (إِلَى ..)', ['(...га) қайтмоқ'], ['(...га) қайтди'], {}),
+    (93, '35'): ('اِشْتَرَى – يَشْتَرِي – اِشْتَرِ – اِشْتِرَاءٌ (بِـ..)', ['(...га) сотиб олмоқ'], ['(...га) сотиб олди'], {}),
 }
 
 # (dars, kn, misol): (arabchada, o'zbekchada yoki None)
@@ -91,6 +97,7 @@ BELGI = {
     (98, '76', 0): ('⟨مِنْ⟩', 'Сизлар⟨дан⟩'),
     (98, '77', 0): ('⟨عَنْ⟩', 'се⟨ни⟩'),
     (98, '80', 0): ('⟨فِي⟩', 'ҳаётинг⟨да⟩'),
+    (71, '1524', 0): ('⟨فِي⟩ أَشْيَاءَ', 'нарсалар⟨да⟩'),
 }
 
 
@@ -108,7 +115,7 @@ def belgila(t, y):
 
 def main():
     quruq = '--quruq' in sys.argv
-    ESKI = {}                                         # eski satr → yangi (manba fayllar uchun)
+    ESKI = {}                                         # dars → {eski satr → yangi} (manba fayllar uchun — faqat o'sha darsning fayllari)
     YOZ = {}                                          # dars → {eski yozuv plain: yangi plain}
     darslar = sorted({k[0] for k in OLIB} | {k[0] for k in BELGI})
     ok_b = ok_o = 0
@@ -125,15 +132,15 @@ def main():
                 if o:
                     yz, uz, _, ex = o
                     if v[1] != yz:
-                        ESKI[json.dumps(v[1], ensure_ascii=False)] = json.dumps(yz, ensure_ascii=False)
+                        ESKI.setdefault(n, {})[json.dumps(v[1], ensure_ascii=False)] = json.dumps(yz, ensure_ascii=False)
                         YOZ.setdefault(n, {})[HK.sub('', v[1])] = HK.sub('', yz)
                         v[1] = yz; ok_o += 1
                     if uz and v[2] != uz:
-                        ESKI[json.dumps(v[2], ensure_ascii=False)] = json.dumps(uz, ensure_ascii=False)
+                        ESKI.setdefault(n, {})[json.dumps(v[2], ensure_ascii=False)] = json.dumps(uz, ensure_ascii=False)
                         v[2] = uz
                     for xi, (e0, e1) in ex.items():
                         if v[3][xi][1] == e0:
-                            v[3][xi][1] = e1; ESKI[json.dumps(e0, ensure_ascii=False)] = json.dumps(e1, ensure_ascii=False)
+                            v[3][xi][1] = e1; ESKI.setdefault(n, {})[json.dumps(e0, ensure_ascii=False)] = json.dumps(e1, ensure_ascii=False)
                 for xi, e in enumerate(v[3]):
                     b = BELGI.get((n, v[0], xi))
                     if not b:
@@ -142,9 +149,9 @@ def main():
                     if b[1] and len(e) > 1:
                         u0 = e[1]; e[1] = belgila(e[1], b[1])
                         if u0 != e[1]:
-                            ESKI[json.dumps(u0, ensure_ascii=False)] = json.dumps(e[1], ensure_ascii=False)
+                            ESKI.setdefault(n, {})[json.dumps(u0, ensure_ascii=False)] = json.dumps(e[1], ensure_ascii=False)
                     if a0 != e[0]:
-                        ESKI[json.dumps(a0, ensure_ascii=False)] = json.dumps(e[0], ensure_ascii=False); ok_b += 1
+                        ESKI.setdefault(n, {})[json.dumps(a0, ensure_ascii=False)] = json.dumps(e[0], ensure_ascii=False); ok_b += 1
             if not quruq:
                 s = s[:m.start()] + 'var VOC=' + json.dumps(V, ensure_ascii=False) + ';\n' + s[m.end():]
                 open(fp, 'w', encoding='utf-8').write(s)
@@ -155,10 +162,11 @@ def main():
         if '/lt/' in fp or (fp.endswith('.txt') and not re.search(r'/lq/b(%s)\.txt$' % '|'.join(map(str, darslar)), fp)):
             continue
         s = s0 = open(fp, encoding='utf-8').read()
-        for e, y in ESKI.items():
+        dn = re.findall(r'(?<![0-9])(\d{1,2})(?![0-9])', os.path.relpath(fp, os.path.join(B, 'scratchpad')))
+        for e, y in {k: v for n_, d_ in ESKI.items() if str(n_) in dn for k, v in d_.items()}.items():
             s = s.replace(e, y)
             e2, y2 = e[1:-1], y[1:-1]                 # bNN.txt da qo'shtirnoqsiz
-            if fp.endswith('.txt') and len(e2) > 6:
+            if fp.endswith('.txt') and len(e2) > 6 and y2 not in s:
                 s = s.replace(e2, y2)
         if s != s0:
             print('  manba', os.path.relpath(fp, ROOT))

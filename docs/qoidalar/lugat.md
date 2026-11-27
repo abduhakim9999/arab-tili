@@ -74,7 +74,14 @@ Tungi rejimda yashil va to'q sariq ochroq bo'ladi.
   - 6 yozuvdan matnda yo'q boshqaruv olib tashlandi: 70 أَمَرَ, 74 شُكْراً, 91 va 98 سَاعَدَ, 94 نَطَقَ, 96 وَجَبَ.
   - 62 misolda jar harfi belgilandi.
   - So'z raqamlari saqlandi.
-  - Diqqat: `kitob_hamma.py` yoki `vocNN.py` qayta ishga tushirilsa, keyin `lugat_jar.py` ham ishga tushiriladi. Sababi: `ay` bilan bog'langan qator yozuvni bog'langan so'zdan oladi.
+  - 2-bosqich (shu kuni): belgisi yo'q fe'llar matn bo'yicha tekshirildi. 4 tasiga boshqaruv qo'shildi: 71 تَشَابَهَ (فِي ..), 93 غَدَا (إِلَى ..), 93 رَجَعَ (إِلَى ..), 93 اِشْتَرَى (بِـ..).
+  - Bir xil fe'l keyin keladigan jar harfi bilan har doim ham boshqaruv bo'lmaydi. Masalan: joy (جَلَسَ فِي), qism (أَكَلَ مِنْ, تَنَاوَلَ مِنْ), boshqa so'zga tegishli harf (يُفَضِّلُونَ الزَّوَاجَ بِـ…), qarata aytish (قَالَ لِـ). Bular belgilanmaydi.
+- **Misol matndan (27.11.2026):** `src/build/lugat_misol.py`. Misollaridan hech biri matnda bo'lmagan 27 yozuvga matndagi gap birinchi misol bo'lib qo'shildi.
+  - Gap so'zning matndagi o'rnidan (`w`) olinadi. Jar harfli fe'lda o'sha harf kelgan o'rin tanlanadi.
+  - Gap 14 so'zdan uzun bo'lsa, vergulgacha qisqartiriladi. Tarjima `TR` dan olinadi.
+  - Ruscha darsda tarjima `src/ru/dNN.json` dan olinadi.
+  - Kitob misollari o'chirilmaydi.
+- Diqqat: `kitob_hamma.py` yoki `vocNN.py` qayta ishga tushirilsa, keyin `lugat_jar.py` va `lugat_misol.py` ham ishga tushiriladi. Ikkalasi qayta ishlatilsa hech narsani buzmaydi. Sabab: `ay` bilan bog'langan qator yozuvni bog'langan so'zdan oladi.
 
 ## 7. Yangi dars lug'atini tekshirish
 1. Jar belgisi bor har fe'lni ko'rib chiqish: harf misolda bormi? Yo'q bo'lsa, dars matnida bormi? Matnda ham yo'q bo'lsa, belgi qo'yilmaydi.
@@ -82,6 +89,8 @@ Tungi rejimda yashil va to'q sariq ochroq bo'ladi.
 3. Jar harfli misolda `{^…}` ikkala tomonda ham bormi: arabchada harf, tarjimada qo'shimcha.
 
 ## 8. Hali qilinmagan (27.11.2026)
-- **67 so'zda ko'rsatilgan misol matndan emas.** Ular kitob misollari, asosan 70–74, 91 va 1–12-darslarda. Ularni matndagi gap bilan almashtirish kerak: `lugat_gap.py` topgan `g` gapi bor, tarjimasi `TR` dan olinadi.
+- **36 so'zda misol hali «МИСОЛ».** Ularning matndagi o'rni (`w`) yozilmagan. Asosan dars sarlavhasidagi so'zlar (دَرْسٌ، ثَانٍ), nisbalar (طَشْقَنْدِيٌّ) va harf yozuvlari (قَدْ ...). Ularga o'rin qo'lda yoziladi.
 - **255 so'z misolsiz.** Asosan sonlar va ismlar.
-- **Fe'l boshqaruvi faqat jar belgisi bor 75 yozuvda tekshirildi.** Belgisi yo'q fe'llar matnda jar harfi bilan kelgan bo'lishi mumkin — ular alohida tekshiriladi.
+- **جَاءَ بِـ («олиб келмоқ», 95-dars, 16-qator).** Bu ma'no alohida yozuv bo'lishi kerak (`asl`, yangi id). Hozir faqat «келмоқ» bor.
+- **سَمِعَ بِـ («...ҳақида эшитмоқ», 70-dars, 7-qator).** Matnda bu so'z ikkinchi ma'noda ham keladi, u ham alohida yozuv bo'lishi kerak.
+- **Misolsiz so'zlar.** Jar belgisi yangi qo'shilgan 93-dars غَدَا va رَجَعَ da misol yo'q; misolsiz so'zlar jami 255 ta.

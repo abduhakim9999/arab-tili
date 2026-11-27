@@ -1044,8 +1044,9 @@ document.addEventListener('click', function (e) {
       hd.insertBefore(w, ar); w.appendChild(ar);
       var q = VOC[hamma.indexOf(g)] || [];
       var ebs = [].slice.call(g.querySelectorAll('.eb')), bir = null;
-      if (ebs.length) {                                /* bitta misol (27.11.2026): jar harfi belgilangani → dars matnidagisi → birinchisi */
-        bir = ebs.filter(function (e) { return /\{\^/.test(e.textContent); })[0] || ebs.filter(matnda)[0] || ebs[0];
+      if (ebs.length) {                                /* bitta misol (27.11.2026): dars matnidagisi (jar belgilisi oldin) → jar belgilisi → birinchisi */
+        var jrb = function (e) { return /\{\^/.test(e.textContent); }, mt = ebs.filter(matnda);
+        bir = mt.filter(jrb)[0] || mt[0] || ebs.filter(jrb)[0] || ebs[0];
         ebs.forEach(function (e) { if (e !== bir) e.classList.add('la-yo'); });
         var exs = g.querySelector('.exs');
         if (exs && !exs.querySelector('.la-mt')) exs.insertAdjacentHTML('afterbegin', '<div class="la-mt">' + (matnda(bir) ? 'МАТНДА' : 'МИСОЛ') + '</div>');
@@ -1070,7 +1071,7 @@ document.addEventListener('click', function (e) {
   function matnda(eb) {                                /* misol dars matnidanmi: hamma so'zi matnning bitta qatorida (qisqartirilgan gap ham) */
     if (MATN === null) MATN = (window.D || []).map(function (r) { return ' ' + String(r && r[1] || '').split('/').map(function (x) { return yl(x.split('|')[0].replace(/~/g, ' ')); }).join(' ') + ' '; });
     var a = eb && eb.querySelector('.ar2'), t = a ? a.textContent.split(/[\s\u2013\u2014-]+/).map(yl).filter(Boolean) : [];
-    return t.length > 0 && MATN.some(function (q) { return t.every(function (w) { return q.indexOf(' ' + w + ' ') >= 0; }); });
+    return t.length > 0 && MATN.some(function (q) { return t.every(function (w) { return q.indexOf(' ' + w + ' ') >= 0 || q.indexOf(' \u0648' + w + ' ') >= 0 || q.indexOf(' \u0641' + w + ' ') >= 0; }); });   /* و / ف oldi qo'shimchasi bilan ham */
   }
   function belgi(h) { return h.replace(/\{\^([^{}]*)\}/g, '<span class="la-jr">$1</span>').replace(/\{([^{}]*)\}/g, '<span class="la-g">$1</span>').replace(/\[([^\[\]]*)\]/g, '$1'); }   /* […] — eski belgi, endi ko'rsatilmaydi */
   function yl(x) { return String(x || '').replace(/[\u064B-\u065F\u0670\u0640]/g, '').replace(/[\u0623\u0625\u0622\u0671]/g, '\u0627').replace(/\u0629/g, '\u062A').replace(/\u0649/g, '\u064A').replace(/[^\u0621-\u064A]/g, ''); }

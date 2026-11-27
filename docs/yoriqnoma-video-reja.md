@@ -11,7 +11,7 @@
 | 3 | Таркиб ва ранглар | «Таркиб»: ranglar va ramkalar, so'z oynasidagi e'rob, «Қоидалар» qutisi | dars sahifasi («Таркиб») | 3 | — |
 | 4 | Дарс «Эъроб»и ва «Боб якуни» | savol turlari, 80%, keyingi dars ochilishi, so'zlar «Машқ»ga tushishi, +100 ball; «Хатолар устида ишлаш», bob imtihoni (26.11.2026 dan; oldin yorliq nomi «Машқ» edi) | dars «Эъроб» yorlig'i | 2 | — |
 | 5 | «Машқ» қандай ишлайди | «Бугунги машқ» (26.11.2026 dan faqat so'z), ikki tomonli karta, «Кўрсатиш», «Билдим / Билмадим», «Луғат» belgilari | «Машқ» ⓘ | 1 | — |
-| 6 | Сўз йўли | so'z 4 pog'onadan qanday o'tadi | «Машқ» ⓘ | 1 | saytda (v335); 3-, 4-sahna va oxirgi kadr eskirgan |
+| 6 | Сўз йўли | so'z 4 pog'onadan qanday o'tadi | «Машқ» ⓘ | 1 | saytda (v335); 27.11.2026 yangilandi (`tayyor-yoriqnoma-ovoz`): «Эъроб», «Бугунги машқ» — k2, k3a, k4 qayta ovoz |
 | 7 | Баллар ва рейтинг | nimaga qancha ball, 🔥 seriya, «Ҳафта» va «Сўзлар» | «Рейтинг» ⓘ va «Машқ»dagi «🔥 N кун» | 1 | ovozsiz qoralama tayyor (26.11.2026) — `docs/ball-video.md`, `src/video/ball/` |
 | 8 | Эшитиш | «Матн / Луғат / Таркиб» yo'laklari, sozlash, oflayn | «Эшитиш» | keyin | pleyer qayta qilingach (`docs/grammatika-pleyer-reja.md`) |
 | 9 | Грамматика | «Сарф», «Наҳв», «Татбиқ» | «Грамматика» | keyin | «Татбиқ» davom etyapti |
@@ -39,12 +39,12 @@
 
 ## 4. Eskirgan joylar (26.11.2026 holati)
 
-- «Кўрсатмалар» (3 animatsiya: `qol/mavzu.js` va rasmlar) — hali «Ўрганиш» va «Такрор» deydi; ilovada endi bitta «Бугунги машқ».
-- «Сўз йўли» videosi — 3- va 4-sahna ovozi va yozuvi, oxirgi kadrdagi «Машқ · Ўрганиш · Такрор».
+- ~~«Кўрсатмалар» (3 animatsiya) — hali «Ўрганиш» va «Такрор» deydi~~ — 26.11.2026 tuzatildi; 27.11.2026: Farruh ovozi qo'shildi, «Луғат» 4 → 10 qadam, «Эъроб», «Бошлаш» ustidagi ro'yxat (`docs/texnik/20-yoriqnoma.md`; `tayyor-yoriqnoma-ovoz`).
+- ~~«Сўз йўли» videosi — 3- va 4-sahna ovozi va yozuvi, oxirgi kadr~~ — 27.11.2026 tuzatildi (2-sahna ham: «Эъроб», 80%). Qolgani: videodagi so'z kartasi eski «Луғат» qatori ko'rinishida (holat yozuvi o'ngda) — ilovada 26.11 dan 3 qavatli; video hikoyasi holat yozuviga tayangani uchun o'zgartirilmadi.
 - Ruscha rejimda faqat eski ko'rsatmalar bor (video yo'q).
 
 ## 5. Ochiq qarorlar (foydalanuvchidan)
 
-1. O'zbekchada eski 3 ta «Кўрсатмалар» videolar bilan almashtiriladimi (Claude tavsiyasi — ha) yoki ikkalasi turadimi.
+1. ~~O'zbekchada eski 3 ta «Кўрсатмалар» videolar bilan almashtiriladimi~~ — hal bo'ldi (27.11.2026, foydalanuvchi: «yaxshisini topib qil»): «Кўрсатмалар» qoladi, ovoz o'zining ichiga qo'shiladi (ilova o'zgarsa rasmlar avtomat qayta olinadi, faqat o'zgargan gap qayta yoziladi — mp4 dan arzon). Mp4 videolar — tushuncha mavzulari uchun («Сўз йўли», «Баллар»).
 2. Ruscha: hozircha eski ko'rsatmalar matni «Бугунги машқ»ga to'g'rilanadimi; videolarning ruschasi — keyin.
 3. «Танишув» birinchi kirishda o'zi ochilsinmi.

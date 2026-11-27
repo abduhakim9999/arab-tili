@@ -21,6 +21,7 @@ OXIR = {'ٌ': 'R', 'ُ': 'R', 'ً': 'N', 'َ': 'N', 'ٍ': 'J', 'ِ': 'J', 'ْ': 
 STD = {'замма', 'фатҳа', 'касра', 'сукун', 'танвинли замма', 'танвинли фатҳа', 'танвинли касра'}
 OTISH = 80          # dars o'tish chegarasi, %
 KAM = 5             # darsda bundan kam savol — DIQQAT
+BQ = {'h': 2, 'f': 2, 'v': 3, 's': 4, 'b': 5, 'x': 5}   # qolip bosqichi turdan (savol.js BQ bilan bir xil)
 # Harakati amalda o'zgarmaydigan so'zlar (mabniy yoki qotib qolgan) — harakat savoli bo'lmaydi
 QOTGAN = {'الآن', 'هنا', 'هناك', 'أمس', 'حيث', 'قط', 'أيضا', 'جدا', 'شكرا', 'عفوا', 'مع', 'سبحان'}
 # Yodlangan iboralar: (so'z, qo'shni so'z)
@@ -87,6 +88,23 @@ def main():
         jami = len(L) + len(TL)
         if jami < KAM:
             yoz(d, 'DIQQAT', '%d ta savol (kamida %d bo\'lsin)' % (jami, KAM))
+        # qolip (26.11.2026): turli savoli bor darsda 5 bosqichning har biridan kamida bitta (bq — ajrat.py, savol.js QTX.bq)
+        if TL:
+            bor = {1} if L else set()
+            bor |= {q.get('bq') or BQ.get(q['t'], 3) for q in TL}
+            yoq = [str(x) for x in range(1, 6) if x not in bor]
+            if yoq:
+                yoz(d, 'DIQQAT', 'qolip: %s-bosqich savoli yo\'q' % ', '.join(yoq))
+            qat = collections.defaultdict(list)          # «Бўш жой» / «Хатони топ» qatorida boshqa savol bo'lmasin (javobni ko'rsatadi)
+            for q in L + TL:
+                qat[q['k'].split('-')[0]].append(q)
+            for l, qs in qat.items():
+                bx = [q for q in qs if q.get('t') in ('b', 'x') and 'var' not in q]
+                if bx and len(qs) > 1:
+                    yoz(d, 'DIQQAT', 'qolip: %s-qatorda «%s» bilan yana %d savol (javobni ochadi)' % (l, bx[0]['k'], len(qs) - 1))
+            for q in TL:
+                if q['t'] in ('f', 'x') and len(q.get('ok', [])) < 4:
+                    yoz(d, 'DIQQAT', '%s (%s): gapda %d so\'z — taxmin oson' % (q['k'], q['t'], len(q.get('ok', []))))
         # taxmin: doim bitta harakat / holatni bosish (zamma ↔ Раф, fatha ↔ Насб, kasra ↔ Жар); boshqa turda — tasodif (1/variant)
         HOLAT = {'R': 'Раф', 'N': 'Насб', 'J': 'Жар'}
         eng, top = 0, 'R'
@@ -111,7 +129,7 @@ def main():
         for q in TL:
             if not 0 <= q['to'] < len(q['o']):
                 yoz(d, 'XATO', '%s (%s): to\'g\'ri javob yo\'q' % (q['k'], q['t']))
-            if q['t'] != 's' and len(set(q['o'])) < len(q['o']):
+            if q['t'] not in ('s', 'f', 'x') and len(set(q['o'])) < len(q['o']):   # so'z bosiladigan turda bir xil so'z ikki joyda bo'lishi mumkin
                 yoz(d, 'XATO', '%s (%s): variant takror' % (q['k'], q['t']))
             if len(q['o']) < 2:
                 yoz(d, 'XATO', '%s (%s): variant kam' % (q['k'], q['t']))

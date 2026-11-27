@@ -8,7 +8,8 @@
       "1-0": "اَلسَّلَامُ — ёдланган салом: ҳаракат саволи ўйлатмайди; мубтадо 5-1 (حَالُكَ) да сўралади.",
       "2-1": "السَّلَامُ — ёдланган жавоб; «мубтадо муаххар» 2-дарсда «Нима учун?» билан сўралади.",
       "4-1": "خَلِيلٌ — 3-1 (خَالِدٌ) билан бир хил намуна.",
-      "6-1": "اَلْحَمْدُ — ёдланган ибора."
+      "6-1": "اَلْحَمْدُ — ёдланган ибора.",
+      "6-2": "Qolip (26.11.2026): 6-qatorda «Бўш жой» (6-5); لِلَّهِ «Нима учун жар?» 7-2 da."
     },
     "qov": {
       "3-1": {
@@ -60,7 +61,7 @@
         "j": "Мубтадо",
         "sabab": "Gap boshida كَيْفَ (xabar muqaddam) turgani uchun o'quvchi حَالُكَ ni xabar deb o'ylaydi — aynan shu tuzoq. Foil — gapda fe'l yo'q."
       },
-      "6-2": {
+      "7-2": {
         "t": "v",
         "s": "Белгиланган сўз нима учун жар?",
         "o": [
@@ -69,7 +70,18 @@
           "Жар ҳарфидан кейин келгани учун"
         ],
         "j": "Жар ҳарфидан кейин келгани учун",
-        "sabab": "Ibora yodlangan, lekin sababi (jar harfi) — darsning birinchi jar holati. Muzofun ilayh — keyingi darslardagi jarning boshqa sababi, chalg'ituvchi sifatida mos. | 26.11.2026 (2-tekshiruv): to'g'ri javob doim 1-tugmada edi (1-dars: doim 1-tugmani bosgan 83% — o'tib ketardi); u eng uzun va yagona arabcha harfli (لِ) variant edi — ishora. Endi 3-o'rinda, arabcha harf izohda."
+        "sabab": "Qolip (26.11.2026): 6-qatordagi savol 7-qatorga ko'chdi (aynan shu so'z) — 6-qator «Бўш жой» uchun bo'sh qoldi."
+      },
+      "6-5": {
+        "t": "b",
+        "o": [
+          "أَنَا",
+          "أَنْتَ",
+          "أَنْتِ"
+        ],
+        "j": "أَنْتَ",
+        "iz": "حَالُكَ даги كَ — эркакка; таъкид ҳам унга мос: أَنْتَ. Аёлга — حَالُكِ أَنْتِ (2-дарс).",
+        "sabab": "Qolip (26.11.2026): 5-bosqich: zamir moslashuvi (Tatbiq 15 «нуқталар ўрнига мос замир»); ishora — حَالُكَ dagi كَ; tarjima jinsni ochmaydi."
       }
     }
   },
@@ -80,7 +92,8 @@
       "1-0": "Салом — 1-дарсда ҳам, ёдланган.",
       "5-1": "حَالُكِ — 1-дарсдаги حَالُكَ саволи (мубтадо муаххар) билан бир хил.",
       "6-1": "1-дарсда бор (ёдланган ибора).",
-      "6-2": "1-дарсда «Нима учун жар?» бор."
+      "6-2": "1-дарсда «Нима учун жар?» бор.",
+      "3-3": "Qolip (26.11.2026): اسْمُكِ — 3-qatorda خَوْلَةُ harakat savoli bor; shu namuna 1-darsda «Сабабчини топ» bilan so'ralgan."
     },
     "qov": {
       "3-1": {
@@ -140,6 +153,32 @@
         "j": "Мабний бўлгани учун",
         "iz": "كَيْفَ — фатҳага мабний: охири ҳеч қачон ўзгармайди. Ўрни — хабар муқаддам (раф ўринда), фатҳаси насб белгиси эмас.",
         "sabab": "1-darsda «Ҳолати?» so'ralgan; bu yerda boshqa savol — sababi (mabniy). Takror emas, chuqurlashtirish. | 26.11.2026 (2-tekshiruv): to'g'ri javob 1-tugmada edi (2-dars: doim 1-tugma 80% — o'tib ketardi). «Нима учун фатҳа?» uchun bir xil tartib: Насб | Ғайри мунсариф | Мабний (4-dars مِصْرَ bilan bir xil)."
+      },
+      "6-5": {
+        "t": "h",
+        "j": "Раф",
+        "iz": "أَنْتِ — حَالُكِ нинг таъкиди, шунинг учун раф ўринда. Касрага мабний: бу касра жар белгиси эмас.",
+        "sabab": "Qolip (26.11.2026): 2-bosqich: kasra ko'rinadi, holat raf — tuzoq. 1-darsda shu joy «Бўш жой» (boshqa tur)."
+      },
+      "6-4": {
+        "t": "s",
+        "j": "6-3",
+        "s": "Белгиланган сўзнинг хабарини топинг",
+        "iz": "حَالُكِ — мубтадо муаххар; хабари — كَيْفَ (хабари муқаддам). بِخَيْرٍ — бошқа гапнинг хабари.",
+        "sabab": "Qolip (26.11.2026): 4-bosqich «Жуфтини топ»: mubtado → xabar; tuzoq — بِخَيْرٍ (u ham xabar, boshqa gapning)."
+      },
+      "5-1": {
+        "t": "v",
+        "bq": 5,
+        "s": "Агар бу савол эркакка берилса, белгиланган сўз қандай бўлади?",
+        "o": [
+          "حَالُهُ",
+          "حَالُكَ",
+          "حَالُكِ"
+        ],
+        "j": "حَالُكَ",
+        "iz": "Эркакка — كَ (حَالُكَ, 1-дарс), аёлга — كِ (حَالُكِ). Учинчи шахсга — هُ (حَالُهُ).",
+        "sabab": "Qolip (26.11.2026): 5-bosqich «… бўлса, қандай бўлади?» (Tatbiq 16, muttasil zamir): parallel darslar farqi."
       }
     }
   },
@@ -203,12 +242,6 @@
         "t": "s",
         "sabab": "Nomzodlar هَلْ va أَنْتَ: savol harfi hech narsani raf qilmaydi — xabarni mubtado (أَنْتَ) raf qiladi."
       },
-      "7-4": {
-        "t": "s",
-        "j": "7-3",
-        "iz": "تُرْكِيَا — مِنْ жар ҳарфидан кейин келгани учун мажрур. Ғайри мунсариф, охири алиф: жар аломати кўринмайди (тақдирий).",
-        "sabab": "Oxiri hech qachon ko'rinmaydigan so'z — harakat savoli bo'lmaydi; jar harfini topish."
-      },
       "8-0": {
         "t": "v",
         "s": "Белгиланган сўз нима учун насб?",
@@ -219,6 +252,11 @@
         ],
         "j": "Мафъулун биҳ бўлгани учун",
         "sabab": "Ibora yodlangan — harakat so'ralmaydi; lekin fe'lsiz gapda nima uchun nasb — haqiqiy o'ylash (yashirin fe'l). | 26.11.2026 (2-tekshiruv): «Маҳзуф феълнинг мафъули» boshqalardan ancha uzun va aniqroq edi — taxmin bilan topilardi; «Музоф» hech qachon holat sababi emas — zaif chalg'ituvchi. Endi teng uzunlikda; yashirin fe'l izohda aytiladi."
+      },
+      "6-4": {
+        "t": "x",
+        "x": "جِنْسِيَّتَكَ",
+        "sabab": "Qolip (26.11.2026): 5-bosqich «Хатони топ»: xabar fatha bilan yozilgan — xabar raf; 6-qator boshqa savolsiz. 7-4 (مِنْ → تُرْكِيَا) chiqarildi: 7-qatorda harakat savoli (تُرْكِيٌّ) bor, javob qo'shni so'z — kam o'ylatadi."
       }
     }
   },
@@ -295,11 +333,10 @@
         "t": "s",
         "sabab": "جِنْسِيَّتُكِ — مَا ning xabari (TRK). 3-darsda shu so'z harakat savoli bo'lgan — bu yerda boshqa tur."
       },
-      "7-4": {
-        "t": "h",
-        "j": "Жар",
-        "iz": "سُورِيَا — مِنْ жар ҳарфидан кейин келгани учун жар. Ғайри мунсариф, охири алиф: аломати кўринмайди (тақдирий).",
-        "sabab": "Oxiri ko'rinmaydigan so'z: holat jar harfidan topiladi (3-darsdagi تُرْكِيَا — «Сабабчини топ»)."
+      "7-1": {
+        "t": "x",
+        "x": "سُورِيَّةً",
+        "sabab": "Qolip (26.11.2026): 5-bosqich «Хатони топ»: xabar tanvinli fatha bilan — xato. 7-4 «Ҳолати?» chiqarildi (7-qator boshqa savolsiz bo'lishi kerak). «Бўш жой» (سُورِيٌّ / سُورِيَّةٌ) qo'yilmadi — gapda jinsni ko'rsatuvchi so'z yo'q, gapiruvchi savolda ko'rinmaydi."
       }
     }
   },
@@ -327,28 +364,6 @@
         "iz": "هَذَا — сукунга мабний; мубтадо: раф ўринда.",
         "sabab": "Birinchi ism ishora: mabniy, holat o'rni bo'yicha."
       },
-      "3-1": {
-        "t": "h",
-        "j": "Раф",
-        "iz": "أَخِي — هَذَا нинг хабари, шунинг учун раф. ي олмоши қўшилгани учун раф аломати кўринмайди (тақдирий).",
-        "sabab": "Kasra ko'rinadi (ي oldidagi), holat — raf: tuzoq."
-      },
-      "3-3": {
-        "t": "s",
-        "sabab": "مُدَرِّسٌ — هُوَ ning xabari (TRK). Gapda هَذَا ham mubtado — qaysi gapga tegishli ekanini ajratish."
-      },
-      "5-1": {
-        "t": "v",
-        "s": "Белгиланган сўз нима учун раф?",
-        "o": [
-          "Мубтадо",
-          "Хабар",
-          "Фоил"
-        ],
-        "j": "Хабар",
-        "iz": "صَدِيقِي — هَذَا нинг хабари, шунинг учун раф (аломати ي олмоши туфайли кўринмайди).",
-        "sabab": "Vazifani topish (3-1 da — holat). Foil — fe'l yo'q, mubtado — هَذَا."
-      },
       "7-1": {
         "t": "v",
         "s": "Белгиланган сўз нима учун жар?",
@@ -360,6 +375,23 @@
         "j": "Музофун илайҳ бўлгани учун",
         "iz": "السَّلَامَةِ — مَعَ нинг музофун илайҳи, шунинг учун жар. مَعَ — жар ҳарфи эмас, зарф (исм).",
         "sabab": "Ko'p o'quvchi مَعَ ni jar harfi deb o'ylaydi — aynan shu farqni o'rgatadi. | 26.11.2026 (2-tekshiruv): to'g'ri javob 1-tugmada edi — 2-o'ringa."
+      },
+      "3-1": {
+        "t": "s",
+        "j": "3-0",
+        "iz": "أَخِي — هَذَا нинг хабари, шунинг учун раф. ي олмоши қўшилгани учун раф аломати кўринмайди (тақдирий).",
+        "sabab": "Qolip (26.11.2026): 4-bosqich: mubtado → xabar (هَذَا → أَخِي); tuzoq — هُوَ (u ham mubtado, boshqa gapda)."
+      },
+      "5-2": {
+        "t": "b",
+        "o": [
+          "هُوَ",
+          "هِيَ",
+          "أَنْتَ"
+        ],
+        "j": "هُوَ",
+        "iz": "صَدِيقِي ва مُهَنْدِسٌ — музаккар, шунинг учун 3-шахс музаккар замир هُوَ. Муаннасга — هِيَ (6-дарс).",
+        "sabab": "Qolip (26.11.2026): 5-bosqich (Tatbiq 15: 3-шахс замирнинг жинсига мосини қўйинг). 5-qator boshqa savolsiz; صَدِيقِي «Нима учун раф?» chiqarildi. 3-3 (مُدَرِّسٌ) — yana harakat savoli (1-bosqich)."
       }
     }
   },
@@ -368,7 +400,8 @@
       "7-0": "5-darsdagi kabi: مَعَ ning harakati o'zgarmaydi.",
       "2-1": "2-дарсда сўралган.",
       "4-0": "3-дарсда сўралган.",
-      "4-1": "3-дарсда сўралган."
+      "4-1": "3-дарсда сўралган.",
+      "3-3": "Qolip (26.11.2026): 3-qatorda «Бўш жой» (3-0); طَبِيبَةٌ — 5-darsda shu namuna."
     },
     "trk": {
       "4-1": {
@@ -402,38 +435,39 @@
       }
     },
     "tur": {
-      "3-2": {
-        "t": "h",
-        "j": "Раф",
-        "iz": "هِيَ — фатҳага мабний; мубтадо: раф ўринда. Бу фатҳа насб белгиси эмас.",
-        "sabab": "Fatha ko'rinadi, holat — raf (7-darsdagi هَذِهِ bilan takrorlanmasin — bu yerda هِيَ)."
-      },
-      "3-1": {
-        "t": "v",
-        "s": "Белгиланган сўз нима учун раф?",
-        "o": [
-          "Мубтадо",
-          "Хабар",
-          "Фоил"
-        ],
-        "j": "Хабар",
-        "iz": "أُخْتِي — هَذِهِ нинг хабари, шунинг учун раф. ي олмоши қўшилгани учун аломати кўринмайди (тақдирий).",
-        "sabab": "5-darsda أَخِي — holat, صَدِيقِي — vazifa; bu yerda teskarisi (turlar almashgan)."
-      },
-      "3-3": {
-        "t": "s",
-        "sabab": "طَبِيبَةٌ — هِيَ ning xabari (TRK). 7-darsda shu so'z chiqarilgan (bu yerda bor)."
-      },
-      "5-1": {
-        "t": "h",
-        "j": "Раф",
-        "iz": "صَدِيقَتِي — هَذِهِ нинг хабари, шунинг учун раф. Аломати ي олмоши туфайли кўринмайди (тақдирий).",
-        "sabab": "Kasra ko'rinadi, holat — raf."
-      },
       "7-1": {
         "t": "h",
         "j": "Жар",
         "sabab": "5-darsda «Нима учун жар?»; bu yerda holat — kasra → jar bog'lanishi (darsdagi yagona raf bo'lmagan javob)."
+      },
+      "5-1": {
+        "t": "s",
+        "j": "5-0",
+        "iz": "صَدِيقَتِي — هَذِهِ нинг хабари, шунинг учун раф. Аломати ي олмоши туфайли кўринмайди (тақдирий).",
+        "sabab": "Qolip (26.11.2026): 4-bosqich: mubtado → xabar; tuzoq — هِيَ."
+      },
+      "5-2": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун фатҳа билан?",
+        "o": [
+          "Насб бўлгани учун",
+          "Ғайри мунсариф бўлгани учун",
+          "Мабний бўлгани учун"
+        ],
+        "j": "Мабний бўлгани учун",
+        "iz": "هِيَ — фатҳага мабний; мубтадо: раф ўринда. Бу фатҳа насб белгиси эмас.",
+        "sabab": "Qolip (26.11.2026): 3-bosqich: هِيَ fatha — nasb emas, mabniy. «фатҳа билан?» to'plami tartibi."
+      },
+      "3-0": {
+        "t": "b",
+        "o": [
+          "هَذَا",
+          "هَذِهِ",
+          "هَؤُلَاءِ"
+        ],
+        "j": "هَذِهِ",
+        "iz": "أُخْتِي — муаннас, шунинг учун ишора ҳам муаннас: هَذِهِ. Музаккарга — هَذَا (5-дарс: هَذَا أَخِي).",
+        "sabab": "Qolip (26.11.2026): 5-bosqich (Tatbiq 13: нуқталар ўрнига мос исм ишора). 5-darsdagi «Бўш жой» — zamir, bu — ishora (boshqa namuna)."
       }
     }
   },
@@ -525,6 +559,12 @@
         "sabab": "Oxiri hech qachon ko'rinmaydigan so'z (alif maqsura) — harakat savoli bo'lmaydi, holat savoli bo'ladi."
       },
       "11-2": {
+        "t": "x",
+        "x": "عَبْلَةٌ",
+        "iz": "عَبْلَةُ — аёл исми (атоқли от ва муаннас): ғайри мунсариф, танвин олмайди. Раф — أُخْتِي дан бадал.",
+        "sabab": "Qolip (26.11.2026): 5-bosqich «Хатони топ»: 7-2 da o'rganilgan qoidani qo'llash — ғайри мунсариф ismga tanvin (rostdan qilinadigan xato); 9 so'zli gap."
+      },
+      "7-2": {
         "t": "v",
         "s": "Белгиланган сўз нима учун танвинсиз?",
         "o": [
@@ -533,8 +573,7 @@
           "ال билан келгани учун"
         ],
         "j": "Ғайри мунсариф бўлгани учун",
-        "iz": "عَبْلَةُ — аёл исми (атоқли от ва муаннас): ғайри мунсариф, танвин олмайди. Раф — أُخْتِي дан бадал.",
-        "sabab": "Darsning yangi qoidasi — ayol ismi tanvin olmaydi. Chalg'ituvchilar — tanvinsizlikning boshqa sabablari, bu so'zda yo'q."
+        "sabab": "Qolip (26.11.2026): 3-bosqich: ayol ismi — ғайри мунсариф (avval harakat savoli edi; qoida «Нима учун?» da, qo'llash — 11-2 «Хатони топ»)."
       }
     }
   },
@@ -542,7 +581,8 @@
     "qur": {
       "13-3": "أُمُّ كُلْثُومَ — ғайри мунсариф деб ўргатилади, лекин куняда бу исм кўпинча танвин билан (كُلْثُومٍ) ўқилади — шубҳали мисол синов савол бўлмайди. Матн ўзгармади (китобдагидек).",
       "3-1": "صَلَّى اللَّهُ — ёдланган ибора; феъл → фоил 7-дарсда («Сабабчини топ»).",
-      "5-2": "آمِنَةُ — аёл исми ғайри мунсариф 2, 7-дарсларда; бу дарсда танвинсизликнинг бошқа сабаблари (ال, ة ли эркак исми)."
+      "5-2": "آمِنَةُ — аёл исми ғайри мунсариф 2, 7-дарсларда; бу дарсда танвинсизликнинг бошқа сабаблари (ال, ة ли эркак исми).",
+      "4-1": "Qolip (26.11.2026): وَالِدُهُ — oddiy zamma; 4-qatorda عَبْدُ (muzof — tanvinsiz) savoli qoldi."
     },
     "trk": {
       "4-1": {
@@ -652,6 +692,18 @@
         "j": "Ғайри мунсариф бўлгани учун",
         "iz": "حَمْزَةُ — эркак исми, лекин охирида ة бор: атоқли от + муаннаслик белгиси — ғайри мунсариф, танвин олмайди. Раф — عَمُّهُ дан бадал.",
         "sabab": "Erkak ismi bo'lsa ham ғайри мунсариф (ة) — kutilmagan holat, o'ylatadi."
+      },
+      "12-2": {
+        "t": "f",
+        "s": "Гапдаги бадални топинг",
+        "iz": "رُقَيَّةُ — ابْنَتُهُ дан бадал, шунинг учун раф. زَيْنَبُ эса бадал эмас — هَذِهِ нинг хабари.",
+        "sabab": "Qolip (26.11.2026): 2-bosqich «топинг»: gapda badal bitta; tuzoq — زَيْنَبُ (u ham ism, zammali, lekin xabar)."
+      },
+      "9-2": {
+        "t": "x",
+        "x": "صَفِيَّةٌ",
+        "iz": "Тўғриси صَفِيَّةُ — аёл исми (атоқли от ва муаннас): ғайри мунсариф, танвин олмайди. Раф — عَمَّتُهُ дан бадал.",
+        "sabab": "Qolip (26.11.2026): 5-bosqich «Хатони топ»: 10 so'zli gap; ғайри мунсариф ismga tanvin."
       }
     }
   },
@@ -699,7 +751,8 @@
       }
     },
     "qur": {
-      "2-1": "4-tekshiruv (26.11.2026, 9–11-darslar yangi turlar): اللَّهُ أَكْبَرُ — azon iborasi, yodlangan (tartib 2): harakatini o'quvchi o'ylamay topadi. Ғайри мунсариф sababi shu bobda 7-dars (عَبْلَةُ، سَعِيدَةُ) va 8-darsda so'ralgan — 4-marta takrorlanmaydi."
+      "2-1": "4-tekshiruv (26.11.2026, 9–11-darslar yangi turlar): اللَّهُ أَكْبَرُ — azon iborasi, yodlangan (tartib 2): harakatini o'quvchi o'ylamay topadi. Ғайри мунсариф sababi shu bobda 7-dars (عَبْلَةُ، سَعِيدَةُ) va 8-darsda so'ralgan — 4-marta takrorlanmaydi.",
+      "12-3": "Qolip (26.11.2026): الْمَسْجِدِ — oddiy jar; dars mavzusi (nido, fasl zamiri) boshqa savollarda."
     },
     "tur": {
       "7-2": {
@@ -756,6 +809,27 @@
         "j": "Насб",
         "iz": "سَعِيدُ — мунодо (алам): заммага мабний, насб ўринда. Замма кўринса ҳам ҳолати — насб.",
         "sabab": "4-tekshiruv (26.11.2026, 9–11-darslar yangi turlar): Mabniy munodo — zamma ko'rinadi, holat nasb (NIDA kartasi 1); 8-3 سَعْدُ (nima uchun tanvinsiz) bilan bir-birini to'ldiradi, bir xil savol emas."
+      },
+      "5-4": {
+        "t": "s",
+        "sabab": "Qolip (26.11.2026): 4-bosqich: fe'l → maf'ul (avval harakat savoli edi)."
+      },
+      "3-0": {
+        "t": "x",
+        "x": "سَعْدُ",
+        "iz": "Тўғриси سَعْدٌ — бу ерда мубтадо, мунсариф исм: танвинли. Танвинсиз заммага мабний бўлиши — фақат мунодо бўлганда (يَا سَعْدُ).",
+        "sabab": "Qolip (26.11.2026): 5-bosqich «Хатони топ»: dars mavzusi — mubtado (tanvinli) va munodo (tanvinsiz) farqi."
+      },
+      "11-1": {
+        "t": "b",
+        "o": [
+          "هُوَ",
+          "هِيَ",
+          "أَنْتِ"
+        ],
+        "j": "هِيَ",
+        "iz": "هِيَ — фасл замири; ўзидан олдинги ва кейинги сўзга мос: هَذِهِ … النَّظَّارَةُ — муаннас. Музаккарга — هَذَا هُوَ الْمِعْطَفُ.",
+        "sabab": "Qolip (26.11.2026): 5-bosqich «Бўш жой»: dars mavzusi — fasl zamiri moslashuvi."
       }
     }
   },
@@ -889,6 +963,22 @@
         "j": "Хабар",
         "iz": "خَمْسَةٌ — хабар; мубтадоси маҳзуф: (رَقْمُ شَقَّتِي) خَمْسَةٌ. Жавобда савол сўзлари такрорланмайди.",
         "sabab": "4-tekshiruv (26.11.2026, 9–11-darslar yangi turlar): Yolg'iz so'z — o'quvchi uni mubtado deb o'ylaydi; mahzuf mubtadoni o'rgatadi. Harakat savoli (doim танвинли замма) kam o'ylatardi."
+      },
+      "3-0": {
+        "t": "h",
+        "j": "Насб",
+        "iz": "أَيْنَ — фатҳага мабний; бу ерда зарф (қаерда?), насб ўринда. 3-дарсда مِنْ дан кейин — жар ўринда эди.",
+        "sabab": "Qolip (26.11.2026): 2-bosqich: mabniy so'z, o'rni zarf — 3-darsdagi jar o'rni bilan farq."
+      },
+      "4-3": {
+        "t": "s",
+        "sabab": "Qolip (26.11.2026): 4-bosqich: tuzoq — فِي (o'quvchi jar harfi deb o'ylaydi), jar qilgan — muzof حَيِّ."
+      },
+      "8-3": {
+        "t": "x",
+        "x": "شَقَّةِ",
+        "iz": "Тўғриси شَقَّةٍ — فِي сабаб жар; накра (музоф эмас), шунинг учун танвинли. Музоф бўлса — танвинсиз (حَيِّ الْمَطَارِ).",
+        "sabab": "Qolip (26.11.2026): 5-bosqich «Хатони топ»: dars mavzusi — tanvin bor-yo'qligi (بَيْتٍ / حَيِّ)."
       }
     },
     "qur": {
@@ -1072,6 +1162,20 @@
         "j": "Тамйиз бўлгани учун",
         "iz": "غُرْفَةً — сўроқ كَمْ нинг тамйизи: бирлик ва насб бўлади.",
         "sabab": "4-tekshiruv (26.11.2026, 9–11-darslar yangi turlar): Darsning yangi mavzusi — كَمْ tamyizi (TAMYIZ). Chalg'ituvchilar: mafʼul (oldingi gap أُرِيدُ شَقَّةً) va zarf — ikkalasi ham nasb sababi. Avval harakat savoli edi."
+      },
+      "8-3": {
+        "t": "f",
+        "s": "Гапдаги сифатни топинг",
+        "sabab": "Qolip (26.11.2026): 2-bosqich «топинг»: sifat bitta; tuzoq — الدَّوْرِ (u ham jar)."
+      },
+      "6-3": {
+        "t": "s",
+        "sabab": "Qolip (26.11.2026): 4-bosqich: tuzoq — فِي; jar qilgan — muzof خَمْسُ."
+      },
+      "3-1": {
+        "t": "x",
+        "x": "شَقَّةٌ",
+        "sabab": "Qolip (26.11.2026): 5-bosqich «Хатони топ»: maf'ul raf bilan — xato (9-1 harakat savolida o'rganiladi)."
       }
     }
   },
@@ -1150,6 +1254,12 @@
         ],
         "j": "Маътуф бўлгани учун",
         "sabab": "Ma'tuf o'zi mafʼul emas — oldingi so'zga ergashadi: buni harakat savoli o'rgatmaydi."
+      },
+      "11-2": {
+        "t": "x",
+        "x": "وَمِرْآةٌ",
+        "iz": "Тўғриси وَمِرْآةً — سَخَّاناً га маътуф, шунинг учун у ҳам насб.",
+        "sabab": "Qolip (26.11.2026): 5-bosqich «Хатони топ»: 5-2 da o'rganilgan ma'tuf qoidasini qo'llash; 6 so'zli qator."
       }
     }
   },
@@ -1157,7 +1267,139 @@
     "qur": {
       "13-1": "سُبْحَانَ اللَّهِ — ёдланган ибора, ҳаракати доим бир хил; «Нима учун?» турида сўралади (3-босқич).",
       "17-1": "الْآنَ — ҳаракати ҳеч қачон ўзгармайди (кўпчилик китобларда фатҳага мабний; дарс ҳужжатида иккала фикр бор) — ҳаракат саволи бўлмайди.",
-      "19-2": "جَزَاكَ اللَّهُ خَيْراً — ёдланган ибора; 72, 98-дарсларда ҳам такрорланарди."
+      "19-2": "جَزَاكَ اللَّهُ خَيْراً — ёдланган ибора; 72, 98-дарсларда ҳам такрорланарди.",
+      "2-0": "Qolip (26.11.2026): أَمَرِيضٌ — хабари муқаддам; бу гапда أَنْتَ «Ҳолати?» сўралади (бир гап — бир савол).",
+      "5-6": "Qolip (26.11.2026): أَتَنَاوَلْ — لَمْ жазми; шу қоида 5-2 («Нима учун?») ва 7-2 («… қўйилса») да сўралади, учинчи марта бир хил намуна.",
+      "6-6": "Qolip (26.11.2026): الرَّسُولُ — бу гапда «Хатони топ» (6-2); муқаддас номга хато қўйилмайди, фоил ҳаракати 9-2 да ҳам бор.",
+      "10-4": "Qolip (26.11.2026): يَسْقِيَهُ — бу гапда أَخَا (асмои хамса) сўралади; أَنْ насби дарсда яна бор.",
+      "10-5": "Qolip (26.11.2026): عَسَلاً — бу гапда أَخَا сўралади (бир гап — бир савол).",
+      "12-1": "Qolip (26.11.2026): بَعْدَ — бу гапда أَرْبَعَ «Нима учун насб?» (Зарф — унинг чалғитувчиси).",
+      "12-5": "Qolip (26.11.2026): مَرَّاتٍ — бу гапда أَرْبَعَ сўралади.",
+      "13-0": "Qolip (26.11.2026): الْعَسَلُ؟! — ҳайрат гапи, маҳзуф мубтадо; бир сўзли гап, тўғри ўқиш саволи кам ўйлатади.",
+      "15-2": "Qolip (26.11.2026): مِثْلَ — бу гапда «мафъулун биҳни топинг» (15-1); مِثْلَ — ўша саволнинг тузоғи.",
+      "15-4": "Qolip (26.11.2026): الصَّحَابِيِّ — бу гапда 15-1 сўралади.",
+      "16-1": "Qolip (26.11.2026): مَحَلَّاتٌ — бу гапда الْمَرْكَزِيِّ «Жуфтини топ» (16-6)."
+    },
+    "trk": {
+      "8-2": {
+        "v": [
+          "8-1",
+          "بَطْنِ — مِنْ жар ҳарфидан кейин келган, шунинг учун жар қилинган. هُ олдидаги касра сабаб هِ бўлди."
+        ],
+        "yangi": true,
+        "sabab": "Qolip 1-bosqich (O'qish): oddiy jar — dars boshida isinish savoli; olmoshli so'z — variantlarda olmosh harakati moslanadi (QOV)."
+      }
+    },
+    "qov": {
+      "8-2": {
+        "v": [
+          {
+            "w": "بَطْنُهُ",
+            "c": "R"
+          },
+          {
+            "w": "بَطْنَهُ",
+            "c": "N"
+          },
+          {
+            "w": "بَطْنِهِ",
+            "c": "J"
+          }
+        ],
+        "sabab": "Olmosh harakati har variantda moslandi (…هُ / …هِ)."
+      }
+    },
+    "tur": {
+      "2-1": {
+        "t": "h",
+        "j": "Раф",
+        "iz": "أَنْتَ — мубтадо муаххар (хабари муқаддам: أَمَرِيضٌ). Фатҳага мабний — охири ўзгармайди, лекин раф ўринда.",
+        "sabab": "Qolip 2-bosqich (Tanish): mabniy olmosh — fatha ko'rinadi, holat raf; harakat savoli bo'la olmaydi."
+      },
+      "15-1": {
+        "t": "f",
+        "s": "Гапдаги мафъулун биҳни топинг",
+        "iz": "الْعَسَلَ — سَأَتَنَاوَلُ нинг мафъулун биҳи, шунинг учун насб. مِثْلَ ҳам фатҳали, лекин у маҳзуф мафъулун мутлақнинг (تَنَاوُلاً) сифати.",
+        "sabab": "Qolip 2-bosqich: «топинг» (Tatbiq). Gapda maf'ulun bih bitta; tuzoq — fathali مِثْلَ."
+      },
+      "1-2": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун раф?",
+        "o": [
+          "Мубтадо",
+          "Хабар",
+          "Фоил"
+        ],
+        "j": "Мубтадо",
+        "iz": "فِي الْعَسَلِ — хабари муқаддам, شِفَاءٌ — мубтадо муаххар, шунинг учун раф.",
+        "sabab": "Qolip 3-bosqich: darsning sarlavha gapi — xabar oldinda, mubtado keyin; o'quvchi «Хабар» deb adashadi. Rol tartibi — Мубтадо | Хабар | Фоил."
+      },
+      "12-4": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун насб?",
+        "o": [
+          "Мафъулун биҳ",
+          "Мафъулун мутлақ",
+          "Зарф"
+        ],
+        "j": "Мафъулун мутлақ",
+        "iz": "أَرْبَعَ — سَقَى нинг мафъулун мутлақи (неча марта), шунинг учун насб. Зарф — بَعْدَ, мафъулун биҳ — هُ.",
+        "sabab": "Qolip 3-bosqich: gapda zarf (بَعْدَ) va maf'ul (هُ) ham bor — ikkala chalg'ituvchi shu gapdan."
+      },
+      "5-2": {
+        "t": "v",
+        "s": "Белгиланган сўз нима учун сукун билан?",
+        "o": [
+          "Амр феъли",
+          "Жазм қилинган",
+          "Сукунга мабний"
+        ],
+        "j": "Жазм қилинган",
+        "iz": "أَذْهَبْ — музорий феъли, لَمْ сабаб жазм қилинган, аломати зоҳирий сукун. Амр бўлса — اِذْهَبْ.",
+        "sabab": "Qolip 3-bosqich: darsning asosiy qoidasi (لَمْ). Chalg'ituvchi — amr/mabniy deb o'ylash (sukunni ko'rib)."
+      },
+      "5-7": {
+        "t": "s",
+        "iz": "أَيَّ — أَتَنَاوَلْ нинг мафъулун биҳи, шунинг учун насб. أَذْهَبْ мафъул олмайди.",
+        "sabab": "Qolip 4-bosqich: gapda ikki fe'l — tuzoq أَذْهَبْ. 5-2 bilan bir gap, lekin javobini ochmaydi."
+      },
+      "16-6": {
+        "t": "s",
+        "j": "16-5",
+        "s": "Белгиланган сўз қайси сўзнинг сифати? Ўша сўзни босинг",
+        "iz": "الْمَرْكَزِيِّ — السُّوقِ нинг сифати, унга эргашиб жар бўлган. الْعَسَلِ ҳам жар, лекин у музофун илайҳ.",
+        "sabab": "Qolip 4-bosqich «Жуфтини топ»: gapda yana bir ال li jar ism (الْعَسَلِ) — tuzoq."
+      },
+      "3-3": {
+        "t": "b",
+        "o": [
+          "شَدِيدٍ",
+          "شَدِيدَةٍ",
+          "شَدِيدَيْنِ"
+        ],
+        "j": "شَدِيدَةٍ",
+        "iz": "آلَامٌ — одам бўлмаган нарсалар жами; унинг сифати (ва ишораси) муфрад муаннас бўлади — هَذِهِ مَسَاطِرُ каби. Жар — мавсуфига эргашган.",
+        "sabab": "Qolip 5-bosqich «Бўш жой» (Tatbiq 13: odamlardan boshqalarga هَذِهِ). Tarjima javobni ochmaydi; شَدِيدَيْنِ — son xatosi, شَدِيدٍ — jins xatosi. شِدَادٍ qo'yilmadi (u ham joiz)."
+      },
+      "7-2": {
+        "t": "v",
+        "bq": 5,
+        "s": "Агар لَمْ ўрнига لَا қўйилса, феъл қандай бўлади?",
+        "o": [
+          "لَا أَسْمَعُ",
+          "لَا أَسْمَعَ",
+          "لَا أَسْمَعْ"
+        ],
+        "j": "لَا أَسْمَعُ",
+        "iz": "Бу ерда لَا — нафий ҳарфи, музорийга таъсир қилмайди: феъл раф, замма билан. لَمْ эса жазм қилади.",
+        "sabab": "Qolip 5-bosqich «… қўйилса» (Tatbiq 18: لَا يَضْرِبُ). 1-shaxsda nahy juda kam — ixtilof yo'q."
+      },
+      "6-2": {
+        "t": "x",
+        "x": "قِصَّةُ",
+        "iz": "Тўғриси قِصَّةَ — سَمِعْتَ нинг мафъулун биҳи, шунинг учун насб (фатҳа).",
+        "sabab": "Qolip 5-bosqich «Хатони топ»: 7 so'zli gap; xato muqaddas nomga emas, maf'ulga qo'yildi (raf — rostdan qilinadigan xato)."
+      }
     }
   },
   "71": {

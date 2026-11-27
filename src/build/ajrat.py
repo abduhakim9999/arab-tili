@@ -129,7 +129,7 @@ JS = """() => {
     var p = k.split('-'), d = TU[k], o = QTX.ops(k, d.t) || [];
     return {k: k, l: +p[0], w: +p[1], t: d.t, s: QTX.savol({l: +p[0], w: +p[1], t: d.t}),
             o: o.map(function(x){ return x.w; }), ok: o.map(function(x){ return x.k || ''; }),
-            to: o.map(function(x){ return !!x.ok; }).indexOf(true), iz: QTX.iz({l: +p[0], w: +p[1]}), v: get(k).v};
+            to: o.map(function(x){ return !!x.ok; }).indexOf(true), iz: QTX.iz({l: +p[0], w: +p[1]}), v: get(k).v, x: d.x || '', bq: QTX.bq ? QTX.bq({l: +p[0], w: +p[1], t: d.t}) : 0};
   });
   return {lines: lines, q: q, t: t};
 }"""
@@ -322,12 +322,16 @@ def main():
             key = 'T|%d|%s|%d|%s' % (n, lp, q['w'], q['t'])
             qid = idber('q', key)
             seen_q.add(key)
-            if q['to'] < 0 or (len(set(q['o'])) < len(q['o']) and q['t'] != 's'):
+            if q['to'] < 0 or (len(set(q['o'])) < len(q['o']) and q['t'] not in ('s', 'f', 'x')):
                 OGOH.append("%d-dars %s (%s): turli savolda to'g'ri javob yo'q yoki variant takror — olinmadi" % (n, q['k'], q['t']))
                 continue
             r = {'id': qid, 'd': n, 'k': q['k'], 't': q['t'], 's': q['s'], 'gap': ln['w'], 'w': q['w'], 'o': q['o'], 'to': q['to']}
-            if q['t'] == 's':
+            if q['t'] in ('s', 'f', 'x'):           # so'z bosiladigan turlar: nomzod kalitlari (yol.html)
                 r['ok'] = q['ok']
+            if q['t'] == 'x':                       # «Хатони топ»: so'zning xato shakli (qolip, 26.11.2026)
+                r['x'] = q['x']
+            if q.get('bq') and q['bq'] != {'h': 2, 'f': 2, 'v': 3, 's': 4, 'b': 5, 'x': 5}.get(q['t']):
+                r['bq'] = q['bq']                   # qolip bosqichi turdagidan boshqa bo'lsa (masalan, «… қўйилса» — v, 5)
             if q['iz']:
                 r['iz'] = q['iz']
             if ln['sp']:

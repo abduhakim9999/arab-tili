@@ -760,7 +760,7 @@
 (function () {
   var SN = /\/sinov-[^\/]*$/.test(location.pathname);
   var R = {
-    soz: { mp4: 'vsoz-1104bdea.mp4', p: 'vsoz-ae2268c7.jpg', nom: 'Сўз йўли', iz: 'Сўз 4 поғонадан қандай ўтади', v: '1:50' },
+    soz: { mp4: 'vsoz-569cf07b.mp4', p: 'vsoz-70670812.jpg', nom: 'Сўз йўли', iz: 'Сўз 4 поғонадан қандай ўтади', v: '1:50' },
     ball: { mp4: 'vball-9ab751b3.mp4', p: 'vball-1864be68.jpg', nom: 'Баллар ва рейтинг', iz: 'Нимага қанча балл, 🔥 олов, «Рейтинг»', v: '1:44',   /* Farruh ovozi bilan (26.11.2026); foydalanuvchi eshitib «hammasini joyla» dedi — q olib tashlandi */
       kq: SN ? 'reyting-sinov-qol' : 'reyting-qol' }
   };

@@ -19,12 +19,12 @@ TXT = {
  # S1 — to'rt pog'ona
  'k1': "So'z qanday yodlanadi? |Har bir so'z |to'rt pog'onadan o'tadi: |«bilmayman», |«o'rganyapman», |«bilaman» |va «mustahkam».",
  # S2 — darsdan lug'atga
- 'k2': "Avval darsni o'qing, |keyin uning «Mashq»ini ishlang. |«Mashq» tugagach, |darsdagi so'zlar o'zi |«Lug'at»ga tushadi — |«o'rganyapman» pog'onasiga.",
+ 'k2': "Avval darsni o'qing, |keyin uning «E'rob»ini ishlang. |Sakson foiz olsangiz, |darsdagi so'zlar o'zi |«Lug'at»ga tushadi — |«o'rganyapman» pog'onasiga.",   # 27.11.2026: dars yorlig'i «Машқ» → «Эъроб», so'zlar faqat 80% dan keyin tushadi
  # S3 — «Ўрганиш»: uch xil kunda to'g'ri -> биламан
- 'k3a': "Har kuni «Mashq»dagi «O'rganish»ni ishlang. |Bugun to'g'ri topdingiz — bir. |Ertaga yana to'g'ri — ikki. |Uchinchi kun ham to'g'ri — |so'z «bilaman» pog'onasiga ko'tariladi.",
+ 'k3a': "Har kuni «Bugungi mashq»ni ishlang. |Bugun to'g'ri topdingiz — bir. |Ertaga yana to'g'ri — ikki. |Uchinchi kun ham to'g'ri — |so'z «bilaman» pog'onasiga ko'tariladi.",
  'k3b': "Kunlar ketma-ket bo'lishi shart emas. |Bir kunda necha marta topsangiz ham — |bir kun sanaladi.",
  # S4 — «Такрор»: 7 kun, yana 21 kun -> мустаҳкам
- 'k4': "Endi so'zni «Takror» tekshiradi: |yetti kundan keyin |va yana yigirma bir kundan keyin. |Ikkalasida ham to'g'ri topsangiz — |so'z «mustahkam» bo'ladi.",
+ 'k4': "Endi so'z «Bugungi mashq»da tekshiriladi: |yetti kundan keyin |va yana yigirma bir kundan keyin. |Ikkalasida ham to'g'ri topsangiz — |so'z «mustahkam» bo'ladi.",
  # S5 — xato
  'k5': "Xato qilsangiz-chi? |«O'rganyapman»dagi so'z hisobni noldan boshlaydi. |«Bilaman»dagi so'z esa «o'rganyapman»ga tushadi — |lekin ikki chizig'i to'la qoladi. |Ertasi kuni to'g'ri topsangiz, |yana «bilaman».",
  # qiyin so'z (23.11.2026, ilovada: 4+ xato, hali biladigan emas — bo'sh chiziqlar qizg'ish, «Билмаганларим» boshida; tayyor-lugat-qiyin)

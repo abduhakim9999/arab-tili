@@ -868,7 +868,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
          daraja yozuvi («ўрганяпман» …) ko'rinmaydi — faqat ekran o'quvchi uchun aria-label */
       return '<div class="lg-r ' + x.st + (x.qy ? ' qy' : '') + '"><div class="lg-tp">' +
         '<span class="lg-p d' + (x.st === 'm' ? 4 : x.dr) + '" role="img" aria-label="' + HN[x.st] + '"><i></i><i></i><i></i></span>' +
-        '<span class="lg-kd"' + (q >= 0 ? ' aria-label="«Такрор»да сўралади">' + (q === 0 ? 'бугун' : q === 1 ? 'эртага' : q + ' кундан кейин') : '>') + '</span>' +
+        '<span class="lg-kd"' + (q >= 0 ? ' aria-label="«Бугунги машқ»да сўралади">' + (q === 0 ? 'бугун' : q === 1 ? 'эртага' : q + ' кундан кейин') : '>') + '</span>' +
         (ab ? '<button class="lg-ab" data-id="' + r.id + '" aria-pressed="' + (x.st === 'g' ? 'true' : 'false') + '" aria-label="«Биламан» деб белгилаш">' + AB + '</button>' : '<span class="lg-sp"></span>') +
         '<button class="lg-bm" data-id="' + r.id + '" aria-pressed="' + (x.st === 'b' ? 'true' : 'false') + '" aria-label="«Билмайман» деб белгилаш">' + BM + '</button></div>' +
         '<button class="lg-w"' + (r.au && lv[r.d] ? ' data-au="' + r.id + '"' : '') + '><span class="lg-a"><b class="ar" lang="ar">' + felQ(r) + shakllar(r) + '</b></span><span class="lg-mn">' + jinsH(mano(r)) + '</span>' +   /* 26.11.2026 (foydalanuvchi): mufradi yonida jami, keyin ma'nosi */
@@ -914,7 +914,7 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
       var bm = e.target.closest('.lg-bm'), ab = e.target.closest('.lg-ab'), w = e.target.closest('.lg-w[data-au]');
       if (bm || ab) {                                   /* qo'lda belgilash: «Билмайман» / «Биламан» (bittasi; qayta bosilsa — olinadi). Qiymat — bosilgan vaqt */
         var id = (bm || ab).getAttribute('data-id'), y = window.pageYOffset, tst = '';
-        if (ab) { if (W.a[id] && E.soz(id).st === 'g') delete W.a[id]; else { W.a[id] = hozir(); delete W.b[id]; delete W.k[id]; tst = KUT + ' кундан кейин «Такрор»да сўралади'; } }
+        if (ab) { if (W.a[id] && E.soz(id).st === 'g') delete W.a[id]; else { W.a[id] = hozir(); delete W.b[id]; delete W.k[id]; tst = KUT + ' кундан кейин «Бугунги машқ»да сўралади';   /* 27.11.2026: «Такрор» bo'limi «Бугунги машқ»ga birlashgan */ } }
         else if (E.soz(id).st === 'b') delete W.b[id]; else { W.b[id] = hozir(); delete W.k[id]; delete W.a[id]; tst = '«Ўрганиш»га қўшилди'; }
         wYoz(); qur();                                  /* belgi navbatni o'zgartiradi (билмайман — «Ўрганиш»da birinchi, биламан — 7 kundan keyin «Такрор») */
         lugat(); window.scrollTo(0, y);

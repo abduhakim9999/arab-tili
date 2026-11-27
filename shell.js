@@ -994,16 +994,25 @@ document.addEventListener('click', function (e) {
     '#p2 .g.la .la-f{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px}' +
     '#p2 .g.la .la-c{display:inline-flex;align-items:center;gap:6px;padding:2px 10px;border-radius:10px;background:color-mix(in srgb,var(--mu) 11%,transparent);font-size:12.5px;color:var(--mu)}' +
     '#p2 .g.la .la-c bdi{font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:19px;line-height:1.5;color:var(--tx)}' +
-    '#p2 .g.la .exs{margin-left:40px}' +
-    '#p2 .g.la .eb{display:flex;flex-direction:row-reverse;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:2px 12px;padding:7px 12px;border-radius:12px;background:color-mix(in srgb,var(--mu) 8%,transparent)}' +
-    '#p2 .g.la .eb .ar2{font-size:21px;line-height:1.6}#p2 .g.la .eb .ex{margin:0;font-size:14px}' +
+    /* 27.11.2026 (foydalanuvchi: «so'zning o'zi, tarjimasi alohida, matndagisi bilan matndagi tarjimasi alohida — qorishib ketmasin»; docs/qoidalar/lugat.md):
+       misol chiziq ostida, «МАТНДА» sarlavhali qutida; arabcha doim tepada, tarjima ostida; bitta misol */
+    '#p2 .g.la .exs{margin:10px 0 0 40px;padding-top:8px;border-top:1px solid var(--bd)}' +
+    '#p2 .g.la .la-mt{font-size:11px;letter-spacing:.08em;font-weight:600;color:var(--mu);margin:0 0 6px 2px}' +
+    '#p2 .g.la .eb{display:block;padding:8px 12px;border-radius:12px;background:var(--cd);border:1px solid color-mix(in srgb,var(--bd) 60%,transparent)}#p2 .g.la .eb.la-yo{display:none}' +
+    '#p2 .g.la .eb .ar2{font-size:21px;line-height:1.6;text-align:right}#p2 .g.la .eb .ex{margin:2px 0 0;font-size:14px}' +
+    /* jar harfi (27.11.2026): tepadagi «(فِي ..)», ma'nodagi «(...да)», misolda harf va o'zbekcha qo'shimcha — bitta to'q sariq rangda */
+    '#p2 .g.la{--jr:#c0570f}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #p2 .g.la{--jr:#f2a35e}}:root[data-theme="dark"] #p2 .g.la{--jr:#f2a35e}' +
+    '#p2 .g.la .la-p.jr,#p2 .g.la .la-ju{color:var(--jr)}' +
+    '#p2 .g.la .la-jr{color:var(--jr);background:color-mix(in srgb,var(--jr) 15%,transparent);border-radius:3px;font-size:inherit}' +
+    '#p2 .g.la .la-jm{color:var(--mu);font-size:.85em;margin:0 .35em}' +   /* «ج», «مؤ.» — kichik kulrang: birlik va jam ajralib tursin (27.11.2026) */
     '#p2 .g.la:has(.bm[aria-pressed="true"]){background:rgba(179,38,30,.045);border-radius:14px}' +
     '#p2 .g.la .la-y{font-size:13.5px;line-height:1.45;color:var(--mu);margin-top:3px}' +
     '#p2 .g.la .la-q{margin-left:40px;font-size:12px;color:#9a6a12}#p2 .g.la .la-q::before{content:"\\270E  "}' +
     /* 19.11.2026 (foydalanuvchi): ko'plik/muannas «ج»/«مؤ.» dan keyin so'z yonida; uzun so'z ustida, ma'no tagida; tepasi belgisiz; faqat misolda ma'noda yozilgan qism yashil */
     '#p2 .g.la .la-j{font-size:.75em;white-space:nowrap}#p2 .g.la .la-p{font-size:.75em;white-space:nowrap;unicode-bidi:isolate}' +
     '#p2 .g.la .la-g{color:var(--em1,#13865a);background:color-mix(in srgb,var(--em1,#13865a) 14%,transparent);border-radius:3px}' +
-    '#p2 .g.la .la-g{font-size:inherit}' +   /* sahifadagi «.g span:last-child{15px}» ga tushmasin */
+    '#p2 .g.la .la-g{font-size:inherit}' +
+    '@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #p2 .g.la .la-g{color:#7fd4ad}}:root[data-theme="dark"] #p2 .g.la .la-g{color:#7fd4ad}' +   /* tungi rejimda yashil o'qilsin (27.11.2026) */   /* sahifadagi «.g span:last-child{15px}» ga tushmasin */
     '#p2 .g.la .mn{font-size:17px;font-weight:500}#p2 .g.la .mn .vno,#p2 .g.la .mn .la-y{font-weight:400}#p2 .g.la .mn .la-y{font-size:13.5px}' +
     '#p2 .g.la .la-n{color:var(--mu);font-weight:400;margin-right:5px}' +   /* ma'no raqami oddiy kulrang (foydalanuvchi: rangli doiracha shart emas) */
     '#p2 .g.la .mn .vno{display:none}' +                                     /* so'z tartib raqami ko'rsatilmaydi — ma'no raqami bilan aralashmasin */
@@ -1023,19 +1032,28 @@ document.addEventListener('click', function (e) {
          tagida kichik kulrang, raqam davom etadi; jami bitta ma'no bo'lsa — raqamsiz */
       var md = [].filter.call(mn.children, function (d) { return !d.classList.contains('vno'); }),
         yy = e && e.y ? e.y.split(/;\s*/) : [], k = 0, ko = md.length + yy.length > 1;
+      var jr = /\((?!\u0647\u064F)[^()]*\.\.\)\s*$/.test(ar.textContent);   /* jar harfli yozuv — ma'nodagi «(...га)» ham to'q sariq */
+      if (jr) md.forEach(function (d) { d.innerHTML = d.innerHTML.replace(/\((\.\.\.[^()]*)\)/g, '<span class="la-ju">($1)</span>'); });
       if (ko) md.forEach(function (d) { d.innerHTML = '<span class="la-n">' + (++k) + '.</span>' + d.innerHTML.replace(/^\s*\d+\.\s*/, '').replace(/;\s*$/, ''); });
       if (yy.length) mn.insertAdjacentHTML('beforeend', '<div class="la-y">' + yy.map(function (x) { return '<span class="la-yi">' + (ko ? '<span class="la-n">' + (++k) + '.</span>' : '') + x + '</span>'; }).join('') + '</div>');
       if (e && e.q && KOR) g.insertAdjacentHTML('beforeend', '<div class="la-q">қоралама</div>');
       var qs = ar.innerHTML.split(/\s+(مؤ\.|ج)\s+/), w = document.createElement('div'), f = '';
       w.className = 'la-w';
-      for (var i = 1; i + 1 < qs.length; i += 2) f += ' <span class="la-j">' + qs[i] + ' ' + qs[i + 1] + '</span>';
-      ar.innerHTML = bosh(qs[0]) + (e && e.mq ? ' <span class="la-j la-mq">(مؤ.)</span>' : '') + f;   /* 26.11.2026 (foydalanuvchi): «ة»siz muannas ot — so'z yonida «(مؤ.)» (VOC 5-qismi "mq") */
+      for (var i = 1; i + 1 < qs.length; i += 2) f += ' <span class="la-j"><span class="la-jm">' + qs[i] + '</span>' + qs[i + 1] + '</span>';
+      ar.innerHTML = bosh(qs[0]) + (e && e.mq ? ' <span class="la-j la-mq"><span class="la-jm">(مؤ.)</span></span>' : '') + f;   /* 26.11.2026 (foydalanuvchi): «ة»siz muannas ot — so'z yonida «(مؤ.)» (VOC 5-qismi "mq") */
       hd.insertBefore(w, ar); w.appendChild(ar);
       var q = VOC[hamma.indexOf(g)] || [];
-      [].forEach.call(g.querySelectorAll('.eb'), function (eb) {
-        var bel = false;
-        [].forEach.call(eb.children, function (d) { if (/[{\[]/.test(d.textContent)) { bel = true; d.innerHTML = belgi(d.innerHTML); } });
-        var a2 = eb.querySelector('.ar2'); if (!bel && a2 && q[1]) a2.innerHTML = topib(a2.innerHTML, q[1]);
+      var ebs = [].slice.call(g.querySelectorAll('.eb')), bir = null;
+      if (ebs.length) {                                /* bitta misol (27.11.2026): jar harfi belgilangani → dars matnidagisi → birinchisi */
+        bir = ebs.filter(function (e) { return /\{\^/.test(e.textContent); })[0] || ebs.filter(matnda)[0] || ebs[0];
+        ebs.forEach(function (e) { if (e !== bir) e.classList.add('la-yo'); });
+        var exs = g.querySelector('.exs');
+        if (exs && !exs.querySelector('.la-mt')) exs.insertAdjacentHTML('afterbegin', '<div class="la-mt">' + (matnda(bir) ? 'МАТНДА' : 'МИСОЛ') + '</div>');
+      }
+      ebs.forEach(function (eb) {
+        var a2 = eb.querySelector('.ar2');               /* belgisiz (kitob) misolda so'z o'zi topiladi; «{^…}» (jar harfi) bunga xalal bermaydi */
+        if (!/\{(?!\^)|\[/.test(eb.textContent) && a2 && q[1]) a2.innerHTML = topib(a2.innerHTML, q[1]);
+        [].forEach.call(eb.children, function (d) { if (/[{\[]/.test(d.textContent)) d.innerHTML = belgi(d.innerHTML); });
       });
       if (!hd.querySelector('.bm')) { var sp = document.createElement('span'); sp.className = 'la-sp'; hd.insertBefore(sp, hd.firstChild); }
       g.classList.add('la');
@@ -1045,13 +1063,19 @@ document.addEventListener('click', function (e) {
       if (hd.firstChild !== b) hd.insertBefore(b, hd.firstChild);
     });
   }
-  function bosh(h) {                                   /* «(إِلَى ..)», «(هُ)», «(هُ عَلَى ..)» — qavs kichik kulrang, bir butun (qatorga bo'linmaydi — 22.11.2026) */
-    return h.replace(/\((\u0647\u064F[^()]*|[^()]*?\.{2,3})\)/g, '<span class="la-p">($1)</span>');   /* 19.11.2026: tepasi kitobdagidek belgisiz (foydalanuvchi) */
+  function bosh(h) {                                   /* «(إِلَى ..)», «(هُ هُ)» — qavs kichik, bir butun (qatorga bo'linmaydi — 22.11.2026); jar harfi — to'q sariq (27.11.2026) */
+    return h.replace(/\((\u0647\u064F[^()]*|[^()]*?\.{2,3})\)/g, function (m, x) { return '<span class="la-p' + (/^\u0647\u064F/.test(x) ? '' : ' jr') + '">(' + x + ')</span>'; });   /* 19.11.2026: tepasi kitobdagidek belgisiz (foydalanuvchi) */
   }
-  function belgi(h) { return h.replace(/\{([^{}]*)\}/g, '<span class="la-g">$1</span>').replace(/\[([^\[\]]*)\]/g, '$1'); }   /* […] — eski belgi, endi ko'rsatilmaydi */
+  var MATN = null;
+  function matnda(eb) {                                /* misol dars matnidanmi: hamma so'zi matnning bitta qatorida (qisqartirilgan gap ham) */
+    if (MATN === null) MATN = (window.D || []).map(function (r) { return ' ' + String(r && r[1] || '').split('/').map(function (x) { return yl(x.split('|')[0].replace(/~/g, ' ')); }).join(' ') + ' '; });
+    var a = eb && eb.querySelector('.ar2'), t = a ? a.textContent.split(/[\s\u2013\u2014-]+/).map(yl).filter(Boolean) : [];
+    return t.length > 0 && MATN.some(function (q) { return t.every(function (w) { return q.indexOf(' ' + w + ' ') >= 0; }); });
+  }
+  function belgi(h) { return h.replace(/\{\^([^{}]*)\}/g, '<span class="la-jr">$1</span>').replace(/\{([^{}]*)\}/g, '<span class="la-g">$1</span>').replace(/\[([^\[\]]*)\]/g, '$1'); }   /* […] — eski belgi, endi ko'rsatilmaydi */
   function yl(x) { return String(x || '').replace(/[\u064B-\u065F\u0670\u0640]/g, '').replace(/[\u0623\u0625\u0622\u0671]/g, '\u0627').replace(/\u0629/g, '\u062A').replace(/\u0649/g, '\u064A').replace(/[^\u0621-\u064A]/g, ''); }
   function topib(h, yoz) {                             /* belgisiz (kitob) misolda so'zni o'zi topib yashil qiladi; topilmasa — tegilmaydi */
-    var F = yoz.split(/\s+(?:–|ج|مؤ\.)\s+|،|\(|\)/).map(yl).map(function (f) { return f.replace(/^\u0627\u0644(?=..)/, ''); }).filter(function (f) { return f.length > 1; });
+    var F = yoz.replace(/\((?:[^()]*\.\.|\u0647\u064F[^()]*)\)/g, ' ').split(/\s+(?:–|ج|مؤ\.)\s+|،|\(|\)/).map(yl).map(function (f) { return f.replace(/^\u0627\u0644(?=..)/, ''); }).filter(function (f) { return f.length > 1; });
     if (!F.length) return h;
     var tt = h.split(/(\s+)/), ok = false;
     for (var i = 0; i < tt.length && !ok; i += 2) {

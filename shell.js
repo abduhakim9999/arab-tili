@@ -1004,6 +1004,8 @@ document.addEventListener('click', function (e) {
     '#p2 .g.la{--jr:#c0570f}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #p2 .g.la{--jr:#f2a35e}}:root[data-theme="dark"] #p2 .g.la{--jr:#f2a35e}' +
     '#p2 .g.la .la-p.jr,#p2 .g.la .la-ju{color:var(--jr)}' +
     '#p2 .g.la .la-jr{color:var(--jr);background:color-mix(in srgb,var(--jr) 15%,transparent);border-radius:3px;font-size:inherit}' +
+    '#p2 .g.la .mn .la-hx{font-weight:400;font-size:15px;color:var(--mu)}#p2 .g.la .la-hmt{display:inline-block;margin-left:6px;padding:0 8px;border-radius:9px;font-size:11.5px;font-weight:600;line-height:1.6;vertical-align:2px;white-space:nowrap;color:#13865a;background:color-mix(in srgb,#13865a 13%,transparent)}' +
+    '@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #p2 .g.la .la-hmt{color:#7fd4ad}}:root[data-theme="dark"] #p2 .g.la .la-hmt{color:#7fd4ad}' +
     '#p2 .g.la .la-jm{color:var(--mu);font-size:.85em;margin:0 .35em}' +   /* «ج», «مؤ.» — kichik kulrang: birlik va jam ajralib tursin (27.11.2026) */
     '#p2 .g.la:has(.bm[aria-pressed="true"]){background:rgba(179,38,30,.045);border-radius:14px}' +
     '#p2 .g.la .la-y{font-size:13.5px;line-height:1.45;color:var(--mu);margin-top:3px}' +
@@ -1034,6 +1036,10 @@ document.addEventListener('click', function (e) {
         yy = e && e.y ? e.y.split(/;\s*/) : [], k = 0, ko = md.length + yy.length > 1;
       var jr = /\((?!\u0647\u064F)[^()]*\.\.\)\s*$/.test(ar.textContent);   /* jar harfli yozuv — ma'nodagi «(...га)» ham to'q sariq */
       if (jr) md.forEach(function (d) { d.innerHTML = d.innerHTML.replace(/\((\.\.\.[^()]*)\)/g, '<span class="la-ju">($1)</span>'); });
+      if (e && e.hm != null && md.length > 1) md.forEach(function (d, i) {   /* bog'lovchi harf (27.11.2026): asosiy ma'nolar, shu darsdagisi ajratilgan */
+        d.classList.add(i === e.hm ? 'la-hm' : 'la-hx');
+        if (i === e.hm) d.insertAdjacentHTML('beforeend', ' <span class="la-hmt">шу дарсда</span>');
+      });
       if (ko) md.forEach(function (d) { d.innerHTML = '<span class="la-n">' + (++k) + '.</span>' + d.innerHTML.replace(/^\s*\d+\.\s*/, '').replace(/;\s*$/, ''); });
       if (yy.length) mn.insertAdjacentHTML('beforeend', '<div class="la-y">' + yy.map(function (x) { return '<span class="la-yi">' + (ko ? '<span class="la-n">' + (++k) + '.</span>' : '') + x + '</span>'; }).join('') + '</div>');
       if (e && e.q && KOR) g.insertAdjacentHTML('beforeend', '<div class="la-q">қоралама</div>');

@@ -40,6 +40,19 @@ Ko'plik to'liq yoziladi (kitobdagi «..ُونَ» kengaytiriladi).
   - Jar harfi o'zbekchada «-ни» bo'lib tushsa, «(...ни)» yoziladi: حَافَظَ عَلَى → «(...ни) сақламоқ».
   - Jar harfisiz fe'lda oddiy «-ни» va «-га» yozilmaydi.
 
+## 3a. Bog'lovchi harflar — asosiy ma'nolar, misolsiz
+27.11.2026, foydalanuvchi: «fa undan oldingi jumlaga bog'liq … shu sababli / natijada / va / ya'ni kabi ma'nolar bo'lishi mumkin — bunaqa misollarni olib tashlasak, fa ning arablar biladigan ma'nosini bilsa»; «matnda kelgan holati ham qolsin».
+
+- **Qaysi harflar:** وَ، فَـ، ثُمَّ، أَوْ، أَمْ، لَكِنَّ، لَكِنْ. Vovul hol (وَ ...) ham shu yerga kiradi: u وَ ning 4-ma'nosi.
+- **Ma'no:** har darsda bir xil, harfning asosiy ma'nolari ro'yxati. Shu darsdagi ma'no ajratilib turadi: oddiy rangda, yonida «шу дарсда» belgisi (`VOC[4].hm`). Qolgan ma'nolar kulrang.
+- **Misol yo'q.** Bu harflarning ma'nosi oldingi gapga bog'liq, bo'lak gap chalkashtiradi.
+- **Takrorda bitta karta.** Boshqa darslardagi yozuvlar birinchisiga `ay` bilan bog'lanadi.
+- **Ma'nolar bitta joyda:** `src/build/harf_manolar.json` (o'zbekcha va ruscha).
+  - Ma'nolar tartibi o'zgarmaydi, chunki `hm` raqami shunga bog'langan. Yangi ma'no ro'yxat oxiriga qo'shiladi.
+  - Turni dastur ma'nodagi «…ҳарфи)» so'zidan aniqlaydi (`ajrat.py turi()`). Shuning uchun qavs «ҳарфи)» bilan tugashi kerak, aks holda yozuv «so'z» bo'lib qoladi.
+- **Qo'llash:** `src/build/lugat_harf.py`. Shu darsdagi ma'noni eski ma'nodan topadi; topa olmasa yoki xato topsa, `HM` ga qo'lda yoziladi.
+- **Jar harflari** (فِي، مِنْ، عَلَى…) bu qoidaga kirmaydi. Ularning misoli qisqa birikmada tushunarli, fe'llarning to'q sariq belgisi ham shu misollarga tayanadi.
+
 ## 4. Misol
 - **Bitta misol.** U dars matnidan olinadi; matndagi gapning qisqartirilgan bo'lagi ham bo'lishi mumkin.
 - Ustida chiziq va sarlavha turadi:
@@ -81,7 +94,7 @@ Tungi rejimda yashil va to'q sariq ochroq bo'ladi.
   - Gap 14 so'zdan uzun bo'lsa, vergulgacha qisqartiriladi. Tarjima `TR` dan olinadi.
   - Ruscha darsda tarjima `src/ru/dNN.json` dan olinadi.
   - Kitob misollari o'chirilmaydi.
-- Diqqat: `kitob_hamma.py` yoki `vocNN.py` qayta ishga tushirilsa, keyin `lugat_jar.py` va `lugat_misol.py` ham ishga tushiriladi. Ikkalasi qayta ishlatilsa hech narsani buzmaydi. Sabab: `ay` bilan bog'langan qator yozuvni bog'langan so'zdan oladi.
+- Diqqat: `kitob_hamma.py` yoki `vocNN.py` qayta ishga tushirilsa, keyin `lugat_jar.py`, `lugat_misol.py` va `lugat_harf.py` ham ishga tushiriladi. Uchalasi ham qayta ishlatilsa hech narsani buzmaydi. Sabab: `ay` bilan bog'langan qator yozuvni bog'langan so'zdan oladi.
 
 ## 7. Yangi dars lug'atini tekshirish
 1. Jar belgisi bor har fe'lni ko'rib chiqish: harf misolda bormi? Yo'q bo'lsa, dars matnida bormi? Matnda ham yo'q bo'lsa, belgi qo'yilmaydi.

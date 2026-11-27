@@ -57,7 +57,7 @@ def misol(D, TR, l, i, qism, uzm):
         uz.append(txt)
     uz = ' '.join(uz)
     if uzm:
-        p = uzm.replace('{', '').replace('}', '')
+        p = uzm.replace('{^', '').replace('{', '').replace('}', '')
         assert p in uz, (l, i, uzm, uz)
         uz = uz.replace(p, uzm if '{' in uzm else '{' + uzm + '}', 1)
         hit = True

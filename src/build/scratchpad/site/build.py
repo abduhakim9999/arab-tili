@@ -4,7 +4,7 @@ import tarkib
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.environ.get('OUT') or '/mnt/user-data/outputs/arab-tili'
-VER = '350'
+VER = '351'
 ZO = json.load(open(os.path.join(HERE, 'zo_patch.json'), encoding='utf-8'))
 
 LESSONS = [

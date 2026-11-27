@@ -4,6 +4,7 @@ tayyor-90-dars ee2e50da25f14a52856e179372942018c9da0634
 tayyor-97-dars eaf4ad0c0c8e64e1af57b261f5c26495ea4d4ea8
 tayyor-98-dars 97b4369efd4c1296316a4f61e72c3e70e6291f08
 tayyor-ball dfa81cf1e531833353bc6320f660b6d081abf0da
+tayyor-bayon-jar 2e03b0e50ec6e3b1c101848fe2d49b49767b3b93
 tayyor-bir-bosish 012aff06f651e1ddc03cd174f056e8305c4e992c
 tayyor-bob-panel 9a6d93d13a930f70eb7a6cbd71097f01915bad5d
 tayyor-bob8-sila 433076457b23ca61cf2ea3b6b9cd99f1cb2c3d02
@@ -24,6 +25,7 @@ tayyor-fiqh-sukut ecd856f8c24b4afd8fd4949686dd955a49942748
 tayyor-fiqh-yangi b1b903eadfca4b4d40751285f560f0a52ad41009
 tayyor-fiqhga-otkazish da560d9183edcedecfae26d395cad0f616deb8ad
 tayyor-grammatika 7c689845cdbbefb957fa85efabae596d2e924665
+tayyor-harf-fel a87aacc56a15233718b8ae19ceb7a28960328c55
 tayyor-harflar-havola 520d2d5b9fc38c90d6adafd8ac95c002264b201c
 tayyor-hujjat fc72900906e773e4c92f74752e0fffbc12ddabe6
 tayyor-ikki-maful c936f1bf2766d46fb590ace570c08d6024718fd4
@@ -54,6 +56,7 @@ tayyor-lugat-korinish 6de616c387d23f31592221e8104cf148d02ba2c0
 tayyor-lugat-kun 451a5eda717fa3de6a623c5fd6293f880cc840c6
 tayyor-lugat-qator 11237c08cd774527cca80c88465d0c52bfe8fc5b
 tayyor-lugat-qiyin bcea160397866211d78633cf69412077c5fc49bb
+tayyor-lugat-qoida 7950c534c84f99d3277cbbdf7767cec9d556833c
 tayyor-lugat-qolgan 9d4576c709a5c066c560dd105e58872697827e44
 tayyor-lugat-shakl 1ddcf3bf1d42e75ab057fc2f72056d9634035e73
 tayyor-lugat-shakl 1ddcf3bf1d42e75ab057fc2f72056d9634035e73

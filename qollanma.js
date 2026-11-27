@@ -1,11 +1,13 @@
 /* Йўриқнома (qollanma.js) — «ҳикоя» кўринишидаги йўл кўрсаткич.
    Ҳақиқий экран расми аввал бутун кўринади, камера керакли жойга яқинлашади, бармоқ босади, кейин босилгандан сўнг очиладиган экран кўрсатилади.
    Маълумот: Qollanma.qosh(калит, { nom, keyingi, ekran: { экран: { нишон: [x, y, w, h] } }, qadam: [...] }) — координата 0..1 (расм ва координатани src/build/qollanma.py олади).
-   Қадам: s — экран; t — нишон (ёки рўйхат); a — 'tap' | 'look'; f — камера қарайдиган жой (бўлмаса t); go — босилгандан кейинги экран;
+   Қадам: s — экран; t — нишон (ёки рўйхат); t2, t2f — ҳалқа гап ўртасида ўтадиган иккинчи нишон ва вақт улуши (27.11.2026); a — 'tap' | 'look'; f — камера қарайдиган жой (бўлмаса t); go — босилгандан кейинги экран;
           n — 'ok' | 'no' (поғона картаси); c — изоҳ («…» ичи ажратиб кўрсатилади, {B} — «биламан» учун кунлар сони, {M} / {M2} — «мустаҳкам» учун 1- ва 2-текширувгача кун).
    Чизма қадами (экран расмисиз): ch — 'tush' (дарс сўзлари «ўрганяпман»га тушади) | 'bildi' ({B} кун → «биламан») | 'must' ({M} кун ✓, яна {M2} кун ✓ → «мустаҳкам») | 'xato' («биламан» ✕ → «ўрганяпман» 2/3).
    Очиш: Qollanma.och(калит, { bildi: 3, must: 7, must2: 21 }) — мавзулар ва расмлар биринчи очилганда юкланади: ўзбекча — qol/mavzu.js, qol/<тема>-<экран>.webp;
    русча (window.TIL === 'ru', 15.11.2026) — qol/mavzu-ru.js, qol/ru-<тема>-<экран>.webp; ўйнаткич ёзувлари — TX жадвалида (ru.js уларга тегмайди: data-ru-yoq).
+   Овоз (27.11.2026, фақат ўзбекча): қадамда o — qol/ovoz/ даги файл, od — узунлиги (мс); қадам овоз тугагунча туради, ✕ ёнидаги 🔊 — ўчириш/ёқиш
+   (localStorage «qol-ovoz» = '0' — ўчиқ). Овоз элементи биринчи очишда (босиш ичида) «уйғотилади» — iOS бошқа вақтда play() га рухсат бермайди.
    Телефоннинг «орқага» тугмаси ўйнаткични ёпади (history.pushState). Батафсил — docs/texnik.md 20. */
 (function () {
   'use strict';
@@ -17,6 +19,17 @@
   var QOL = '<svg viewBox="0 0 48 60" aria-hidden="true"><g stroke="#16241d" stroke-width="4.6" stroke-linejoin="round">' + SH + '</g><g fill="#fff">' + SH +
     '</g><path d="M25.5 21v8M33.5 24v7" stroke="#16241d" stroke-width="1.6" stroke-linecap="round"/></svg>';
   var PAUSE = '<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4.2" height="14" rx="1.4"/><rect x="13.8" y="5" width="4.2" height="14" rx="1.4"/></svg>';
+  /* 27.11.2026: ovoz tugmasi belgilari va bo'sh tovush (ovoz elementini birinchi bosishda «uyg'otish» uchun) */
+  var SP1 = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
+  var SP0 = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z" fill="currentColor"/><path d="m16 9 5 6M21 9l-5 6"/></svg>';
+  var JIM = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=', AU = null, AUO = false;
+  var OV0 = 250, OV1 = 700;                           /* ovoz qadam boshidan 250 ms keyin boshlanadi; tugagach 700 ms dan keyin keyingi qadam */
+  function ovozYoq() { try { return localStorage.getItem('qol-ovoz') === '0'; } catch (e) { return false; } }
+  function uygot() {                                  /* bosish ichida chaqiriladi: keyingi play() lar setTimeout ichida ham ishlaydi (iOS, Telegram) */
+    if (!AU) { try { AU = new Audio(); AU.preload = 'auto'; } catch (e) { return; } }
+    if (AUO) return;
+    try { AU.src = JIM; var p = AU.play(); if (p && p.then) p.then(function () { AUO = true; }, function () {}); } catch (e) {}
+  }
   var PLAY = '<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M8 5.2v13.6a1 1 0 0 0 1.5.86l11-6.8a1 1 0 0 0 0-1.72l-11-6.8A1 1 0 0 0 8 5.2z"/></svg>';
   var CSS =
     '.qs{position:fixed;inset:0;z-index:2147482000;display:flex;justify-content:center;background:radial-gradient(130% 70% at 50% 0%,#0f4231 0%,#072a1f 52%,#041911 100%);color:#f4eeda;font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;opacity:0;transition:opacity .28s;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;touch-action:manipulation}' +
@@ -127,12 +140,13 @@
   var TX = {
     uz: { yuk: 'Юкланяпти…', xato: 'Расмлар юкланмади. Интернетни текшириб, қайта очинг.', tamom: 'Тамом ✓', key: 'Кейингиси: ', tush: 'Тушунарли', qayta: '↻ Қайта кўриш',
           yop: 'Ёпиш', old: 'Олдинги', keyi: 'Кейинги', tox: 'Тўхтатиш', dav: 'Давом этиш', tema: 'Кундузги / тунги', ok: '✓ Билдим', no: '✕ Билмадим',
-          lv: ['билмайман', 'ўрганяпман', 'биламан', 'мустаҳкам'], nok: function (k) { return k + ' кетма-кет тўғри топсангиз — <b>биламан</b>'; }, nno: 'Сўз <b>ўрганяпман</b>да қолади, ҳисоб бошидан',
+          lv: ['билмайман', 'ўрганяпман', 'биламан', 'мустаҳкам'], nok: function (k) { return k + ' тўғри топсангиз — <b>биламан</b>'; },   /* 27.11.2026: «кетма-кет» shart emas */
+          ov0: 'Овозни ўчириш', ov1: 'Овозни ёқиш', nno: 'Сўз <b>ўрганяпман</b>да қолади, ҳисоб бошидан',
           dars: '📖 1-дарс', mashq: 'Машқ', kun: function (i) { return i + '-кун'; }, otdi: '📅 <b>0</b> кун ўтди', soz: ['дарс', 'исм', 'бир'],
           kunlar: function (n) { return n + ' кун'; } },
     ru: { yuk: 'Загрузка…', xato: 'Картинки не загрузились. Проверьте интернет и откройте снова.', tamom: 'Готово ✓', key: 'Дальше: ', tush: 'Понятно', qayta: '↻ Посмотреть снова',
           yop: 'Закрыть', old: 'Назад', keyi: 'Далее', tox: 'Пауза', dav: 'Продолжить', tema: 'Светлая / тёмная', ok: '✓ Помню', no: '✕ Не помню',
-          lv: ['не знаю', 'учу', 'знаю', 'прочно'], nok: function (k) { return k + ' подряд правильно — <b>знаю</b>'; }, nno: 'Слово остаётся на <b>учу</b>, счёт заново',
+          lv: ['не знаю', 'учу', 'знаю', 'прочно'], nok: function (k) { return k + ' правильно — <b>знаю</b>'; }, ov0: 'Выключить звук', ov1: 'Включить звук', nno: 'Слово остаётся на <b>учу</b>, счёт заново',
           dars: '📖 Урок 1', mashq: 'Упражнение', kun: function (i) { return 'День ' + i; }, otdi: '📅 прошло дней: <b>0</b>', soz: ['урок', 'имя', 'один'],
           kunlar: function (n) { var d = n % 10, h = n % 100; return n + ' ' + (d === 1 && h !== 11 ? 'день' : d >= 2 && d <= 4 && (h < 12 || h > 14) ? 'дня' : 'дней'); } }
   };
@@ -143,6 +157,7 @@
 
   function och(kalit, o) {
     var RU = window.TIL === 'ru', X = TX[RU ? 'ru' : 'uz'];
+    if (!RU) uygot();
     var M = MV[kalit];
     if (!M) {                                          /* мавзулар ҳали юкланмаган: qol/mavzu.js бир марта юкланади */
       if (yukl === 2) return null;
@@ -160,12 +175,13 @@
     var SOZ = [['دَرْسٌ', X.soz[0]], ['اِسْمٌ', X.soz[1]], ['وَاحِدٌ', X.soz[2]]];        /* чизмадаги намуна сўзлар (1-дарс луғатидан) */
     for (i = 1; i <= ND; i++) kun += '<span>' + X.kun(i) + '</span>';
     var KN = M.keyingi && MV[M.keyingi] ? MV[M.keyingi].nom : '';
+    var OV = !RU && !!AU && Q.some(function (q) { return q.o; }), jim = ovozYoq();
     var el = document.createElement('div');
     el.className = o.varaq ? 'qs qs-va' : 'qs'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-label', M.nom); el.setAttribute('data-ru-yoq', '');
     for (i = 0; i < n; i++) seg += '<i><b></b></i>';
     el.innerHTML = '<div class="qs-in">' + (o.varaq ? '<div class="qs-tut"></div>' : '') + '<div class="qs-pr">' + seg + '</div>' +
       '<div class="qs-hd"><b>' + M.nom + '</b><span></span>' + (o.temaTugma ? '<button class="qs-hb" data-q="tema" aria-label="' + X.tema + '">◐</button>' : '') +
-      '<button class="qs-hb" data-q="yop" aria-label="' + X.yop + '">✕</button></div>' +
+      (OV ? '<button class="qs-hb" data-q="ovoz"></button>' : '') + '<button class="qs-hb" data-q="yop" aria-label="' + X.yop + '">✕</button></div>' +
       '<div class="qs-st"><div class="qs-cam"><div class="qs-scr"><img class="qs-i" alt=""><img class="qs-i" alt=""><div class="qs-r"></div><div class="qs-rp"></div></div></div>' +
       '<div class="qs-dz"><div class="qs-dl"><b>' + X.dars + '</b><u><i></i></u><span>' + X.mashq + '</span></div><div class="qs-dk">' + kun + '</div>' +
       '<div class="qs-dm">' + X.otdi + '</div><div class="qs-dp">' + X.lv.map(function (t) { return '<div>' + t + '</div>'; }).join('') + '</div>' +
@@ -311,9 +327,26 @@
       if (ish) { var b = pr[k].firstChild; b.style.animationDuration = dur + 'ms'; void b.offsetWidth; pr[k].className = 'on'; }
     }
     function ppIcon() { pp.innerHTML = ish ? PAUSE : PLAY; pp.setAttribute('aria-label', ish ? X.tox : X.dav); }
+    function ovIcon() { var b = $('[data-q="ovoz"]'); if (!b) return; b.innerHTML = jim ? SP0 : SP1; b.setAttribute('aria-pressed', String(!jim)); b.setAttribute('aria-label', jim ? X.ov1 : X.ov0); }
+    function ovTox() { if (!AU) return; AU.onended = AU.onerror = null; try { AU.pause(); } catch (e) {} }
+    function ovDur(s, dur) { return OV && !jim && s.o ? Math.max(dur, OV0 + s.od + OV1) : dur; }
+    /* keyingi qadamga o'tish: vaqt tugashi VA ovoz tugashi kerak (ovoz sekin yuklansa ham gap kesilmaydi; ko'pi bilan +5 s kutadi) */
+    function kutish(k, s, dur) {
+      if (!ish) return;
+      var oq = OV && !jim && s.o, t = false, a = !oq;
+      function nx() { if (t && a && cur === k && ish) bor(k + 1); }
+      if (oq) {
+        at(OV0, function () {
+          AU.onended = AU.onerror = function () { a = true; nx(); };
+          try { AU.src = P + 'ovoz/' + s.o; var p = AU.play(); if (p && p.catch) p.catch(function () { a = true; nx(); }); } catch (e) { a = true; }
+        });
+        at(dur + 5000, function () { a = true; nx(); });
+      }
+      at(dur, function () { t = true; nx(); });
+    }
 
     function bor(k) {
-      toz(); en.classList.remove('on');
+      toz(); ovTox(); en.classList.remove('on');
       if (k >= n) { tugadi(); return; }
       if (k < 0) k = 0;
       cur = k;
@@ -323,8 +356,8 @@
       ts.classList.remove('on'); ring.className = 'qs-r';
       if (s.ch) {                                        /* чизма қадами: экран расми ўрнида поғоналар */
         st.classList.add('dz'); qolYoq(); yq = false;
-        dur = Math.max(chizma(s.ch), 1300 + 40 * s.c.length);
-        segm(k, dur); if (ish) at(dur, function () { bor(k + 1); });
+        dur = ovDur(s, Math.max(chizma(s.ch), 1300 + 40 * s.c.length));
+        segm(k, dur); kutish(k, s, dur);
         return;
       }
       st.classList.remove('dz');
@@ -334,6 +367,8 @@
       var t0 = RM ? 0 : yangi ? 650 : 280, K = yaqin(f, s.z), u = a[0] + a[2] / 2, v = a[1] + a[3] * .45;
       at(t0, function () { kam(K); yq = true; if (s.a === 'tap') qol([u * sw * K.z + K.x, v * ih * K.z + K.y]); else qolYoq(); });
       if (s.a === 'look') { at(t0 + 540, function () { joy(ring, a, 4); ring.classList.add('on'); }); dur = t0 + 2900; }
+      /* 27.11.2026: t2 — halqa gap o'rtasida ikkinchi joyga o'tadi (t2f — ovoz uzunligining ulushi; ovozsiz — qadam vaqtining ulushi) */
+      if (s.t2) at(Math.max(t0 + 1400, OV0 + Math.round((OV && !jim && s.od ? s.od : 1300 + 40 * s.c.length) * (s.t2f || .5))), function () { joy(ring, rect(s.s, s.t2), 4); });
       else {
         var tb = t0 + 920;
         at(tb, function () { bos(a, u, v); });
@@ -341,12 +376,12 @@
         else if (s.go) { at(tb + 340, function () { ekran(s.go); kam(butun()); yq = false; qolYoq(); }); dur = tb + 340 + 800 + 1000; }
         else dur = tb + 1500;
       }
-      dur = Math.max(dur, 1300 + 40 * s.c.length);
+      dur = ovDur(s, Math.max(dur, 1300 + 40 * s.c.length));
       segm(k, dur);
-      if (ish) at(dur, function () { bor(k + 1); });
+      kutish(k, s, dur);
     }
     function tugadi() {
-      toz(); ish = false; cur = n - 1; ppIcon(); qolYoq(); ring.className = 'qs-r'; ts.classList.remove('on');
+      toz(); ovTox(); ish = false; cur = n - 1; ppIcon(); qolYoq(); ring.className = 'qs-r'; ts.classList.remove('on');
       for (var j = 0; j < n; j++) pr[j].className = 'd';
       en.classList.add('on');
       if (o.tugadi) o.tugadi();                          /* oxirigacha ko'rildi (takror.html: ⓘ yonidagi nuqta o'chadi) */
@@ -356,9 +391,9 @@
       if (en.classList.contains('on')) { if (d < 0) bor(n - 1); return; }
       bor(cur + d);
     }
-    function toxta() { if (!ish) return; ish = false; toz(); ppIcon(); if (cur >= 0) pr[cur].className = 'd'; }
+    function toxta() { if (!ish) return; ish = false; toz(); ovTox(); ppIcon(); if (cur >= 0) pr[cur].className = 'd'; }
     function yopish(tez, popdan) {
-      if (!ochiq) return; ochiq = false; toz(); clearTimeout(xt); clearTimeout(rt);
+      if (!ochiq) return; ochiq = false; toz(); ovTox(); clearTimeout(xt); clearTimeout(rt);
       window.removeEventListener('popstate', orqaga);
       if (tez !== true && !popdan && tarix) { try { if (history.state && history.state.qol) history.back(); } catch (e) {} }
       window.removeEventListener('resize', olchOzgardi); document.removeEventListener('keydown', tugma); document.removeEventListener('visibilitychange', korin);
@@ -388,6 +423,11 @@
       var b = e.target.closest('[data-q]'); if (!b) return;
       var q = b.getAttribute('data-q');
       if (q === 'yop') yopish();
+      else if (q === 'ovoz') {                         /* 27.11.2026: ovozni o'chirish / yoqish (tanlov eslab qolinadi) */
+        jim = !jim; try { localStorage.setItem('qol-ovoz', jim ? '0' : '1'); } catch (x) {} ovIcon();
+        if (!jim) uygot();
+        if (tayyor && !en.classList.contains('on')) { if (ish) bor(cur); else ovTox(); }
+      }
       else if (q === 'tema') { o.tema = T === 'dark' ? 'light' : 'dark'; yopish(true); och(kalit, o); }
       else if (q === 'key') { o.tema = T; yopish(true); och(M.keyingi, o); }
       else if (!tayyor) return;
@@ -415,7 +455,9 @@
       bosh = true;
       if (xato) { yk.textContent = X.xato; return; }
       tayyor = true; if (yk.parentNode) yk.parentNode.removeChild(yk);
-      olcham(); kam(butun(), true); ppIcon(); bor(0);
+      olcham(); kam(butun(), true); ppIcon(); ovIcon();
+      if (OV && !jim && window.fetch) Q.forEach(function (q) { if (q.o) fetch(P + 'ovoz/' + q.o).catch(function () {}); });   /* oldindan keshga */
+      bor(0);
     }
     nom.forEach(function (k) { var I = new Image(); I.onload = function () { yuk++; boshla(); }; I.onerror = function () { xato++; yuk++; boshla(); }; I.src = P + (RU ? 'ru-' : '') + T + '-' + k + '.webp'; });
     setTimeout(function () { vaqt = true; boshla(); }, RM ? 0 : 380);

@@ -39,12 +39,12 @@
 
 ## 4. Eskirgan joylar (26.11.2026 holati)
 
-- «Кўрсатмалар» (3 animatsiya: `qol/mavzu.js` va rasmlar) — hali «Ўрганиш» va «Такрор» deydi; ilovada endi bitta «Бугунги машқ».
+- ~~«Кўрсатмалар» (3 animatsiya) — hali «Ўрганиш» va «Такрор» deydi~~ — 26.11.2026 tuzatildi; 27.11.2026: Farruh ovozi qo'shildi, «Луғат» 4 → 10 qadam, «Эъроб», «Бошлаш» ustidagi ro'yxat (`docs/texnik/20-yoriqnoma.md`; `tayyor-yoriqnoma-ovoz`).
 - «Сўз йўли» videosi — 3- va 4-sahna ovozi va yozuvi, oxirgi kadrdagi «Машқ · Ўрганиш · Такрор».
 - Ruscha rejimda faqat eski ko'rsatmalar bor (video yo'q).
 
 ## 5. Ochiq qarorlar (foydalanuvchidan)
 
-1. O'zbekchada eski 3 ta «Кўрсатмалар» videolar bilan almashtiriladimi (Claude tavsiyasi — ha) yoki ikkalasi turadimi.
+1. ~~O'zbekchada eski 3 ta «Кўрсатмалар» videolar bilan almashtiriladimi~~ — hal bo'ldi (27.11.2026, foydalanuvchi: «yaxshisini topib qil»): «Кўрсатмалар» qoladi, ovoz o'zining ichiga qo'shiladi (ilova o'zgarsa rasmlar avtomat qayta olinadi, faqat o'zgargan gap qayta yoziladi — mp4 dan arzon). Mp4 videolar — tushuncha mavzulari uchun («Сўз йўли», «Баллар»).
 2. Ruscha: hozircha eski ko'rsatmalar matni «Бугунги машқ»ga to'g'rilanadimi; videolarning ruschasi — keyin.
 3. «Танишув» birinchi kirishda o'zi ochilsinmi.

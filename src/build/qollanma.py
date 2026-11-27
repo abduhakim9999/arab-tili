@@ -16,6 +16,8 @@ elementlarning umumiy to'rtburchagi; 2) MAVZU ga qadamlar yoziladi (maydonlar �
 --til         — faqat bitta til (sukut: ikkalasi)
 --ish DIR     — xom rasmlar va koordinatalar papkasi (sukut: /tmp/qollanma-ish; repoga kirmaydi)
 --faqat-yig   — ilovani qayta bosib chiqmasdan, --ish dagi tayyor rasmlardan qayta yig'adi (faqat MAVZU matni o'zgarganda)
+--ovoz-matn   — ovozi yo'q qadamlar (nom va ElevenLabs matni, JSON) — 27.11.2026
+--ovoz-qosh D — D/<nom>.mp3 (ElevenLabs xom fayli) → qol/ovoz/<nom> (jimlik olinadi, balandlik tenglanadi); keyin --faqat-yig
 Kerak: pip install playwright pillow; Chrome — /usr/bin/google-chrome (boshqa joyda bo'lsa: CHROME=/yo'l).
 """
 import sys, os, re, json, threading, http.server, socketserver, functools
@@ -33,64 +35,117 @@ MAVZU = [
  ('soz', dict(nom='Сўзлар ва поғоналар', nomr='Слова и ступени', keyingi='takror', qadam=[      # «Машқ»ga birinchi kirishda bir marta o'zi ochiladi (takror.html KQO)
   dict(s='bosh', t='boshla', a='tap', go='dars',
        c='Аввал дарсни очинг: матнни ўқинг ва эшитинг',
-       r='Сначала откройте урок: прочитайте и послушайте текст'),
+       r='Сначала откройте урок: прочитайте и послушайте текст',
+       v="Avval darsni oching: matnni o'qing va eshiting."),
   dict(s='dars', t='tmashq', f='tabs', a='tap', go='dmashq',
-       c='Кейин шу дарснинг «Машқ»ини ишланг',
-       r='Потом выполните «Упражнение» этого урока'),
+       c='Кейин шу дарснинг «Эъроб»ини ишланг',       # 26.11.2026: dars yorlig'i «Машқ» → «Эъроб»
+       r='Потом выполните «Иъраб» этого урока',
+       v="Keyin shu darsning «E'rob»ini ishlang."),
   dict(ch='tush',
-       c='«Машқ»дан 80% олсангиз, дарс сўзлари ўзи «ўрганяпман» поғонасига тушади',
-       r='Наберите 80% в «Упражнении» — слова урока сами попадут на ступень «учу»'),
-  dict(ch='bildi',
-       c='Ҳар куни «Бугунги машқ»ни ишланг. Сўзни {B} кун кетма-кет тўғри топсангиз — «биламан»га кўтарилади',
-       r='Каждый день проходите «Упражнение на сегодня». Угадали слово {Bk} подряд — оно поднимается на «знаю»'),
+       c='«Эъроб»дан 80% олсангиз, дарс сўзлари ўзи «ўрганяпман» поғонасига тушади',
+       r='Наберите 80% в «Иърабе» — слова урока сами попадут на ступень «учу»',
+       v="«E'rob»dan sakson foiz olsangiz, dars so'zlari o'zi «o'rganyapman» pog'onasiga tushadi."),
+  dict(ch='bildi',                                 # 27.11.2026: «кетма-кет» olib tashlandi — {B} xil kun yetadi, ketma-ket shart emas (takror.js birlik)
+       c='Ҳар куни «Бугунги машқ»ни ишланг. Сўзни {B} кун тўғри топсангиз — «биламан»га кўтарилади',
+       r='Каждый день проходите «Упражнение на сегодня». Угадали слово в течение {Bk} — оно поднимается на «знаю»',
+       v="Har kuni «Bugungi mashq»ni ishlang. So'zni uch kun to'g'ri topsangiz, u «bilaman»ga ko'tariladi. Kunlar ketma-ket bo'lishi shart emas."),
   dict(ch='must',
        c='{M} ва яна {M2} кундан кейин «Бугунги машқ»да ўзи сўралади. Тўғри топсангиз — «мустаҳкам» бўлади ва бошқа сўралмайди',
-       r='Через {Mk} и ещё раз через {M2k} оно само придёт в «Упражнение на сегодня». Угадали — слово становится «прочно» и больше не спрашивается'),
+       r='Через {Mk} и ещё раз через {M2k} оно само придёт в «Упражнение на сегодня». Угадали — слово становится «прочно» и больше не спрашивается',
+       v="Keyin so'z yetti kundan keyin va yana yigirma bir kundan keyin «Bugungi mashq»da o'zi so'raladi. Ikkalasida ham to'g'ri topsangiz — «mustahkam» bo'ladi va boshqa so'ralmaydi."),
   dict(ch='xato',
-       c='Хато топсангиз — «биламан» сўз «ўрганяпман» 2/3 га тушади, бошқаси 0/3 дан бошлайди',
-       r='Ошиблись — слово из «знаю» возвращается на «учу» 2/3, остальные начинают с 0/3'),
+       c='Хато топсангиз — «биламан»даги сўз «ўрганяпман»га тушади, икки чизиғи сақланади. Бошқаси бошидан бошлайди',
+       r='Ошиблись — слово из «знаю» возвращается на «учу», две полоски остаются. Остальные начинают сначала',
+       v="Хато topsangiz, «bilaman»dagi so'z «o'rganyapman»ga tushadi, lekin ikki chizig'i to'la qoladi. Boshqa so'z hisobni boshidan boshlaydi."),
   dict(s='mashq', t='go', f='band', a='look',
        c='Ҳар куни «Машқ» бўлимида «Бугунги машқ»ни ишланг — керакли сўзлар ўзи шу ерга тушади',
-       r='Каждый день в разделе «Упражнение» проходите «Упражнение на сегодня» — нужные слова сами попадают сюда'),
+       r='Каждый день в разделе «Упражнение» проходите «Упражнение на сегодня» — нужные слова сами попадают сюда',
+       v="Har kuni «Mashq» bo'limida «Bugungi mashq»ni ishlang — kerakli so'zlar o'zi shu yerga tushadi."),
  ])),
  ('takror', dict(nom='Такрорлаш', nomr='Повторение', keyingi='lugat', qadam=[
   dict(s='bosh', t='mashq', f='nav', a='tap', go='mashq',
        c='«Машқ»ни босинг. Устидаги сон — бугунги машқлар',
-       r='Нажмите «Упражнение». Число над ним — задания на сегодня'),
+       r='Нажмите «Упражнение». Число над ним — задания на сегодня',
+       v="«Mashq»ni bosing. Ustidagi son — bugun nechta mashq borligi."),
+  # 27.11.2026: «Бошлаш» ustidagi ro'yxat (26.11.2026 dan — guruhlar shu tartibda keladi; takror.html tepa, GRN)
+  dict(s='mashq', t='gr', f='band', a='look',
+       c='Бугунги сўзлар шу тартибда келади: мустаҳкамга чиқадиганлар, «биламан» текшируви, «ўрганяпман», янги сўзлар',
+       r='Слова на сегодня идут в таком порядке: переходят в «прочно», проверка «знаю», «учу», новые слова',
+       v="Bugungi so'zlar shu tartibda keladi: avval mustahkamga chiqadiganlar, keyin «bilaman» tekshiruvi, «o'rganyapman» va yangi so'zlar."),
   dict(s='mashq', t='go', f='band', a='tap', go='savol',
-       c='«Бугунги машқ»даги «Бошлаш»ни босинг',
-       r='Нажмите «Начать» в «Упражнении на сегодня»'),
+       c='«Бошлаш»ни босинг',
+       r='Нажмите «Начать»',
+       v="«Boshlash»ni bosing."),
+  dict(s='savol', t='gr', a='look',
+       c='Тепада — қайси гуруҳ кетаётгани ва ундан нечтаси бажарилгани',
+       r='Сверху — какая группа идёт сейчас и сколько из неё уже сделано',
+       v="Tepada — qaysi guruh ketayotgani va undan nechtasi bajarilgani."),
   dict(s='savol', t='soz', a='look',
        c='Сўз чиқади. Маъносини ичингизда эслаб кўринг',
-       r='Появится слово. Вспомните про себя, что оно значит'),
+       r='Появится слово. Вспомните про себя, что оно значит',
+       v="So'z chiqadi. Ma'nosini ichingizda eslab ko'ring."),
   dict(s='savol', t='ko', a='tap', go='javob',
        c='«Кўрсатиш»ни босинг — маъноси очилади. Ўзингиз эслагани билан солиштиринг',
-       r='Нажмите «Показать» — откроется значение. Сравните со своим ответом'),
+       r='Нажмите «Показать» — откроется значение. Сравните со своим ответом',
+       v="«Ko'rsatish»ni bosing — ma'nosi ochiladi. O'zingiz eslagan bilan solishtiring."),
   dict(s='javob', t='j1', f=['mano', 'j0', 'j1'], a='tap', n='ok',
        c='Тўғри эслаган бўлсангиз — «Билдим»',
-       r='Если вспомнили правильно — «Помню»'),
+       r='Если вспомнили правильно — «Помню»',
+       v="To'g'ri eslagan bo'lsangiz — «Bildim»."),
   dict(s='javob', t='j0', f=['mano', 'j0', 'j1'], a='tap', n='no',
        c='Эслай олмаган бўлсангиз — «Билмадим»',
-       r='Если не вспомнили — «Не помню»'),
+       r='Если не вспомнили — «Не помню»',
+       v="Eslay olmagan bo'lsangiz — «Bilmadim». So'z «o'rganyapman»da qoladi."),
   # «Сўз охири?» va xato javob qadamlari olib tashlandi (26.11.2026): «Бугунги машқ»da endi faqat so'zlar — grammatika savollari
   # dars «Эъроб»ida va «Боб якуни»da (takror.html mashq: [])
   dict(s='tamom', t='band', a='look',
        c='Ҳаммаси тугагач — «Бугунга тамом». Эртага яна шу ердан давом этасиз',
-       r='Когда всё пройдено — «На сегодня всё». Завтра продолжите отсюда'),
+       r='Когда всё пройдено — «На сегодня всё». Завтра продолжите отсюда',
+       v="Hammasi tugagach — «Bugunga tamom». Ertaga yana shu yerdan davom etasiz."),
  ])),
+ # 27.11.2026 (foydalanuvchi: «ovoz qilinmay qolgan joylari bor … o'zgartirishlar qilingan bo'lsa, ularni ham tushuntiradigan qilib»,
+ # «yaxshisini topib qil»): 4 qadamdan 10 ga — zina, guruh tugmalari, tur tugmalari va qidiruv, so'z shakllari, fe'l, Биламан kuni
  ('lugat', dict(nom='Луғат', nomr='Словарь', qadam=[
   dict(s='tamom', t='lugat', a='tap', go='lugat',
-       c='«Машқ» ичидаги «Луғат»ни очинг — ҳамма сўзларингиз шу ерда',
-       r='Откройте «Словарь» в разделе «Упражнение» — там все ваши слова'),
+       c='«Машқ» ичидаги «Луғат» — ўтган дарсларингизнинг ҳамма сўзлари шу ерда',
+       r='«Словарь» в разделе «Упражнение» — здесь все слова пройденных уроков',
+       v="«Mashq» ichidagi «Lug'at» — o'tgan darslaringizning hamma so'zlari shu yerda."),
   dict(s='lugat', t='sonlar', a='look',
-       c='Тепада — ҳар поғонада нечта сўз борлиги. Сонни боссангиз, фақат ўша сўзлар қолади',
-       r='Сверху — сколько слов на каждой ступени. Нажмите на число — останутся только эти слова'),
+       c='Тепадаги зина — ҳар поғонада нечта сўз борлиги',
+       r='Лесенка сверху — сколько слов на каждой ступени',
+       v="Tepadagi zina — har pog'onada nechta so'z borligi."),
   dict(s='lugat', t='sx', f='row', a='look',
-       c='Сариқ чизиқлар — сўз неча кун тўғри топилгани: {B} таси тўлса — «биламан». Қизғиш чизиқлар — кўп хато қилинган сўз',
-       r='Жёлтые полоски — сколько дней слово угадано: заполнятся все {B} — «знаю». Розоватые — трудное слово, много ошибок'),   # 23.11.2026: «· 1/3» va «қийин» qatordan olib tashlandi
+       c='Сариқ чизиқлар — сўз неча кун тўғри топилгани: {B} таси тўлса — «биламан». Қизғиш чизиқли сўз кўп адашилган, у энг тепада туради',
+       r='Жёлтые полоски — сколько дней слово угадано: заполнятся все {B} — «знаю». Розоватые — трудное слово, оно стоит в самом верху',
+       v="Sariq chiziqlar — so'z necha kun to'g'ri topilgani: uchalasi to'lsa — «bilaman». Qizg'ish chiziqli so'z ko'p adashilgan, u eng tepada turadi."),
+  dict(s='lugat', t='soz', f='row2', a='look',
+       c='Сўз ёнида — кўплиги ва муаннаси, остида — маъноси. Сўзни боссангиз, ўқиб беради',
+       r='Рядом со словом — множественное число и женский род, ниже — значение. Нажмите на слово — оно прозвучит',
+       v="So'z yonida — ko'pligi va muannasi, ostida — ma'nosi. So'zni bossangiz, o'qib beradi."),
   dict(s='lugat', t=['ab', 'bm'], f='row', a='look',
-       c='Ўзингиз ҳам белгилай оласиз: ✓ — биламан ({M} кундан кейин «Бугунги машқ»да сўралади), 🔖 — билмайман',
-       r='Можно отметить и самому: ✓ — знаю (спросим в «Упражнении на сегодня» через {Mk}), 🔖 — не знаю'),
+       c='✓ — аниқ билган сўзингиз: {M} кундан кейин «Бугунги машқ»да текширилади. 🔖 — унутганингиз: сўз йўлни бошидан ўтади',
+       r='✓ — слово, которое точно знаете: через {Mk} его проверят в «Упражнении на сегодня». 🔖 — забытое: слово пройдёт путь заново',
+       v="Har so'z tepasida ikki belgi bor. Aniq bilgan so'zingizga «bilaman» belgisini bosing — yetti kundan keyin tekshiriladi. Unutganingizga — «bilmayman» belgisini: so'z yo'lni boshidan o'tadi."),
+  dict(s='lugat', t='fel', f=['q', 'tur'], a='tap', go='lugatf',
+       c='Қидириш — арабча ёки ўзбекча. Остидаги тугмалар сўз турини ажратади: исм, феъл, ҳарф',
+       r='Поиск — по-арабски или по-русски. Кнопки под ним разделяют слова по видам: имена, глаголы, частицы',
+       v="Qidirishga arabcha yoki o'zbekcha yozing. Ostidagi tugmalar so'z turini ajratadi: ism, fe'l, harf."),
+  dict(s='lugatf', t='row', a='look',
+       c='Феълда — мозий, музорий ва масдар. Таржимаси «-моқ» шаклида',
+       r='У глагола — прошедшее, настоящее время и масдар',
+       v="Fe'lda — moziy, muzoriy va masdar shakllari. Tarjimasi «-moq» shaklida."),
+  dict(s='lugat', t='hbo', f='sonlar', a='tap', go='lugato',
+       c='Поғонани боссангиз, фақат ўша сўзлар қолади. Яна боссангиз — ҳаммаси қайтади',
+       r='Нажмите на ступень — останутся только её слова. Нажмите ещё раз — вернутся все',
+       v="Pog'onani bossangiz, faqat o'sha so'zlar qoladi. Yana bossangiz — hammasi qaytadi."),
+  dict(s='lugato', t='sg', f=['sonlar', 'sg'], a='look',
+       c='«Ўрганяпман» ичида — нечта чизиғи тўлганига қараб гуруҳлар',
+       r='Внутри «учу» — группы по числу заполненных полосок',
+       v="«O'rganyapman» ichida — nechta chizig'i to'lganiga qarab guruhlar."),
+  dict(s='lugatg', t='sg', t2='row', t2f=.6, f=['sg', 'row'], a='look',      # t2 — halqa ovozning 60% ida («Har so'z tepasida…») so'z qatoriga o'tadi
+       c='«Биламан»да — {M} ва {M2} кунлик текширув гуруҳлари. Ҳар сўз тепасида — қачон сўралиши',
+       r='В «знаю» — группы проверки через {Mk} и {M2k}. Над каждым словом — когда его спросят',
+       v="«Bilaman»da — yetti kunlik va yigirma bir kunlik tekshiruv guruhlari. Har so'z tepasida qachon so'ralishi yozilgan."),
  ])),
 ]
 
@@ -148,9 +203,9 @@ def ssenariy(br, U, tema, ish, til):
     pg.goto(U + 'yol.html'); pg.wait_for_selector('.q-nav'); pg.wait_for_timeout(1200)
     ol('bosh', {'mashq': '.q-nav a[href$="takror.html"]', 'nav': '.q-nav', 'boshla': '.y-b'})
     takror_ochish(pg, U)
-    ol('mashq', {'go': '#go', 'band': '*.mq-h', 'lugat': '.mq-lg'})      # 26.11.2026: bitta «Бугунги машқ» (23.11 dagi «Ўрганиш» / «Такрор» birlashdi)
+    ol('mashq', {'go': '#go', 'band': '*.mq-h', 'lugat': '.mq-lg', 'gr': '*.mq-gr'})      # 26.11.2026: bitta «Бугунги машқ» (23.11 dagi «Ўрганиш» / «Такрор» birlashdi)
     pg.click('#go')
-    ol('savol', {'soz': '.tq-c', 'ko': '#ko'})
+    ol('savol', {'soz': '.tq-c', 'ko': '#ko', 'gr': '.tq-gr'})
     pg.click('#ko')
     ol('javob', {'mano': '.tq-m', 'j1': '#j1', 'j0': '#j0'})
     # mashg'ulot oxirigacha — hamma kartaga «Кўрсатиш» → «Билдим»
@@ -161,8 +216,19 @@ def ssenariy(br, U, tema, ish, til):
         if not pg.query_selector('#ko'): break
     pg.wait_for_timeout(700); pg.evaluate('scrollTo(0,0)')
     ol('tamom', {'band': '.mq-h', 'lugat': '.mq-lg'})
-    pg.click('.mq-lg'); pg.wait_for_timeout(1000); pg.evaluate('scrollTo(0,0)')
-    ol('lugat', {'sonlar': '*.lg-hb', 'sx': '.lg-r .lg-p', 'ab': '.lg-r .lg-ab', 'bm': '.lg-r .lg-bm', 'row': '.lg-r'})
+    pg.click('.mq-lg'); pg.wait_for_timeout(1000)
+    # 27.11.2026: bitta so'z (سَلَامٌ — shakli yo'q) ✓ bilan «биламан» — «Биламан» ekrani uchun; ro'yxat boshida وَاحِدٌ (مؤ.) qoladi
+    assert pg.evaluate("""() => { const r = [...document.querySelectorAll('.lg-r')].find(e => e.textContent.includes('سَلَام'));
+        if (!r) return false; r.querySelector('.lg-ab').click(); return true; }"""), 'Луғат: سَلَامٌ topilmadi'
+    pg.wait_for_timeout(3200); pg.evaluate('scrollTo(0,0)')
+    ol('lugat', {'sonlar': '*.lg-hb', 'sx': '.lg-l .lg-r .lg-p', 'ab': '.lg-l .lg-r .lg-ab', 'bm': '.lg-l .lg-r .lg-bm', 'row': '.lg-l .lg-r',
+                 'soz': '*.lg-l:first-of-type .lg-r:nth-child(-n+2) .lg-a', 'row2': '*.lg-l:first-of-type .lg-r:nth-child(-n+2)', 'q': '#lq', 'tur': '.lg-ch', 'fel': '.lg-ch button[data-t="f"]', 'hbo': '.lg-hb[data-h="o"]'})
+    pg.click('.lg-ch button[data-t="f"]'); pg.evaluate('scrollTo(0,0)')
+    ol('lugatf', {'row': '.lg-l .lg-r'})
+    pg.click('.lg-ch button[data-t=""]'); pg.click('.lg-hb[data-h="o"]'); pg.evaluate('scrollTo(0,0)')
+    ol('lugato', {'sonlar': '*.lg-hb', 'sg': '.lg-sg'})
+    pg.click('.lg-hb[data-h="g"]'); pg.evaluate('scrollTo(0,0)')
+    ol('lugatg', {'sg': '.lg-sg', 'kd': '.lg-l .lg-r .lg-kd', 'row': '.lg-l .lg-r'})
     # dars sahifasi (eng oxirida — takror holatiga ta'sir qilmasin): birinchi kirishdagi tur yopiladi
     pg.goto(U + TIL[til]['dars']); pg.wait_for_selector('#t3'); pg.wait_for_timeout(2500)
     if pg.query_selector('.tsk'): pg.click('.tsk'); pg.wait_for_timeout(500)
@@ -195,6 +261,49 @@ def bosib_chiq(ish, tillar):
 
 
 # ---------------------------------------------------------------- yig'ish: qol/*.webp + qol/mavzu*.js
+# 27.11.2026 (foydalanuvchi: «ovoz qilinmay qolgan joylari bor», «yaxshisini topib qil»): har qadamning o'zbekcha ovozi — Farruh
+# (ElevenLabs, docs/texnik/20-yoriqnoma.md). v — ovoz matni (oddiy lotin; gap boshidagi «X…» — kirillcha), fayl nomi — matn xeshi:
+# matn o'zgarsa, faqat o'sha qadam qayta yoziladi. Ruschada ovoz yo'q.
+OVOZ = 'qol/ovoz'
+OVOZ_KERAK, OVOZ_YOQ = set(), []
+
+
+def ovoz_nomi(kalit, v):
+    import hashlib
+    return '%s-%s.mp3' % (kalit, hashlib.sha1(v.encode('utf-8')).hexdigest()[:8])
+
+
+def uzunlik(p):
+    import subprocess
+    o = subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', p], capture_output=True, text=True).stdout
+    return round(float(o) * 1000)
+
+
+def ovoz_matn():
+    """Ovozi yo'q qadamlar: nom va ElevenLabs matni (JSON)."""
+    yoq = []
+    for kalit, M in MAVZU:
+        for q in M['qadam']:
+            if q.get('v') and not os.path.exists(os.path.join(OVOZ, ovoz_nomi(kalit, q['v']))): yoq.append({'nom': ovoz_nomi(kalit, q['v']), 'matn': q['v']})
+    print(json.dumps(yoq, ensure_ascii=False, indent=1)); print('%d bo`lak, %d belgi' % (len(yoq), sum(len(x['matn']) for x in yoq)), file=sys.stderr)
+
+
+def ovoz_qosh(papka):
+    """ElevenLabs'dan olingan xom mp3 (papka/<nom>.mp3) → qol/ovoz/<nom>: chet jimlik olinadi (boshida 120 ms qoladi — birinchi tovush yutilmasin), balandlik tenglanadi, mono 64 kbit/s."""
+    import subprocess
+    os.makedirs(OVOZ, exist_ok=True)
+    AF = ('silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.04,areverse,'
+          'silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.08,areverse,loudnorm=I=-17:TP=-1.5:LRA=11')
+    for f in sorted(os.listdir(papka)):
+        if not f.endswith('.mp3'): continue
+        tmp = '/tmp/qollanma-ovoz.wav'   # ikki bosqich: bitta zanjirda (silenceremove … loudnorm) ffmpeg ba'zi faylda osilib qoldi (27.11.2026)
+        subprocess.run(['ffmpeg', '-nostdin', '-v', 'error', '-y', '-i', os.path.join(papka, f), '-af', AF.rsplit(',', 1)[0], tmp],
+                       check=True, stdin=subprocess.DEVNULL, timeout=60)
+        subprocess.run(['ffmpeg', '-nostdin', '-v', 'error', '-y', '-i', tmp, '-af', 'adelay=delays=120:all=1,' + AF.rsplit(',', 1)[1], '-ac', '1', '-ar', '44100', '-b:a', '64k',
+                        os.path.join(OVOZ, f)], check=True, stdin=subprocess.DEVNULL, timeout=60)
+        print(f, uzunlik(os.path.join(OVOZ, f)), 'ms')
+
+
 def yig(ish, til):
     from PIL import Image
     T = TIL[til]; ru = til == 'ru'
@@ -203,13 +312,17 @@ def yig(ish, til):
     for kalit, M in MAVZU:
         ek = {}; Q = []
         for q in M['qadam']:
-            q2 = {k: v for k, v in q.items() if k != 'r'}
+            q2 = {k: v for k, v in q.items() if k not in ('r', 'v')}
             q2['c'] = q['r'] if ru else q['c']
+            if not ru and q.get('v'):                 # 27.11.2026: Farruh ovozi (faqat o'zbekcha) — o: fayl, od: uzunligi (ms)
+                f = ovoz_nomi(kalit, q['v']); OVOZ_KERAK.add(f)
+                if os.path.exists(os.path.join(OVOZ, f)): q2['o'] = f; q2['od'] = uzunlik(os.path.join(OVOZ, f))
+                else: OVOZ_YOQ.append((kalit, f, q['v']))
             Q.append(q2)
             if 'ch' in q: continue                    # chizma qadami — ekran rasmi kerak emas
             for e in (q['s'], q.get('go')):
                 if e: ek.setdefault(e, {}); kerak.add(e)
-            for n in [q['t']] + ([q['f']] if 'f' in q else []):
+            for n in [q['t']] + ([q['f']] if 'f' in q else []) + ([q['t2']] if 't2' in q else []):
                 for x in ([n] if isinstance(n, str) else n):
                     assert R.get(q['s'], {}).get(x), '%s: mavzu «%s»: «%s» ekranida «%s» nishoni yo`q' % (til, kalit, q['s'], x)
                     ek[q['s']][x] = R[q['s']][x]
@@ -226,6 +339,10 @@ def yig(ish, til):
             im = Image.open(os.path.join(ish, '%s%s-%s.png' % (T['pref'], t, e))).convert('RGB').resize((EN, round(EN * H / W)), Image.LANCZOS)
             o = 'qol/%s%s-%s.webp' % (T['pref'], t, e); im.save(o, 'WEBP', quality=70, method=6); jami += os.path.getsize(o)
     open('qol/' + T['mavzu'], 'w').write('\n'.join(qator) + '\n')
+    if not ru:
+        for f in os.listdir(OVOZ) if os.path.isdir(OVOZ) else []:
+            if f.endswith('.mp3') and f not in OVOZ_KERAK: os.remove(os.path.join(OVOZ, f)); print('eski ovoz o`chirildi:', f)
+        if OVOZ_YOQ: print('DIQQAT: %d qadamning ovozi yo`q (o`ynatkich ovozsiz o`tadi) — --ovoz-matn' % len(OVOZ_YOQ))
     print('qol/ (%s): %d rasm, %d KB; mavzular: %s' % (til, len(kerak) * len(TEMALAR), jami // 1024, ', '.join(k for k, _ in MAVZU)))
 
 
@@ -236,5 +353,7 @@ if __name__ == '__main__':
     assert all(t in TIL for t in tillar), 'til: uz yoki ru'
     assert os.path.exists('takror.html'), 'repo ildizidan ishga tushiring'
     os.makedirs(ish, exist_ok=True)
+    if '--ovoz-matn' in a: ovoz_matn(); sys.exit()
+    if '--ovoz-qosh' in a: ovoz_qosh(a[a.index('--ovoz-qosh') + 1]); sys.exit()
     if '--faqat-yig' not in a: bosib_chiq(ish, tillar)
     for til in tillar: yig(ish, til)

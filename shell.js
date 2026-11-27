@@ -1146,11 +1146,35 @@ document.addEventListener('click', function (e) {
     var hk = sb.querySelector('.hk'), hd = sb.querySelector('.zo-hd');
     (hk || hd).insertAdjacentElement('afterend', b);
   }
+  /* Fe'l boshqaruvi (27.11.2026, foydalanuvchi: 98-darsda حَصَلْتُ عَلَى dagi عَلَى «-га» deb chiqdi — «boshqa ma'noda emasmi?»):
+     bosilgan harf oldidagi 1–3 so'z ichida lug'atda «(عَلَى ..)» kabi belgisi aynan shu harf bo'lgan fe'l bo'lsa —
+     harfning alohida ma'nosi o'rniga «Феъл бошқаруви»: fe'l + harf va fe'lning ma'nosi (ruschada — ma'nosiz; yozuv U+2063 bilan — ru.js o'girmaydi). */
+  var RU = /\/ru\d+\.html$/.test(location.pathname);
+  css.textContent += '.zo-sl{text-align:center;margin:-4px 0 8px}.zo-slt{font-size:12px;font-weight:700;color:var(--mu,#6b716c)}' +
+    '.zo-sla{font-family:"DarsNaskh","Noto Naskh Arabic",serif;font-size:24px;line-height:1.6;color:var(--tx,#1f2421)}.zo-slm{font-size:15px;color:var(--tx,#1f2421)}';
+  function silaQoy() {
+    if (sb.querySelector('.zo-sl')) return;
+    var mid = sb.querySelector('.zo-mid'), ki = window.OPK && OPK.getAttribute ? OPK.getAttribute('data-i') : '';
+    var h = ki ? POS[ki] : null; if (!mid || !h || h.tur !== 'harf') return;
+    var hk = yal(h.ar), p = ki.split('-');
+    for (var k = 1; k <= 3 && +p[1] - k >= 0; k++) {
+      var f = POS[p[0] + '-' + (+p[1] - k)]; if (!f || f.tur !== 'fel') continue;
+      var b = f.yozuv || f.fel ? f : (f.ay && BYID[f.ay]) || f;
+      var y = b.yozuv || (b.fel || []).slice(-1)[0] || '', m = y.match(/\(([^()]*)\)\s*$/);
+      if (!m || yal(m[1]) !== hk) continue;
+      var mn = ((f.uz && f.uz[0]) || (b.uz && b.uz[0]) || '').replace(/^\s*1\.\s*/, '').replace(/</g, '&lt;');
+      var d = document.createElement('div'); d.className = 'mnl zo-sl';
+      d.innerHTML = '<div class="zo-slt">' + (RU ? '\u2063Управление глагола\u2063' : 'Феъл бошқаруви') + '</div><div class="zo-sla" dir="rtl" lang="ar">' + b.ar + ' ' + m[1].replace(/[\s.…]+$/, '') + '</div>' +
+        (RU || !mn ? '' : '<div class="zo-slm">' + mn + '</div>');
+      var o = mid.querySelector('.mnl'); if (o) o.parentNode.replaceChild(d, o); else mid.appendChild(d);
+      return;
+    }
+  }
   new MutationObserver(function () {
     if (!sb.querySelector('.zo-mid')) return;
-    if (MAP) { qoy(); return; }
+    if (MAP) { qoy(); silaQoy(); return; }
     if (yuk) return; yuk = true;
-    fetch(SN ? 'sinov-lugat.json' : 'data/lugat.json').then(function (x) { if (!x.ok) throw 0; return x.json(); }).then(function (j) { qur(j); qoy(); }).catch(function () { yuk = false; });
+    fetch(SN ? 'sinov-lugat.json' : 'data/lugat.json').then(function (x) { if (!x.ok) throw 0; return x.json(); }).then(function (j) { qur(j); qoy(); silaQoy(); }).catch(function () { yuk = false; });
   }).observe(sb, { childList: true, subtree: true });
 })();
 

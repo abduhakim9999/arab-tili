@@ -51,6 +51,19 @@ Ko'plik to'liq yoziladi (kitobdagi «..ُونَ» kengaytiriladi).
   - Ma'nolar tartibi o'zgarmaydi, chunki `hm` raqami shunga bog'langan. Yangi ma'no ro'yxat oxiriga qo'shiladi.
   - Turni dastur ma'nodagi «…ҳарфи)» so'zidan aniqlaydi (`ajrat.py turi()`). Shuning uchun qavs «ҳарфи)» bilan tugashi kerak, aks holda yozuv «so'z» bo'lib qoladi.
 - **Qo'llash:** `src/build/lugat_harf.py`. Shu darsdagi ma'noni eski ma'nodan topadi; topa olmasa yoki xato topsa, `HM` ga qo'lda yoziladi.
+- **Takrorda har ma'no — alohida karta** (27.11.2026, foydalanuvchi: «har bir ma'nosini bilish uchun alohida saqlab eslab qolish kerak emasmikin — hozir bitta bo'lib o'tib ketadi», → «qil»).
+  - Ma'noning kursda birinchi uchragan yozuvi o'sha ma'noning kartasi bo'ladi: `asl` — bosh kartaga. Bosh karta — harfning kursdagi birinchi yozuvi, u o'z ma'nosining kartasi.
+  - Shu ma'no keyin yana uchrasa, `ay` bilan o'sha kartaga bog'lanadi.
+  - Karta o'quvchi o'sha darsni o'tganda ochiladi. Hozirgi darslar bo'yicha وَ da 5 ta, فَـ da 6 ta karta.
+  - Karta «Маъноси?» turida:
+    - old tomonda harf va matndagi gap turadi; harf yashil, harf gap boshida bo'lsa oldingi bo'lak ham beriladi;
+    - orqa tomonda faqat shu ma'no (`km` = `uz[hm]`, `ajrat.py`) va gap tarjimasi chiqadi.
+  - Karta gapi `lugat_harf.py` dagi `KARTA` da qo'lda tanlangan (`VOC[4].kg`, `{…}` — harf). `ajrat.py karta_gapi()`:
+    - gap matnning bitta qatorida topilsa — dars gapi bo'ladi, ruschasi ham avtomatik;
+    - topilmasa — misol sifatida beriladi (`x`; 71 va 91-darslarda).
+  - Yangi darsda yangi ma'no chiqsa, unga `KARTA` qatori yoziladi (aks holda skript «DIQQAT» deydi).
+  - Ruschada `km` — shu ma'noning ruschasi (`src/ru/ru.js`).
+  - Bosh kartadagi eski o'quvchi natijasi o'z ma'nosida qoldi: وَ — «ва, ҳам», فَـ — «чунки».
 - **Jar harflari** (فِي، مِنْ، عَلَى…) bu qoidaga kirmaydi. Ularning misoli qisqa birikmada tushunarli, fe'llarning to'q sariq belgisi ham shu misollarga tayanadi.
 
 ## 4. Misol

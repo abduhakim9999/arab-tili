@@ -53,7 +53,8 @@
         (j.s || []).forEach(function (r) {
           var w = RW[r.id]; if (!w) return;
           if (w[0].length) { r.uzA = r.uz; r.uz = w[0].slice(); }   /* uzA — asl o'zbekcha (harf turi shundan aniqlanadi) */
-          if (w[2] && w[2].length) r.mz = w[2].slice(); else if (w[0].length) delete r.mz;   /* fe'l testdagi o'tgan zamon ma'nosi; ruschasi bo'lmasa — ruscha uz */
+          if (w[2] && w[2].length) r.mz = w[2].slice(); else if (w[0].length) delete r.mz;
+          if (r.km && w[0].length) { if (r.hm != null && w[0][r.hm]) r.km = [w[0][r.hm]]; else delete r.km; }   /* kartadagi ma'no (27.11.2026): bog'lovchi harf — shu ma'noning ruschasi; boshqasi — ruscha uz */   /* fe'l testdagi o'tgan zamon ma'nosi; ruschasi bo'lmasa — ruscha uz */
           if (r.x) r.x.forEach(function (x, i) { if (w[1][i] != null) x[1] = w[1][i]; });
           if (r.g && r.g.tr != null && w[3]) r.g.tr = w[3];   /* takror kartasidagi dars gapi tarjimasi (19.11.2026) */
         });

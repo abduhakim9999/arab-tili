@@ -14,7 +14,86 @@ B = os.path.join(ROOT, 'src', 'build')
 DARSLAR = list(range(1, 13)) + list(range(70, 75)) + list(range(90, 99))
 M = {k: v for k, v in json.load(open(os.path.join(B, 'harf_manolar.json'), encoding='utf-8')).items() if not k.startswith('_')}
 TAXALLUS = {'وَ ...': ('وَ..', 3)}                      # ҳол вови — alohida yozuv, umumiy kartaning 4-ma'nosi
-HM = {(98, '34'): 1}                                   # (dars, kn): ma'no raqami — avtomat topilmasa yoki xato bo'lsa («демак (натижа)»)
+HM = {(98, '34'): 1, (71, '1546'): 1, (91, '2113.71'): 4}                                   # (dars, kn): ma'no raqami — avtomat topilmasa yoki xato bo'lsa («демак (натижа)»)
+
+
+# Har ma'no — takrorda alohida karta (27.11.2026, foydalanuvchi: «har bir ma'nosini bilish uchun alohida saqlab eslab qolish kerak
+# emasmikin, hozir bitta bo'lib o'tib ketadi», → «qil»). Ma'noning kursda birinchi uchragan yozuvi — o'sha ma'no kartasi (`asl` bosh
+# kartaga; bosh karta — o'z ma'nosi), keyingi uchrashlari — `ay` bilan o'shanga. Kartadagi gap (VOC[4].kg) — harf o'rni, oldingi bo'lagi
+# bilan ({…} — harfning o'zi); ajrat.py: matnning bitta qatorida topilsa dars gapi (ruschasi ham), topilmasa [arabcha, tarjima].
+KARTA = {
+    (1, '7'): ['{وَ}عَلَيْكُمُ السَّلَامُ.', ''],
+    (1, '23'): ['بِخَيْرٍ {وَ}الْحَمْدُ لِلَّهِ.', ''],
+    (1, '26'): ['بِخَيْرٍ وَالْحَمْدُ لِلَّهِ. {وَ}كَيْفَ حَالُكَ أَنْتَ؟', ''],
+    (7, '135'): ['وَهَذَا جَدِّي {وَ}هَذِهِ جَدَّتِي.', ''],
+    (71, '1525'): ['زَيْنَبُ وَمَرْيَمُ صَدِيقَتَانِ تَتَشَابَهَانِ فِي أَشْيَاءَ كَثِيرَةٍ، {فَ}هُمَا تَسْكُنَانِ فِي حَيٍّ وَاحِدٍ',
+                   'Зайнаб ва Марям 2 дугона бўлиб, улар кўп нарсаларда бир-бирига ўхшайди. Чунки иккови бир маҳаллада яшайди.'],
+    (71, '1546'): ['أَخَذَتْ مَرْيَمُ تَأْكُلُ كَثِيراً {فَ}زَادَ وَزْنُهَا وَلَمْ يَنْقُصْ.', ''],
+    (71, '1547'): ['أَخَذَتْ مَرْيَمُ تَأْكُلُ كَثِيراً فَزَادَ وَزْنُهَا {وَ}لَمْ يَنْقُصْ.', ''],
+    (73, '1621'): ['فَإِنْ كَانَ لَا مَحَالَةَ، {فَ}ثُلُثٌ لِطَعَامِهِ، وَثُلُثٌ لِشَرَابِهِ، وَثُلُثٌ لِنَفَسِهِ.', ''],
+    (73, '1621.44'): ['وَأَخَذَ النَّاسُ يَتَّبِعُونَ الْحِمْيَةَ، {فَ}يَتَنَاوَلُونَ طَعَاماً قَلِيلاً،', ''],
+    (91, '2111'): ['كَالْعَمَلِ فِي الْمَجَالِ الطِّبِّيِّ؛ {فَ}تَعْمَلُ طَبِيبَةً، أَوْ مُمَرِّضَةً، أَوْ فِي الْمَجَالِ التَّعْلِيمِيِّ؛',
+                   '…тиббиёт масканлари каби жойларда ишлайди. Бунда у врач ё фельшер бўлиб ишлаши мумкин. Ёки таълим масканларида ишлайди.'],
+    (93, '51.32'): ['وَمَعَ ذَلِكَ {فَ}بَعْضُ النَّاسِ لَا يُحِبُّونَ الْعَمَلَ،', ''],
+}
+
+
+def bogla(quruq):
+    """Ko'p ma'noli harf (وَ، فَـ): har ma'no — o'z kartasi. Qayta ishlatilsa — o'zgarmaydi."""
+    L = json.load(open(os.path.join(ROOT, 'data', 'lugat.json'), encoding='utf-8'))['s']
+    ID = {(r['d'], r['kn']): r['id'] for r in L}
+    sah = {}
+    for n in DARSLAR:
+        s = open(os.path.join(ROOT, '%d.html' % n), encoding='utf-8').read()
+        m = re.search(r'var VOC=(\[.*?\]);\n', s, re.S)
+        sah[n] = (s, m, json.loads(m.group(1)))
+    bosh, hmb, ilk, oz = {}, {}, {}, set()
+    for n in DARSLAR:
+        for q in sah[n][2]:
+            kalit = TAXALLUS.get(q[1], (q[1],))[0]
+            if kalit not in M or len(M[kalit]['uz']) < 2 or len(q) < 5:
+                continue
+            if (n, q[0]) in HM and q[4].get('hm') != HM[n, q[0]]:
+                q[4]['hm'] = HM[n, q[0]]; oz.add(n)
+            hm, i = q[4].get('hm'), ID.get((n, q[0]))
+            if hm is None or i is None:
+                continue
+            if kalit not in bosh:                      # kursdagi birinchi yozuv — bosh karta (tk 1)
+                bosh[kalit], hmb[kalit] = i, hm
+            b = bosh[kalit]
+            if i == b or (hm != hmb[kalit] and (kalit, hm) not in ilk):
+                if i != b:
+                    ilk[kalit, hm] = i
+                yangi = {k: v for k, v in q[4].items() if k not in ('ay', 'asl', 'kg')}
+                if i != b:
+                    yangi['asl'] = b                   # yangi ma'no — o'z kartasi
+                if (n, q[0]) in KARTA:
+                    yangi['kg'] = KARTA[n, q[0]]
+                else:
+                    print('  DIQQAT: kartaga gap yo\'q — %d %s (hm %d)' % (n, q[0], hm))
+            else:
+                yangi = {k: v for k, v in q[4].items() if k not in ('ay', 'asl', 'kg')}
+                yangi['ay'] = b if hm == hmb[kalit] else ilk[kalit, hm]
+            if yangi != q[4]:
+                q[4].clear(); q[4].update(yangi); oz.add(n)
+    for n in sorted(oz):
+        print('  bog\'landi: %d-dars' % n)
+        if quruq:
+            continue
+        for p in ['%d.html' % n, 'src/build/outputs/lesson%d/index.html' % n]:
+            fp = os.path.join(ROOT, p)
+            if not os.path.exists(fp):
+                continue
+            s = open(fp, encoding='utf-8').read()
+            m = re.search(r'var VOC=(\[.*?\]);\n', s, re.S)
+            V = json.loads(m.group(1))
+            Y = {q[0]: q for q in sah[n][2]}
+            for q in V:
+                if q[0] in Y and len(q) > 4:
+                    q[4] = Y[q[0]][4]
+            s = s[:m.start()] + 'var VOC=' + json.dumps(V, ensure_ascii=False) + ';\n' + s[m.end():]
+            open(fp, 'w', encoding='utf-8').write(s)
+    print('Ma\'no kartalari:', {k: v for k, v in ilk.items()})
 
 
 def topish(kalit, eski):
@@ -92,6 +171,7 @@ def main():
             assert c == 1 and json.loads(t2)['voc'] == voc, rp
             open(rp, 'w', encoding='utf-8').write(t2)
     print('Jami: %d yozuv. Bosh kartalar: %s' % (jami, BOSH))
+    bogla(quruq)
 
 
 if __name__ == '__main__':

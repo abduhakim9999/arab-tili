@@ -13,7 +13,7 @@ Batafsil: docs/texnik.md 14-bo'lim.
 """
 import sys, os, re, json, hashlib, threading, http.server
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from lugat_gap import gap_tanla
+from lugat_gap import gap_tanla, gap_yasa
 
 ROOT = os.getcwd()
 B = os.path.join(ROOT, 'src', 'build')
@@ -133,6 +133,24 @@ JS = """() => {
   });
   return {lines: lines, q: q, t: t};
 }"""
+
+
+def karta_gapi(kg, lines, r):
+    """kg = [arabcha ({…} — belgilanadigan qism), tarjima]. Matnning bitta qatorida ketma-ket topilsa — dars gapi (ruschasi ham
+    build.py da), topilmasa — misol sifatida (r['x'] ga qo'shiladi). 27.11.2026, bog'lovchi harf ma'no kartalari."""
+    ws = kg[0].split()
+    bi = next(i for i, w in enumerate(ws) if '{' in w)
+    w0 = ws[bi]; st = w0.index('{'); en = w0.index('}') - 1
+    ws = [re.sub(r'[{}]', '', w) for w in ws]
+    pl = lambda x: re.sub(r'[^\u0621-\u064A]', '', plain(x))
+    T = [pl(w) for w in ws]
+    for li, ln in enumerate(lines):
+        L = [pl(w[0]) for w in ln['w']]
+        for s0 in range(len(L) - len(T) + 1):
+            if L[s0:s0 + len(T)] == T:
+                return gap_yasa(ln, li, s0, s0 + len(T) - 1, [[s0 + bi, st, en]])
+    r['x'] = [[' '.join(ws), kg[1]]] + (r.get('x') or [])
+    return {'k': 0, 'i': [[bi, st, en]]}
 
 
 def sahifalardan(darslar):
@@ -280,6 +298,12 @@ def main():
                         r[k1] = e[k0]                   # y — qo'shimcha ma'no, mw — matndagi o'rinlar («qator-so'z»)
                 if e.get('q'):
                     r['qr'] = 1                         # qoralama: kitob lug'ati kelsa almashtiriladi
+                if e.get('hm') is not None and e['hm'] < len(uz):   # 27.11.2026: bog'lovchi harf — shu darsdagi ma'no (docs/qoidalar/lugat.md 3a)
+                    r['hm'] = e['hm']
+                    if 'km' not in r:
+                        r['km'] = [uz[e['hm']]]         # takror kartasida faqat shu ma'no
+                if e.get('kg'):
+                    r['_kg'] = e['kg']                  # karta gapi (harf o'rni, oldingi bo'lagi bilan) — pastda g ga
             lug.append(r)
         # --- mashq
         P = sah[n]
@@ -342,7 +366,9 @@ def main():
             nqt += 1
         # --- takror kartasidagi gap (19.11.2026; lugat_gap.py): kitob misoli yoki dars matnidagi gap
         for r in lug[voc0:]:
-            if r['tur'] != 'atoqli':
+            if r.get('_kg'):
+                r['g'] = karta_gapi(r.pop('_kg'), lines, r)
+            elif r['tur'] != 'atoqli':
                 g = gap_tanla(r, lines)
                 if g:
                     r['g'] = g

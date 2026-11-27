@@ -15,7 +15,10 @@ import lugat_hamma as LH
 ROOT = LH.ROOT
 DARSLAR = list(range(1, 13)) + list(range(70, 75)) + list(range(90, 99))
 JAR = re.compile(r'\(((?!هُ)[^()]*?)\s*\.\.\)\s*$')
-TASHLA = set()                                         # (dars, kn) — qo'lda: matndagi gap mos emas
+TASHLA = {(3, '56'), (7, '118'), (8, '163'), (71, '1534'), (74, '19'), (74, '20'), (93, '12')}   # qo'lda: matndagi gap mos emas
+# 3 أَهْلٌ — «أَهْلاً وَسَهْلاً» ibora; 7 عَلِيٌّ (ism) — عَلَيْكُمْ topilardi; 8 أُمٌّ — «Умму Кулсум» ism; 71 أَخَذَ «олмоқ» — matnda «бошлади»;
+# 74 لِ / مِنْ — «يَا لَهُ مِنْ» ibora bo'laklari; 93 نِعْمَةٌ — tarjima bo'lagi «биридир» ga tushardi
+HARF = {k for k in json.load(open(os.path.join(ROOT, 'src', 'build', 'harf_manolar.json'), encoding='utf-8')) if not k.startswith('_')} | {'وَ ...'}   # bog'lovchi harf — misolsiz (lugat.md 3a)
 UZUN = 14                                              # gap bundan uzun bo'lsa — so'z turgan bo'lak (vergul / nuqtali vergulgacha)
 JARB = {                                               # yangi misolda jar harfi (lugat_jar.belgila uslubida)
     (71, '1520'): ('⟨فِي⟩ هَذِهِ', 'муаммо ⟨ҳақида⟩'),
@@ -45,8 +48,28 @@ def orin(p):
     return int(q[0]), int(q[1]), (q[2] if len(q) > 2 else None)
 
 
+OLDI = re.compile('^(?:[\u0648\u0641](?=..))?(?:\u0628\u0627\u0644|\u0644\u0644|\u0643\u0627\u0644|\u0627\u0644|[\u0628\u0644\u0643](?=...))?')
+
+
+def izla(D, yozuv):
+    """So'zning matndagi o'rni yozilmagan bo'lsa — matndan qidiriladi (shakllari: birlik, ko'plik, muannas, fe'l shakllari)."""
+    if '..' in yozuv or '...' in yozuv:
+        return []
+    F = [yl(x) for x in re.split(r'\s+(?:–|ج|مؤ\.)\s+|،|\(|\)', re.sub(r'\((?:[^()]*\.\.|\u0647\u064F[^()]*)\)', ' ', yozuv))]
+    F = [re.sub('^\u0627\u0644(?=..)', '', f) for f in F if len(f) > 1]
+    out = []
+    for l, r in enumerate(D):
+        for i, t in enumerate(r):
+            x = yl(t.split('~')[0])
+            for c in {x, OLDI.sub('', x)}:
+                if any(c == f or (len(f) > 2 and c.startswith(f) and len(c) - len(f) <= 3) for f in F):
+                    out.append((l, i, None))
+                    break
+    return out
+
+
 def tanla(D, q):
-    W = [orin(p) for p in (q[4] if len(q) > 4 else {}).get('w', [])]
+    W = [orin(p) for p in (q[4] if len(q) > 4 else {}).get('w', [])] or izla(D, q[1])
     if not W:
         return None
     m = JAR.search(q[1])
@@ -99,7 +122,7 @@ def main():
             m = re.search(r'var VOC=(\[.*?\]);\n', s, re.S)
             V = json.loads(m.group(1))
             for q in V:
-                if not q[3] or (n, q[0]) in TASHLA or any(matnda(D, e[0]) for e in q[3]):
+                if q[1] in HARF or (n, q[0]) in TASHLA or any(matnda(D, e[0]) for e in q[3]):
                     continue
                 if q[0] not in YANGI:
                     o = tanla(D, q)

@@ -94,16 +94,23 @@ Tungi rejimda yashil va to'q sariq ochroq bo'ladi.
   - Gap 14 so'zdan uzun bo'lsa, vergulgacha qisqartiriladi. Tarjima `TR` dan olinadi.
   - Ruscha darsda tarjima `src/ru/dNN.json` dan olinadi.
   - Kitob misollari o'chirilmaydi.
-- Diqqat: `kitob_hamma.py` yoki `vocNN.py` qayta ishga tushirilsa, keyin `lugat_jar.py`, `lugat_misol.py` va `lugat_harf.py` ham ishga tushiriladi. Uchalasi ham qayta ishlatilsa hech narsani buzmaydi. Sabab: `ay` bilan bog'langan qator yozuvni bog'langan so'zdan oladi.
+- Diqqat: `kitob_hamma.py` yoki `vocNN.py` qayta ishga tushirilsa, keyin `lugat_jar.py`, `lugat_misol.py`, `lugat_harf.py` va `lugat_yangi_mano.py` ham ishga tushiriladi. Hammasi qayta ishlatilsa hech narsani buzmaydi. Sabab: `ay` bilan bog'langan qator yozuvni bog'langan so'zdan oladi.
 
 ## 7. Yangi dars lug'atini tekshirish
 1. Jar belgisi bor har fe'lni ko'rib chiqish: harf misolda bormi? Yo'q bo'lsa, dars matnida bormi? Matnda ham yo'q bo'lsa, belgi qo'yilmaydi.
 2. Misol matndan olinganmi? «МИСОЛ» chiqadigan yozuvlar ro'yxati: `node` + Playwright bilan sahifadagi `.la-mt` sanaladi. Namuna skriptlar — `src/build/scratchpad/lt/`.
 3. Jar harfli misolda `{^…}` ikkala tomonda ham bormi: arabchada harf, tarjimada qo'shimcha.
 
-## 8. Hali qilinmagan (27.11.2026)
-- **36 so'zda misol hali «МИСОЛ».** Ularning matndagi o'rni (`w`) yozilmagan. Asosan dars sarlavhasidagi so'zlar (دَرْسٌ، ثَانٍ), nisbalar (طَشْقَنْدِيٌّ) va harf yozuvlari (قَدْ ...). Ularga o'rin qo'lda yoziladi.
-- **255 so'z misolsiz.** Asosan sonlar va ismlar.
-- **جَاءَ بِـ («олиб келмоқ», 95-dars, 16-qator).** Bu ma'no alohida yozuv bo'lishi kerak (`asl`, yangi id). Hozir faqat «келмоқ» bor.
-- **سَمِعَ بِـ («...ҳақида эшитмоқ», 70-dars, 7-qator).** Matnda bu so'z ikkinchi ma'noda ham keladi, u ham alohida yozuv bo'lishi kerak.
-- **Misolsiz so'zlar.** Jar belgisi yangi qo'shilgan 93-dars غَدَا va رَجَعَ da misol yo'q; misolsiz so'zlar jami 255 ta.
+## 8. Holat va qolgan ish (27.11.2026 oxiri)
+- **Misollar:**
+  - 1520 yozuvda misol dars matnidan;
+  - 86 bog'lovchi harf misolsiz (3a);
+  - 120 yozuv misolsiz: asosan sonlar, nisbalar va ismlar — kitob lug'atida bor, matnda yo'q;
+  - 32 yozuvda kitob misoli qoldi, chunki so'z matnda topilmadi.
+- **`lugat_misol.py` endi misolsiz so'zga ham misol qo'shadi.** So'zning matndagi o'rni yozilmagan bo'lsa, uni matndan o'zi qidiradi: shakllari bo'yicha, ال، و، ف، ب، ل oldi qo'shimchalari bilan.
+  - Mos kelmagan topilmalar `TASHLA` ga yoziladi. Masalan: عَلِيٌّ ga عَلَيْكُمْ topilardi; أَهْلٌ ga «أَهْلاً وَسَهْلاً» iborasi tushardi.
+  - Jami 27 + 134 yozuvga matndagi gap qo'shildi.
+- **Yangi ma'no yozuvlari (`lugat_yangi_mano.py`):** 95 جَاءَ بِـ «(...ни) олиб келмоқ» (id 1761) va 70 سَمِعَ بِـ «(...ҳақида) эшитмоқ» (id 1760).
+  - Ular dars VOC oxiriga qo'shildi va asosiy so'zga `asl` bilan bog'landi.
+  - Matndagi o'rni asosiy yozuvdan shularga o'tdi.
+- **Qolgan ish:** misolsiz 120 va kitob misolli 32 yozuv matnda yo'q. Ular shu holicha qoladi, yangi dars kelganda shu darsda uchrasa — o'sha darsdan misol olinadi.

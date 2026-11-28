@@ -1269,7 +1269,11 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
     }).join('') + '</div>';
   }
   /* 26.11.2026 (foydalanuvchi: «ikkita maf'ul deb yozib qo'ygan yaxshimi? rang bilan bezash shart emas, alohida tursa bo'ldi», «qil»): «(هُ هُ)» belgisi ostida oddiy kulrang yozuv — faqat ikki maf'ulli fe'llarda */
-  function silaB(p, oc) { return p ? '<div class="tq-pa' + (oc ? ' tq-oc' : '') + '"><span class="tq-pp ar" lang="ar">' + esc(p) + '</span>' + (/^\u0647\u064F\s+\u0647\u064F$/.test(p) ? '<div class="tq-pm">икки мафъул олади</div>' : '') + '</div>' : ''; }
+  function silaB(p, oc) {   /* 28.11.2026 (foydalanuvchi): ikki maf'ulli fe'lda «(هُ هُ)» o'rniga faqat «икки мафъулли» yozuvi — docs/qoidalar/lugat.md 2 */
+    if (!p) return '';
+    var ik = /^\u0647\u064F\s+\u0647\u064F$/.test(p);
+    return '<div class="tq-pa' + (oc ? ' tq-oc' : '') + '">' + (ik ? '<div class="tq-pm">икки мафъулли</div>' : '<span class="tq-pp ar" lang="ar">' + esc(p) + '</span>') + '</div>';
+  }
   /* 21.11.2026 (foydalanuvchi: «tarjimadagi qaysi joy shu so'zga to'g'ri kelayotgani ko'rsatilsin»): gap tarjimasida ma'noga mos so'zlar yashil.
      Ma'noning birinchi satridagi so'zlar bilan solishtiriladi: 4+ harfli — o'zagi («келди» → «кел…», «қисм» → «қис…»: «-моқ/-ди/-ти» yoki
      oxirgi harf tushadi), qisqasi — o'zi yoki o'zi + qo'shimcha («сиз» → «Сизга», «уй» → «уйда»); ko'pi bilan 4 so'z; topilmasa — belgisiz. */

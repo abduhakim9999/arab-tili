@@ -1011,7 +1011,7 @@ document.addEventListener('click', function (e) {
     '#p2 .g.la .la-y{font-size:13.5px;line-height:1.45;color:var(--mu);margin-top:3px}' +
     '#p2 .g.la .la-q{margin-left:40px;font-size:12px;color:#9a6a12}#p2 .g.la .la-q::before{content:"\\270E  "}' +
     /* 19.11.2026 (foydalanuvchi): ko'plik/muannas «ج»/«مؤ.» dan keyin so'z yonida; uzun so'z ustida, ma'no tagida; tepasi belgisiz; faqat misolda ma'noda yozilgan qism yashil */
-    '#p2 .g.la .la-j{font-size:.75em;white-space:nowrap}#p2 .g.la .la-p{font-size:.75em;white-space:nowrap;unicode-bidi:isolate}' +
+    '#p2 .g.la .la-j{font-size:.75em;white-space:nowrap}#p2 .g.la .la-p{font-size:.75em;white-space:nowrap;unicode-bidi:isolate}#p2 .g.la .la-im{color:var(--mu);font-family:inherit;margin:0 .35em}' +
     '#p2 .g.la .la-g{color:var(--em1,#13865a);background:color-mix(in srgb,var(--em1,#13865a) 14%,transparent);border-radius:3px}' +
     '#p2 .g.la .la-g{font-size:inherit}' +
     '@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #p2 .g.la .la-g{color:#7fd4ad}}:root[data-theme="dark"] #p2 .g.la .la-g{color:#7fd4ad}' +   /* tungi rejimda yashil o'qilsin (27.11.2026) */   /* sahifadagi «.g span:last-child{15px}» ga tushmasin */
@@ -1071,7 +1071,10 @@ document.addEventListener('click', function (e) {
     });
   }
   function bosh(h) {                                   /* «(إِلَى ..)», «(هُ هُ)» — qavs kichik, bir butun (qatorga bo'linmaydi — 22.11.2026); jar harfi — to'q sariq (27.11.2026) */
-    return h.replace(/\((\u0647\u064F[^()]*|[^()]*?\.{2,3})\)/g, function (m, x) { return '<span class="la-p' + (/^\u0647\u064F/.test(x) ? '' : ' jr') + '">(' + x + ')</span>'; });   /* 19.11.2026: tepasi kitobdagidek belgisiz (foydalanuvchi) */
+    return h.replace(/\((\u0647\u064F[^()]*|[^()]*?\.{2,3})\)/g, function (m, x) {
+      if (/^\u0647\u064F\s+\u0647\u064F$/.test(x)) return '<span class="la-p la-im">' + (RU ? 'два маф\'уля' : 'икки мафъулли') + '</span>';   /* 28.11.2026 (foydalanuvchi): «(هُ هُ)» o'rniga yozuv — docs/qoidalar/lugat.md 2 */
+      return '<span class="la-p' + (/^\u0647\u064F/.test(x) ? '' : ' jr') + '">(' + x + ')</span>';
+    });   /* 19.11.2026: tepasi kitobdagidek belgisiz (foydalanuvchi) */
   }
   var MATN = null;
   function matnda(eb) {                                /* misol dars matnidanmi: hamma so'zi matnning bitta qatorida (qisqartirilgan gap ham) */

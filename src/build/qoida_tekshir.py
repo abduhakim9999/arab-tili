@@ -6,13 +6,14 @@
 Ro'yxat — docs/qoidalar/eskirgan.txt (eski ibora<TAB>to'g'ri joy; «re:» — regex).
 Qidiradi: docs/**/*.md (tarix.md dan tashqari), CLAUDE.md, src/build/README.md, sessiyadagi skill nusxalari
 (/root/.claude/skills/synced/*/{yangi-dars,joyla}/SKILL.md) va argumentdagi fayllar (masalan konspekt nusxasi).
-Tarix yozuvi — qatorda «eskirgan», «bekor», «endi», «ilgari», «olib tashlandi», «o'rniga» bo'lsa — sanalmaydi.
+Tarix yozuvi — qatorda «eskirgan», «bekor», «endi», «ilgari», «olib tashlandi», «o'rniga» bo'lsa yoki qator «- 2026-11-28:» kabi sana bilan boshlansa — sanalmaydi.
 Topilsa — chiqish kodi 1.
 """
 import glob, os, re, sys
 
 R = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 TARIX = re.compile(r"eskirgan|bekor|\bendi\b|ilgari|olib tashlandi|o'rniga|→", re.I)
+SANA = re.compile(r'^\s*-\s*20\d\d-\d\d-\d\d:')   # «Yangilanishlar» tarix qatori (- 2026-11-28: …)
 
 
 def royxat():
@@ -39,7 +40,7 @@ def main():
     for p in fayllar(sys.argv[1:]):
         for n, line in enumerate(open(p, encoding='utf-8', errors='replace'), 1):
             for ibora, rx, joy in rl:
-                if rx.search(line) and not TARIX.search(line):
+                if rx.search(line) and not TARIX.search(line) and not SANA.match(line):
                     top += 1
                     print('TOPILDI: %s:%d  «%s» → %s' % (os.path.relpath(p, R) if p.startswith(R) else p, n, ibora, joy))
     print('eskirgan ibora: %d ta' % top if top else 'eskirgan ibora topilmadi')

@@ -7,7 +7,7 @@ Har qoida **bitta joyda** turadi; boshqa joyda faqat havola. Yangi qaror shu jad
 | Tur | Nima haqida | Joyi |
 |---|---|---|
 | **Grammatika** | tarkib qoliplari, atamalar, kitobda yo'q mavzular, izoh (tarkib) yozish uslubi | claude.ai loyihasi `claude/kitob-konspekti.md` — asl nusxa (24.11.2026 qarori; repoda faqat havola `docs/kitob-konspekti.md`) |
-| **Tarjima** | o'zbekcha matn imlosi (yuklamalar chiziqcha bilan: Саид-чи, бор-ку) | `docs/qoidalar/tarjima.md` (28.11.2026) |
+| **Tarjima va matn** | o'zbekcha matn imlosi (Саид-чи, бор-ку), hujjat tarjimasini tekshirish, arabcha harakat lug'atga qarab | `docs/qoidalar/tarjima.md` (28.11.2026) |
 | **Lug'at** | so'z yozuvi (birlik/jam/muannas, fe'l shakllari, boshqaruv), ma'no, misol, belgilar va ranglar | `docs/qoidalar/lugat.md` |
 | **Tarkib ko'rinishi** | so'z ranglari, ramka, bosganda chiqadiganlar, «Қоидалар» qutisi | `docs/tarkib-korinishi.md` |
 | **Mashq savollari** | savol turlari, «Эъроб» qolipi (5 bosqich), tekshiruv | `docs/texnik/23-savollar.md` |
@@ -30,6 +30,6 @@ Har yangi qaror yoki qoida o'zgarsa — shu ishning o'zida:
 4. **Xotira va loyiha ko'rsatmasi** — skript ularni ko'rmaydi: xotiradagi `preferences.md` qatorlari qo'lda solishtiriladi; claude.ai loyiha ko'rsatmasini faqat foydalanuvchi o'zgartiradi — kerak bo'lsa matni taklif qilinadi.
 
 ## Hali bitta joyga yig'ilmaganlar (taklif)
-- **Tarjima uslubi** (o'zbekcha matn: qavsdagi variant, «(луғ.)», atoqli otlar, harakat lug'atga qarab) — hozir `yangi-dars` skilli va konspekt orasida bo'lingan. `docs/qoidalar/tarjima.md` ochildi (28.11.2026, hozircha faqat imlo) — qolganini ko'chirish mumkin.
+- ~~Tarjima uslubi~~ — 28.11.2026 da `docs/qoidalar/tarjima.md` ga yig'ildi (imlo, hujjat tarjimasini tekshirish, harakat lug'atga qarab).
 - **Video darslar** (grammatika videolari, «Сўз йўли», kana) — reja fayllarida (`docs/kana-video-reja.md`, `docs/texnik/21-grammatika-video.md`); umumiy video qoidasi alohida emas.
 - **Grammatika repoda?** — hozir claude.ai loyihasida. Claude Code sessiyasi uni o'qiy olmaydi; repoga `docs/qoidalar/grammatika.md` qilib ko'chirish — foydalanuvchi qarori bilan.

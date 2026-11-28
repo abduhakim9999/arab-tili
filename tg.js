@@ -672,12 +672,24 @@
 
 /* BALL (26.11.2026, foydalanuvchi: «qancha ko'p foydalansa, shuncha ball»; qoida — takror.js REY, docs/texnik.md 19). takror.js'ni
    yuklamaydigan sahifalar (dars, Сарф, Эшитиш) javobni shu yerdan takror jurnaliga yozadi; ball serverda va «Рейтинг»da jurnaldan
-   hisoblanadi. Shu yerda faqat: yozish (o'qib-qo'shib-yozish — boshqa sahifa yozganini o'chirmaydi), «+10» uchishi, tinglash vaqti. */
+   hisoblanadi. Shu yerda: yozish (o'qib-qo'shib-yozish — boshqa sahifa yozganini o'chirmaydi), ball ko'rinishi, tinglash vaqti.
+   28.11.2026 (foydalanuvchi: «qilinsin va necha kun qolganini bilinib tursin … nima qancha ball berishi yo'riqnomalar bo'lishi kerak. Va ball
+   olganda odam ekranda rag'batlanadigan, ball berilganini ko'rsatadigan bir motion … chiqadigan bo'lsin»):
+   - savol (xd…, xs…) — kunning birinchi javobi; birinchi marta 10, keyingi kunlarda 3 (TAK; takror.js kunHisob bilan bir xil — olsa);
+   - ko'rinish: uch() — tanga aylanib, uchqunlar sochilib «+10» / «+3» ko'tariladi; katta() — bonus (dars +100, bob +200, kitob +500,
+     🔥 olov +50): o'rtada medal, nurlar, sanaladigan son, konfetti (bosilsa yopiladi, navbat bilan); toast() — tepada «Сўз «Биламан»га
+     чиқди +50» (ketma-ket bo'lsa son qo'shiladi, ekranni to'smaydi); Telegram'da tebranish; prefers-reduced-motion — harakatsiz;
+   - olov(): bugun seriya sharti bajarilganda bir marta «Бугунги олов ёнди!» (takror.js kunlik; yuklanmagan bo'lsa — o'zi yuklaydi);
+   - qoida(): «Баллар» oynasi — nimaga qancha ball; yangi qoidagacha necha kun qolgani (qoldi()); [data-bq] bosilsa ochiladi. */
 (function () {
-  var DAN = 1795978800000, TZ = 5 * 3600000, TEZ = 700, B = 10, ESH = 300000, ESH_MAX = 20;   /* takror.js REY bilan bir xil */
-  var SN = /\/sinov-[^\/]*$/.test(location.pathname), KJ = SN ? 'takror-sinov-j' : 'takror-j', KE = SN ? 'ball-sinov-eshit' : 'ball-eshit';
+  var DAN = 1795978800000, TZ = 5 * 3600000, TEZ = 700, B = 10, TAK = 3, ESH = 300000, ESH_MAX = 20;   /* takror.js REY bilan bir xil */
+  var SN = /\/sinov-[^\/]*$/.test(location.pathname), KJ = SN ? 'takror-sinov-j' : 'takror-j', KE = SN ? 'ball-sinov-eshit' : 'ball-eshit',
+    KO = SN ? 'ball-sinov-olov' : 'ball-olov';
   var LS = null; try { LS = window.localStorage; } catch (e) {}
+  function L(k) { try { return LS ? LS.getItem(k) : null; } catch (e) { return null; } }
+  function S(k, v) { try { if (LS) LS.setItem(k, v); } catch (e) {} }
   function kun(t) { return Math.floor((t + TZ) / 864e5); }
+  function esc(x) { return String(x == null ? '' : x).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function ol() { try { return (JSON.parse(LS.getItem(KJ) || '{}') || {}).j || []; } catch (e) { return []; } }
   function qosh(e) {
     if (!LS) return;
@@ -685,49 +697,185 @@
   }
   /* yangi qoida kuchga kirganmi (30.11.2026); ko'rish va sinov manzillarida — hozirdan («+10» ko'rinsin) */
   function faol() { return Date.now() >= DAN || !/(^|\.)nurut-tolib\.vercel\.app$/.test(location.hostname); }
-  /* shu javob ball beradimi: to'g'ri, TEZ dan sekin va bu kalit bugun hali ball bermagan */
+  /* yangi qoidagacha necha kun (Toshkent kuni bilan; 0 — kuchda) */
+  function qoldi() { var t = Date.now(); return t >= DAN ? 0 : Math.max(1, kun(DAN) - kun(t)); }
+  function tezmi(ms) { return ms > 0 && ms < TEZ; }
+  function savolmi(k) { return /^x[ds]/.test(k); }
+  /* shu TO'G'RI javob qancha ball beradi (takror.js kunHisob bilan bir xil; j — yangi yozuvdan oldingi jurnal):
+     savol — bugun bu savolga javob berilgan bo'lsa 0, ilgari ball bergan bo'lsa TAK, aks holda B; boshqasi — bugun hali ball bermagan bo'lsa B */
   function olsa(j, k, ms, t) {
-    if (ms > 0 && ms < TEZ) return 0;
-    var d = kun(t || Date.now());
-    for (var i = (j || []).length - 1; i >= 0; i--) { var e = j[i]; if (e && e[0] === k && e[2] === 3 && kun(e[1]) === d && !(e[3] > 0 && e[3] < TEZ)) return 0; }
-    return B;
+    if (tezmi(ms)) return 0;
+    var d = kun(t || Date.now()), x = (j || []).filter(function (e) { return e && e[0] === k && typeof e[1] === 'number'; }).sort(function (a, b) { return a[1] - b[1]; }), i;
+    if (!savolmi(k)) { for (i = 0; i < x.length; i++) if (x[i][2] === 3 && kun(x[i][1]) === d && !tezmi(x[i][3])) return 0; return B; }
+    var kd = {}, st = false;
+    for (i = 0; i < x.length; i++) { var dd = kun(x[i][1]); if (kd[dd]) continue; kd[dd] = 1; if (dd === d) return 0; if (x[i][2] === 3 && !tezmi(x[i][3])) st = true; }
+    return st ? TAK : B;
   }
-  var XY = null, XT = 0;                               /* oxirgi bosilgan joy — «+10» o'sha yerdan uchadi */
+  var XY = null, XT = 0;                               /* oxirgi bosilgan joy — «+10» o'sha yerdan chiqadi */
   document.addEventListener('pointerdown', function (e) { XY = [e.clientX, e.clientY]; XT = Date.now(); }, true);
+  function kam() { try { return matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } }
+  function hapt(k) { try { var h = window.Telegram && Telegram.WebApp && Telegram.WebApp.HapticFeedback; if (h) { if (k) h.notificationOccurred('success'); else h.impactOccurred('light'); } } catch (e) {} }
+  var TANGA = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11.2" fill="#f2a900"/><circle cx="12" cy="12" r="9" fill="#ffd34d" stroke="#e39600" stroke-width="1.1"/>' +
+    '<path d="M12 6.4l1.65 3.35 3.7.54-2.68 2.6.63 3.68L12 14.85l-3.3 1.72.63-3.68-2.68-2.6 3.7-.54z" fill="#e08c00"/></svg>';
+  var IKON = {
+    dars: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.75 5.6 6.15.9-4.45 4.33 1.05 6.12L12 16.86 6.5 19.75l1.05-6.12L3.1 9.3l6.15-.9z" fill="#fff" stroke="#b86e00" stroke-width="1.3" stroke-linejoin="round"/></svg>',
+    bob: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2.5h4l1 4.5-3 1zM17 2.5h-4l-1 4.5 3 1z" fill="#2f8f5b"/><circle cx="12" cy="14.5" r="7" fill="#fff" stroke="#b86e00" stroke-width="1.3"/>' +
+      '<path d="M12 10.6l1.2 2.45 2.7.4-1.95 1.9.46 2.68L12 16.76l-2.41 1.27.46-2.68-1.95-1.9 2.7-.4z" fill="#e08c00"/></svg>',
+    kitob: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v5.5a5 5 0 0 1-10 0z" fill="#fff" stroke="#b86e00" stroke-width="1.3" stroke-linejoin="round"/>' +
+      '<path d="M7 5H4.2v1.6A3.4 3.4 0 0 0 7.3 10M17 5h2.8v1.6a3.4 3.4 0 0 1-3.1 3.4" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>' +
+      '<path d="M12 13.5v3.3M8.2 20.5h7.6l-.9-3.7H9.1z" fill="#fff" stroke="#b86e00" stroke-width="1.3" stroke-linejoin="round"/></svg>',
+    soz: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l6.5 7h-4v8.5h-5V11h-4z" fill="#fff" stroke="#b86e00" stroke-width="1.3" stroke-linejoin="round"/></svg>',
+    olov: '<span class="bt-e">🔥</span>'
+  };
+  var RANG = ['#f6c343', '#ef8a3a', '#3fb27f', '#5b9cf0', '#e75d7c', '#a678e8', '#ffd966'];
   function css() {
     if (document.getElementById('ball-css')) return;
     var s = document.createElement('style'); s.id = 'ball-css';
-    s.textContent = '.ball-uch{position:fixed;z-index:2147483000;pointer-events:none;font:800 24px/1 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#f59e0b;' +
-      'text-shadow:0 1px 2px rgba(0,0,0,.22);white-space:nowrap;transform:translate(-50%,-100%);animation:ballUch 1.05s cubic-bezier(.2,.7,.3,1) forwards}' +
-      '@keyframes ballUch{0%{opacity:0;transform:translate(-50%,-60%) scale(.5)}18%{opacity:1;transform:translate(-50%,-110%) scale(1.15)}30%{transform:translate(-50%,-120%) scale(1)}100%{opacity:0;transform:translate(-50%,-330%) scale(1)}}' +
-      '@media (prefers-reduced-motion:reduce){.ball-uch{animation:ballUchR 1.05s linear forwards}@keyframes ballUchR{0%,65%{opacity:1}100%{opacity:0}}}';
+    var F = 'system-ui,-apple-system,"Segoe UI",Roboto,sans-serif', ZM = 'radial-gradient(circle at 34% 28%,#fff6c2,#f9c935 46%,#dc9a08)';
+    s.textContent =
+      /* kichik: tanga + «+10» */
+      '.bu{position:fixed;z-index:2147483000;pointer-events:none;width:0;height:0}' +
+      '.bu-p{position:absolute;left:0;top:0;display:flex;align-items:center;gap:5px;padding:4px 12px 4px 4px;border-radius:999px;background:linear-gradient(180deg,#fffbe8,#ffe7a0);' +
+      'box-shadow:0 6px 18px rgba(170,110,0,.32),0 0 0 1.5px rgba(226,154,0,.6);font:800 19px/1 ' + F + ';color:#9a5600;white-space:nowrap;transform:translate(-50%,-50%);animation:buP 1.35s cubic-bezier(.2,.8,.3,1) forwards}' +
+      '.bu-t .bu-p{background:linear-gradient(180deg,#f0fbf5,#c9eedb);color:#11683f;box-shadow:0 6px 18px rgba(17,104,63,.25),0 0 0 1.5px rgba(47,160,100,.55)}' +
+      '.bu-c{width:27px;height:27px;display:block;animation:buC .75s ease-out}.bu-c svg{display:block;width:100%;height:100%}' +
+      '.bu-r{position:absolute;left:-30px;top:-30px;width:60px;height:60px;box-sizing:border-box;border-radius:50%;border:3px solid #ffc83d;opacity:0;animation:buR .6s ease-out forwards}' +
+      '.bu-s{position:absolute;left:-4px;top:-4px;width:8px;height:8px;border-radius:2px;background:#ffc23a;opacity:0;animation:buS .7s ease-out forwards}.bu-s:nth-of-type(odd){background:#ff8f3f;border-radius:50%}' +
+      '.bu-t .bu-r{border-color:#4cc38a}.bu-t .bu-s{background:#4cc38a}' +
+      '@keyframes buP{0%{opacity:0;transform:translate(-50%,-50%) scale(.3)}15%{opacity:1;transform:translate(-50%,-62%) scale(1.2)}27%{transform:translate(-50%,-66%) scale(1)}72%{opacity:1;transform:translate(-50%,-160%) scale(1)}100%{opacity:0;transform:translate(-50%,-220%) scale(.92)}}' +
+      '@keyframes buC{from{transform:rotateY(0)}to{transform:rotateY(720deg)}}' +
+      '@keyframes buR{0%{opacity:.95;transform:scale(.2)}100%{opacity:0;transform:scale(1.7)}}' +
+      '@keyframes buS{0%{opacity:1;transform:rotate(var(--a)) translateY(0) scale(.4)}65%{opacity:1}100%{opacity:0;transform:rotate(var(--a)) translateY(-48px) scale(1)}}' +
+      /* katta: bonus */
+      '.bt{position:fixed;inset:0;z-index:2147483001;display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:pointer;-webkit-tap-highlight-color:transparent;' +
+      'background:radial-gradient(circle at 50% 46%,rgba(255,210,90,.30),rgba(0,0,0,.5) 72%);animation:btF .3s ease-out}.bt.ket{animation:btK .35s ease-in forwards}' +
+      '.bt-w{position:relative;display:flex;justify-content:center}' +
+      '.bt-nur{position:absolute;left:50%;top:0;width:380px;height:380px;margin:-190px 0 0 -190px;border-radius:50%;pointer-events:none;' +
+      'background:repeating-conic-gradient(rgba(255,206,70,.6) 0 9deg,transparent 9deg 30deg);-webkit-mask:radial-gradient(circle,#000 22%,transparent 66%);mask:radial-gradient(circle,#000 22%,transparent 66%);animation:btN 7s linear infinite}' +
+      '.bt-k{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:224px;max-width:80vw;margin-top:44px;padding:52px 28px 22px;box-sizing:border-box;border-radius:28px;' +
+      'background:linear-gradient(180deg,#fffdf4,#fff0c4);box-shadow:0 22px 50px rgba(0,0,0,.35),0 0 0 2px rgba(238,176,36,.65);text-align:center;color:#5a3900;font-family:' + F + ';animation:btP .6s cubic-bezier(.2,1.45,.4,1)}' +
+      '.bt-m{position:absolute;left:50%;top:-44px;width:88px;height:88px;margin-left:-44px;border-radius:50%;background:' + ZM + ';box-shadow:0 8px 20px rgba(196,124,0,.45),inset 0 -4px 0 rgba(0,0,0,.12),0 0 0 4px #fffaf0;' +
+      'display:flex;align-items:center;justify-content:center;animation:btM .85s cubic-bezier(.2,1.3,.4,1)}.bt-m svg{width:52px;height:52px;filter:drop-shadow(0 2px 1px rgba(150,90,0,.3))}' +
+      '.bt-e{font-size:46px;line-height:1}' +
+      '.bt-n{font-size:46px;line-height:1.05;font-weight:900;color:#e38700;letter-spacing:.01em;font-variant-numeric:tabular-nums;text-shadow:0 2px 0 #fff,0 5px 14px rgba(227,135,0,.35)}' +
+      '.bt-t{font-size:17.5px;line-height:1.3;font-weight:800}.bt-s{font-size:13.5px;line-height:1.35;color:#87652a}' +
+      '.bt-q{position:absolute;top:-18px;width:9px;height:14px;border-radius:2px;opacity:0;pointer-events:none;animation:btQ var(--d) cubic-bezier(.25,.6,.45,1) var(--k) forwards}.bt-q:nth-of-type(3n){border-radius:50%;width:10px;height:10px}' +
+      '@keyframes btF{from{opacity:0}}@keyframes btK{to{opacity:0}}' +
+      '@keyframes btP{0%{opacity:0;transform:scale(.5) translateY(30px)}100%{opacity:1;transform:none}}' +
+      '@keyframes btN{to{transform:rotate(360deg)}}' +
+      '@keyframes btM{0%{transform:scale(0) rotate(-35deg)}60%{transform:scale(1.15) rotate(8deg)}100%{transform:none}}' +
+      '@keyframes btQ{0%{opacity:1;transform:translate(0,0) rotate(0)}100%{opacity:.85;transform:translate(var(--x),108vh) rotate(var(--r))}}' +
+      /* toast: so'z «Биламан»ga chiqdi */
+      '.bk{position:fixed;left:50%;top:calc(12px + env(safe-area-inset-top,0px));z-index:2147483001;pointer-events:none;display:flex;align-items:center;gap:10px;max-width:92vw;padding:7px 16px 7px 7px;box-sizing:border-box;border-radius:999px;' +
+      'background:linear-gradient(180deg,#fffbef,#ffe8a6);box-shadow:0 10px 28px rgba(0,0,0,.22),0 0 0 1.5px rgba(230,160,20,.6);color:#5a3900;font:700 14.5px/1.25 ' + F + ';white-space:nowrap;' +
+      'transform:translate(-50%,-150%);opacity:0;transition:transform .45s cubic-bezier(.2,1.35,.4,1),opacity .25s}.bk.on{transform:translate(-50%,0);opacity:1}.bk.ket{transform:translate(-50%,-60%);opacity:0}' +
+      '.bk-m{flex:none;width:36px;height:36px;border-radius:50%;background:' + ZM + ';display:flex;align-items:center;justify-content:center;box-shadow:inset 0 -2px 0 rgba(0,0,0,.12)}.bk-m svg{width:22px;height:22px}' +
+      '.bk span{overflow:hidden;text-overflow:ellipsis}.bk b{flex:none;font-size:18px;font-weight:900;color:#e38700;font-variant-numeric:tabular-nums}.bk b.zarb{animation:bkZ .4s ease-out}' +
+      '@keyframes bkZ{50%{transform:scale(1.35)}}' +
+      '@media (prefers-reduced-motion:reduce){.bu-p{animation:buPR 1.35s linear forwards}.bu-c,.bt-k,.bt-m,.bk b.zarb{animation:none}.bu-r,.bu-s,.bt-nur,.bt-q{display:none}.bk{transition:opacity .2s}' +
+      '@keyframes buPR{0%,70%{opacity:1}100%{opacity:0}}}';
     (document.head || document.documentElement).appendChild(s);
   }
+  /* kichik ball: tanga aylanadi, uchqunlar sochiladi, «+10» (takror — yashil «+3») ko'tariladi; el — tugma (bo'lmasa oxirgi bosilgan joy) */
   function uch(n, el) {
     if (!n || !faol() || !document.body) return;
     css();
-    var r = el && el.getBoundingClientRect ? el.getBoundingClientRect() : null, x, y;
-    if (r && r.width) { x = r.left + r.width / 2; y = r.top + 4; }
-    else if (XY && Date.now() - XT < 2500) { x = XY[0]; y = XY[1] - 14; }
+    var r = el && el.getBoundingClientRect ? el.getBoundingClientRect() : null, x, y, i;
+    if (r && r.width) { x = r.left + r.width / 2; y = r.top + 6; }
+    else if (XY && Date.now() - XT < 2500) { x = XY[0]; y = XY[1] - 16; }
     else { x = innerWidth / 2; y = innerHeight * 0.45; }
-    var d = document.createElement('div');
-    d.className = 'ball-uch'; d.setAttribute('aria-hidden', 'true'); d.textContent = '+' + n;
-    d.style.left = Math.max(30, Math.min(innerWidth - 30, x)) + 'px'; d.style.top = Math.max(40, y) + 'px';
-    document.body.appendChild(d);
-    setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, 1150);
+    var d = document.createElement('div'), h = '<i class="bu-r"></i>';
+    for (i = 0; i < 8; i++) h += '<i class="bu-s" style="--a:' + (i * 45 + 22) + 'deg;animation-delay:' + (i % 2 ? 40 : 0) + 'ms"></i>';
+    d.className = 'bu' + (n < B ? ' bu-t' : ''); d.setAttribute('aria-hidden', 'true');
+    d.innerHTML = h + '<span class="bu-p"><span class="bu-c">' + TANGA + '</span>+' + n + '</span>';
+    d.style.left = Math.max(48, Math.min(innerWidth - 48, x)) + 'px'; d.style.top = Math.max(56, y) + 'px';
+    document.body.appendChild(d); hapt(0);
+    setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, 1450);
+  }
+  /* katta bonus — o'rtada medal (o.i: dars | bob | kitob | olov), nurlar, son 0 dan sanaladi, konfetti; o.t — sarlavha, o.s — ostidagi yozuv.
+     Bir nechtasi bo'lsa — navbat bilan; bosilsa yoki 2,6 s dan keyin yopiladi */
+  var NAV = [], BAND = false;
+  function katta(n, o) {
+    if (!n || !faol() || !document.body) return;
+    NAV.push([n, o || {}]); if (!BAND) keyingi();
+  }
+  function keyingi() {
+    var x = NAV.shift(); if (!x) { BAND = false; return; }
+    BAND = true; css();
+    var n = x[0], o = x[1], km = kam(), d = document.createElement('div'), i, h = '';
+    if (!km) for (i = 0; i < 28; i++) h += '<i class="bt-q" style="left:' + Math.round(3 + Math.random() * 94) + '%;--x:' + Math.round(Math.random() * 120 - 60) + 'px;--r:' + Math.round(Math.random() * 1080 - 540) +
+      'deg;--d:' + (1.1 + Math.random() * 0.9).toFixed(2) + 's;--k:' + (Math.random() * 0.35).toFixed(2) + 's;background:' + RANG[i % RANG.length] + '"></i>';
+    d.className = 'bt'; d.setAttribute('role', 'status'); d.setAttribute('aria-live', 'polite');
+    d.innerHTML = h + '<div class="bt-w"><div class="bt-nur"></div><div class="bt-k"><div class="bt-m">' + (IKON[o.i] || IKON.dars) + '</div><b class="bt-n">+' + (km ? n : 0) + '</b>' +
+      '<span class="bt-t">' + esc(o.t || '') + '</span>' + (o.s ? '<small class="bt-s">' + esc(o.s) + '</small>' : '') + '</div></div>';
+    document.body.appendChild(d); hapt(1);
+    if (!km) {
+      var nb = d.querySelector('.bt-n'), t0 = 0;
+      var f = function (ts) { if (!t0) t0 = ts; var p = Math.min(1, (ts - t0) / 700); nb.textContent = '+' + Math.round(n * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(f); };
+      setTimeout(function () { requestAnimationFrame(f); }, 200);
+    }
+    var tm, yop = function () {
+      if (d.classList.contains('ket')) return; clearTimeout(tm); d.classList.add('ket');
+      setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); keyingi(); }, 340);
+    };
+    d.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); yop(); });
+    tm = setTimeout(yop, 2600);
+  }
+  /* toast — tepada, ekranni to'smaydi (so'z «Биламан»ga chiqdi +50); ko'rinib turganda yana kelsa — son qo'shiladi */
+  var BK = null, BKt = 0, BKn = 0, BKc = 0;
+  function toast(n, o) {
+    if (!n || !faol() || !document.body) return;
+    css(); o = o || {};
+    if (BK && BK.parentNode && !BK.classList.contains('ket')) {
+      BKn += n; BKc++; var b = BK.querySelector('b'); b.textContent = '+' + BKn;
+      if (o.i === 'soz') BK.querySelector('span+span').textContent = BKc + ' та сўз «Биламан»га чиқди'; b.classList.remove('zarb'); void b.offsetWidth; b.classList.add('zarb');
+    } else {
+      BKn = n; BKc = 1; BK = document.createElement('div'); BK.className = 'bk'; BK.setAttribute('role', 'status'); BK.setAttribute('aria-live', 'polite');
+      BK.innerHTML = '<span class="bk-m">' + (IKON[o.i] || IKON.soz) + '</span><span>' + esc(o.t || '') + '</span><b>+' + n + '</b>';
+      document.body.appendChild(BK);
+      var bk = BK; requestAnimationFrame(function () { requestAnimationFrame(function () { bk.classList.add('on'); }); });
+    }
+    hapt(0); clearTimeout(BKt);
+    var bk2 = BK; BKt = setTimeout(function () { bk2.classList.add('ket'); setTimeout(function () { if (bk2.parentNode) bk2.parentNode.removeChild(bk2); }, 400); }, 2000);
+  }
+  /* takror.js kerak bo'lsa (olov sharti) — bir marta yuklanadi */
+  var TQ = null;
+  function takrorOl(cb) {
+    if (window.Takror && Takror.kunlik) return cb(Takror);
+    if (TQ) { TQ.push(cb); return; }
+    TQ = [cb];
+    var s = document.createElement('script'); s.src = (SN ? 'sinov-' : '') + 'takror.js';
+    s.onload = function () { var q = TQ || []; TQ = null; if (window.Takror && Takror.kunlik) q.forEach(function (f) { try { f(Takror); } catch (e) {} }); };
+    s.onerror = function () { TQ = null; };
+    (document.head || document.documentElement).appendChild(s);
+  }
+  /* 🔥 bugun olov yondimi (takror.js kunlik().ok) — kuniga bir marta katta tabrik; j — jurnal (takror.html o'z xotirasidagisini beradi) */
+  function olov(j) {
+    if (!faol() || !LS) return;
+    takrorOl(function (T) {
+      var t = Date.now(), d = String(kun(t));
+      if (L(KO) === d) return;
+      var k = T.kunlik(j || ol(), t, t >= DAN ? null : { dan: 0 });
+      if (!k.ok) return;
+      S(KO, d);
+      setTimeout(function () { katta(T.REY.SER_B, { i: 'olov', t: 'Бугунги олов ёнди!', s: k.seriya > 1 ? '🔥 ' + k.seriya + ' кун кетма-кет' : 'Эртага ҳам ёқинг' }); }, 650);
+    });
   }
   /* javob: [kalit, vaqt, 3 | 1, ms]; → berilgan ball (ko'rsatish uchun) */
   function yoz(k, ok, ms, el) {
     var t = Date.now(), b = ok ? olsa(ol(), k, ms, t) : 0;
     qosh([k, t, ok ? 3 : 1, Math.max(0, Math.min(60000, Math.round(ms || 0)))]);
-    if (b) uch(b, el);
+    if (b) { uch(b, el); olov(); }
     return b;
   }
-  /* bir martalik bonus (xo<dars> — dars birinchi marta o'tildi): jurnalda bo'lsa — yozilmaydi */
-  function bonus(k, n, el) {
+  /* bir martalik bonus (xo<dars> — dars, xy<kalit> — bob/kitob imtihoni birinchi marta o'tildi): jurnalda bo'lsa — yozilmaydi.
+     o — katta tabrik matni ({ i, t, s }; bo'lmasa — kichik «+N») */
+  function bonus(k, n, el, o) {
     var j = ol();
     for (var i = 0; i < j.length; i++) if (j[i] && j[i][0] === k) return 0;
-    qosh([k, Date.now(), 0]); uch(n, el);
+    qosh([k, Date.now(), 0]);
+    if (o) katta(n, o); else uch(n, el);
+    olov();
     return n;
   }
   /* «Эшитиш»: audio haqiqatan o'ynayotgan vaqt (soat bo'yicha, tezlik ta'sir qilmaydi) yig'iladi; har 5 daqiqa — xe yozuvi, kuniga ESH_MAX ta */
@@ -741,13 +889,72 @@
         var s = null; try { s = JSON.parse(LS.getItem(KE) || 'null'); } catch (e) {}
         if (!s || s.k !== kun(t)) s = { k: kun(t), s: 0, n: 0 };
         s.s += Math.min(t - oxir, 70000);
-        if (s.s >= ESH) { s.s -= ESH; if (s.n < ESH_MAX) { s.n++; qosh(['xe', t, 0]); } }
+        if (s.s >= ESH) { s.s -= ESH; if (s.n < ESH_MAX) { s.n++; qosh(['xe', t, 0]); olov(); } }
         try { LS.setItem(KE, JSON.stringify(s)); } catch (e) {}
       }
       oxir = ijro ? t : 0;
     }, 5000);
   }
-  window.Ball = { yoz: yoz, bonus: bonus, eshit: eshit, uch: uch, olsa: olsa, faol: faol, B: B };
+  /* «Баллар» oynasi — nimaga qancha ball (28.11.2026); yangi qoidagacha — necha kun qolgani. [data-bq] bosilsa ochiladi */
+  var QR = [
+    ['Жавоблар'],
+    ['✓', 'Янги савол — биринчи марта тўғри', '«Эъроб», «Боб якуни», «Китоб якуни», Сарф', '+10'],
+    ['↻', 'Такрор — аввал топилган савол', 'Кейинги кунларда, кунига бир марта', '+3', 't'],
+    ['▦', '«Машқ»даги тўғри жавоб', 'Сўз вақти келганда чиқади', '+10'],
+    ['Бонуслар'],
+    ['⬆', 'Сўз «Биламан»га чиқса', '', '+50'],
+    ['★', 'Дарс биринчи марта 80%', '', '+100'],
+    ['🏅', '«Боб якуни» биринчи марта 80%', '', '+200'],
+    ['🏆', '«Китоб якуни» биринчи марта 80%', '', '+500'],
+    ['Эшитиш ва олов'],
+    ['🎧', 'Ҳар 5 дақиқа тинглаш', 'Кунига 200 баллгача', '+10'],
+    ['🔥', 'Кунлик олов', 'Кунига 200 балл, камида 100 таси жавоблардан', '+50']
+  ];
+  var QE = ['Хато ёки жуда тез (0,7 сониядан тез) жавоб — 0 балл, минус йўқ.', 'Савол кунига бир марта ҳисобланади. Хато топилган куни қайта ечилса — балл йўқ, эртасига бор.',
+    '«Ҳафта» рейтинги ҳар душанба 00:00 да янгиланади.'];
+  function qcss() {
+    if (document.getElementById('bq-css')) return;
+    var s = document.createElement('style'); s.id = 'bq-css';
+    s.textContent = '.bq{position:fixed;inset:0;z-index:190;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center;opacity:0;transition:opacity .25s}.bq.on{opacity:1}' +
+      '.bq-v{width:100%;max-width:520px;max-height:88%;overflow-y:auto;overscroll-behavior:contain;background:var(--cd,#fff);color:var(--tx,#1d2b24);border-radius:22px 22px 0 0;' +
+      'padding:0 16px calc(18px + env(safe-area-inset-bottom,0px));box-sizing:border-box;transform:translateY(100%);transition:transform .32s cubic-bezier(.2,.8,.3,1);font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}' +
+      '.bq.on .bq-v{transform:none}.bq-tut{height:18px;display:flex;align-items:center;justify-content:center}.bq-tut::before{content:"";width:40px;height:4px;border-radius:2px;background:var(--bd,#d9dfdb)}' +
+      '.bq-hd{display:flex;align-items:center;justify-content:space-between;padding:2px 0 8px}.bq-hd b{font-size:19px}' +
+      '.bq-x{width:36px;height:36px;border:0;border-radius:50%;background:color-mix(in srgb,var(--mu,#6b7a72) 14%,transparent);color:var(--tx,#1d2b24);font-size:17px;line-height:36px;padding:0;cursor:pointer}' +
+      '.bq-yn{display:flex;gap:12px;align-items:center;margin:0 0 10px;padding:12px 14px;border-radius:16px;background:color-mix(in srgb,#f6dc94 34%,var(--cd,#fff));border:1px solid #e9c66a}' +
+      '.bq-yn i{flex:none;font-style:normal;font-size:26px}.bq-yn b{display:block;font-size:15.5px}.bq-yn small{display:block;font-size:13px;color:var(--mu,#6b7a72)}' +
+      '.bq-k{flex:none;min-width:46px;padding:6px 8px;border-radius:12px;background:#e38700;color:#fff;text-align:center;font-weight:900;font-size:20px;line-height:1}.bq-k small{display:block;margin-top:2px;font-size:10.5px;font-weight:700;color:#fff3d6}' +
+      '.bq-h{margin:12px 2px 4px;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--mu,#6b7a72)}' +
+      '.bq-r{display:flex;align-items:center;gap:12px;padding:8px 2px;border-top:1px solid color-mix(in srgb,var(--bd,#d9dfdb) 70%,transparent)}.bq-h+.bq-r{border-top:0}' +
+      '.bq-r>i{flex:none;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:17px;font-weight:800;background:color-mix(in srgb,#f2b330 18%,transparent);color:#b86e00}' +
+      '.bq-r>span{flex:1;min-width:0}.bq-r b{display:block;font-size:15px;font-weight:650}.bq-r small{display:block;font-size:12.5px;line-height:1.35;color:var(--mu,#6b7a72)}' +
+      '.bq-r>em{flex:none;font-style:normal;font-weight:900;font-size:16px;color:#d07c00;font-variant-numeric:tabular-nums}.bq-r.t>em{color:#1f8a55}.bq-r.t>i{background:color-mix(in srgb,#2fa064 16%,transparent);color:#1f8a55}' +
+      '.bq-e{margin:12px 0 0;padding:10px 12px 10px 28px;border-radius:14px;background:color-mix(in srgb,var(--mu,#6b7a72) 8%,transparent);font-size:13px;line-height:1.45;color:var(--mu,#6b7a72)}.bq-e li+li{margin-top:4px}' +
+      '.bq-vd{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;height:46px;border:1px solid var(--bd,#d9dfdb);border-radius:14px;background:none;color:var(--ac,#0c7a50);font:inherit;font-weight:700;font-size:15px;cursor:pointer}';
+    (document.head || document.documentElement).appendChild(s);
+  }
+  function qoida() {
+    if (!document.body || document.getElementById('bq-o')) return;
+    qcss();
+    var q = qoldi(), h = '<div class="bq-v" role="dialog" aria-modal="true" aria-label="Баллар"><div class="bq-tut"></div><div class="bq-hd"><b>Нимага қанча балл</b><button class="bq-x" aria-label="Ёпиш">✕</button></div>';
+    if (q) h += '<div class="bq-yn"><span class="bq-k">' + q + '<small>кун</small></span><span><b>Янги баллар ' + (q > 1 ? q + ' кундан кейин' : 'эртадан') + '</b>' +
+      '<small>Душанба, 30 ноябрдан. Ҳозирча: тўғри жавоб — 1 балл, кунига 200 гача.</small></span></div>';
+    QR.forEach(function (r) {
+      if (r.length === 1) { h += '<div class="bq-h">' + r[0] + '</div>'; return; }
+      h += '<div class="bq-r' + (r[4] ? ' ' + r[4] : '') + '"><i aria-hidden="true">' + r[0] + '</i><span><b>' + r[1] + '</b>' + (r[2] ? '<small>' + r[2] + '</small>' : '') + '</span><em>' + r[3] + '</em></div>';
+    });
+    h += '<ul class="bq-e">' + QE.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>';
+    if (window.Vid && Vid.bor && Vid.bor('ball')) h += '<button class="bq-vd" type="button" data-vid="ball">▶ Видео: Баллар ва рейтинг</button>';
+    var d = document.createElement('div'); d.className = 'bq'; d.id = 'bq-o'; d.innerHTML = h + '</div>';
+    var yop = function () { if (!d.id) return; d.id = ''; d.classList.remove('on'); setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, 300); };
+    d.querySelector('.bq-x').onclick = yop;
+    d.onclick = function (e) { if (e.target === d) yop(); };
+    document.body.appendChild(d);
+    requestAnimationFrame(function () { requestAnimationFrame(function () { d.classList.add('on'); }); });
+  }
+  document.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[data-bq]'); if (b) { e.preventDefault(); qoida(); } });
+  document.addEventListener('keydown', function (e) { var d = document.getElementById('bq-o'); if (d && e.key === 'Escape') d.querySelector('.bq-x').click(); });
+  window.Ball = { yoz: yoz, bonus: bonus, eshit: eshit, uch: uch, katta: katta, toast: toast, olov: olov, olsa: olsa, faol: faol, qoldi: qoldi, qoida: qoida, B: B, TAK: TAK, DAN: DAN };
 })();
 
 /* VIDEO YO'RIQNOMA (26.11.2026; foydalanuvchi: «har bir joyda o'zini ko'rsatadigan videosi bo'lgani yaxshimi yo hammasini bir joyda?» → Claude:

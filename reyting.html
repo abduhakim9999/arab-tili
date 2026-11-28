@@ -67,6 +67,12 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
 .r-me .t small{font-size:12.5px;line-height:1.3;color:var(--mu)}
 .r-me .s{flex-shrink:0;font-size:16px;font-weight:800;color:var(--ac);font-variant-numeric:tabular-nums}
 .r-me a{color:var(--ac);font-weight:700}
+/* «Нимага қанча балл?» kartochkasi (28.11.2026; bosilsa — tg.js Ball.qoida oynasi; yangi qoidagacha — necha kun qolgani) */
+.r-bq{display:flex;align-items:center;gap:12px;width:100%;margin:0 0 12px;padding:11px 14px;box-sizing:border-box;border:1px solid var(--bd);border-radius:16px;background:var(--cd);color:var(--tx);font:inherit;text-align:left;box-shadow:var(--sh)}
+.r-bq.yn{background:color-mix(in srgb,#f6dc94 32%,var(--cd));border-color:#e9c66a}
+.r-bq .i{flex:none;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;background:color-mix(in srgb,#f2b330 20%,transparent)}
+.r-bq .t{flex:1;min-width:0}.r-bq b{display:block;font-size:15px;line-height:1.3}.r-bq small{display:block;font-size:12.5px;line-height:1.35;color:var(--mu)}
+.r-bq .a{flex:none;font-size:22px;color:var(--mu)}
 </style>
 </head>
 <body>
@@ -74,7 +80,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
   <div class="r-tt"><div><small id="sub">Бу ҳафта</small><h1>Рейтинг<button class="r-hi" id="rhi" type="button" data-vid="ball" aria-label="Баллар қандай йиғилади — видео" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5"/><circle cx="12" cy="7.7" r=".7" fill="currentColor"/></svg></button></h1></div><span id="vq"></span></div>
   <div class="r-sg" role="group" aria-label="Рўйхат"><button data-t="h" aria-pressed="true">Ҳафта</button><button data-t="w" aria-pressed="false">Сўзлар</button></div>
 </div></header>
-<main class="r-w"><div class="r-s2" id="s2" role="group" aria-label="Сўзлар" hidden><button data-s="b" aria-pressed="true">Билган</button><button data-s="s" aria-pressed="false">Мустаҳкам</button></div><div id="nm"></div><div class="r-ls" id="ls"></div></main>
+<main class="r-w"><div class="r-s2" id="s2" role="group" aria-label="Сўзлар" hidden><button data-s="b" aria-pressed="true">Билган</button><button data-s="s" aria-pressed="false">Мустаҳкам</button></div><div id="rbq"></div><div id="nm"></div><div class="r-ls" id="ls"></div></main>
 <div class="r-me" id="me"></div>
 <script>
 (function () {
@@ -106,7 +112,8 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
     var hb = window.Takror && Takror.haftaBoshi ? Takror.haftaBoshi(Date.now()) : 0;
     var ism = (J('ism', null) || {}).n || '';
     var R = J(SN ? 'yol-sinov' : 'yol', null), RD = (R && R.d) || {};   /* «dars o'tildi» bonusi faqat o'tilgan darsga (server — api/_rey.js otgan, 26.11.2026) */
-    var opt = { otgan: function (n) { return !!(RD[n] && +RD[n].b >= 80); } };
+    var RY = (R && R.y) || {};                         /* «Боб якуни» / «Китоб якуни» bonusi — faqat o'tilganiga (server — api/_rey.js yakOt, 28.11.2026) */
+    var opt = { otgan: function (n) { return !!(RD[n] && +RD[n].b >= 80); }, yak: function (k) { return !!(RY[k] && +RY[k].b >= 80); } };
     return { n: ism, h: window.Takror && Takror.ball ? Takror.ball(j, hb, 0, opt) : 0, s: (x && x.must) || 0, b: (x && x.bilgan) || 0, hb: hb };   /* s — мустаҳкам (23.11.2026), b — билган (26.11.2026) */
   }
   function vaqt(hb) {                                  /* «Янгиланишига N кун» — keyingi dushanba 00:00 gacha */
@@ -144,6 +151,9 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:
     }
     var oz = -1; rows.forEach(function (r, i) { if (r.men) oz = i; });
     $('nm').innerHTML = nm ? '<p class="r-nm">' + esc(nm) + '</p>' : '';
+    var qk = window.Ball && Ball.qoldi ? Ball.qoldi() : 0;   /* «Ҳафта»da — «Нимага қанча балл?» (28.11.2026) */
+    $('rbq').innerHTML = T !== 'h' || !window.Ball || !Ball.qoida ? '' : '<button class="r-bq' + (qk ? ' yn' : '') + '" type="button" data-bq><span class="i" aria-hidden="true">' + (qk ? '⏳' : '★') + '</span><span class="t"><b>' +
+      (qk ? 'Янги баллар ' + (qk > 1 ? qk + ' кундан кейин' : 'эртадан') : 'Нимага қанча балл?') + '</b><small>' + (qk ? 'Душанба, 30 ноябрдан · нимага қанча балл' : 'Янги савол 10 · такрор 3 · бонуслар') + '</small></span><span class="a" aria-hidden="true">›</span></button>';
     /* 14.11.2026 (foydalanuvchi): shohsupa emas — bitta ro'yxat, har kishi bir qatorda; birinchi uchtasi rangli belgi bilan */
     var h = rows.slice(0, 50).map(function (r, k) {
       return '<div class="r-r' + (r.men ? ' men' : '') + (k === 0 ? ' p1' : '') + '"><span class="o' + (k < 3 ? ' t t' + (k + 1) : '') + '">' + (k + 1) + '</span><span class="av ' + (r.men ? 'a0' : rang(r.n)) + '" aria-hidden="true">' + esc(bosh(r.n)) + '</span>' +

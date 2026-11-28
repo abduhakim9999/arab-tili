@@ -4,7 +4,9 @@
 
 ## 1. Qisqacha
 
-Qancha ko'p shug'ullansa — shuncha ko'p ball. Yangi qoida **30.11.2026 dushanbadan** ishlaydi (undan oldingi haftalar — eski qoida; saytda «+10» va seriya ham shu kundan ko'rinadi), shuning uchun video ham shu kundan ko'rsatiladi.
+Qancha ko'p shug'ullansa — shuncha ko'p ball.
+
+**28.11.2026 dan videoda yo'q (yangilash — ElevenLabs ruxsati bilan):** takror savol — 3 ball (yangi savol 10), «Боб якуни» +200, «Китоб якуни» +500, olov uchun 200 ning kamida 100 tasi javobdan, ball tabrik animatsiyasi, «Нимага қанча балл» oynasi (`docs/texnik/19-mashq-reyting.md`). Yangi qoida **30.11.2026 dushanbadan** ishlaydi (undan oldingi haftalar — eski qoida; saytda «+10» va seriya ham shu kundan ko'rinadi), shuning uchun video ham shu kundan ko'rsatiladi.
 
 ## 2. Ball nimaga beriladi
 

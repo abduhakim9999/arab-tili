@@ -4,6 +4,7 @@ tayyor-90-dars ee2e50da25f14a52856e179372942018c9da0634
 tayyor-97-dars eaf4ad0c0c8e64e1af57b261f5c26495ea4d4ea8
 tayyor-98-dars 97b4369efd4c1296316a4f61e72c3e70e6291f08
 tayyor-ball dfa81cf1e531833353bc6320f660b6d081abf0da
+tayyor-ball-qoida 9dd2fa5d76cd78371b2089d488363f7c01304af0
 tayyor-bayon-jar 2e03b0e50ec6e3b1c101848fe2d49b49767b3b93
 tayyor-bir-bosish 012aff06f651e1ddc03cd174f056e8305c4e992c
 tayyor-bob-panel 9a6d93d13a930f70eb7a6cbd71097f01915bad5d
@@ -92,6 +93,7 @@ tayyor-saralashsiz c5e943f84ad52f45efa5621b87a23b046658f3eb
 tayyor-savol-korinish 4672f4fbff857783c0e86b27e051928ade146c6e
 tayyor-savol-tartib 094325ab4ddc2e17fc740b37b03ffc535d7cbc22
 tayyor-savol-turlar 4bb30a837689c2cb059662e4a4caa3bdb2f4cae8
+tayyor-savol-tuzatish 7a2e61cbbae9379ccfae180329903c7c47c5a1c9
 tayyor-savollar ff20b406ef034218b17f12f3f9ed401b045d34c5
 tayyor-takror-21 6f1106c9bf33db9a81c77ef4d9bc46bdd229a331
 tayyor-takror-ikki 06eb0e7dfcc8a4ab6bc31648f7583420c1342918

@@ -153,6 +153,30 @@ def karta_gapi(kg, lines, r):
     return {'k': 0, 'i': [[bi, st, en]]}
 
 
+def qavs_joy(raw):
+    """Misoldagi {…} (jar belgisi {^…} emas) o'rinlari: [[so'z, boshi, oxiri], …] — belgilarsiz so'zdagi oraliq."""
+    out = []
+    for bi, w in enumerate(raw.split()):
+        for m in re.finditer(r'\{(?!\^)([^}]*)\}', w):
+            st = len(re.sub(r'\{\^?|[}\[\]]', '', w[:m.start()]))
+            out.append([bi, st, st + len(re.sub(r'[\[\]]', '', m.group(1)))])
+    return out
+
+
+def qavs_tuzat(g, xb):
+    """28.11.2026: kitob misolida so'z {…} bilan belgilangan bo'lsa, karta aynan o'sha so'zni belgilaydi — harakatsiz
+    qidiruv boshqa so'zni topgan bo'lsa (93 مَنْ → gapdagi birinchi مِنْ; 94, 98 «..ِي» → فِي) almashtiriladi."""
+    if 'k' not in g or not xb or g['k'] >= len(xb):
+        return g
+    Q = qavs_joy(xb[g['k']])
+    q, b = {x[0] for x in Q}, {x[0] for x in g['i']}
+    # boshqa so'z topilgan (kesishmaydi) yoki qavs ko'proq bo'lakni ko'rsatadi — qavs; qavs faqat bo'lagini ko'rsatsa
+    # («{لَا} بُدَّ مِنَ» — topilgani لَا + مِنَ to'liqroq) — topilgani qoladi
+    if Q and (not q & b or q > b):
+        return {'k': g['k'], 'i': Q}
+    return g
+
+
 def sahifalardan(darslar):
     from playwright.sync_api import sync_playwright
     class H(http.server.SimpleHTTPRequestHandler):
@@ -284,6 +308,7 @@ def main():
                 OGOH.append("%d-dars lug'at %s: fe'lning o'tgan zamon ma'nosi yo'q — src/build/lugat-moziy.json ga qo'shing (id %d)" % (n, kn, wid))
             if ex:                                      # 19.11.2026: misoldagi belgilar ({…} so'z, {^…} jar harfi — 27.11.2026, […] «...» o'rni) — faqat sahifada, ma'lumotga belgisiz
                 r['x'] = [[re.sub(r'\{\^?|[}\[\]]', '', t) if isinstance(t, str) else t for t in e] for e in ex]
+                r['_xb'] = [e[0] if e and isinstance(e[0], str) else '' for e in ex]   # {…} o'rni — karta belgisi uchun (qavs_joy), ma'lumotga yozilmaydi
             vi = len(lug) - voc0                      # Eshitish Луғат yo'lagida tartib = lug'at tartibi
             if str(vi) in vl and vi in vseg:
                 if plain(vl[str(vi)][0]).split()[0].strip('.؟،') != plain(asl).split()[0].strip('.؟،'):
@@ -366,12 +391,13 @@ def main():
             nqt += 1
         # --- takror kartasidagi gap (19.11.2026; lugat_gap.py): kitob misoli yoki dars matnidagi gap
         for r in lug[voc0:]:
+            xb = r.pop('_xb', None)
             if r.get('_kg'):
                 r['g'] = karta_gapi(r.pop('_kg'), lines, r)
             elif r['tur'] != 'atoqli':
                 g = gap_tanla(r, lines)
                 if g:
-                    r['g'] = g
+                    r['g'] = qavs_tuzat(g, xb)
         # --- qoida kartalari
         Q = grab(s, 'QT') or {}
         for k, v in Q.items():

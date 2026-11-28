@@ -495,7 +495,7 @@
     q.textContent = ok ? 'Дарс ўтилди ✓ Сўзлари «Машқ» бўлимига қўшилади.' : '80% олсангиз, дарс ўтилади ва сўзлари «Машқ» бўлимига қўшилади.';
     el.parentNode.insertBefore(q, el.nextSibling);
     /* BALL (26.11.2026; takror.js REY): dars birinchi marta 80% dan o'tsa — +100 (xo<dars>, darsga bir marta; ilgari o'tilgan bo'lsa — yo'q) */
-    if (Math.round(a * 100 / n) >= 80 && b < 80 && window.Ball) Ball.bonus('xo' + dn, 100, el);
+    if (Math.round(a * 100 / n) >= 80 && b < 80 && window.Ball) Ball.bonus('xo' + dn, 100, el, { i: 'dars', t: 'Дарс ўтилди!', s: dn + '-дарс' });   /* 28.11.2026: katta tabrik (tg.js katta) */
     otdiYoz(dn, Math.round(a * 100 / n), n, sn, R);
   }
   /* 26.11.2026 (foydalanuvchi: «O'zi … mashq ishlangandan keyin tushishi kerak edi-ku», «tekshirib tuzat»): dars o'tilgani va so'zlari

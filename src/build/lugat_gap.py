@@ -164,18 +164,49 @@ def tok_mos(typ, core, w, note, r, ishonch):
     return None
 
 
-def topish(words, notes, r, ishonch):
+def hk_iz(s):
+    """Harf + harakat izi: oxirgi harfning harakati (e'rob, tanvin, sukun) olinadi, shadda qoladi; alif shakllari bir xil."""
+    s = re.sub('([اٱ])[ً-ْ]+', r'\1', s.replace('ـ', ''))     # hamzai vasl: lug'atda «اَلْ», matnda «الْ»
+    s = re.sub('[أإآٱ]', 'ا', s)
+    s = re.sub('[^ء-ْٰ]', '', s)
+    s = re.sub('[ً-ْ]+', lambda m: ''.join(sorted(m.group())), s)
+    m = re.search('[ً-ْ]+$', s)
+    if m:
+        s = s[:m.start()] + ('ّ' if 'ّ' in m.group() else '')
+    return s
+
+
+def hk_mos(core, part):
+    """28.11.2026: harakatsiz harflar bir xil bo'lsa ham harakati boshqa so'z (مَنْ ≠ مِنْ, لَكِنَّ ≠ لَكِنْ) — 0, mos — 1."""
+    c = hk_iz(core)
+    return 1 if c and c in hk_iz(part) else 0
+
+
+def topish(words, notes, r, ishonch, pref=()):
     """words — gap so'zlari; hamma bo'lak tartib bilan (oralig'i 4 so'zgacha) topilsa → [[so'z, boshi, oxiri], ...].
-    notes[i] — Таркиб izohi (None — noma'lum: kitob misolidagi so'z darsda uchramagan). Avval izohi tasdiqlagani."""
+    notes[i] — Таркиб izohi (None — noma'lum: kitob misolidagi so'z darsda uchramagan). Avval izohi tasdiqlagani.
+    pref — lug'atda belgilangan o'rinlar (`mw`) shu gapda: bir nechta mos so'z bo'lsa, o'shanisi tanlanadi."""
     if ishonch:
-        return topish1(words, notes, r, False) or topish1(words, notes, r, True)
-    return topish1(words, notes, r, False)
+        return topish1(words, notes, r, False, pref) or topish1(words, notes, r, True, pref)
+    return topish1(words, notes, r, False, pref)
 
 
-def topish1(words, notes, r, ishonch):
+def topish1(words, notes, r, ishonch, pref=()):
+    """Gapdagi hamma mos joy ichidan: avval `mw` dagi o'rin, keyin harakati ham mosi, keyin birinchisi (28.11.2026 —
+    93-dars مَنْ kartasida birinchi uchragan مِنْ belgilangan edi)."""
     B = bolak(r['ar'])
     if not B:
         return None
+    nom = []
+    for res in topish_hammasi(words, notes, r, ishonch, B):
+        s0, a, b = res[0]
+        nom.append(((any(x[0] in pref for x in res), hk_mos(B[0][1], words[s0][a:b]), -s0), res))
+    if not nom:
+        return None
+    return max(nom, key=lambda t: t[0])[1]
+
+
+def topish_hammasi(words, notes, r, ishonch, B):
     for s0 in range(len(words)):
         m = tok_mos(B[0][0], B[0][1], words[s0], notes[s0], r, ishonch)
         if not m:
@@ -197,8 +228,7 @@ def topish1(words, notes, r, ishonch):
             res.append(ok)
             j = ok[0]
         if res:
-            return res
-    return None
+            yield res
 
 
 def mano_bolak(r):
@@ -268,13 +298,17 @@ def gap_tanla0(r, lines):
         if not X[0][0]:
             return {'k': X[0][1], 'i': X[0][2]}
     best = None
+    MW = [tuple(int(y) for y in p.split('-')) for p in r.get('mw') or [] if re.fullmatch(r'\d+-\d+', p)]
     for li, ln in enumerate(lines):
         ws = [w[0] for w in ln['w']]
-        m = topish(ws, ln.get('nt'), r, False)
+        pref = {wi for l2, wi in MW if l2 == li}
+        m = topish(ws, ln.get('nt'), r, False, pref)
         if not m:
             continue
         s, e = gap_chegara(ln, m[0][0], m[-1][0])
         sc = ball(r, (ln.get('nt') or [''])[m[0][0]], (ln.get('gl') or [''])[m[0][0]])
+        # 28.11.2026: lug'atda belgilangan o'rin (`mw`) va harakati mos so'z — oldin (70 شَفَى → شِفَاءٌ, 92 لَكِنَّ → لَكِنْ edi)
+        sc += 10 * any(x[0] in pref for x in m) + 2 * hk_mos(bolak(r['ar'])[0][1], ws[m[0][0]][m[0][1]:m[0][2]])
         if best is None or sc > best[0]:
             best = (sc, li, s, e, m)
     if not best or (X and best[3] == best[2]):         # darsda ham bitta so'z — kitob misoli qoladi

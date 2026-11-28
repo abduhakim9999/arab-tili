@@ -57,6 +57,60 @@ def vazifa(q):
     return re.sub(r'\s+', ' ', re.split(r'шунинг|[,;.]', s)[0]).strip()
 
 
+# 28.11.2026: «Ҳолати?» javobi dars matnidagi tahlilga (IRB) solishtiriladi. Sabab: 2-dars 6-5 (أَنْتِ — كِ дан таъкид,
+# жар ўринда) savolda «Раф» deb yozilgan edi — qoida («izoh tahlilga zid bo'lmaydi») bor edi, lekin dastur tekshirmasdi.
+HOL_AR = [('Раф', 'مرفوع|محل رفع'), ('Насб', 'منصوب|محل نصب'), ('Жар', 'مجرور|محل جر'), ('Жазм', 'مجزوم|محل جزم')]
+HOL_UZ = [('Раф', 'раф ўрин|раф қилин|марфуъ'), ('Насб', 'насб ўрин|насб қилин|мансуб'),
+          ('Жар', 'жар ўрин|жар қилин|мажрур'), ('Жазм', 'жазм ўрин|жазм қилин|мажзум')]
+_IRB = {}
+
+
+def irb(d):
+    """NN.html dagi `var IRB` (dars matni tahlili: «qator-so'z» → k (o'zbekcha), a (arabcha))."""
+    if d not in _IRB:
+        f, o = os.path.join(ROOT, '%d.html' % d), {}
+        if os.path.exists(f):
+            s = open(f, encoding='utf-8').read()
+            m = re.search(r'var\s+IRB\s*=\s*', s)
+            if m:
+                try:
+                    o = json.JSONDecoder().raw_decode(s, m.end())[0]
+                except ValueError:
+                    o = {}
+        _IRB[d] = o
+    return _IRB[d]
+
+
+def _norm(x):
+    x = re.sub(r'[^ء-ي]', '', plain(x))
+    return x[2:] if x.startswith('ال') and len(x) > 3 else x
+
+
+def _bolak(L, t):
+    """Tahlil bo'laklaridan savoldagi so'zning o'zi (eng uzun mos keladigani); yo'q bo'lsa None."""
+    eng = None
+    for x in L:
+        if len(x) > 1 and x[0] and _norm(x[0]) and _norm(x[0]) in t and (not eng or len(_norm(x[0])) > len(_norm(eng[0]))):
+            eng = x
+    return eng
+
+
+def tahlil_holat(d, q):
+    """(so'z, holatlar to'plami) — dars tahlilida shu so'z qaysi holatda; aniqlanmasa (so'z, set())."""
+    e = irb(d).get(q['k'])
+    tw = q['gap'][q['w']][0]
+    if not e:
+        return tw, None
+    t = re.sub(r'[^ء-ي]', '', plain(tw))
+    b = _bolak(e.get('a', []), t)
+    if b:
+        return tw, {h for h, p in HOL_AR if re.search(p, plain(b[1]))}
+    b = _bolak(e.get('k', []), t)
+    if b:
+        return tw, {h for h, p in HOL_UZ if re.search(p, b[1].lower())}
+    return tw, set()
+
+
 def main():
     tanla = {int(x) for x in sys.argv[1:] if x.isdigit()}
     MJ = json.load(open(os.path.join(ROOT, 'data', 'mashq.json'), encoding='utf-8'))
@@ -135,6 +189,15 @@ def main():
                 yoz(d, 'XATO', '%s (%s): variant kam' % (q['k'], q['t']))
             if not q.get('iz'):
                 yoz(d, 'DIQQAT', '%s (%s): javobdan keyin izoh yo\'q' % (q['k'], q['t']))
+            # «Ҳолати?» — javob dars tahliliga zid bo'lmasin (28.11.2026)
+            if q['t'] == 'h' and 0 <= q['to'] < len(q['o']) and q['o'][q['to']] in dict(HOL_AR):
+                tw, hs = tahlil_holat(d, q)
+                if hs is None:
+                    yoz(d, 'DIQQAT', '%s (h): TAHLIL — dars tahlilida bu kalit yo\'q, holatni o\'zing solishtir' % q['k'])
+                elif not hs:
+                    yoz(d, 'DIQQAT', '%s (h): TAHLIL — %s holati tahlildan aniqlanmadi, o\'zing solishtir' % (q['k'], tw))
+                elif q['o'][q['to']] not in hs:
+                    yoz(d, 'XATO', '%s (h): TAHLIL — javob «%s», dars tahlilida %s «%s»' % (q['k'], q['o'][q['to']], tw, '/'.join(sorted(hs))))
         bir = collections.defaultdict(list)
         for q in L:
             G, w = q['gap'], q['w']

@@ -156,9 +156,9 @@
       },
       "6-5": {
         "t": "h",
-        "j": "Раф",
-        "iz": "أَنْتِ — حَالُكِ нинг таъкиди, шунинг учун раф ўринда. Касрага мабний: бу касра жар белгиси эмас.",
-        "sabab": "Qolip (26.11.2026): 2-bosqich: kasra ko'rinadi, holat raf — tuzoq. 1-darsda shu joy «Бўш жой» (boshqa tur)."
+        "j": "Жар",
+        "iz": "أَنْتِ — كِ дан таъкид (уни кучайтиради). Таъкид ўзи кучайтирган сўзга эргашади: كِ — музофун илайҳ, жар ўринда, шунинг учун أَنْتِ ҳам жар ўринда. Шакли раф замири бўлса ҳам, бу ерда раф эмас; касраси — мабний ҳаракат.",
+        "sabab": "Qolip (26.11.2026): 2-bosqich: shakli raf zamiri, holati jar — tuzoq. 1-darsda shu joy «Бўш жой» (boshqa tur). | 28.11.2026: avval javob «Раф» edi («حَالُكِ нинг таъкиди») — XATO, dars tahliliga zid (6-5: «كِ дан таъкид, жар ўринда»). Ajralgan raf zamiri ulangan zamirni ta'kidlaydi va uning o'rnini oladi (Alfiya, tavkid bobi; misol: مَرَرْتُ بِكَ أَنْتَ). Foydalanuvchining ustozi «Жар»ni bosgan — tasdiqlandi → «Жар». Shundan keyin savol_tekshir.py ga TAHLIL tekshiruvi qo'shildi."
       },
       "6-4": {
         "t": "s",

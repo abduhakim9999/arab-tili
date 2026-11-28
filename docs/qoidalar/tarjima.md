@@ -8,4 +8,4 @@ Yagona manba — o'zbekcha tarjima yozilishi haqidagi qoidalar shu yerga yozilad
 - So'zning o'z qismi bo'lgan «чи» ga tegilmaydi: ишчи, ўқувчи, сотувчи, элчи, сабабчи; tartib sonlar (биринчи, иккинчи); -моқчи (демоқчи).
 - Hamma joyda bir xil: dars sahifasi (`NN.html`, `src/build/outputs/`), lug'at (`vocNN.py`, `b1.txt`), Eshitish (`tinglash.html`, `listen/lN.json`), `data/*.json` (`ajrat.py` bilan qayta yasaladi). Chiziqcha ovozga ta'sir qilmaydi — audio qayta yasalmaydi.
 - Kitob nusxalari (`src/manba/grammatika/`, `scratchpad/sarf/`) — kitob matni, o'zgartirilmaydi.
-- 28.11.2026 tuzatilgani (`tayyor-chi-yuklama`): Саид-чи, Саида-чи, Кўзойнак-чи (9-dars), Бу-чи (7), аҳволларинг-чи / ишларинг-чи (2), миллатинг-чи, фуқаролигинг-чи (3). -ку va -ю darslarda yo'q edi (borlari allaqachon chiziqcha bilan).
+- 28.11.2026 tuzatilgani (`tayyor-chi-yuklama`): Саид-чи, Саида-чи, Кўзойнак-чи (9-dars), Бу-чи (7), аҳволларинг-чи / ишларинг-чи (1 — lug'at misoli, 2), миллатинг-чи, фуқаролигинг-чи (3). -ку va -ю darslarda yo'q edi (borlari allaqachon chiziqcha bilan).

@@ -10,6 +10,11 @@ Asos — 27.11.2026, foydalanuvchi so'zlari:
 - «ba'zi fe'llar jar harfisiz o'zi shundoq ma'no beradi — ularga ko'rsatish shart emas»;
 - «aynan matndagi ma'noni tushuntirib berish kerak lug'at».
 
+Shu qoidaga keyin qo'shilgan qarorlar (oldingi kunlarda qilinib, 28.11.2026 da shu yerga yig'ildi):
+- 24.11.2026: muzakkar/muannas belgisi «(мз)/(мн)» ma'noda qoladi (هُوَ / هِيَ kabi juftlar bir xil bo'lib qolmasin, «shunday qolaversin»);
+- 26.11.2026: bu belgi alohida kichik kulrang yorliq bo'lib chiqadi — «музаккар» / «муаннас» («o'qilayotganga ulanib ketgandek o'qib yuboradi»);
+- 26.11.2026 va 28.11.2026: ikki maf'ulli fe'lda belgi o'rniga «икки мафъулли» yozuvi («ikkita maf'ul deb yozib qo'ygan yaxshimi?», «ikkita hu bilan yozmasdan ikkita maf'ulli deb yozadigan qilgandik»).
+
 Ma'lumot oqimi va skriptlar — `docs/texnik/14-takror-malumot.md`. Bu faylda faqat qoidaning o'zi.
 
 ## 1. Lug'atga nima kiradi
@@ -30,7 +35,8 @@ Ko'plik to'liq yoziladi (kitobdagi «..ُونَ» kengaytiriladi).
 **Boshqaruv** yozuv oxirida, qavsda turadi:
 - **Jar harfi** — `(فِي ..)`, `(عَلَى ..)`, `(بِـ..)`… Faqat so'z **dars matnidagi ma'nosida** shu harf bilan kelsa yoziladi. Matnda harfsiz kelsa, yozilmaydi va o'zbekchada «(...га)» ham bo'lmaydi.
   - Masalan, سَاعَدَ الْأُسْرَةَ («oilaga yordam beradi») — belgisiz, ma'nosi «ёрдам бермоқ».
-- **Ikki maf'ul** — `(هُ هُ)` (أَعْطَى، جَعَلَ…). Bitta maf'ul «(هُ)» yozilmaydi.
+- **Ikki maf'ul** (أَعْطَى، جَعَلَ، سَأَلَ، مَنَحَ…): ma'lumotda yozuv oxirida `(هُ هُ)` turadi — dastur fe'lni shundan taniydi. **Ekranda belgi ko'rinmaydi**, o'rniga kichik kulrang «икки мафъулли» yozuvi chiqadi: «Луғат» yorlig'ida (`shell.js bosh()`, `.la-im`) va takror kartasida (`takror.html silaB()`); ruschasi «два маф'уля» (`src/ru/lugat-qobiq.txt`). 28.11.2026.
+  - Bitta maf'ul «(هُ)» yozilmaydi.
 - Lozim fe'l (نَزَلَ) va nosix (كَانَ) belgisiz bo'ladi.
 
 ## 3. Ma'no
@@ -39,6 +45,7 @@ Ko'plik to'liq yoziladi (kitobdagi «..ُونَ» kengaytiriladi).
 - Jar harfi bo'lsa, ma'no boshida uning o'zbekcha jufti turadi: «(...га)», «(...да)», «(...дан)», «(...ҳақида)», «(...учун)», «(...билан)».
   - Jar harfi o'zbekchada «-ни» bo'lib tushsa, «(...ни)» yoziladi: حَافَظَ عَلَى → «(...ни) сақламоқ».
   - Jar harfisiz fe'lda oddiy «-ни» va «-га» yozilmaydi.
+- **Muzakkar / muannas** (24.11, 26.11.2026): ot jufti farqlanishi kerak bo'lsa (هُوَ / هِيَ، أَنْتَ / أَنْتِ), ma'no oxirida «(мз)» / «(мн)» yoziladi. Ekranda u alohida kichik kulrang yorliq — «музаккар» / «муаннас» bo'lib chiqadi (ruscha «м. р.» / «ж. р.»). Texnikasi — `docs/texnik/14-takror-malumot.md` («Za'kar / muannas yorlig'i»).
 
 ## 3a. Bog'lovchi harflar — asosiy ma'nolar, misolsiz
 27.11.2026, foydalanuvchi: «fa undan oldingi jumlaga bog'liq … shu sababli / natijada / va / ya'ni kabi ma'nolar bo'lishi mumkin — bunaqa misollarni olib tashlasak, fa ning arablar biladigan ma'nosini bilsa»; «matnda kelgan holati ham qolsin».
@@ -88,7 +95,7 @@ Ko'plik to'liq yoziladi (kitobdagi «..ُونَ» kengaytiriladi).
 |---|---|
 | yashil | so'z va tarjimadagi ma'nosi (misolda) |
 | to'q sariq | jar harfi: tepadagi `(فِي ..)`, ma'nodagi «(...да)», misoldagi harf va qo'shimcha — bitta rang, bir-biriga bog'lanadi |
-| kulrang, kichik | `ج`, `مؤ.`, ma'no raqami, boshqa ma'nolar, «МАТНДА» sarlavhasi |
+| kulrang, kichik | `ج`, `مؤ.`, ma'no raqami, boshqa ma'nolar, «МАТНДА» sarlavhasi, «икки мафъулли», «музаккар»/«муаннас» yorlig'i |
 
 Tungi rejimda yashil va to'q sariq ochroq bo'ladi.
 
@@ -108,6 +115,12 @@ Tungi rejimda yashil va to'q sariq ochroq bo'ladi.
   - Ruscha darsda tarjima `src/ru/dNN.json` dan olinadi.
   - Kitob misollari o'chirilmaydi.
 - Diqqat: `kitob_hamma.py` yoki `vocNN.py` qayta ishga tushirilsa, keyin `lugat_jar.py`, `lugat_misol.py`, `lugat_harf.py` va `lugat_yangi_mano.py` ham ishga tushiriladi. Hammasi qayta ishlatilsa hech narsani buzmaydi. Sabab: `ay` bilan bog'langan qator yozuvni bog'langan so'zdan oladi.
+
+## 6a. Yangi dars lug'ati — qadamlar (`yangi-dars` skilli shu yerga havola qiladi)
+1. `src/build/scratchpad/dNN/vocNN.py` — shu fayldagi 1–4-bo'limlar bo'yicha: hamma so'z, birlik/ko'plik/muannas bitta qatorda, fe'l 4 shakl, boshqaruv faqat matndagi jar harfi bilan, ikki maf'ul — `(هُ هُ)`, matndagi ma'no birinchi, misol matndan; jar harfli misolda `{^…}`.
+2. Sahifa yig'ilgach: `python3 src/build/lugat_jar.py`, `python3 src/build/lugat_misol.py`, `python3 src/build/lugat_harf.py` (yangi ma'no chiqsa — `HM` va `KARTA` ga qator, 3a), kerak bo'lsa `src/build/lugat_yangi_mano.py` (8). Hammasi qayta ishga tushirilsa ham buzilmaydi.
+3. `python3 src/build/ajrat.py` → `python3 src/build/tekshir_data.py` (xatosiz).
+4. Pastdagi 7-bo'lim tekshiruvi.
 
 ## 7. Yangi dars lug'atini tekshirish
 1. Jar belgisi bor har fe'lni ko'rib chiqish: harf misolda bormi? Yo'q bo'lsa, dars matnida bormi? Matnda ham yo'q bo'lsa, belgi qo'yilmaydi.

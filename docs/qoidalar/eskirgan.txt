@@ -1,0 +1,15 @@
+# Eskirgan iboralar — `python3 src/build/qoida_tekshir.py` shu ro'yxat bo'yicha qidiradi (docs/qoidalar/README.md «Qaror yozish tartibi»).
+# Format: eski ibora<TAB>to'g'ri qoida qayerda. «re:» bilan boshlansa — regex. Qator «#» bilan boshlansa — izoh.
+# Yangi qaror eski qoidani almashtirsa — eski iborani shu yerga qo'shing.
+(...га) ёрдам бермоқ	lugat.md 2: matnda jar harfi bo'lmasa boshqaruv ham, «(...га)» ham yozilmaydi (27.11.2026)
+re:«-ни» bo'lmagan(i)?\b	lugat.md 2 (27.11.2026)
+re:«jam: …» deb aytiladi	05-eshitish «Луғат tinglash qoidasi»: o'zbekchada faqat ma'no, jam aytilmaydi (11.11.2026)
+икки мафъул олади	lugat.md 2: «икки мафъулли» (28.11.2026)
+re:ma'noda \(мз\)/\(мн\) belgisi	lugat.md 3: muzakkar/muannas — yorliq (26.11.2026); muannas birlik bilan bitta qatorda (lugat.md 2)
+shu darsning ruschasi ham qilinsinmi	12-ruscha: 2-kitob ruschalanmaydi (22.11.2026); 1-kitob darsida — 12-bo'lim bo'yicha
+qolgan 12 dars (2-kitob	12-ruscha: 2-kitob ruschalanmaydi (22.11.2026)
+faqat so'z oxiri harakati so'raladi	23-savollar «Qolip»: 5 bosqich (26.11.2026)
+xato savollarni qayta so'rash va «Бошидан» tugmasi yo'q	23-savollar: «Хатолар устида ишлаш» bor (26.11.2026)
+re:📜 \*\*Арабча эъроб|📜 Арабча эъроб \(yopiq	tarkib-korinishi 6а: so'z oynasi, «Арабча» tugmasi
+re:mafʼulun mutlaq rangsiz|maf'ul mutlaq va uning sifati .CATOV. da	tarkib-korinishi: maf'ulun mutlaq — och yashil (mansub)
+re:docs/texnik\.md. 5–6-bo'limidagi joriy ovozlar	06-ovozlar «Жорий овозлар» (28.11.2026)

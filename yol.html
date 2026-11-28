@@ -1398,7 +1398,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
     } else {
       LS(KY + '-yak', null);
       var p = IM.n ? Math.round(IM.tog * 100 / IM.n) : 0, ok = p >= YAK;
-      R.y = R.y || {}; var r = R.y[kl] || {};
+      R.y = R.y || {}; var r = R.y[kl] || {}, avval = +r.b || 0;
       R.y[kl] = { b: Math.max(r.b || 0, p), s: p, t: Date.now() };
       R.xb = R.xb || {}; R.xb[kl] = ok ? [] : IM.xato.map(function (x) { return x[0]; });
       if (ok) {                                         /* imtihon hamma savolni qayta tekshirdi; kitob — boblar imtihonlari xatolarini ham */
@@ -1431,6 +1431,10 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--y-tl);outline-offse
         h += '</section>';
       }
       app.innerHTML = h + '</div>';
+      /* BALL (28.11.2026, foydalanuvchi: «Боб якуни» +200, «Китоб якуни» +500 — birinchi marta qabul bo'lganda; takror.js REY, server — api/_rey.js yakOt) */
+      if (ok && avval < YAK && window.Ball && Ball.bonus) setTimeout(function () {
+        try { Ball.bonus('xy' + kl, b.kitob ? 500 : 200, null, { i: b.kitob ? 'kitob' : 'bob', t: b.kitob ? '«Китоб якуни» қабул қилинди!' : '«Боб якуни» қабул қилинди!', s: p + '% тўғри' }); } catch (e) {}
+      }, 450);
       tugma(ok ? '<button class="y-b y-b1" id="yq2">Йўлга қайтиш</button>' : '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><button class="y-b" id="yq2">Йўлга қайтиш</button><button class="y-b y-b1" id="yn">Хатоларни тузатиш · ' + IM.xato.length + '</button></div>');
       var yn = document.getElementById('yn'); if (yn) yn.onclick = function () { yakBosh(kl, 'x'); };
     }

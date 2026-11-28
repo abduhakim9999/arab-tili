@@ -56,11 +56,16 @@ function otgan(d) {
   return function (n) { const x = y[n]; return !!(x && +x.b >= 80); };
 }
 
+// «Боб якуни» / «Китоб якуни» 80% dan o'tilganmi (yol.y[kalit].b — yol.html yakNatija yozadi) — imtihon bonusi (xy<kalit>) faqat shunda (28.11.2026; takror.js REY)
+function yakOt(d) {
+  const y = d && d.yol && d.yol.y && typeof d.yol.y === 'object' ? d.yol.y : {};
+  return function (kl) { const x = y[kl]; return !!(x && +x.b >= 80); };
+}
 function hisob(d, t) {
   const hb = Takror.haftaBoshi(t || Date.now());
   const j = Array.isArray(d && d.j) ? d.j.filter(function (e) { return Array.isArray(e) && typeof e[0] === 'string' && typeof e[1] === 'number'; }) : [];
   const c = d ? bilgan(Object.assign({}, d, { j: j })) : { m: 0, b: 0 };
-  return { hb: hb, h: Takror.ball(j, hb, 0, { otgan: otgan(d) }), s: c.m, b: c.b, n: tozaIsm(d && d.ism && d.ism.n) };
+  return { hb: hb, h: Takror.ball(j, hb, 0, { otgan: otgan(d), yak: yakOt(d) }), s: c.m, b: c.b, n: tozaIsm(d && d.ism && d.ism.n) };
 }
 
 // o'quvchi hujjati saqlanganda — ro'yxatlarni yangilash

@@ -289,6 +289,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:
 .mq-sf{display:flex;align-items:center;gap:4px;font-size:16px;font-weight:800;color:#fff;white-space:nowrap}
 .mq-sf i{font-style:normal;filter:grayscale(1);opacity:.5}
 .mq-sr.ok .mq-sf i{filter:none;opacity:1}
+.mq-sk .mq-sf i{filter:none;opacity:1}   /* 28.11.2026: yangi qoidagacha kun sanog'i (seriya()) */
 .mq-sb{font-size:12px;font-weight:600;color:#f6dc94;white-space:nowrap}
 .mq-sl{display:block;width:100%;height:4px;border-radius:2px;background:rgba(255,255,255,.18);overflow:hidden}
 .mq-sl u{display:block;height:100%;border-radius:2px;background:#f6dc94}
@@ -467,7 +468,12 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
   function bYoz(id, ok) {
     var t = hozir(), o = { dan: 0 }, b0 = ok && window.Ball ? Takror.kunlik(E.jurnal, t, o).bugun : 0;
     E.javob(id, ok, Date.now() - t0, t);
-    if (ok && window.Ball) { var b = Takror.kunlik(E.jurnal, t, o).bugun - b0; if (b > 0) Ball.uch(b); }
+    if (ok && window.Ball) {
+      var b = Takror.kunlik(E.jurnal, t, o).bugun - b0, w = b >= Takror.REY.BILAN ? Takror.REY.BILAN : 0;   /* 28.11.2026: so'z «Биламан»ga chiqdi — tepada toast */
+      if (b - w > 0) Ball.uch(b - w);
+      if (w && Ball.toast) Ball.toast(w, { i: 'soz', t: 'Сўз «Биламан»га чиқди' });
+      if (b > 0 && Ball.olov) Ball.olov(E.jurnal);
+    }
   }
   /* 26.11.2026: «Яна N та сўз» (yangi so'z qo'shish, «Созламалар» 10 / 15 / 20) olib tashlandi — foydalanuvchi: «nechta so'z bo'lsa shuncha
      chiqsin»; dars 80% bo'lgan kuni hamma yangi so'zi «Бугунги машқ»da (takror.js holat). Eski «takror-qosh» kaliti endi o'qilmaydi. */
@@ -619,12 +625,15 @@ document.write('<script src="' + SN + 'takror.js"><\/script>');   /* 23.11.2026:
   /* Kunlik seriya (26.11.2026, foydalanuvchi: «ha»): kunida kamida 200 ball — seriya davom etadi (+50, takror.js kunlik). «🔥 N кун» —
      bugun 200 ga yetmaguncha xira; ostida bugungi ball va 200 gacha chiziq. Yangi qoida kuchga kirgach (30.11.2026; ko'rish/sinovda — hozirdan). */
   function seriya(t) {
-    if (!window.Ball || !Ball.faol()) return '';
-    var k = Takror.kunlik(E.jurnal, t, Date.now() >= Takror.REY.DAN ? null : { dan: 0 }), ok = k.bugun >= k.chegara;
+    if (!window.Ball) return '';
+    /* 28.11.2026 (foydalanuvchi: «necha kun qolganini bilinib tursin»): yangi qoidagacha — «⏳ N кундан кейин · Янги баллар», bosilsa «Баллар» oynasi (tg.js qoida) */
+    if (Ball.qoldi && Ball.qoldi()) { var qk = Ball.qoldi(); return '<button class="mq-sr mq-sk" type="button" data-bq aria-label="Янги баллар — нимага қанча"><span class="mq-sf"><i aria-hidden="true">⏳</i>' + (qk > 1 ? qk + ' кундан кейин' : 'Эртадан') + '</span><span class="mq-sb">Янги баллар</span></button>'; }
+    if (!Ball.faol()) return '';
+    var k = Takror.kunlik(E.jurnal, t, Date.now() >= Takror.REY.DAN ? null : { dan: 0 }), ok = k.ok, kj = !ok && k.bugun >= k.chegara;   /* kj — 200 bor, lekin javoblardan 100 yo'q (asosan tinglash; takror.js serKun) */
     /* 26.11.2026 (Claude taklifi, foydalanuvchi: «yaxshi variantni qil»): «🔥 N кун» bosilsa — «Баллар ва рейтинг» videosi (tg.js Vid, [data-vid]) */
     var vb = !!(window.Vid && Vid.bor('ball')), tg = vb ? 'button' : 'div';
-    return '<' + tg + ' class="mq-sr' + (ok ? ' ok' : '') + '"' + (vb ? ' type="button" data-vid="ball" aria-label="Баллар ҳақида видео"' : '') + '><span class="mq-sf"><i aria-hidden="true">🔥</i>' + k.seriya + ' кун</span><span class="mq-sb">Бугун ' + k.bugun + ' балл</span>' +
-      (ok ? '' : '<i class="mq-sl" aria-hidden="true"><u style="width:' + Math.round(k.bugun * 100 / k.chegara) + '%"></u></i>') + '</' + tg + '>';
+    return '<' + tg + ' class="mq-sr' + (ok ? ' ok' : '') + '"' + (vb ? ' type="button" data-vid="ball" aria-label="Баллар ҳақида видео"' : '') + '><span class="mq-sf"><i aria-hidden="true">🔥</i>' + k.seriya + ' кун</span><span class="mq-sb">' + (kj ? 'Яна ' + (k.chegaraJ - k.javob) + ' балл жавобдан' : 'Бугун ' + k.bugun + ' балл') + '</span>' +
+      (ok ? '' : '<i class="mq-sl" aria-hidden="true"><u style="width:' + Math.min(100, Math.round((kj ? k.javob * k.chegara / k.chegaraJ : k.bugun) * 100 / k.chegara)) + '%"></u></i>') + '</' + tg + '>';
   }
   var HN5 = { m: 'Мустаҳкам', g: 'Биламан', o: 'Ўрганяпман', b: 'Билмайман', n: 'Ҳали ўтилмаган' };
   /* Zina (26.11.2026; doira() o'rnida): c — {m, g, o, b, n}; pog'ona bosilsa — Луғат shu daraja bilan (lugat() dagi .mq-zp[data-h]) */

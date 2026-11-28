@@ -157,3 +157,10 @@ Foydalanuvchi: «97 — eski kerakmas, yangi takomillashgan bo'ladi; ruschasi ke
   10. Qavsli arabcha bo'lak («وَ(الْأَمْرُ) هَكَذَا») so'z oynasi va qutilarda to'g'ri (bitta o'ngdan-chapga bo'lak).
 - Navbatda: foydalanuvchi ko'rib chiqqach — qolgan darslar (`TK3` ga qo'shish, har darsda tekshirish), ruscha (`ru*.html`), Eshitish Таркиби tartibi.
 
+## Konspektdan ko'chgan ko'rinish bandlari (28.11.2026)
+`claude/kitob-konspekti.md` da grammatika bilan aralash turgan ko'rinish bandlari (qoidalar tekshiruvi, foydalanuvchi: «yengillik qilingan narsalar qolib ketmasin»). Bu yerda saqlanadi; yangi ko'rinish (`tarkib3.js`) bilan to'qnashsa — yuqoridagi bo'limlar ustun.
+- Mabniy so'z oxiri bo'yalmaydi; mu'rab so'zda haqiqiy i'rob harfi bo'yaladi (Ҳаракат rejimi).
+- Uzun gap tarjimasi ma'no buzilmaydigan joylardan bo'laklarga bo'linadi; arabcha so'z bosilsa tarjimadagi mos so'z belgilanadi va aksincha (hozirgisi — yuqorida «Bosilgan so'z yashil fonda»); tarjima yashirilganda ma'nolar yonmaydi.
+- Suhbatdosh nomi arabchada, qator boshida (o'ngda), matndagidek ikki nuqta bilan; imlo belgilari asl matndagidek.
+- Ilova sodda: bir joyda ochiladigan narsa ikkinchi joyda takrorlanmaydi.
+- Eskirgan (yangi ko'rinishda yo'q): «📜 Арабча эъроб» va «📖 Қўшимча маълумот / Ҳужжатда йўқ» yopiq bo'limlari — arabcha e'rob endi so'z oynasida (6а), umumiy qoida — «Қоидалар» kartasida; eski «Таркиб qutisi» (strelka, gap turi gap ustida) — `TK3_ESKI` bo'sh, ishlatilmaydi; «maf'ulun mutlaq rangsiz» — yangi ko'rinishda och yashil (mansub, yuqoridagi jadval).

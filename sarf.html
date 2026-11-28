@@ -269,7 +269,7 @@ function search(q,el){
       if(!hit&&(bare(P(v.T.mm[0],r)).indexOf(b)==0||bare(v.ms||'').indexOf(b)==0))hit=1}
     else if((v.mn||'').toLowerCase().indexOf(lo)>=0)hit=1;
     if(hit&&!res.some(function(y){return P(y.v.T.mm[0],y.v.r)==P(v.T.mm[0],r)}))res.push(x)});
-  el.innerHTML=res.length?res.slice(0,12).map(function(x){var v=x.v;return '<div class="vb" onclick="location.hash=\''+x.id+'\'"><div class="mn">'+esc(v.mn)+'<span class="tg">'+x.L.n+' · '+v.tn+'</span></div><div class="fm ar">'+P(v.T.mm[0],v.r)+' – '+P(v.T.rm[0],v.r)+'</div></div>'}).join('')
+  el.innerHTML=res.length?res.slice(0,12).map(function(x){var v=x.v;return '<div class="vb" onclick="location.hash=\''+x.id+'\'"><div class="mn">'+esc(v.mn)+'<span class="tg">'+x.L.n+' · '+v.tn+'</span></div><div class="fm ar">'+v3(v)+'</div></div>'}).join('')
     :'<p class="note">Топилмади. Ҳозирча базада фақат 1-боб феъллари бор.</p>';
 }
 
@@ -315,9 +315,11 @@ function groups(){
   return G;
 }
 var OPEN={};
+/* moziy – muzore – masdar (28.11.2026) */
+function v3(v,F){F=F||P;return F(v.T.mm[0],v.r)+' – '+F(v.T.rm[0],v.r)+(v.ms?' – '+v.ms:'')}
 function vrow(v,on,nam){
   return '<div class="vr'+(nam?' nm':'')+'" onclick="'+on+'"><div class="vm"><b>'+esc(v.mn)+'</b>'+(nam?'<span class="nb2">намуна</span>':'')+(v.l?'<span class="lz">лозим</span>':'')+'</div>'+
-    '<div class="va ar">'+P(v.T.mm[0],v.r)+'<span> – '+P(v.T.rm[0],v.r)+'</span></div></div>';
+    '<div class="va ar">'+P(v.T.mm[0],v.r)+'<span> – '+P(v.T.rm[0],v.r)+(v.ms?' – '+v.ms:'')+'</span></div></div>';
 }
 function feellar(el){
   var G=groups(),tot=0;G.forEach(function(g){tot+=1+g.v.length});
@@ -425,7 +427,7 @@ function playAll(){
 }
 function pickCmp(){
   var a=allV().filter(function(x){return x.v!==SV}),b=$('#sbd');
-  b.innerHTML='<p class="note">Қайси феъл билан солиштирамиз?</p>'+a.map(function(x,i){var v=x.v;return '<div class="vb" data-i="'+i+'"><div class="mn">'+esc(v.mn)+'<span class="tg">'+v.tn+'</span></div><div class="fm ar">'+C(v.T.mm[0],v.r)+' – '+C(v.T.rm[0],v.r)+'</div></div>'}).join('');
+  b.innerHTML='<p class="note">Қайси феъл билан солиштирамиз?</p>'+a.map(function(x,i){var v=x.v;return '<div class="vb" data-i="'+i+'"><div class="mn">'+esc(v.mn)+'<span class="tg">'+v.tn+'</span></div><div class="fm ar">'+v3(v,C)+'</div></div>'}).join('');
   [].forEach.call(b.querySelectorAll('.vb'),function(d){d.onclick=function(){CMP=a[+d.getAttribute('data-i')].v;draw()}});
 }
 function closeSh(){stopSay();PLAY=false;$('#sh').classList.remove('on')}
@@ -438,7 +440,7 @@ function errs(){return ST.err=ST.err||[]}
 function qBuild(vi,cat,k){
   var v=CUR.verbs[vi],F=v.T[cat],c=F[k],d=shuffle(F.filter(function(x,i,a){return x!=c&&a.indexOf(x)==i})).slice(0,3);if(d.length<3)return null;
   var R=ROWS[cat],sk=R?R[k]:k;
-  return {t:CN[cat]+' · '+SIGA[sk][1],a:SIGA[sk][0],s:P(v.T.mm[0],v.r)+' – '+P(v.T.rm[0],v.r)+' — '+v.mn,o:shuffle(d.concat([c])).map(function(x){return {h:A(P(x,v.r)),ok:x==c}}),
+  return {t:CN[cat]+' · '+SIGA[sk][1],a:SIGA[sk][0],s:P(v.T.mm[0],v.r)+' – '+P(v.T.rm[0],v.r)+' — '+v.mn,ds:v3(v)+' — '+v.mn,o:shuffle(d.concat([c])).map(function(x){return {h:A(P(x,v.r)),ok:x==c}}),
           x:A(SIGA[sk][0])+' → '+A(P(c,v.r)),e:[vi,cat,k]};
 }
 function mkQ(){
@@ -450,15 +452,15 @@ function mkQ(){
       var vi=Math.floor(Math.random()*V.length),v=V[vi],q=null;
       if(ty=='siga'){var cat=pick(['mm','rm']),k=Math.floor(Math.random()*14);if(!uniq(v.T[cat],k))continue;
         var o=shuffle(SIGA.map(function(s,i){return i}).filter(function(i){return i!=k&&SIGA[i][0]!=SIGA[k][0]})).slice(0,3).concat([k]);
-        q={t:'Бу қайси сийға? ('+(cat=='mm'?'мозий':'музореъ')+')',a:P(v.T[cat][k],v.r),s:P(v.T.mm[0],v.r)+' – '+v.mn,o:shuffle(o).map(function(i){return {h:A(SIGA[i][0])+' · '+SIGA[i][1],ok:i==k}}),
+        q={t:'Бу қайси сийға? ('+(cat=='mm'?'мозий':'музореъ')+')',a:P(v.T[cat][k],v.r),s:P(v.T.mm[0],v.r)+' – '+v.mn,ds:v3(v)+' — '+v.mn,o:shuffle(o).map(function(i){return {h:A(SIGA[i][0])+' · '+SIGA[i][1],ok:i==k}}),
            x:A(P(v.T[cat][k],v.r))+' — '+SIGA[k][1]+' ('+A(SIGA[k][0])+')',e:[vi,cat,k]}}
       else if(ty=='build'){var cat=pick(['mm','rm','jahd','amr']),n=v.T[cat].length,k=Math.floor(Math.random()*n);if(v.l&&MAJ[cat])continue;q=qBuild(vi,cat,k)}
       else if(ty=='tur'){var ts=[];CUR.models.forEach(function(m){if(m.tn!=v.tn)ts.push(m.tn)});
-        q={t:'Бу феъл қайси турдан?',a:P(v.T.mm[0],v.r)+' – '+P(v.T.rm[0],v.r),s:v.mn,o:shuffle(shuffle(ts).slice(0,3).concat([v.tn])).map(function(x){return {h:x,ok:x==v.tn}}),x:A(P(v.T.mm[0],v.r))+' — '+v.tn}}
+        q={t:'Бу феъл қайси турдан?',a:P(v.T.mm[0],v.r)+' – '+P(v.T.rm[0],v.r),da:v3(v),s:v.mn,o:shuffle(shuffle(ts).slice(0,3).concat([v.tn])).map(function(x){return {h:x,ok:x==v.tn}}),x:A(P(v.T.mm[0],v.r))+' — '+v.tn}}
       else if(ty=='mu'){if(!v.alt)continue;var c=P(v.T.rm[0],v.r);
         q={t:'Музореъи қайси? ('+CUR.n+')',a:P(v.T.mm[0],v.r),s:v.mn,o:shuffle([v.T.rm[0]].concat(v.alt)).map(function(x){return {h:A(P(x,v.r)),ok:x==v.T.rm[0]}}),x:CUR.qmu+': '+A(c)}}
       else if(ty=='amr'){if(!v.alta)continue;var c=v.T.amr[0];
-        q={t:'Амри ҳозир (мухотаб) қайси?',a:P(v.T.mm[0],v.r)+' – '+P(v.T.rm[0],v.r),s:v.mn,o:shuffle([c].concat(v.alta)).map(function(x){return {h:A(P(x,v.r)),ok:x==c}}),x:CUR.qamr+': '+A(P(c,v.r))}}
+        q={t:'Амри ҳозир (мухотаб) қайси?',a:P(v.T.mm[0],v.r)+' – '+P(v.T.rm[0],v.r),da:v3(v),s:v.mn,o:shuffle([c].concat(v.alta)).map(function(x){return {h:A(P(x,v.r)),ok:x==c}}),x:CUR.qamr+': '+A(P(c,v.r))}}
       if(q){out.push(q);break}
     }
   });
@@ -476,7 +478,7 @@ function qkod(q){var x=(CUR&&CUR.id)+'|'+q.t+'|'+q.a+'|'+q.s,h=5381;for(var i=0;
 function qshow(el){
   var q=Q.qs[Q.i];Q.t0=Date.now();
   var h='<div class="card q"><div class="pr"><i style="width:'+(Q.i*100/Q.qs.length)+'%"></i></div><div class="qt">'+(Q.i+1)+' / '+Q.qs.length+(q.rv?' · ↻ такрор':'')+' · '+q.t+'</div>'+
-    '<div class="qa ar">'+q.a+'</div><div class="qs">'+(/[؀-ۿ]/.test(q.s)?arw(esc(q.s)):esc(q.s))+'</div>'+
+    '<div class="qa ar">'+(q.da||q.a)+'</div><div class="qs">'+(/[؀-ۿ]/.test(q.ds||q.s)?arw(esc(q.ds||q.s)):esc(q.ds||q.s))+'</div>'+
     '<div class="op">'+q.o.map(function(o,i){return '<button data-i="'+i+'">'+o.h+'</button>'}).join('')+'</div><div id="qx"></div></div>';
   el.innerHTML=h;
   [].forEach.call(el.querySelectorAll('.op button'),function(b){b.onclick=function(){

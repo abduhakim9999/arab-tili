@@ -21,6 +21,7 @@ Ma'lumot oqimi va skriptlar — `docs/texnik/14-takror-malumot.md`. Bu faylda fa
 - Dars matnidagi **hamma so'z**, matn tartibida. Ot `ال`siz yoziladi. Qo'shilib keladigan harf va olmosh ham kiradi (بِ، وَ، سَ، ..كِ، ..هَا).
 - Oldingi darsda shu ma'noda bor so'z yangi kartaga aylanmaydi. U o'sha yozuvga `ay` bilan bog'lanadi. Yangi ma'no bo'lsa — `asl` bilan o'z kartasi bo'ladi.
 - Takrorga kirmaydiganlar (atoqli otlar, sonlar va h.k.) ma'nodagi belgidan bilinadi: «(эр.исми)», «(аёл исми)», «(вил.шаҳ.)».
+- Kitob lug'ati berilsa — tartib raqami va ma'nolari kitobdagidek, kitob yozuvlari joyida qoladi (31.10.2026, 22.11.2026; texnikasi — `docs/texnik/14-takror-malumot.md`). 22.11.2026 dan kitob lug'atini yuklash shart emas — lug'atni Claude dars matnidan tuzadi.
 
 ## 2. Bosh qator — so'zning o'zi
 **Ot.** Birlik, ko'plik va muannas bitta qatorda, kitobdagidek ketma-ket yoziladi:

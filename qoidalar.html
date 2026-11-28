@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Грамматика</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0c5e3f">
+<link rel="icon" href="icon-192.png">
+<link rel="stylesheet" href="shell.css">
+<script>
+/* «Грамматика» (oldin «Қоидалар»; 19.11.2026, docs/texnik.md 18; reja — claude.ai claude/grammatika-pleyer-reja.md):
+   tepada qidiruv, Сарф va Наҳв kartalari, «Эшитиш» (pleyer qilinguncha), keyin «Татбиқ» kitobi (21.11.2026, foydalanuvchi: «endi video darslar
+   emas — Tatbiq kitobi, ichida videolari bilan»): muqova + mundarija, 10 bob + «Якуний дарс» (src/manba/grammatika/kitob-1-53.md).
+   Sahifasi yo'q dars — «Тез орада». Holat faqat o'qiladi: «sarf-holat»; o'qilgan darslar — «tb-oqildi» (qurilmada). */
+var SN = /\/sinov-[^\/]*$/.test(location.pathname) ? 'sinov-' : '';
+document.write('<script src="tg.js" data-key="" data-home="' + SN + 'yol.html"><\/script><script src="' + SN + 'qobiq.js"><\/script>');
+</script>
+<style>
+@font-face{font-family:"DarsNaskh";src:url(naskh.woff)}
+body{margin:0;background-color:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-tap-highlight-color:transparent}
+a:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.ar{font-family:"DarsNaskh","Noto Naskh Arabic",serif;direction:rtl;unicode-bidi:isolate;font-weight:400}
+.k-c{min-height:104px;padding:12px 14px 15px;gap:16px}
+.k-cv{width:72px;height:80px;border-radius:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.k-cv svg{width:64px;height:64px;filter:drop-shadow(0 3px 4px rgba(0,0,0,.22))}
+.k-c .n{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:19px;line-height:1.3}
+.k-c .n .ar{font-size:23px;line-height:1.3;color:var(--mu)}
+.k-br{height:6px;border-radius:3px;background:var(--bd);margin-top:8px;overflow:hidden}
+.k-br i{display:block;height:100%;border-radius:3px;background:var(--ac)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .k-cv{background:rgba(255,255,255,.07)!important}}
+:root[data-theme="dark"] .k-cv{background:rgba(255,255,255,.07)!important}
+.g-sr{position:relative;margin:0 0 12px}
+.g-sr input{width:100%;box-sizing:border-box;height:46px;border-radius:14px;border:1.5px solid var(--bd);background:var(--cd);color:var(--tx);font:16px system-ui,-apple-system,"Segoe UI",sans-serif;padding:0 14px 0 42px;outline:none}
+.g-sr input:focus{border-color:var(--ac)}
+.g-sr svg{position:absolute;left:14px;top:13px;width:20px;height:20px;color:var(--mu);pointer-events:none}
+.g-tl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0 0 10px}
+.g-tl .q-rw{margin:0;flex-direction:column;align-items:flex-start;gap:8px;min-height:0;padding:12px 14px 14px}
+.g-tl .k-cv{width:48px;height:52px;border-radius:13px}.g-tl .k-cv svg{width:44px;height:44px}
+.g-tl .n{display:flex;align-items:baseline;justify-content:space-between;gap:6px;width:100%;font-size:17px;font-weight:700}
+.g-tl .n .ar{font-size:19px;color:var(--mu);font-weight:400}
+.g-tl .t{width:100%}
+.g-es{min-height:60px}.g-es .k-cv{width:44px;height:48px;border-radius:12px}.g-es .k-cv svg{width:40px;height:40px}
+.g-es .n{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:17px;font-weight:700}.g-es .n .ar{font-size:19px;color:var(--mu);font-weight:400}
+.g-h{display:flex;justify-content:space-between;align-items:baseline;margin:20px 4px 10px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mu)}
+.g-h span:last-child{letter-spacing:0;text-transform:none;font-weight:600}
+.g-vk{position:relative;display:flex;align-items:center;gap:14px;margin:18px 0 0;padding:14px 14px 16px;border-radius:20px;background:#0F5E3E;color:#fff;text-decoration:none;box-shadow:inset 0 -4px 0 rgba(0,0,0,.22);overflow:hidden}
+.g-vk .st{position:relative;flex-shrink:0;width:96px;height:84px}
+.g-vk .st i{position:absolute;bottom:0;width:52px;height:78px;border-radius:9px;background:#333 center/cover no-repeat;box-shadow:0 2px 6px rgba(0,0,0,.35);border:2px solid rgba(255,255,255,.85)}
+.g-vk .st i:nth-child(1){left:0;transform:rotate(-9deg)}.g-vk .st i:nth-child(2){left:22px;z-index:1;bottom:4px}.g-vk .st i:nth-child(3){left:44px;transform:rotate(9deg)}
+.g-vk .t{flex:1;min-width:0}.g-vk b{display:block;font-size:19px}.g-vk small{display:block;font-size:13.5px;opacity:.85;margin-top:2px}
+.g-vk svg{width:22px;height:22px;flex-shrink:0}
+/* «Татбиқ» kitobi ko'rinishi (23.11.2026, foydalanuvchi: C+B varianti — kitob buyumdek, bob rasmi mehrob ramkasida, darslar yo'l bo'ylab; progress yo'q, faqat xatcho'p) */
+.tk-hr{margin:-14px -16px 0;padding:18px 16px 40px;background:linear-gradient(180deg,#0F5E3E,#06281d);color:#f1e9d4;display:flex;flex-direction:column}
+/* 23.11.2026 (foydalanuvchi: ochilganda muqova juda katta, darslar ko'rinmaydi) — ixcham: kichik muqova chapda, nom va sonlar o'ngda; muqova bitta qolip (muq()), .tk-ko / .g-vk .kt ichida kichraytiriladi */
+.tk-hb{display:flex;align-items:center;gap:18px}
+.tk-ko{position:relative;flex-shrink:0;width:110px;height:165px}.tk-ko .tk-kt{position:absolute;left:0;top:0;transform:scale(.55);transform-origin:0 0}
+.tk-hm{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.tk-kt{display:block;position:relative;width:200px;height:300px}
+.tk-kt>i{position:absolute;width:200px;border-radius:3px 8px 8px 3px}
+.tk-kt>i:nth-child(1){left:8px;top:6px;height:294px;background:#e9dfc6}.tk-kt>i:nth-child(2){left:4px;top:3px;height:297px;background:#f6efdd}
+.tk-kt .m{position:absolute;left:0;top:0;width:200px;height:300px;border-radius:3px 8px 8px 3px;overflow:hidden;background:#0F5E3E;box-shadow:inset 6px 0 0 rgba(0,0,0,.22),0 22px 40px rgba(0,0,0,.5)}
+.tk-kt img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* tepadagi qoraytirish muallif qatorigacha (26.11.2026, foydalanuvchi: «yaxshi ko'rinadigan qilib chiz» — ism derazaning yorug'iga tushardi) */
+.tk-kt .m:before{content:"";position:absolute;left:0;right:0;top:0;height:185px;background:linear-gradient(rgba(8,52,36,.78) 0,rgba(8,52,36,.66) 58%,rgba(8,52,36,0) 100%)}
+.tk-kt .m:after{content:"";position:absolute;inset:7px;border:1.2px solid #D8B56A;border-radius:3px}
+.tk-kt .yz{position:absolute;left:0;right:0;top:20px;z-index:1;display:flex;flex-direction:column;align-items:center;gap:2px}
+.tk-kt .yz .ar{font-size:19px;line-height:1.55;color:#F1D58A;text-shadow:0 2px 3px rgba(0,0,0,.45)}
+.tk-kt .yz b{font-size:13px;font-weight:800;letter-spacing:.32em;padding-left:.32em;color:#F7EBC8}
+/* jild (26.11.2026, foydalanuvchi: «2-jildi bor hali» — muqovada arabcha, kitob sahifasida «1-жилд») */
+.tk-kt .yz .jl{font-size:13px;line-height:1.5;margin-top:4px;color:#F1D58A;text-shadow:0 0 6px rgba(0,0,0,.75),0 1px 2px rgba(0,0,0,.7)}
+/* muallif (26.11.2026, foydalanuvchi: muqovada arabcha, «تَأْلِيفُ» bilan) */
+.tk-kt .yz .mu{font-size:12.5px;line-height:1.5;margin-top:5px;color:#F7EBC8;text-shadow:0 0 6px rgba(0,0,0,.8),0 1px 2px rgba(0,0,0,.75)}
+.tk-kn{font-size:20px;line-height:1.6;color:#E8CC8A}
+.tk-ks{font-size:13px;color:#b9c7bb}
+/* bob/dars/video sonlari o'rniga muallif (26.11.2026, foydalanuvchi: «Мундарижа bor, sonlar kerak emas») */
+.tk-mu{display:flex;flex-direction:column;margin-top:12px;font-size:11.5px;line-height:1.3;color:#b9c7bb}.tk-mu b{margin-top:3px;font-size:16px;line-height:1.35;color:#f1e9d4}
+.tk-dv{align-self:stretch;margin-top:16px;min-height:52px;border-radius:14px;background:#dcb460;color:#06281d;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:10px;font-size:16px;font-weight:700}
+.tk-dv svg{width:14px;height:19px;fill:currentColor}
+.tk-ich{position:relative;margin:-22px -16px 0;padding:22px 16px 8px;border-radius:24px 24px 0 0;background:var(--bg);display:flex;flex-direction:column;gap:10px}
+.tk-h{display:flex;justify-content:space-between;align-items:baseline;margin:0 2px 4px}.tk-h h2{margin:0;font-size:20px;font-weight:800}.tk-h span{font-size:13px;color:var(--mu)}
+.tk-ra{flex-shrink:0;box-sizing:border-box;border:1.5px solid #C9A45C;background:#fbf6ea;padding:3px}.tk-ra img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 25%}
+.tk-bk{display:flex;align-items:center;gap:12px;padding:10px 12px 10px 10px;border-radius:16px;border:1.5px solid var(--bd);background:var(--cd);color:var(--tx);text-decoration:none}
+.tk-bk .tk-ra{width:62px;height:78px;border-radius:31px 31px 7px 7px}.tk-bk .tk-ra img{border-radius:27px 27px 4px 4px}
+.tk-bk .t{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.tk-bk small{font-size:11px;font-weight:800;letter-spacing:.05em;color:var(--mu)}
+.tk-bk b{font-size:15.5px;line-height:1.3}.tk-bk .t>.ar{font-size:17px;line-height:1.5;color:var(--mu);text-align:left}
+.tk-bk>svg{width:20px;height:20px;flex-shrink:0;color:var(--mu)}.tk-bk .q-tzb{flex-shrink:0;font-size:11px;padding:2px 8px}
+.tk-yk{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;background:#0F5E3E;color:#fff;text-decoration:none}
+.tk-yk>.ar{font-size:22px;line-height:1.4;flex-shrink:0}.tk-yk .t{flex:1;min-width:0;display:flex;flex-direction:column}.tk-yk b{font-size:15.5px}.tk-yk small{font-size:12.5px;opacity:.88;line-height:1.35}
+.tk-yk svg{width:20px;height:20px;flex-shrink:0}.tk-yk .q-tzb{flex-shrink:0;background:rgba(255,255,255,.22);color:#fff}
+.tk-bb{margin:-14px -16px 0;padding:18px 20px 46px;background:radial-gradient(ellipse at 50% 30%,rgba(255,255,255,.14),rgba(255,255,255,0) 62%),var(--c);color:#fff;display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px}
+.tk-bb .tk-ra{width:196px;height:236px;border-width:2.5px;border-radius:98px 98px 10px 10px;padding:5px;background:rgba(255,255,255,.08);box-shadow:0 0 0 5px var(--c),0 0 0 6px rgba(201,164,92,.55),0 16px 30px rgba(0,0,0,.3)}
+.tk-bb .tk-ra img{border-radius:91px 91px 6px 6px}
+.tk-cp{margin-top:18px;font-size:11.5px;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:10px;background:rgba(255,255,255,.16)}
+.tk-bb>.ar{font-size:34px;line-height:1.5;margin-top:4px}.tk-bb>b{font-size:18px;direction:ltr;unicode-bidi:isolate}.tk-bb>b .ar{font-size:1.15em}
+.tk-yd{display:flex;align-items:center;gap:8px;margin-top:10px}.tk-yd i{width:48px;height:1px;background:#C9A45C}.tk-yd svg{width:12px;height:12px;fill:#C9A45C}
+.tk-yl{position:relative;display:flex;flex-direction:column;gap:10px}
+.tk-yl:before{content:"";position:absolute;left:17px;top:24px;bottom:24px;width:2px;background:var(--bd)}
+.tk-d{position:relative;display:flex;align-items:center;gap:12px;color:var(--tx);text-decoration:none}
+.tk-d>.n{position:relative;flex-shrink:0;width:36px;height:36px;box-sizing:border-box;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;background:var(--c);color:#fff;border:2px solid var(--c)}
+.tk-d.tz>.n{background:var(--bg);color:var(--mu);border:2px dashed var(--bd)}
+.tk-d>.k{position:relative;flex:1;min-width:0;display:flex;align-items:center;gap:12px;padding:12px;border-radius:14px;border:1.5px solid var(--bd);background:var(--cd)}
+.tk-d.tz>.k{opacity:.7}.tk-d.ox>.k{border-color:#e3c98f}
+.tk-d .t{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}.tk-d .t>span{display:flex;align-items:center;gap:8px}
+.tk-d small{font-size:11px;font-weight:800;letter-spacing:.06em;color:var(--mu)}
+.tk-d .ch{font-size:15px;line-height:1.3;padding:0 8px;border-radius:8px;background:var(--bd);color:var(--tx)}
+.tk-d b{font-size:15px;line-height:1.35}.tk-d b .ar{font-size:1.2em;font-weight:400}
+.tk-d .q-tzb,.tk-d .xo{align-self:flex-start;font-size:11.5px;padding:2px 9px}.tk-d .xo{font-weight:600;border-radius:10px;background:#f6ecd6;color:#7a5612}
+.tk-d .xb{position:absolute;right:14px;top:-2px;width:14px;height:20px;fill:#c99434}.tk-d.v .xb{right:64px}
+.tk-d .vt{position:relative;flex-shrink:0;width:44px;height:72px;border-radius:9px;overflow:hidden;background:#222}
+.tk-d .vt img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tk-d .vt span{position:absolute;left:3px;right:3px;bottom:3px;text-align:center;font-size:10.5px;font-weight:700;color:#fff;background:rgba(0,0,0,.6);border-radius:5px}
+.tk-d .vb{flex-shrink:0;font-size:13px;font-weight:600;color:var(--ac)}
+.g-vd{position:relative;display:flex;flex-direction:column;aspect-ratio:9/14;border-radius:16px;overflow:hidden;color:#fff;padding:10px 11px 12px;box-sizing:border-box;text-decoration:none;box-shadow:inset 0 -4px 0 rgba(0,0,0,.22);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.13' stroke-width='1.2'%3E%3Crect x='9' y='9' width='18' height='18'/%3E%3Crect x='9' y='9' width='18' height='18' transform='rotate(45 18 18)'/%3E%3C/g%3E%3C/svg%3E")}
+.g-vd .no{font-size:12.5px;font-weight:700;opacity:.9}
+.g-vd .nm{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;font-size:15px;font-weight:700;line-height:1.3;padding:6px 0}
+.g-vd .nm .ar{font-size:1.25em;font-weight:400}
+.g-vd .q-tzb{align-self:center;background:rgba(255,255,255,.22);color:#fff;font-size:11.5px;padding:2px 9px}
+.g-vd.tz{opacity:.72}
+.g-r{display:flex;align-items:center;gap:12px;padding:11px 14px;border-top:1px solid var(--bd);color:inherit;text-decoration:none}
+.g-r:first-child{border-top:0}
+.g-r .no{flex-shrink:0;width:28px;text-align:center;font-size:14px;font-weight:700;color:var(--mu)}
+.g-r .nm{flex:1;min-width:0;font-size:15.5px;line-height:1.35}.g-r .nm .ar{font-size:1.2em}.g-r .nm small{display:block;font-size:12.5px;color:var(--mu)}
+.g-r.tz .nm{opacity:.62}.g-r .q-tzb{font-size:11.5px;padding:2px 8px}
+.g-nt{border-radius:18px;border:1.5px solid var(--bd);background:var(--cd);overflow:hidden;box-shadow:inset 0 -3px 0 var(--bd)}
+.g-bk[hidden]{display:none}.g-bk{display:flex;align-items:center;justify-content:center;width:36px;height:36px;margin-left:-8px;border:0;background:none;color:#fff;cursor:pointer}.g-bk svg{width:24px;height:24px}
+.g-yo{padding:18px 4px;color:var(--mu);text-align:center}
+.g-vk .kt{position:relative;flex-shrink:0;width:80px;height:120px}.g-vk .kt .tk-kt{position:absolute;left:0;top:0;transform:scale(.4);transform-origin:0 0}
+.g-vk .kt .tk-kt .yz .ar{font-size:23px;opacity:1}.g-vk .kt .tk-kt .yz b{font-size:17px}.g-vk .kt .tk-kt .yz .mu{font-size:16px}.g-vk .kt .tk-kt .yz .jl{font-size:16px}.g-vk .kt .tk-kt .m:after{border-width:2.5px}
+.g-vk .ar{display:block;font-size:17px;line-height:1.45;opacity:.92}
+.g-bl{flex-shrink:0;font-size:13px;font-weight:600;color:var(--ac)}.g-bl i{font-style:normal;margin-right:6px}
+/* bob kirish videosi (21.11.2026) */
+.g-kr{display:flex;align-items:center;gap:14px;width:100%;box-sizing:border-box;margin:0;padding:10px 14px 10px 10px;border-radius:18px;border:1.5px solid var(--bd);background:var(--cd);color:var(--tx);font:inherit;text-align:left;cursor:pointer}
+.g-kr .pt{position:relative;flex-shrink:0;width:60px;height:100px;border-radius:12px;background:#2a1530 center/cover no-repeat;display:flex;align-items:center;justify-content:center;color:#fff}
+.g-kr .pt i{width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center}.g-kr .pt svg{width:16px;height:16px}
+.g-kr .t{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}.g-kr small{font-size:11.5px;font-weight:800;letter-spacing:.06em;color:var(--mu)}
+.g-kr b{font-size:16.5px;line-height:1.35}.g-kr b .ar{font-size:1.25em;font-weight:400}.g-kr .t>span{font-size:12.5px;color:var(--mu)}
+.g-kv{position:relative;width:min(100%,300px);aspect-ratio:9/16;margin:0 auto 14px;border-radius:18px;overflow:hidden;background:#000}
+.g-kv video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000}
+</style>
+</head>
+<body>
+<header class="q-hd"><div class="q-hr"><button class="g-bk" id="gbk" type="button" aria-label="Орқага" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><div><h1 id="gh1">Грамматика</h1></div></div></header>
+<main class="q-w" id="app"></main>
+<script>
+(function () {
+  function J(k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } }
+  /* muqova: bosh sahifadagi kitobcha (harf bilan) */
+  function cov(ch, c1, c2, m) {
+    return '<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="12" y="6" width="40" height="52" rx="5" fill="' + c1 + '"/><rect x="12" y="6" width="7" height="52" rx="3" fill="' + c2 + '"/>' +
+      '<rect x="24" y="12" width="22" height="24" rx="4" fill="none" stroke="#F3D58C" stroke-width="2.2"/><text x="35" y="29" text-anchor="middle" font-size="21" fill="#F3D58C" font-family="DarsNaskh,serif">' + ch + '</text>' + m + '</svg>';
+  }
+  var QT = '<path d="M26 44h18M26 49h18M26 54h11" stroke="#F3D58C" stroke-width="2" stroke-linecap="round" opacity=".75"/>';
+  var CH = '<svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>';
+
+  var sr = (J('sarf-holat') || {}).b1, RU = !!(window.Qobiq && Qobiq.ru);
+  var SARF = { h: 'sarf.html', n: 'Сарф', a: 'الصَّرْفُ', l: '#E6EEF8', s: cov('ص', '#2E5E9A', '#1F4673', QT),
+      t: sr && sr.best != null ? '1-боб · машқ ' + sr.best + '%' : 'Боблар · тусланиш · машқ' };
+  /* «Феъллар» (200 fe'l) — 14.11.2026 ilovadan olib tashlandi (foydalanuvchi qarori); fe'llar va ovozlari saqlangan: fq/ (docs/texnik.md 7) */
+  var NAHV = { h: 'nahv.html', n: 'Наҳв', a: 'النَّحْوُ', l: '#E3F2EA', s: cov('ن', '#0F7A4F', '#0A5236', QT), t: 'Эъроб аломатлари жадвали' };
+  /* «Эшитиш» — musiqa ilovasidek pleyer qilinguncha shu yerda qoladi (reja: pleyer bosqichida olib tashlanadi) */
+  var ESH = { h: 'tinglash.html', n: 'Эшитиш', a: 'الِاسْتِمَاعُ', l: '#EEE8F7',
+      s: cov('س', '#6B4FA0', '#4C3577', '<path d="M27 51v-3a7 7 0 0 1 14 0v3" stroke="#F3D58C" stroke-width="2.2" fill="none" stroke-linecap="round"/><rect x="25" y="48" width="4" height="6" rx="1.5" fill="#F3D58C"/><rect x="39" y="48" width="4" height="6" rx="1.5" fill="#F3D58C"/>'),
+      t: 'Дарсларни тинглаб ўрганиш: матн, луғат, таркиб' };
+
+  /* «Татбиқ» kitobi: boblar — Claude taklifi (kitobda bob yo'q), 21.11.2026 qayta ko'rildi: 4-bob ikkiga bo'lindi (тусланиш / мабний феъл ва
+     зарфлар — 24-dars zarf ism bo'lgani uchun), 11-dars «Такрор» qo'shildi, 53-dars — «Якуний дарс» (oxirgi element, YI).
+     V — tayyor videolar: { darsRaqami: { yt: 'YouTube ID', t: '2:40' } } — video qo'shilganda shu yerga yoziladi. */
+  var B = [
+    ['Калима', [[1, 'Калималарнинг тузилиши'], [2, 'Сўз туркумлари'], [3, 'Феъл (1)'], [4, 'Музаккар ва муаннас'], [5, 'Муфрад, тасния, жам'], [6, 'Жамнинг турлари']]],
+    ['Калом, мабний ва мўъроб', [[7, 'Калом'], [8, 'Мабний ва мўъроб'], [9, 'Бино турлари'], [10, 'Ҳарфлар'], [11, 'Такрор', 'такрорлаш'], [12, 'Мабнийларнинг синфлари']]],
+    ['Исм ишора ва замирлар', [[13, 'Исм ишоралар (1)'], [14, 'Исм ишора (2)'], [15, 'Исм замирлар'], [16, 'Муттасил замирлар']]],
+    ['Феълнинг тусланиши', [[17, 'Феъл (2)', 'мозий'], [18, 'Феъл (3)', 'музорий'], [19, 'Феъл (4)', 'амр'], [20, 'Амр феълининг ясалиши']]],
+    ['Мабний феъллар ва зарфлар', [[21, 'Мабний феъллар (1)'], [22, 'Мабний феъллар (2)'], [23, 'Мабний феъллар (3)'], [24, 'Мабний зарфлар']]],
+    ['Эъроб', [[25, 'Мўъроб исмлар'], [26, 'Эъроб турлари'], [27, 'Зоҳирий ва тақдирий аломат'], [28, 'Исмни раф қилиш ўринлари']]],
+    ['Мубтадо, хабар, фоил', [[29, 'Мубтадо ва хабар (1)'], [30, 'Мубтадо ва хабар (2)'], [31, 'Фоил'], [32, 'Муттасил замирлар (2)'], [33, 'Музорий феълидаги фоил вазифасини бажарувчи муттасил замирлар'], [34, 'Амр феълидаги фоил вазифасини бажарувчи муттасил замирлар']]],
+    ['Мафъулун биҳ', [[35, 'Мафъулун биҳ (1)'], [36, 'Мафъулун биҳ (2)'], [37, 'Мафъулун биҳ (3)'], [38, 'Мафъулун биҳ вазифасини бажарувчи муттасил замирлар (1)'], [39, 'Мафъулун биҳ вазифасини бажарувчи муттасил замирлар (2)'], [40, 'Мафъулун биҳ вазифасини бажарувчи муттасил замирлар (3)'], [41, 'Мафъулун биҳ вазифасини бажарувчи муттасил замирлар (4)']]],
+    ['Ноиби фоил, мутааддий ва лозим', [[42, 'Ноиби фоил'], [43, 'Ноиби фоил вазифасини бажарувчи муттасил замирлар (1)'], [44, 'Ноиби фоил вазифасини бажарувчи муттасил замирлар (2)'], [45, 'Мутааддий ва лозим']]],
+    ['Кана ва инна',  [[46, 'كَانَ нинг исми ва хабари (1)', 'кона'], [47, 'كَانَ нинг исми ва хабари (2)', 'кона'], [48, 'كَانَ нинг мозийдаги исми вазифасини бажарувчи муттасил замирлар', 'кона'], [49, 'كَانَ нинг музорийдаги исми вазифасини бажарувчи муттасил замирлар', 'кона'], [50, 'كَانَ нинг амрдаги исми вазифасини бажарувчи муттасил замирлар', 'кона'], [51, 'إِنَّ нинг исми вазифасини бажарувчи муттасил замирлар (1)', 'инна'], [52, 'إِنَّ нинг исми вазифасини бажарувчи муттасил замирлар (2)', 'инна']]],
+    ['Якуний дарс', [[53, 'Исмнинг раф ва насб ўринлари ва уларга мисоллар', 'якун хулоса']]]
+  ];
+  var YI = B.length - 1;   /* oxirgi element — «Якуний дарс» (bob emas) */
+  /* V — dars videolari: {yt: YouTube ID} yoki YouTube'ga qo'yilguncha {mp4, p: rasm} (saytda turadi); t — uzunligi (docs/texnik.md 18, 21) */
+  var V = { 46: { mp4: 'vk46-8e34e9cd.mp4', p: 'vk46-de3f7952.jpg', t: '2:45' }, 47: { mp4: 'vk47-acc2d531.mp4', p: 'vk47-05498a21.jpg', t: '2:49' } };
+  /* KR — bob kirish videosi (bob ichida, darslar ro'yxati ustida; bosilsa o'sha joyda o'ynaydi): { bobIndeks: {mp4, p, t, n} } — 21.11.2026, kana turkumining kirishi */
+  var KR = { 9: { mp4: 'vk00-eeb6038f.mp4', p: 'vk00-68289411.jpg', t: '1:20', n: 'كَانَ билан танишув' } };
+  /* TB — «Татбиқ» kitobi sahifasi tayyor darslar (21.11.2026; matn, sxema, Машқ, Қўшимча — tatbiq.js, #dN) */
+  var TB = { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 46: 1, 47: 1, 48: 1, 49: 1 };
+  function ochiq(n) { return !!(V[n] || TB[n]); }
+  function belgi(n) { var v = V[n]; return v ? '▶ ' + (v.t || '') : 'Ўқиш'; }
+  function arb(t) { return t.replace(/[\u0600-\u06FF]+/g, function (w) { return '<span class="ar" lang="ar">' + w + '</span>'; }); }
+  var SR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>';
+
+  function karta(k, c) {
+    return '<a class="q-rw k-c ' + c + '" href="' + k.h + '"><span class="k-cv" style="background:' + k.l + '">' + k.s + '</span>' +
+      '<span class="t"><span class="n">' + k.n + '<span class="ar" lang="ar">' + k.a + '</span></span><small>' + k.t + '</small></span>' + (c === 'g-es' ? CH : '') + '</a>';
+  }
+  /* boblar muqovasi: arabcha nom, rang, rasm fon/gN.jpg (ElevenLabs, 19.11.2026; docs/texnik.md 18) */
+  /* bob ranglari (23.11.2026, foydalanuvchi): bob rangi va rasmdagi ranglar — mavzusi tarkib bo'lagi bo'lsa, tarkib rangiga mos (4 fe'l, 8 maf'ulun bih, 10 kana;
+     7 va 9 — neytral fon, rasmdagi buyumlar tarkib rangida); qolganlari sokin tus. Nomlar, belgilar rangsiz — hamma bob bir xil qolipda */
+  var M = [['اَلْكَلِمَةُ', '#4F5560', 'g1'], ['اَلْمَبْنِيُّ وَالْمُعْرَبُ', '#5E5248', 'g2'], ['أَسْمَاءُ الْإِشَارَةِ وَالضَّمَائِرُ', '#4D5A54', 'g3'], ['تَصْرِيفُ الْفِعْلِ', '#7A5200', 'g4'],
+    ['اَلْأَفْعَالُ وَالظُّرُوفُ الْمَبْنِيَّةُ', '#5C5A4C', 'g10'], ['اَلْإِعْرَابُ', '#4B4B4B', 'g5'], ['اَلْمُبْتَدَأُ وَالْخَبَرُ وَالْفَاعِلُ', '#2F2B28', 'g6'], ['اَلْمَفْعُولُ بِهِ', '#0C6A30', 'g7'],
+    ['نَائِبُ الْفَاعِلِ', '#2B2F33', 'g8'], ['كَانَ وَإِنَّ', '#8A2555', 'g9'], ['اَلْخَاتِمَةُ', '#0F5E3E', '']];
+  /* bob rasmlari fon/gN.jpg (ElevenLabs; 23.11.2026: 7–9 qayta chizildi, qolganlarining foni bob rangiga o'tkazildi), muqova foni fon/tatbiq-fon.jpg — nom ustiga kod bilan yoziladi */
+  function rsm(i) { return 'fon/' + M[i][2] + '.jpg'; }
+  var KV = 'fon/tatbiq-fon.jpg', KN = 'عِلْمُ الصَّرْفِ وَالنَّحْوِ وَتَطْبِيقُهُمَا';
+  /* muqova (buyumdek, nomi bilan) — kitob sahifasida ham, Грамматика kartasida ham bir xil (23.11.2026: kartada nom yo'q edi) */
+  function muq() { return '<span class="tk-kt" aria-hidden="true"><i></i><i></i><span class="m"><img src="' + KV + '" alt="" width="400" height="600">' +
+    '<span class="yz"><span class="ar" lang="ar">عِلْمُ الصَّرْفِ وَالنَّحْوِ<br>وَتَطْبِيقُهُمَا</span><b>ТАТБИҚ</b><span class="ar jl" lang="ar">الْجُزْءُ الْأَوَّلُ</span><span class="ar mu" lang="ar">تَأْلِيفُ قَهْرَمَانَ بْنِ عِزَّةِ اللّٰهِ</span></span></span></span>'; }
+  /* progress ko'rsatilmaydi (23.11.2026, foydalanuvchi: kitob qayta-qayta o'qiladi) — faqat oxirgi ochilgan dars (xatcho'p) */
+  function oxirgi() { var n = J('tb-oxirgi'); return typeof n === 'number' ? n : null; }
+  function bobN(i) { return i === YI ? 'Якуний дарс' : (i + 1) + '-боб · ' + arb(B[i][0]); }
+  var jami = 0; B.forEach(function (b) { jami += b[1].length; });
+  var PL = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>';
+  var CHV = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>';
+  function kor(x) { var v = V[x[0]]; return v ? 0 : 0; }   /* ko'rilgan videolar — videolar qo'shilganda */
+  function qator(x, b) {
+    var v = ochiq(x[0]);
+    return '<' + (v ? 'a href="#d' + x[0] + '"' : 'div') + ' class="g-r' + (v ? '' : ' tz') + '"><span class="no">' + x[0] + '</span><span class="nm">' + arb(x[1]) +
+      (b != null ? '<small>' + bobN(b) + '</small>' : '') + '</span>' + (v ? '<span class="g-bl">' + belgi(x[0]) + '</span>' : '<span class="q-tzb">Тез орада</span>') + (v ? '</a>' : '</div>');
+  }
+  var app = document.getElementById('app'), h1 = document.getElementById('gh1'), bk = document.getElementById('gbk');
+
+  function bosh() {
+    var h = (RU ? '' : '<div class="g-sr">' + SR + '<input id="gq" type="search" placeholder="Мавзу қидириш" autocomplete="off" aria-label="Мавзу қидириш"></div>') +
+      '<div class="g-tl">' + karta(SARF, '') + karta(NAHV, '') + '</div>' + karta(ESH, 'g-es');
+    if (RU) h += '<a class="q-rw" id="gru" style="margin-top:20px"><span class="t"><span class="n">Татбиқ</span></span>' + CH + '</a>';
+    else h += '<div id="gnt" hidden></div><a class="g-vk" id="gvk" href="#v"><span class="kt">' + muq() + '</span>' +
+      '<span class="t"><b>Татбиқ</b><span class="ar" lang="ar">' + KN + '</span><small>Араб тили грамматикаси</small><small>1-жилд · ' + YI + ' боб · ' + jami + ' дарс</small></span>' + CHV + '</a>';
+    app.innerHTML = h;
+    if (RU) { [].forEach.call(app.querySelectorAll('.k-c, #gru'), function (a) { if (!/nahv\.html$/.test(a.getAttribute('href') || '')) Qobiq.tez(a); }); return; }
+    /* qidiruv: mavzu nomi yoki dars raqami bo'yicha; natija — ro'yxat, video kartasi o'rnida */
+    var q = document.getElementById('gq'), nt = document.getElementById('gnt'), vk = document.getElementById('gvk');
+    q.oninput = function () {
+      var t = q.value.trim().toLowerCase(), r = [];
+      if (t) B.forEach(function (b, i) { b[1].forEach(function (x) { if ((x[1] + ' ' + (x[2] || '')).toLowerCase().indexOf(t) >= 0 || String(x[0]) === t) r.push(qator(x, i)); }); });
+      nt.hidden = !t; vk.hidden = !!t;
+      nt.innerHTML = t ? (r.length ? '<div class="g-nt">' + r.join('') + '</div>' : '<p class="g-yo">Ҳеч нарса топилмади</p>') : '';
+    };
+  }
+  var BM = '<svg viewBox="0 0 16 22" aria-hidden="true"><path d="M1 1h14v20l-7-5-7 5z"/></svg>';
+  var YU = '<span class="tk-yd" aria-hidden="true"><i></i><svg viewBox="-13 -13 26 26"><path d="M0-12L3.5-8.5H8.5V-3.5L12 0L8.5 3.5V8.5H3.5L0 12L-3.5 8.5H-8.5V3.5L-12 0L-8.5-3.5V-8.5H-3.5Z"/></svg><i></i></span>';
+  function ora(d) { return d[0][0] + '–' + d[d.length - 1][0]; }
+  /* #v — kitob: muqova (buyumdek), to'liq nom, sonlar, «Давом эттириш», Мундарижа */
+  function javon() {
+    var ox = oxirgi(), dv = null, k;
+    if (ox != null && (k = topD(ox)) >= 0 && ochiq(ox)) dv = ROY[k];
+    else for (k = 0; k < ROY.length; k++) if (ochiq(ROY[k][0])) { dv = ROY[k]; break; }
+    var y = B[YI][1][0], yo = ochiq(y[0]);
+    app.innerHTML = '<div class="tk-hr"><div class="tk-hb"><span class="tk-ko">' + muq() + '</span><div class="tk-hm">' +
+      '<div class="tk-kn ar" lang="ar">' + KN + '</div><div class="tk-ks">Араб тили грамматикаси · 1-жилд</div>' +
+      '<div class="tk-mu"><small>Муаллиф</small><b>Қаҳрамон ибн Иззатуллоҳ</b></div></div></div>' +
+      (dv ? '<a class="tk-dv" href="#d' + dv[0] + '">' + BM + (ox != null && dv[0] === ox ? 'Давом эттириш' : 'Бошлаш') + ' · ' + dv[0] + '-дарс</a>' : '') + '</div>' +
+      '<div class="tk-ich"><div class="tk-h"><h2>Мундарижа</h2><span>' + YI + ' боб · ' + jami + ' дарс</span></div>' +
+      B.slice(0, YI).map(function (b, i) {
+        var bor = b[1].some(function (x) { return ochiq(x[0]); });
+        return '<a class="tk-bk" href="#v' + (i + 1) + '"><span class="tk-ra"><img src="' + rsm(i) + '" alt="" loading="lazy"></span>' +
+          '<span class="t"><small>' + (i + 1) + '-БОБ · ' + ora(b[1]) + '-ДАРСЛАР</small><b>' + arb(b[0]) + '</b><span class="ar" lang="ar">' + M[i][0] + '</span></span>' +
+          (bor ? CHV : '<span class="q-tzb">Тез орада</span>') + '</a>';
+      }).join('') +
+      '<' + (yo ? 'a href="#d' + y[0] + '"' : 'div') + ' class="tk-yk"><span class="ar" lang="ar">' + M[YI][0] + '</span><span class="t"><b>Якуний дарс · ' + y[0] + '</b><small>' + arb(y[1]) + '</small></span>' +
+      (yo ? CHV : '<span class="q-tzb">Тез орада</span>') + (yo ? '</a>' : '</div>') + '</div>';
+  }
+  /* dars nomi «كَانَ нинг ...» — arabcha so'z alohida belgiga, nom qisqaradi («Исми ва хабари (1)») */
+  function nomi(t) {
+    var m = /^([؀-ۿ]+)\s+нинг\s+([\s\S]+)$/.exec(t);
+    return m ? { ch: m[1], t: m[2].charAt(0).toUpperCase() + m[2].slice(1) } : { ch: '', t: t };
+  }
+  /* #vN — bob: mehrob ramkasidagi rasm, tarkib belgilari, nom; kirish videosi; darslar yo'l bo'ylab */
+  function bob(i) {
+    var b = B[i], d = b[1], ox = oxirgi();
+    app.innerHTML = '<div class="tk-bb" style="--c:' + M[i][1] + '"><span class="tk-ra"><img src="' + rsm(i) + '" alt=""></span>' +
+      '<span class="tk-cp">' + (i + 1) + '-БОБ · ' + ora(d) + '-ДАРСЛАР</span><div class="ar" lang="ar">' + M[i][0] + '</div><b>' + arb(b[0]) + '</b>' + YU + '</div>' +
+      '<div class="tk-ich" style="--c:' + M[i][1] + '">' +
+      (KR[i] ? '<button class="g-kr" id="gkr" type="button"><span class="pt" style="background-image:url(' + KR[i].p + ')"><i>' + PL + '</i></span><span class="t"><small>КИРИШ ВИДЕОСИ · ' + KR[i].t + '</small><b>' + arb(KR[i].n) + '</b><span>Бобни шу видеодан бошланг</span></span></button>' : '') +
+      '<div class="tk-h"><h2>Дарслар</h2><span>' + d.length + ' дарс</span></div><div class="tk-yl">' + d.map(function (x) {
+        var v = ochiq(x[0]), vd = V[x[0]], nm = nomi(x[1]), o = v && x[0] === ox;
+        return '<' + (v ? 'a href="#d' + x[0] + '"' : 'div') + ' class="tk-d' + (v ? '' : ' tz') + (o ? ' ox' : '') + (vd && vd.p ? ' v' : '') + '"><span class="n">' + x[0] + '</span><span class="k">' +
+          (o ? '<svg class="xb" viewBox="0 0 16 22" aria-hidden="true"><path d="M1 0h14v21l-7-5-7 5z"/></svg>' : '') +
+          '<span class="t"><span><small>' + x[0] + '-ДАРС</small>' + (nm.ch ? '<span class="ch ar" lang="ar">' + nm.ch + '</span>' : '') + '</span><b>' + arb(nm.t) + '</b>' +
+          (o ? '<span class="xo">Охирги очилган</span>' : '') + (v ? '' : '<span class="q-tzb">Тез орада</span>') + '</span>' +
+          (vd ? (vd.p ? '<span class="vt"><img src="' + vd.p + '" alt="" loading="lazy"><span>' + (vd.t || '') + '</span></span>' : '<span class="vb">▶ ' + (vd.t || '') + '</span>') : '') +
+          '</span>' + (v ? '</a>' : '</div>');
+      }).join('') + '</div></div>';
+    var kb = document.getElementById('gkr');
+    if (kb) kb.onclick = function () {
+      var w = document.createElement('div'); w.className = 'g-kv';
+      w.innerHTML = '<video src="' + KR[i].mp4 + '" poster="' + KR[i].p + '" controls playsinline autoplay title="Кириш видеоси"></video>';
+      kb.parentNode.replaceChild(w, kb);
+      var v = w.querySelector('video'); try { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); } catch (e) {}
+    };
+  }
+  /* #dN — dars sahifasi: «Татбиқ» kitobi matni + video (tatbiq.js; 21.11.2026) */
+  var ROY = []; B.forEach(function (b, i) { b[1].forEach(function (x) { ROY.push([x[0], x[1], i]); }); });
+  function topD(n) { for (var k = 0; k < ROY.length; k++) if (ROY[k][0] === n) return k; return -1; }
+  function dars(n) {
+    var k = topD(n), x = ROY[k], i = x[2], old = null, keyin = null;
+    for (var a = k - 1; a >= 0; a--) if (ochiq(ROY[a][0])) { old = ROY[a]; break; }
+    for (var b = k + 1; b < ROY.length; b++) if (ochiq(ROY[b][0])) { keyin = ROY[b]; break; }
+    var o = { nom: x[1], bob: bobN(i), v: V[n], old: old, keyin: keyin };
+    try { localStorage.setItem('tb-oxirgi', JSON.stringify(n)); } catch (e) {}
+    function chiz() { if (!window.Tatbiq || !Tatbiq.chiz(n, app, o)) app.innerHTML = '<p class="g-yo">Тез орада</p>'; }
+    if (window.Tatbiq) return chiz();
+    app.innerHTML = '<p class="g-yo">…</p>';
+    var s = document.createElement('script'); s.src = 'tatbiq.js'; s.onload = chiz;
+    s.onerror = function () { app.innerHTML = '<p class="g-yo">Юкланмади. Интернетни текширинг.</p>'; };
+    document.head.appendChild(s);
+  }
+  /* ko'rinishlar: «» — bosh, #v — boblar javoni, #vN — bob ichi, #dN — dars sahifasi */
+  var ichki = false;
+  function korsat() {
+    var dm = /^#d(\d+)$/.exec(location.hash);
+    if (!RU && dm && topD(+dm[1]) >= 0 && ochiq(+dm[1])) { h1.textContent = dm[1] + '-дарс'; bk.hidden = false; dars(+dm[1]); window.scrollTo(0, 0); return; }
+    var m = /^#v(\d*)$/.exec(location.hash), i = m && m[1] ? +m[1] - 1 : -1;
+    if (RU || !m || (m[1] && (!B[i] || i === YI))) { h1.textContent = 'Грамматика'; bk.hidden = true; bosh(); }
+    else if (i < 0) { h1.textContent = 'Татбиқ'; bk.hidden = false; javon(); }
+    else { h1.textContent = (i + 1) + '-боб'; bk.hidden = false; bob(i); }
+    window.scrollTo(0, 0);
+  }
+  bk.onclick = function () {
+    var dm = /^#d(\d+)$/.exec(location.hash), k = dm ? topD(+dm[1]) : -1;
+    if (ichki) history.back();
+    else location.replace(k >= 0 ? (ROY[k][2] === YI ? '#v' : '#v' + (ROY[k][2] + 1)) : /^#v\d+$/.test(location.hash) ? '#v' : '#');
+  };
+  window.addEventListener('hashchange', function () { ichki = true; korsat(); });
+  korsat();
+  if (window.Qobiq) Qobiq.nav('qoida');
+})();
+</script>
+</body>
+</html>
